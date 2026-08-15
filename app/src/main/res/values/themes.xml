@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base theme for the single Compose Activity - Compose (core/ui/theme/Theme.kt) owns all
+         actual UI theming; this only needs to exist as a valid NoActionBar host theme. -->
+    <style name="Theme.QuranicWords" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Applied only until the first Compose frame is drawn (see MainActivity/installSplashScreen). -->
+    <style name="Theme.QuranicWords.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/deany_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.QuranicWords</item>
+    </style>
+</resources>

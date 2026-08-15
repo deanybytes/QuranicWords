@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   See https://developer.android.com/guide/topics/data/autobackup for details.
+   Note: This file is ignored for devices older than API 31.
+
+   Excludes the Room DB and DataStore preferences from Android's default Auto Backup as
+   defense-in-depth, even though current content is non-PII (a locally-generated UUID - see
+   docs/SECURITY.md); Firebase Auth manages its own secure token store separately and isn't
+   affected by this file either way.
+-->
+<full-backup-content>
+    <exclude domain="database" path="uhq.db" />
+    <exclude domain="database" path="uhq.db-wal" />
+    <exclude domain="database" path="uhq.db-shm" />
+    <exclude domain="database" path="uhq.db-journal" />
+    <exclude domain="file" path="datastore/user_prefs.preferences_pb" />
+</full-backup-content>

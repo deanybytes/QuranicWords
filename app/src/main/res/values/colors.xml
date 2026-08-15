@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand green, used only by the small set of platform XML surfaces Compose doesn't own:
+         the adaptive launcher icon background and the pre-Compose splash screen theme.
+         The full Material 3 tonal palette lives in core/ui/theme/Color.kt. -->
+    <color name="ic_launcher_background">#053827</color>
+    <color name="splash_background">#053827</color>
+</resources>
