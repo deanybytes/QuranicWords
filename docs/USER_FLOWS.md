@@ -4,47 +4,40 @@
 
 Every step **persists to DataStore the moment it's chosen**, so a killed/restarted process resumes exactly where the learner left off (`SplashViewModel` re-derives the start destination from what's already saved — see the decision table below).
 
-> Google Sign-In / Firebase Auth were removed (commented out, not deleted) — onboarding no longer has an Auth Choice step, and there's no guest/Google distinction. A single local user id (`UserPreferencesDataStore.getOrCreateLocalUserId()`) is generated on first launch and used for all Room progress/stats.
+> There's no sign-in step and no guest/account distinction — a single local user id (`UserPreferencesDataStore.getOrCreateLocalUserId()`) is generated on first launch and used for all Room progress/stats.
 
 ```mermaid
 sequenceDiagram
     actor User
     participant Splash
     participant Lang as Language Select
-    participant Tier as Tier Select
     participant Font as Font Select
     participant Home
 
     User->>Splash: Cold start
     Splash->>Splash: ContentSeeder.seedIfNeeded()
-    Splash->>Splash: Read language / tier / fontChoiceMade
+    Splash->>Splash: Read language / fontChoiceMade
     alt language not set
         Splash->>Lang: navigate
         User->>Lang: Tap English or বাংলা
         Lang->>Lang: DataStore.setLanguage() [saved instantly]
-        Lang->>Tier: navigate
-    end
-    alt tier not set
-        User->>Tier: Pick Novice / Reader / Scholar-track
-        Tier->>Tier: DataStore.setTier() [saved instantly]
-        Tier->>Font: navigate
+        Lang->>Font: navigate
     end
     alt font not chosen
         User->>Font: Preview Al-Kawthar in each style, tap one
         Font->>Font: DataStore.setFontStyle() [saved instantly]
         Font->>Home: navigate
     end
-    Home->>User: Skill tree, ready to learn
+    Home->>User: Curriculum path, ready to learn
 ```
 
 ### Splash's resume decision table
 
-| `language` | `tier` | `fontChoiceMade` | → routes to |
-|---|---|---|---|
-| `null` | — | — | Language Select |
-| set | `null` | — | Tier Select |
-| set | set | `false` | Font Select |
-| set | set | `true` | **Home** |
+| `language` | `fontChoiceMade` | → routes to |
+|---|---|---|
+| `null` | — | Language Select |
+| set | `false` | Font Select |
+| set | `true` | **Home** |
 
 ## 2️⃣ Local backup export / import
 
@@ -83,17 +76,19 @@ flowchart TD
     Start([Open lesson]) --> Load[Load + decode exercises]
     Load --> Show[Show exercise N]
     Show --> Type{Exercise type}
-    Type -->|Teach step<br/>non-scored| Teach["Show glyph + transliteration<br/>+ pronunciation hint"]
+    Type -->|Teach step<br/>non-scored| Teach["Show word + meaning<br/>+ example verse"]
     Teach --> Got["Tap 'Got it'"] --> More
-    Type -->|Multiple choice /<br/>Tap-what-you-hear| Select[User selects an option]
+    Type -->|Multiple choice /<br/>Tap-what-you-hear /<br/>Fill in the blank| Select[User selects an option]
     Select --> Check[User taps Check]
     Check --> Feedback1[Feedback banner:<br/>correct ✅ / incorrect ❌ + answer]
     Type -->|Matching| Match[User pairs left ↔ right tiles]
     Match -->|all pairs matched| Feedback1
+    Type -->|Word order / Listen and type| Build[User builds or types the answer]
+    Build --> Check
     Feedback1 --> More{More exercises?}
     More -->|yes| Continue[Tap Continue] --> Show
     More -->|no| Finish[Tap Finish lesson]
-    Finish --> Complete["ProgressRepository.completeLesson<br/>(totalCount excludes teach steps)"]
+    Finish --> Complete["ProgressRepository.completeLesson<br/>(totalCount excludes the teach step)"]
     Complete --> Summary([Lesson Summary:<br/>points, accuracy, streak - animated])
 ```
 
@@ -109,7 +104,7 @@ flowchart LR
     B --> C["StreakCalculator.recordActivity()"]
     C --> D[(Room: UserStatsEntity upsert)]
     C --> E[(Room: UserProgressEntity upsert<br/>status=COMPLETED)]
-    E --> F[Unlock next lesson<br/>in the module]
+    E --> F[Unlock the next lesson<br/>in the curriculum]
     D & F --> G[Stays local-only —<br/>exportable via BackupRepository]
 ```
 
@@ -117,4 +112,4 @@ See [`docs/ALGORITHMS.md`](ALGORITHMS.md) for the exact scoring/streak formulas.
 
 ## 5️⃣ Switching language after onboarding
 
-Picking a language (at onboarding, or later in Settings) writes to `UserPreferencesDataStore` immediately, same as every other onboarding choice - but unlike those, this one also has to change what's on screen *right now*, not just gate navigation. `MainActivity` observes the stored language and calls `AppCompatDelegate.setApplicationLocales()`, following with an explicit `recreate()` on API < 33 so the change actually applies (see [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for why that's needed at all). JSON-sourced content (lesson/module titles, exercise prompts) re-renders immediately via `rememberIsBanglaSelected()` without needing a recreate, since it reads the already-updated `Configuration` directly rather than going through resource-qualifier resolution.
+Picking a language (at onboarding, or later in Settings) writes to `UserPreferencesDataStore` immediately, same as every other onboarding choice - but unlike those, this one also has to change what's on screen *right now*, not just gate navigation. `MainActivity` observes the stored language and calls `AppCompatDelegate.setApplicationLocales()`, following with an explicit `recreate()` on API < 33 so the change actually applies (see [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for why that's needed at all). JSON-sourced content (lesson titles, exercise prompts) re-renders immediately via `rememberIsBanglaSelected()` without needing a recreate, since it reads the already-updated `Configuration` directly rather than going through resource-qualifier resolution.

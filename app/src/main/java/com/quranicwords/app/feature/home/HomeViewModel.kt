@@ -3,32 +3,34 @@ package com.quranicwords.app.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
-import com.quranicwords.app.core.data.local.entity.ModuleEntity
+import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
+data class SectionWithLessons(val section: SectionEntity, val lessons: List<LessonEntity>)
+data class ChapterWithSections(val chapter: ChapterEntity, val sections: List<SectionWithLessons>)
+
 data class HomeUiState(
-    val modules: List<ModuleEntity> = emptyList(),
-    val lessonsByModuleId: Map<String, List<LessonEntity>> = emptyMap(),
+    /** The whole curriculum tree, fetched once per Home session - static content that never
+     * changes mid-session (seeding always completes before Home is first shown, see
+     * SplashViewModel), so it's a one-shot snapshot rather than an observed Flow (unlike
+     * per-lesson progress below, which genuinely changes live as the learner completes things). */
+    val chapters: List<ChapterWithSections> = emptyList(),
     val progressByLessonId: Map<String, UserProgressEntity> = emptyMap(),
     val totalPoints: Int = 0,
     val currentStreak: Int = 0,
@@ -40,7 +42,6 @@ data class HomeUiState(
     val hasReviewableItems: Boolean = false
 )
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
@@ -56,35 +57,19 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = userIdProvider.get()
 
-            // Unlock the first lesson of every implemented module so a newly-implemented module
-            // has somewhere to start - single-tier app, no self-placement gating anymore.
-            contentRepository.observeModules().first()
-                .filter { it.isImplemented }
-                .forEach { progressRepository.ensureModuleStarted(userId, it.id) }
+            // Bootstraps chapter 1 / section 1 / lesson 1 if this user has no progress at all yet
+            // - every later unlock chains from there via ProgressRepositoryImpl.completeLesson.
+            progressRepository.ensureCurriculumStarted(userId)
 
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
-
-            val modulesAndLessons = contentRepository.observeModules().flatMapLatest { modules ->
-                val accessible = modules.filter { it.isImplemented }
-                val lessonFlows: List<Flow<Pair<String, List<LessonEntity>>>> = accessible.map { module ->
-                    contentRepository.observeLessons(module.id).map { module.id to it }
-                }
-                val lessonsByModuleId = if (lessonFlows.isEmpty()) {
-                    flowOf(emptyMap())
-                } else {
-                    combine(lessonFlows) { pairs -> pairs.toMap() }
-                }
-                lessonsByModuleId.map { modules to it }
-            }
+            val chapters = loadCurriculumTree()
 
             combine(
-                modulesAndLessons,
                 progressRepository.observeProgress(userId),
                 progressRepository.observeStats(userId)
-            ) { (modules, lessonsByModuleId), progress, stats ->
+            ) { progress, stats ->
                 HomeUiState(
-                    modules = modules,
-                    lessonsByModuleId = lessonsByModuleId,
+                    chapters = chapters,
                     progressByLessonId = progress.associateBy { it.lessonId },
                     totalPoints = stats?.totalPoints ?: 0,
                     currentStreak = displayedStreak(stats),
@@ -92,6 +77,17 @@ class HomeViewModel @Inject constructor(
                     hasReviewableItems = hasReviewableItems
                 )
             }.collect { _uiState.value = it }
+        }
+    }
+
+    private suspend fun loadCurriculumTree(): List<ChapterWithSections> {
+        val chapters = contentRepository.observeChapters().first()
+        return chapters.map { chapter ->
+            val sections = contentRepository.observeSections(chapter.id).first()
+            val sectionsWithLessons = sections.map { section ->
+                SectionWithLessons(section, contentRepository.observeLessons(section.id).first())
+            }
+            ChapterWithSections(chapter, sectionsWithLessons)
         }
     }
 

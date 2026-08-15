@@ -1,11 +1,11 @@
-# 🕌 Understanding Holy Quran
+# 🕌 QuranicWords
 
 <p align="center">
-  <img src="assets/image/DEANY.png" width="140" alt="Understanding Holy Quran logo" />
+  <img src="assets/image/DEANY-TECH.png" width="140" alt="QuranicWords logo" />
 </p>
 
 <p align="center">
-  <strong>A gamified, Duolingo-style Android app for learning to read and understand the Qur'an — in Arabic, from the ground up.</strong>
+  <strong>A gamified, game-like Android app for learning Quranic vocabulary — Arabic words taught in the order they actually appear in the Qur'an, most frequent first.</strong>
 </p>
 
 <p align="center">
@@ -13,18 +13,18 @@
   <img alt="Language" src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
-  <img alt="Status" src="https://img.shields.io/badge/status-foundation%20%2B%20vertical%20slice-orange" />
-  <img alt="License" src="https://img.shields.io/badge/copyright-DEANY-2E7D32" />
+  <img alt="Status" src="https://img.shields.io/badge/status-in%20development-orange" />
+  <img alt="Copyright" src="https://img.shields.io/badge/copyright-rmrashahriar-2E7D32" />
 </p>
 
 ---
 
 ## ✨ What is this?
 
-**Understanding Holy Quran** teaches people to read Arabic script and understand the Qur'an through short, game-like lessons — points, streaks, a leaderboard, and immediate feedback, in the same interaction language as Duolingo, but purpose-built around Qur'anic Arabic and Islamic values.
+**QuranicWords** teaches the vocabulary of the Qur'an through short, game-like lessons — points, streaks, and immediate feedback — built specifically around Qur'anic Arabic and Islamic values, for a learner who can already read Arabic script and wants to understand the meaning of what they recite.
 
 > 🕋 **No human faces, anywhere.** Icons, illustrations, and avatars use geometric, calligraphic, and nature motifs only.
-> 🔊 **Male-voice-only audio.** Every narration/recitation clip in the content pipeline is constrained to male voice.
+> 📖 **No scripture as decoration.** Ayat/Mushaf text is never used as a loading-screen skin or gamification flourish — it only ever appears as real lesson content.
 > 🌙 **Bangla + English**, chosen by the learner at setup — not inferred from device locale.
 > 🟢 **One green identity**, day and night — Material You dynamic color is deliberately disabled.
 
@@ -35,27 +35,23 @@
 | Doc | What's in it |
 |---|---|
 | 📄 *(this file)* | Overview, features, tech stack, quick start |
-| [🏗️ Architecture](docs/ARCHITECTURE.md) | Layered architecture, package map, DI graph, module structure |
-| [🧭 User flows](docs/USER_FLOWS.md) | Onboarding, lesson gameplay, and auth flows as diagrams |
-| [🗄️ Data model](docs/DATA_MODEL.md) | Room schema (ER diagram), Firestore schema, bundled JSON content shape |
+| [🏗️ Architecture](docs/ARCHITECTURE.md) | Layered architecture, package map, DI graph |
+| [🧭 User flows](docs/USER_FLOWS.md) | Onboarding and lesson gameplay flows as diagrams |
+| [🗄️ Data model](docs/DATA_MODEL.md) | Room schema (ER diagram), bundled JSON content shape |
 | [🧮 Algorithms](docs/ALGORITHMS.md) | Streak calculation, gamification scoring, curriculum ordering |
-| [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | The 0→100% pedagogical map across all three tiers, and why it's teach-then-quiz |
-| [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora/audio for Tier 2/3, with licenses |
-| [🔐 Security](docs/SECURITY.md) | Secrets handling, what's *not* yet hardened (Firestore rules/auth model sections are historical — see below) |
-| [🔥 Firebase setup](docs/FIREBASE_SETUP.md) | **Historical** — describes the now-disabled cloud path; Google Sign-In/Firebase were removed in favor of local backup export/import |
-| [🗺️ Roadmap](docs/ROADMAP.md) | Built vs. deferred, tier-by-tier |
+| [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | The pedagogical shape of the vocabulary curriculum, and why it's teach-then-quiz |
+| [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora/audio, with licenses |
+| [🔐 Security](docs/SECURITY.md) | Secrets handling and what's not yet hardened |
+| [🗄️ Local-only design](docs/FIREBASE_SETUP.md) | Why there's no cloud sync, and how backup/restore works instead |
+| [🗺️ Roadmap](docs/ROADMAP.md) | Built vs. deferred |
 
 ---
 
-## 🎯 The three tiers
+## 🎯 The curriculum
 
-Learners self-place at onboarding into one shared, branching curriculum:
+QuranicWords is a single, focused vocabulary curriculum — **no alphabet stage, no grammar track**. It assumes the learner can already read Arabic script and takes them straight into word meanings, **ordered by how frequently each word actually appears in the Qur'an**: the most common words first, so a learner's very first lessons cover the words they'll recognize most often when reciting.
 
-| # | Tier | Starting point |
-|---|---|---|
-| 1️⃣ | **Novice** | Doesn't know Arabic at all → starts at the alphabet |
-| 2️⃣ | **Reader** | Can already read Arabic script → starts on word meanings, **ordered by how frequently each word appears in the Qur'an** |
-| 3️⃣ | **Scholar-track** | Reads and knows meanings → grammar and the linguistic beauty of Qur'anic Arabic |
+Content is organized as **chapters → sections → lessons**, with a pass-threshold exam at the end of each section and chapter gating progress into the next unit — so advancing through the app means demonstrating real recall, not just clicking through content.
 
 ## 🎮 Gamification
 
@@ -63,23 +59,24 @@ Learners self-place at onboarding into one shared, branching curriculum:
 ✅ Correct answer         → +10 points
 🏆 100% lesson accuracy   → +20 bonus points
 🔥 Daily streak           → local-calendar-date based, timezone-safe
-🏅 Leaderboard            → global, ranked by total points (guests excluded)
-🔓 Skill-tree unlocking   → each lesson unlocks the next on completion
+🔓 Progression unlocking  → each lesson/section/chapter unlocks the next on completion
 ```
 
 ## 🧩 How a lesson teaches (not just tests)
 
-Every letter is **taught before it's quizzed** — a non-scored intro (glyph, transliteration, pronunciation hint) immediately followed by that letter's quiz, repeated per letter, closed by a matching exercise across the whole lesson. See [`docs/CURRICULUM_DESIGN.md`](docs/CURRICULUM_DESIGN.md) for the full rationale.
+Every word is **taught before it's quizzed** — a non-scored intro (the word, its meaning, and a real verse it appears in) immediately followed by that word's quiz, repeated per word, closed by a review exercise across the whole lesson. See [`docs/CURRICULUM_DESIGN.md`](docs/CURRICULUM_DESIGN.md) for the full rationale.
 
 | Type | Interaction | Scored? |
 |---|---|---|
-| 📖 Letter intro | Glyph + transliteration + pronunciation hint, tap "Got it" | No — teaching only |
 | 📖 Word intro | Word + meaning + a real example verse it appears in, tap "Got it" | No — teaching only |
-| 🔤 Multiple choice | Tap the correct transliteration/meaning for an Arabic letter/word | Yes |
-| 🔊 Tap-what-you-hear | Listen (male voice) and select the matching letter *(composable ready; audio assets pending — see [Roadmap](docs/ROADMAP.md))* | Yes |
-| 🔗 Matching | Pair Arabic letters/words with their names/meanings | Yes |
+| 🔤 Multiple choice | Tap the correct transliteration/meaning for an Arabic word | Yes |
+| 🔊 Tap-what-you-hear | Listen (male voice) and select the matching word *(composable ready; audio assets pending — see [Roadmap](docs/ROADMAP.md))* | Yes |
+| 🔗 Matching | Pair Arabic words with their meanings | Yes |
+| ✏️ Fill in the blank | Complete a verse by choosing the missing word | Yes |
+| 🧱 Word order builder | Assemble a verse from its individual word chips, in order | Yes |
+| ⌨️ Listen and type | Listen (male voice) and type the word in Arabic | Yes |
 
-Tier 2 (Reader) vocabulary is **built to the full frequency curve** — all 3,680 words from the Quranic Arabic Corpus, most-frequent-first, not a sample. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for exactly what's sourced versus AI-drafted (Bangla meanings are AI-assisted and tracked as such, not silently presented as verified).
+The vocabulary curriculum is **built to the full frequency curve** — all 3,680 words from the Quranic Arabic Corpus, most-frequent-first, not a sample. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for exactly what's sourced versus AI-drafted (Bangla meanings are AI-assisted and tracked as such, not silently presented as verified).
 
 ## 🖋️ Qur'an script styles
 
@@ -98,7 +95,7 @@ At setup, learners preview **Surah Al-Kawthar** (the shortest surah) in 10 of th
 
 ```mermaid
 mindmap
-  root((Understanding<br/>Holy Quran))
+  root((QuranicWords))
     UI
       Jetpack Compose
       Material 3
@@ -133,21 +130,21 @@ mindmap
 ## 🚀 Quick start
 
 ```bash
-git clone git@github.com:rmrashahriar/UnderstandingHolyQuran.git
-cd UnderstandingHolyQuran
+git clone git@github.com:rmrashahriar/QuranicWords.git
+cd QuranicWords
 ./gradlew :app:assembleDebug
 ./gradlew :app:testDebugUnitTest
 ```
 
-The app **builds and runs fully offline** with zero configuration — language selection, tier selection, the font picker, and the complete Novice Alphabet lesson (scoring, streaks, points) all work with no account needed. Google Sign-In, Firebase, and the leaderboard have been removed (commented out, not deleted, in favor of the local backup feature above); [`docs/FIREBASE_SETUP.md`](docs/FIREBASE_SETUP.md) documents the now-disabled cloud path.
+The app **builds and runs fully offline** with zero configuration — language selection, the font picker, and the full vocabulary lesson loop (scoring, streaks, points) all work with no account needed. There is no sign-in, no cloud sync, and no leaderboard; progress lives entirely on-device and travels between devices only via the local backup export/import feature described in [`docs/FIREBASE_SETUP.md`](docs/FIREBASE_SETUP.md).
 
 ## 📁 Project layout
 
 ```
-app/src/main/java/com/example/understandingholyquran/
+app/src/main/java/com/quranicwords/app/
 ├── core/           # data (Room, DataStore, local backup), domain, DI, navigation, theme, shared UI
 └── feature/        # one package per screen: splash, onboarding/*, home, lesson, settings...
-app/src/main/assets/content/   # bundled Alphabet-module lesson JSON (seeds Room on first run)
+app/src/main/assets/content/   # bundled vocabulary lesson JSON (seeds Room on first run)
 docs/                          # the documentation set linked above
 ```
 
@@ -156,5 +153,5 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and 
 ---
 
 <p align="center">
-  Developed and Copyright © <strong>DEANY</strong>
+  Developed and Copyright © <strong>rmrashahriar</strong> 2026. All rights reserved.
 </p>

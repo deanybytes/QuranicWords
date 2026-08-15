@@ -1,8 +1,9 @@
 package com.quranicwords.app.core.data.assets
 
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
-import com.quranicwords.app.core.data.local.entity.ModuleEntity
+import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.ExerciseType
@@ -11,7 +12,10 @@ import com.quranicwords.app.core.util.AppJson
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class ModulesFile(val modules: List<ModuleEntity>)
+internal data class ChaptersFile(val chapters: List<ChapterEntity>)
+
+@Serializable
+internal data class SectionsFile(val sections: List<SectionEntity>)
 
 @Serializable
 internal data class LessonsFile(val lessons: List<LessonEntity>)

@@ -19,7 +19,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Locked</string>
-    <string name="home_module_coming_soon">Coming soon</string>
     <string name="home_open_settings">Settings</string>
     <string name="home_review_title">Review missed words</string>
     <string name="home_review_subtitle">Practice the ones you got wrong last time.</string>

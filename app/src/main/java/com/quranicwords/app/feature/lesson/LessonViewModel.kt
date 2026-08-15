@@ -72,15 +72,8 @@ class LessonViewModel @Inject constructor(
      * result via `completeReviewSession` instead of `completeLesson`. */
     private val isReviewSession: Boolean = lessonId == null
 
-    // Letters and vocabulary words are reused across the same MultipleChoice/TapWhatYouHear
-    // exercise shapes with no domain tag of their own (see practicedItemId's doc comment) - the
-    // lesson's module's own ModuleEntity.contentKind is the source of truth for which id space
-    // this lesson's items are in (set once in init below from real seeded data, not a hardcoded
-    // module-id string). Defaults to WORD until resolved. A review session can mix letters and
-    // words (whatever the learner has actually missed); it stays WORD there - a known
-    // simplification that only affects the attempt log's itemKind classification, not which
-    // items surface in Review.
-    private var itemKind: ItemKind = ItemKind.WORD
+    // Single-value today (vocabulary words only) - see ItemKind's doc comment.
+    private val itemKind: ItemKind = ItemKind.WORD
 
     private val _uiState = MutableStateFlow(LessonUiState())
     val uiState: StateFlow<LessonUiState> = _uiState.asStateFlow()
@@ -88,11 +81,6 @@ class LessonViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            if (!isReviewSession) {
-                val lesson = contentRepository.getLesson(checkNotNull(lessonId))
-                val module = lesson?.moduleId?.let { contentRepository.getModule(it) }
-                if (module != null) itemKind = module.contentKind
-            }
 
             // Independent reads, all started concurrently. For a review session, exercisesDeferred
             // depends on missedItemIdsDeferred (awaited inside its own block, not before starting

@@ -1,9 +1,10 @@
 package com.quranicwords.app.core.data.repository
 
 import com.quranicwords.app.core.data.assets.ContentSeeder
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
-import com.quranicwords.app.core.data.local.entity.ModuleEntity
+import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.domain.repository.ContentRepository
@@ -20,16 +21,22 @@ class ContentRepositoryImpl @Inject constructor(
 
     override suspend fun ensureSeeded() = contentSeeder.seedIfNeeded()
 
-    override fun observeModules(): Flow<List<ModuleEntity>> = database.moduleDao().observeAll()
+    override fun observeChapters(): Flow<List<ChapterEntity>> = database.chapterDao().observeAll()
 
-    override fun observeLessons(moduleId: String): Flow<List<LessonEntity>> =
-        database.lessonDao().observeForModule(moduleId)
+    override fun observeSections(chapterId: String): Flow<List<SectionEntity>> =
+        database.sectionDao().observeForChapter(chapterId)
+
+    override fun observeLessons(sectionId: String): Flow<List<LessonEntity>> =
+        database.lessonDao().observeForSection(sectionId)
 
     override suspend fun getLesson(lessonId: String): LessonEntity? =
         database.lessonDao().getById(lessonId)
 
-    override suspend fun getModule(moduleId: String): ModuleEntity? =
-        database.moduleDao().getById(moduleId)
+    override suspend fun getChapter(chapterId: String): ChapterEntity? =
+        database.chapterDao().getById(chapterId)
+
+    override suspend fun getSection(sectionId: String): SectionEntity? =
+        database.sectionDao().getById(sectionId)
 
     override suspend fun getExercisesForLesson(lessonId: String): List<ExerciseEntity> =
         database.exerciseDao().getForLesson(lessonId)

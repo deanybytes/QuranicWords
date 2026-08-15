@@ -1,6 +1,6 @@
 # 📚 Content Sources
 
-This repo's discipline is to **flag unsourced content rather than fabricate it** (see [`docs/ROADMAP.md`](ROADMAP.md)'s "open content dependencies"). This doc catalogs the real, open-licensed sources used for the Tier 2 vocabulary module, exactly how they were combined, and — just as important — where the result is genuinely sourced versus where it's AI-drafted and flagged as such. The ingestion pipeline described here is real and has run: `tools/ingestion/` (not shipped in the APK) contains every script, and `app/src/main/assets/content/{word_frequency,lessons_vocabulary,exercises_vocabulary}.json` are its actual output — 3,680 words, the full frequency curve, not a sample.
+This repo's discipline is to **flag unsourced content rather than fabricate it** (see [`docs/ROADMAP.md`](ROADMAP.md)'s "open content dependencies"). This doc catalogs the real, open-licensed sources used for the vocabulary curriculum, exactly how they were combined, and — just as important — where the result is genuinely sourced versus where it's AI-drafted and flagged as such. The ingestion pipeline described here is real and has run: `tools/ingestion/` (not shipped in the APK) contains every script, and `app/src/main/assets/content/{word_frequency,lessons_vocabulary,exercises_vocabulary}.json` are its actual output — 3,680 words, the full frequency curve, not a sample.
 
 ## Sourced
 

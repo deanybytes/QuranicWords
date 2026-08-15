@@ -1,0 +1,92 @@
+{
+  "chapters": [
+    {
+      "id": "chapter_1",
+      "titleEn": "Chapter 1",
+      "titleBn": "অধ্যায় 1",
+      "descriptionEn": "Words ranked 1–460 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 1–460 নম্বর শব্দ।",
+      "sortOrder": 1,
+      "wordCount": 460,
+      "quranOccurrenceCount": 46464,
+      "quranOccurrencePercent": 84.841
+    },
+    {
+      "id": "chapter_2",
+      "titleEn": "Chapter 2",
+      "titleBn": "অধ্যায় 2",
+      "descriptionEn": "Words ranked 461–920 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 461–920 নম্বর শব্দ।",
+      "sortOrder": 2,
+      "wordCount": 460,
+      "quranOccurrenceCount": 3629,
+      "quranOccurrencePercent": 6.6264
+    },
+    {
+      "id": "chapter_3",
+      "titleEn": "Chapter 3",
+      "titleBn": "অধ্যায় 3",
+      "descriptionEn": "Words ranked 921–1380 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 921–1380 নম্বর শব্দ।",
+      "sortOrder": 3,
+      "wordCount": 460,
+      "quranOccurrenceCount": 1669,
+      "quranOccurrencePercent": 3.0475
+    },
+    {
+      "id": "chapter_4",
+      "titleEn": "Chapter 4",
+      "titleBn": "অধ্যায় 4",
+      "descriptionEn": "Words ranked 1381–1840 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 1381–1840 নম্বর শব্দ।",
+      "sortOrder": 4,
+      "wordCount": 460,
+      "quranOccurrenceCount": 978,
+      "quranOccurrencePercent": 1.7858
+    },
+    {
+      "id": "chapter_5",
+      "titleEn": "Chapter 5",
+      "titleBn": "অধ্যায় 5",
+      "descriptionEn": "Words ranked 1841–2300 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 1841–2300 নম্বর শব্দ।",
+      "sortOrder": 5,
+      "wordCount": 460,
+      "quranOccurrenceCount": 646,
+      "quranOccurrencePercent": 1.1796
+    },
+    {
+      "id": "chapter_6",
+      "titleEn": "Chapter 6",
+      "titleBn": "অধ্যায় 6",
+      "descriptionEn": "Words ranked 2301–2760 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 2301–2760 নম্বর শব্দ।",
+      "sortOrder": 6,
+      "wordCount": 460,
+      "quranOccurrenceCount": 460,
+      "quranOccurrencePercent": 0.8399
+    },
+    {
+      "id": "chapter_7",
+      "titleEn": "Chapter 7",
+      "titleBn": "অধ্যায় 7",
+      "descriptionEn": "Words ranked 2761–3220 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 2761–3220 নম্বর শব্দ।",
+      "sortOrder": 7,
+      "wordCount": 460,
+      "quranOccurrenceCount": 460,
+      "quranOccurrencePercent": 0.8399
+    },
+    {
+      "id": "chapter_8",
+      "titleEn": "Chapter 8",
+      "titleBn": "অধ্যায় 8",
+      "descriptionEn": "Words ranked 3221–3680 by how often they appear in the Qur'an.",
+      "descriptionBn": "কুরআনে ব্যবহারের ফ্রিকোয়েন্সি অনুসারে র‍্যাঙ্ক 3221–3680 নম্বর শব্দ।",
+      "sortOrder": 8,
+      "wordCount": 460,
+      "quranOccurrenceCount": 460,
+      "quranOccurrencePercent": 0.8399
+    }
+  ]
+}

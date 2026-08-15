@@ -20,6 +20,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
@@ -47,13 +49,14 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
-import com.quranicwords.app.core.data.local.entity.ModuleEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StreakBadge
@@ -96,9 +99,9 @@ fun HomeScreen(
                 StreakBadge(uiState.currentStreak)
             }
 
-            // A single flat lazy list for the whole screen (module headers + every lesson node)
-            // rather than nesting a plain eager Column of lesson nodes inside each LazyColumn
-            // item - the vocabulary module alone can have hundreds of lessons, and composing all
+            // A single flat lazy list for the whole screen (chapter/section headers + every
+            // lesson node) rather than nesting a plain eager Column of lesson nodes inside each
+            // LazyColumn item - the curriculum has hundreds of lessons total, and composing all
             // of them immediately (instead of only what's on screen) is real, measurable jank.
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -111,34 +114,37 @@ fun HomeScreen(
                     }
                 }
 
-                uiState.modules.forEach { module ->
-                    if (module.isImplemented) {
-                        item(key = "header_${module.id}") {
-                            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                uiState.chapters.forEach { chapterWithSections ->
+                    val chapter = chapterWithSections.chapter
+                    item(key = "chapter_${chapter.id}") {
+                        Text(
+                            if (isBangla) chapter.titleBn else chapter.titleEn,
+                            style = MaterialTheme.typography.headlineSmall
+                        )
+                    }
+
+                    chapterWithSections.sections.forEach { sectionWithLessons ->
+                        val section = sectionWithLessons.section
+                        item(key = "section_${section.id}") {
+                            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                 Text(
-                                    if (isBangla) module.titleBn else module.titleEn,
+                                    if (isBangla) section.titleBn else section.titleEn,
                                     style = MaterialTheme.typography.titleLarge
-                                )
-                                Text(
-                                    if (isBangla) module.descriptionBn else module.descriptionEn,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
 
-                        val lessons = uiState.lessonsByModuleId[module.id] ?: emptyList()
-                        itemsIndexed(lessons, key = { _, lesson -> lesson.id }) { index, lesson ->
+                        itemsIndexed(
+                            sectionWithLessons.lessons,
+                            key = { _, lesson -> lesson.id }
+                        ) { index, lesson ->
                             LessonPathNode(
                                 index = index,
                                 title = if (isBangla) lesson.titleBn else lesson.titleEn,
+                                kind = lesson.kind,
                                 progress = uiState.progressByLessonId[lesson.id],
                                 onClick = { onOpenLesson(lesson.id) }
                             )
-                        }
-                    } else {
-                        item(key = "locked_${module.id}") {
-                            LockedModuleCard(module, isBangla)
                         }
                     }
                 }
@@ -148,16 +154,17 @@ fun HomeScreen(
 }
 
 /**
- * One node of the winding "skill path" (à la Duolingo) - offset left/right in a sine wave, with
+ * One node of the winding skill path - offset left/right in a sine wave, with
  * a short dashed spine segment behind it that chains into a continuous-looking line as
  * consecutive nodes scroll into view. Each node is a self-contained lazy list item (see
- * [HomeScreen]) rather than part of one eagerly-composed path, so a module with hundreds of
+ * [HomeScreen]) rather than part of one eagerly-composed path, so a curriculum with hundreds of
  * lessons only composes the ones actually on screen.
  */
 @Composable
 private fun LessonPathNode(
     index: Int,
     title: String,
+    kind: LessonKind,
     progress: UserProgressEntity?,
     onClick: () -> Unit
 ) {
@@ -181,6 +188,7 @@ private fun LessonPathNode(
     ) {
         LessonNode(
             title = title,
+            kind = kind,
             progress = progress,
             onClick = onClick,
             modifier = Modifier.align(BiasAlignment(horizontalBias = bias, verticalBias = 0f))
@@ -188,9 +196,19 @@ private fun LessonPathNode(
     }
 }
 
+/** Regular lessons use the usual play/lock/check iconography; exam and flashback kinds get a
+ * distinct icon so the path visually flags "this one's a checkpoint" before the learner taps in -
+ * a simple, functional cue for now, refined further in the full gamified-UI pass. */
+private fun kindIcon(kind: LessonKind): ImageVector? = when (kind) {
+    LessonKind.REGULAR -> null
+    LessonKind.SECTION_EXAM, LessonKind.CHAPTER_EXAM -> Icons.Filled.EmojiEvents
+    LessonKind.LESSON_FLASHBACK, LessonKind.SECTION_FLASHBACK, LessonKind.CHAPTER_FLASHBACK -> Icons.Filled.History
+}
+
 @Composable
 private fun LessonNode(
     title: String,
+    kind: LessonKind,
     progress: UserProgressEntity?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -236,11 +254,12 @@ private fun LessonNode(
             LessonStatus.UNLOCKED -> MaterialTheme.colorScheme.primaryContainer
             LessonStatus.LOCKED -> MaterialTheme.colorScheme.surfaceVariant
         }
-        val (icon, tint) = when (status) {
+        val (defaultIcon, tint) = when (status) {
             LessonStatus.COMPLETED -> Icons.Filled.CheckCircle to MaterialTheme.colorScheme.onPrimary
             LessonStatus.UNLOCKED -> Icons.Filled.PlayArrow to MaterialTheme.colorScheme.onPrimaryContainer
             LessonStatus.LOCKED -> Icons.Filled.Lock to MaterialTheme.colorScheme.onSurfaceVariant
         }
+        val icon = if (status == LessonStatus.LOCKED) defaultIcon else (kindIcon(kind) ?: defaultIcon)
 
         Box(
             modifier = Modifier
@@ -322,31 +341,6 @@ private fun ReviewEntryCard(onClick: () -> Unit) {
                     stringResource(R.string.home_review_subtitle),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onTertiaryContainer
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun LockedModuleCard(module: ModuleEntity, isBangla: Boolean) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Icon(Icons.Filled.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
-            Column {
-                Text(if (isBangla) module.titleBn else module.titleEn, style = MaterialTheme.typography.titleMedium)
-                Text(
-                    stringResource(R.string.home_module_coming_soon),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

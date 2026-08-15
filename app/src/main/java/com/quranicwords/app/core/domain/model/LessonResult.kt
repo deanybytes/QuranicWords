@@ -10,8 +10,10 @@ data class LessonResult(
     val newTotalPoints: Int,
     val currentStreak: Int,
     val streakIncreased: Boolean,
-    /** The next lesson in this module by sortOrder, if any - lets the summary screen flow
-     * straight into it instead of always dropping the learner back at Home. */
+    /** The next thing to unlock in the curriculum (another lesson, an exam, or a flashback
+     * review - see [com.quranicwords.app.core.domain.CurriculumUnlockResolver]), if any - lets
+     * the summary screen flow straight into it instead of always dropping the learner back at
+     * Home. */
     val nextLessonId: String? = null
 ) {
     val accuracyPercent: Int

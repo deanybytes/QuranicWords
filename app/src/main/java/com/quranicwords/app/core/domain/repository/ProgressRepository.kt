@@ -12,12 +12,18 @@ interface ProgressRepository {
     fun observeStats(userId: String): Flow<UserStatsEntity?>
     fun observeProgress(userId: String): Flow<List<UserProgressEntity>>
 
-    /** Unlocks a module's first lesson for [userId] if it has no progress row yet. */
-    suspend fun ensureModuleStarted(userId: String, moduleId: String)
+    /** Unlocks the very first lesson of the curriculum (chapter 1, section 1, lesson 1) for
+     * [userId] if it has no progress row yet - the one bootstrap unlock every other unlock in the
+     * chapter -> section -> lesson tree chains from via [completeLesson]. */
+    suspend fun ensureCurriculumStarted(userId: String)
 
     /**
-     * Records a completed lesson attempt: updates score/points/streak, persists locally, and
-     * unlocks the next lesson in the module.
+     * Records a completed lesson/exam/flashback attempt: updates score/points/streak, persists
+     * locally, and unlocks what comes next - unconditionally for a
+     * [com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR] lesson, only on a passing
+     * score (see [com.quranicwords.app.core.util.GamificationConfig.PASSING_SCORE_PERCENT]) for
+     * every other kind. A failed exam/flashback still records the attempt (score visible, retry
+     * available) but leaves whatever comes next locked.
      */
     suspend fun completeLesson(
         userId: String,

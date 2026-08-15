@@ -3,17 +3,19 @@ package com.quranicwords.app.core.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.quranicwords.app.core.data.local.dao.ChapterDao
 import com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao
 import com.quranicwords.app.core.data.local.dao.ExerciseDao
 import com.quranicwords.app.core.data.local.dao.LessonDao
-import com.quranicwords.app.core.data.local.dao.ModuleDao
+import com.quranicwords.app.core.data.local.dao.SectionDao
 import com.quranicwords.app.core.data.local.dao.UserProgressDao
 import com.quranicwords.app.core.data.local.dao.UserStatsDao
 import com.quranicwords.app.core.data.local.dao.WordFrequencyDao
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
-import com.quranicwords.app.core.data.local.entity.ModuleEntity
+import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
@@ -25,7 +27,8 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 @Database(
     entities = [
         WordFrequencyEntity::class,
-        ModuleEntity::class,
+        ChapterEntity::class,
+        SectionEntity::class,
         LessonEntity::class,
         ExerciseEntity::class,
         UserProgressEntity::class,
@@ -38,7 +41,8 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 @TypeConverters(Converters::class)
 abstract class QwDatabase : RoomDatabase() {
     abstract fun wordFrequencyDao(): WordFrequencyDao
-    abstract fun moduleDao(): ModuleDao
+    abstract fun chapterDao(): ChapterDao
+    abstract fun sectionDao(): SectionDao
     abstract fun lessonDao(): LessonDao
     abstract fun exerciseDao(): ExerciseDao
     abstract fun userProgressDao(): UserProgressDao

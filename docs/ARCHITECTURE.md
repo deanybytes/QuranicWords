@@ -1,6 +1,6 @@
 # 🏗️ Architecture
 
-> **Note:** Google Sign-In / Firebase Auth / Firestore (progress mirror + leaderboard) have been removed (commented out, not deleted — search `DISABLED:` in the codebase) in favor of a local-device-only model with `BackupRepository` JSON export/import. Diagrams and prose below that reference Firebase/Auth/Leaderboard describe that now-disabled design; see `CLAUDE.md`'s "Firebase: DISABLED, kept commented not deleted" section for the current state.
+> **Note:** QuranicWords is local-device-only — there is no sign-in, no remote database, and no leaderboard anywhere in this codebase. Progress round-trips through `BackupRepository`'s local JSON export/import instead of any cloud sync. See `CLAUDE.md`'s "There is no cloud backend" section for the current state, and [`docs/FIREBASE_SETUP.md`](FIREBASE_SETUP.md) for how the local backup feature works.
 
 ## 🧱 Layered overview
 
@@ -9,24 +9,23 @@ The app is a single `:app` module, organized by **feature packages** on top of a
 ```mermaid
 flowchart TB
     subgraph UI["🎨 UI layer — Jetpack Compose"]
-        Screens["Screens<br/>(Splash, Onboarding×4, Home, Lesson, Settings, Leaderboard)"]
-        Components["Shared components<br/>(UhqButton, PointsBadge, StreakBadge, FeedbackBanner)"]
+        Screens["Screens<br/>(Splash, Onboarding×2, Home, Lesson, Settings)"]
+        Components["Shared components<br/>(QwButton, StatBadges, FeedbackBanner)"]
         Theme["Theme<br/>(green Material 3, day/night)"]
     end
 
     subgraph VM["🧠 Presentation layer — ViewModels (Hilt)"]
-        SplashVM & AuthVM & LessonVM & HomeVM & SettingsVM
+        SplashVM & LessonVM & HomeVM & SettingsVM
     end
 
     subgraph Domain["📐 Domain layer"]
-        Repos["Repository interfaces<br/>(Auth, Content, Progress, Leaderboard)"]
-        Models["Domain models<br/>(Tier, Language, ExerciseContent, AuthState, LessonResult)"]
+        Repos["Repository interfaces<br/>(Content, Progress, Backup)"]
+        Models["Domain models<br/>(Language, ExerciseContent, LessonResult)"]
     end
 
     subgraph Data["💾 Data layer"]
         RoomDB[("Room DB<br/>offline cache + content")]
         DataStore[("DataStore<br/>settings & onboarding state")]
-        Firebase[("Firebase<br/>Auth + Firestore")]
         Seeder["ContentSeeder<br/>(bundled JSON → Room, once)"]
     end
 
@@ -37,44 +36,44 @@ flowchart TB
     Repos -.implemented by.-> Data
     Repos --> Models
     Seeder --> RoomDB
-    Data --> RoomDB & DataStore & Firebase
+    Data --> RoomDB & DataStore
 ```
 
 ## 📦 Package map
 
 ```
-com.example.understandingholyquran/
-├── UhqApplication.kt          @HiltAndroidApp entry point
-├── MainActivity.kt            single Activity, hosts the Compose NavHost
-├── MainViewModel.kt           theme mode + language for the root Composable
+com.quranicwords.app/
+├── QwApplication.kt            @HiltAndroidApp entry point
+├── MainActivity.kt             single Activity, hosts the Compose NavHost
+├── MainViewModel.kt            theme mode + language for the root Composable
 │
 ├── core/
-│   ├── di/                    Hilt modules — Database, Firebase, Dispatcher, Clock, Repository
+│   ├── di/                    Hilt modules — Database, Dispatcher, Clock, Repository
 │   ├── data/
-│   │   ├── local/             Room: UhqDatabase, entity/, dao/, Converters
+│   │   ├── local/             Room: QwDatabase, entity/, dao/, Converters
 │   │   ├── datastore/         UserPreferencesDataStore (single source for onboarding + settings)
 │   │   ├── assets/            ContentSeeder + seed DTOs
-│   │   ├── remote/firebase/   FirebaseAuthDataSource, Firestore{Progress,Leaderboard}DataSource
-│   │   ├── repository/        *RepositoryImpl — bridge domain interfaces to Room/Firebase
+│   │   ├── repository/        *RepositoryImpl — bridge domain interfaces to Room
 │   │   └── CurrentUserIdProvider.kt   resolves the effective progress-tracking user id
 │   ├── domain/
-│   │   ├── model/              Language, Tier, ThemeMode, ExerciseType, ExerciseContent, ...
-│   │   └── repository/         Auth/Content/Progress/LeaderboardRepository interfaces
-│   ├── navigation/              Routes.kt (type-safe), UhqNavHost.kt
+│   │   ├── model/              Language, ThemeMode, ExerciseType, ExerciseContent, QuranFontStyle, ...
+│   │   └── repository/         Content/Progress/BackupRepository interfaces
+│   ├── navigation/              Routes.kt (type-safe), QwNavHost.kt
 │   ├── ui/
 │   │   ├── theme/               Color, Theme, Type, Shape, QuranFont
 │   │   └── components/          reusable Composables
-│   └── util/                    StreakCalculator, GamificationConfig, AudioPlayer, ArabicText, ...
+│   └── util/                    StreakCalculator, GamificationConfig, AudioPlayer, QuranPreviewText, ...
 │
 └── feature/
     ├── splash/
-    ├── onboarding/{language,auth,tier,font}/
+    ├── onboarding/{language,font}/
     ├── home/
-    ├── lesson/ (+ exercise/: LetterIntro, WordIntro, MultipleChoice, TapWhatYouHear, Matching)
+    ├── lesson/ (+ exercise/: WordIntro, MultipleChoice, TapWhatYouHear, Matching, FillInTheBlank, WordOrderBuilder, ListenAndType)
     ├── lessonsummary/
-    ├── settings/
-    └── leaderboard/
+    └── settings/
 ```
+
+> The content hierarchy is organized as **chapter → section → lesson**, with exam-gated progression between units. This is being actively built out directly in code — entities, DAOs, and seeding can all be mid-change at any given moment — so treat `core/data/local/entity/` as the source of truth for the current shape rather than this document. See `MEMORY.md` for phase status.
 
 ## 🧷 Dependency injection graph
 
@@ -82,18 +81,13 @@ All bindings live in `core/di/`, installed into Hilt's `SingletonComponent`:
 
 ```mermaid
 flowchart LR
-    DatabaseModule -->|provides| UhqDatabase
-    FirebaseModule -->|provides nullable| FirebaseAuth
-    FirebaseModule -->|provides nullable| FirebaseFirestore
+    DatabaseModule -->|provides| QwDatabase
     DispatcherModule -->|provides| ApplicationScope["CoroutineScope"]
     ClockModule -->|provides| Clock
-    RepositoryModule -->|binds| AuthRepository
     RepositoryModule -->|binds| ContentRepository
     RepositoryModule -->|binds| ProgressRepository
-    RepositoryModule -->|binds| LeaderboardRepository
+    RepositoryModule -->|binds| BackupRepository
 ```
-
-> 🛡️ **Why `FirebaseAuth`/`FirebaseFirestore` are nullable:** `FirebaseModule` wraps `getInstance()` in `runCatching { }`. Without `app/google-services.json`, no default `FirebaseApp` initializes and these calls throw — the module converts that into `null` once, at the DI boundary, so every downstream data source is written to handle "Firebase isn't configured" as an ordinary case rather than a crash. See [`docs/SECURITY.md`](SECURITY.md).
 
 ## 🧭 Navigation graph
 
@@ -101,12 +95,12 @@ Type-safe destinations (`core/navigation/Routes.kt`, `kotlinx.serialization` rou
 
 ```mermaid
 flowchart LR
-    Splash --> LanguageSelect --> AuthChoice --> TierSelect --> FontSelect --> Home
+    Splash --> LanguageSelect --> FontSelect --> Home
     Home -->|open lesson| Lesson
     Lesson -->|complete| LessonSummary
     LessonSummary --> Home
     Home --> Settings
-    Home --> Leaderboard
+    Home -->|review missed items| Review
 ```
 
 Each onboarding step persists its choice to DataStore **immediately** on selection — if the process is killed mid-onboarding, `SplashViewModel` resumes at the right step next launch (see [`docs/USER_FLOWS.md`](USER_FLOWS.md)).
@@ -120,5 +114,4 @@ Screens must localize both static UI strings (`stringResource`, resource-qualifi
 ## 🧵 Threading & reactivity
 
 - Room DAOs expose `Flow` for anything the UI observes live (points, streak, lesson unlock state).
-- `AuthRepository.authState` is a `StateFlow`, kept hot via a Hilt-provided application-level `CoroutineScope` (`DispatcherModule`) so it survives independent of any single screen's lifecycle.
-- Firestore mirroring in `ProgressRepositoryImpl` is **best-effort and non-blocking** — local Room writes are the source of truth; Firestore sync happens after, relying on Firestore's own offline persistence cache for resilience rather than a custom retry queue.
+- `LessonViewModel.init` fires its independent reads concurrently via `async`, awaiting only where one genuinely depends on another — see `CLAUDE.md`'s "Threading & reactivity" section for the pattern.

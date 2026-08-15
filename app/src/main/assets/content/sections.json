@@ -1,0 +1,804 @@
+{
+  "sections": [
+    {
+      "id": "section_1_1",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 29155,
+      "quranOccurrencePercent": 53.2356
+    },
+    {
+      "id": "section_1_2",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 5399,
+      "quranOccurrencePercent": 9.8583
+    },
+    {
+      "id": "section_1_3",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 3256,
+      "quranOccurrencePercent": 5.9453
+    },
+    {
+      "id": "section_1_4",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 2231,
+      "quranOccurrencePercent": 4.0737
+    },
+    {
+      "id": "section_1_5",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 1691,
+      "quranOccurrencePercent": 3.0877
+    },
+    {
+      "id": "section_1_6",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 1310,
+      "quranOccurrencePercent": 2.392
+    },
+    {
+      "id": "section_1_7",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 1091,
+      "quranOccurrencePercent": 1.9921
+    },
+    {
+      "id": "section_1_8",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 911,
+      "quranOccurrencePercent": 1.6634
+    },
+    {
+      "id": "section_1_9",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 770,
+      "quranOccurrencePercent": 1.406
+    },
+    {
+      "id": "section_1_10",
+      "chapterId": "chapter_1",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 650,
+      "quranOccurrencePercent": 1.1869
+    },
+    {
+      "id": "section_2_1",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 563,
+      "quranOccurrencePercent": 1.028
+    },
+    {
+      "id": "section_2_2",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 491,
+      "quranOccurrencePercent": 0.8965
+    },
+    {
+      "id": "section_2_3",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 440,
+      "quranOccurrencePercent": 0.8034
+    },
+    {
+      "id": "section_2_4",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 398,
+      "quranOccurrencePercent": 0.7267
+    },
+    {
+      "id": "section_2_5",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 360,
+      "quranOccurrencePercent": 0.6573
+    },
+    {
+      "id": "section_2_6",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 322,
+      "quranOccurrencePercent": 0.588
+    },
+    {
+      "id": "section_2_7",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 298,
+      "quranOccurrencePercent": 0.5441
+    },
+    {
+      "id": "section_2_8",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 276,
+      "quranOccurrencePercent": 0.504
+    },
+    {
+      "id": "section_2_9",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 251,
+      "quranOccurrencePercent": 0.4583
+    },
+    {
+      "id": "section_2_10",
+      "chapterId": "chapter_2",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 230,
+      "quranOccurrencePercent": 0.42
+    },
+    {
+      "id": "section_3_1",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 230,
+      "quranOccurrencePercent": 0.42
+    },
+    {
+      "id": "section_3_2",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 194,
+      "quranOccurrencePercent": 0.3542
+    },
+    {
+      "id": "section_3_3",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 184,
+      "quranOccurrencePercent": 0.336
+    },
+    {
+      "id": "section_3_4",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 184,
+      "quranOccurrencePercent": 0.336
+    },
+    {
+      "id": "section_3_5",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 184,
+      "quranOccurrencePercent": 0.336
+    },
+    {
+      "id": "section_3_6",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 141,
+      "quranOccurrencePercent": 0.2575
+    },
+    {
+      "id": "section_3_7",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 138,
+      "quranOccurrencePercent": 0.252
+    },
+    {
+      "id": "section_3_8",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 138,
+      "quranOccurrencePercent": 0.252
+    },
+    {
+      "id": "section_3_9",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 138,
+      "quranOccurrencePercent": 0.252
+    },
+    {
+      "id": "section_3_10",
+      "chapterId": "chapter_3",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 138,
+      "quranOccurrencePercent": 0.252
+    },
+    {
+      "id": "section_4_1",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 138,
+      "quranOccurrencePercent": 0.252
+    },
+    {
+      "id": "section_4_2",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 104,
+      "quranOccurrencePercent": 0.1899
+    },
+    {
+      "id": "section_4_3",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_4",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_5",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_6",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_7",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_8",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_9",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_4_10",
+      "chapterId": "chapter_4",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_5_1",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_5_2",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_5_3",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_5_4",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 92,
+      "quranOccurrencePercent": 0.168
+    },
+    {
+      "id": "section_5_5",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.0876
+    },
+    {
+      "id": "section_5_6",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_5_7",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_5_8",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_5_9",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_5_10",
+      "chapterId": "chapter_5",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_1",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_2",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_3",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_4",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_5",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_6",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_7",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_8",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_9",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_6_10",
+      "chapterId": "chapter_6",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_1",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_2",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_3",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_4",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_5",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_6",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_7",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_8",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_9",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_7_10",
+      "chapterId": "chapter_7",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_1",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 1",
+      "titleBn": "বিভাগ 1",
+      "sortOrder": 1,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_2",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 2",
+      "titleBn": "বিভাগ 2",
+      "sortOrder": 2,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_3",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 3",
+      "titleBn": "বিভাগ 3",
+      "sortOrder": 3,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_4",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 4",
+      "titleBn": "বিভাগ 4",
+      "sortOrder": 4,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_5",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 5",
+      "titleBn": "বিভাগ 5",
+      "sortOrder": 5,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_6",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 6",
+      "titleBn": "বিভাগ 6",
+      "sortOrder": 6,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_7",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 7",
+      "titleBn": "বিভাগ 7",
+      "sortOrder": 7,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_8",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 8",
+      "titleBn": "বিভাগ 8",
+      "sortOrder": 8,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_9",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 9",
+      "titleBn": "বিভাগ 9",
+      "sortOrder": 9,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    },
+    {
+      "id": "section_8_10",
+      "chapterId": "chapter_8",
+      "titleEn": "Section 10",
+      "titleBn": "বিভাগ 10",
+      "sortOrder": 10,
+      "wordCount": 46,
+      "quranOccurrenceCount": 46,
+      "quranOccurrencePercent": 0.084
+    }
+  ]
+}

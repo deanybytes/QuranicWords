@@ -19,7 +19,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">লক করা</string>
-    <string name="home_module_coming_soon">শীঘ্রই আসছে</string>
     <string name="home_open_settings">সেটিংস</string>
     <string name="home_review_title">ভুল হওয়া শব্দ পুনরালোচনা</string>
     <string name="home_review_subtitle">গতবার যেগুলোতে ভুল হয়েছিল তা অনুশীলন করুন।</string>

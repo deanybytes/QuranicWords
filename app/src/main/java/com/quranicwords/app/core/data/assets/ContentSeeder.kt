@@ -20,7 +20,8 @@ class ContentSeeder @Inject constructor(
     suspend fun seedIfNeeded() {
         if (preferences.isContentSeeded(CONTENT_VERSION)) return
         withContext(Dispatchers.IO) {
-            val modules = readAsset<ModulesFile>("content/modules.json").modules
+            val chapters = readAsset<ChaptersFile>("content/chapters.json").chapters
+            val sections = readAsset<SectionsFile>("content/sections.json").sections
             val vocabularyLessons = readAsset<LessonsFile>("content/lessons_vocabulary.json").lessons
             val vocabularyExercises = readAsset<ExercisesFile>("content/exercises_vocabulary.json").exercises
             val words = readAsset<WordFrequencyFile>("content/word_frequency.json").words
@@ -29,13 +30,14 @@ class ContentSeeder @Inject constructor(
             // never removes rows whose id is now gone (e.g. old lessons after a content
             // restructure). Clear seeded-content tables first so re-seeding on a CONTENT_VERSION
             // bump is a clean reset, not an accumulation - harmless no-op on a first install since
-            // these tables start empty. Deleting modules cascades to lessons/exercises (FK ON
-            // DELETE CASCADE); word_frequency has no dependents and is cleared directly.
+            // these tables start empty. Deleting chapters cascades to sections/lessons/exercises
+            // (FK ON DELETE CASCADE); word_frequency has no dependents and is cleared directly.
             // user_progress/user_stats are real user data and are never touched here.
-            database.moduleDao().deleteAll()
+            database.chapterDao().deleteAll()
             database.wordFrequencyDao().deleteAll()
 
-            database.moduleDao().insertAll(modules)
+            database.chapterDao().insertAll(chapters)
+            database.sectionDao().insertAll(sections)
             database.lessonDao().insertAll(vocabularyLessons)
             database.exerciseDao().insertAll(vocabularyExercises.map { it.toEntity() })
             database.wordFrequencyDao().insertAll(words)
