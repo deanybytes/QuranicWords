@@ -59,6 +59,12 @@
     <string name="settings_language_label">Language</string>
     <string name="settings_quran_font_label">Quran script style</string>
     <string name="settings_reduce_motion_label">Reduce motion</string>
+    <string name="settings_sound_effects_label">Sound effects</string>
+    <string name="settings_section_audio">Audio</string>
+    <string name="settings_audio_download_description">Word pronunciation clips stream on demand by default. Download them all once to play instantly and work fully offline.</string>
+    <string name="settings_audio_download_button">Download all pronunciation audio</string>
+    <string name="settings_audio_download_progress">Downloading… %1$d / %2$d</string>
+    <string name="settings_audio_download_complete">All available audio downloaded.</string>
     <string name="settings_section_backup">Backup</string>
     <string name="settings_backup_description">Your progress lives only on this device. Export a backup file to keep it safe, or import one to restore progress on this or another device.</string>
     <string name="settings_backup_export">Export backup</string>
@@ -70,6 +76,9 @@
     <string name="settings_section_about">About</string>
     <string name="settings_copyright">Copyright © rmrashahriar 2026. All rights reserved.</string>
     <string name="settings_content_provenance_note">Vocabulary content is sourced from open Qur\'anic corpora. Bangla word meanings are AI-assisted and under ongoing review — see the project\'s documentation for detail.</string>
+    <string name="settings_licenses_button">Licenses &amp; sources</string>
+    <string name="settings_licenses_title">Licenses &amp; sources</string>
+    <string name="settings_close">Close</string>
 
     <!-- Common -->
     <string name="action_back">Back</string>

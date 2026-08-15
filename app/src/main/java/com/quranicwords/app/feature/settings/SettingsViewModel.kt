@@ -1,19 +1,28 @@
 package com.quranicwords.app.feature.settings
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.data.sync.AudioBulkDownloadWorker
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.repository.BackupRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -28,11 +37,21 @@ data class BackupUiState(
     val lastMessageWasError: Boolean = false
 )
 
+data class AudioDownloadUiState(
+    val isWorking: Boolean = false,
+    val done: Int = 0,
+    val total: Int = 0,
+    val isComplete: Boolean = false
+)
+
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     private val preferences: UserPreferencesDataStore,
     private val backupRepository: BackupRepository
 ) : ViewModel() {
+
+    private val workManager = WorkManager.getInstance(context)
 
     val themeMode: StateFlow<ThemeMode> =
         preferences.themeModeFlow.stateIn(viewModelScope, SharingStarted.Eagerly, ThemeMode.SYSTEM)
@@ -46,11 +65,40 @@ class SettingsViewModel @Inject constructor(
     val reduceMotion: StateFlow<Boolean> =
         preferences.reduceMotionFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
+    val soundEnabled: StateFlow<Boolean> =
+        preferences.soundEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
+
     private val _backupUiState = MutableStateFlow(BackupUiState())
     val backupUiState: StateFlow<BackupUiState> = _backupUiState.asStateFlow()
 
+    private val _audioDownloadUiState = MutableStateFlow(AudioDownloadUiState())
+    val audioDownloadUiState: StateFlow<AudioDownloadUiState> = _audioDownloadUiState.asStateFlow()
+
+    init {
+        // Observes the worker's own WorkInfo (survives this ViewModel being recreated while a
+        // download is mid-flight, e.g. after a config change) rather than tracking progress in
+        // purely in-memory state.
+        workManager.getWorkInfosForUniqueWorkFlow(AudioBulkDownloadWorker.UNIQUE_WORK_NAME)
+            .onEach { infos ->
+                val info = infos.firstOrNull() ?: return@onEach
+                val done = info.progress.getInt(AudioBulkDownloadWorker.KEY_DONE, 0)
+                val total = info.progress.getInt(AudioBulkDownloadWorker.KEY_TOTAL, 0)
+                _audioDownloadUiState.value = AudioDownloadUiState(
+                    isWorking = info.state == WorkInfo.State.RUNNING || info.state == WorkInfo.State.ENQUEUED,
+                    done = done,
+                    total = total,
+                    isComplete = info.state == WorkInfo.State.SUCCEEDED
+                )
+            }
+            .launchIn(viewModelScope)
+    }
+
     fun setReduceMotion(enabled: Boolean) {
         viewModelScope.launch { preferences.setReduceMotion(enabled) }
+    }
+
+    fun setSoundEnabled(enabled: Boolean) {
+        viewModelScope.launch { preferences.setSoundEnabled(enabled) }
     }
 
     fun setThemeMode(mode: ThemeMode) {
@@ -63,6 +111,15 @@ class SettingsViewModel @Inject constructor(
 
     fun setFontStyle(style: QuranFontStyle) {
         viewModelScope.launch { preferences.setFontStyle(style) }
+    }
+
+    fun downloadAllAudio() {
+        val request = OneTimeWorkRequestBuilder<AudioBulkDownloadWorker>().build()
+        workManager.enqueueUniqueWork(
+            AudioBulkDownloadWorker.UNIQUE_WORK_NAME,
+            ExistingWorkPolicy.KEEP,
+            request
+        )
     }
 
     /** [output] is opened by the caller (Settings screen) from a SAF-picked [android.net.Uri] via

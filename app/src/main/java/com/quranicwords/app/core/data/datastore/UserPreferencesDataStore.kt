@@ -38,6 +38,8 @@ class UserPreferencesDataStore @Inject constructor(
         val CONTENT_SEEDED_VERSION = intPreferencesKey("content_seeded_version")
         val LOCAL_USER_ID = stringPreferencesKey("local_user_id")
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
+        val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
+        val AUDIO_OFFLINE_MODE = booleanPreferencesKey("audio_offline_mode")
     }
 
     /**
@@ -102,5 +104,26 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setReduceMotion(enabled: Boolean) {
         context.dataStore.edit { it[Keys.REDUCE_MOTION] = enabled }
+    }
+
+    /** Master sound-effects toggle (Settings screen) - checked once inside
+     * [com.quranicwords.app.core.util.SfxPlayer.play] rather than at every call site. Defaults
+     * to on. */
+    val soundEnabledFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.SOUND_ENABLED] != false }
+
+    suspend fun setSoundEnabled(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.SOUND_ENABLED] = enabled }
+    }
+
+    /** Whether every word's pronunciation clip has been bulk-downloaded to local storage (see
+     * [com.quranicwords.app.core.data.repository.WordAudioRepository.downloadAll]) - when true,
+     * playback resolves from the on-device cache without touching the network at all. Defaults
+     * to off (stream-on-demand). */
+    val audioOfflineModeFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.AUDIO_OFFLINE_MODE] == true }
+
+    suspend fun setAudioOfflineMode(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.AUDIO_OFFLINE_MODE] = enabled }
     }
 }

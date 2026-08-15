@@ -9,10 +9,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Thin wrapper for short bundled audio clips (letter names, word pronunciations). Deliberately
- * simple `MediaPlayer` rather than media3/ExoPlayer - this increment only plays short clips from
- * app assets, no streaming/queuing. Real male-voice recitation audio is an open content
- * dependency (see plan); [play] no-ops safely when [assetPath] isn't bundled yet.
+ * Thin wrapper for short audio clips bundled directly as app assets. Deliberately simple
+ * `MediaPlayer` rather than media3/ExoPlayer - no streaming/queuing needed for a clip that's
+ * already on disk. [play] no-ops safely when [assetPath] isn't actually bundled.
+ *
+ * Word-pronunciation clips specifically are *not* bundled - they're fetched on demand or
+ * downloaded ahead of time via [com.quranicwords.app.core.domain.repository.WordAudioRepository]
+ * instead, which resolves a playable URI (local cache or remote) rather than an assets-relative
+ * path. This class is for anything genuinely shipped inside the APK.
  */
 @Singleton
 class AudioPlayer @Inject constructor(@ApplicationContext private val context: Context) {

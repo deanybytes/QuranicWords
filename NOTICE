@@ -1,0 +1,54 @@
+QuranicWords - Third-Party Content Notices
+Copyright © rmrashahriar 2026. All rights reserved (application code).
+
+This application bundles vocabulary, translation, and audio content derived
+from the open-licensed sources below. Each source's license governs that
+source's content only, not the QuranicWords application code (see LICENSE).
+
+--------------------------------------------------------------------------
+Quranic Arabic Corpus (corpus.quran.com)
+License: GNU General Public License (GPL), with an attribution/link-back
+         requirement.
+Provides: the word-frequency ranking table underlying the curriculum's
+         chapter/section ordering (most-frequent-word-first).
+Attribution: https://corpus.quran.com
+
+--------------------------------------------------------------------------
+Quran-bil-Quran (github.com/R3GENESI5/quran-bil-quran)
+License: MIT License.
+Provides: root data, English word/root meanings, Uthmani Arabic verse text,
+         and the Sahih International English verse translations used as
+         each word's example verse.
+Attribution: https://github.com/R3GENESI5/quran-bil-quran
+
+--------------------------------------------------------------------------
+risan/quran-json (github.com/risan/quran-json)
+License: Creative Commons Attribution-ShareAlike 4.0 International
+         (CC BY-SA 4.0).
+Provides: Bangla verse translations used as each word's example-verse
+         Bangla translation.
+Attribution: https://github.com/risan/quran-json
+Share-alike notice: content derived from this source (the Bangla verse
+         translations bundled in this app, and the AI-drafted Bangla word
+         meanings authored alongside them - see below) is released under
+         CC BY-SA 4.0 as well, consistent with this source's license.
+
+--------------------------------------------------------------------------
+EveryAyah.com recitation audio + quran-align word-timing data
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+Provides: the source verse recitation audio (reciter: Alafasy) and
+         word-level timing data that single-word pronunciation clips are
+         segmented from.
+Attribution: https://everyayah.com
+
+--------------------------------------------------------------------------
+A note on AI-drafted content
+
+Bangla word-level meanings (`meaningBn`) are AI-drafted, grounded in the
+sourced English meanings above but not independently verified against a
+published Bangla source (no source among those above provides word-level
+Bangla glosses, only full-verse translations). This is tracked per-entry in
+the app's own data (`meaningBnReviewed`) rather than presented as verified,
+and is released under CC BY-SA 4.0 alongside the sourced Bangla translation
+content it was drafted alongside. See docs/CONTENT_SOURCES.md for the full
+methodology.

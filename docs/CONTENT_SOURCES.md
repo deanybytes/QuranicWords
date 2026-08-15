@@ -39,13 +39,16 @@ flowchart LR
 | Item | Status |
 |---|---|
 | **Letter-name pronunciation audio** (e.g. a spoken "Alif") | No dataset found covering isolated Arabic letter names as a standalone spoken unit. Needs dedicated recording or a purpose-built source. |
-| **Word/verse audio** (EveryAyah.com + quran-align, CC BY 4.0, word-timestamped, all-male reciters) | Identified in an earlier pass as a real, fetchable source — not yet ingested this round; `audioAssetPath` fields in the emitted content are intentional forward references (`audio/words/{id}.mp3`), consistent with how the Tier 1 letter audio paths work, and degrade gracefully via the existing `AudioPlayer` no-op-on-missing-asset behavior. |
+| **Word/verse audio** (EveryAyah.com Alafasy recitation + quran-align word-timing data, both CC BY 4.0) | **Pipeline built and proven, not run at full scale.** `tools/ingestion/12_segment_word_audio.py` fetches verse audio + quran-align timing, segments a single-word clip via ffmpeg, and has been run for a 20-word proof-of-concept sample (19 succeeded) hosted at the public `rmrashahriar/QuranicWords-audio` repo's `word-audio-sample-v1` release, fetched at runtime through `WordAudioRepository`/`AudioConfig.WORD_AUDIO_BASE_URL`. Segmentation is only possible for words with a confirmed `arabicWordStart`/`arabicWordEnd` span (1,582 of 3,680 — see item 9 above); scaling from the 20-word sample to all 1,582 is a real follow-up batch job (network/processing time, not a code gap), not yet done. |
 | **Independently-verified `meaningBn`** | Tracked per-entry via `meaningBnReviewed` (currently `false` everywhere) — a real follow-up task, not a blocker, per the user's own explicit tradeoff decision (see `docs/ROADMAP.md`). |
 | **Example verses that don't literally contain their word** (~58% of root-matched lemmas, discovered while building highlight spans — see item 9 above) | Real, measured gap: those verses illustrate the *root's* concept, not a confirmed occurrence of the exact lemma. Re-verifying/replacing them is a follow-up, not yet done. |
 | **7 proprietary Qur'an font files** | Unchanged from prior scoping — typically not freely redistributable. |
 
 ## Attribution obligations
 
-- **Quranic Arabic Corpus (GPL)**: credit/link to corpus.quran.com wherever this frequency/POS data is displayed or documented — done here and should extend to any future in-app credits screen.
-- **Quran-bil-Quran (MIT)**: attribution in an in-app credits/about section is sufficient — not yet added to `SettingsScreen`, tracked as a follow-up.
-- **risan/quran-json (CC BY-SA 4.0)**: content directly derived from it (the Bangla verse translations) must be released under a CC BY-SA-compatible license too — worth confirming doesn't conflict with the app's own licensing before a public release, not just noted here.
+All of the below are satisfied: the repo-root `NOTICE` file (also bundled at `app/src/main/assets/NOTICE.txt`) itemizes every source and license, and Settings → About → "Licenses & sources" opens it in-app.
+
+- **Quranic Arabic Corpus (GPL)**: credit/link to corpus.quran.com wherever this frequency/POS data is displayed or documented.
+- **Quran-bil-Quran (MIT)**: attribution in an in-app credits/about section.
+- **risan/quran-json (CC BY-SA 4.0)**: content directly derived from it (the Bangla verse translations, plus the AI-drafted Bangla word meanings authored alongside them) is released under CC BY-SA 4.0 as well, per `NOTICE`.
+- **EveryAyah.com + quran-align (CC BY 4.0)**: credited in `NOTICE` for the word-pronunciation audio pipeline (see the table above).
