@@ -49,12 +49,15 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
         animationSpec = MotionSpecs.countUp,
         label = "pointsEarned"
     )
+    val passed = route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
     val celebrationIntensity = if (route.accuracyPercent >= 100) CelebrationIntensity.PERFECT else CelebrationIntensity.PASSED
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Fired once (visible only ever flips false->true, never back), scaled by lesson
         // accuracy - never overlaid on Arabic/verse content, only on this gamification screen.
-        if (visible) {
+        // No confetti on a below-threshold score - reserved for genuine celebration, same
+        // guardrail AnswerFeedbackOverlay applies per-question.
+        if (visible && passed) {
             CelebrationBurst(intensity = celebrationIntensity, modifier = Modifier.fillMaxSize())
         }
 
@@ -65,7 +68,10 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(stringResource(R.string.lesson_summary_title), style = MaterialTheme.typography.headlineMedium)
+            Text(
+                stringResource(if (passed) R.string.lesson_summary_title_pass else R.string.lesson_summary_title_retry),
+                style = MaterialTheme.typography.headlineMedium
+            )
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {

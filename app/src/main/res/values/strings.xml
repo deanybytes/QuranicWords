@@ -9,7 +9,6 @@
     <string name="language_select_subtitle">You can change this later in Settings.</string>
     <string name="language_option_english">English</string>
     <string name="language_option_bangla">বাংলা</string>
-    <string name="action_continue">Continue</string>
 
     <!-- Font select -->
     <string name="font_select_title">Choose your Quran script style</string>
@@ -56,10 +55,10 @@
     <string name="listen_and_type_hint">Type what you hear</string>
 
     <!-- Lesson summary -->
-    <string name="lesson_summary_title">Lesson complete!</string>
+    <string name="lesson_summary_title_pass">Alhamdulillah! Well done!</string>
+    <string name="lesson_summary_title_retry">In-Sha-Allah, next time!</string>
     <string name="lesson_summary_points_earned">+%d points</string>
     <string name="lesson_summary_accuracy">%d%% correct</string>
-    <string name="lesson_summary_streak_days">%d day streak</string>
     <string name="lesson_summary_streak_increased">Streak extended! 🔥</string>
     <string name="lesson_summary_continue">Continue</string>
     <string name="lesson_summary_back_to_home">Back to home</string>
@@ -102,5 +101,4 @@
 
     <!-- Common -->
     <string name="action_back">Back</string>
-    <string name="action_retry">Retry</string>
 </resources>

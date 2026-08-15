@@ -9,7 +9,6 @@
     <string name="language_select_subtitle">আপনি পরে সেটিংস থেকে এটি পরিবর্তন করতে পারবেন।</string>
     <string name="language_option_english">English</string>
     <string name="language_option_bangla">বাংলা</string>
-    <string name="action_continue">চালিয়ে যান</string>
 
     <!-- Font select -->
     <string name="font_select_title">আপনার কুরআনের লিপি শৈলী বেছে নিন</string>
@@ -56,10 +55,10 @@
     <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>
 
     <!-- Lesson summary -->
-    <string name="lesson_summary_title">পাঠ সম্পন্ন হয়েছে!</string>
+    <string name="lesson_summary_title_pass">আলহামদুলিল্লাহ! চমৎকার হয়েছে!</string>
+    <string name="lesson_summary_title_retry">ইনশাআল্লাহ, পরের বার হবে!</string>
     <string name="lesson_summary_points_earned">+%d পয়েন্ট</string>
     <string name="lesson_summary_accuracy">%d%% সঠিক</string>
-    <string name="lesson_summary_streak_days">%d দিনের স্ট্রিক</string>
     <string name="lesson_summary_streak_increased">স্ট্রিক বেড়েছে! 🔥</string>
     <string name="lesson_summary_continue">চালিয়ে যান</string>
     <string name="lesson_summary_back_to_home">হোমে ফিরুন</string>
@@ -102,5 +101,4 @@
 
     <!-- Common -->
     <string name="action_back">পেছনে</string>
-    <string name="action_retry">আবার চেষ্টা করুন</string>
 </resources>
