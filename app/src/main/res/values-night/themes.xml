@@ -7,7 +7,7 @@
 
     <style name="Theme.QuranicWords.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/deany_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_qw_mark</item>
         <item name="postSplashScreenTheme">@style/Theme.QuranicWords</item>
     </style>
 </resources>

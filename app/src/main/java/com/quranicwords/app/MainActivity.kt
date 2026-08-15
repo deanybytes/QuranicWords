@@ -14,6 +14,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.core.os.LocaleListCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
             val language by viewModel.language.collectAsStateWithLifecycle()
             val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
+            val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
 
             // AppCompatDelegate.setApplicationLocales() only actually changes the process-wide
             // Configuration on API 33+ (native LocaleManager). On API 24-32 it relies on
@@ -54,7 +57,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            CompositionLocalProvider(LocalReduceMotionPreference provides reduceMotion) {
+            val scaledDensity = LocalDensity.current.let { base ->
+                Density(density = base.density, fontScale = base.fontScale * fontScale.multiplier)
+            }
+
+            CompositionLocalProvider(
+                LocalReduceMotionPreference provides reduceMotion,
+                LocalDensity provides scaledDensity
+            ) {
                 QuranicWordsTheme(themeMode = themeMode) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),

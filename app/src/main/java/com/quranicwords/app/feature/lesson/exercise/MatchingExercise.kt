@@ -2,8 +2,11 @@ package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
@@ -34,13 +38,18 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.domain.model.localizedRight
 import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
+import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.feature.lesson.MismatchEvent
 
 @Composable
 fun MatchingExerciseContent(
     content: ExerciseContent.Matching,
     matchedPairIds: Set<String>,
     pendingLeftId: String?,
+    lastMismatch: MismatchEvent?,
     onSelectLeft: (String) -> Unit,
     onSelectRight: (String) -> Unit
 ) {
@@ -60,12 +69,25 @@ fun MatchingExerciseContent(
     val leftPositions = remember(content) { mutableStateMapOf<String, Offset>() }
     val rightPositions = remember(content) { mutableStateMapOf<String, Offset>() }
     val connectorProgress = remember(content) { mutableStateMapOf<String, Animatable<Float, AnimationVector1D>>() }
+    val shakeOffsets = remember(content) { mutableStateMapOf<String, Animatable<Float, AnimationVector1D>>() }
 
     LaunchedEffect(matchedPairIds) {
         matchedPairIds.forEach { id ->
             val animatable = connectorProgress.getOrPut(id) { Animatable(0f) }
             if (animatable.value < 1f) {
                 if (reducedMotion) animatable.snapTo(1f) else animatable.animateTo(1f, tween(durationMillis = 400))
+            }
+        }
+    }
+
+    LaunchedEffect(lastMismatch) {
+        val mismatch = lastMismatch ?: return@LaunchedEffect
+        if (reducedMotion) return@LaunchedEffect
+        listOf(mismatch.leftId, mismatch.rightId).forEach { id ->
+            val animatable = shakeOffsets.getOrPut(id) { Animatable(0f) }
+            animatable.snapTo(0f)
+            listOf(10f, -8f, 6f, -4f, 0f).forEach { target ->
+                animatable.animateTo(target, animationSpec = tween(50))
             }
         }
     }
@@ -93,6 +115,7 @@ fun MatchingExerciseContent(
                             text = pair.leftArabic,
                             isMatched = isMatched,
                             isSelected = pair.id == pendingLeftId,
+                            shakeOffset = shakeOffsets[pair.id],
                             onClick = { onSelectLeft(pair.id) },
                             modifier = Modifier.onGloballyPositioned { coords ->
                                 boxCoordinates?.let { parent ->
@@ -110,6 +133,7 @@ fun MatchingExerciseContent(
                             text = pair.localizedRight(isBangla),
                             isMatched = isMatched,
                             isSelected = false,
+                            shakeOffset = shakeOffsets[pair.id],
                             onClick = { onSelectRight(pair.id) },
                             modifier = Modifier.onGloballyPositioned { coords ->
                                 boxCoordinates?.let { parent ->
@@ -151,6 +175,7 @@ private fun MatchTile(
     text: String,
     isMatched: Boolean,
     isSelected: Boolean,
+    shakeOffset: Animatable<Float, AnimationVector1D>?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -159,11 +184,26 @@ private fun MatchTile(
         isSelected -> MaterialTheme.colorScheme.secondaryContainer
         else -> MaterialTheme.colorScheme.surfaceVariant
     }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val selectionScale by animateFloatAsState(
+        targetValue = if (isSelected) 1.05f else 1f,
+        animationSpec = MotionSpecs.celebratory(),
+        label = "matchTileSelectionScale"
+    )
+
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .graphicsLayer { translationX = shakeOffset?.value ?: 0f; scaleX = selectionScale; scaleY = selectionScale }
+            .pressDepth(interactionSource),
         colors = CardDefaults.cardColors(containerColor = container),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = if (isPressed) Elevation.pressed else if (isSelected) Elevation.floating else Elevation.raised
+        ),
         onClick = onClick,
-        enabled = !isMatched
+        enabled = !isMatched,
+        interactionSource = interactionSource
     ) {
         Text(
             text = text,

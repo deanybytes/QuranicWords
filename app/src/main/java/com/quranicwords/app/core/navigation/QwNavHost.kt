@@ -21,7 +21,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.feature.home.HomeScreen
+import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
+import com.quranicwords.app.feature.wordbrowse.WordBrowseScreen
 import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
 import com.quranicwords.app.feature.onboarding.font.FontSelectScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
@@ -138,8 +140,35 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             HomeScreen(
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) },
                 onOpenReview = { navController.navigate(Route.Review) },
-                onOpenSettings = { navController.navigate(Route.Settings) }
+                onOpenSettings = { navController.navigate(Route.Settings) },
+                onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
+                onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
+                onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) }
             )
+        }
+        composable<Route.ChapterIntro>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            IntroScreen(onContinue = { navController.popBackStack() })
+        }
+        composable<Route.SectionIntro>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            IntroScreen(onContinue = { navController.popBackStack() })
+        }
+        composable<Route.WordBrowse>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            WordBrowseScreen(onBack = { navController.popBackStack() })
         }
         composable<Route.Lesson>(
             enterTransition = t.immersiveEnter,

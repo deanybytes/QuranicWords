@@ -13,12 +13,15 @@ import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.OptionsBearing
+import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.isScored
 import com.quranicwords.app.core.domain.model.practicedItemId
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.util.AppJson
 import com.quranicwords.app.core.util.AudioPlayer
+import com.quranicwords.app.core.util.SfxEffect
+import com.quranicwords.app.core.util.SfxPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,12 +33,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/** One mismatched-tap moment in a Matching exercise, for the shake animation - [token] is
+ * monotonically incrementing so a repeat mismatch of the same pair still re-triggers the shake
+ * (a plain data-class equality check wouldn't distinguish "the same wrong tap happened again"
+ * from "nothing changed"). */
+data class MismatchEvent(val token: Int, val leftId: String, val rightId: String)
+
 data class ExerciseAttemptState(
     val selectedOptionId: String? = null,
     val matchedPairIds: Set<String> = emptySet(),
     val pendingLeftId: String? = null,
     val orderedChipIds: List<String> = emptyList(),
-    val typedAnswer: String = ""
+    val typedAnswer: String = "",
+    val lastMismatch: MismatchEvent? = null,
+    val selectedSpan: WordSpan? = null
 )
 
 data class LessonUiState(
@@ -59,6 +70,7 @@ class LessonViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val userIdProvider: CurrentUserIdProvider,
     private val audioPlayer: AudioPlayer,
+    private val sfxPlayer: SfxPlayer,
     savedStateHandle: androidx.lifecycle.SavedStateHandle
 ) : ViewModel() {
 
@@ -231,10 +243,34 @@ class LessonViewModel @Inject constructor(
             matchedPair?.wordId?.let { wordId ->
                 logAttempt(itemId = wordId, exerciseType = ExerciseType.MATCHING, correct = true)
             }
-            if (newMatched.size == content.pairs.size) finalizeCheck(true)
+            if (newMatched.size == content.pairs.size) {
+                finalizeCheck(true)
+            } else {
+                // Immediate per-pair feedback, not just at full-exercise completion - the last
+                // pair's ding is already covered by finalizeCheck above.
+                viewModelScope.launch { sfxPlayer.play(SfxEffect.CORRECT) }
+            }
         } else {
-            _uiState.update { it.copy(attempt = it.attempt.copy(pendingLeftId = null)) }
+            val mismatchToken = (state.attempt.lastMismatch?.token ?: 0) + 1
+            _uiState.update {
+                it.copy(
+                    attempt = it.attempt.copy(
+                        pendingLeftId = null,
+                        lastMismatch = MismatchEvent(mismatchToken, pendingLeft, pairId)
+                    )
+                )
+            }
+            viewModelScope.launch { sfxPlayer.play(SfxEffect.WRONG) }
         }
+    }
+
+    fun selectVerseWord(span: WordSpan) {
+        val state = _uiState.value
+        val content = state.currentContent as? ExerciseContent.TapWordInVerse ?: return
+        if (state.attempt.selectedSpan != null) return // one-shot, no retry
+        _uiState.update { it.copy(attempt = it.attempt.copy(selectedSpan = span)) }
+        val correct = span.start == content.correctWordStart && span.end == content.correctWordEnd
+        finalizeCheck(correct)
     }
 
     private fun finalizeCheck(correct: Boolean) {
@@ -246,12 +282,14 @@ class LessonViewModel @Inject constructor(
                 correctCount = it.correctCount + if (correct) 1 else 0
             )
         }
+        viewModelScope.launch { sfxPlayer.play(if (correct) SfxEffect.CORRECT else SfxEffect.WRONG) }
         val exerciseType = when (content) {
             is ExerciseContent.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE
             is ExerciseContent.TapWhatYouHear -> ExerciseType.TAP_WHAT_YOU_HEAR
             is ExerciseContent.FillInTheBlank -> ExerciseType.FILL_IN_THE_BLANK
             is ExerciseContent.WordOrderBuilder -> ExerciseType.WORD_ORDER
             is ExerciseContent.ListenAndType -> ExerciseType.LISTEN_AND_TYPE
+            is ExerciseContent.TapWordInVerse -> ExerciseType.WORD_IN_VERSE_TAP
             else -> return // Matching logs per-pair in selectMatchingRight; teach steps never reach here
         }
         val itemId = content.practicedItemId() ?: return

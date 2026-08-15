@@ -69,10 +69,10 @@ class GeneratedContentParsesTest {
     @Test
     fun `vocabulary exercises decode and every teach step is a WordIntro`() {
         val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        assertEquals(17540, exercises.exercises.size)
+        assertEquals(19122, exercises.exercises.size)
 
         val entities = exercises.exercises.map { it.toEntity() }
-        assertEquals(17540, entities.size)
+        assertEquals(19122, entities.size)
 
         val teachCount = exercises.exercises.count { it.content is ExerciseContent.WordIntro }
         assertEquals(3680, teachCount)
@@ -82,6 +82,19 @@ class GeneratedContentParsesTest {
 
         val matchCount = exercises.exercises.count { it.content is ExerciseContent.Matching }
         assertEquals(800, matchCount)
+
+        // Reverse-direction "tap the word in the verse" quiz - only for words with a confirmed
+        // arabicWordStart/End span (see docs/CONTENT_SOURCES.md item 9).
+        val tapWordCount = exercises.exercises.count { it.content is ExerciseContent.TapWordInVerse }
+        assertEquals(1582, tapWordCount)
+
+        // Every TapWordInVerse's correct span must actually be one of its own tappable spans -
+        // otherwise the UI could never register a correct tap.
+        exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.TapWordInVerse>().forEach {
+            assertTrue(
+                it.tappableSpans.any { span -> span.start == it.correctWordStart && span.end == it.correctWordEnd }
+            )
+        }
     }
 
     @Test

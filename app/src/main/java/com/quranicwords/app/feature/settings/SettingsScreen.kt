@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
@@ -64,6 +65,7 @@ fun SettingsScreen(
     val fontStyle by viewModel.fontStyle.collectAsStateWithLifecycle()
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
+    val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val backupUiState by viewModel.backupUiState.collectAsStateWithLifecycle()
     val audioDownloadUiState by viewModel.audioDownloadUiState.collectAsStateWithLifecycle()
     val isBangla = rememberIsBanglaSelected()
@@ -163,6 +165,23 @@ fun SettingsScreen(
             ) {
                 Text(stringResource(R.string.settings_sound_effects_label), style = MaterialTheme.typography.labelLarge)
                 Switch(checked = soundEnabled, onCheckedChange = viewModel::setSoundEnabled)
+            }
+
+            Text(stringResource(R.string.settings_font_scale_label), style = MaterialTheme.typography.labelLarge)
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                val options = listOf(
+                    FontScale.SMALL to stringResource(R.string.settings_font_scale_small),
+                    FontScale.DEFAULT to stringResource(R.string.settings_font_scale_default),
+                    FontScale.LARGE to stringResource(R.string.settings_font_scale_large),
+                    FontScale.EXTRA_LARGE to stringResource(R.string.settings_font_scale_extra_large)
+                )
+                options.forEachIndexed { index, (scale, label) ->
+                    SegmentedButton(
+                        selected = fontScale == scale,
+                        onClick = { viewModel.setFontScale(scale) },
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
+                    ) { Text(label) }
+                }
             }
 
             SectionTitle(stringResource(R.string.settings_section_audio))

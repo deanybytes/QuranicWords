@@ -56,6 +56,14 @@ fun SplashScreen(
         animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
         label = "splashLogoScale"
     )
+    // A slight unfurl-from-rotated-start on the mark itself, on top of QwLogo's own idle glow -
+    // settles to upright as the scale-in spring finishes, echoing an opening/unfolding motion
+    // without literally depicting a book or page (see this file's own guardrail below).
+    val logoRotation by animateFloatAsState(
+        targetValue = if (revealed) 0f else -16f,
+        animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
+        label = "splashLogoRotation"
+    )
     val patternAlpha by animateFloatAsState(
         targetValue = if (revealed) 0.08f else 0f,
         animationSpec = if (reducedMotion) tween(durationMillis = 0) else tween(durationMillis = 900),
@@ -74,7 +82,13 @@ fun SplashScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                QwLogo(modifier = Modifier.graphicsLayer { scaleX = logoScale; scaleY = logoScale })
+                QwLogo(
+                    modifier = Modifier.graphicsLayer {
+                        scaleX = logoScale
+                        scaleY = logoScale
+                        rotationZ = logoRotation
+                    }
+                )
                 Spacer(modifier = Modifier.height(24.dp))
                 CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             }

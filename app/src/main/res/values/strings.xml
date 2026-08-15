@@ -16,6 +16,19 @@
     <string name="font_select_subtitle">This is a preview of Surah Al-Kawthar, the shortest surah, in each style.</string>
     <string name="font_pending_note">This style\'s licensed font file isn\'t bundled yet, showing the default script for now.</string>
 
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">Chapter</string>
+    <string name="intro_section_label">Section</string>
+    <string name="intro_word_count">In-Sha-Allah, we will learn %1$d words here.</string>
+    <string name="intro_occurrence_percent">These words make up %1$s%% of all word occurrences in the Qur\'an.</string>
+    <string name="intro_cumulative_percent">After finishing, you\'ll have covered %1$s%% of the Qur\'an\'s vocabulary so far.</string>
+    <string name="intro_start_button">Begin</string>
+    <string name="intro_skip_button">Skip</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">Browse words</string>
+    <string name="word_browse_empty">No words to browse yet.</string>
+
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Locked</string>
@@ -28,6 +41,8 @@
     <string name="lesson_continue_button">Continue</string>
     <string name="lesson_finish_button">Finish lesson</string>
     <string name="lesson_feedback_correct">Correct!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">Alhamdulillah!</string>
+    <string name="lesson_feedback_incorrect_tryagain">In-Sha-Allah, next time!</string>
     <string name="lesson_feedback_incorrect_with_answer">Not quite. The answer was %s.</string>
     <string name="lesson_exit_confirm_title">Leave this lesson?</string>
     <string name="lesson_exit_confirm_message">Your progress in this lesson won\'t be saved.</string>
@@ -60,6 +75,11 @@
     <string name="settings_quran_font_label">Quran script style</string>
     <string name="settings_reduce_motion_label">Reduce motion</string>
     <string name="settings_sound_effects_label">Sound effects</string>
+    <string name="settings_font_scale_label">Text size</string>
+    <string name="settings_font_scale_small">Small</string>
+    <string name="settings_font_scale_default">Default</string>
+    <string name="settings_font_scale_large">Large</string>
+    <string name="settings_font_scale_extra_large">Extra large</string>
     <string name="settings_section_audio">Audio</string>
     <string name="settings_audio_download_description">Word pronunciation clips stream on demand by default. Download them all once to play instantly and work fully offline.</string>
     <string name="settings_audio_download_button">Download all pronunciation audio</string>

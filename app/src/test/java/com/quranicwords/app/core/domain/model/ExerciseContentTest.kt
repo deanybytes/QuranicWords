@@ -34,6 +34,7 @@ class ExerciseContentTest {
         promptEn = "Fill in the blank", promptBn = "শূন্যস্থান পূরণ করুন",
         wordId = wordId, sentenceArabic = "بِسْمِ ٱللَّهِ", blankStart = 5, blankEnd = 10,
         sentenceTranslationEn = "In the name of Allah", sentenceTranslationBn = "আল্লাহর নামে",
+        sentenceReference = "1:1",
         options = listOf(ChoiceOption(id = wordId, labelEn = "Allah")), correctOptionId = wordId
     )
 

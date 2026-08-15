@@ -12,5 +12,6 @@ enum class ExerciseType {
     TEACH_WORD,
     FILL_IN_THE_BLANK,
     WORD_ORDER,
-    LISTEN_AND_TYPE
+    LISTEN_AND_TYPE,
+    WORD_IN_VERSE_TAP
 }

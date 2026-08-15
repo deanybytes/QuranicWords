@@ -101,6 +101,10 @@ sealed interface ExerciseContent {
         val blankEnd: Int,
         val sentenceTranslationEn: String,
         val sentenceTranslationBn: String,
+        /** Sura:ayah this sentence is quoted from - every verse shown anywhere in the app must
+         * carry its reference (see the verse-reference completeness pass this field closed a gap
+         * in; previously this type showed quoted Qur'anic text with no citation at all). */
+        val sentenceReference: String,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
     ) : OptionsBearing {
@@ -147,7 +151,37 @@ sealed interface ExerciseContent {
         val correctAnswer: String,
         val acceptedAnswers: List<String> = emptyList()
     ) : ExerciseContent
+
+    /**
+     * The "reverse direction" quiz: [meaningEn]/[meaningBn] are shown as the prompt (instead of
+     * the Arabic word), and the learner taps the matching word directly inside [verseArabic] -
+     * every whitespace-delimited word in the verse is one entry in [tappableSpans], so the UI can
+     * render each as its own tappable region rather than only the correct one (otherwise this
+     * isn't really a "find the word" interaction). [correctWordStart]/[correctWordEnd] identify
+     * which span is correct; one-shot like [MultipleChoice] (no retry within the same exercise
+     * instance) for consistent scoring semantics across types.
+     */
+    @Serializable
+    @SerialName("word_in_verse_tap")
+    data class TapWordInVerse(
+        override val promptEn: String,
+        override val promptBn: String,
+        val wordId: String,
+        val verseArabic: String,
+        val verseReference: String,
+        val correctWordStart: Int,
+        val correctWordEnd: Int,
+        val tappableSpans: List<WordSpan>,
+        val meaningEn: String,
+        val meaningBn: String
+    ) : ExerciseContent
 }
+
+/** A char `[start, end)` range within [ExerciseContent.TapWordInVerse.verseArabic] - a plain
+ * serializable pair rather than [IntRange], which kotlinx.serialization doesn't support out of
+ * the box. */
+@Serializable
+data class WordSpan(val start: Int, val end: Int)
 
 /** Shared shape for the three quiz types whose distractor options get regenerated at runtime
  * (see `LessonViewModel.regenerateDistractors`) - lets that call site handle all three with one
@@ -168,7 +202,8 @@ val ExerciseContent.isScored: Boolean
     get() = when (this) {
         is ExerciseContent.WordIntro -> false
         is ExerciseContent.MultipleChoice, is ExerciseContent.TapWhatYouHear, is ExerciseContent.Matching,
-        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder, is ExerciseContent.ListenAndType -> true
+        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder, is ExerciseContent.ListenAndType,
+        is ExerciseContent.TapWordInVerse -> true
     }
 
 /**
@@ -184,6 +219,7 @@ fun ExerciseContent.practicedItemId(): String? = when (this) {
     is ExerciseContent.FillInTheBlank -> wordId
     is ExerciseContent.WordOrderBuilder -> wordId
     is ExerciseContent.ListenAndType -> wordId
+    is ExerciseContent.TapWordInVerse -> wordId
     is ExerciseContent.Matching, is ExerciseContent.WordIntro -> null
 }
 

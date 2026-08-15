@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.ThemeMode
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,9 @@ class MainViewModel @Inject constructor(
 
     val reduceMotion: StateFlow<Boolean> = preferences.reduceMotionFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val fontScale: StateFlow<FontScale> = preferences.fontScaleFlow
+        .stateIn(viewModelScope, SharingStarted.Eagerly, FontScale.DEFAULT)
 
     init {
         // If the system-level per-app language (Android 13+ Settings > App languages, or a prior

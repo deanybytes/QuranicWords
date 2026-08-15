@@ -10,6 +10,7 @@ import androidx.work.WorkManager
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.sync.AudioBulkDownloadWorker
+import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
@@ -68,6 +69,9 @@ class SettingsViewModel @Inject constructor(
     val soundEnabled: StateFlow<Boolean> =
         preferences.soundEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
+    val fontScale: StateFlow<FontScale> =
+        preferences.fontScaleFlow.stateIn(viewModelScope, SharingStarted.Eagerly, FontScale.DEFAULT)
+
     private val _backupUiState = MutableStateFlow(BackupUiState())
     val backupUiState: StateFlow<BackupUiState> = _backupUiState.asStateFlow()
 
@@ -99,6 +103,10 @@ class SettingsViewModel @Inject constructor(
 
     fun setSoundEnabled(enabled: Boolean) {
         viewModelScope.launch { preferences.setSoundEnabled(enabled) }
+    }
+
+    fun setFontScale(scale: FontScale) {
+        viewModelScope.launch { preferences.setFontScale(scale) }
     }
 
     fun setThemeMode(mode: ThemeMode) {

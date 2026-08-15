@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.navigation.Route
+import com.quranicwords.app.core.util.SfxEffect
+import com.quranicwords.app.core.util.SfxPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,13 +18,15 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
-    private val preferences: UserPreferencesDataStore
+    private val preferences: UserPreferencesDataStore,
+    private val sfxPlayer: SfxPlayer
 ) : ViewModel() {
 
     private val _destination = MutableStateFlow<Route?>(null)
     val destination: StateFlow<Route?> = _destination.asStateFlow()
 
     init {
+        viewModelScope.launch { sfxPlayer.play(SfxEffect.OPENING) }
         viewModelScope.launch {
             contentRepository.ensureSeeded()
 

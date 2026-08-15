@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -71,6 +73,9 @@ fun HomeScreen(
     onOpenLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenChapterIntro: (String) -> Unit,
+    onOpenSectionIntro: (String) -> Unit,
+    onOpenWordBrowse: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -119,18 +124,30 @@ fun HomeScreen(
                     item(key = "chapter_${chapter.id}") {
                         Text(
                             if (isBangla) chapter.titleBn else chapter.titleEn,
-                            style = MaterialTheme.typography.headlineSmall
+                            style = MaterialTheme.typography.headlineSmall,
+                            modifier = Modifier.clickable { onOpenChapterIntro(chapter.id) }
                         )
                     }
 
                     chapterWithSections.sections.forEach { sectionWithLessons ->
                         val section = sectionWithLessons.section
                         item(key = "section_${section.id}") {
-                            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 Text(
                                     if (isBangla) section.titleBn else section.titleEn,
-                                    style = MaterialTheme.typography.titleLarge
+                                    style = MaterialTheme.typography.titleLarge,
+                                    modifier = Modifier.clickable { onOpenSectionIntro(section.id) }
                                 )
+                                IconButton(onClick = { onOpenWordBrowse(section.id) }) {
+                                    Icon(
+                                        Icons.Filled.Style,
+                                        contentDescription = stringResource(R.string.word_browse_title)
+                                    )
+                                }
                             }
                         }
 

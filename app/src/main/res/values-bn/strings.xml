@@ -16,6 +16,19 @@
     <string name="font_select_subtitle">এটি সবচেয়ে ছোট সূরা, সূরা আল-কাউসারের একটি প্রিভিউ, প্রতিটি শৈলীতে।</string>
     <string name="font_pending_note">এই শৈলীর লাইসেন্সকৃত ফন্ট ফাইল এখনো যুক্ত করা হয়নি, আপাতত ডিফল্ট লিপি দেখানো হচ্ছে।</string>
 
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">অধ্যায়</string>
+    <string name="intro_section_label">বিভাগ</string>
+    <string name="intro_word_count">ইনশাআল্লাহ, আমরা এখানে %1$d টি শব্দ শিখব।</string>
+    <string name="intro_occurrence_percent">এই শব্দগুলো কুরআনের মোট শব্দ ব্যবহারের %1$s%% তৈরি করে।</string>
+    <string name="intro_cumulative_percent">শেষ করার পর, আপনি কুরআনের শব্দভাণ্ডারের %1$s%% আয়ত্ত করে ফেলবেন।</string>
+    <string name="intro_start_button">শুরু করুন</string>
+    <string name="intro_skip_button">এড়িয়ে যান</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">শব্দ দেখুন</string>
+    <string name="word_browse_empty">এখনো দেখার মতো কোনো শব্দ নেই।</string>
+
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">লক করা</string>
@@ -28,6 +41,8 @@
     <string name="lesson_continue_button">চালিয়ে যান</string>
     <string name="lesson_finish_button">পাঠ শেষ করুন</string>
     <string name="lesson_feedback_correct">সঠিক!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">আলহামদুলিল্লাহ!</string>
+    <string name="lesson_feedback_incorrect_tryagain">ইনশাআল্লাহ, পরের বার হবে!</string>
     <string name="lesson_feedback_incorrect_with_answer">ঠিক হয়নি। সঠিক উত্তর ছিল %s।</string>
     <string name="lesson_exit_confirm_title">এই পাঠ ছেড়ে যাবেন?</string>
     <string name="lesson_exit_confirm_message">এই পাঠের অগ্রগতি সংরক্ষিত হবে না।</string>
@@ -60,6 +75,11 @@
     <string name="settings_quran_font_label">কুরআনের লিপি শৈলী</string>
     <string name="settings_reduce_motion_label">অ্যানিমেশন কমান</string>
     <string name="settings_sound_effects_label">সাউন্ড ইফেক্ট</string>
+    <string name="settings_font_scale_label">লেখার আকার</string>
+    <string name="settings_font_scale_small">ছোট</string>
+    <string name="settings_font_scale_default">ডিফল্ট</string>
+    <string name="settings_font_scale_large">বড়</string>
+    <string name="settings_font_scale_extra_large">অতিরিক্ত বড়</string>
     <string name="settings_section_audio">অডিও</string>
     <string name="settings_audio_download_description">শব্দ উচ্চারণের ক্লিপ ডিফল্টভাবে চাহিদা অনুযায়ী স্ট্রিম হয়। সাথে সাথে চালানো ও সম্পূর্ণ অফলাইনে ব্যবহারের জন্য একবারে সব ডাউনলোড করুন।</string>
     <string name="settings_audio_download_button">সব উচ্চারণ অডিও ডাউনলোড করুন</string>

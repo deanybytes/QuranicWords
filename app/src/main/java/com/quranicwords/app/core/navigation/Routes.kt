@@ -8,6 +8,9 @@ sealed interface Route {
     @Serializable data object LanguageSelect : Route
     @Serializable data object FontSelect : Route
     @Serializable data object Home : Route
+    @Serializable data class ChapterIntro(val chapterId: String) : Route
+    @Serializable data class SectionIntro(val sectionId: String) : Route
+    @Serializable data class WordBrowse(val sectionId: String) : Route
     @Serializable data class Lesson(val lessonId: String) : Route
     /** The dynamic Review session (see `LessonViewModel.isReviewSession`) - a distinct route
      * rather than a sentinel `lessonId` string, so it can never collide with a real lesson id. */

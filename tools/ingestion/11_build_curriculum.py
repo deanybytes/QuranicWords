@@ -42,6 +42,8 @@ MATCH_PROMPT_EN = "Match each word to its meaning."
 MATCH_PROMPT_BN = "প্রতিটি শব্দকে এর অর্থের সাথে মেলান।"
 EXAM_PROMPT_EN = "What does this word mean?"
 EXAM_PROMPT_BN = "এই শব্দের অর্থ কী?"
+TAP_WORD_PROMPT_EN = "Tap the word that means:"
+TAP_WORD_PROMPT_BN = "যে শব্দের অর্থ এটি, সেটিতে চাপ দিন:"
 
 
 def load(name):
@@ -57,6 +59,21 @@ def dump(name, payload):
 
 def chunk(seq, size):
     return [seq[i:i + size] for i in range(0, len(seq), size)]
+
+
+def compute_word_spans(text):
+    """Whitespace-delimited char [start, end) spans, matching how quran-align (and the
+    TapWordInVerse tappable-word UI) tokenizes verse text - a plain split() with position
+    tracking, no punctuation/diacritic special-casing needed since Arabic word boundaries here
+    are exactly the whitespace gaps."""
+    spans = []
+    i = 0
+    for token in text.split(" "):
+        if token:
+            start = text.index(token, i)
+            spans.append({"start": start, "end": start + len(token)})
+            i = start + len(token)
+    return spans
 
 
 def even_sample(items, cap):
@@ -120,6 +137,29 @@ def main():
                 "exerciseType": "MULTIPLE_CHOICE", "content": mc,
             })
             order += 1
+
+            # Reverse-direction "tap the word in the verse" quiz - only possible for words whose
+            # exact position within their example verse is confirmed (arabicWordStart/End), not
+            # guessed. See docs/CONTENT_SOURCES.md item 9 for why only ~43% of words qualify.
+            start, end = wi.get("arabicWordStart"), wi.get("arabicWordEnd")
+            if start is not None and end is not None:
+                verse = wi["exampleVerseArabic"]
+                spans = compute_word_spans(verse)
+                if any(s["start"] == start and s["end"] == end for s in spans):
+                    exercises.append({
+                        "id": next_exercise_id(), "lessonId": lesson_id, "orderIndex": order,
+                        "exerciseType": "WORD_IN_VERSE_TAP",
+                        "content": {
+                            "type": "word_in_verse_tap",
+                            "promptEn": TAP_WORD_PROMPT_EN, "promptBn": TAP_WORD_PROMPT_BN,
+                            "wordId": w["id"], "verseArabic": verse,
+                            "verseReference": wi["exampleVerseReference"],
+                            "correctWordStart": start, "correctWordEnd": end,
+                            "tappableSpans": spans,
+                            "meaningEn": w["meaningEn"], "meaningBn": w["meaningBn"],
+                        },
+                    })
+                    order += 1
         for pair_words in chunk(lesson_words, PAIRS_PER_MATCH):
             pairs = [
                 {

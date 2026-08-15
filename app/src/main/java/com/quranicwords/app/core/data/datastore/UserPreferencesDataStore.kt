@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
@@ -40,6 +41,7 @@ class UserPreferencesDataStore @Inject constructor(
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
         val AUDIO_OFFLINE_MODE = booleanPreferencesKey("audio_offline_mode")
+        val FONT_SCALE = stringPreferencesKey("font_scale")
     }
 
     /**
@@ -125,5 +127,12 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setAudioOfflineMode(enabled: Boolean) {
         context.dataStore.edit { it[Keys.AUDIO_OFFLINE_MODE] = enabled }
+    }
+
+    val fontScaleFlow: Flow<FontScale> =
+        context.dataStore.data.map { FontScale.fromName(it[Keys.FONT_SCALE]) }
+
+    suspend fun setFontScale(scale: FontScale) {
+        context.dataStore.edit { it[Keys.FONT_SCALE] = scale.name }
     }
 }
