@@ -20,11 +20,12 @@ import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.core.ui.theme.StreakAccent
 
 /**
- * The QuranicWords brand mark (`ic_qw_mark.xml` - a geometric eight-pointed star, no bundled
- * raster asset), used everywhere the app shows its identity (splash, Settings About). A slow,
- * subtle glow pulse behind the mark is the "excellent animation" this is meant to carry - not a
- * spin or bounce, since a logo should read as calm/premium rather than playful. No-ops to a
- * static mark under reduced motion.
+ * The QuranicWords brand mark (`drawable-nodpi/ic_qw_mark.png`, sourced from `assets/image/LOGO.png`
+ * - a circular badge: dark-green field, gold ring, geometric leaf/diamond motif and minaret, no
+ * human faces), used everywhere the app shows its identity (splash, onboarding, Settings About,
+ * chapter/section intro, word-browse). A slow, subtle glow pulse behind the mark is the animation
+ * this is meant to carry - not a spin or bounce, since a logo should read as calm/premium rather
+ * than playful. No-ops to a static mark under reduced motion.
  */
 @Composable
 fun QwLogo(modifier: Modifier = Modifier, size: Dp = 96.dp) {
