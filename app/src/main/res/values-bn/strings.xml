@@ -79,6 +79,15 @@
     <string name="settings_font_scale_default">ডিফল্ট</string>
     <string name="settings_font_scale_large">বড়</string>
     <string name="settings_font_scale_extra_large">অতিরিক্ত বড়</string>
+    <string name="settings_section_notifications">নোটিফিকেশন</string>
+    <string name="settings_streak_reminder_label">স্ট্রিক রিমাইন্ডার</string>
+    <string name="settings_streak_reminder_description">আজ এখনও অনুশীলন না করলে এবং রক্ষা করার মতো স্ট্রিক থাকলে একটি স্থানীয় (অন-ডিভাইস) রিমাইন্ডার। নেটওয়ার্কে কিছুই পাঠানো হয় না।</string>
+    <string name="settings_streak_reminder_time_label">রিমাইন্ডারের সময়</string>
+    <string name="settings_streak_reminder_permission_denied">সিস্টেম সেটিংসে QuranicWords-এর জন্য নোটিফিকেশন বন্ধ আছে, তাই রিমাইন্ডার দেখানো যাবে না।</string>
+    <string name="notification_channel_streak_name">স্ট্রিক রিমাইন্ডার</string>
+    <string name="notification_channel_streak_description">আপনার অনুশীলনের স্ট্রিক ভাঙার ঝুঁকিতে থাকলে স্থানীয় রিমাইন্ডার।</string>
+    <string name="notification_streak_title">আপনার স্ট্রিক হারাবেন না!</string>
+    <string name="notification_streak_body">আপনার %1$d দিনের স্ট্রিক আছে — এটি ধরে রাখতে আজ অনুশীলন করুন।</string>
     <string name="settings_section_audio">অডিও</string>
     <string name="settings_audio_download_description">শব্দ উচ্চারণের ক্লিপ ডিফল্টভাবে চাহিদা অনুযায়ী স্ট্রিম হয়। সাথে সাথে চালানো ও সম্পূর্ণ অফলাইনে ব্যবহারের জন্য একবারে সব ডাউনলোড করুন।</string>
     <string name="settings_audio_download_button">সব উচ্চারণ অডিও ডাউনলোড করুন</string>
@@ -101,4 +110,5 @@
 
     <!-- Common -->
     <string name="action_back">পেছনে</string>
+    <string name="action_confirm">নিশ্চিত করুন</string>
 </resources>

@@ -42,6 +42,9 @@ class UserPreferencesDataStore @Inject constructor(
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
         val AUDIO_OFFLINE_MODE = booleanPreferencesKey("audio_offline_mode")
         val FONT_SCALE = stringPreferencesKey("font_scale")
+        val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
+        val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
+        val STREAK_REMINDER_MINUTE = intPreferencesKey("streak_reminder_minute")
     }
 
     /**
@@ -134,5 +137,29 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setFontScale(scale: FontScale) {
         context.dataStore.edit { it[Keys.FONT_SCALE] = scale.name }
+    }
+
+    /** Opt-in "streak at risk" local reminder (Settings screen) - off by default, unlike
+     * [soundEnabledFlow]. See [com.quranicwords.app.core.util.StreakReminderScheduler]. */
+    val streakReminderEnabledFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.STREAK_REMINDER_ENABLED] == true }
+
+    /** Hour/minute (24h, local time) the reminder fires at - defaults to 20:00. Stored separately
+     * rather than as one packed value so each half can default independently if only one is ever
+     * written (shouldn't happen via [setStreakReminderTime], but keeps the flow robust either way). */
+    val streakReminderHourFlow: Flow<Int> =
+        context.dataStore.data.map { it[Keys.STREAK_REMINDER_HOUR] ?: 20 }
+    val streakReminderMinuteFlow: Flow<Int> =
+        context.dataStore.data.map { it[Keys.STREAK_REMINDER_MINUTE] ?: 0 }
+
+    suspend fun setStreakReminderEnabled(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.STREAK_REMINDER_ENABLED] = enabled }
+    }
+
+    suspend fun setStreakReminderTime(hour: Int, minute: Int) {
+        context.dataStore.edit {
+            it[Keys.STREAK_REMINDER_HOUR] = hour
+            it[Keys.STREAK_REMINDER_MINUTE] = minute
+        }
     }
 }

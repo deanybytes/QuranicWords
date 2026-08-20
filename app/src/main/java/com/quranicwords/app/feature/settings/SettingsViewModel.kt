@@ -15,6 +15,7 @@ import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.repository.BackupRepository
+import com.quranicwords.app.core.util.StreakReminderScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +50,8 @@ data class AudioDownloadUiState(
 class SettingsViewModel @Inject constructor(
     @ApplicationContext context: Context,
     private val preferences: UserPreferencesDataStore,
-    private val backupRepository: BackupRepository
+    private val backupRepository: BackupRepository,
+    private val streakReminderScheduler: StreakReminderScheduler
 ) : ViewModel() {
 
     private val workManager = WorkManager.getInstance(context)
@@ -71,6 +73,15 @@ class SettingsViewModel @Inject constructor(
 
     val fontScale: StateFlow<FontScale> =
         preferences.fontScaleFlow.stateIn(viewModelScope, SharingStarted.Eagerly, FontScale.DEFAULT)
+
+    val streakReminderEnabled: StateFlow<Boolean> =
+        preferences.streakReminderEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val streakReminderHour: StateFlow<Int> =
+        preferences.streakReminderHourFlow.stateIn(viewModelScope, SharingStarted.Eagerly, 20)
+
+    val streakReminderMinute: StateFlow<Int> =
+        preferences.streakReminderMinuteFlow.stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
     private val _backupUiState = MutableStateFlow(BackupUiState())
     val backupUiState: StateFlow<BackupUiState> = _backupUiState.asStateFlow()
@@ -107,6 +118,28 @@ class SettingsViewModel @Inject constructor(
 
     fun setFontScale(scale: FontScale) {
         viewModelScope.launch { preferences.setFontScale(scale) }
+    }
+
+    /** Called only after the caller (Settings screen) has confirmed POST_NOTIFICATIONS is granted
+     * on API 33+ - permission UI is a Compose/Activity concern, kept out of this ViewModel. */
+    fun setStreakReminderEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferences.setStreakReminderEnabled(enabled)
+            if (enabled) {
+                streakReminderScheduler.schedule(streakReminderHour.value, streakReminderMinute.value)
+            } else {
+                streakReminderScheduler.cancel()
+            }
+        }
+    }
+
+    fun setStreakReminderTime(hour: Int, minute: Int) {
+        viewModelScope.launch {
+            preferences.setStreakReminderTime(hour, minute)
+            if (streakReminderEnabled.value) {
+                streakReminderScheduler.schedule(hour, minute)
+            }
+        }
     }
 
     fun setThemeMode(mode: ThemeMode) {

@@ -79,6 +79,15 @@
     <string name="settings_font_scale_default">Default</string>
     <string name="settings_font_scale_large">Large</string>
     <string name="settings_font_scale_extra_large">Extra large</string>
+    <string name="settings_section_notifications">Notifications</string>
+    <string name="settings_streak_reminder_label">Streak reminder</string>
+    <string name="settings_streak_reminder_description">A local, on-device reminder if you haven\'t practiced yet today and have a streak to protect. Nothing is sent over the network.</string>
+    <string name="settings_streak_reminder_time_label">Reminder time</string>
+    <string name="settings_streak_reminder_permission_denied">Notifications are turned off for QuranicWords in system settings, so the reminder won\'t be shown.</string>
+    <string name="notification_channel_streak_name">Streak reminders</string>
+    <string name="notification_channel_streak_description">Local reminders when your practice streak is at risk of breaking.</string>
+    <string name="notification_streak_title">Don\'t lose your streak!</string>
+    <string name="notification_streak_body">You have a %1$d-day streak — practice today to keep it going.</string>
     <string name="settings_section_audio">Audio</string>
     <string name="settings_audio_download_description">Word pronunciation clips stream on demand by default. Download them all once to play instantly and work fully offline.</string>
     <string name="settings_audio_download_button">Download all pronunciation audio</string>
@@ -101,4 +110,5 @@
 
     <!-- Common -->
     <string name="action_back">Back</string>
+    <string name="action_confirm">Confirm</string>
 </resources>

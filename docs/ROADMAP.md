@@ -29,7 +29,7 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 | **Re-verify root-matched example verses** | ~58% of root-matched vocabulary lemmas' "example verse" comes from the root's own curated list and was never confirmed to literally contain that exact lemma (discovered while building highlight spans — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md)); affects both pedagogical accuracy and highlight coverage |
 | **Real branching curriculum-tree graph** | `HomeScreen` ships a winding linear path (motion, staggered node layout), not a *branching* visual tree |
 | **Admin/content-authoring tooling** | A CMS so lessons can be added without an app release |
-| **Push notifications / streak reminders** | Not built |
+| ~~**Push notifications / streak reminders**~~ | ✅ Done — opt-in, local-only (`StreakReminderWorker`/`StreakReminderScheduler`, WorkManager `PeriodicWorkRequest`, no `AlarmManager`/`BOOT_COMPLETED` receiver needed). Configurable in Settings → Notifications (time-of-day picker), only fires when there's an actual streak at risk of breaking. Respects the Android 13+ `POST_NOTIFICATIONS` runtime permission flow. |
 | **Achievements/badges beyond raw points** | Not built |
 | **Full male-voice audio pipeline** | `AudioPlayer`/`WordIntroExercise`/`TapWhatYouHear` all exist and degrade gracefully; `audioAssetPath` fields are populated as intentional forward references but no real audio clips are bundled — EveryAyah + quran-align (CC BY 4.0) are sourced and ready to ingest, not yet done |
 | **Independently-verified Bangla vocabulary meanings** | AI-drafted for now, tracked via `meaningBnReviewed` — see the callout above |

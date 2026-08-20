@@ -1,5 +1,8 @@
 package com.quranicwords.app.feature.settings
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +35,10 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
@@ -71,17 +78,42 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
+    val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
+    val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
+    val streakReminderMinute by viewModel.streakReminderMinute.collectAsStateWithLifecycle()
     val backupUiState by viewModel.backupUiState.collectAsStateWithLifecycle()
     val audioDownloadUiState by viewModel.audioDownloadUiState.collectAsStateWithLifecycle()
     val isBangla = rememberIsBanglaSelected()
     val context = LocalContext.current
     var showLicenses by remember { mutableStateOf(false) }
+    var showTimePicker by remember { mutableStateOf(false) }
+    var notificationPermissionDenied by remember { mutableStateOf(false) }
 
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
         uri?.let { context.contentResolver.openOutputStream(it)?.let(viewModel::exportBackup) }
     }
     val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let { context.contentResolver.openInputStream(it)?.let(viewModel::importBackup) }
+    }
+    // POST_NOTIFICATIONS is only a real runtime permission on API 33+ - below that, notifications
+    // just work, so the switch enables immediately without a request round-trip.
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        notificationPermissionDenied = !granted
+        if (granted) viewModel.setStreakReminderEnabled(true)
+    }
+    fun onStreakReminderToggled(enabled: Boolean) {
+        if (!enabled) {
+            viewModel.setStreakReminderEnabled(false)
+            return
+        }
+        val alreadyGranted = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        if (alreadyGranted) {
+            notificationPermissionDenied = false
+            viewModel.setStreakReminderEnabled(true)
+        } else {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     LaunchedEffect(backupUiState.lastMessageResId) {
@@ -193,6 +225,43 @@ fun SettingsScreen(
         } }
 
         StaggeredEntrance(index = 1) { SettingsSectionCard {
+            SectionTitle(stringResource(R.string.settings_section_notifications))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(R.string.settings_streak_reminder_label), style = MaterialTheme.typography.labelLarge)
+                Switch(checked = streakReminderEnabled, onCheckedChange = ::onStreakReminderToggled)
+            }
+            Text(
+                stringResource(R.string.settings_streak_reminder_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            if (streakReminderEnabled) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(stringResource(R.string.settings_streak_reminder_time_label), style = MaterialTheme.typography.labelLarge)
+                    QwSecondaryButton(
+                        text = "%02d:%02d".format(streakReminderHour, streakReminderMinute),
+                        onClick = { showTimePicker = true }
+                    )
+                }
+            }
+            if (notificationPermissionDenied) {
+                Text(
+                    stringResource(R.string.settings_streak_reminder_permission_denied),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        } }
+
+        StaggeredEntrance(index = 2) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_audio))
             Text(
                 stringResource(R.string.settings_audio_download_description),
@@ -223,7 +292,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 2) { SettingsSectionCard {
+        StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_backup))
             Text(
                 stringResource(R.string.settings_backup_description),
@@ -260,7 +329,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 3) { SettingsSectionCard {
+        StaggeredEntrance(index = 4) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_about))
             QwLogo(size = 56.dp)
             Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
@@ -274,6 +343,29 @@ fun SettingsScreen(
                 onClick = { showLicenses = true }
             )
         } }
+        }
+    }
+
+    if (showTimePicker) {
+        val timePickerState = rememberTimePickerState(
+            initialHour = streakReminderHour,
+            initialMinute = streakReminderMinute,
+            is24Hour = false
+        )
+        TimePickerDialog(
+            onDismissRequest = { showTimePicker = false },
+            title = { Text(stringResource(R.string.settings_streak_reminder_time_label)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.setStreakReminderTime(timePickerState.hour, timePickerState.minute)
+                    showTimePicker = false
+                }) { Text(stringResource(R.string.action_confirm)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showTimePicker = false }) { Text(stringResource(R.string.settings_close)) }
+            }
+        ) {
+            TimePicker(state = timePickerState)
         }
     }
 
