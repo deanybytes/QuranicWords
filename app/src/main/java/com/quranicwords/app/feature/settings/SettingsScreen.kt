@@ -4,6 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -15,6 +16,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Row
@@ -51,7 +54,9 @@ import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.QwSecondaryButton
+import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.theme.Elevation
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,9 +108,11 @@ fun SettingsScreen(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+        StaggeredEntrance(index = 0) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_appearance))
 
             Text(stringResource(R.string.settings_theme_label), style = MaterialTheme.typography.labelLarge)
@@ -183,7 +190,9 @@ fun SettingsScreen(
                     ) { Text(label) }
                 }
             }
+        } }
 
+        StaggeredEntrance(index = 1) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_audio))
             Text(
                 stringResource(R.string.settings_audio_download_description),
@@ -212,7 +221,9 @@ fun SettingsScreen(
                     color = MaterialTheme.colorScheme.primary
                 )
             }
+        } }
 
+        StaggeredEntrance(index = 2) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_backup))
             Text(
                 stringResource(R.string.settings_backup_description),
@@ -247,7 +258,9 @@ fun SettingsScreen(
                     else MaterialTheme.colorScheme.primary
                 )
             }
+        } }
 
+        StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_about))
             QwLogo(size = 56.dp)
             Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
@@ -260,6 +273,7 @@ fun SettingsScreen(
                 text = stringResource(R.string.settings_licenses_button),
                 onClick = { showLicenses = true }
             )
+        } }
         }
     }
 
@@ -290,4 +304,23 @@ fun SettingsScreen(
 @Composable
 private fun SectionTitle(text: String) {
     Text(text, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+}
+
+/**
+ * Gives each Settings section the "3D box" [Elevation.raised] card treatment instead of sitting
+ * flat against the screen background - see `docs/UI_GUIDELINES.md`. Not itself tappable, so it
+ * doesn't need `pressDepth`; the interactive controls inside (buttons, chips) carry their own.
+ */
+@Composable
+private fun SettingsSectionCard(content: @Composable ColumnScope.() -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.raised)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            content = content
+        )
+    }
 }

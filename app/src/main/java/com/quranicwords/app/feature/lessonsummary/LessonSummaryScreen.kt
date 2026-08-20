@@ -36,6 +36,7 @@ import com.quranicwords.app.core.ui.components.RiveStreakFlame
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
+import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.MedallionShapeDefault
 import com.quranicwords.app.core.util.GamificationConfig
@@ -68,35 +69,43 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                stringResource(if (passed) R.string.lesson_summary_title_pass else R.string.lesson_summary_title_retry),
-                style = MaterialTheme.typography.headlineMedium
-            )
+            StaggeredEntrance(index = 0) {
+                Text(
+                    stringResource(if (passed) R.string.lesson_summary_title_pass else R.string.lesson_summary_title_retry),
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Qw3DFlipCard(
-                    flipped = visible,
-                    front = { BadgeMedallionPlaceholder() },
-                    back = { PointsBadge(route.newTotalPoints) }
-                )
-                Qw3DFlipCard(
-                    flipped = visible,
-                    front = { BadgeMedallionPlaceholder() },
-                    back = { StreakBadge(route.currentStreak) }
-                )
+            StaggeredEntrance(index = 1) {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Qw3DFlipCard(
+                        flipped = visible,
+                        front = { BadgeMedallionPlaceholder() },
+                        back = { PointsBadge(route.newTotalPoints) }
+                    )
+                    Qw3DFlipCard(
+                        flipped = visible,
+                        front = { BadgeMedallionPlaceholder() },
+                        back = { StreakBadge(route.currentStreak) }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
-                style = MaterialTheme.typography.titleLarge
-            )
-            Text(
-                stringResource(R.string.lesson_summary_accuracy, route.accuracyPercent),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            StaggeredEntrance(index = 2) {
+                Text(
+                    stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }
+            StaggeredEntrance(index = 3) {
+                Text(
+                    stringResource(R.string.lesson_summary_accuracy, route.accuracyPercent),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             if (route.streakIncreased) {
                 Spacer(modifier = Modifier.height(8.dp))
                 AnimatedVisibility(visible = visible, enter = fadeIn() + scaleIn(initialScale = 0.7f)) {
@@ -115,14 +124,16 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             }
 
             Spacer(modifier = Modifier.height(32.dp))
-            QwPrimaryButton(
-                text = stringResource(
-                    if (route.nextLessonId != null) R.string.lesson_summary_continue
-                    else R.string.lesson_summary_back_to_home
-                ),
-                onClick = onContinue,
-                modifier = Modifier.fillMaxWidth()
-            )
+            StaggeredEntrance(index = 4) {
+                QwPrimaryButton(
+                    text = stringResource(
+                        if (route.nextLessonId != null) R.string.lesson_summary_continue
+                        else R.string.lesson_summary_back_to_home
+                    ),
+                    onClick = onContinue,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }
