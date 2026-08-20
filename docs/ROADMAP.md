@@ -36,7 +36,7 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 | **7 of 10 Qur'an font styles** | IndoPak, IndoPak Nastaleeq, Nurani, Taha, Al-Qalam, KFGQPC, Madani Simple — selectable in the picker, render with system fallback until their real licensed font files are sourced |
 | **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
 | **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`docs/SECURITY.md`](SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
-| **CI/CD** | No pipeline configured yet |
+| ~~**CI/CD**~~ | ✅ Done — `.github/workflows/android-ci.yml` runs unit tests, lint (fails on errors), and `assembleDebug`/`assembleRelease` on every push/PR to `main` |
 | **Play Store listing / Data Safety form** | Business/account tasks outside repo scope — see [`docs/SECURITY.md`](SECURITY.md) |
 
 ## 📖 Open content dependencies (flagged, not fabricated)

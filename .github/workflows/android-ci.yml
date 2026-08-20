@@ -1,0 +1,65 @@
+name: Android CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test-lint:
+    name: Test, lint, assemble
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # This repo has no Android SDK configured by default in a fresh environment (see CLAUDE.md's
+      # "Environment note") - explicitly provision one here rather than relying on whatever happens
+      # to be preinstalled on the runner image, and let it write local.properties for the Gradle build.
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests
+        run: ./gradlew :app:testDebugUnitTest --stacktrace
+
+      - name: Lint (fails on lint errors, not just warnings - Android Gradle Plugin's default abortOnError behavior)
+        run: ./gradlew :app:lintDebug --stacktrace
+
+      - name: Assemble debug APK
+        run: ./gradlew :app:assembleDebug --stacktrace
+
+      # Stretch goal from QW-26: run assembleRelease (R8/ProGuard minification) in CI so a keep-rule
+      # regression in the ExerciseContent polymorphic serialization hierarchy is caught early, not
+      # just on a developer's machine right before a real release. No signing config exists in this
+      # repo by design (see docs/SECURITY.md) - this produces an unsigned artifact, which is enough
+      # to exercise R8 without needing a real signing keystore as a CI secret.
+      - name: Assemble release (R8 minification check)
+        run: ./gradlew :app:assembleRelease --stacktrace
+
+      - name: Upload test & lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            app/build/reports/tests/
+            app/build/reports/lint-results-debug.html
+          retention-days: 14
+          if-no-files-found: ignore

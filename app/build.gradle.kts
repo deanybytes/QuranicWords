@@ -70,6 +70,12 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        // StreakCalculator/HomeViewModel/ProgressRepositoryImpl/ClockModule all use java.time
+        // (Clock, LocalDate, ChronoUnit), which needs API 26+ without this - minSdk here is 24,
+        // so without desugaring the app would crash on real API 24/25 devices the first time
+        // streak logic runs (essentially immediately, on Home). Caught by :app:lint's NewApi
+        // check while wiring lint into CI (QW-26) - a real correctness gap, not a style nag.
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         compose = true
@@ -130,6 +136,8 @@ dependencies {
     implementation(libs.lottie.compose)
     implementation(libs.rive.android)
     implementation(libs.konfetti.compose)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
