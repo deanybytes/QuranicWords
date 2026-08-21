@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -157,7 +158,12 @@ fun OpeningInvocationSequence(reducedMotion: Boolean, onFinished: () -> Unit) {
                     haptics.onSelect()
                     advance()
                 }
-            },
+            }
+            // mergeDescendants: without this, TalkBack finds nothing to speak at all - the
+            // Arabic/translation Text children aren't independently focusable and clickable()
+            // alone doesn't merge them into this node's name. Found alongside the QwSelectableCard
+            // fix during the same QW-16 emulator TalkBack audit pass.
+            .semantics(mergeDescendants = true) {},
         contentAlignment = Alignment.Center
     ) {
         val text = PHASE_TEXT.getValue(currentPhase)

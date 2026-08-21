@@ -18,9 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
@@ -90,6 +94,12 @@ internal fun OptionCard(
     val scale by animateFloatAsState(targetValue = if (isPressed) 0.98f else 1f, animationSpec = pressSpec, label = "optionPressScale")
     val tiltX by animateFloatAsState(targetValue = if (isPressed) -3f else 0f, animationSpec = pressSpec, label = "optionPressTilt")
 
+    // Correctness is otherwise conveyed by container color alone (see targetContainer above) -
+    // invisible to a screen reader. stateDescription reuses the same feedback strings
+    // AnswerFeedbackOverlay already shows visually, so no new translations are needed. Found via
+    // the QW-16 emulator TalkBack audit - see mergeDescendants comment below for the paired fix.
+    val correctLabel = stringResource(R.string.lesson_feedback_correct)
+    val incorrectLabel = stringResource(R.string.lesson_feedback_incorrect_tryagain)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -98,6 +108,16 @@ internal fun OptionCard(
                 scaleY = scale
                 rotationX = tiltX
                 cameraDistance = 12f * density.density
+            }
+            // Without this, the option's label lives only in a non-merged child Text and
+            // TalkBack announces an unlabeled "Button" - same bug class as QwSelectableCard,
+            // found in the same audit pass.
+            .semantics(mergeDescendants = true) {
+                if (isChecked && isCorrectOption) {
+                    stateDescription = correctLabel
+                } else if (isChecked && isSelected) {
+                    stateDescription = incorrectLabel
+                }
             },
         colors = CardDefaults.cardColors(containerColor = container),
         onClick = onClick,
