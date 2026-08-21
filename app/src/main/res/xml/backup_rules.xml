@@ -5,8 +5,7 @@
 
    Excludes the Room DB and DataStore preferences from Android's default Auto Backup as
    defense-in-depth, even though current content is non-PII (a locally-generated UUID - see
-   docs/SECURITY.md); Firebase Auth manages its own secure token store separately and isn't
-   affected by this file either way.
+   SECURITY.md). There is no sign-in and no remote backend in this app.
 -->
 <full-backup-content>
     <exclude domain="database" path="uhq.db" />

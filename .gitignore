@@ -4,12 +4,8 @@
 /local.properties
 # Claude Code local session/task state - not project content
 .claude/
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# Whole IDE project directory - embeds local machine paths/state, not project content
+.idea/
 .DS_Store
 /build
 /captures
@@ -17,12 +13,14 @@
 .cxx
 local.properties
 
-# Secrets - never commit real Firebase config or signing material
+# Secrets - never commit real credentials or signing material
 app/google-services.json
 *.jks
 *.keystore
 keystore.properties
 signing.properties
+.env
+.env.*
 
 # Ingestion pipeline scratch data (scraped HTML, intermediate JSON) - reproducible by re-running
 # tools/ingestion/*.py; the actual deliverable is app/src/main/assets/content/*.json, which is

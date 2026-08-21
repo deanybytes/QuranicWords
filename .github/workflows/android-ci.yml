@@ -48,7 +48,7 @@ jobs:
       # Stretch goal from QW-26: run assembleRelease (R8/ProGuard minification) in CI so a keep-rule
       # regression in the ExerciseContent polymorphic serialization hierarchy is caught early, not
       # just on a developer's machine right before a real release. No signing config exists in this
-      # repo by design (see docs/SECURITY.md) - this produces an unsigned artifact, which is enough
+      # repo by design (see SECURITY.md) - this produces an unsigned artifact, which is enough
       # to exercise R8 without needing a real signing keystore as a CI secret.
       - name: Assemble release (R8 minification check)
         run: ./gradlew :app:assembleRelease --stacktrace

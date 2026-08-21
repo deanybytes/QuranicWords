@@ -8,14 +8,14 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 - [x] MVVM + Hilt DI, feature-based package structure
 - [x] Room offline cache (curriculum content, lessons, exercises, word-frequency, progress, stats)
 - [x] DataStore for settings/onboarding state
-- [x] Local backup: JSON export/import of progress (`BackupRepository`, Settings screen) — the only way progress carries across devices; see [`docs/FIREBASE_SETUP.md`](FIREBASE_SETUP.md)
+- [x] Local backup: JSON export/import of progress (`BackupRepository`, Settings screen) — the only way progress carries across devices; see [`docs/BACKUP_AND_SYNC.md`](BACKUP_AND_SYNC.md)
 - [x] Onboarding: language → **Qur'an font style picker** → home
 - [x] **Quranic Vocabulary curriculum — the full frequency curve**, not a sample: 3,680 words (every lemma in the Quranic Arabic Corpus's public frequency table), teach-then-quiz per word, real sourced meanings/roots/example verses — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the full ingestion methodology
 - [x] Points, streak (timezone-safe), lesson unlock progression
 - [x] Bangla + English UI, user-chosen at setup, applied both to static resources (`AppCompatDelegate` + explicit recreate on API < 33) and to JSON-sourced content — see [`docs/ARCHITECTURE.md`](ARCHITECTURE.md)
 - [x] Home skill path with motion (winding node layout, animated point/streak counters, lesson-complete celebration)
 - [x] **Highlighted verse words + meanings** — the word-intro teach step visually highlights the taught word within its example verse (Arabic) and, where a confident best-effort match exists, its gloss within the translation. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the real (partial) coverage numbers and a content-quality gap this surfaced.
-- [x] **R8/ProGuard enabled for release builds** — `optimization { enable = true }` + keep rules for the `ExerciseContent` polymorphic serialization hierarchy; verified via a successful `assembleRelease` and inspecting the R8 mapping file, though full on-device runtime verification still needs a signed build — see [`docs/SECURITY.md`](SECURITY.md)
+- [x] **R8/ProGuard enabled for release builds** — `optimization { enable = true }` + keep rules for the `ExerciseContent` polymorphic serialization hierarchy; verified via a successful `assembleRelease` and inspecting the R8 mapping file, though full on-device runtime verification still needs a signed build — see [`SECURITY.md`](../SECURITY.md)
 - [x] Unit tests for streak/scoring/teach-step-scoring logic + a content-parsing regression test that decodes the full generated vocabulary content through the real Kotlin serializers
 - [🚧] **Chapter → section → lesson restructuring**, with section/chapter exams gating progression — actively landing in code; treat `core/data/local/entity/` and `MEMORY.md`'s status notes as current, not this doc
 
@@ -35,9 +35,9 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 | **Independently-verified Bangla vocabulary meanings** | AI-drafted for now, tracked via `meaningBnReviewed` — see the callout above |
 | **7 of 10 Qur'an font styles** | IndoPak, IndoPak Nastaleeq, Nurani, Taha, Al-Qalam, KFGQPC, Madani Simple — selectable in the picker, render with system fallback until their real licensed font files are sourced |
 | **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
-| **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`docs/SECURITY.md`](SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
+| **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`SECURITY.md`](../SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
 | ~~**CI/CD**~~ | ✅ Done — `.github/workflows/android-ci.yml` runs unit tests, lint (fails on errors), and `assembleDebug`/`assembleRelease` on every push/PR to `main` |
-| **Play Store listing / Data Safety form** | Business/account tasks outside repo scope — see [`docs/SECURITY.md`](SECURITY.md) |
+| **Play Store listing / Data Safety form** | Business/account tasks outside repo scope — see [`SECURITY.md`](../SECURITY.md) |
 
 ## 📖 Open content dependencies (flagged, not fabricated)
 

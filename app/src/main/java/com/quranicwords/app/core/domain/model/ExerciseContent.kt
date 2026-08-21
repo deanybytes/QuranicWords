@@ -110,6 +110,12 @@ sealed interface ExerciseContent {
      * Arrange [orderedChips] (shown shuffled by the UI) into their authored order to build a
      * short phrase. Correctness is a chip-id sequence match, not an option pick - see
      * `LessonViewModel.onCheckPressed`'s dedicated branch.
+     *
+     * Deliberately has no verse-reference field (unlike [FillInTheBlank.sentenceReference]):
+     * these phrases are pedagogically-constructed practice strings built around [wordId], not
+     * excerpts of a specific ayah, so a reference field would imply a citation this type doesn't
+     * make. If a future content pass wants real verse-excerpt phrases instead, add a reference
+     * field at that point rather than treating the current shape as citable.
      */
     @Serializable
     @SerialName("word_order")
