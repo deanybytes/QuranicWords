@@ -130,9 +130,11 @@ class GeneratedContentParsesTest {
 
         // Only WordIntro entries with a confirmed verse span (arabicWordStart/End) can be matched
         // against the 12-language reference data by 13_translate_content_12lang.py - see
-        // docs/CONTENT_SOURCES.md for the real, measured 87-97%-per-language match rate.
+        // docs/CONTENT_SOURCES.md for the real, measured 87-98%-per-language match rate. This
+        // count jumped from 1,582 to 3,668 after 15_reverify_example_verses.py replaced most
+        // root-derived example verses with confirmed literal occurrences (QW-18).
         val spanned = wordIntros.filter { it.arabicWordStart != null && it.arabicWordEnd != null }
-        assertEquals(1582, spanned.size)
+        assertEquals(3668, spanned.size)
         val fullyTranslated = spanned.count { it.meaning.keys == allLanguageTags }
         assertTrue(
             "expected most spanned words to have all 12 languages, got $fullyTranslated/${spanned.size}",
