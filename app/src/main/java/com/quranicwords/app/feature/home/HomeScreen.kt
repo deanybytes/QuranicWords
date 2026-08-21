@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,6 +33,7 @@ import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -46,9 +49,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -62,10 +67,13 @@ import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.PointsBadge
+import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
+import com.quranicwords.app.core.ui.theme.Elevation
 import kotlin.math.sin
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,14 +107,24 @@ fun HomeScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                PointsBadge(uiState.totalPoints)
-                StreakBadge(uiState.currentStreak)
+            Box {
+                // Very low-alpha starfield behind the status strip - matches the LazyColumn's own
+                // 12dp rhythm below rather than the odd 8dp this row previously used alone, and
+                // reads as a distinct "status strip" sitting above the plain background.
+                StarfieldMotif(
+                    modifier = Modifier.fillMaxWidth().height(64.dp),
+                    starCount = 8,
+                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.05f)
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    PointsBadge(uiState.totalPoints)
+                    StreakBadge(uiState.currentStreak)
+                }
             }
 
             // A single flat lazy list for the whole screen (chapter/section headers + every
@@ -154,6 +172,7 @@ fun HomeScreen(
                                     )
                                 }
                             }
+                            HorizontalDivider(color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.25f))
                         }
 
                         itemsIndexed(
@@ -190,7 +209,9 @@ private fun LessonPathNode(
     progress: UserProgressEntity?,
     onClick: () -> Unit
 ) {
-    val lineColor = MaterialTheme.colorScheme.outlineVariant
+    // Tertiary (gold) accent instead of a neutral Material outline color - ties the path into the
+    // "illuminated manuscript" palette rather than reading as generic Material chrome.
+    val lineColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.35f)
     val bias = sin(index * Math.PI / 3.0).toFloat() * 0.55f
 
     Box(
@@ -339,31 +360,50 @@ private fun LessonNode(
 
 /** Entry point into the dynamic Review session (see `LessonViewModel`'s `isReviewSession` path) -
  * only shown when [HomeUiState.hasReviewableItems] is true, i.e. the learner has at least one
- * item whose most recent attempt was wrong. */
+ * item whose most recent attempt was wrong. The most prominent CTA on this screen, so it gets the
+ * full "3D box" hero treatment (see docs/UI_GUIDELINES.md): [Elevation.floating] + press-depth +
+ * a layered fake shadow, none of which it had before. */
 @Composable
 private fun ReviewEntryCard(onClick: () -> Unit) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-        onClick = onClick
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+    val interactionSource = remember { MutableInteractionSource() }
+    val shape = MaterialTheme.shapes.medium
+
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            Modifier
+                .matchParentSize()
+                .offset(x = 3.dp, y = 5.dp)
+                .blur(10.dp)
+                .background(Color.Black.copy(alpha = 0.18f), shape)
+        )
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .pressDepth(interactionSource),
+            shape = shape,
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
+            elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating),
+            onClick = onClick,
+            interactionSource = interactionSource
         ) {
-            Icon(Icons.Filled.Refresh, contentDescription = null, tint = MaterialTheme.colorScheme.onTertiaryContainer)
-            Column {
-                Text(
-                    stringResource(R.string.home_review_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onTertiaryContainer
-                )
-                Text(
-                    stringResource(R.string.home_review_subtitle),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onTertiaryContainer
-                )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Icon(Icons.Filled.Refresh, contentDescription = null, tint = MaterialTheme.colorScheme.onTertiaryContainer)
+                Column {
+                    Text(
+                        stringResource(R.string.home_review_title),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
+                    Text(
+                        stringResource(R.string.home_review_subtitle),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
+                }
             }
         }
     }

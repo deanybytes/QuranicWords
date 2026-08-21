@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,8 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.core.navigation.Route
+import com.quranicwords.app.core.ui.components.CrescentMoonMotif
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.QwLogo
+import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 
@@ -92,6 +96,20 @@ fun SplashScreen(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.primary,
                 alpha = patternAlpha
+            )
+            // Low-alpha companions to the geometric lattice, same reveal timing - a small
+            // crescent tucked in the corner and a scattered starfield behind the logo, both
+            // custom-drawn (see docs/UI_GUIDELINES.md's "Motif vocabulary" section).
+            CrescentMoonMotif(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(24.dp)
+                    .size(40.dp),
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = (patternAlpha * 1.5f).coerceIn(0f, 1f))
+            )
+            StarfieldMotif(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = patternAlpha)
             )
             Column(
                 modifier = Modifier.fillMaxSize(),

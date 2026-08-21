@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -58,6 +59,7 @@ import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
+import com.quranicwords.app.core.ui.components.AbstractBookMotif
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.QwSecondaryButton
@@ -296,7 +298,13 @@ fun SettingsScreen(
 
         StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_about))
-            QwLogo(size = 56.dp)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                QwLogo(size = 56.dp)
+                AbstractBookMotif(
+                    modifier = Modifier.size(40.dp),
+                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.18f)
+                )
+            }
             Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
             Text(
                 stringResource(R.string.settings_content_provenance_note),
@@ -360,7 +368,9 @@ fun SettingsScreen(
 
 @Composable
 private fun SectionTitle(text: String) {
-    Text(text, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+    // titleLarge (Serif-mapped, see core/ui/theme/Type.kt) for the "manuscript display" feel
+    // used elsewhere in the app - was titleMedium (system default), a one-line chrome-refresh fix.
+    Text(text, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
 }
 
 /**
