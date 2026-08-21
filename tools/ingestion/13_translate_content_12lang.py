@@ -86,6 +86,62 @@ def patch_prompt(content_obj):
     content_obj["prompt"] = prompt
 
 
+def patch_options_and_pairs(exercises_doc, word_freq_by_id):
+    """MultipleChoice's ChoiceOption.label and Matching's MatchPair.right are separate embedded
+    copies of a word's meaning (baked in at 07_emit_content.py emission time), not references to
+    WordIntro.meaning or word_frequency.json's meaning - so populating those two didn't touch
+    these. Propagates the same 10-language data here, now that word_freq_by_id's meaning maps are
+    fully populated (this must run after the WordIntro matching pass above).
+
+    MatchPair carries its own `wordId` (added when 07_emit_content.py was rewritten for this
+    phase) - a direct, reliable lookup. ChoiceOption has no such field in the emitted JSON or the
+    Kotlin model, so options are matched by their exact English label text against
+    word_frequency.json's own `meaning[en]` - reliable since 07_emit_content.py derives both from
+    the same `meaningEn` source string with the same truncation.
+    """
+    label_en_to_meaning = {w["meaning"]["en"]: w["meaning"] for w in word_freq_by_id.values() if "en" in w["meaning"]}
+
+    option_matched = 0
+    option_total = 0
+    pair_matched = 0
+    pair_total = 0
+
+    for ex in exercises_doc["exercises"]:
+        content = ex["content"]
+        if content.get("type") == "multiple_choice":
+            for option in content.get("options", []):
+                option_total += 1
+                label = option.get("label", {})
+                source_meaning = label_en_to_meaning.get(label.get("en"))
+                if source_meaning is None:
+                    continue
+                changed = False
+                for lang in NEW_LANGUAGES:
+                    if lang in source_meaning and lang not in label:
+                        label[lang] = source_meaning[lang]
+                        changed = True
+                option["label"] = label
+                if changed:
+                    option_matched += 1
+        elif content.get("type") == "matching":
+            for pair in content.get("pairs", []):
+                pair_total += 1
+                wf_row = word_freq_by_id.get(pair.get("wordId"))
+                if wf_row is None:
+                    continue
+                right = pair.get("right", {})
+                changed = False
+                for lang in NEW_LANGUAGES:
+                    if lang in wf_row["meaning"] and lang not in right:
+                        right[lang] = wf_row["meaning"][lang]
+                        changed = True
+                pair["right"] = right
+                if changed:
+                    pair_matched += 1
+
+    return option_matched, option_total, pair_matched, pair_total
+
+
 def main():
     reference_data = load_reference_data()
 
@@ -135,6 +191,8 @@ def main():
         content["meaning"] = meaning
         content["meaningReviewed"] = meaning_reviewed
 
+    option_matched, option_total, pair_matched, pair_total = patch_options_and_pairs(exercises_doc, word_freq_by_id)
+
     with open(CONTENT_DIR / "exercises_vocabulary.json", "w", encoding="utf-8") as f:
         json.dump(exercises_doc, f, ensure_ascii=False, separators=(",", ":"))
     with open(CONTENT_DIR / "word_frequency.json", "w", encoding="utf-8") as f:
@@ -145,6 +203,8 @@ def main():
     for lang in NEW_LANGUAGES:
         pct = round(100 * matched_counts[lang] / attempted, 1) if attempted else 0
         print(f"  {lang}: {matched_counts[lang]}/{attempted} ({pct}%)")
+    print(f"MultipleChoice options with >=1 new language added: {option_matched}/{option_total}")
+    print(f"Matching pairs with >=1 new language added: {pair_matched}/{pair_total}")
     print("Prompt translations (TEACH_WORD/MULTIPLE_CHOICE/MATCHING) patched for all exercises.")
 
 
