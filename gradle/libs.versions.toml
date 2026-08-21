@@ -22,8 +22,6 @@ datastore = "1.1.7"
 splashscreen = "1.0.1"
 work = "2.10.0"
 hiltWork = "1.2.0"
-lottieCompose = "6.7.1"
-riveAndroid = "11.7.0"
 konfettiCompose = "2.0.5"
 desugarJdkLibs = "2.1.4"
 
@@ -68,12 +66,9 @@ androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx"
 androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
 androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltWork" }
 
-# Motion/UI redesign pass. Lottie for one-shot/looping bundled animations (splash reveal,
-# celebration), Rive for interactive state-machine-driven elements (streak flame), Konfetti for
-# lightweight non-scripture celebration bursts. All assets ship in the APK - no network fetch,
-# preserving the app's offline-first design.
-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
-rive-android = { group = "app.rive", name = "rive-android", version.ref = "riveAndroid" }
+# Motion/UI redesign pass. Konfetti for lightweight non-scripture celebration bursts - the splash
+# reveal and streak flame that once depended on Lottie/Rive are now drawn purely from Path math
+# instead (see StreakFlame.kt), removing that external-asset-licensing dependency entirely.
 konfetti-compose = { group = "nl.dionsegijn", name = "konfetti-compose", version.ref = "konfettiCompose" }
 desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 

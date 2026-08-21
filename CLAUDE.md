@@ -47,7 +47,7 @@ core/
 ├── ui/
 │   ├── theme/     Color, Theme, Type, Shape, QuranFont
 │   ├── motion/    Motion, ReducedMotion, Haptics — shared animation vocabulary
-│   └── components/  reusable Composables (QwButton, StatBadges, Qw3DFlipCard, CelebrationBurst, RiveStreakFlame, LottieOneShot, GeometricPatternBackground, QwLogo, ...)
+│   └── components/  reusable Composables (QwButton, StatBadges, Qw3DFlipCard, CelebrationBurst, StreakFlame, GeometricPatternBackground, QwLogo, ...)
 └── util/          StreakCalculator, GamificationConfig, AudioPlayer, QuranPreviewText, AppJson
 
 feature/
