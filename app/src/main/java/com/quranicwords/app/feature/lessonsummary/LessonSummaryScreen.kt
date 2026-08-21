@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
@@ -50,7 +51,13 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
         animationSpec = MotionSpecs.countUp,
         label = "pointsEarned"
     )
-    val passed = route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
+    // Only exam/flashback kinds actually gate on score (see LessonKind.requiresPassingScore /
+    // ProgressRepositoryImpl.completeLesson, which this must agree with) - a REGULAR lesson or a
+    // Review session (lessonKind == null) always "passes" regardless of accuracy, since it always
+    // unlocks what's next. Getting this wrong previously showed retry-style messaging on a
+    // low-score regular lesson that had, in fact, already advanced the learner.
+    val requiresPassing = route.lessonKind?.requiresPassingScore() ?: false
+    val passed = !requiresPassing || route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
     val celebrationIntensity = if (route.accuracyPercent >= 100) CelebrationIntensity.PERFECT else CelebrationIntensity.PASSED
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -70,10 +77,12 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             StaggeredEntrance(index = 0) {
-                Text(
-                    stringResource(if (passed) R.string.lesson_summary_title_pass else R.string.lesson_summary_title_retry),
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                val titleRes = when {
+                    !requiresPassing -> R.string.lesson_summary_title_complete
+                    passed -> R.string.lesson_summary_title_pass
+                    else -> R.string.lesson_summary_title_retry
+                }
+                Text(stringResource(titleRes), style = MaterialTheme.typography.headlineMedium)
             }
             Spacer(modifier = Modifier.height(24.dp))
 

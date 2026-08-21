@@ -65,6 +65,7 @@
     <!-- Lesson summary -->
     <string name="lesson_summary_title_pass">一切赞颂全归安拉！做得好！</string>
     <string name="lesson_summary_title_retry">In-Sha-Allah，下次会更好！</string>
+    <string name="lesson_summary_title_complete">一切赞颂全归安拉！课程已完成</string>
     <string name="lesson_summary_points_earned">+%d 分</string>
     <string name="lesson_summary_accuracy">正确率 %d%%</string>
     <string name="lesson_summary_streak_increased">连续天数增加了！🔥</string>

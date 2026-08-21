@@ -81,6 +81,12 @@ android {
         compose = true
         buildConfig = true
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -139,6 +145,13 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    // Robolectric + an in-memory Room DB, so repository classes that touch QwDatabase directly
+    // (ProgressRepositoryImpl, AchievementRepositoryImpl) can be exercised on the JVM test runner
+    // instead of needing a connected device/emulator - this repo has no Android SDK configured by
+    // default, so this is the only way these classes get real test coverage in CI.
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.room.testing)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.room.testing)

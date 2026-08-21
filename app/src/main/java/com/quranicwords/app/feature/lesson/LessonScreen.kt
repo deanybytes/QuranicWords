@@ -89,7 +89,8 @@ fun LessonScreen(
                     newTotalPoints = result.newTotalPoints,
                     currentStreak = result.currentStreak,
                     streakIncreased = result.streakIncreased,
-                    nextLessonId = result.nextLessonId
+                    nextLessonId = result.nextLessonId,
+                    lessonKind = result.lessonKind
                 )
             )
         }

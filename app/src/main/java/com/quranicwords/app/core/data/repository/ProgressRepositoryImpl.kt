@@ -80,7 +80,8 @@ class ProgressRepositoryImpl @Inject constructor(
             newTotalPoints = update.stats.totalPoints,
             currentStreak = update.stats.currentStreak,
             streakIncreased = update.streakIncreased,
-            nextLessonId = nextLessonId
+            nextLessonId = nextLessonId,
+            lessonKind = lesson?.kind
         )
     }
 

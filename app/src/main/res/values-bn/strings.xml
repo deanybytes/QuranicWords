@@ -65,6 +65,7 @@
     <!-- Lesson summary -->
     <string name="lesson_summary_title_pass">আলহামদুলিল্লাহ! চমৎকার হয়েছে!</string>
     <string name="lesson_summary_title_retry">ইনশাআল্লাহ, পরের বার হবে!</string>
+    <string name="lesson_summary_title_complete">আলহামদুলিল্লাহ! পাঠ সম্পন্ন</string>
     <string name="lesson_summary_points_earned">+%d পয়েন্ট</string>
     <string name="lesson_summary_accuracy">%d%% সঠিক</string>
     <string name="lesson_summary_streak_increased">স্ট্রিক বেড়েছে! 🔥</string>
