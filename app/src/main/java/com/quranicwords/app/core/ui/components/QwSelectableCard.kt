@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.theme.Elevation
 
@@ -37,7 +38,13 @@ fun QwSelectableCard(
                 indication = null,
                 onClick = onClick,
                 role = Role.Button
-            ),
+            )
+            // Without this, the card's own accessibility node carries no name of its own -
+            // the visible label lives in a separate, non-focusable child Text - so TalkBack
+            // announced every language/font option as an unlabeled "Button". mergeDescendants
+            // folds that child text into this node's spoken name. Found via the QW-16 emulator
+            // TalkBack audit (uiautomator dump showed content-desc="" on every option card).
+            .semantics(mergeDescendants = true) {},
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = if (isPressed) Elevation.pressed else Elevation.raised)
     ) {
