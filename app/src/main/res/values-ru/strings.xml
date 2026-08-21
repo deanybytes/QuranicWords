@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Заблокировано</string>
+    <string name="home_open_achievements">Достижения</string>
     <string name="home_open_settings">Настройки</string>
     <string name="home_review_title">Повторить пропущенные слова</string>
     <string name="home_review_subtitle">Потренируйте те, в которых вы ошиблись в прошлый раз.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d очков</string>
     <string name="lesson_summary_accuracy">%d%% верно</string>
     <string name="lesson_summary_streak_increased">Серия продлена! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">Новое достижение разблокировано!</string>
     <string name="lesson_summary_continue">Продолжить</string>
     <string name="lesson_summary_back_to_home">Назад на главную</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Достижения</string>
+    <string name="achievements_locked_hint">Продолжайте учиться, чтобы разблокировать это</string>
+    <string name="achievement_streak_bronze_name">7-дневная серия</string>
+    <string name="achievement_streak_silver_name">30-дневная серия</string>
+    <string name="achievement_streak_gold_name">100-дневная серия</string>
+    <string name="achievement_streak_description">Поддерживали серию обучения в течение %d дней</string>
+    <string name="achievement_chapter_name">Глава %d освоена</string>
+    <string name="achievement_chapter_description">Сдали экзамен по Главе %d</string>
+    <string name="achievement_coverage_name">%d%% охват Корана</string>
+    <string name="achievement_coverage_description">Выучили достаточно слов, чтобы покрыть %d%% встречаемости слов в Коране</string>
+    <string name="achievement_first_lesson_name">Первые шаги</string>
+    <string name="achievement_first_lesson_description">Завершили свой самый первый урок</string>
+    <string name="achievement_first_exam_name">Первый экзамен сдан</string>
+    <string name="achievement_first_exam_description">Сдали свой первый экзамен по разделу или главе</string>
 
     <!-- Settings -->
     <string name="settings_title">Настройки</string>

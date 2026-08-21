@@ -21,3 +21,12 @@ object GamificationConfig {
     fun percentOf(correctCount: Int, totalCount: Int): Int =
         if (totalCount == 0) 0 else (correctCount * 100) / totalCount
 }
+
+/** Shared streak-day tiers - both [com.quranicwords.app.core.ui.components.StreakFlame]'s
+ * flicker/size intensity and [com.quranicwords.app.core.domain.AchievementCatalog]'s streak
+ * milestones key off the same three numbers, so they can't drift apart. */
+object StreakTiers {
+    const val BRONZE = 7
+    const val SILVER = 30
+    const val GOLD = 100
+}

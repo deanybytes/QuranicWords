@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Kilitli</string>
+    <string name="home_open_achievements">Başarılar</string>
     <string name="home_open_settings">Ayarlar</string>
     <string name="home_review_title">Kaçırılan kelimeleri gözden geçir</string>
     <string name="home_review_subtitle">Geçen sefer yanlış yaptıklarınızı çalışın.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d puan</string>
     <string name="lesson_summary_accuracy">%%%d doğru</string>
     <string name="lesson_summary_streak_increased">Seri uzadı! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">Yeni başarı kilidi açıldı!</string>
     <string name="lesson_summary_continue">Devam et</string>
     <string name="lesson_summary_back_to_home">Ana sayfaya dön</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Başarılar</string>
+    <string name="achievements_locked_hint">Bunu açmak için öğrenmeye devam edin</string>
+    <string name="achievement_streak_bronze_name">7 Günlük Seri</string>
+    <string name="achievement_streak_silver_name">30 Günlük Seri</string>
+    <string name="achievement_streak_gold_name">100 Günlük Seri</string>
+    <string name="achievement_streak_description">%d gün boyunca öğrenme serisini sürdürdünüz</string>
+    <string name="achievement_chapter_name">Bölüm %d Ustalaşıldı</string>
+    <string name="achievement_chapter_description">Bölüm %d sınavını geçtiniz</string>
+    <string name="achievement_coverage_name">%d%% Kur\'an Kapsamı</string>
+    <string name="achievement_coverage_description">Kur\'an\'daki kelime tekrarlarının %d%%\'ini kapsayacak kadar kelime öğrendiniz</string>
+    <string name="achievement_first_lesson_name">İlk Adımlar</string>
+    <string name="achievement_first_lesson_description">İlk dersinizi tamamladınız</string>
+    <string name="achievement_first_exam_name">İlk Sınav Geçildi</string>
+    <string name="achievement_first_exam_description">İlk bölüm veya kısım sınavınızı geçtiniz</string>
 
     <!-- Settings -->
     <string name="settings_title">Ayarlar</string>

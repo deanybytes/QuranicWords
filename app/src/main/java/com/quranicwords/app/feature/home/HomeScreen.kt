@@ -77,6 +77,7 @@ fun HomeScreen(
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
+    onOpenAchievements: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -87,6 +88,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
+                    IconButton(onClick = onOpenAchievements) {
+                        Icon(Icons.Filled.EmojiEvents, contentDescription = stringResource(R.string.home_open_achievements))
+                    }
                     IconButton(onClick = onOpenSettings) {
                         Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.home_open_settings))
                     }

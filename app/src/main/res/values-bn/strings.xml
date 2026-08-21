@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">লক করা</string>
+    <string name="home_open_achievements">অর্জনসমূহ</string>
     <string name="home_open_settings">সেটিংস</string>
     <string name="home_review_title">ভুল হওয়া শব্দ পুনরালোচনা</string>
     <string name="home_review_subtitle">গতবার যেগুলোতে ভুল হয়েছিল তা অনুশীলন করুন।</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d পয়েন্ট</string>
     <string name="lesson_summary_accuracy">%d%% সঠিক</string>
     <string name="lesson_summary_streak_increased">স্ট্রিক বেড়েছে! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">নতুন অর্জন আনলক হয়েছে!</string>
     <string name="lesson_summary_continue">চালিয়ে যান</string>
     <string name="lesson_summary_back_to_home">হোমে ফিরুন</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">অর্জনসমূহ</string>
+    <string name="achievements_locked_hint">আনলক করতে শেখা চালিয়ে যান</string>
+    <string name="achievement_streak_bronze_name">৭-দিনের স্ট্রিক</string>
+    <string name="achievement_streak_silver_name">৩০-দিনের স্ট্রিক</string>
+    <string name="achievement_streak_gold_name">১০০-দিনের স্ট্রিক</string>
+    <string name="achievement_streak_description">%d দিন ধরে শেখার স্ট্রিক বজায় রেখেছেন</string>
+    <string name="achievement_chapter_name">অধ্যায় %d আয়ত্ত হয়েছে</string>
+    <string name="achievement_chapter_description">অধ্যায় %d-এর পরীক্ষায় উত্তীর্ণ হয়েছেন</string>
+    <string name="achievement_coverage_name">%d%% কুরআন কভারেজ</string>
+    <string name="achievement_coverage_description">কুরআনের শব্দ ব্যবহারের %d%% কভার করার মতো শব্দভাণ্ডার শিখেছেন</string>
+    <string name="achievement_first_lesson_name">প্রথম পদক্ষেপ</string>
+    <string name="achievement_first_lesson_description">আপনার প্রথম পাঠ সম্পন্ন করেছেন</string>
+    <string name="achievement_first_exam_name">প্রথম পরীক্ষায় উত্তীর্ণ</string>
+    <string name="achievement_first_exam_description">আপনার প্রথম সেকশন বা অধ্যায় পরীক্ষায় উত্তীর্ণ হয়েছেন</string>
 
     <!-- Settings -->
     <string name="settings_title">সেটিংস</string>

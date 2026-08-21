@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.core.ui.theme.StreakAccent
+import com.quranicwords.app.core.util.StreakTiers
 import kotlin.math.min
 
 /**
@@ -68,9 +69,9 @@ fun StreakFlame(
 private data class StreakIntensity(val sizeDp: Float, val flickerAmplitude: Float, val flickerSpeedBoostMs: Int)
 
 private fun streakIntensity(streakDays: Int): StreakIntensity = when {
-    streakDays >= 100 -> StreakIntensity(sizeDp = 32f, flickerAmplitude = 1f, flickerSpeedBoostMs = 250)
-    streakDays >= 30 -> StreakIntensity(sizeDp = 28f, flickerAmplitude = 0.8f, flickerSpeedBoostMs = 150)
-    streakDays >= 7 -> StreakIntensity(sizeDp = 25f, flickerAmplitude = 0.6f, flickerSpeedBoostMs = 80)
+    streakDays >= StreakTiers.GOLD -> StreakIntensity(sizeDp = 32f, flickerAmplitude = 1f, flickerSpeedBoostMs = 250)
+    streakDays >= StreakTiers.SILVER -> StreakIntensity(sizeDp = 28f, flickerAmplitude = 0.8f, flickerSpeedBoostMs = 150)
+    streakDays >= StreakTiers.BRONZE -> StreakIntensity(sizeDp = 25f, flickerAmplitude = 0.6f, flickerSpeedBoostMs = 80)
     else -> StreakIntensity(sizeDp = 22f, flickerAmplitude = 0.4f, flickerSpeedBoostMs = 0)
 }
 

@@ -33,6 +33,7 @@ class BackupRepositoryImpl @Inject constructor(
             stats = database.userStatsDao().get(userId),
             progress = database.userProgressDao().getAllForUserOnce(userId),
             attempts = database.exerciseAttemptDao().getAllForUser(userId),
+            achievements = database.achievementDao().getAllForUserOnce(userId),
             preferences = BackupPreferences(
                 languageTag = preferences.languageFlow.first()?.tag,
                 themeMode = preferences.themeModeFlow.first().name,
@@ -53,6 +54,7 @@ class BackupRepositoryImpl @Inject constructor(
         database.userProgressDao().upsertAll(payload.progress)
         database.exerciseAttemptDao().deleteForUser(payload.userId)
         database.exerciseAttemptDao().insertAll(payload.attempts)
+        database.achievementDao().insertAll(payload.achievements)
 
         Language.fromTag(payload.preferences.languageTag)?.let { preferences.setLanguage(it) }
         preferences.setThemeMode(ThemeMode.fromName(payload.preferences.themeMode))

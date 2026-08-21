@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Locked</string>
+    <string name="home_open_achievements">Achievements</string>
     <string name="home_open_settings">Settings</string>
     <string name="home_review_title">Review missed words</string>
     <string name="home_review_subtitle">Practice the ones you got wrong last time.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d points</string>
     <string name="lesson_summary_accuracy">%d%% correct</string>
     <string name="lesson_summary_streak_increased">Streak extended! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">New achievement unlocked!</string>
     <string name="lesson_summary_continue">Continue</string>
     <string name="lesson_summary_back_to_home">Back to home</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Achievements</string>
+    <string name="achievements_locked_hint">Keep learning to unlock this</string>
+    <string name="achievement_streak_bronze_name">7-Day Streak</string>
+    <string name="achievement_streak_silver_name">30-Day Streak</string>
+    <string name="achievement_streak_gold_name">100-Day Streak</string>
+    <string name="achievement_streak_description">Kept a learning streak going for %d days</string>
+    <string name="achievement_chapter_name">Chapter %d Mastered</string>
+    <string name="achievement_chapter_description">Passed the Chapter %d exam</string>
+    <string name="achievement_coverage_name">%d%% Qur\'an Coverage</string>
+    <string name="achievement_coverage_description">Learned enough vocabulary to cover %d%% of the Qur\'an\'s word occurrences</string>
+    <string name="achievement_first_lesson_name">First Steps</string>
+    <string name="achievement_first_lesson_description">Completed your very first lesson</string>
+    <string name="achievement_first_exam_name">First Exam Passed</string>
+    <string name="achievement_first_exam_description">Passed your first section or chapter exam</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>

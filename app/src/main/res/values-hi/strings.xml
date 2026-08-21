@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">लॉक</string>
+    <string name="home_open_achievements">उपलब्धियां</string>
     <string name="home_open_settings">सेटिंग्स</string>
     <string name="home_review_title">छूटे हुए शब्दों की समीक्षा करें</string>
     <string name="home_review_subtitle">जो पिछली बार ग़लत हुए थे उनका अभ्यास करें।</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d अंक</string>
     <string name="lesson_summary_accuracy">%d%% सही</string>
     <string name="lesson_summary_streak_increased">स्ट्रीक बढ़ी! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">नई उपलब्धि अनलॉक हुई!</string>
     <string name="lesson_summary_continue">जारी रखें</string>
     <string name="lesson_summary_back_to_home">होम पर वापस जाएँ</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">उपलब्धियां</string>
+    <string name="achievements_locked_hint">इसे अनलॉक करने के लिए सीखना जारी रखें</string>
+    <string name="achievement_streak_bronze_name">7-दिन की लकीर</string>
+    <string name="achievement_streak_silver_name">30-दिन की लकीर</string>
+    <string name="achievement_streak_gold_name">100-दिन की लकीर</string>
+    <string name="achievement_streak_description">%d दिनों तक सीखने की लकीर बनाए रखी</string>
+    <string name="achievement_chapter_name">अध्याय %d में महारत हासिल की</string>
+    <string name="achievement_chapter_description">अध्याय %d की परीक्षा पास की</string>
+    <string name="achievement_coverage_name">%d%% कुरान कवरेज</string>
+    <string name="achievement_coverage_description">कुरान के %d%% शब्द प्रयोगों को कवर करने लायक शब्दावली सीखी</string>
+    <string name="achievement_first_lesson_name">पहला कदम</string>
+    <string name="achievement_first_lesson_description">अपना पहला पाठ पूरा किया</string>
+    <string name="achievement_first_exam_name">पहली परीक्षा पास की</string>
+    <string name="achievement_first_exam_description">अपनी पहली अनुभाग या अध्याय परीक्षा पास की</string>
 
     <!-- Settings -->
     <string name="settings_title">सेटिंग्स</string>

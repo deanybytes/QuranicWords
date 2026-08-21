@@ -90,7 +90,8 @@ fun LessonScreen(
                     currentStreak = result.currentStreak,
                     streakIncreased = result.streakIncreased,
                     nextLessonId = result.nextLessonId,
-                    lessonKind = result.lessonKind
+                    lessonKind = result.lessonKind,
+                    newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id }
                 )
             )
         }

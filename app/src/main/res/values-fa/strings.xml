@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">قفل‌شده</string>
+    <string name="home_open_achievements">دستاوردها</string>
     <string name="home_open_settings">تنظیمات</string>
     <string name="home_review_title">مرور کلمات اشتباه</string>
     <string name="home_review_subtitle">کلماتی را که دفعه قبل اشتباه پاسخ دادید تمرین کنید.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">‎+%d امتیاز</string>
     <string name="lesson_summary_accuracy">%d%% درست</string>
     <string name="lesson_summary_streak_increased">روزهای پیاپی افزایش یافت! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">دستاورد جدید باز شد!</string>
     <string name="lesson_summary_continue">ادامه</string>
     <string name="lesson_summary_back_to_home">بازگشت به خانه</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">دستاوردها</string>
+    <string name="achievements_locked_hint">برای باز کردن این، به یادگیری ادامه دهید</string>
+    <string name="achievement_streak_bronze_name">رکورد ۷ روزه</string>
+    <string name="achievement_streak_silver_name">رکورد ۳۰ روزه</string>
+    <string name="achievement_streak_gold_name">رکورد ۱۰۰ روزه</string>
+    <string name="achievement_streak_description">رکورد یادگیری خود را به مدت %d روز حفظ کردید</string>
+    <string name="achievement_chapter_name">فصل %d تسلط یافت</string>
+    <string name="achievement_chapter_description">در امتحان فصل %d قبول شدید</string>
+    <string name="achievement_coverage_name">%d%% پوشش قرآن</string>
+    <string name="achievement_coverage_description">واژگان کافی برای پوشش %d%% از تکرار کلمات قرآن آموختید</string>
+    <string name="achievement_first_lesson_name">اولین قدم‌ها</string>
+    <string name="achievement_first_lesson_description">اولین درس خود را تکمیل کردید</string>
+    <string name="achievement_first_exam_name">اولین امتحان قبول شد</string>
+    <string name="achievement_first_exam_description">در اولین امتحان بخش یا فصل خود قبول شدید</string>
 
     <!-- Settings -->
     <string name="settings_title">تنظیمات</string>

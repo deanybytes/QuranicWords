@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">E kyçur</string>
+    <string name="home_open_achievements">Arritjet</string>
     <string name="home_open_settings">Cilësimet</string>
     <string name="home_review_title">Rishiko fjalët e gabuara</string>
     <string name="home_review_subtitle">Praktiko ato që i ke gabuar herën e fundit.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d pikë</string>
     <string name="lesson_summary_accuracy">%d%% saktë</string>
     <string name="lesson_summary_streak_increased">Vazhdimësia u zgjat! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">Arritje e re u zhbllokua!</string>
     <string name="lesson_summary_continue">Vazhdo</string>
     <string name="lesson_summary_back_to_home">Kthehu në fillim</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Arritjet</string>
+    <string name="achievements_locked_hint">Vazhdoni të mësoni për ta zhbllokuar këtë</string>
+    <string name="achievement_streak_bronze_name">Vazhdimësi 7-Ditore</string>
+    <string name="achievement_streak_silver_name">Vazhdimësi 30-Ditore</string>
+    <string name="achievement_streak_gold_name">Vazhdimësi 100-Ditore</string>
+    <string name="achievement_streak_description">Mbajtët një vazhdimësi mësimi për %d ditë</string>
+    <string name="achievement_chapter_name">Kapitulli %d u Përfundua</string>
+    <string name="achievement_chapter_description">Kaluat provimin e Kapitullit %d</string>
+    <string name="achievement_coverage_name">%d%% Mbulim i Kuranit</string>
+    <string name="achievement_coverage_description">Mësuat mjaftueshëm fjalor për të mbuluar %d%% të përsëritjeve të fjalëve në Kuran</string>
+    <string name="achievement_first_lesson_name">Hapat e Parë</string>
+    <string name="achievement_first_lesson_description">Përfunduat mësimin tuaj të parë</string>
+    <string name="achievement_first_exam_name">Provimi i Parë i Kaluar</string>
+    <string name="achievement_first_exam_description">Kaluat provimin tuaj të parë të seksionit ose kapitullit</string>
 
     <!-- Settings -->
     <string name="settings_title">Cilësimet</string>
