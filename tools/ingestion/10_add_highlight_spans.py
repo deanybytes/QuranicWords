@@ -13,11 +13,22 @@ back as a char-offset range in the ORIGINAL (diacriticized) exampleVerseArabic s
 granularity (not sub-token), matching this app's existing word-level highlighting granularity
 elsewhere. No confident match -> both offsets left null, never guessed.
 
-Translation side: no word-alignment data exists anywhere in the sourced data (translations are
-full idiomatic sentences from Sahih International / risan's Bangla set). This is a best-effort
-heuristic only: the longest content word from meaningEn/meaningBn that also appears as a whole
-word in the corresponding translation. No match -> left null. Real, honestly-partial coverage,
-printed at the end rather than assumed.
+Translation side: no open-licensed word-alignment dataset was found for Quranic Arabic <-> English/
+Bangla (checked corpus.quran.com's own word-by-word view and quranwbw.com - both plausible
+candidates, neither had a license confirmed for this use; see docs/CONTENT_SOURCES.md). This
+stays a best-effort heuristic: for English, the full gloss (stopwords stripped) as a contiguous
+phrase first, falling back to the longest single content word (tried exact, then with light
+suffix-tolerance - "believe" in the gloss can match "believing" in the translation); for Bangla,
+the longest single content word only (no stemmer available). No match -> left null. Real,
+honestly-partial coverage, printed at the end rather than assumed.
+
+Operates on the current LocalizedText map-based schema (content["meaning"]["en"]/["bn"],
+content["exampleVerseTranslation"]["en"]/["bn"], content["meaningHighlight"]["en"]/["bn"]) - a
+prior version of this script used the pre-refactor flat field names (meaningEn/meaningBn/etc.)
+and silently went stale when Phase 3's map-based-localization refactor landed; fixed alongside the
+QW-18 re-verification pass that first surfaced it (running this script is the only way to notice,
+since it would otherwise KeyError instead of quietly corrupting data - still worth flagging so a
+future schema change doesn't repeat it unnoticed for as long).
 """
 import json
 import re
@@ -46,11 +57,45 @@ def content_words_bn(meaning: str):
     return sorted({w for w in words if len(w) > 1}, key=len, reverse=True)
 
 
+# Light stemming (en-only; no Bangla stemmer available in-repo) so a gloss word like "believe"
+# still cross-matches a differently-inflected translation word like "believing"/"believed" -
+# rather than trying to enumerate every English suffix (irregular spelling changes like the
+# silent-e drop before "-ing" make that fragile), take a shortening set of prefixes of the word
+# itself (down to a 4-character floor, short enough to catch real inflection, long enough to stay
+# a meaningfully specific match) and search each as a whole-word-start anchor. Still a single
+# content word, still whole-word-bounded - just inflection-tolerant, not a fuzzy/approximate match.
+def _en_word_stems(word: str):
+    stems = []
+    for cut in range(1, len(word) - 3):
+        stem = word[:-cut]
+        if len(stem) >= 4:
+            stems.append(stem)
+    return stems
+
+
 def find_en_highlight(meaning_en: str, translation_en: str):
+    if not meaning_en or not translation_en:
+        return None
+    # Pass 1: the full gloss (stopwords stripped) as a contiguous phrase - catches multi-word
+    # idioms like "the straight path" that pass 2's single-longest-word approach can only
+    # partially match.
+    phrase_words = [w for w in re.findall(r"[A-Za-z']+", meaning_en.lower()) if w not in EN_STOPWORDS]
+    if len(phrase_words) > 1:
+        phrase_pattern = r"\b" + r"\s+".join(re.escape(w) for w in phrase_words) + r"\b"
+        m = re.search(phrase_pattern, translation_en, re.IGNORECASE)
+        if m:
+            return translation_en[m.start():m.end()]
+    # Pass 2: longest single content word, tried as an exact whole word first, then - only if
+    # that fails - as a stemmed prefix (so "believe" in the gloss can match "believing" in the
+    # translation, still whole-word-bounded, just inflection-tolerant).
     for word in content_words_en(meaning_en):
         m = re.search(r"\b" + re.escape(word) + r"\b", translation_en, re.IGNORECASE)
         if m:
             return translation_en[m.start():m.end()]
+        for stem in _en_word_stems(word):
+            m = re.search(r"\b" + re.escape(stem) + r"[a-z']*\b", translation_en, re.IGNORECASE)
+            if m:
+                return translation_en[m.start():m.end()]
     return None
 
 
@@ -110,15 +155,21 @@ def main():
             content["arabicWordEnd"] = end
             arabic_found += 1
 
-        en_highlight = find_en_highlight(content["meaningEn"], content["exampleVerseTranslationEn"])
+        meaning = content.get("meaning", {})
+        translation = content.get("exampleVerseTranslation", {})
+        highlight = content.get("meaningHighlight", {})
+
+        en_highlight = find_en_highlight(meaning.get("en", ""), translation.get("en", ""))
         if en_highlight:
-            content["meaningHighlightEn"] = en_highlight
+            highlight["en"] = en_highlight
             en_found += 1
 
-        bn_highlight = find_bn_highlight(content["meaningBn"], content["exampleVerseTranslationBn"])
+        bn_highlight = find_bn_highlight(meaning.get("bn", ""), translation.get("bn", ""))
         if bn_highlight:
-            content["meaningHighlightBn"] = bn_highlight
+            highlight["bn"] = bn_highlight
             bn_found += 1
+
+        content["meaningHighlight"] = highlight
 
     with open(EXERCISES_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, separators=(",", ":"))

@@ -61,6 +61,12 @@ sealed interface ExerciseContent {
         val exampleVerseArabic: String,
         val exampleVerseTranslation: LocalizedText,
         val exampleVerseReference: String,
+        // True when [exampleVerseArabic] was confirmed to literally contain [arabicWord]'s exact
+        // surface form (tools/ingestion/15_reverify_example_verses.py's word-boundary-aware
+        // search), false when no such occurrence exists anywhere in the Quran and the verse shown
+        // is still the older root-derived "illustrates the concept" fallback - never silently
+        // presented as an exact citation. See docs/CONTENT_SOURCES.md.
+        val exampleVerseVerified: Boolean = false,
         val audioAssetPath: String? = null,
         // Char offsets of [arabicWord]'s occurrence within [exampleVerseArabic] (original string,
         // diacritics included), null when the ingestion pipeline's diacritic-normalized matcher
