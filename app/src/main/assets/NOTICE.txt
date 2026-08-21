@@ -1,9 +1,10 @@
 QuranicWords - Third-Party Content Notices
-Copyright © rmrashahriar 2026. All rights reserved (application code).
+Copyright © rmrashahriar 2026. Application code licensed under GPL-3.0 (see LICENSE).
 
-This application bundles vocabulary, translation, and audio content derived
-from the open-licensed sources below. Each source's license governs that
-source's content only, not the QuranicWords application code (see LICENSE).
+This application bundles vocabulary and translation content derived from
+the open-licensed sources below, plus machine-synthesized word-pronunciation
+audio (see the note at the bottom of this file). Each source's license
+governs that source's content only, not the QuranicWords application code.
 
 --------------------------------------------------------------------------
 Quranic Arabic Corpus (corpus.quran.com)
@@ -34,12 +35,16 @@ Share-alike notice: content derived from this source (the Bangla verse
          CC BY-SA 4.0 as well, consistent with this source's license.
 
 --------------------------------------------------------------------------
-EveryAyah.com recitation audio + quran-align word-timing data
-License: Creative Commons Attribution 4.0 International (CC BY 4.0).
-Provides: the source verse recitation audio (reciter: Alafasy) and
-         word-level timing data that single-word pronunciation clips are
-         segmented from.
-Attribution: https://everyayah.com
+A note on word-pronunciation audio
+
+Word-pronunciation clips (`app/src/main/assets/audio/words/`) are not
+sourced from a licensed recitation corpus - they are machine-synthesized
+text-to-speech audio, generated per word via the Google Cloud Text-to-Speech
+API (WaveNet voice `ar-XA-Wavenet-B`, male). They are a pronunciation aid,
+not a recitation/tajweed reference, and are bundled directly in the app
+(no runtime download, no API key shipped in the app - synthesis happens
+once at content-authoring time). See
+`tools/ingestion/12_generate_word_audio.py` and docs/CONTENT_SOURCES.md.
 
 --------------------------------------------------------------------------
 A note on AI-drafted content

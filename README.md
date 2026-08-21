@@ -150,8 +150,12 @@ docs/                          # the documentation set linked above
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and layer diagram.
 
+## 📜 License
+
+QuranicWords is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License v3.0](LICENSE) as published by the Free Software Foundation. Bundled third-party content (vocabulary data, translations, audio) is licensed separately under its own original terms — see [`NOTICE`](NOTICE) and [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md).
+
 ---
 
 <p align="center">
-  Developed and Copyright © <strong>rmrashahriar</strong> 2026. All rights reserved.
+  Developed by <strong>rmrashahriar</strong> · Copyright © 2026 · Licensed under <a href="LICENSE">GPL-3.0</a>
 </p>

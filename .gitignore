@@ -31,3 +31,4 @@ tools/ingestion/raw/
 tools/ingestion/output/
 tools/ingestion/__pycache__/
 
+.tmp_gtaf_collection/
