@@ -10,6 +10,7 @@ This repo's discipline is to **flag unsourced content rather than fabricate it**
 | [Quran-bil-Quran](https://github.com/R3GENESI5/quran-bil-quran) | MIT | `app/data/roots_index.json` — 1,651 trilateral roots, each with a Buckwalter form, an English meaning essay, a frequency count, and every verse it occurs in | Root matching, `meaningEn`, and the primary source of `exampleVerseReference` |
 | [Quran-bil-Quran](https://github.com/R3GENESI5/quran-bil-quran) (same repo) | MIT | `app/data/verses_text.json` (6,236 verses, Uthmani Arabic) and `app/data/translations/en.sahih.json` (English) | `exampleVerseArabic`, `exampleVerseTranslationEn`, and word-boundary verification searches for words with no matched root |
 | [risan/quran-json](https://github.com/risan/quran-json) | CC BY-SA 4.0 (share-alike — derivatives must carry the same license) | `dist/quran_bn.json` — full Bangla verse translations, all 114 chapters | `exampleVerseTranslationBn` |
+| [quran.gtaf.org](https://quran.gtaf.org) (Greentech Apps Foundation) | **None published** — checked the app, gtaf.org's root site, footer, and Privacy Policy; no license/terms/data-usage page exists. Credited regardless, as a matter of transparency. | Word-by-word Arabic-to-gloss data for 12 languages, collected via their public `data.gtaf.org` API | `reference/word-by-word/QuranicWords_<Language>.{json,md}` — reference data for the in-progress 12-language localization effort, not yet wired into the app's own content pipeline |
 
 ## Ingestion methodology (real, already run)
 
@@ -59,3 +60,4 @@ All of the below are satisfied: the repo-root `NOTICE` file (also bundled at `ap
 - **Quran-bil-Quran (MIT)**: attribution in an in-app credits/about section.
 - **risan/quran-json (CC BY-SA 4.0)**: content directly derived from it (the Bangla verse translations, plus the AI-drafted Bangla word meanings authored alongside them) is released under CC BY-SA 4.0 as well, per `NOTICE`.
 - **Word-pronunciation audio (Google Cloud Text-to-Speech)**: not a licensed content source in the attribution sense (machine-synthesized, not copied from a copyrighted recording) — noted transparently in `NOTICE` regardless, as a matter of disclosure about how the clips were produced.
+- **quran.gtaf.org**: no license was found to satisfy, but credited in `NOTICE` regardless (name, what it provides, and a link) as a matter of good practice — see the table above for what was actually checked.
