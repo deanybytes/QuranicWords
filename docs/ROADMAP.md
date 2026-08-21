@@ -17,20 +17,22 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 - [x] **Highlighted verse words + meanings** — the word-intro teach step visually highlights the taught word within its example verse (Arabic) and, where a confident best-effort match exists, its gloss within the translation. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the real (partial) coverage numbers and a content-quality gap this surfaced.
 - [x] **R8/ProGuard enabled for release builds** — `optimization { enable = true }` + keep rules for the `ExerciseContent` polymorphic serialization hierarchy; verified via a successful `assembleRelease` and inspecting the R8 mapping file, though full on-device runtime verification still needs a signed build — see [`SECURITY.md`](../SECURITY.md)
 - [x] Unit tests for streak/scoring/teach-step-scoring logic + a content-parsing regression test that decodes the full generated vocabulary content through the real Kotlin serializers
-- [🚧] **Chapter → section → lesson restructuring**, with section/chapter exams gating progression — actively landing in code; treat `core/data/local/entity/` and `MEMORY.md`'s status notes as current, not this doc
+- [x] **Chapter → section → lesson restructuring**, with section/chapter exams gating progression — `LessonKind`/`CurriculumUnlockResolver`/`ProgressRepositoryImpl`'s 80% gate all shipping; 8 chapters/80 sections/887 lessons/19,122 exercises seeded, including real exam content
+- [x] **Achievements/badges system** — 17-entry catalog (streak/chapter/coverage/first-time milestones), custom-drawn medallion badges, dedicated Achievements screen, backed up like other progress
+- [x] **Illustrated motif vocabulary** — crescent/starfield/mosque/book, custom-drawn (zero external assets), applied to Splash/LessonSummary/Settings/Home + achievement badges
 
-> ⚠️ **`meaning["bn"]` is independently verified against quran.gtaf.org for 1,526/3,680 (41.5%) vocabulary words** (`WordIntro.meaningReviewed["bn"] = true`); the remaining 2,154 stay AI-drafted and flagged `false`, honestly reflecting that no independent source covers them yet. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for exactly which parts are sourced versus AI-drafted.
+> ⚠️ **`meaning["bn"]` is independently verified against quran.gtaf.org for 3,585/3,680 (97.4%) vocabulary words** (`WordIntro.meaningReviewed["bn"] = true`); the remaining 95 stay AI-drafted and flagged `false`, honestly reflecting that no independent source covers them yet. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for exactly which parts are sourced versus AI-drafted.
 
 ## 🔜 Explicitly deferred
 
 | Item | Why it's not built yet |
 |---|---|
-| **Exam engine (section/chapter exams)** | Lands alongside the chapter/section restructuring above |
+| ~~**Exam engine (section/chapter exams)**~~ | ✅ Done (QW-10) — was already substantially built via the shared lesson pipeline; closed the real remaining gaps (summary-screen pass/fail messaging, dedicated test coverage) |
 | ~~**Re-verify root-matched example verses**~~ | ✅ Done (QW-18) — 99.7% of words (3,668/3,680) now have a confirmed literal-occurrence example verse, replacing the root-derived "illustrates the concept" fallback that most previously had; see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
 | **Real branching curriculum-tree graph** | `HomeScreen` ships a winding linear path (motion, staggered node layout), not a *branching* visual tree |
 | **Admin/content-authoring tooling** | A CMS so lessons can be added without an app release |
 | ~~**Push notifications / streak reminders**~~ | ✅ Done — opt-in, local-only (`StreakReminderWorker`/`StreakReminderScheduler`, WorkManager `PeriodicWorkRequest`, no `AlarmManager`/`BOOT_COMPLETED` receiver needed). Configurable in Settings → Notifications (time-of-day picker), only fires when there's an actual streak at risk of breaking. Respects the Android 13+ `POST_NOTIFICATIONS` runtime permission flow. |
-| **Achievements/badges beyond raw points** | Not built |
+| ~~**Achievements/badges beyond raw points**~~ | ✅ Done (QW-25) — 17-entry catalog, custom-drawn badge medallions, dedicated Achievements screen, backed up like other progress |
 | **Word-pronunciation audio (TTS)** | `tools/ingestion/12_generate_word_audio.py` synthesizes one clip per word via Google Cloud Text-to-Speech (`ar-XA-Wavenet-B`, male), bundled directly in the APK at `app/src/main/assets/audio/words/` — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
 | **Independently-verified Bangla vocabulary meanings for the remaining 2.6%** | 97.4% now verified against gtaf.org (up from 41.5% before the QW-18 verse re-verification pass), tracked via `meaningReviewed["bn"]` — see the callout above |
 | ~~**7 of 10 Qur'an font styles**~~ | ✅ Done — `QuranFontStyle` now offers 5 styles, all bundled under a real, verified open license (Amiri, Scheherazade New, Noto Naskh Arabic, plus IndoPak/IndoPak Nastaleeq via genuine open substitutes Lateef/Noto Nastaliq Urdu). The other 5 (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple) were removed from the picker entirely after a real license check found none clears this project's open-license bar — see `docs/CONTENT_SOURCES.md`. |
@@ -50,7 +52,9 @@ Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_
 
 ## 🧭 Suggested next steps
 
-1. Finish the chapter/section/exam restructuring and reseed content around the new hierarchy
-2. Close the remaining 2.6% of `meaning["bn"]` gap (95 words with no gtaf.org data or no verse span at all) — needs a Bangla-fluent human reviewer, since verse-span coverage is now 99.7% and not the bottleneck anymore
-3. Full illustrated UI redesign, once art direction/asset licensing is decided (same discipline as fonts)
+1. Close the remaining 2.6% of `meaning["bn"]` gap (95 words with no gtaf.org data or no verse span at all) — needs a Bangla-fluent human reviewer, since verse-span coverage is now 99.7% and not the bottleneck anymore
+2. Real branching curriculum-tree visual on Home (collapse/expand by chapter/section, per QW-22)
+3. Admin/content-authoring CLI tooling, so content changes don't need touching raw JSON/Python directly (QW-27)
 4. Play Store readiness and a hosted privacy policy ahead of a real release
+
+~~Full illustrated UI redesign~~ — ✅ Done: custom-drawn crescent/starfield/mosque/book motif vocabulary (zero external assets) applied across Splash, Home, Settings, Lesson Summary, and the achievements system, plus a chrome refresh (elevation/press-depth/typography) on Home and Settings.

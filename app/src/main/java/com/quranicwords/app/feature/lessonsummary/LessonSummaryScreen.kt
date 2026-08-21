@@ -30,12 +30,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.AchievementCatalog
 import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.AchievementBadge
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
+import com.quranicwords.app.core.ui.components.CrescentMoonMotif
+import com.quranicwords.app.core.ui.components.MosqueSilhouetteMotif
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StreakFlame
 import com.quranicwords.app.core.ui.components.StreakBadge
@@ -68,7 +71,31 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
         route.newlyUnlockedAchievementIds.mapNotNull { AchievementCatalog.byId[it] }
     }
 
+    val isExamPass = passed && (route.lessonKind == LessonKind.SECTION_EXAM || route.lessonKind == LessonKind.CHAPTER_EXAM)
+
     Box(modifier = Modifier.fillMaxSize()) {
+        // Backdrop motifs, largest milestones first - a mosque silhouette for a passed section/
+        // chapter exam (a bigger visual payoff than an everyday lesson pass), a small crescent
+        // for a streak increase. Both low-alpha, decorative only, never overlaid on Arabic/verse
+        // content (this screen shows none). See docs/UI_GUIDELINES.md's "Motif vocabulary".
+        if (isExamPass) {
+            MosqueSilhouetteMotif(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxSize()
+                    .padding(32.dp),
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.10f)
+            )
+        }
+        if (route.streakIncreased) {
+            CrescentMoonMotif(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(20.dp)
+                    .size(36.dp),
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.25f)
+            )
+        }
         // Fired once (visible only ever flips false->true, never back), scaled by lesson
         // accuracy - never overlaid on Arabic/verse content, only on this gamification screen.
         // No confetti on a below-threshold score - reserved for genuine celebration, same

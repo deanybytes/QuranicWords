@@ -51,3 +51,26 @@ noise rather than depth.
 `core/ui/theme/Shape.kt`'s `QwShapes` (extraSmall…extraLarge `RoundedCornerShape`) plus
 `MedallionShapeDefault` (scalloped medallion, reserved for streak/celebratory badges) are the
 existing shape vocabulary — reuse them rather than inventing new corner radii per screen.
+
+## Motif vocabulary
+
+`core/ui/components/IslamicMotif.kt` is the single dispatcher for this app's custom-drawn (never
+externally licensed) illustration language — `MotifKind.CRESCENT` (crescent moon), `STARFIELD`
+(scattered 8-point stars), `MOSQUE` (a mosque silhouette), `BOOK` (an abstract closed-book form),
+in that priority order. Each is pure `Path`/`Canvas` math, same discipline as
+`GeometricPatternBackground`/`StreakFlame` — no bitmap or SVG assets, no external licensing
+question to track. **Reuse `IslamicMotif(kind, ...)` for any new decorative motif need — don't
+hand-roll a fifth one per screen.**
+
+Current usage: Splash (crescent + starfield, low-alpha, alongside the geometric lattice),
+`LessonSummaryScreen` (crescent on a streak increase, mosque silhouette on a passed section/
+chapter exam — the biggest everyday milestones get the biggest visual payoff), Settings' About
+section (a small book motif near the brand logo), Home (a very low-alpha starfield behind the
+points/streak status strip), and the achievements system's badge medallions (`AchievementBadge`,
+category→motif: streak→crescent, chapter/section completion→mosque, vocabulary/coverage→book,
+general/first-time→starfield).
+
+Both hard constraints apply to every motif here: no human faces or figures (enforced by
+construction — none of the four motifs has anywhere to put one), and `AbstractBookMotif` in
+particular must never render actual letterforms or Arabic glyphs — it's a spine/page-edge
+suggestion, not a title.
