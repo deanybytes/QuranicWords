@@ -14,5 +14,7 @@ fun QuranFontStyle.toFontFamily(): FontFamily = when (fontKey) {
     "amiri" -> FontFamily(Font(R.font.amiri_regular))
     "scheherazade" -> FontFamily(Font(R.font.scheherazade_regular))
     "noto_naskh" -> FontFamily(Font(R.font.noto_naskh_regular))
+    "lateef" -> FontFamily(Font(R.font.lateef_regular))
+    "noto_nastaliq_urdu" -> FontFamily(Font(R.font.noto_nastaliq_urdu_regular))
     else -> FontFamily.Default
 }

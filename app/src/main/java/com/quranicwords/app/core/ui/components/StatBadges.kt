@@ -57,9 +57,7 @@ fun StreakBadge(streakDays: Int, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            // Rive-driven flame (falls back to a static icon until a .riv asset is bundled - see
-            // RiveStreakFlame). Its own state-machine input reacts live to streakDays.
-            RiveStreakFlame(streakDays = streakDays)
+            StreakFlame(streakDays = streakDays)
             Text(animatedStreak.toString(), color = MaterialTheme.colorScheme.onTertiaryContainer)
         }
     }

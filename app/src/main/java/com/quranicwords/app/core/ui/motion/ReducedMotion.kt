@@ -16,8 +16,8 @@ val LocalReduceMotionPreference = compositionLocalOf { false }
  * True when motion should be minimized: either the user enabled the in-app "Reduce motion"
  * setting, or the OS-level "Remove animations" accessibility setting is on
  * ([Settings.Global.ANIMATOR_DURATION_SCALE] == 0). Every new animated component added in this
- * pass (flip cards, Rive flame, Lottie one-shots, celebration bursts, nav transitions) must read
- * this and degrade to an instant/static end-state rather than skipping content or crashing.
+ * pass (flip cards, streak flame, celebration bursts, nav transitions) must read this and degrade
+ * to an instant/static end-state rather than skipping content or crashing.
  */
 @Composable
 fun rememberReducedMotion(): Boolean {

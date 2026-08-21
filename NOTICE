@@ -48,6 +48,26 @@ Provides: word-by-word Arabic-to-gloss data for 12 languages (Albanian,
 Attribution: https://quran.gtaf.org
 
 --------------------------------------------------------------------------
+Quran script fonts (app/src/main/res/font/, app/src/main/assets/font_licenses/)
+License: SIL Open Font License, Version 1.1, for each font individually -
+         full license text bundled per-font under font_licenses/.
+Provides:
+  - Amiri (Copyright 2010-2022 The Amiri Project Authors,
+    github.com/aliftype/amiri) - Uthmani script style.
+  - Scheherazade New (Copyright SIL Global, github.com/silnrsi/font-scheherazade)
+    - Naskh style.
+  - Noto Naskh Arabic (Copyright The Noto Project Authors,
+    github.com/notofonts/arabic) - simple Naskh style.
+  - Lateef (Copyright 1994-2025 SIL Global, github.com/silnrsi/font-lateef)
+    - used for the "IndoPak-style Naskh" picker option; a genuinely open
+    substitute in the same script family, not the specific named commercial
+    IndoPak typeface (which remains unsourced - see docs/CONTENT_SOURCES.md).
+  - Noto Nastaliq Urdu (Copyright 2022 The Noto Project Authors,
+    github.com/notofonts/nastaliq) - used for the "Nastaliq" picker option,
+    same substitution discipline as Lateef above.
+Attribution: https://openfontlicense.org
+
+--------------------------------------------------------------------------
 A note on word-pronunciation audio
 
 Word-pronunciation clips (`app/src/main/assets/audio/words/`) are not
@@ -62,11 +82,13 @@ once at content-authoring time). See
 --------------------------------------------------------------------------
 A note on AI-drafted content
 
-Bangla word-level meanings (`meaningBn`) are AI-drafted, grounded in the
-sourced English meanings above but not independently verified against a
-published Bangla source (no source among those above provides word-level
-Bangla glosses, only full-verse translations). This is tracked per-entry in
-the app's own data (`meaningBnReviewed`) rather than presented as verified,
-and is released under CC BY-SA 4.0 alongside the sourced Bangla translation
-content it was drafted alongside. See docs/CONTENT_SOURCES.md for the full
-methodology.
+Bangla word-level meanings (`meaning["bn"]`) were originally AI-drafted,
+grounded in the sourced English meanings above but not independently
+verified against a published Bangla source (no source among those above
+provides word-level Bangla glosses, only full-verse translations). 1,526 of
+3,680 (41.5%) have since been independently verified against quran.gtaf.org's
+own Bangla word-by-word data and replaced where they disagreed; the rest
+remain AI-drafted and are tracked as such in the app's own data
+(`meaningReviewed["bn"]`) rather than presented as verified. Released under
+CC BY-SA 4.0 alongside the sourced Bangla translation content. See
+docs/CONTENT_SOURCES.md for the full methodology.

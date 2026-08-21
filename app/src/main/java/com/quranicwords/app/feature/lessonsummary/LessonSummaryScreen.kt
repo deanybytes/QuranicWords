@@ -32,7 +32,7 @@ import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.PointsBadge
-import com.quranicwords.app.core.ui.components.RiveStreakFlame
+import com.quranicwords.app.core.ui.components.StreakFlame
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
@@ -113,7 +113,7 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        RiveStreakFlame(streakDays = route.currentStreak)
+                        StreakFlame(streakDays = route.currentStreak)
                         Text(
                             stringResource(R.string.lesson_summary_streak_increased),
                             style = MaterialTheme.typography.titleMedium,

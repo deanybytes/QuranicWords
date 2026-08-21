@@ -133,8 +133,6 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
 
-    implementation(libs.lottie.compose)
-    implementation(libs.rive.android)
     implementation(libs.konfetti.compose)
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
