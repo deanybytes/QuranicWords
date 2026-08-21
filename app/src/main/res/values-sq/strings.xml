@@ -65,6 +65,7 @@
     <!-- Lesson summary -->
     <string name="lesson_summary_title_pass">Elhamdulilah! Punë e shkëlqyer!</string>
     <string name="lesson_summary_title_retry">In-Sha-Allah, herën tjetër!</string>
+    <string name="lesson_summary_title_complete">Elhamdulilah! Mësimi u përfundua</string>
     <string name="lesson_summary_points_earned">+%d pikë</string>
     <string name="lesson_summary_accuracy">%d%% saktë</string>
     <string name="lesson_summary_streak_increased">Vazhdimësia u zgjat! 🔥</string>

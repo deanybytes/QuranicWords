@@ -1,5 +1,6 @@
 package com.quranicwords.app.core.navigation
 
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import kotlinx.serialization.Serializable
 
 /** Type-safe Navigation-Compose destinations. */
@@ -23,7 +24,11 @@ sealed interface Route {
         val newTotalPoints: Int,
         val currentStreak: Int,
         val streakIncreased: Boolean,
-        val nextLessonId: String? = null
+        val nextLessonId: String? = null,
+        /** Null for a Review session. See [com.quranicwords.app.core.domain.model.LessonResult
+         * .lessonKind] - carried straight through so this screen can show pass/fail messaging
+         * tied to the real per-kind gating rule instead of a hardcoded accuracy threshold. */
+        val lessonKind: LessonKind? = null
     ) : Route
     @Serializable data object Settings : Route
 }

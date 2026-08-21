@@ -65,6 +65,7 @@
     <!-- Lesson summary -->
     <string name="lesson_summary_title_pass">Альхамдулиллях! Отлично сделано!</string>
     <string name="lesson_summary_title_retry">Ин ша Аллах, в следующий раз!</string>
+    <string name="lesson_summary_title_complete">Альхамдулиллях! Урок завершён</string>
     <string name="lesson_summary_points_earned">+%d очков</string>
     <string name="lesson_summary_accuracy">%d%% верно</string>
     <string name="lesson_summary_streak_increased">Серия продлена! 🔥</string>
