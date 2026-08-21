@@ -28,6 +28,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.local.entity.LessonKind
@@ -117,7 +121,11 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
                     passed -> R.string.lesson_summary_title_pass
                     else -> R.string.lesson_summary_title_retry
                 }
-                Text(stringResource(titleRes), style = MaterialTheme.typography.headlineMedium)
+                Text(
+                    stringResource(titleRes),
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.semantics { heading() }
+                )
             }
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -153,7 +161,12 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             if (route.streakIncreased) {
                 Spacer(modifier = Modifier.height(8.dp))
                 AnimatedVisibility(visible = visible, enter = fadeIn() + scaleIn(initialScale = 0.7f)) {
+                    // Assertive live region: this row fades in mid-screen (after the initial
+                    // window-appear announcement TalkBack already gives the rest of this screen),
+                    // so without an explicit live region a screen-reader user would never learn
+                    // their streak increased at all - same pattern as FeedbackBanner.
                     Row(
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
@@ -170,7 +183,10 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             if (newlyUnlockedAchievements.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(16.dp))
                 StaggeredEntrance(index = 4) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive },
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
                             stringResource(R.string.lesson_summary_achievement_unlocked),
                             style = MaterialTheme.typography.titleMedium,

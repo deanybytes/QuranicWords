@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,7 +36,11 @@ fun LanguageSelectScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         QwLogo(size = 64.dp)
-        Text(stringResource(R.string.language_select_title), style = MaterialTheme.typography.headlineMedium)
+        Text(
+            stringResource(R.string.language_select_title),
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.semantics { heading() }
+        )
         Text(
             stringResource(R.string.language_select_subtitle),
             style = MaterialTheme.typography.bodyMedium,
