@@ -70,7 +70,7 @@ Every word is **taught before it's quizzed** — a non-scored intro (the word, i
 |---|---|---|
 | 📖 Word intro | Word + meaning + a real example verse it appears in, tap "Got it" | No — teaching only |
 | 🔤 Multiple choice | Tap the correct transliteration/meaning for an Arabic word | Yes |
-| 🔊 Tap-what-you-hear | Listen (male voice) and select the matching word *(composable ready; audio assets pending — see [Roadmap](docs/ROADMAP.md))* | Yes |
+| 🔊 Tap-what-you-hear | Listen (male voice) and select the matching word *(composable ready; audio clips exist for all 3,680 words, no exercises generated for this type yet — see [Roadmap](docs/ROADMAP.md))* | Yes |
 | 🔗 Matching | Pair Arabic words with their meanings | Yes |
 | ✏️ Fill in the blank | Complete a verse by choosing the missing word | Yes |
 | 🧱 Word order builder | Assemble a verse from its individual word chips, in order | Yes |
