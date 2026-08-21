@@ -12,6 +12,10 @@ interface ContentRepository {
     fun observeChapters(): Flow<List<ChapterEntity>>
     fun observeSections(chapterId: String): Flow<List<SectionEntity>>
     fun observeLessons(sectionId: String): Flow<List<LessonEntity>>
+    /** The chapter-scoped lessons (sectionId == null: CHAPTER_EXAM, and CHAPTER_FLASHBACK where
+     * one exists - see LessonKind's doc comment) that [observeLessons] can never return, since it
+     * queries by sectionId. Sorted by sortOrder (exam before its trailing flashback). */
+    suspend fun getChapterLevelLessons(chapterId: String): List<LessonEntity>
     suspend fun getLesson(lessonId: String): LessonEntity?
     suspend fun getChapter(chapterId: String): ChapterEntity?
     suspend fun getSection(sectionId: String): SectionEntity?

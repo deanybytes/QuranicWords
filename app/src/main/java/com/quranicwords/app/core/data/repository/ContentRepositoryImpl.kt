@@ -4,6 +4,7 @@ import com.quranicwords.app.core.data.assets.ContentSeeder
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.data.local.QwDatabase
@@ -28,6 +29,12 @@ class ContentRepositoryImpl @Inject constructor(
 
     override fun observeLessons(sectionId: String): Flow<List<LessonEntity>> =
         database.lessonDao().observeForSection(sectionId)
+
+    override suspend fun getChapterLevelLessons(chapterId: String): List<LessonEntity> =
+        listOfNotNull(
+            database.lessonDao().getChapterLevelLesson(chapterId, LessonKind.CHAPTER_EXAM),
+            database.lessonDao().getChapterLevelLesson(chapterId, LessonKind.CHAPTER_FLASHBACK)
+        ).sortedBy { it.sortOrder }
 
     override suspend fun getLesson(lessonId: String): LessonEntity? =
         database.lessonDao().getById(lessonId)

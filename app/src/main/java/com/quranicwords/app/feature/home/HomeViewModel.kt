@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
+import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
@@ -23,7 +24,14 @@ import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 data class SectionWithLessons(val section: SectionEntity, val lessons: List<LessonEntity>)
-data class ChapterWithSections(val chapter: ChapterEntity, val sections: List<SectionWithLessons>)
+data class ChapterWithSections(
+    val chapter: ChapterEntity,
+    val sections: List<SectionWithLessons>,
+    /** CHAPTER_EXAM (+ CHAPTER_FLASHBACK where one exists) - sectionId == null, so these can
+     * never come back from a per-section lessons query. Rendered after this chapter's last
+     * section. See ContentRepository.getChapterLevelLessons. */
+    val chapterLevelLessons: List<LessonEntity> = emptyList()
+)
 
 data class HomeUiState(
     /** The whole curriculum tree, fetched once per Home session - static content that never
@@ -39,8 +47,48 @@ data class HomeUiState(
      * (the missed-items query is a one-shot suspend read, not a Flow), so it can go stale if a
      * Review/lesson session completes without this ViewModel being recreated. Acceptable given
      * the entry point itself re-checks emptiness before assembling a session either way. */
-    val hasReviewableItems: Boolean = false
+    val hasReviewableItems: Boolean = false,
+    /** The chapter/section containing the learner's actual current lesson (first UNLOCKED-but-
+     * not-COMPLETED one) - the collapse/expand tree auto-opens to here on load rather than
+     * requiring a tap first, softening the collapse-by-default UX trade-off. Null/null when there
+     * is no such lesson (fresh install before ensureCurriculumStarted's bootstrap has produced
+     * any progress rows yet, or the whole curriculum is already complete). */
+    val initiallyExpandedChapterId: String? = null,
+    val initiallyExpandedSectionId: String? = null
 )
+
+/** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
+ * by section, then this chapter's own trailing exam/flashback) whose progress status is
+ * [LessonStatus.UNLOCKED] rather than [LessonStatus.COMPLETED] or missing entirely. A lesson with
+ * no progress row at all is not "current" - only [com.quranicwords.app.core.data.repository
+ * .ProgressRepositoryImpl.unlockIfNeeded] ever creates one, so an absent row means "not reached
+ * yet", not "in progress". */
+fun findCurrentPosition(chapters: List<ChapterWithSections>, progressByLessonId: Map<String, UserProgressEntity>): Pair<String?, String?> {
+    for (chapterWithSections in chapters) {
+        for (sectionWithLessons in chapterWithSections.sections) {
+            val hasCurrent = sectionWithLessons.lessons.any { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
+            if (hasCurrent) return chapterWithSections.chapter.id to sectionWithLessons.section.id
+        }
+        val hasCurrentChapterLevel = chapterWithSections.chapterLevelLessons
+            .any { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
+        if (hasCurrentChapterLevel) return chapterWithSections.chapter.id to null
+    }
+    return null to null
+}
+
+/** Pure derivation for a chapter/section summary node's own status, from its children's real
+ * per-lesson progress rows - COMPLETED only when every child is; UNLOCKED if any child has been
+ * reached at all; LOCKED (the default for an absent progress row - see [findCurrentPosition]'s
+ * doc comment) otherwise. Used by [HomeScreen]'s collapse/expand tree (QW-22). */
+fun aggregateStatus(lessonIds: List<String>, progressByLessonId: Map<String, UserProgressEntity>): LessonStatus {
+    if (lessonIds.isEmpty()) return LessonStatus.LOCKED
+    val statuses = lessonIds.map { progressByLessonId[it]?.status ?: LessonStatus.LOCKED }
+    return when {
+        statuses.all { it == LessonStatus.COMPLETED } -> LessonStatus.COMPLETED
+        statuses.any { it != LessonStatus.LOCKED } -> LessonStatus.UNLOCKED
+        else -> LessonStatus.LOCKED
+    }
+}
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -68,13 +116,17 @@ class HomeViewModel @Inject constructor(
                 progressRepository.observeProgress(userId),
                 progressRepository.observeStats(userId)
             ) { progress, stats ->
+                val progressByLessonId = progress.associateBy { it.lessonId }
+                val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
                 HomeUiState(
                     chapters = chapters,
-                    progressByLessonId = progress.associateBy { it.lessonId },
+                    progressByLessonId = progressByLessonId,
                     totalPoints = stats?.totalPoints ?: 0,
                     currentStreak = displayedStreak(stats),
                     isLoading = false,
-                    hasReviewableItems = hasReviewableItems
+                    hasReviewableItems = hasReviewableItems,
+                    initiallyExpandedChapterId = currentChapterId,
+                    initiallyExpandedSectionId = currentSectionId
                 )
             }.collect { _uiState.value = it }
         }
@@ -87,7 +139,7 @@ class HomeViewModel @Inject constructor(
             val sectionsWithLessons = sections.map { section ->
                 SectionWithLessons(section, contentRepository.observeLessons(section.id).first())
             }
-            ChapterWithSections(chapter, sectionsWithLessons)
+            ChapterWithSections(chapter, sectionsWithLessons, contentRepository.getChapterLevelLessons(chapter.id))
         }
     }
 
