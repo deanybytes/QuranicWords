@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">QuranicWords</string>
+    <string name="app_logo_content_description">QuranicWords logosu</string>
+    <string name="points_content_description">%d puan</string>
+    <string name="streak_content_description">%d günlük seri</string>
+
+    <!-- Opening invocation (splash, every launch) -->
+    <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
+    <string name="splash_invocation_taawwudh_translation">Kovulmuş şeytandan Allah\'a sığınırım</string>
+    <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
+    <string name="splash_invocation_basmala_translation">Rahman ve Rahim olan Allah\'ın adıyla</string>
+    <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
+    <string name="splash_invocation_rabbizidni_translation">Rabbim, ilmimi artır</string>
+    <string name="splash_invocation_rabbizidni_reference">Kur\'an 20:114</string>
+    <string name="splash_invocation_skip_hint">Geçmek için dokunun</string>
+
+    <!-- Language select -->
+    <string name="language_select_title">Dilinizi seçin</string>
+    <string name="language_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsiniz.</string>
+
+    <!-- Font select -->
+    <string name="font_select_title">Kur\'an yazı stilinizi seçin</string>
+    <string name="font_select_subtitle">Bu, en kısa sure olan Kevser Suresi\'nin her stildeki önizlemesidir.</string>
+    <string name="font_pending_note">Bu stilin lisanslı yazı tipi dosyası henüz eklenmedi, şimdilik varsayılan yazı gösteriliyor.</string>
+
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">Bölüm</string>
+    <string name="intro_section_label">Kısım</string>
+    <string name="intro_word_count">İnşaallah, burada %1$d kelime öğreneceğiz.</string>
+    <string name="intro_occurrence_percent">Bu kelimeler, Kur\'an\'daki tüm kelime geçişlerinin %1$s%%\'ini oluşturuyor.</string>
+    <string name="intro_cumulative_percent">Bitirdiğinizde, şu ana kadar Kur\'an kelime hazinesinin %1$s%%\'ini kapsamış olacaksınız.</string>
+    <string name="intro_start_button">Başla</string>
+    <string name="intro_skip_button">Geç</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">Kelimelere göz at</string>
+    <string name="word_browse_empty">Henüz göz atılacak kelime yok.</string>
+
+    <!-- Home -->
+    <string name="home_title">QuranicWords</string>
+    <string name="home_module_locked">Kilitli</string>
+    <string name="home_open_settings">Ayarlar</string>
+    <string name="home_review_title">Kaçırılan kelimeleri gözden geçir</string>
+    <string name="home_review_subtitle">Geçen sefer yanlış yaptıklarınızı çalışın.</string>
+
+    <!-- Lesson -->
+    <string name="lesson_check_button">Kontrol et</string>
+    <string name="lesson_continue_button">Devam et</string>
+    <string name="lesson_finish_button">Dersi bitir</string>
+    <string name="lesson_feedback_correct">Doğru!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">Elhamdülillah!</string>
+    <string name="lesson_feedback_incorrect_tryagain">İnşaallah, bir dahaki sefere!</string>
+    <string name="lesson_feedback_incorrect_with_answer">Tam olarak değil. Doğru cevap %s idi.</string>
+    <string name="lesson_exit_confirm_title">Bu dersten çıkılsın mı?</string>
+    <string name="lesson_exit_confirm_message">Bu dersteki ilerlemeniz kaydedilmeyecek.</string>
+    <string name="lesson_exit_confirm_leave">Çık</string>
+    <string name="lesson_exit_confirm_stay">Öğrenmeye devam et</string>
+    <string name="lesson_matching_instruction">Bir harfe dokunun, ardından eşleşenine dokunun.</string>
+    <string name="lesson_teach_continue_button">Anladım</string>
+    <string name="lesson_word_example_verse_label">Örnek: %s</string>
+    <string name="exercise_audio_unavailable">Bu öğe için ses henüz mevcut değil.</string>
+    <string name="word_order_build_area_label">Cevabınız</string>
+    <string name="listen_and_type_hint">Duyduğunuzu yazın</string>
+
+    <!-- Lesson summary -->
+    <string name="lesson_summary_title_pass">Elhamdülillah! Aferin!</string>
+    <string name="lesson_summary_title_retry">İnşaallah, bir dahaki sefere!</string>
+    <string name="lesson_summary_points_earned">+%d puan</string>
+    <string name="lesson_summary_accuracy">%%%d doğru</string>
+    <string name="lesson_summary_streak_increased">Seri uzadı! 🔥</string>
+    <string name="lesson_summary_continue">Devam et</string>
+    <string name="lesson_summary_back_to_home">Ana sayfaya dön</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_section_appearance">Görünüm</string>
+    <string name="settings_theme_label">Tema</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Açık</string>
+    <string name="settings_theme_dark">Koyu</string>
+    <string name="settings_language_label">Dil</string>
+    <string name="settings_quran_font_label">Kur\'an yazı stili</string>
+    <string name="settings_reduce_motion_label">Hareketi azalt</string>
+    <string name="settings_sound_effects_label">Ses efektleri</string>
+    <string name="settings_font_scale_label">Metin boyutu</string>
+    <string name="settings_font_scale_small">Küçük</string>
+    <string name="settings_font_scale_default">Varsayılan</string>
+    <string name="settings_font_scale_large">Büyük</string>
+    <string name="settings_font_scale_extra_large">Çok büyük</string>
+    <string name="settings_section_notifications">Bildirimler</string>
+    <string name="settings_streak_reminder_label">Seri hatırlatıcısı</string>
+    <string name="settings_streak_reminder_description">Bugün henüz çalışmadıysanız ve korunması gereken bir seriniz varsa, cihaz üzerinde yerel bir hatırlatma yapılır. Ağ üzerinden hiçbir şey gönderilmez.</string>
+    <string name="settings_streak_reminder_time_label">Hatırlatma saati</string>
+    <string name="settings_streak_reminder_permission_denied">Sistem ayarlarında QuranicWords bildirimleri kapalı, bu yüzden hatırlatıcı gösterilmeyecek.</string>
+    <string name="notification_channel_streak_name">Seri hatırlatıcıları</string>
+    <string name="notification_channel_streak_description">Çalışma seriniz bozulma riskiyle karşı karşıyayken yerel hatırlatmalar.</string>
+    <string name="notification_streak_title">Serinizi kaybetmeyin!</string>
+    <string name="notification_streak_body">%1$d günlük bir seriniz var — devam ettirmek için bugün çalışın.</string>
+    <string name="settings_section_backup">Yedekleme</string>
+    <string name="settings_backup_description">İlerlemeniz yalnızca bu cihazda saklanır. Güvende tutmak için bir yedek dosyası dışa aktarın veya bu ya da başka bir cihazda ilerlemeyi geri yüklemek için içe aktarın.</string>
+    <string name="settings_backup_export">Yedeği dışa aktar</string>
+    <string name="settings_backup_import">Yedeği içe aktar</string>
+    <string name="settings_backup_export_success">Yedek kaydedildi.</string>
+    <string name="settings_backup_export_failed">Yedek kaydedilemedi. Lütfen tekrar deneyin.</string>
+    <string name="settings_backup_import_success">Yedek geri yüklendi.</string>
+    <string name="settings_backup_import_failed">Bu yedek dosyası geri yüklenemedi.</string>
+    <string name="settings_section_about">Hakkında</string>
+    <string name="settings_copyright">Telif hakkı © rmrashahriar 2026. GPL-3.0 lisansı altındadır.</string>
+    <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an kaynaklarından alınmıştır. Bengalce kelime anlamları yapay zeka destekli olup sürekli gözden geçirilmektedir — ayrıntılar için proje belgelerine bakın.</string>
+    <string name="settings_licenses_button">Lisanslar ve kaynaklar</string>
+    <string name="settings_licenses_title">Lisanslar ve kaynaklar</string>
+    <string name="settings_close">Kapat</string>
+
+    <!-- Common -->
+    <string name="action_back">Geri</string>
+    <string name="action_confirm">Onayla</string>
+</resources>
