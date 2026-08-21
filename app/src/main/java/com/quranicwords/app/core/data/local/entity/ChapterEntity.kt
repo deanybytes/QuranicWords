@@ -2,6 +2,7 @@ package com.quranicwords.app.core.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.quranicwords.app.core.domain.model.LocalizedText
 import kotlinx.serialization.Serializable
 
 /**
@@ -16,10 +17,8 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "chapters")
 data class ChapterEntity(
     @PrimaryKey val id: String,
-    val titleEn: String,
-    val titleBn: String,
-    val descriptionEn: String,
-    val descriptionBn: String,
+    val title: LocalizedText,
+    val description: LocalizedText,
     val sortOrder: Int,
     val wordCount: Int,
     val quranOccurrenceCount: Int,

@@ -12,19 +12,19 @@ import org.junit.Test
 class AdaptiveSequencerTest {
 
     private fun teachStep(wordId: String) = ExerciseContent.WordIntro(
-        promptEn = "p", promptBn = "p", wordId = wordId, arabicWord = wordId,
-        meaningEn = wordId, meaningBn = wordId, exampleVerseArabic = "v",
-        exampleVerseTranslationEn = "t", exampleVerseTranslationBn = "t", exampleVerseReference = "1:1"
+        prompt = mapOf("en" to "p", "bn" to "p"), wordId = wordId, arabicWord = wordId,
+        meaning = mapOf("en" to wordId, "bn" to wordId), exampleVerseArabic = "v",
+        exampleVerseTranslation = mapOf("en" to "t", "bn" to "t"), exampleVerseReference = "1:1"
     )
 
     private fun quizStep(wordId: String) = ExerciseContent.MultipleChoice(
-        promptEn = "p", promptBn = "p",
+        prompt = mapOf("en" to "p", "bn" to "p"),
         options = listOf(ChoiceOption(id = wordId)), correctOptionId = wordId
     )
 
     private fun matching(vararg pairs: String) = ExerciseContent.Matching(
-        promptEn = "p", promptBn = "p",
-        pairs = pairs.map { MatchPair(id = it, leftArabic = it, rightEn = it, rightBn = it) }
+        prompt = mapOf("en" to "p", "bn" to "p"),
+        pairs = pairs.map { MatchPair(id = it, leftArabic = it, right = mapOf("en" to it, "bn" to it)) }
     )
 
     @Test

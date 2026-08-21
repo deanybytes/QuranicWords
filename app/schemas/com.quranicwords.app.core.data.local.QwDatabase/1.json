@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bf284455f70457ed1cf63daa3598901e",
+    "identityHash": "2aa7e0175e2314eb5260e5970647d4f2",
     "entities": [
       {
         "tableName": "word_frequency",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `arabicWord` TEXT NOT NULL, `frequencyRank` INTEGER NOT NULL, `frequencyCount` INTEGER NOT NULL, `meaningEn` TEXT NOT NULL, `meaningBn` TEXT NOT NULL, `audioAssetPath` TEXT, `tierLevel` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `arabicWord` TEXT NOT NULL, `frequencyRank` INTEGER NOT NULL, `frequencyCount` INTEGER NOT NULL, `meaning` TEXT NOT NULL, `audioAssetPath` TEXT, `tierLevel` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -33,14 +33,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "meaningEn",
-            "columnName": "meaningEn",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "meaningBn",
-            "columnName": "meaningBn",
+            "fieldPath": "meaning",
+            "columnName": "meaning",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -65,7 +59,7 @@
       },
       {
         "tableName": "chapters",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `titleEn` TEXT NOT NULL, `titleBn` TEXT NOT NULL, `descriptionEn` TEXT NOT NULL, `descriptionBn` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `wordCount` INTEGER NOT NULL, `quranOccurrenceCount` INTEGER NOT NULL, `quranOccurrencePercent` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `wordCount` INTEGER NOT NULL, `quranOccurrenceCount` INTEGER NOT NULL, `quranOccurrencePercent` REAL NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -74,26 +68,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "titleEn",
-            "columnName": "titleEn",
+            "fieldPath": "title",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "titleBn",
-            "columnName": "titleBn",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "descriptionEn",
-            "columnName": "descriptionEn",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "descriptionBn",
-            "columnName": "descriptionBn",
+            "fieldPath": "description",
+            "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -131,7 +113,7 @@
       },
       {
         "tableName": "sections",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `chapterId` TEXT NOT NULL, `titleEn` TEXT NOT NULL, `titleBn` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `wordCount` INTEGER NOT NULL, `quranOccurrenceCount` INTEGER NOT NULL, `quranOccurrencePercent` REAL NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`chapterId`) REFERENCES `chapters`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `chapterId` TEXT NOT NULL, `title` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `wordCount` INTEGER NOT NULL, `quranOccurrenceCount` INTEGER NOT NULL, `quranOccurrencePercent` REAL NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`chapterId`) REFERENCES `chapters`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -146,14 +128,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "titleEn",
-            "columnName": "titleEn",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "titleBn",
-            "columnName": "titleBn",
+            "fieldPath": "title",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -215,7 +191,7 @@
       },
       {
         "tableName": "lessons",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `chapterId` TEXT NOT NULL, `sectionId` TEXT, `titleEn` TEXT NOT NULL, `titleBn` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `kind` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`chapterId`) REFERENCES `chapters`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`sectionId`) REFERENCES `sections`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `chapterId` TEXT NOT NULL, `sectionId` TEXT, `title` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `kind` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`chapterId`) REFERENCES `chapters`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`sectionId`) REFERENCES `sections`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -235,14 +211,8 @@
             "affinity": "TEXT"
           },
           {
-            "fieldPath": "titleEn",
-            "columnName": "titleEn",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "titleBn",
-            "columnName": "titleBn",
+            "fieldPath": "title",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -533,7 +503,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bf284455f70457ed1cf63daa3598901e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2aa7e0175e2314eb5260e5970647d4f2')"
     ]
   }
 }

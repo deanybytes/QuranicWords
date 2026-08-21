@@ -42,7 +42,8 @@ import com.quranicwords.app.core.ui.components.AnswerFeedbackOverlay
 import com.quranicwords.app.core.ui.components.FeedbackBanner
 import com.quranicwords.app.core.ui.components.FeedbackType
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberQwHaptics
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
@@ -63,7 +64,7 @@ fun LessonScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var showExitDialog by remember { mutableStateOf(false) }
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
     val haptics = rememberQwHaptics()
 
     LaunchedEffect(uiState.isChecked, uiState.lastAnswerCorrect) {
@@ -185,7 +186,7 @@ fun LessonScreen(
                     val feedbackMessage = if (uiState.lastAnswerCorrect == true) {
                         stringResource(R.string.lesson_feedback_correct)
                     } else {
-                        val correctLabel = correctAnswerLabel(uiState.currentContent, isBangla)
+                        val correctLabel = correctAnswerLabel(uiState.currentContent, language)
                         stringResource(R.string.lesson_feedback_incorrect_with_answer, correctLabel)
                     }
                     FeedbackBanner(
@@ -264,13 +265,13 @@ fun LessonScreen(
 }
 
 @Composable
-private fun correctAnswerLabel(content: ExerciseContent?, isBangla: Boolean): String = when (content) {
+private fun correctAnswerLabel(content: ExerciseContent?, language: Language): String = when (content) {
     is ExerciseContent.MultipleChoice ->
-        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(isBangla).orEmpty()
+        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
     is ExerciseContent.TapWhatYouHear ->
-        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(isBangla).orEmpty()
+        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
     is ExerciseContent.FillInTheBlank ->
-        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(isBangla).orEmpty()
+        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
     is ExerciseContent.WordOrderBuilder ->
         content.orderedChips.joinToString(" ") { it.arabicText }
     is ExerciseContent.ListenAndType -> content.correctAnswer

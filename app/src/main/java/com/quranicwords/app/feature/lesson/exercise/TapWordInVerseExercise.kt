@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.WordSpan
+import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.localizedPrompt
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.getValue
@@ -38,15 +39,15 @@ fun TapWordInVerseExerciseContent(
     selectedSpan: WordSpan?,
     onSelectWord: (WordSpan) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Text(content.localizedPrompt(isBangla), style = MaterialTheme.typography.titleMedium)
+        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
         Text(
-            text = if (isBangla) content.meaningBn else content.meaningEn,
+            text = content.meaning.get(language),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,

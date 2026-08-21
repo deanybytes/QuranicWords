@@ -7,8 +7,6 @@
     <!-- Language select -->
     <string name="language_select_title">Choose your language</string>
     <string name="language_select_subtitle">You can change this later in Settings.</string>
-    <string name="language_option_english">English</string>
-    <string name="language_option_bangla">বাংলা</string>
 
     <!-- Font select -->
     <string name="font_select_title">Choose your Quran script style</string>

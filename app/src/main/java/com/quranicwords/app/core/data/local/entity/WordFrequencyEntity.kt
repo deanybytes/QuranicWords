@@ -2,6 +2,7 @@ package com.quranicwords.app.core.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.quranicwords.app.core.domain.model.LocalizedText
 import kotlinx.serialization.Serializable
 
 /**
@@ -15,8 +16,7 @@ data class WordFrequencyEntity(
     val arabicWord: String,
     val frequencyRank: Int,
     val frequencyCount: Int,
-    val meaningEn: String,
-    val meaningBn: String,
+    val meaning: LocalizedText,
     val audioAssetPath: String?,
     val tierLevel: Int
 )

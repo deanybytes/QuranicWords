@@ -41,9 +41,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.Elevation
 
 /**
@@ -59,7 +61,7 @@ fun WordBrowseScreen(
     viewModel: WordBrowseViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Scaffold(
         topBar = {
@@ -113,7 +115,7 @@ fun WordBrowseScreen(
                         .padding(24.dp)
                         .clickable { flippedByWordId[word.wordId] = !flipped },
                     front = { WordCardFront(word) },
-                    back = { WordCardBack(word, isBangla, onPlay = viewModel::playAudio) }
+                    back = { WordCardBack(word, language, onPlay = viewModel::playAudio) }
                 )
             }
         }
@@ -148,11 +150,11 @@ private fun WordCardFront(word: ExerciseContent.WordIntro) {
 @Composable
 private fun WordCardBack(
     word: ExerciseContent.WordIntro,
-    isBangla: Boolean,
+    language: Language,
     onPlay: (String) -> Boolean
 ) {
-    val meaning = if (isBangla) word.meaningBn else word.meaningEn
-    val verseTranslation = if (isBangla) word.exampleVerseTranslationBn else word.exampleVerseTranslationEn
+    val meaning = word.meaning.get(language)
+    val verseTranslation = word.exampleVerseTranslation.get(language)
 
     Card(
         modifier = Modifier.fillMaxSize(),

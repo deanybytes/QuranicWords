@@ -10,7 +10,7 @@ class DistractorGeneratorTest {
 
     private fun word(id: String, rank: Int, tier: Int = 2) = WordFrequencyEntity(
         id = id, arabicWord = id, frequencyRank = rank, frequencyCount = 0,
-        meaningEn = id, meaningBn = id, audioAssetPath = null, tierLevel = tier
+        meaning = mapOf("en" to id, "bn" to id), audioAssetPath = null, tierLevel = tier
     )
 
     private fun pool(vararg words: WordFrequencyEntity) = WordCandidatePool.from(words.toList())

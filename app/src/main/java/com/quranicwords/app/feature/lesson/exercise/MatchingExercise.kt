@@ -37,7 +37,7 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.domain.model.localizedRight
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
@@ -53,7 +53,7 @@ fun MatchingExerciseContent(
     onSelectLeft: (String) -> Unit,
     onSelectRight: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
     val reducedMotion = rememberReducedMotion()
     val leftOrder = remember(content) { content.pairs.shuffled() }
     val rightOrder = remember(content) { content.pairs.shuffled() }
@@ -96,7 +96,7 @@ fun MatchingExerciseContent(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(content.localizedPrompt(isBangla), style = MaterialTheme.typography.titleMedium)
+        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
         Text(
             stringResource(R.string.lesson_matching_instruction),
             style = MaterialTheme.typography.bodySmall,
@@ -130,7 +130,7 @@ fun MatchingExerciseContent(
                     rightOrder.forEach { pair ->
                         val isMatched = pair.id in matchedPairIds
                         MatchTile(
-                            text = pair.localizedRight(isBangla),
+                            text = pair.localizedRight(language),
                             isMatched = isMatched,
                             isSelected = false,
                             shakeOffset = shakeOffsets[pair.id],

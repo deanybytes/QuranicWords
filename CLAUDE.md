@@ -88,7 +88,7 @@ Room DAOs expose `Flow` for anything the UI observes live. `LessonViewModel.init
 
 ### In-app language switching
 
-`MainActivity` extends `AppCompatActivity` (not plain `ComponentActivity`) specifically because `AppCompatDelegate.setApplicationLocales()`'s pre-API-33 compat path needs an `AppCompatActivity`-registered delegate to mutate `Configuration.locales` — without it the call silently no-ops on API 24–32 and `values-bn/` resources never get selected. Screens must localize both static UI strings (`stringResource`, resource-qualifier driven) **and** JSON-sourced content fields (`titleEn`/`titleBn`, `promptEn`/`promptBn`, etc.) explicitly via `rememberIsBanglaSelected()` — these are two separate mechanisms and both must be wired per screen.
+`MainActivity` extends `AppCompatActivity` (not plain `ComponentActivity`) specifically because `AppCompatDelegate.setApplicationLocales()`'s pre-API-33 compat path needs an `AppCompatActivity`-registered delegate to mutate `Configuration.locales` — without it the call silently no-ops on API 24–32 and `values-bn/` resources never get selected. Screens must localize both static UI strings (`stringResource`, resource-qualifier driven) **and** JSON-sourced content fields (`LocalizedText` maps — `title`, `meaning`, `prompt`, etc. on entities/`ExerciseContent`, keyed by `Language.tag`) explicitly via `rememberSelectedLanguage()` — these are two separate mechanisms and both must be wired per screen. `Language` supports 12 tags (`en, bn, sq, zh, fa, fr, de, hi, in, ru, tr, ur`); only `en`/`bn` have translated content/UI strings so far, the rest fall back to English via `LocalizedText.get`'s fallback.
 
 ### R8/ProGuard gotcha
 

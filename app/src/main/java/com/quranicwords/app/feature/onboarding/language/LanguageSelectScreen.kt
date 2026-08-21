@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +29,8 @@ fun LanguageSelectScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
+            .padding(24.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         QwLogo(size = 64.dp)
@@ -38,17 +41,16 @@ fun LanguageSelectScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        StaggeredEntrance(index = 0) {
-            LanguageOptionCard(
-                label = stringResource(R.string.language_option_english),
-                onClick = { viewModel.selectLanguage(Language.ENGLISH, onContinue) }
-            )
-        }
-        StaggeredEntrance(index = 1) {
-            LanguageOptionCard(
-                label = stringResource(R.string.language_option_bangla),
-                onClick = { viewModel.selectLanguage(Language.BANGLA, onContinue) }
-            )
+        // Each language names itself (its own nativeName) - the universal convention for language
+        // pickers, and the only labeling that doesn't need 12 languages' worth of translated
+        // string resources for "English"/"Bangla"/etc. just to show this one screen.
+        Language.entries.forEachIndexed { index, lang ->
+            StaggeredEntrance(index = index) {
+                LanguageOptionCard(
+                    label = lang.nativeName,
+                    onClick = { viewModel.selectLanguage(lang, onContinue) }
+                )
+            }
         }
     }
 }

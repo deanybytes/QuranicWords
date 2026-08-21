@@ -8,45 +8,43 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+private val EN_BN = mapOf("en" to "p", "bn" to "p")
+
 class ExerciseContentTest {
 
     private fun teachStep(wordId: String) = ExerciseContent.WordIntro(
-        promptEn = "Meet a new word",
-        promptBn = "একটি নতুন শব্দ চিনুন",
+        prompt = mapOf("en" to "Meet a new word", "bn" to "একটি নতুন শব্দ চিনুন"),
         wordId = wordId,
         arabicWord = "مِن",
-        meaningEn = "from",
-        meaningBn = "থেকে",
+        meaning = mapOf("en" to "from", "bn" to "থেকে"),
         exampleVerseArabic = "بِسْمِ ٱللَّهِ",
-        exampleVerseTranslationEn = "In the name of Allah",
-        exampleVerseTranslationBn = "আল্লাহর নামে",
+        exampleVerseTranslation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে"),
         exampleVerseReference = "1:1"
     )
 
     private fun quizStep(id: String) = ExerciseContent.MultipleChoice(
-        promptEn = "What does this word mean?",
-        promptBn = "এই শব্দের অর্থ কী?",
-        options = listOf(ChoiceOption(id = "o1", labelEn = "from")),
+        prompt = mapOf("en" to "What does this word mean?", "bn" to "এই শব্দের অর্থ কী?"),
+        options = listOf(ChoiceOption(id = "o1", label = mapOf("en" to "from"))),
         correctOptionId = "o1"
     )
 
     private fun fillInTheBlank(wordId: String) = ExerciseContent.FillInTheBlank(
-        promptEn = "Fill in the blank", promptBn = "শূন্যস্থান পূরণ করুন",
+        prompt = mapOf("en" to "Fill in the blank", "bn" to "শূন্যস্থান পূরণ করুন"),
         wordId = wordId, sentenceArabic = "بِسْمِ ٱللَّهِ", blankStart = 5, blankEnd = 10,
-        sentenceTranslationEn = "In the name of Allah", sentenceTranslationBn = "আল্লাহর নামে",
+        sentenceTranslation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে"),
         sentenceReference = "1:1",
-        options = listOf(ChoiceOption(id = wordId, labelEn = "Allah")), correctOptionId = wordId
+        options = listOf(ChoiceOption(id = wordId, label = mapOf("en" to "Allah"))), correctOptionId = wordId
     )
 
     private fun wordOrder(wordId: String) = ExerciseContent.WordOrderBuilder(
-        promptEn = "Put in order", promptBn = "সাজান",
+        prompt = mapOf("en" to "Put in order", "bn" to "সাজান"),
         wordId = wordId,
         orderedChips = listOf(ExerciseContent.WordChip("c1", "بِسْمِ"), ExerciseContent.WordChip("c2", "ٱللَّهِ")),
-        translationEn = "In the name of Allah", translationBn = "আল্লাহর নামে"
+        translation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে")
     )
 
     private fun listenAndType(wordId: String) = ExerciseContent.ListenAndType(
-        promptEn = "Type what you hear", promptBn = "যা শুনলেন তা লিখুন",
+        prompt = mapOf("en" to "Type what you hear", "bn" to "যা শুনলেন তা লিখুন"),
         wordId = wordId, audioAssetPath = "audio/$wordId.mp3", correctAnswer = "Allah",
         acceptedAnswers = listOf("allah")
     )
@@ -55,10 +53,10 @@ class ExerciseContentTest {
     fun `teach steps are not scored, quiz and matching are`() {
         assertFalse(teachStep("alif").isScored)
         assertTrue(quizStep("q1").isScored)
-        assertTrue(ExerciseContent.Matching(promptEn = "", promptBn = "", pairs = emptyList()).isScored)
+        assertTrue(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).isScored)
         assertTrue(
             ExerciseContent.TapWhatYouHear(
-                promptEn = "", promptBn = "", audioAssetPath = "a.mp3",
+                prompt = EN_BN, audioAssetPath = "a.mp3",
                 options = emptyList(), correctOptionId = "x"
             ).isScored
         )
@@ -74,7 +72,7 @@ class ExerciseContentTest {
         assertEquals("w1", fillInTheBlank("w1").practicedItemId())
         assertEquals("w1", wordOrder("w1").practicedItemId())
         assertEquals("w1", listenAndType("w1").practicedItemId())
-        assertNull(ExerciseContent.Matching(promptEn = "", promptBn = "", pairs = emptyList()).practicedItemId())
+        assertNull(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).practicedItemId())
     }
 
     @Test
@@ -106,35 +104,33 @@ class ExerciseContentTest {
     }
 
     @Test
-    fun `WordIntro highlight fields round-trip through serialization, defaulting to null`() {
+    fun `WordIntro highlight fields round-trip through serialization, defaulting to empty`() {
         val withHighlights = ExerciseContent.WordIntro(
-            promptEn = "Meet a new word",
-            promptBn = "একটি নতুন শব্দ চিনুন",
+            prompt = mapOf("en" to "Meet a new word", "bn" to "একটি নতুন শব্দ চিনুন"),
             wordId = "wf_1",
             arabicWord = "مِن",
-            meaningEn = "from",
-            meaningBn = "থেকে",
+            meaning = mapOf("en" to "from", "bn" to "থেকে"),
             exampleVerseArabic = "بِسْمِ ٱللَّهِ",
-            exampleVerseTranslationEn = "In the name of Allah",
-            exampleVerseTranslationBn = "আল্লাহর নামে",
+            exampleVerseTranslation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে"),
             exampleVerseReference = "1:1",
             arabicWordStart = 5,
             arabicWordEnd = 10,
-            meaningHighlightEn = "In",
-            meaningHighlightBn = "নামে"
+            meaningHighlight = mapOf("en" to "In", "bn" to "নামে")
         )
         val json = AppJson.encodeToString(ExerciseContent.serializer(), withHighlights)
         val decoded = AppJson.decodeFromString(ExerciseContent.serializer(), json) as ExerciseContent.WordIntro
         assertEquals(withHighlights, decoded)
 
-        // Old-shaped content (no highlight fields present at all) must still parse cleanly.
-        val legacyJson = """
-            {"type":"word_intro","promptEn":"p","promptBn":"p","wordId":"w","arabicWord":"a",
-             "meaningEn":"m","meaningBn":"m","exampleVerseArabic":"v","exampleVerseTranslationEn":"t",
-             "exampleVerseTranslationBn":"t","exampleVerseReference":"1:1"}
+        // Content predating the highlight/reviewed fields (no such keys present at all) must
+        // still parse cleanly, defaulting to empty maps rather than failing to decode.
+        val olderShapedJson = """
+            {"type":"word_intro","prompt":{"en":"p","bn":"p"},"wordId":"w","arabicWord":"a",
+             "meaning":{"en":"m","bn":"m"},"exampleVerseArabic":"v",
+             "exampleVerseTranslation":{"en":"t","bn":"t"},"exampleVerseReference":"1:1"}
         """.trimIndent()
-        val legacyDecoded = AppJson.decodeFromString(ExerciseContent.serializer(), legacyJson) as ExerciseContent.WordIntro
-        assertNull(legacyDecoded.arabicWordStart)
-        assertNull(legacyDecoded.meaningHighlightEn)
+        val olderDecoded = AppJson.decodeFromString(ExerciseContent.serializer(), olderShapedJson) as ExerciseContent.WordIntro
+        assertNull(olderDecoded.arabicWordStart)
+        assertTrue(olderDecoded.meaningHighlight.isEmpty())
+        assertTrue(olderDecoded.meaningReviewed.isEmpty())
     }
 }

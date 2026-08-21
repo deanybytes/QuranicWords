@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
  * Tap-to-place word-order exercise: chips from [content.orderedChips] are shown shuffled in the
@@ -36,7 +37,7 @@ fun WordOrderBuilderExerciseContent(
     onSelectChip: (String) -> Unit,
     onDeselectChip: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
     val shuffledChips = remember(content) { content.orderedChips.shuffled() }
     val chipsById = remember(content) { content.orderedChips.associateBy { it.id } }
     val availableChips = shuffledChips.filter { it.id !in selectedChipIds }
@@ -46,7 +47,7 @@ fun WordOrderBuilderExerciseContent(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Text(
-            text = if (isBangla) content.translationBn else content.translationEn,
+            text = content.translation.get(language),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,

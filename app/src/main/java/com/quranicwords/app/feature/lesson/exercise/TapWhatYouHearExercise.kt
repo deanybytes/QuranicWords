@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.localizedPrompt
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
  * Listen-and-select exercise. Playback audio (male voice, per the app's Islamic-values
@@ -27,14 +27,14 @@ fun TapWhatYouHearExerciseContent(
     onPlay: (String) -> Boolean,
     onSelect: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Text(content.localizedPrompt(isBangla), style = MaterialTheme.typography.titleMedium)
+        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
         AudioPlayButton(onPlay = { onPlay(content.audioAssetPath) })
 
@@ -42,7 +42,7 @@ fun TapWhatYouHearExerciseContent(
             content.options.forEach { option ->
                 OptionCard(
                     option = option,
-                    isBangla = isBangla,
+                    language = language,
                     isSelected = option.id == selectedOptionId,
                     isChecked = isChecked,
                     isCorrectOption = option.id == content.correctOptionId,

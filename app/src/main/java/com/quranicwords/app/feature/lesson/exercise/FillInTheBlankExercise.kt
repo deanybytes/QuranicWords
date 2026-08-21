@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
  * Shows [ExerciseContent.FillInTheBlank]'s sentence with the target word replaced by a blank
@@ -31,7 +32,7 @@ fun FillInTheBlankExerciseContent(
     isChecked: Boolean,
     onSelect: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -53,7 +54,7 @@ fun FillInTheBlankExerciseContent(
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = if (isBangla) content.sentenceTranslationBn else content.sentenceTranslationEn,
+            text = content.sentenceTranslation.get(language),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -70,7 +71,7 @@ fun FillInTheBlankExerciseContent(
             content.options.forEach { option ->
                 OptionCard(
                     option = option,
-                    isBangla = isBangla,
+                    language = language,
                     isSelected = option.id == selectedOptionId,
                     isChecked = isChecked,
                     isCorrectOption = option.id == content.correctOptionId,

@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.localizedPrompt
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
  * Listen-and-type exercise. Only ever shown when its audio asset is actually bundled -
@@ -31,14 +31,14 @@ fun ListenAndTypeExerciseContent(
     onPlay: (String) -> Boolean,
     onTypedAnswerChange: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Text(content.localizedPrompt(isBangla), style = MaterialTheme.typography.titleMedium)
+        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
         AudioPlayButton(onPlay = { onPlay(content.audioAssetPath) })
 
