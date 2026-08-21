@@ -66,14 +66,24 @@ Superseded approaches (kept here for the record):
 
 **Same known limitation applies:** gtaf.org's own per-language idiom-boundary segmentation (see the note above) means a small fraction of the 1,526 "verified" entries may carry a neighboring word's sense rather than the target word's — inherent to the source data, not something this pipeline can detect from a count-only signal. `meaningReviewed["bn"] = true` here means "independently sourced from gtaf.org," the same standard already applied to the other 10 languages, not "manually read by a human."
 
-## Quran script fonts (real, already run)
+## Quran script fonts (real, already run — QW-15 closed)
 
-`QuranFontStyle` (QW-15) offers 10 script-style picker entries; `isBundled = true` means a real font file backs it (`app/src/main/res/font/`, licensed under `app/src/main/assets/font_licenses/`), otherwise the style renders with the system default Arabic font. **5 of 10 are now bundled**, all via the [google/fonts](https://github.com/google/fonts) `ofl/` mirror (the canonical, license-verified distribution of every font on fonts.google.com) — each font's `OFL.txt` was downloaded alongside its binary and checked for the actual "SIL Open Font License" text, not assumed:
+`QuranFontStyle` now offers **5 script-style picker entries, all bundled** — every entry has a real, license-verified font file (`app/src/main/res/font/`, license text under `app/src/main/assets/font_licenses/`). This started at 10 entries (3 bundled, 7 selectable-but-system-fallback); the other 5 were removed outright after a real license check, rather than left in that in-between state indefinitely — see below.
 
-- **Amiri, Scheherazade New, Noto Naskh Arabic** — bundled from an earlier pass, map onto their own named styles directly (Uthmani, Naskh, Simple Naskh).
-- **Lateef** and **Noto Nastaliq Urdu** — added this pass to back the `INDOPAK` and `INDOPAK_NASTALEEQ` picker entries. These are **genuinely open substitutes in the same script family, not the specific named commercial IndoPak typefaces** most Quran apps ship — `QuranFontStyle.displayName` says so honestly ("IndoPak-style Naskh (Lateef)", "Nastaliq (Noto)"), same labeling discipline already used for `NOTO_NASKH`.
+- **Amiri, Scheherazade New, Noto Naskh Arabic** — bundled from an earlier pass, map onto their own named styles directly (Uthmani, Naskh, Simple Naskh), via the [google/fonts](https://github.com/google/fonts) `ofl/` mirror (the canonical, license-verified distribution of every font on fonts.google.com).
+- **Lateef** and **Noto Nastaliq Urdu** — same mirror, back the `INDOPAK` and `INDOPAK_NASTALEEQ` picker entries. These are **genuinely open substitutes in the same script family, not the specific named commercial IndoPak typefaces** most Quran apps ship — `QuranFontStyle.displayName` says so honestly ("IndoPak-style Naskh (Lateef)", "Nastaliq (Noto)"), same labeling discipline already used for `NOTO_NASKH`.
 
-**The remaining 5 styles (`NURANI`, `TAHA`, `AL_QALAM`, `KFGQPC_UTHMANIC`, `MADANI_SIMPLE`) are deliberately left unbundled.** Each specifically names a real commercial/community font project (e.g. `TAHA` = Uthman Taha's calligraphy as digitized by the King Fahd Glorious Quran Printing Complex, `KFGQPC_UTHMANIC` = KFGQPC's own Madinah Mushaf font) — no confirmed open-license equivalent was found for these exact typefaces during this pass. Forcing a generic substitute onto them the way Lateef/Noto Nastaliq Urdu were used above would misrepresent which real product is rendering for a style whose whole point is a specific named typeface's exact letterforms; leaving them on system fallback and disclosed here is preferred over that.
+For every font above, its `OFL.txt` was downloaded alongside its binary and checked for the actual "SIL Open Font License" text, not assumed.
+
+**The other 5 styles (`NURANI`, `TAHA`, `AL_QALAM`, `KFGQPC_UTHMANIC`, `MADANI_SIMPLE`) were removed from the enum entirely** after a dedicated real-license research pass found none of them clears this project's open-license bar:
+
+| Style | Real font checked | Finding |
+|---|---|---|
+| `TAHA`, `KFGQPC_UTHMANIC`, `MADANI_SIMPLE` | KFGQPC's own published fonts (Uthman Taha Naskh, HAFS Uthmanic Script, Madinah Mushaf) | All three ship under the same KFGQPC EULA: free to use/copy/distribute, but explicitly **cannot be modified, altered, or "Reproduced" in any means** — an internally contradictory, non-open license (grants "Distribute" while also barring "Reproduced"). Multiple independent sources describe **commercial use as requiring separate permission from KFGQPC**. Not compatible with bundling in a GPL-3.0 open-source app going to the Play Store. |
+| `AL_QALAM` | Al Qalam Quran Majeed | **"No License Available"** per the font repositories that host it — no terms published anywhere found. |
+| `NURANI` | [DigitalKhatt/indopakfont](https://github.com/DigitalKhatt/indopakfont) (sponsored by Tarteel Inc.) — a real IndoPak 13-line Mushaf-style font, genuinely SIL OFL 1.1 | The license clears, but the font is a **variable OpenType-CFF2 font** (`fvar`/`HVAR`/`CFF2` tables, axes for tatweel-stretch justification). `fonttools`' `varLib.instancer` failed to reduce it to a static instance (a real bug in its CFF2 charstring handling on this specific file), and bundling a variable CFF2 font whose rendering behavior on minSdk 24-25 devices can't be confirmed without physical-device testing isn't a risk worth taking just for a font. Not a license problem — a verification-safety one. |
+
+Removing these five outright (rather than leaving them selectable-with-system-fallback) was judged the more honest outcome once no safe bundling path was found for any of them — a picker entry that always renders as system-default Arabic text isn't delivering the named style it promises.
 
 ## UI string translation (real, already run)
 
@@ -86,7 +96,7 @@ Superseded approaches (kept here for the record):
 | **Letter-name pronunciation audio** (e.g. a spoken "Alif") | No dataset found covering isolated Arabic letter names as a standalone spoken unit. Not currently planned — the alphabet stage isn't part of this app's scope (vocabulary-only curriculum). |
 | **Independently-verified `meaning["bn"]` for the remaining 2,154 words** | 1,526/3,680 (41.5%) now verified against gtaf.org — see the dedicated section above. The rest have no verse span to check against gtaf.org with, and stay AI-drafted/unreviewed; closing that gap further needs either new span coverage or a human Bangla-fluent reviewer. |
 | **Example verses that don't literally contain their word** (~58% of root-matched lemmas, discovered while building highlight spans — see item 9 above) | Real, measured gap: those verses illustrate the *root's* concept, not a confirmed occurrence of the exact lemma. Re-verifying/replacing them is a follow-up, not yet done. |
-| **5 remaining named Qur'an font styles** (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple) | Each specifically names a real commercial/community font project — no confirmed open-license (OFL/MIT/etc.) equivalent found for these exact typefaces, so forcing a lower-confidence substitute onto them (the way IndoPak/IndoPak Nastaleeq were resolved below) would misrepresent which real product is rendering. Still unsourced; renders with system fallback. |
+~~**5 remaining named Qur'an font styles** (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple)~~ | ✅ Resolved (removed, not sourced) — see the "Quran script fonts" section above for the real license/technical finding behind each one. |
 
 ## Attribution obligations
 
