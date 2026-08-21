@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">QuranicWords</string>
+    <string name="app_logo_content_description">Логотип QuranicWords</string>
+    <string name="points_content_description">%d очков</string>
+    <string name="streak_content_description">%d дней подряд</string>
+
+    <!-- Opening invocation (splash, every launch) -->
+    <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
+    <string name="splash_invocation_taawwudh_translation">Прибегаю к защите Аллаха от проклятого шайтана</string>
+    <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
+    <string name="splash_invocation_basmala_translation">Во имя Аллаха, Милостивого, Милосердного</string>
+    <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
+    <string name="splash_invocation_rabbizidni_translation">Господь мой, приумножь мои знания</string>
+    <string name="splash_invocation_rabbizidni_reference">Коран 20:114</string>
+    <string name="splash_invocation_skip_hint">Нажмите, чтобы пропустить</string>
+
+    <!-- Language select -->
+    <string name="language_select_title">Выберите язык</string>
+    <string name="language_select_subtitle">Вы можете изменить это позже в настройках.</string>
+
+    <!-- Font select -->
+    <string name="font_select_title">Выберите стиль коранического письма</string>
+    <string name="font_select_subtitle">Это предпросмотр суры Аль-Каусар, самой короткой суры, в каждом стиле.</string>
+    <string name="font_pending_note">Лицензированный файл шрифта для этого стиля пока не включён, сейчас отображается стиль по умолчанию.</string>
+
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">Глава</string>
+    <string name="intro_section_label">Раздел</string>
+    <string name="intro_word_count">Ин ша Аллах, здесь мы выучим %1$d слов.</string>
+    <string name="intro_occurrence_percent">Эти слова составляют %1$s%% всех словоупотреблений в Коране.</string>
+    <string name="intro_cumulative_percent">По завершении вы охватите %1$s%% словарного запаса Корана на данный момент.</string>
+    <string name="intro_start_button">Начать</string>
+    <string name="intro_skip_button">Пропустить</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">Просмотр слов</string>
+    <string name="word_browse_empty">Пока нет слов для просмотра.</string>
+
+    <!-- Home -->
+    <string name="home_title">QuranicWords</string>
+    <string name="home_module_locked">Заблокировано</string>
+    <string name="home_open_settings">Настройки</string>
+    <string name="home_review_title">Повторить пропущенные слова</string>
+    <string name="home_review_subtitle">Потренируйте те, в которых вы ошиблись в прошлый раз.</string>
+
+    <!-- Lesson -->
+    <string name="lesson_check_button">Проверить</string>
+    <string name="lesson_continue_button">Продолжить</string>
+    <string name="lesson_finish_button">Завершить урок</string>
+    <string name="lesson_feedback_correct">Верно!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">Альхамдулиллях!</string>
+    <string name="lesson_feedback_incorrect_tryagain">Ин ша Аллах, в следующий раз!</string>
+    <string name="lesson_feedback_incorrect_with_answer">Не совсем. Правильный ответ: %s.</string>
+    <string name="lesson_exit_confirm_title">Покинуть этот урок?</string>
+    <string name="lesson_exit_confirm_message">Ваш прогресс в этом уроке не будет сохранён.</string>
+    <string name="lesson_exit_confirm_leave">Покинуть</string>
+    <string name="lesson_exit_confirm_stay">Продолжить обучение</string>
+    <string name="lesson_matching_instruction">Нажмите на букву, затем нажмите на её соответствие.</string>
+    <string name="lesson_teach_continue_button">Понятно</string>
+    <string name="lesson_word_example_verse_label">Пример: %s</string>
+    <string name="exercise_audio_unavailable">Аудио для этого элемента пока недоступно.</string>
+    <string name="word_order_build_area_label">Ваш ответ</string>
+    <string name="listen_and_type_hint">Напечатайте то, что слышите</string>
+
+    <!-- Lesson summary -->
+    <string name="lesson_summary_title_pass">Альхамдулиллях! Отлично сделано!</string>
+    <string name="lesson_summary_title_retry">Ин ша Аллах, в следующий раз!</string>
+    <string name="lesson_summary_points_earned">+%d очков</string>
+    <string name="lesson_summary_accuracy">%d%% верно</string>
+    <string name="lesson_summary_streak_increased">Серия продлена! 🔥</string>
+    <string name="lesson_summary_continue">Продолжить</string>
+    <string name="lesson_summary_back_to_home">Назад на главную</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_theme_label">Тема</string>
+    <string name="settings_theme_system">Системная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_language_label">Язык</string>
+    <string name="settings_quran_font_label">Стиль коранического письма</string>
+    <string name="settings_reduce_motion_label">Уменьшить анимацию</string>
+    <string name="settings_sound_effects_label">Звуковые эффекты</string>
+    <string name="settings_font_scale_label">Размер текста</string>
+    <string name="settings_font_scale_small">Маленький</string>
+    <string name="settings_font_scale_default">По умолчанию</string>
+    <string name="settings_font_scale_large">Крупный</string>
+    <string name="settings_font_scale_extra_large">Очень крупный</string>
+    <string name="settings_section_notifications">Уведомления</string>
+    <string name="settings_streak_reminder_label">Напоминание о серии</string>
+    <string name="settings_streak_reminder_description">Локальное напоминание на устройстве, если вы ещё не занимались сегодня и у вас есть серия, которую нужно сохранить. Ничего не отправляется по сети.</string>
+    <string name="settings_streak_reminder_time_label">Время напоминания</string>
+    <string name="settings_streak_reminder_permission_denied">Уведомления для QuranicWords отключены в системных настройках, поэтому напоминание не будет показано.</string>
+    <string name="notification_channel_streak_name">Напоминания о серии</string>
+    <string name="notification_channel_streak_description">Локальные напоминания, когда ваша серия занятий рискует прерваться.</string>
+    <string name="notification_streak_title">Не теряйте свою серию!</string>
+    <string name="notification_streak_body">У вас серия из %1$d дней — позанимайтесь сегодня, чтобы продолжить её.</string>
+    <string name="settings_section_backup">Резервная копия</string>
+    <string name="settings_backup_description">Ваш прогресс хранится только на этом устройстве. Экспортируйте файл резервной копии, чтобы сохранить его, или импортируйте, чтобы восстановить прогресс на этом или другом устройстве.</string>
+    <string name="settings_backup_export">Экспорт резервной копии</string>
+    <string name="settings_backup_import">Импорт резервной копии</string>
+    <string name="settings_backup_export_success">Резервная копия сохранена.</string>
+    <string name="settings_backup_export_failed">Не удалось сохранить резервную копию. Попробуйте снова.</string>
+    <string name="settings_backup_import_success">Резервная копия восстановлена.</string>
+    <string name="settings_backup_import_failed">Не удалось восстановить этот файл резервной копии.</string>
+    <string name="settings_section_about">О приложении</string>
+    <string name="settings_copyright">© rmrashahriar, 2026. Лицензия GPL-3.0.</string>
+    <string name="settings_content_provenance_note">Содержимое словаря взято из открытых коранических источников. Значения слов на бенгальском языке составлены с помощью ИИ и находятся на постоянной проверке — подробности см. в документации проекта.</string>
+    <string name="settings_licenses_button">Лицензии и источники</string>
+    <string name="settings_licenses_title">Лицензии и источники</string>
+    <string name="settings_close">Закрыть</string>
+
+    <!-- Common -->
+    <string name="action_back">Назад</string>
+    <string name="action_confirm">Подтвердить</string>
+</resources>

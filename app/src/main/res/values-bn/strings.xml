@@ -105,7 +105,7 @@
     <string name="settings_backup_import_success">ব্যাকআপ পুনরুদ্ধার করা হয়েছে।</string>
     <string name="settings_backup_import_failed">এই ব্যাকআপ ফাইলটি পুনরুদ্ধার করা যায়নি।</string>
     <string name="settings_section_about">সম্পর্কে</string>
-    <string name="settings_copyright">Copyright © rmrashahriar 2026. All rights reserved.</string>
+    <string name="settings_copyright">কপিরাইট © rmrashahriar ২০২৬। GPL-3.0 লাইসেন্সের অধীনে।</string>
     <string name="settings_content_provenance_note">শব্দভাণ্ডারের বিষয়বস্তু মুক্ত কুরআনিক তথ্যভাণ্ডার থেকে সংগৃহীত। বাংলা শব্দার্থ এআই-সহায়তায় প্রস্তুত এবং পর্যালোচনাধীন — বিস্তারিত জানতে প্রকল্পের ডকুমেন্টেশন দেখুন।</string>
     <string name="settings_licenses_button">লাইসেন্স ও উৎস</string>
     <string name="settings_licenses_title">লাইসেন্স ও উৎস</string>

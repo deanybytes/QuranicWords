@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">QuranicWords</string>
+    <string name="app_logo_content_description">QuranicWords लोगो</string>
+    <string name="points_content_description">%d अंक</string>
+    <string name="streak_content_description">%d दिन की लगातार स्ट्रीक</string>
+
+    <!-- Opening invocation (splash, every launch) -->
+    <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
+    <string name="splash_invocation_taawwudh_translation">मैं धिक्कारे हुए शैतान से अल्लाह की पनाह माँगता हूँ</string>
+    <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
+    <string name="splash_invocation_basmala_translation">अल्लाह के नाम से, जो परम कृपालु, अत्यंत दयावान है</string>
+    <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
+    <string name="splash_invocation_rabbizidni_translation">ऐ मेरे रब, मेरे ज्ञान में वृद्धि कर दे</string>
+    <string name="splash_invocation_rabbizidni_reference">क़ुरआन 20:114</string>
+    <string name="splash_invocation_skip_hint">छोड़ने के लिए टैप करें</string>
+
+    <!-- Language select -->
+    <string name="language_select_title">अपनी भाषा चुनें</string>
+    <string name="language_select_subtitle">आप इसे बाद में सेटिंग्स में बदल सकते हैं।</string>
+
+    <!-- Font select -->
+    <string name="font_select_title">अपनी क़ुरआन लिपि शैली चुनें</string>
+    <string name="font_select_subtitle">यह सबसे छोटी सूरह, सूरह अल-कौसर का प्रत्येक शैली में पूर्वावलोकन है।</string>
+    <string name="font_pending_note">इस शैली की लाइसेंस प्राप्त फ़ॉन्ट फ़ाइल अभी शामिल नहीं है, फ़िलहाल डिफ़ॉल्ट लिपि दिखाई जा रही है।</string>
+
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">अध्याय</string>
+    <string name="intro_section_label">खंड</string>
+    <string name="intro_word_count">इंशाअल्लाह, हम यहाँ %1$d शब्द सीखेंगे।</string>
+    <string name="intro_occurrence_percent">ये शब्द क़ुरआन में सभी शब्द-प्रयोगों का %1$s%% हैं।</string>
+    <string name="intro_cumulative_percent">समाप्त करने के बाद, अब तक आपने क़ुरआन की शब्दावली का %1$s%% कवर कर लिया होगा।</string>
+    <string name="intro_start_button">शुरू करें</string>
+    <string name="intro_skip_button">छोड़ें</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">शब्द देखें</string>
+    <string name="word_browse_empty">अभी देखने के लिए कोई शब्द नहीं है।</string>
+
+    <!-- Home -->
+    <string name="home_title">QuranicWords</string>
+    <string name="home_module_locked">लॉक</string>
+    <string name="home_open_settings">सेटिंग्स</string>
+    <string name="home_review_title">छूटे हुए शब्दों की समीक्षा करें</string>
+    <string name="home_review_subtitle">जो पिछली बार ग़लत हुए थे उनका अभ्यास करें।</string>
+
+    <!-- Lesson -->
+    <string name="lesson_check_button">जाँचें</string>
+    <string name="lesson_continue_button">जारी रखें</string>
+    <string name="lesson_finish_button">पाठ समाप्त करें</string>
+    <string name="lesson_feedback_correct">सही!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">अल्हम्दुलिल्लाह!</string>
+    <string name="lesson_feedback_incorrect_tryagain">इंशाअल्लाह, अगली बार!</string>
+    <string name="lesson_feedback_incorrect_with_answer">बिल्कुल सही नहीं। सही उत्तर %s था।</string>
+    <string name="lesson_exit_confirm_title">इस पाठ को छोड़ें?</string>
+    <string name="lesson_exit_confirm_message">इस पाठ में आपकी प्रगति सहेजी नहीं जाएगी।</string>
+    <string name="lesson_exit_confirm_leave">छोड़ें</string>
+    <string name="lesson_exit_confirm_stay">सीखना जारी रखें</string>
+    <string name="lesson_matching_instruction">एक अक्षर पर टैप करें, फिर उसके मिलान पर टैप करें।</string>
+    <string name="lesson_teach_continue_button">समझ गया</string>
+    <string name="lesson_word_example_verse_label">उदाहरण: %s</string>
+    <string name="exercise_audio_unavailable">इस आइटम के लिए ऑडियो अभी उपलब्ध नहीं है।</string>
+    <string name="word_order_build_area_label">आपका उत्तर</string>
+    <string name="listen_and_type_hint">जो सुनें वह टाइप करें</string>
+
+    <!-- Lesson summary -->
+    <string name="lesson_summary_title_pass">अल्हम्दुलिल्लाह! बहुत बढ़िया!</string>
+    <string name="lesson_summary_title_retry">इंशाअल्लाह, अगली बार!</string>
+    <string name="lesson_summary_points_earned">+%d अंक</string>
+    <string name="lesson_summary_accuracy">%d%% सही</string>
+    <string name="lesson_summary_streak_increased">स्ट्रीक बढ़ी! 🔥</string>
+    <string name="lesson_summary_continue">जारी रखें</string>
+    <string name="lesson_summary_back_to_home">होम पर वापस जाएँ</string>
+
+    <!-- Settings -->
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="settings_section_appearance">रूप-रंग</string>
+    <string name="settings_theme_label">थीम</string>
+    <string name="settings_theme_system">सिस्टम</string>
+    <string name="settings_theme_light">हल्का</string>
+    <string name="settings_theme_dark">गहरा</string>
+    <string name="settings_language_label">भाषा</string>
+    <string name="settings_quran_font_label">क़ुरआन लिपि शैली</string>
+    <string name="settings_reduce_motion_label">गति कम करें</string>
+    <string name="settings_sound_effects_label">ध्वनि प्रभाव</string>
+    <string name="settings_font_scale_label">टेक्स्ट का आकार</string>
+    <string name="settings_font_scale_small">छोटा</string>
+    <string name="settings_font_scale_default">डिफ़ॉल्ट</string>
+    <string name="settings_font_scale_large">बड़ा</string>
+    <string name="settings_font_scale_extra_large">बहुत बड़ा</string>
+    <string name="settings_section_notifications">सूचनाएँ</string>
+    <string name="settings_streak_reminder_label">स्ट्रीक रिमाइंडर</string>
+    <string name="settings_streak_reminder_description">यदि आपने आज अभी तक अभ्यास नहीं किया है और आपकी सुरक्षित रखने योग्य स्ट्रीक है, तो एक स्थानीय, डिवाइस-पर रिमाइंडर मिलेगा। नेटवर्क पर कुछ भी नहीं भेजा जाता।</string>
+    <string name="settings_streak_reminder_time_label">रिमाइंडर का समय</string>
+    <string name="settings_streak_reminder_permission_denied">सिस्टम सेटिंग्स में QuranicWords की सूचनाएँ बंद हैं, इसलिए रिमाइंडर नहीं दिखाया जाएगा।</string>
+    <string name="notification_channel_streak_name">स्ट्रीक रिमाइंडर</string>
+    <string name="notification_channel_streak_description">जब आपकी अभ्यास स्ट्रीक टूटने के जोखिम में हो, तो स्थानीय रिमाइंडर।</string>
+    <string name="notification_streak_title">अपनी स्ट्रीक मत खोइए!</string>
+    <string name="notification_streak_body">आपकी %1$d-दिन की स्ट्रीक है — इसे जारी रखने के लिए आज अभ्यास करें।</string>
+    <string name="settings_section_backup">बैकअप</string>
+    <string name="settings_backup_description">आपकी प्रगति केवल इसी डिवाइस पर सुरक्षित है। इसे सुरक्षित रखने के लिए बैकअप फ़ाइल निर्यात करें, या इस या किसी अन्य डिवाइस पर प्रगति बहाल करने के लिए एक आयात करें।</string>
+    <string name="settings_backup_export">बैकअप निर्यात करें</string>
+    <string name="settings_backup_import">बैकअप आयात करें</string>
+    <string name="settings_backup_export_success">बैकअप सहेजा गया।</string>
+    <string name="settings_backup_export_failed">बैकअप सहेजा नहीं जा सका। कृपया पुनः प्रयास करें।</string>
+    <string name="settings_backup_import_success">बैकअप बहाल किया गया।</string>
+    <string name="settings_backup_import_failed">वह बैकअप फ़ाइल बहाल नहीं की जा सकी।</string>
+    <string name="settings_section_about">परिचय</string>
+    <string name="settings_copyright">कॉपीराइट © rmrashahriar 2026। GPL-3.0 के तहत लाइसेंस प्राप्त।</string>
+    <string name="settings_content_provenance_note">शब्दावली सामग्री खुले क़ुरआनी स्रोतों से ली गई है। बांग्ला शब्दार्थ AI-सहायता प्राप्त हैं और निरंतर समीक्षाधीन हैं — विवरण के लिए परियोजना का दस्तावेज़ देखें।</string>
+    <string name="settings_licenses_button">लाइसेंस और स्रोत</string>
+    <string name="settings_licenses_title">लाइसेंस और स्रोत</string>
+    <string name="settings_close">बंद करें</string>
+
+    <!-- Common -->
+    <string name="action_back">वापस</string>
+    <string name="action_confirm">पुष्टि करें</string>
+</resources>

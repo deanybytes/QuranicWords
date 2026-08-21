@@ -53,6 +53,10 @@ Superseded approaches (kept here for the record):
 
 **Known, measured limitation — not fixed in this pass:** gtaf.org's own per-language word-by-word segmentation isn't always semantically 1:1 across languages for multi-word idiomatic phrases (e.g. "مِن قَبْلِكَ" = "before you"). Word *count* per ayah matches perfectly across all 12 languages (verified: 0/6,236 ayat mismatched), so a naive alignment check doesn't catch this — some languages attach the full idiom's meaning to one word-slot (occasionally leaving a literal `*` placeholder on the other, filtered out and treated as no-match — measured 0–8.9% of all word entries depending on language, worst for Turkish/Farsi), while others split it more literally. This means a small fraction of matched translations attach a *neighboring* word's meaning rather than the target word's — not detected/corrected here, since there's no reliable in-repo signal to distinguish a genuine idiom-boundary difference from a real match. The `meaningReviewed = false` flag already signals "not independently verified" for exactly this kind of gap.
 
+## UI string translation (real, already run)
+
+`values-sq/`, `values-zh/`, `values-fa/`, `values-fr/`, `values-de/`, `values-hi/`, `values-in/`, `values-ru/`, `values-tr/`, `values-ur/` (Phase 5, QW-49) each carry a full 95-key `strings.xml`, translating every UI-chrome string alongside the existing `values/` (English) and `values-bn/` (Bangla) files. **AI-drafted, not independently reviewed** — there's no third-party corpus for app UI copy the way there is for Qur'anic vocabulary, so these are flagged as unreviewed with the same honesty as `meaningBnReviewed` rather than presented as verified. Verified: all 12 language files have byte-identical key sets (zero orphans either direction), valid XML, and a clean `lint`/resource-compile pass (no `MissingTranslation`/`InvalidFormat` issues).
+
 ## Explicitly not sourced (still open)
 
 | Item | Status |

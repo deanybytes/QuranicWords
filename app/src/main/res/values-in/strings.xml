@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">QuranicWords</string>
+    <string name="app_logo_content_description">Logo QuranicWords</string>
+    <string name="points_content_description">%d poin</string>
+    <string name="streak_content_description">%d hari beruntun</string>
+
+    <!-- Opening invocation (splash, every launch) -->
+    <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
+    <string name="splash_invocation_taawwudh_translation">Aku berlindung kepada Allah dari setan yang terkutuk</string>
+    <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
+    <string name="splash_invocation_basmala_translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang</string>
+    <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
+    <string name="splash_invocation_rabbizidni_translation">Ya Tuhanku, tambahkanlah ilmu kepadaku</string>
+    <string name="splash_invocation_rabbizidni_reference">Al-Qur\'an 20:114</string>
+    <string name="splash_invocation_skip_hint">Ketuk untuk melewati</string>
+
+    <!-- Language select -->
+    <string name="language_select_title">Pilih bahasa Anda</string>
+    <string name="language_select_subtitle">Anda dapat mengubahnya nanti di Pengaturan.</string>
+
+    <!-- Font select -->
+    <string name="font_select_title">Pilih gaya tulisan Al-Qur\'an Anda</string>
+    <string name="font_select_subtitle">Ini adalah pratinjau Surah Al-Kautsar, surah terpendek, dalam setiap gaya.</string>
+    <string name="font_pending_note">Berkas font berlisensi untuk gaya ini belum tersedia, saat ini menampilkan tulisan bawaan.</string>
+
+    <!-- Chapter/section intro -->
+    <string name="intro_chapter_label">Bab</string>
+    <string name="intro_section_label">Bagian</string>
+    <string name="intro_word_count">In-Sha-Allah, kita akan mempelajari %1$d kata di sini.</string>
+    <string name="intro_occurrence_percent">Kata-kata ini merupakan %1$s%% dari semua kemunculan kata dalam Al-Qur\'an.</string>
+    <string name="intro_cumulative_percent">Setelah selesai, Anda akan mencakup %1$s%% dari kosakata Al-Qur\'an sejauh ini.</string>
+    <string name="intro_start_button">Mulai</string>
+    <string name="intro_skip_button">Lewati</string>
+
+    <!-- Word browse -->
+    <string name="word_browse_title">Jelajahi kata</string>
+    <string name="word_browse_empty">Belum ada kata untuk dijelajahi.</string>
+
+    <!-- Home -->
+    <string name="home_title">QuranicWords</string>
+    <string name="home_module_locked">Terkunci</string>
+    <string name="home_open_settings">Pengaturan</string>
+    <string name="home_review_title">Tinjau kata yang terlewat</string>
+    <string name="home_review_subtitle">Latih kata-kata yang salah pada terakhir kali.</string>
+
+    <!-- Lesson -->
+    <string name="lesson_check_button">Periksa</string>
+    <string name="lesson_continue_button">Lanjutkan</string>
+    <string name="lesson_finish_button">Selesaikan pelajaran</string>
+    <string name="lesson_feedback_correct">Benar!</string>
+    <string name="lesson_feedback_correct_alhamdulillah">Alhamdulillah!</string>
+    <string name="lesson_feedback_incorrect_tryagain">In-Sha-Allah, lain kali!</string>
+    <string name="lesson_feedback_incorrect_with_answer">Kurang tepat. Jawabannya adalah %s.</string>
+    <string name="lesson_exit_confirm_title">Tinggalkan pelajaran ini?</string>
+    <string name="lesson_exit_confirm_message">Kemajuan Anda dalam pelajaran ini tidak akan disimpan.</string>
+    <string name="lesson_exit_confirm_leave">Tinggalkan</string>
+    <string name="lesson_exit_confirm_stay">Terus belajar</string>
+    <string name="lesson_matching_instruction">Ketuk satu huruf, lalu ketuk pasangannya.</string>
+    <string name="lesson_teach_continue_button">Mengerti</string>
+    <string name="lesson_word_example_verse_label">Contoh: %s</string>
+    <string name="exercise_audio_unavailable">Audio untuk item ini belum tersedia.</string>
+    <string name="word_order_build_area_label">Jawaban Anda</string>
+    <string name="listen_and_type_hint">Ketik apa yang Anda dengar</string>
+
+    <!-- Lesson summary -->
+    <string name="lesson_summary_title_pass">Alhamdulillah! Kerja bagus!</string>
+    <string name="lesson_summary_title_retry">In-Sha-Allah, lain kali!</string>
+    <string name="lesson_summary_points_earned">+%d poin</string>
+    <string name="lesson_summary_accuracy">%d%% benar</string>
+    <string name="lesson_summary_streak_increased">Rentetan bertambah! 🔥</string>
+    <string name="lesson_summary_continue">Lanjutkan</string>
+    <string name="lesson_summary_back_to_home">Kembali ke beranda</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="settings_section_appearance">Tampilan</string>
+    <string name="settings_theme_label">Tema</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Terang</string>
+    <string name="settings_theme_dark">Gelap</string>
+    <string name="settings_language_label">Bahasa</string>
+    <string name="settings_quran_font_label">Gaya tulisan Al-Qur\'an</string>
+    <string name="settings_reduce_motion_label">Kurangi gerakan</string>
+    <string name="settings_sound_effects_label">Efek suara</string>
+    <string name="settings_font_scale_label">Ukuran teks</string>
+    <string name="settings_font_scale_small">Kecil</string>
+    <string name="settings_font_scale_default">Bawaan</string>
+    <string name="settings_font_scale_large">Besar</string>
+    <string name="settings_font_scale_extra_large">Sangat besar</string>
+    <string name="settings_section_notifications">Notifikasi</string>
+    <string name="settings_streak_reminder_label">Pengingat rentetan</string>
+    <string name="settings_streak_reminder_description">Pengingat lokal di perangkat jika Anda belum berlatih hari ini dan memiliki rentetan yang perlu dijaga. Tidak ada yang dikirim melalui jaringan.</string>
+    <string name="settings_streak_reminder_time_label">Waktu pengingat</string>
+    <string name="settings_streak_reminder_permission_denied">Notifikasi untuk QuranicWords dimatikan di pengaturan sistem, sehingga pengingat tidak akan ditampilkan.</string>
+    <string name="notification_channel_streak_name">Pengingat rentetan</string>
+    <string name="notification_channel_streak_description">Pengingat lokal saat rentetan latihan Anda berisiko terputus.</string>
+    <string name="notification_streak_title">Jangan sampai kehilangan rentetan Anda!</string>
+    <string name="notification_streak_body">Anda memiliki rentetan %1$d hari — berlatihlah hari ini untuk menjaganya.</string>
+    <string name="settings_section_backup">Cadangan</string>
+    <string name="settings_backup_description">Kemajuan Anda hanya tersimpan di perangkat ini. Ekspor berkas cadangan untuk menjaganya, atau impor untuk memulihkan kemajuan di perangkat ini atau perangkat lain.</string>
+    <string name="settings_backup_export">Ekspor cadangan</string>
+    <string name="settings_backup_import">Impor cadangan</string>
+    <string name="settings_backup_export_success">Cadangan disimpan.</string>
+    <string name="settings_backup_export_failed">Cadangan tidak dapat disimpan. Silakan coba lagi.</string>
+    <string name="settings_backup_import_success">Cadangan dipulihkan.</string>
+    <string name="settings_backup_import_failed">Berkas cadangan tersebut tidak dapat dipulihkan.</string>
+    <string name="settings_section_about">Tentang</string>
+    <string name="settings_copyright">Hak cipta © rmrashahriar 2026. Dilisensikan di bawah GPL-3.0.</string>
+    <string name="settings_content_provenance_note">Konten kosakata bersumber dari korpus Al-Qur\'an terbuka. Arti kata dalam bahasa Bengali dibantu AI dan masih dalam tinjauan berkelanjutan — lihat dokumentasi proyek untuk detailnya.</string>
+    <string name="settings_licenses_button">Lisensi &amp; sumber</string>
+    <string name="settings_licenses_title">Lisensi &amp; sumber</string>
+    <string name="settings_close">Tutup</string>
+
+    <!-- Common -->
+    <string name="action_back">Kembali</string>
+    <string name="action_confirm">Konfirmasi</string>
+</resources>
