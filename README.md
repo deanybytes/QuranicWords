@@ -14,6 +14,8 @@
   <img alt="UI" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
   <img alt="Status" src="https://img.shields.io/badge/status-in%20development-orange" />
+  <img alt="Release" src="https://img.shields.io/github/v/release/rmrashahriar/QuranicWords" />
+  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
   <img alt="Copyright" src="https://img.shields.io/badge/copyright-rmrashahriar-2E7D32" />
 </p>
 
