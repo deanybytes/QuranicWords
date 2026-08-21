@@ -1,7 +1,7 @@
 # 🕌 QuranicWords
 
 <p align="center">
-  <img src="assets/image/qw_logo.png" width="140" alt="QuranicWords logo" />
+  <img src="assets/image/LOGO.png" width="140" alt="QuranicWords logo" />
 </p>
 
 <p align="center">
