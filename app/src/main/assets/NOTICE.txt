@@ -35,6 +35,19 @@ Share-alike notice: content derived from this source (the Bangla verse
          CC BY-SA 4.0 as well, consistent with this source's license.
 
 --------------------------------------------------------------------------
+quran.gtaf.org (Greentech Apps Foundation, UK charity no. 1178251)
+License: none published - checked the app itself, the parent gtaf.org
+         site, its footer, and its Privacy Policy; no terms of service,
+         license, or data-usage policy exists for their Quran word-by-word
+         data at the time of writing. Credited here as a matter of
+         transparency and good practice regardless.
+Provides: word-by-word Arabic-to-gloss data for 12 languages (Albanian,
+         Bangla, Chinese, English, Farsi, French, German, Hindi,
+         Indonesian, Russian, Turkish, Urdu), collected via their public
+         data.gtaf.org API - see reference/word-by-word/ in this repo.
+Attribution: https://quran.gtaf.org
+
+--------------------------------------------------------------------------
 A note on word-pronunciation audio
 
 Word-pronunciation clips (`app/src/main/assets/audio/words/`) are not
