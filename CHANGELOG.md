@@ -2,6 +2,21 @@
 
 All notable changes to QuranicWords are documented here. This project does not yet follow strict semantic versioning (pre-1.0 tags mark development phases); from v1.1.0 onward, tags mark real GitHub releases.
 
+## [1.2.0] - 2026-08-22
+
+### Added
+- **Achievements system**: 17 unlockable badges (streak milestones, chapter completions, vocabulary-coverage bands, first-lesson/first-exam), custom-drawn medallion badges, a dedicated Achievements screen, and a flip-card reveal on the lesson summary screen when a new one unlocks. Round-trips through backup export/import (`BACKUP_SCHEMA_VERSION` 1→2).
+- **Illustrated visual redesign**: four custom-drawn (zero external asset) Islamic motifs — crescent moon, starfield, mosque silhouette, abstract book — applied across Splash, Lesson Summary, Settings, and Home, plus a chrome refresh (elevation/press-depth on the primary Home CTA, pill-shaped lesson progress bar, serif section titles).
+- **Branching curriculum tree on Home**: chapters and sections now collapse/expand instead of showing a flat lesson list, auto-expanding to the learner's current position, with a fan-out connector between an expanded chapter and its sections.
+- **Internal content-authoring CLI** (`tools/ingestion/16_cms.py`): interactive tool to look up, edit, and validate word content directly, with a built-in reminder to bump `ContentSeeder.CONTENT_VERSION` on any content-shape change.
+
+### Changed
+- Lesson summary screen now correctly distinguishes lesson kinds: only section/chapter exams and flashbacks gate on the 80% passing score (`LessonKind.requiresPassingScore()`); a regular lesson or review session always shows completion, not a false "try again."
+- Re-verified all 3,680 words' example verses against the actual word-boundary-matched Arabic text (99.7% now machine-verified, `exampleVerseVerified` flag added), and improved English highlight-span coverage with phrase-matching and light stemming.
+
+### Fixed
+- **Accessibility**: TalkBack couldn't skip the every-launch opening invocation at all (raw gesture detector produced no accessibility node); language/font onboarding cards and multiple-choice/tap-what-you-hear/fill-in-the-blank exercise options were announced as unlabeled "Button" (missing `mergeDescendants`); correct/incorrect exercise feedback was conveyed only by color, invisible to a screen reader. All fixed and verified via an emulator-based TalkBack audit pass.
+
 ## [1.1.0] - 2026-08-22
 
 ### Added
