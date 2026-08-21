@@ -33,7 +33,7 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 | **Achievements/badges beyond raw points** | Not built |
 | **Word-pronunciation audio (TTS)** | `tools/ingestion/12_generate_word_audio.py` synthesizes one clip per word via Google Cloud Text-to-Speech (`ar-XA-Wavenet-B`, male), bundled directly in the APK at `app/src/main/assets/audio/words/` — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
 | **Independently-verified Bangla vocabulary meanings for the remaining 58.5%** | 41.5% now verified against gtaf.org, tracked via `meaningReviewed["bn"]` — see the callout above |
-| **5 of 10 Qur'an font styles** | Nurani, Taha, Al-Qalam, KFGQPC, Madani Simple — each names a specific commercial/community typeface with no confirmed open-license equivalent found; selectable in the picker, render with system fallback. (IndoPak and IndoPak Nastaleeq are now bundled via genuine open substitutes — Lateef and Noto Nastaliq Urdu — see `docs/CONTENT_SOURCES.md`.) |
+~~**7 of 10 Qur'an font styles**~~ | ✅ Done — `QuranFontStyle` now offers 5 styles, all bundled under a real, verified open license (Amiri, Scheherazade New, Noto Naskh Arabic, plus IndoPak/IndoPak Nastaleeq via genuine open substitutes Lateef/Noto Nastaliq Urdu). The other 5 (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple) were removed from the picker entirely after a real license check found none clears this project's open-license bar — see `docs/CONTENT_SOURCES.md`. |
 | **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
 | **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`SECURITY.md`](../SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
 | ~~**CI/CD**~~ | ✅ Done — `.github/workflows/android-ci.yml` runs unit tests, lint (fails on errors), and `assembleDebug`/`assembleRelease` on every push/PR to `main` |
@@ -46,7 +46,7 @@ Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_
 1. **The real Qur'an Arabic text + Bangla/English translations** — sourced and **ingested**: Quran-bil-Quran (MIT, Arabic + English) and risan/quran-json (CC BY-SA 4.0, Bangla) back every vocabulary example verse.
 2. **The real word-frequency table with meanings and example verses** — sourced and **ingested**: the full 3,680-lemma Quranic Arabic Corpus frequency table, cross-matched against Quran-bil-Quran's root data. `meaningEn` is sourced/derived; `meaning["bn"]` is independently verified against quran.gtaf.org for 41.5% of words (tracked via `meaningReviewed["bn"]`), AI-drafted and flagged for the rest.
 3. **Word-pronunciation audio** — synthesized (not a licensed recitation corpus): Google Cloud Text-to-Speech clips bundled per word, see `docs/CONTENT_SOURCES.md`.
-4. **Quran script fonts** — 5 of 10 bundled under SIL OFL (2 via genuine open substitutes in the same script family, not the exact named commercial product); 5 more specifically-named commercial/community typefaces remain unsourced, see `docs/CONTENT_SOURCES.md`.
+4. **Quran script fonts** — resolved: 5 real, verified-open-license typefaces bundled (2 via genuine substitutes in the same script family, not the exact named commercial product); the other 5 specifically-named commercial/community typefaces were checked and removed rather than left unsourced indefinitely, see `docs/CONTENT_SOURCES.md`.
 
 ## 🧭 Suggested next steps
 
