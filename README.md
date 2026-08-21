@@ -41,9 +41,11 @@
 | [🧮 Algorithms](docs/ALGORITHMS.md) | Streak calculation, gamification scoring, curriculum ordering |
 | [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | The pedagogical shape of the vocabulary curriculum, and why it's teach-then-quiz |
 | [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora/audio, with licenses |
-| [🔐 Security](docs/SECURITY.md) | Secrets handling and what's not yet hardened |
-| [🗄️ Local-only design](docs/FIREBASE_SETUP.md) | Why there's no cloud sync, and how backup/restore works instead |
+| [🔐 Security](SECURITY.md) | Secrets handling and what's not yet hardened |
+| [🗄️ Local-only design](docs/BACKUP_AND_SYNC.md) | Why there's no cloud sync, and how backup/restore works instead |
 | [🗺️ Roadmap](docs/ROADMAP.md) | Built vs. deferred |
+| [🤝 Contributing](CONTRIBUTING.md) | Build/test commands, ingestion pipeline, PR expectations |
+| [📜 Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
 
 ---
 
@@ -136,7 +138,7 @@ cd QuranicWords
 ./gradlew :app:testDebugUnitTest
 ```
 
-The app **builds and runs fully offline** with zero configuration — language selection, the font picker, and the full vocabulary lesson loop (scoring, streaks, points) all work with no account needed. There is no sign-in, no cloud sync, and no leaderboard; progress lives entirely on-device and travels between devices only via the local backup export/import feature described in [`docs/FIREBASE_SETUP.md`](docs/FIREBASE_SETUP.md).
+The app **builds and runs fully offline** with zero configuration — language selection, the font picker, and the full vocabulary lesson loop (scoring, streaks, points) all work with no account needed. There is no sign-in, no cloud sync, and no leaderboard; progress lives entirely on-device and travels between devices only via the local backup export/import feature described in [`docs/BACKUP_AND_SYNC.md`](docs/BACKUP_AND_SYNC.md).
 
 ## 📁 Project layout
 

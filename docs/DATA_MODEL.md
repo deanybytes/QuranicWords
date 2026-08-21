@@ -1,6 +1,6 @@
 # 🗄️ Data Model
 
-> **Note:** QuranicWords is local-device-only — there is no remote database of any kind. `BackupPayload` (`core/domain/model/BackupPayload.kt`) is the cross-device format: a JSON export/import of `UserStatsEntity`/`UserProgressEntity`/`ExerciseAttemptEntity` plus onboarding preferences, via `BackupRepository`. See [`docs/FIREBASE_SETUP.md`](FIREBASE_SETUP.md) for how that backup flow works.
+> **Note:** QuranicWords is local-device-only — there is no remote database of any kind. `BackupPayload` (`core/domain/model/BackupPayload.kt`) is the cross-device format: a JSON export/import of `UserStatsEntity`/`UserProgressEntity`/`ExerciseAttemptEntity` plus onboarding preferences, via `BackupRepository`. See [`docs/BACKUP_AND_SYNC.md`](BACKUP_AND_SYNC.md) for how that backup flow works.
 >
 > **The content hierarchy below is being actively restructured** into **chapter → section → lesson**, with exam-gated progression between units. Entity shapes can change from one commit to the next while that work lands — treat `core/data/local/entity/` as the real source of truth and this diagram as illustrative of the general shape, not a frozen schema.
 

@@ -1,6 +1,6 @@
 # 🏗️ Architecture
 
-> **Note:** QuranicWords is local-device-only — there is no sign-in, no remote database, and no leaderboard anywhere in this codebase. Progress round-trips through `BackupRepository`'s local JSON export/import instead of any cloud sync. See `CLAUDE.md`'s "There is no cloud backend" section for the current state, and [`docs/FIREBASE_SETUP.md`](FIREBASE_SETUP.md) for how the local backup feature works.
+> **Note:** QuranicWords is local-device-only — there is no sign-in, no remote database, and no leaderboard anywhere in this codebase. Progress round-trips through `BackupRepository`'s local JSON export/import instead of any cloud sync. See `CLAUDE.md`'s "There is no cloud backend" section for the current state, and [`docs/BACKUP_AND_SYNC.md`](BACKUP_AND_SYNC.md) for how the local backup feature works.
 
 ## 🧱 Layered overview
 
