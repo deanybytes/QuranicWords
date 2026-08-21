@@ -88,11 +88,6 @@
     <string name="notification_channel_streak_description">আপনার অনুশীলনের স্ট্রিক ভাঙার ঝুঁকিতে থাকলে স্থানীয় রিমাইন্ডার।</string>
     <string name="notification_streak_title">আপনার স্ট্রিক হারাবেন না!</string>
     <string name="notification_streak_body">আপনার %1$d দিনের স্ট্রিক আছে — এটি ধরে রাখতে আজ অনুশীলন করুন।</string>
-    <string name="settings_section_audio">অডিও</string>
-    <string name="settings_audio_download_description">শব্দ উচ্চারণের ক্লিপ ডিফল্টভাবে চাহিদা অনুযায়ী স্ট্রিম হয়। সাথে সাথে চালানো ও সম্পূর্ণ অফলাইনে ব্যবহারের জন্য একবারে সব ডাউনলোড করুন।</string>
-    <string name="settings_audio_download_button">সব উচ্চারণ অডিও ডাউনলোড করুন</string>
-    <string name="settings_audio_download_progress">ডাউনলোড হচ্ছে… %1$d / %2$d</string>
-    <string name="settings_audio_download_complete">সব উপলব্ধ অডিও ডাউনলোড হয়েছে।</string>
     <string name="settings_section_backup">ব্যাকআপ</string>
     <string name="settings_backup_description">আপনার অগ্রগতি শুধু এই ডিভাইসে সংরক্ষিত। নিরাপদ রাখতে ব্যাকআপ ফাইল এক্সপোর্ট করুন, অথবা এই বা অন্য ডিভাইসে অগ্রগতি ফিরিয়ে আনতে একটি ব্যাকআপ ইম্পোর্ট করুন।</string>
     <string name="settings_backup_export">ব্যাকআপ এক্সপোর্ট করুন</string>

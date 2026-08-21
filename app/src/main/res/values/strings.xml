@@ -88,11 +88,6 @@
     <string name="notification_channel_streak_description">Local reminders when your practice streak is at risk of breaking.</string>
     <string name="notification_streak_title">Don\'t lose your streak!</string>
     <string name="notification_streak_body">You have a %1$d-day streak — practice today to keep it going.</string>
-    <string name="settings_section_audio">Audio</string>
-    <string name="settings_audio_download_description">Word pronunciation clips stream on demand by default. Download them all once to play instantly and work fully offline.</string>
-    <string name="settings_audio_download_button">Download all pronunciation audio</string>
-    <string name="settings_audio_download_progress">Downloading… %1$d / %2$d</string>
-    <string name="settings_audio_download_complete">All available audio downloaded.</string>
     <string name="settings_section_backup">Backup</string>
     <string name="settings_backup_description">Your progress lives only on this device. Export a backup file to keep it safe, or import one to restore progress on this or another device.</string>
     <string name="settings_backup_export">Export backup</string>

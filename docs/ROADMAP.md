@@ -31,7 +31,7 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 | **Admin/content-authoring tooling** | A CMS so lessons can be added without an app release |
 | ~~**Push notifications / streak reminders**~~ | ✅ Done — opt-in, local-only (`StreakReminderWorker`/`StreakReminderScheduler`, WorkManager `PeriodicWorkRequest`, no `AlarmManager`/`BOOT_COMPLETED` receiver needed). Configurable in Settings → Notifications (time-of-day picker), only fires when there's an actual streak at risk of breaking. Respects the Android 13+ `POST_NOTIFICATIONS` runtime permission flow. |
 | **Achievements/badges beyond raw points** | Not built |
-| **Full male-voice audio pipeline** | `AudioPlayer`/`WordIntroExercise`/`TapWhatYouHear` all exist and degrade gracefully; `audioAssetPath` fields are populated as intentional forward references but no real audio clips are bundled — EveryAyah + quran-align (CC BY 4.0) are sourced and ready to ingest, not yet done |
+| **Word-pronunciation audio (TTS)** | `tools/ingestion/12_generate_word_audio.py` synthesizes one clip per word via Google Cloud Text-to-Speech (`ar-XA-Wavenet-B`, male), bundled directly in the APK at `app/src/main/assets/audio/words/` — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
 | **Independently-verified Bangla vocabulary meanings** | AI-drafted for now, tracked via `meaningBnReviewed` — see the callout above |
 | **7 of 10 Qur'an font styles** | IndoPak, IndoPak Nastaleeq, Nurani, Taha, Al-Qalam, KFGQPC, Madani Simple — selectable in the picker, render with system fallback until their real licensed font files are sourced |
 | **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
@@ -45,14 +45,13 @@ Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_
 
 1. **The real Qur'an Arabic text + Bangla/English translations** — sourced and **ingested**: Quran-bil-Quran (MIT, Arabic + English) and risan/quran-json (CC BY-SA 4.0, Bangla) back every vocabulary example verse.
 2. **The real word-frequency table with meanings and example verses** — sourced and **ingested**: the full 3,680-lemma Quranic Arabic Corpus frequency table, cross-matched against Quran-bil-Quran's root data. `meaningEn` is sourced/derived; `meaningBn` is AI-drafted (tracked via `meaningBnReviewed`, not silently presented as verified).
-3. **Real audio clips** (male voice only) — sourced but **not yet ingested**: EveryAyah.com + quran-align (CC BY 4.0, word-timestamped, all-male reciters) for word/verse audio.
+3. **Word-pronunciation audio** — synthesized (not a licensed recitation corpus): gTTS-generated clips bundled per word, see `docs/CONTENT_SOURCES.md`.
 4. **7 proprietary Qur'an font files** — still unsourced; typically not freely redistributable.
 
 ## 🧭 Suggested next steps
 
 1. Finish the chapter/section/exam restructuring and reseed content around the new hierarchy
 2. Independently verify (or have a Bangla-fluent reviewer verify) the AI-drafted `meaningBn` values, flipping `meaningBnReviewed` as each is confirmed — start with the highest-frequency bands (0–25%, 25–50%) since they're seen most often
-3. Real audio ingestion (EveryAyah + quran-align) for word/verse playback
-4. Full illustrated UI redesign, once art direction/asset licensing is decided (same discipline as fonts/audio)
-5. Re-verify the ~58% of root-matched example verses that don't literally contain their word (see the open content dependencies above) — improves both pedagogical accuracy and highlight coverage
+3. Full illustrated UI redesign, once art direction/asset licensing is decided (same discipline as fonts)
+4. Re-verify the ~58% of root-matched example verses that don't literally contain their word (see the open content dependencies above) — improves both pedagogical accuracy and highlight coverage
 6. CI/CD, Play Store readiness, and a hosted privacy policy ahead of a real release

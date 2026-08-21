@@ -13,10 +13,11 @@ import javax.inject.Singleton
  * `MediaPlayer` rather than media3/ExoPlayer - no streaming/queuing needed for a clip that's
  * already on disk. [play] no-ops safely when [assetPath] isn't actually bundled.
  *
- * Word-pronunciation clips specifically are *not* bundled - they're fetched on demand or
- * downloaded ahead of time via [com.quranicwords.app.core.domain.repository.WordAudioRepository]
- * instead, which resolves a playable URI (local cache or remote) rather than an assets-relative
- * path. This class is for anything genuinely shipped inside the APK.
+ * Word-pronunciation clips (`audio/words/wf_<rank>.mp3`, referenced via
+ * `WordFrequencyEntity.audioAssetPath`/`ExerciseContent.WordIntro.audioAssetPath`) are generated
+ * ahead of time by `tools/ingestion/12_generate_word_audio.py` and bundled directly in the APK -
+ * no runtime download, no remote-resolving repository. This class plays anything genuinely
+ * shipped inside the APK, pronunciation clips included.
  */
 @Singleton
 class AudioPlayer @Inject constructor(@ApplicationContext private val context: Context) {

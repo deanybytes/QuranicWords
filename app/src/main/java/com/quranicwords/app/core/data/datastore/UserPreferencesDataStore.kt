@@ -40,7 +40,6 @@ class UserPreferencesDataStore @Inject constructor(
         val LOCAL_USER_ID = stringPreferencesKey("local_user_id")
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
-        val AUDIO_OFFLINE_MODE = booleanPreferencesKey("audio_offline_mode")
         val FONT_SCALE = stringPreferencesKey("font_scale")
         val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
         val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
@@ -119,17 +118,6 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setSoundEnabled(enabled: Boolean) {
         context.dataStore.edit { it[Keys.SOUND_ENABLED] = enabled }
-    }
-
-    /** Whether every word's pronunciation clip has been bulk-downloaded to local storage (see
-     * [com.quranicwords.app.core.data.repository.WordAudioRepository.downloadAll]) - when true,
-     * playback resolves from the on-device cache without touching the network at all. Defaults
-     * to off (stream-on-demand). */
-    val audioOfflineModeFlow: Flow<Boolean> =
-        context.dataStore.data.map { it[Keys.AUDIO_OFFLINE_MODE] == true }
-
-    suspend fun setAudioOfflineMode(enabled: Boolean) {
-        context.dataStore.edit { it[Keys.AUDIO_OFFLINE_MODE] = enabled }
     }
 
     val fontScaleFlow: Flow<FontScale> =

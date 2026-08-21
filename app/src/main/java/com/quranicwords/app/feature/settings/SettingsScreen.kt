@@ -82,7 +82,6 @@ fun SettingsScreen(
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
     val streakReminderMinute by viewModel.streakReminderMinute.collectAsStateWithLifecycle()
     val backupUiState by viewModel.backupUiState.collectAsStateWithLifecycle()
-    val audioDownloadUiState by viewModel.audioDownloadUiState.collectAsStateWithLifecycle()
     val isBangla = rememberIsBanglaSelected()
     val context = LocalContext.current
     var showLicenses by remember { mutableStateOf(false) }
@@ -262,37 +261,6 @@ fun SettingsScreen(
         } }
 
         StaggeredEntrance(index = 2) { SettingsSectionCard {
-            SectionTitle(stringResource(R.string.settings_section_audio))
-            Text(
-                stringResource(R.string.settings_audio_download_description),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            QwSecondaryButton(
-                text = stringResource(R.string.settings_audio_download_button),
-                enabled = !audioDownloadUiState.isWorking,
-                onClick = viewModel::downloadAllAudio
-            )
-            if (audioDownloadUiState.isWorking) {
-                Text(
-                    stringResource(
-                        R.string.settings_audio_download_progress,
-                        audioDownloadUiState.done,
-                        audioDownloadUiState.total
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            } else if (audioDownloadUiState.isComplete) {
-                Text(
-                    stringResource(R.string.settings_audio_download_complete),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-        } }
-
-        StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_backup))
             Text(
                 stringResource(R.string.settings_backup_description),
@@ -329,7 +297,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 4) { SettingsSectionCard {
+        StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_about))
             QwLogo(size = 56.dp)
             Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
