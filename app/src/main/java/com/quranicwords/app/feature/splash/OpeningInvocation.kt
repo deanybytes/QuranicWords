@@ -3,7 +3,8 @@ package com.quranicwords.app.feature.splash
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -73,7 +73,11 @@ private val PHASE_TEXT = mapOf(
  * Tap-anywhere advances immediately (to the next phase, or finishes on the last one) - a 10-ish
  * second animation on every single app open needs an escape hatch for daily returning users, not
  * just first-time ones. [onFinished] fires once, either when the sequence completes naturally or
- * is skipped early.
+ * is skipped early. Uses `Modifier.clickable` (not a raw `pointerInput`/`detectTapGestures`
+ * gesture detector, which produces no accessibility node at all) so this is a real, focusable,
+ * TalkBack-activatable control with its own announced label - a screen-reader user on a real
+ * device wouldn't otherwise have any way to discover or trigger the skip action every single
+ * launch, found during the QW-16 accessibility pass.
  */
 @Composable
 fun OpeningInvocationSequence(reducedMotion: Boolean, onFinished: () -> Unit) {
@@ -138,16 +142,21 @@ fun OpeningInvocationSequence(reducedMotion: Boolean, onFinished: () -> Unit) {
         label = "invocationPulse"
     )
 
+    val skipInteractionSource = remember { MutableInteractionSource() }
+    val skipLabel = stringResource(R.string.splash_invocation_skip_hint)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = {
-                    coroutineScope.launch {
-                        haptics.onSelect()
-                        advance()
-                    }
-                })
+            .clickable(
+                interactionSource = skipInteractionSource,
+                indication = null,
+                onClickLabel = skipLabel
+            ) {
+                coroutineScope.launch {
+                    haptics.onSelect()
+                    advance()
+                }
             },
         contentAlignment = Alignment.Center
     ) {

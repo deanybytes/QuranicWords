@@ -12,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +33,11 @@ fun FontSelectScreen(
     viewModel: FontSelectViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(top = 24.dp, start = 24.dp, end = 24.dp)) {
-        Text(stringResource(R.string.font_select_title), style = MaterialTheme.typography.headlineMedium)
+        Text(
+            stringResource(R.string.font_select_title),
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.semantics { heading() }
+        )
         Text(
             stringResource(R.string.font_select_subtitle),
             style = MaterialTheme.typography.bodyMedium,
