@@ -2,11 +2,13 @@ package com.quranicwords.app.core.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
+import com.quranicwords.app.core.domain.model.Language
 
-/** Whether Bangla is the user's chosen app language, for localizing dynamic (non-string-resource)
- * content such as bundled lesson/exercise text. */
+/** The user's chosen app language, for localizing dynamic (non-string-resource) content such as
+ * bundled lesson/exercise text. Falls back to [Language.ENGLISH] when the active device locale
+ * doesn't match any supported [Language] tag. */
 @Composable
-fun rememberIsBanglaSelected(): Boolean {
+fun rememberSelectedLanguage(): Language {
     val locales = LocalConfiguration.current.locales
-    return locales.get(0)?.language == "bn"
+    return Language.fromTag(locales.get(0)?.language) ?: Language.ENGLISH
 }

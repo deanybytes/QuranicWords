@@ -22,10 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import kotlin.math.roundToInt
 
@@ -40,7 +41,7 @@ fun IntroScreen(
     viewModel: IntroViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Scaffold { padding ->
         if (uiState.isLoading) {
@@ -73,7 +74,7 @@ fun IntroScreen(
             }
             StaggeredEntrance(index = 2) {
                 Text(
-                    text = if (isBangla) uiState.titleBn else uiState.titleEn,
+                    text = uiState.title.get(language),
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth().padding(top = 4.dp)

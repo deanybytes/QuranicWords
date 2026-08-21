@@ -5,8 +5,22 @@ import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
+import com.quranicwords.app.core.domain.model.LocalizedText
+import com.quranicwords.app.core.util.AppJson
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
 
 class Converters {
+    @TypeConverter
+    fun fromLocalizedText(value: LocalizedText): String =
+        AppJson.encodeToString(MapSerializer(String.serializer(), String.serializer()), value)
+
+    @TypeConverter
+    fun toLocalizedText(value: String): LocalizedText =
+        AppJson.decodeFromString(MapSerializer(String.serializer(), String.serializer()), value)
+
     @TypeConverter
     fun fromExerciseType(value: ExerciseType): String = value.name
 

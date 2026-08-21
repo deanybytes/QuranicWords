@@ -18,9 +18,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.QuranFontStyle
+import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.QwSelectableCard
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.toFontFamily
 import com.quranicwords.app.core.util.QuranPreviewText
 
@@ -50,10 +51,10 @@ fun FontSelectScreen(
 
 @Composable
 private fun FontOptionCard(style: QuranFontStyle, onClick: () -> Unit) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
     QwSelectableCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(if (isBangla) style.displayNameBn else style.displayNameEn, style = MaterialTheme.typography.titleMedium)
+            Text(style.displayName.get(language), style = MaterialTheme.typography.titleMedium)
             Text(
                 text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   "),
                 fontFamily = style.toFontFamily(),

@@ -62,7 +62,8 @@ import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.QwSecondaryButton
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.Elevation
 import kotlinx.coroutines.delay
 
@@ -82,7 +83,7 @@ fun SettingsScreen(
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
     val streakReminderMinute by viewModel.streakReminderMinute.collectAsStateWithLifecycle()
     val backupUiState by viewModel.backupUiState.collectAsStateWithLifecycle()
-    val isBangla = rememberIsBanglaSelected()
+    val displayLanguage = rememberSelectedLanguage()
     val context = LocalContext.current
     var showLicenses by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
@@ -163,17 +164,13 @@ fun SettingsScreen(
             }
 
             Text(stringResource(R.string.settings_language_label), style = MaterialTheme.typography.labelLarge)
-            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-                val options = listOf(
-                    Language.ENGLISH to stringResource(R.string.language_option_english),
-                    Language.BANGLA to stringResource(R.string.language_option_bangla)
-                )
-                options.forEachIndexed { index, (lang, label) ->
-                    SegmentedButton(
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(Language.entries) { lang ->
+                    FilterChip(
                         selected = language == lang,
                         onClick = { viewModel.setLanguage(lang) },
-                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
-                    ) { Text(label) }
+                        label = { Text(lang.nativeName) }
+                    )
                 }
             }
 
@@ -183,7 +180,7 @@ fun SettingsScreen(
                     FilterChip(
                         selected = fontStyle == style,
                         onClick = { viewModel.setFontStyle(style) },
-                        label = { Text(if (isBangla) style.displayNameBn else style.displayNameEn) }
+                        label = { Text(style.displayName.get(displayLanguage)) }
                     )
                 }
             }

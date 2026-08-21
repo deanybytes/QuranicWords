@@ -26,24 +26,24 @@ import org.junit.Test
 class CurriculumUnlockResolverTest {
 
     private val chapters = listOf(
-        ChapterEntity("chapter_1", "C1", "C1", "", "", sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
-        ChapterEntity("chapter_2", "C2", "C2", "", "", sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0)
+        ChapterEntity("chapter_1", mapOf("en" to "C1"), emptyMap(), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
+        ChapterEntity("chapter_2", mapOf("en" to "C2"), emptyMap(), sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0)
     )
 
     private val sections = listOf(
-        SectionEntity("section_1_1", "chapter_1", "S1", "S1", sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
-        SectionEntity("section_1_2", "chapter_1", "S2", "S2", sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
-        SectionEntity("section_2_1", "chapter_2", "S1", "S1", sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
-        SectionEntity("section_2_2", "chapter_2", "S2", "S2", sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0)
+        SectionEntity("section_1_1", "chapter_1", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
+        SectionEntity("section_1_2", "chapter_1", mapOf("en" to "S2"), sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
+        SectionEntity("section_2_1", "chapter_2", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0),
+        SectionEntity("section_2_2", "chapter_2", mapOf("en" to "S2"), sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0)
     )
 
     private fun sectionLessons(sectionId: String, chapterId: String, withSectionFlashback: Boolean) = buildList {
-        add(LessonEntity("${sectionId}_l1", chapterId, sectionId, "L1", "L1", sortOrder = 1, kind = LessonKind.REGULAR))
-        add(LessonEntity("${sectionId}_l2", chapterId, sectionId, "L2", "L2", sortOrder = 2, kind = LessonKind.REGULAR))
-        add(LessonEntity("${sectionId}_flashback", chapterId, sectionId, "F", "F", sortOrder = 3, kind = LessonKind.LESSON_FLASHBACK))
-        add(LessonEntity("${sectionId}_exam", chapterId, sectionId, "Exam", "Exam", sortOrder = 4, kind = LessonKind.SECTION_EXAM))
+        add(LessonEntity("${sectionId}_l1", chapterId, sectionId, mapOf("en" to "L1"), sortOrder = 1, kind = LessonKind.REGULAR))
+        add(LessonEntity("${sectionId}_l2", chapterId, sectionId, mapOf("en" to "L2"), sortOrder = 2, kind = LessonKind.REGULAR))
+        add(LessonEntity("${sectionId}_flashback", chapterId, sectionId, mapOf("en" to "F"), sortOrder = 3, kind = LessonKind.LESSON_FLASHBACK))
+        add(LessonEntity("${sectionId}_exam", chapterId, sectionId, mapOf("en" to "Exam"), sortOrder = 4, kind = LessonKind.SECTION_EXAM))
         if (withSectionFlashback) {
-            add(LessonEntity("${sectionId}_secflash", chapterId, sectionId, "SF", "SF", sortOrder = 5, kind = LessonKind.SECTION_FLASHBACK))
+            add(LessonEntity("${sectionId}_secflash", chapterId, sectionId, mapOf("en" to "SF"), sortOrder = 5, kind = LessonKind.SECTION_FLASHBACK))
         }
     }
 
@@ -52,9 +52,9 @@ class CurriculumUnlockResolverTest {
         sectionLessons("section_2_1", "chapter_2", withSectionFlashback = false) +
         sectionLessons("section_2_2", "chapter_2", withSectionFlashback = true) +
         listOf(
-            LessonEntity("chapter_1_exam", "chapter_1", null, "CE", "CE", sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
-            LessonEntity("chapter_2_exam", "chapter_2", null, "CE", "CE", sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
-            LessonEntity("chapter_2_flashback", "chapter_2", null, "CF", "CF", sortOrder = 2, kind = LessonKind.CHAPTER_FLASHBACK)
+            LessonEntity("chapter_1_exam", "chapter_1", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
+            LessonEntity("chapter_2_exam", "chapter_2", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
+            LessonEntity("chapter_2_flashback", "chapter_2", null, mapOf("en" to "CF"), sortOrder = 2, kind = LessonKind.CHAPTER_FLASHBACK)
         )
 
     private fun resolve(completedId: String): String? =

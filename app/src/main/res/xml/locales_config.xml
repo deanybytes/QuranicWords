@@ -2,4 +2,14 @@
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <locale android:name="en" />
     <locale android:name="bn" />
+    <locale android:name="sq" />
+    <locale android:name="zh" />
+    <locale android:name="fa" />
+    <locale android:name="fr" />
+    <locale android:name="de" />
+    <locale android:name="hi" />
+    <locale android:name="in" />
+    <locale android:name="ru" />
+    <locale android:name="tr" />
+    <locale android:name="ur" />
 </locale-config>

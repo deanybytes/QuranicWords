@@ -23,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.localizedLabel
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 
 @Composable
@@ -34,7 +35,7 @@ fun MultipleChoiceExerciseContent(
     isChecked: Boolean,
     onSelect: (String) -> Unit
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -52,7 +53,7 @@ fun MultipleChoiceExerciseContent(
             content.options.forEach { option ->
                 OptionCard(
                     option = option,
-                    isBangla = isBangla,
+                    language = language,
                     isSelected = option.id == selectedOptionId,
                     isChecked = isChecked,
                     isCorrectOption = option.id == content.correctOptionId,
@@ -66,7 +67,7 @@ fun MultipleChoiceExerciseContent(
 @Composable
 internal fun OptionCard(
     option: ChoiceOption,
-    isBangla: Boolean,
+    language: Language,
     isSelected: Boolean,
     isChecked: Boolean,
     isCorrectOption: Boolean,
@@ -104,7 +105,7 @@ internal fun OptionCard(
         interactionSource = interactionSource
     ) {
         Text(
-            text = option.localizedLabel(isBangla),
+            text = option.localizedLabel(language),
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center

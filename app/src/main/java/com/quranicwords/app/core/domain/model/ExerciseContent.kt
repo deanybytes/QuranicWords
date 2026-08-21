@@ -10,14 +10,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 sealed interface ExerciseContent {
-    val promptEn: String
-    val promptBn: String
+    val prompt: LocalizedText
 
     @Serializable
     @SerialName("multiple_choice")
     data class MultipleChoice(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val promptArabic: String? = null,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
@@ -28,8 +26,7 @@ sealed interface ExerciseContent {
     @Serializable
     @SerialName("tap_what_you_hear")
     data class TapWhatYouHear(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val audioAssetPath: String,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
@@ -40,34 +37,29 @@ sealed interface ExerciseContent {
     @Serializable
     @SerialName("matching")
     data class Matching(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val pairs: List<MatchPair>
     ) : ExerciseContent
 
     /**
-     * A non-scored teach step shown before a word's quiz exercises. [meaningBnReviewed] defaults
-     * to `false`: most of this increment's Bangla meanings are AI-drafted (grounded in a sourced
-     * English meaning, not invented, but not independently verified against a real Bangla source
-     * - see docs/CONTENT_SOURCES.md, which has no source providing word-level Bangla glosses, only
-     * full-verse translations). This is tracked honestly in the data rather than silently
-     * presented as verified; it is deliberately not surfaced as an in-lesson warning (see
-     * Settings > About instead).
+     * A non-scored teach step shown before a word's quiz exercises. [meaningReviewed] tracks,
+     * per language tag, whether that language's [meaning] entry has been independently verified
+     * against a real source rather than AI-drafted (see docs/CONTENT_SOURCES.md) - a tag missing
+     * from this map means "not yet verified", the same honest default the old `meaningBnReviewed`
+     * flag used. This is tracked in the data rather than silently presented as verified; it is
+     * deliberately not surfaced as an in-lesson warning (see Settings > About instead).
      */
     @Serializable
     @SerialName("word_intro")
     data class WordIntro(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val wordId: String,
         val arabicWord: String,
-        val meaningEn: String,
-        val meaningBn: String,
-        val meaningBnReviewed: Boolean = false,
+        val meaning: LocalizedText,
+        val meaningReviewed: Map<String, Boolean> = emptyMap(),
         val root: String? = null,
         val exampleVerseArabic: String,
-        val exampleVerseTranslationEn: String,
-        val exampleVerseTranslationBn: String,
+        val exampleVerseTranslation: LocalizedText,
         val exampleVerseReference: String,
         val audioAssetPath: String? = null,
         // Char offsets of [arabicWord]'s occurrence within [exampleVerseArabic] (original string,
@@ -75,11 +67,11 @@ sealed interface ExerciseContent {
         // couldn't confidently locate it - never guessed. See tools/ingestion/10_add_highlight_spans.py.
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
-        // Best-effort literal substrings of the translation fields corresponding to [meaningEn]/
-        // [meaningBn] - null when no confident match was found (translations are idiomatic full
-        // sentences, not word-aligned, so this is deliberately partial rather than fabricated).
-        val meaningHighlightEn: String? = null,
-        val meaningHighlightBn: String? = null
+        // Best-effort literal substrings of the translation fields corresponding to [meaning] -
+        // null (per-language, via LocalizedText.getOrNull) when no confident match was found
+        // (translations are idiomatic full sentences, not word-aligned, so this is deliberately
+        // partial rather than fabricated).
+        val meaningHighlight: LocalizedText = emptyMap()
     ) : ExerciseContent
 
     /**
@@ -93,14 +85,12 @@ sealed interface ExerciseContent {
     @Serializable
     @SerialName("fill_in_the_blank")
     data class FillInTheBlank(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val wordId: String,
         val sentenceArabic: String,
         val blankStart: Int,
         val blankEnd: Int,
-        val sentenceTranslationEn: String,
-        val sentenceTranslationBn: String,
+        val sentenceTranslation: LocalizedText,
         /** Sura:ayah this sentence is quoted from - every verse shown anywhere in the app must
          * carry its reference (see the verse-reference completeness pass this field closed a gap
          * in; previously this type showed quoted Qur'anic text with no citation at all). */
@@ -124,12 +114,10 @@ sealed interface ExerciseContent {
     @Serializable
     @SerialName("word_order")
     data class WordOrderBuilder(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val wordId: String,
         val orderedChips: List<WordChip>,
-        val translationEn: String,
-        val translationBn: String
+        val translation: LocalizedText
     ) : ExerciseContent
 
     /**
@@ -137,15 +125,14 @@ sealed interface ExerciseContent {
      * reasonable alternate spellings; comparison is trimmed + case-insensitive (see
      * `LessonViewModel.onCheckPressed`). Ships fully wired but is filtered out of a lesson's
      * exercise list entirely when the audio asset isn't bundled (see `LessonViewModel.init`) -
-     * no real audio files exist in this repo yet (a pre-existing, acknowledged content gap), so
-     * this type is invisible until one is supplied, same pattern as the Lottie/Rive assets in
-     * the UI-motion pass.
+     * no content is generated for this type yet (a pre-existing, acknowledged content gap), so
+     * this type is invisible until that changes, same pattern as the Lottie/Rive assets in the
+     * UI-motion pass.
      */
     @Serializable
     @SerialName("listen_and_type")
     data class ListenAndType(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val wordId: String,
         val audioAssetPath: String,
         val correctAnswer: String,
@@ -153,9 +140,9 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * The "reverse direction" quiz: [meaningEn]/[meaningBn] are shown as the prompt (instead of
-     * the Arabic word), and the learner taps the matching word directly inside [verseArabic] -
-     * every whitespace-delimited word in the verse is one entry in [tappableSpans], so the UI can
+     * The "reverse direction" quiz: [meaning] is shown as the prompt (instead of the Arabic
+     * word), and the learner taps the matching word directly inside [verseArabic] - every
+     * whitespace-delimited word in the verse is one entry in [tappableSpans], so the UI can
      * render each as its own tappable region rather than only the correct one (otherwise this
      * isn't really a "find the word" interaction). [correctWordStart]/[correctWordEnd] identify
      * which span is correct; one-shot like [MultipleChoice] (no retry within the same exercise
@@ -164,16 +151,14 @@ sealed interface ExerciseContent {
     @Serializable
     @SerialName("word_in_verse_tap")
     data class TapWordInVerse(
-        override val promptEn: String,
-        override val promptBn: String,
+        override val prompt: LocalizedText,
         val wordId: String,
         val verseArabic: String,
         val verseReference: String,
         val correctWordStart: Int,
         val correctWordEnd: Int,
         val tappableSpans: List<WordSpan>,
-        val meaningEn: String,
-        val meaningBn: String
+        val meaning: LocalizedText
     ) : ExerciseContent
 }
 
@@ -227,8 +212,7 @@ fun ExerciseContent.practicedItemId(): String? = when (this) {
 data class ChoiceOption(
     val id: String,
     val labelArabic: String? = null,
-    val labelEn: String? = null,
-    val labelBn: String? = null
+    val label: LocalizedText = emptyMap()
 )
 
 @Serializable
@@ -240,8 +224,7 @@ data class MatchPair(
      * `practicedItemId`) - see [wordId] for that. */
     val id: String,
     val leftArabic: String,
-    val rightEn: String,
-    val rightBn: String,
+    val right: LocalizedText,
     /** The actual word this pair quizzes, for attempt logging - nullable/defaulted since existing
      * authored content predates this field; a null here means the pair's match can't be
      * attributed to a specific word yet (see `LessonViewModel.selectMatchingRight`, which skips
@@ -249,7 +232,7 @@ data class MatchPair(
     val wordId: String? = null
 )
 
-fun ExerciseContent.localizedPrompt(isBangla: Boolean): String = if (isBangla) promptBn else promptEn
-fun ChoiceOption.localizedLabel(isBangla: Boolean): String =
-    (if (isBangla) labelBn else labelEn) ?: labelEn ?: labelArabic.orEmpty()
-fun MatchPair.localizedRight(isBangla: Boolean): String = if (isBangla) rightBn else rightEn
+fun ExerciseContent.localizedPrompt(language: Language): String = prompt.get(language)
+fun ChoiceOption.localizedLabel(language: Language): String =
+    label.getOrNull(language) ?: labelArabic.orEmpty()
+fun MatchPair.localizedRight(language: Language): String = right.get(language)

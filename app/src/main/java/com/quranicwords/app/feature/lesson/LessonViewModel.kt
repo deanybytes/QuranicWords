@@ -155,7 +155,7 @@ class LessonViewModel @Inject constructor(
         val correctOption = baked.find { it.id == correctOptionId } ?: return baked
         val generated = DistractorGenerator.pickDistractors(correctOptionId, candidatePool, missedItemIds)
             .mapNotNull { id -> candidatePool.get(id) }
-            .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord, labelEn = it.meaningEn, labelBn = it.meaningBn) }
+            .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord, label = it.meaning) }
 
         val usedIds = generated.map { it.id }.toSet() + correctOptionId
         val stillNeeded = 3 - generated.size

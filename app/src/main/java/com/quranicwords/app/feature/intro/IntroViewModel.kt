@@ -3,6 +3,7 @@ package com.quranicwords.app.feature.intro
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +16,7 @@ import javax.inject.Inject
 data class IntroUiState(
     val isLoading: Boolean = true,
     val isChapter: Boolean = false,
-    val titleEn: String = "",
-    val titleBn: String = "",
+    val title: LocalizedText = emptyMap(),
     val wordCount: Int = 0,
     val occurrencePercent: Double = 0.0,
     val cumulativePercent: Double = 0.0
@@ -55,8 +55,7 @@ class IntroViewModel @Inject constructor(
                 _uiState.value = IntroUiState(
                     isLoading = false,
                     isChapter = true,
-                    titleEn = chapter.titleEn,
-                    titleBn = chapter.titleBn,
+                    title = chapter.title,
                     wordCount = chapter.wordCount,
                     occurrencePercent = chapter.quranOccurrencePercent,
                     cumulativePercent = cumulative
@@ -73,8 +72,7 @@ class IntroViewModel @Inject constructor(
                 _uiState.value = IntroUiState(
                     isLoading = false,
                     isChapter = false,
-                    titleEn = section.titleEn,
-                    titleBn = section.titleBn,
+                    title = section.title,
                     wordCount = section.wordCount,
                     occurrencePercent = section.quranOccurrencePercent,
                     cumulativePercent = priorChaptersTotal + sectionsSoFarTotal

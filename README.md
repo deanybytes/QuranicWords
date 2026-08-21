@@ -25,7 +25,7 @@
 
 > 🕋 **No human faces, anywhere.** Icons, illustrations, and avatars use geometric, calligraphic, and nature motifs only.
 > 📖 **No scripture as decoration.** Ayat/Mushaf text is never used as a loading-screen skin or gamification flourish — it only ever appears as real lesson content.
-> 🌙 **Bangla + English**, chosen by the learner at setup — not inferred from device locale.
+> 🌙 **12-language architecture** (English, Bangla, Albanian, Chinese, Farsi, French, German, Hindi, Indonesian, Russian, Turkish, Urdu), chosen by the learner at setup — not inferred from device locale. Only English and Bangla have real translated content/UI strings so far; the rest are wired and fall back to English until translated (see [Roadmap](docs/ROADMAP.md)).
 > 🟢 **One green identity**, day and night — Material You dynamic color is deliberately disabled.
 
 ---

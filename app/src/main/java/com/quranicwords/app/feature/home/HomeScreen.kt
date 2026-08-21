@@ -60,9 +60,10 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
+import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StreakBadge
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import kotlin.math.sin
@@ -79,7 +80,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
 
     Scaffold(
         topBar = {
@@ -123,7 +124,7 @@ fun HomeScreen(
                     val chapter = chapterWithSections.chapter
                     item(key = "chapter_${chapter.id}") {
                         Text(
-                            if (isBangla) chapter.titleBn else chapter.titleEn,
+                            chapter.title.get(language),
                             style = MaterialTheme.typography.headlineSmall,
                             modifier = Modifier.clickable { onOpenChapterIntro(chapter.id) }
                         )
@@ -138,7 +139,7 @@ fun HomeScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    if (isBangla) section.titleBn else section.titleEn,
+                                    section.title.get(language),
                                     style = MaterialTheme.typography.titleLarge,
                                     modifier = Modifier.clickable { onOpenSectionIntro(section.id) }
                                 )
@@ -157,7 +158,7 @@ fun HomeScreen(
                         ) { index, lesson ->
                             LessonPathNode(
                                 index = index,
-                                title = if (isBangla) lesson.titleBn else lesson.titleEn,
+                                title = lesson.title.get(language),
                                 kind = lesson.kind,
                                 progress = uiState.progressByLessonId[lesson.id],
                                 onClick = { onOpenLesson(lesson.id) }

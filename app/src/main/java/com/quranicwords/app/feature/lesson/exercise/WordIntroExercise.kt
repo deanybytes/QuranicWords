@@ -31,8 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedPrompt
-import com.quranicwords.app.core.ui.components.rememberIsBanglaSelected
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
  * Non-scored teach step shown before a word's quiz exercises: the word, its meaning, and one
@@ -44,11 +46,11 @@ fun WordIntroExerciseContent(
     content: ExerciseContent.WordIntro,
     onPlay: (String) -> Boolean
 ) {
-    val isBangla = rememberIsBanglaSelected()
+    val language = rememberSelectedLanguage()
     var audioUnavailable by remember(content) { mutableStateOf(false) }
-    val meaning = if (isBangla) content.meaningBn else content.meaningEn
-    val verseTranslation = if (isBangla) content.exampleVerseTranslationBn else content.exampleVerseTranslationEn
-    val meaningHighlight = if (isBangla) content.meaningHighlightBn else content.meaningHighlightEn
+    val meaning = content.meaning.get(language)
+    val verseTranslation = content.exampleVerseTranslation.get(language)
+    val meaningHighlight = content.meaningHighlight.getOrNull(language)
     val highlightStyle = SpanStyle(
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold,
@@ -60,7 +62,7 @@ fun WordIntroExerciseContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(content.localizedPrompt(isBangla), style = MaterialTheme.typography.titleMedium)
+        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
         Card(
             modifier = Modifier.fillMaxWidth(),

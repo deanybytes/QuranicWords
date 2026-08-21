@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.quranicwords.app.core.domain.model.LocalizedText
 import kotlinx.serialization.Serializable
 
 /**
@@ -53,8 +54,7 @@ data class LessonEntity(
     @PrimaryKey val id: String,
     val chapterId: String,
     val sectionId: String?,
-    val titleEn: String,
-    val titleBn: String,
+    val title: LocalizedText,
     val sortOrder: Int,
     val kind: LessonKind = LessonKind.REGULAR
 )
