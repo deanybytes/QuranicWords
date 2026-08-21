@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">已锁定</string>
+    <string name="home_open_achievements">成就</string>
     <string name="home_open_settings">设置</string>
     <string name="home_review_title">复习错词</string>
     <string name="home_review_subtitle">练习上次答错的题目。</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d 分</string>
     <string name="lesson_summary_accuracy">正确率 %d%%</string>
     <string name="lesson_summary_streak_increased">连续天数增加了！🔥</string>
+    <string name="lesson_summary_achievement_unlocked">解锁了新成就！</string>
     <string name="lesson_summary_continue">继续</string>
     <string name="lesson_summary_back_to_home">返回主页</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">成就</string>
+    <string name="achievements_locked_hint">继续学习以解锁</string>
+    <string name="achievement_streak_bronze_name">连续7天</string>
+    <string name="achievement_streak_silver_name">连续30天</string>
+    <string name="achievement_streak_gold_name">连续100天</string>
+    <string name="achievement_streak_description">保持了%d天的学习连续记录</string>
+    <string name="achievement_chapter_name">第%d章已掌握</string>
+    <string name="achievement_chapter_description">通过了第%d章考试</string>
+    <string name="achievement_coverage_name">%d%% 古兰经覆盖率</string>
+    <string name="achievement_coverage_description">已学会足以覆盖古兰经%d%%词汇出现率的词汇</string>
+    <string name="achievement_first_lesson_name">第一步</string>
+    <string name="achievement_first_lesson_description">完成了你的第一课</string>
+    <string name="achievement_first_exam_name">首次通过考试</string>
+    <string name="achievement_first_exam_description">通过了你的第一次单元或章节考试</string>
 
     <!-- Settings -->
     <string name="settings_title">设置</string>

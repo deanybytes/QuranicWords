@@ -3,6 +3,7 @@ package com.quranicwords.app.core.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.quranicwords.app.core.data.local.dao.AchievementDao
 import com.quranicwords.app.core.data.local.dao.ChapterDao
 import com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao
 import com.quranicwords.app.core.data.local.dao.ExerciseDao
@@ -11,6 +12,7 @@ import com.quranicwords.app.core.data.local.dao.SectionDao
 import com.quranicwords.app.core.data.local.dao.UserProgressDao
 import com.quranicwords.app.core.data.local.dao.UserStatsDao
 import com.quranicwords.app.core.data.local.dao.WordFrequencyDao
+import com.quranicwords.app.core.data.local.entity.AchievementEntity
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
@@ -33,9 +35,10 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
         ExerciseEntity::class,
         UserProgressEntity::class,
         UserStatsEntity::class,
-        ExerciseAttemptEntity::class
+        ExerciseAttemptEntity::class,
+        AchievementEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -48,6 +51,7 @@ abstract class QwDatabase : RoomDatabase() {
     abstract fun userProgressDao(): UserProgressDao
     abstract fun userStatsDao(): UserStatsDao
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
+    abstract fun achievementDao(): AchievementDao
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"

@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">مقفل</string>
+    <string name="home_open_achievements">کامیابیاں</string>
     <string name="home_open_settings">سیٹنگز</string>
     <string name="home_review_title">چھوٹے ہوئے الفاظ کا اعادہ کریں</string>
     <string name="home_review_subtitle">جو پچھلی بار غلط ہوئے تھے ان کی مشق کریں۔</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">‎+%d پوائنٹس</string>
     <string name="lesson_summary_accuracy">%d%% درست</string>
     <string name="lesson_summary_streak_increased">تسلسل بڑھ گیا! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">نئی کامیابی حاصل ہوئی!</string>
     <string name="lesson_summary_continue">جاری رکھیں</string>
     <string name="lesson_summary_back_to_home">ہوم پر واپس جائیں</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">کامیابیاں</string>
+    <string name="achievements_locked_hint">اسے کھولنے کے لیے سیکھنا جاری رکھیں</string>
+    <string name="achievement_streak_bronze_name">7 دن کا تسلسل</string>
+    <string name="achievement_streak_silver_name">30 دن کا تسلسل</string>
+    <string name="achievement_streak_gold_name">100 دن کا تسلسل</string>
+    <string name="achievement_streak_description">%d دنوں تک سیکھنے کا تسلسل برقرار رکھا</string>
+    <string name="achievement_chapter_name">باب %d میں مہارت حاصل کی</string>
+    <string name="achievement_chapter_description">باب %d کا امتحان پاس کیا</string>
+    <string name="achievement_coverage_name">%d%% قرآن کوریج</string>
+    <string name="achievement_coverage_description">قرآن کے %d%% الفاظ کے استعمال کا احاطہ کرنے کے لیے کافی الفاظ سیکھے</string>
+    <string name="achievement_first_lesson_name">پہلے قدم</string>
+    <string name="achievement_first_lesson_description">اپنا پہلا سبق مکمل کیا</string>
+    <string name="achievement_first_exam_name">پہلا امتحان پاس کیا</string>
+    <string name="achievement_first_exam_description">اپنا پہلا سیکشن یا باب کا امتحان پاس کیا</string>
 
     <!-- Settings -->
     <string name="settings_title">سیٹنگز</string>

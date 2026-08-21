@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.domain.AchievementDef
 import com.quranicwords.app.core.domain.AdaptiveSequencer
 import com.quranicwords.app.core.domain.DistractorGenerator
 import com.quranicwords.app.core.domain.WordCandidatePool
@@ -16,6 +17,7 @@ import com.quranicwords.app.core.domain.model.OptionsBearing
 import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.isScored
 import com.quranicwords.app.core.domain.model.practicedItemId
+import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.util.AppJson
@@ -58,7 +60,8 @@ data class LessonUiState(
     val isChecked: Boolean = false,
     val lastAnswerCorrect: Boolean? = null,
     val isFinished: Boolean = false,
-    val result: LessonResult? = null
+    val result: LessonResult? = null,
+    val newlyUnlockedAchievements: List<AchievementDef> = emptyList()
 ) {
     val currentContent: ExerciseContent? get() = contents.getOrNull(currentIndex)
     val progressFraction: Float get() = if (contents.isEmpty()) 0f else (currentIndex + if (isChecked) 1 else 0).toFloat() / contents.size
@@ -68,6 +71,7 @@ data class LessonUiState(
 class LessonViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
+    private val achievementRepository: AchievementRepository,
     private val userIdProvider: CurrentUserIdProvider,
     private val audioPlayer: AudioPlayer,
     private val sfxPlayer: SfxPlayer,
@@ -338,7 +342,11 @@ class LessonViewModel @Inject constructor(
                     totalCount = totalCount
                 )
             }
-            _uiState.update { it.copy(isFinished = true, result = result) }
+            // Checked after both completion paths (a Review session can cross a word-mastery-style
+            // milestone too, not just a real lesson/exam) - never blocks showing the result itself,
+            // an empty list here just means nothing newly unlocked this time.
+            val newlyUnlocked = achievementRepository.checkAndUnlock(userId)
+            _uiState.update { it.copy(isFinished = true, result = result, newlyUnlockedAchievements = newlyUnlocked) }
         }
     }
 }

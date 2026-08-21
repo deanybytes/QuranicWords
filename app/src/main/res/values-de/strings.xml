@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Gesperrt</string>
+    <string name="home_open_achievements">Erfolge</string>
     <string name="home_open_settings">Einstellungen</string>
     <string name="home_review_title">Verpasste Wörter wiederholen</string>
     <string name="home_review_subtitle">Übe die, die du letztes Mal falsch hattest.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d Punkte</string>
     <string name="lesson_summary_accuracy">%d%% richtig</string>
     <string name="lesson_summary_streak_increased">Serie verlängert! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">Neue Errungenschaft freigeschaltet!</string>
     <string name="lesson_summary_continue">Weiter</string>
     <string name="lesson_summary_back_to_home">Zurück zur Startseite</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Erfolge</string>
+    <string name="achievements_locked_hint">Lerne weiter, um dies freizuschalten</string>
+    <string name="achievement_streak_bronze_name">7-Tage-Serie</string>
+    <string name="achievement_streak_silver_name">30-Tage-Serie</string>
+    <string name="achievement_streak_gold_name">100-Tage-Serie</string>
+    <string name="achievement_streak_description">Eine Lernserie %d Tage lang aufrechterhalten</string>
+    <string name="achievement_chapter_name">Kapitel %d gemeistert</string>
+    <string name="achievement_chapter_description">Die Prüfung von Kapitel %d bestanden</string>
+    <string name="achievement_coverage_name">%d%% Koran-Abdeckung</string>
+    <string name="achievement_coverage_description">Genug Vokabular gelernt, um %d%% der Wortvorkommen im Koran abzudecken</string>
+    <string name="achievement_first_lesson_name">Erste Schritte</string>
+    <string name="achievement_first_lesson_description">Deine allererste Lektion abgeschlossen</string>
+    <string name="achievement_first_exam_name">Erste Prüfung bestanden</string>
+    <string name="achievement_first_exam_description">Deine erste Abschnitts- oder Kapitelprüfung bestanden</string>
 
     <!-- Settings -->
     <string name="settings_title">Einstellungen</string>

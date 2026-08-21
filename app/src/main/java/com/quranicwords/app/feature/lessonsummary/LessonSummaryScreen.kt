@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,8 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.AchievementCatalog
 import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.navigation.Route
+import com.quranicwords.app.core.ui.components.AchievementBadge
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -38,6 +42,7 @@ import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
+import com.quranicwords.app.core.ui.components.displayName
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.MedallionShapeDefault
 import com.quranicwords.app.core.util.GamificationConfig
@@ -59,6 +64,9 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
     val requiresPassing = route.lessonKind?.requiresPassingScore() ?: false
     val passed = !requiresPassing || route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
     val celebrationIntensity = if (route.accuracyPercent >= 100) CelebrationIntensity.PERFECT else CelebrationIntensity.PASSED
+    val newlyUnlockedAchievements = remember(route.newlyUnlockedAchievementIds) {
+        route.newlyUnlockedAchievementIds.mapNotNull { AchievementCatalog.byId[it] }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         // Fired once (visible only ever flips false->true, never back), scaled by lesson
@@ -132,8 +140,36 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
                 }
             }
 
+            if (newlyUnlockedAchievements.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+                StaggeredEntrance(index = 4) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            stringResource(R.string.lesson_summary_achievement_unlocked),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            items(newlyUnlockedAchievements) { achievement ->
+                                Qw3DFlipCard(
+                                    flipped = visible,
+                                    front = { BadgeMedallionPlaceholder() },
+                                    back = {
+                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                            AchievementBadge(motifKind = achievement.motifKind, unlocked = true)
+                                            Text(achievement.displayName(), style = MaterialTheme.typography.labelSmall)
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(32.dp))
-            StaggeredEntrance(index = 4) {
+            StaggeredEntrance(index = 5) {
                 QwPrimaryButton(
                     text = stringResource(
                         if (route.nextLessonId != null) R.string.lesson_summary_continue

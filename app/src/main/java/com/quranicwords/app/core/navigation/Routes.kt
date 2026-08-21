@@ -28,7 +28,13 @@ sealed interface Route {
         /** Null for a Review session. See [com.quranicwords.app.core.domain.model.LessonResult
          * .lessonKind] - carried straight through so this screen can show pass/fail messaging
          * tied to the real per-kind gating rule instead of a hardcoded accuracy threshold. */
-        val lessonKind: LessonKind? = null
+        val lessonKind: LessonKind? = null,
+        /** [com.quranicwords.app.core.domain.AchievementDef.id]s unlocked by finishing this
+         * lesson/exam/Review, if any - ids rather than full defs so this stays a plain
+         * String list; resolve back via [com.quranicwords.app.core.domain.AchievementCatalog
+         * .byId] at the point of use. */
+        val newlyUnlockedAchievementIds: List<String> = emptyList()
     ) : Route
     @Serializable data object Settings : Route
+    @Serializable data object Achievements : Route
 }

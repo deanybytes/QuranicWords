@@ -39,6 +39,7 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Terkunci</string>
+    <string name="home_open_achievements">Pencapaian</string>
     <string name="home_open_settings">Pengaturan</string>
     <string name="home_review_title">Tinjau kata yang terlewat</string>
     <string name="home_review_subtitle">Latih kata-kata yang salah pada terakhir kali.</string>
@@ -69,8 +70,25 @@
     <string name="lesson_summary_points_earned">+%d poin</string>
     <string name="lesson_summary_accuracy">%d%% benar</string>
     <string name="lesson_summary_streak_increased">Rentetan bertambah! 🔥</string>
+    <string name="lesson_summary_achievement_unlocked">Pencapaian baru terbuka!</string>
     <string name="lesson_summary_continue">Lanjutkan</string>
     <string name="lesson_summary_back_to_home">Kembali ke beranda</string>
+
+    <!-- Achievements -->
+    <string name="achievements_title">Pencapaian</string>
+    <string name="achievements_locked_hint">Terus belajar untuk membuka ini</string>
+    <string name="achievement_streak_bronze_name">Rentetan 7 Hari</string>
+    <string name="achievement_streak_silver_name">Rentetan 30 Hari</string>
+    <string name="achievement_streak_gold_name">Rentetan 100 Hari</string>
+    <string name="achievement_streak_description">Mempertahankan rentetan belajar selama %d hari</string>
+    <string name="achievement_chapter_name">Bab %d Dikuasai</string>
+    <string name="achievement_chapter_description">Lulus ujian Bab %d</string>
+    <string name="achievement_coverage_name">%d%% Cakupan Al-Qur\'an</string>
+    <string name="achievement_coverage_description">Mempelajari kosakata yang cukup untuk mencakup %d%% kemunculan kata dalam Al-Qur\'an</string>
+    <string name="achievement_first_lesson_name">Langkah Pertama</string>
+    <string name="achievement_first_lesson_description">Menyelesaikan pelajaran pertama Anda</string>
+    <string name="achievement_first_exam_name">Ujian Pertama Lulus</string>
+    <string name="achievement_first_exam_description">Lulus ujian bagian atau bab pertama Anda</string>
 
     <!-- Settings -->
     <string name="settings_title">Pengaturan</string>

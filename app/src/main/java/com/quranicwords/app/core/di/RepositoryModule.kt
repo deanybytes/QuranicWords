@@ -1,8 +1,10 @@
 package com.quranicwords.app.core.di
 
+import com.quranicwords.app.core.data.repository.AchievementRepositoryImpl
 import com.quranicwords.app.core.data.repository.BackupRepositoryImpl
 import com.quranicwords.app.core.data.repository.ContentRepositoryImpl
 import com.quranicwords.app.core.data.repository.ProgressRepositoryImpl
+import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.BackupRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
@@ -22,4 +24,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindBackupRepository(impl: BackupRepositoryImpl): BackupRepository
+
+    @Binds
+    abstract fun bindAchievementRepository(impl: AchievementRepositoryImpl): AchievementRepository
 }
