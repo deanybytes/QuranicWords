@@ -43,6 +43,16 @@ Superseded approaches (kept here for the record):
 - An earlier attempt segmented real Alafasy recitation audio (EveryAyah.com, CC BY 4.0) at the word level using `quran-align`'s timing data, hosted as a separate GitHub Release (19-word proof-of-concept). Retired in favor of a fully-bundled approach — no external hosting, no per-word alignment data dependency, no runtime fetch.
 - An even earlier attempt used the free `gTTS` library (Google Translate's public TTS endpoint) — retired after empirical pitch analysis showed its Arabic voice is female (median ~211 Hz across a sample, vs. ~73 Hz for the WaveNet male voice actually used), and that library offers no voice/gender parameter to change it.
 
+## 12-language word-meaning translation (real, already run)
+
+`tools/ingestion/13_translate_content_12lang.py` (Phase 4, QW-48) populates per-word `meaning` translations for the 10 languages beyond en/bn, sourced from `reference/word-by-word/QuranicWords_<Language>.json` (the quran.gtaf.org word-by-word data — see the table above). Runs after `10_add_highlight_spans.py`, since it depends on the `arabicWordStart`/`arabicWordEnd` spans that script computes.
+
+**Method:** for each of the 1,582/3,680 words with a confirmed verse span, extract the exact Arabic substring, then find the matching word inside that verse's word-by-word breakdown per language via diacritic-normalized skeleton comparison (`arabic_utils.strip_diacritics`) — same tolerance level used elsewhere in this pipeline. **Result: 1,378–1,526 of 1,582 words matched per language (87–97%, varies by language)** — see the script's own printed summary for exact per-language counts. Every added entry is marked `meaningReviewed[lang] = false`, same discipline as `meaningBnReviewed`.
+
+**Deliberately not attempted:** synthesizing an `exampleVerseTranslation` for these 10 languages by concatenating word-by-word glosses into a fake sentence — that would produce broken, ungrammatical pseudo-translations. Full-verse translation stays English-fallback (via `LocalizedText.get`) for these languages; only the word-level `meaning` field is populated, since that's what's actually sourced.
+
+**Known, measured limitation — not fixed in this pass:** gtaf.org's own per-language word-by-word segmentation isn't always semantically 1:1 across languages for multi-word idiomatic phrases (e.g. "مِن قَبْلِكَ" = "before you"). Word *count* per ayah matches perfectly across all 12 languages (verified: 0/6,236 ayat mismatched), so a naive alignment check doesn't catch this — some languages attach the full idiom's meaning to one word-slot (occasionally leaving a literal `*` placeholder on the other, filtered out and treated as no-match — measured 0–8.9% of all word entries depending on language, worst for Turkish/Farsi), while others split it more literally. This means a small fraction of matched translations attach a *neighboring* word's meaning rather than the target word's — not detected/corrected here, since there's no reliable in-repo signal to distinguish a genuine idiom-boundary difference from a real match. The `meaningReviewed = false` flag already signals "not independently verified" for exactly this kind of gap.
+
 ## Explicitly not sourced (still open)
 
 | Item | Status |

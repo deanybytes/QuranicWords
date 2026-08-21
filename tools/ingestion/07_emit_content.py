@@ -5,22 +5,27 @@ Emit the final Android-consumable content assets from the fully-processed lemma 
   - lessons_vocabulary.json (LessonEntity rows, module_vocabulary, ~10 words/lesson)
   - exercises_vocabulary.json (teach WordIntro + quiz MultipleChoice per word, plus closing
     Matching review exercises per lesson - same teach-then-quiz pattern as Tier 1)
+
+Emits the map-based LocalizedText schema (`prompt`/`meaning`/`title`/etc. as {langTag: text}
+dicts) with en+bn populated from the sourced lemma data. Exercise prompts are emitted in all 12
+languages directly (see prompts_12lang.py); per-word `meaning`/`meaningReviewed` for the 10
+languages beyond en/bn are NOT populated here - that's 13_translate_content_12lang.py's job,
+a post-processing pass run after this script (same convention as 09_fix_distractor_pools.py and
+10_add_highlight_spans.py, which must also run before 13 since it depends on the
+arabicWordStart/End spans they add).
 """
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from prompts_12lang import TEACH_PROMPT, QUIZ_PROMPT, MATCH_PROMPT  # noqa: E402
 
 IN_PATH = Path(__file__).parent / "output" / "lemmas_with_verses.json"
 OUT_DIR = Path(__file__).parent.parent.parent / "app" / "src" / "main" / "assets" / "content"
 
 WORDS_PER_LESSON = 10
 PAIRS_PER_MATCH = 5
-
-TEACH_PROMPT_EN = "Meet a new word"
-TEACH_PROMPT_BN = "একটি নতুন শব্দ চিনুন"
-QUIZ_PROMPT_EN = "What does this word mean?"
-QUIZ_PROMPT_BN = "এই শব্দের অর্থ কী?"
-MATCH_PROMPT_EN = "Match each word to its meaning."
-MATCH_PROMPT_BN = "প্রতিটি শব্দকে এর অর্থের সাথে মেলান।"
 
 def word_id(rank: int) -> str:
     return f"wf_{rank}"
@@ -45,8 +50,10 @@ def main():
         lessons.append({
             "id": lesson_id,
             "moduleId": "module_vocabulary",
-            "titleEn": f"Vocabulary {lesson_num}: words {first_rank}-{last_rank} (~{end_pct:.1f}% cumulative coverage)",
-            "titleBn": f"শব্দভাণ্ডার {lesson_num}: শব্দ {first_rank}-{last_rank} (~{end_pct:.1f}% সঞ্চিত কভারেজ)",
+            "title": {
+                "en": f"Vocabulary {lesson_num}: words {first_rank}-{last_rank} (~{end_pct:.1f}% cumulative coverage)",
+                "bn": f"শব্দভাণ্ডার {lesson_num}: শব্দ {first_rank}-{last_rank} (~{end_pct:.1f}% সঞ্চিত কভারেজ)",
+            },
             "sortOrder": lesson_num,
         })
 
@@ -64,17 +71,17 @@ def main():
                 "exerciseType": "TEACH_WORD",
                 "content": {
                     "type": "word_intro",
-                    "promptEn": TEACH_PROMPT_EN,
-                    "promptBn": TEACH_PROMPT_BN,
+                    "prompt": dict(TEACH_PROMPT),
                     "wordId": wid,
                     "arabicWord": lemma["arabic"],
-                    "meaningEn": lemma["meaningEn"],
-                    "meaningBn": lemma["meaningBn"],
-                    "meaningBnReviewed": False,
+                    "meaning": {"en": lemma["meaningEn"], "bn": lemma["meaningBn"]},
+                    "meaningReviewed": {},
                     "root": lemma["root"],
                     "exampleVerseArabic": lemma["exampleVerseArabic"],
-                    "exampleVerseTranslationEn": lemma["exampleVerseTranslationEn"],
-                    "exampleVerseTranslationBn": lemma["exampleVerseTranslationBn"],
+                    "exampleVerseTranslation": {
+                        "en": lemma["exampleVerseTranslationEn"],
+                        "bn": lemma["exampleVerseTranslationBn"],
+                    },
                     "exampleVerseReference": lemma["exampleVerseReference"],
                     "audioAssetPath": f"audio/words/{wid}.mp3",
                 }
@@ -89,7 +96,10 @@ def main():
             correct_option_id = None
             for i, o in enumerate(opts):
                 oid = f"o{i+1}"
-                options.append({"id": oid, "labelEn": o["meaningEn"][:60], "labelBn": o["meaningBn"]})
+                options.append({
+                    "id": oid,
+                    "label": {"en": o["meaningEn"][:60], "bn": o["meaningBn"]},
+                })
                 if o["rank"] == lemma["rank"]:
                     correct_option_id = oid
 
@@ -100,8 +110,7 @@ def main():
                 "exerciseType": "MULTIPLE_CHOICE",
                 "content": {
                     "type": "multiple_choice",
-                    "promptEn": QUIZ_PROMPT_EN,
-                    "promptBn": QUIZ_PROMPT_BN,
+                    "prompt": dict(QUIZ_PROMPT),
                     "promptArabic": lemma["arabic"],
                     "options": options,
                     "correctOptionId": correct_option_id,
@@ -115,7 +124,12 @@ def main():
                 continue
             ex_num += 1
             pairs = [
-                {"id": f"p{i+1}", "leftArabic": g["arabic"], "rightEn": g["meaningEn"][:60], "rightBn": g["meaningBn"]}
+                {
+                    "id": f"p{i+1}",
+                    "leftArabic": g["arabic"],
+                    "right": {"en": g["meaningEn"][:60], "bn": g["meaningBn"]},
+                    "wordId": word_id(g["rank"]),
+                }
                 for i, g in enumerate(chunk)
             ]
             exercises.append({
@@ -125,8 +139,7 @@ def main():
                 "exerciseType": "MATCHING",
                 "content": {
                     "type": "matching",
-                    "promptEn": MATCH_PROMPT_EN,
-                    "promptBn": MATCH_PROMPT_BN,
+                    "prompt": dict(MATCH_PROMPT),
                     "pairs": pairs,
                 }
             })
@@ -138,8 +151,7 @@ def main():
                 "arabicWord": lemma["arabic"],
                 "frequencyRank": lemma["rank"],
                 "frequencyCount": lemma["frequency"],
-                "meaningEn": lemma["meaningEn"][:200],
-                "meaningBn": lemma["meaningBn"],
+                "meaning": {"en": lemma["meaningEn"][:200], "bn": lemma["meaningBn"]},
                 "audioAssetPath": None,
                 "tierLevel": 2,
             })
