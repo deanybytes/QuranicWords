@@ -25,9 +25,13 @@ Run the relevant unit tests before opening a PR. For UI/feature changes, actuall
 
 ## Content ingestion pipeline
 
-`tools/ingestion/*.py` (numbered stages `01_...` through `13_...`) is a separate, offline Python pipeline that regenerates the bundled JSON under `app/src/main/assets/content/` from external corpora. It is not part of the Android build or CI. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) before touching it — it documents exactly which fields are sourced from real data versus AI-drafted-and-flagged, and that discipline (never silently fabricate content) is a hard expectation for any change in this area.
+`tools/ingestion/*.py` (numbered stages `01_...` through `16_...`) is a separate, offline Python pipeline that regenerates the bundled JSON under `app/src/main/assets/content/` from external corpora. It is not part of the Android build or CI. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) before touching it — it documents exactly which fields are sourced from real data versus AI-drafted-and-flagged, and that discipline (never silently fabricate content) is a hard expectation for any change in this area.
 
-If you change the *shape* of any file under `app/src/main/assets/content/`, bump `ContentSeeder.CONTENT_VERSION` (`app/src/main/java/com/quranicwords/app/core/data/assets/ContentSeeder.kt`) in the same change — otherwise existing installs silently skip reseeding.
+If you change the *shape* of any file under `app/src/main/assets/content/`, bump `ContentSeeder.CONTENT_VERSION` (`app/src/main/java/com/quranicwords/app/core/data/assets/ContentSeeder.kt`) in the same change — otherwise existing installs silently skip reseeding. **A value-only change needs the same bump** — the seeder gates on the version flag alone, not a per-row diff.
+
+### Editing a single word without a full pipeline re-run
+
+For a small, one-off fix (a wrong meaning, a bad example verse) that doesn't warrant re-running a whole pipeline stage, use `tools/ingestion/16_cms.py` — a local interactive CLI (`python 16_cms.py`) to look up a word by id or Arabic text, edit its meaning or example verse directly, and validate the content set before saving. It keeps `word_frequency.json` in sync automatically and flags whatever you edit as `meaningReviewed[lang] = false`/`exampleVerseVerified = false` (a human edit isn't the same as passing through the pipeline's own independent-source cross-checks). It prints the `CONTENT_VERSION` bump reminder when you save — follow it. This is deliberately a local CLI, not a hosted web tool: the app makes zero network requests by design, and a web CMS would be this project's first server.
 
 ## Two hard product constraints
 
