@@ -4,6 +4,16 @@
     <string name="points_content_description">%d points</string>
     <string name="streak_content_description">%d day streak</string>
 
+    <!-- Opening invocation (splash, every launch) -->
+    <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
+    <string name="splash_invocation_taawwudh_translation">I seek refuge in Allah from Satan, the accursed</string>
+    <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
+    <string name="splash_invocation_basmala_translation">In the name of Allah, the Most Gracious, the Most Merciful</string>
+    <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
+    <string name="splash_invocation_rabbizidni_translation">My Lord, increase me in knowledge</string>
+    <string name="splash_invocation_rabbizidni_reference">Qur\'an 20:114</string>
+    <string name="splash_invocation_skip_hint">Tap to skip</string>
+
     <!-- Language select -->
     <string name="language_select_title">Choose your language</string>
     <string name="language_select_subtitle">You can change this later in Settings.</string>
