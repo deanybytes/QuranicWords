@@ -1,6 +1,5 @@
 package com.quranicwords.app
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -40,20 +39,22 @@ class MainActivity : AppCompatActivity() {
             val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
             val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
 
-            // AppCompatDelegate.setApplicationLocales() only actually changes the process-wide
-            // Configuration on API 33+ (native LocaleManager). On API 24-32 it relies on
-            // AppCompatActivity's own compat shim, which requires an explicit recreate() to take
-            // effect - without it, resource-qualifier resolution (values-bn/) and
-            // LocalConfiguration never update. The equality check avoids a recreate loop, since
-            // this effect re-fires with the same `language` right after recreate() runs.
+            // AppCompatDelegate.setApplicationLocales() updates the process-wide Configuration
+            // (natively via LocaleManager on API 33+, via AppCompatActivity's own compat shim
+            // below that) - but neither path reliably re-resolves resource-qualifier lookups
+            // (values-bn/, values-fr/, ...) inside an already-composed Compose tree without an
+            // explicit recreate(). Verified on a real API 37 device: the OS-level app locale did
+            // change (confirmed via `cmd locale get-app-locales`), but stringResource() calls kept
+            // resolving English until the Activity was recreated - so recreate() is called
+            // unconditionally here, not just below API 33 as an earlier version of this code
+            // assumed. The equality check avoids a recreate loop, since this effect re-fires with
+            // the same `language` right after recreate() runs.
             LaunchedEffect(language) {
                 val target = language ?: return@LaunchedEffect
                 val targetLocales = LocaleListCompat.forLanguageTags(target.tag)
                 if (AppCompatDelegate.getApplicationLocales() != targetLocales) {
                     AppCompatDelegate.setApplicationLocales(targetLocales)
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                        recreate()
-                    }
+                    recreate()
                 }
             }
 

@@ -104,4 +104,53 @@ class GeneratedContentParsesTest {
         val ranks = file.words.map { it.frequencyRank }.toSet()
         assertEquals(3680, ranks.size)
     }
+
+    // Phase 3/4/5 map-based localization (QW-47/48): every *En/*Bn field pair was replaced with a
+    // LocalizedText (Map<String, String>) map. These assertions specifically exercise that shape,
+    // not just "the file happens to decode" - a regression back to a flat/partial map (e.g. a
+    // future script accidentally overwriting `meaning` instead of merging into it) would fail here
+    // even though the file would still structurally decode.
+    private val allLanguageTags = setOf("en", "bn", "sq", "zh", "fa", "fr", "de", "hi", "in", "ru", "tr", "ur")
+
+    @Test
+    fun `every word_intro prompt covers all 12 languages`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+        assertEquals(3680, wordIntros.size)
+        wordIntros.forEach { assertEquals(allLanguageTags, it.prompt.keys) }
+    }
+
+    @Test
+    fun `word_intro meaning always has en+bn, and a real majority of spanned words have all 12 languages`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+        wordIntros.forEach {
+            assertTrue("meaning missing en/bn for ${it.wordId}", it.meaning.keys.containsAll(setOf("en", "bn")))
+        }
+
+        // Only WordIntro entries with a confirmed verse span (arabicWordStart/End) can be matched
+        // against the 12-language reference data by 13_translate_content_12lang.py - see
+        // docs/CONTENT_SOURCES.md for the real, measured 87-97%-per-language match rate.
+        val spanned = wordIntros.filter { it.arabicWordStart != null && it.arabicWordEnd != null }
+        assertEquals(1582, spanned.size)
+        val fullyTranslated = spanned.count { it.meaning.keys == allLanguageTags }
+        assertTrue(
+            "expected most spanned words to have all 12 languages, got $fullyTranslated/${spanned.size}",
+            fullyTranslated > spanned.size * 3 / 4
+        )
+    }
+
+    @Test
+    fun `word_frequency meaning stays in sync with the matching word_intro meaning`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordFreq = AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json"))
+        val meaningByWordId = exercises.exercises.map { it.content }
+            .filterIsInstance<ExerciseContent.WordIntro>()
+            .associate { it.wordId to it.meaning }
+
+        wordFreq.words.forEach { word ->
+            val expected = meaningByWordId[word.id] ?: return@forEach
+            assertEquals("meaning diverged for ${word.id}", expected, word.meaning)
+        }
+    }
 }
