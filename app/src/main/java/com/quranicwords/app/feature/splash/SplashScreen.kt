@@ -33,9 +33,15 @@ import com.quranicwords.app.core.ui.motion.rememberReducedMotion
  * The in-app decision screen shown after the platform SplashScreen API's brief cold-start
  * window - runs first-launch content seeding and routes to wherever onboarding left off.
  *
- * The ceremonial "opening" moment (redesign plan): an ambient low-opacity geometric lattice
- * behind a spring-scaled logo reveal - abstract/stylized only, never a literal Mushaf/page
- * graphic, per the plan's guardrail against rendering scripture as decoration.
+ * Plays [OpeningInvocationSequence] first, every launch (not gated on first-run) - the
+ * Ta'awwudh, then the Basmala, then "Rabbi zidni ilma" pulsed three times. See that
+ * composable's doc comment for why this is a deliberate, narrow exception to the guardrail
+ * below rather than a contradiction of it.
+ *
+ * After the invocation finishes (or is tapped through early), the ceremonial "opening" moment
+ * (redesign plan): an ambient low-opacity geometric lattice behind a spring-scaled logo reveal -
+ * abstract/stylized only, never a literal Mushaf/page graphic, per the plan's guardrail against
+ * rendering scripture as decoration.
  */
 @Composable
 fun SplashScreen(
@@ -43,12 +49,22 @@ fun SplashScreen(
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     val destination by viewModel.destination.collectAsStateWithLifecycle()
+    val reducedMotion = rememberReducedMotion()
+    var invocationFinished by remember { mutableStateOf(false) }
 
-    LaunchedEffect(destination) {
-        destination?.let(onNavigateTo)
+    LaunchedEffect(destination, invocationFinished) {
+        if (invocationFinished) destination?.let(onNavigateTo)
     }
 
-    val reducedMotion = rememberReducedMotion()
+    if (!invocationFinished) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            OpeningInvocationSequence(
+                reducedMotion = reducedMotion,
+                onFinished = { invocationFinished = true }
+            )
+        }
+        return
+    }
     var revealed by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { revealed = true }
     val logoScale by animateFloatAsState(
