@@ -24,7 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,13 +48,20 @@ import com.quranicwords.app.core.ui.theme.Elevation
 @Composable
 fun AnswerFeedbackOverlay(type: FeedbackType?, modifier: Modifier = Modifier) {
     val reducedMotion = rememberReducedMotion()
+    // Freeze on the last non-null type so the 150ms fadeOut exit renders the answer that was
+    // actually given, not `type` mid-transition to null - AnimatedVisibility keeps its content
+    // recomposing during exit, and a CORRECT->null transition would otherwise land on the wrong
+    // (`isCorrect = false`) branch for that whole window, flashing an incorrect-answer badge
+    // after a correct answer right before Continue advances.
+    var lastNonNullType by remember { mutableStateOf(type) }
+    if (type != null) lastNonNullType = type
     AnimatedVisibility(
         visible = type != null,
         enter = fadeIn(tween(150)) + scaleIn(tween(220), initialScale = 0.7f),
         exit = fadeOut(tween(150)),
         modifier = modifier
     ) {
-        val isCorrect = type == FeedbackType.CORRECT
+        val isCorrect = lastNonNullType == FeedbackType.CORRECT
         val scrimColor = if (isCorrect) {
             MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
         } else {

@@ -10,6 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -26,18 +30,23 @@ fun FeedbackBanner(
     message: String,
     modifier: Modifier = Modifier
 ) {
+    // Same defensive freeze as AnswerFeedbackOverlay: render off the last non-null type during
+    // the slide-out exit rather than the live (possibly-null) parameter, so a correct answer
+    // never re-renders as the neutral/wrong branch mid-transition.
+    var lastNonNullType by remember { mutableStateOf(type) }
+    if (type != null) lastNonNullType = type
     AnimatedVisibility(
         visible = type != null,
         enter = slideInVertically { it },
         exit = slideOutVertically { it },
         modifier = modifier
     ) {
-        val containerColor = when (type) {
+        val containerColor = when (lastNonNullType) {
             FeedbackType.CORRECT -> MaterialTheme.colorScheme.primaryContainer
             FeedbackType.INCORRECT -> MaterialTheme.colorScheme.errorContainer
             null -> MaterialTheme.colorScheme.surface
         }
-        val contentColor = when (type) {
+        val contentColor = when (lastNonNullType) {
             FeedbackType.CORRECT -> MaterialTheme.colorScheme.onPrimaryContainer
             FeedbackType.INCORRECT -> MaterialTheme.colorScheme.onErrorContainer
             null -> MaterialTheme.colorScheme.onSurface
