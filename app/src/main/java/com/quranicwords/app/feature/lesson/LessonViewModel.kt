@@ -149,7 +149,24 @@ class LessonViewModel @Inject constructor(
     ): ExerciseContent = when (content) {
         is OptionsBearing ->
             content.withOptions(rebuildOptions(content.options, content.correctOptionId, candidatePool, missedItemIds))
+        is ExerciseContent.Matching ->
+            content.copy(distractorRight = pickMatchingDistractor(content, candidatePool, missedItemIds))
         else -> content
+    }
+
+    /** One extra, never-matchable meaning-side tile for the Matching exercise (see
+     * ExerciseContent.Matching.distractorRight's doc comment) - maps
+     * DistractorGenerator.pickMatchingDistractor's plain id result to a renderable ChoiceOption. */
+    private fun pickMatchingDistractor(
+        content: ExerciseContent.Matching,
+        candidatePool: WordCandidatePool,
+        missedItemIds: Set<String>
+    ): ChoiceOption? {
+        val usedWordIds = content.pairs.mapNotNull { it.wordId }.toSet()
+        val distractorId = DistractorGenerator.pickMatchingDistractor(usedWordIds, candidatePool, missedItemIds)
+            ?: return null
+        val word = candidatePool.get(distractorId) ?: return null
+        return ChoiceOption(id = word.id, labelArabic = word.arabicWord, label = word.meaning)
     }
 
     /** Regenerates distractors from [candidatePool] and tops up from the pre-baked [baked] pool

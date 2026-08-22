@@ -72,4 +72,22 @@ object DistractorGenerator {
             .map { it.id }
             .toList()
     }
+
+    /** One extra, never-matchable id for the Matching exercise's meaning-side distractor tile
+     * (see [com.quranicwords.app.core.domain.model.ExerciseContent.Matching.distractorRight]).
+     * Unlike [pickDistractors], which only excludes its single [correctId], this excludes the
+     * whole [usedWordIds] set - a Matching exercise quizzes several words at once, all of which
+     * must stay ineligible as the "extra" one. Searches around the first id in [usedWordIds]
+     * (arbitrary but stable - all of a lesson's words share one tier, so any anchor works) and
+     * returns null if [usedWordIds] is empty (legacy content with no wordId-bearing pairs) or no
+     * candidate outside the used set is found. */
+    fun pickMatchingDistractor(
+        usedWordIds: Set<String>,
+        pool: WordCandidatePool,
+        missedItemIds: Set<String>
+    ): String? {
+        val anchorId = usedWordIds.firstOrNull() ?: return null
+        return pickDistractors(anchorId, pool, missedItemIds, count = usedWordIds.size + 3)
+            .firstOrNull { it !in usedWordIds }
+    }
 }
