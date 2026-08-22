@@ -10,6 +10,16 @@ import androidx.compose.ui.graphics.Color
 // #00bf63/#7ed957 still appear directly as container/dark-scheme accents where contrast allows.
 // Every on*/* pair below was checked against WCAG AA (4.5:1 text) before being finalized.
 
+/** The 5 raw logo colors, named and exposed directly (not just baked into the M3 scheme below)
+ * for anything that wants the literal brand hex rather than a theme role - e.g. QwLogo's glow,
+ * which cycles through these rather than using a single theme color. See docs/UI_GUIDELINES.md's
+ * "Brand colors" section for the canonical record of these 5 values. */
+val BrandGold = Color(0xFFEBC971)
+val BrandDarkGreen = Color(0xFF053827)
+val BrandLightGreen = Color(0xFF7ED957)
+val BrandGreen = Color(0xFF00BF63)
+val BrandWhite = Color(0xFFFFFFFF)
+
 val md_theme_light_primary = Color(0xFF007A42)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFD3F5C4)
@@ -63,7 +73,8 @@ val md_theme_dark_surfaceVariant = Color(0xFF1E3B2E)
 val md_theme_dark_onSurfaceVariant = Color(0xFFC4D6C9)
 val md_theme_dark_outline = Color(0xFF7FA08D)
 
-/** Brand gold, used for streak flames/point badges/logo glow - same family as the tertiary role
- * above, kept as a standalone token since components reference it directly rather than through
- * the theme. */
-val StreakAccent = Color(0xFFEBC971)
+/** Brand gold, used for streak flames/point badges - same family as the tertiary role above, kept
+ * as a standalone token since components reference it directly rather than through the theme.
+ * (QwLogo's own glow no longer uses this - it cycles through all 4 [BrandGold]/[BrandGreen]/
+ * [BrandLightGreen]/[BrandDarkGreen] tones directly instead of a single fixed color.) */
+val StreakAccent = BrandGold

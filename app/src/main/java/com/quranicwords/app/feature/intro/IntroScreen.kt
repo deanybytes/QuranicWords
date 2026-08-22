@@ -30,7 +30,7 @@ import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
-import kotlin.math.roundToInt
+import com.quranicwords.app.core.util.formatPercent
 
 /**
  * Shown before a chapter/section's first lesson - see [IntroViewModel]'s doc comment. Every stat
@@ -136,7 +136,3 @@ fun IntroScreen(
     }
 }
 
-private fun formatPercent(value: Double): String {
-    val rounded = (value * 10).roundToInt() / 10.0
-    return if (rounded == rounded.toInt().toDouble()) rounded.toInt().toString() else rounded.toString()
-}

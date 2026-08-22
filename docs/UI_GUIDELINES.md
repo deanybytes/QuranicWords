@@ -52,6 +52,27 @@ noise rather than depth.
 `MedallionShapeDefault` (scalloped medallion, reserved for streak/celebratory badges) are the
 existing shape vocabulary — reuse them rather than inventing new corner radii per screen.
 
+## Brand colors
+
+The app's real Material 3 color scheme (`core/ui/theme/Color.kt`) is derived from the actual logo
+artwork's colors — this is the canonical record of those 5 source values, as given by the project
+owner:
+
+| Color | Hex | Role |
+| --- | --- | --- |
+| Gold | `#ebc971` | Tertiary/celebratory accent — badges, streak flame, logo glow |
+| Dark green | `#053827` | Dark-scheme background/surface — matches `ic_launcher_background` exactly |
+| Light green | `#7ed957` | Dark-scheme primary, light-scheme primary container tint |
+| Green | `#00bf63` | Brand accent — light-scheme `primary` is a deepened variant (`#007A42`) since the raw value fails WCAG AA against white text (~2.4:1); the raw `#00bf63` still appears directly wherever contrast allows |
+| White | `#ffffff` | `onPrimary`, light-scheme text-on-brand-color |
+
+Exposed directly as named constants in `Color.kt` — `BrandGold`, `BrandDarkGreen`,
+`BrandLightGreen`, `BrandGreen`, `BrandWhite` — for anything that wants the literal brand hex
+rather than a theme role (e.g. `QwLogo`'s glow, which animates through all 4 accent tones rather
+than sitting on a single theme color). Prefer a theme role (`MaterialTheme.colorScheme.*`) for
+ordinary UI; reach for the `Brand*` constants only when the *exact* logo color itself is the
+point, not just "something in the green/gold family."
+
 ## Motif vocabulary
 
 `core/ui/components/IslamicMotif.kt` is the single dispatcher for this app's custom-drawn (never

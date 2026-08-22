@@ -11,6 +11,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,6 +48,8 @@ class UserPreferencesDataStore @Inject constructor(
         val STREAK_REMINDER_MINUTE = intPreferencesKey("streak_reminder_minute")
         val DAILY_GOAL_LEVEL = stringPreferencesKey("daily_goal_level")
         val DAILY_GOAL_CHOICE_MADE = booleanPreferencesKey("daily_goal_choice_made")
+        val LEARNING_STYLE = stringPreferencesKey("learning_style")
+        val LEARNING_STYLE_CHOICE_MADE = booleanPreferencesKey("learning_style_choice_made")
     }
 
     /**
@@ -168,4 +171,20 @@ class UserPreferencesDataStore @Inject constructor(
 
     val dailyGoalChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.DAILY_GOAL_CHOICE_MADE] == true }
+
+    /** How many times each word (and each Matching "exam" cycle) repeats within a lesson - see
+     * [LearningStyle] and [com.quranicwords.app.core.domain.LessonContentRepeater]. Onboarding
+     * step, changeable later in Settings, same shape as [dailyGoalLevelFlow]. */
+    val learningStyleFlow: Flow<LearningStyle> =
+        context.dataStore.data.map { LearningStyle.fromName(it[Keys.LEARNING_STYLE]) }
+
+    suspend fun setLearningStyle(style: LearningStyle) {
+        context.dataStore.edit {
+            it[Keys.LEARNING_STYLE] = style.name
+            it[Keys.LEARNING_STYLE_CHOICE_MADE] = true
+        }
+    }
+
+    val learningStyleChoiceMadeFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.LEARNING_STYLE_CHOICE_MADE] == true }
 }

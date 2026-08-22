@@ -3,10 +3,12 @@ package com.quranicwords.app.feature.lesson
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.AchievementDef
 import com.quranicwords.app.core.domain.AdaptiveSequencer
 import com.quranicwords.app.core.domain.DistractorGenerator
+import com.quranicwords.app.core.domain.LessonContentRepeater
 import com.quranicwords.app.core.domain.WordCandidatePool
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
@@ -30,6 +32,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -76,6 +79,7 @@ class LessonViewModel @Inject constructor(
     private val userIdProvider: CurrentUserIdProvider,
     private val audioPlayer: AudioPlayer,
     private val sfxPlayer: SfxPlayer,
+    private val preferences: UserPreferencesDataStore,
     private val clock: Clock,
     savedStateHandle: androidx.lifecycle.SavedStateHandle
 ) : ViewModel() {
@@ -120,6 +124,7 @@ class LessonViewModel @Inject constructor(
             val exercises = exercisesDeferred.await()
             val missedItemIds = missedItemIdsDeferred.await()
             val candidates = candidatesDeferred.await()
+            val learningStyle = preferences.learningStyleFlow.first()
 
             val contents = withContext(Dispatchers.Default) {
                 // Built once per lesson load and reused for every options-bearing exercise below,
@@ -132,8 +137,12 @@ class LessonViewModel @Inject constructor(
                     // out here rather than shown broken, same spirit as the existing
                     // "audio unavailable" note but applied before the exercise is ever reached.
                     .filter { content -> content !is ExerciseContent.ListenAndType || audioPlayer.isAvailable(content.audioAssetPath) }
+                // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
+                // comment) so each repeated instance gets its own independent distractor/shuffle
+                // pass below, rather than N identical copies of the same regenerated exercise.
+                val repeated = LessonContentRepeater.apply(decoded, learningStyle.repeatCount)
                     .map { content -> regenerateDistractors(content, candidatePool, missedItemIds) }
-                AdaptiveSequencer.reorderForAdaptivePractice(decoded, missedItemIds)
+                AdaptiveSequencer.reorderForAdaptivePractice(repeated, missedItemIds)
             }
             _uiState.update { it.copy(isLoading = false, contents = contents) }
         }
