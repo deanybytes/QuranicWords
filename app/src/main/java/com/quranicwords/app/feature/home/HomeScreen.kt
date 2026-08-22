@@ -1,9 +1,13 @@
 package com.quranicwords.app.feature.home
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +27,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronLeft
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.ExpandLess
@@ -46,8 +52,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
@@ -59,15 +68,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
+import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -80,8 +93,14 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.unlockRevealShimmer
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.core.util.formatDuration
 import com.quranicwords.app.core.util.formatPercent
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import kotlin.math.roundToInt
 import kotlin.math.sin
 
 /**
@@ -117,6 +136,13 @@ fun HomeScreen(
     val language = rememberSelectedLanguage()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+
+    // Which entry of uiState.completedHistory (most-recent-first) the swipeable history card is
+    // currently showing - rememberSaveable so it survives tab-switch-away-and-back like the
+    // expand state above, not reset every recomposition. Clamped at read time (not written back)
+    // so a newly-completed lesson elsewhere doesn't yank the learner's browse position.
+    var historyIndex by rememberSaveable { mutableIntStateOf(0) }
+    val clampedHistoryIndex = historyIndex.coerceIn(0, (uiState.completedHistory.size - 1).coerceAtLeast(0))
 
     // Seeds the expand state from the learner's real current position exactly once, the first
     // time it becomes available - never re-forces expansion afterward, so a manual collapse by
@@ -218,6 +244,25 @@ fun HomeScreen(
                         }
                     }
 
+                    if (uiState.completedHistory.isNotEmpty()) {
+                        item(key = "history_card") {
+                            val (lesson, progress) = uiState.completedHistory[clampedHistoryIndex]
+                            HistoryCard(
+                                lesson = lesson,
+                                progress = progress,
+                                language = language,
+                                position = clampedHistoryIndex,
+                                total = uiState.completedHistory.size,
+                                onPrevious = {
+                                    historyIndex = stepHistoryIndex(clampedHistoryIndex, uiState.completedHistory.size, -1)
+                                },
+                                onNext = {
+                                    historyIndex = stepHistoryIndex(clampedHistoryIndex, uiState.completedHistory.size, 1)
+                                }
+                            )
+                        }
+                    }
+
                     uiState.chapters.forEach { chapterWithSections ->
                         val chapter = chapterWithSections.chapter
                         val chapterLessonIds = chapterWithSections.sections.flatMap { s -> s.lessons.map { it.id } } +
@@ -304,6 +349,13 @@ fun HomeScreen(
 }
 
 private fun Set<String>.toggled(id: String): Set<String> = if (id in this) this - id else this + id
+
+private val historyDateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+
+private fun formatCompletedDate(epochMillis: Long): String {
+    val date = Instant.ofEpochMilli(epochMillis).atZone(ZoneId.systemDefault()).toLocalDate()
+    return historyDateFormatter.format(date)
+}
 
 /** Collapsed-by-default chapter row - tap the row to expand/collapse, tap the title specifically
  * to open the chapter intro (same split affordance the old flat list used for chapter/section
@@ -633,3 +685,99 @@ private fun ReviewEntryCard(onClick: () -> Unit) {
         }
     }
 }
+
+/**
+ * A lightweight "history peek" card (Task 5.3) - horizontally draggable to browse the learner's
+ * own completed lessons, most-recently-completed first, without leaving Home. Deliberately not
+ * free navigation (that's [com.quranicwords.app.feature.roadmap.RoadmapScreen]'s job): it can
+ * only page through lessons the learner has actually already finished, one at a time, and never
+ * navigates anywhere on tap.
+ *
+ * Drag tracked via a plain [Animatable] offset rather than [uiState] itself, so the finger-follow
+ * feels immediate; [onPrevious]/[onNext] only fire once a full [historyStepThreshold] has been
+ * dragged, then the offset springs back to zero with [MotionSpecs.snappy]. The chevron buttons are
+ * the same step, exposed for anyone who can't perform the drag gesture (accessibility, and simply
+ * easier to discover than an undiscoverable swipe-only affordance).
+ */
+@Composable
+private fun HistoryCard(
+    lesson: LessonEntity,
+    progress: UserProgressEntity,
+    language: Language,
+    position: Int,
+    total: Int,
+    onPrevious: () -> Unit,
+    onNext: () -> Unit
+) {
+    val density = LocalDensity.current
+    val coroutineScope = rememberCoroutineScope()
+    val offsetX = remember { Animatable(0f) }
+    val thresholdPx = with(density) { historyStepThreshold.toPx() }
+    val canGoPrevious = position > 0
+    val canGoNext = position < total - 1
+
+    // Snaps the drag offset back to zero whenever the displayed lesson changes (including via the
+    // chevron buttons, not just a drag) so a fast tap-tap-tap never leaves a stale offset behind.
+    LaunchedEffect(lesson.id) { offsetX.snapTo(0f) }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+            .draggable(
+                orientation = Orientation.Horizontal,
+                state = rememberDraggableState { delta ->
+                    coroutineScope.launch { offsetX.snapTo(offsetX.value + delta) }
+                },
+                onDragStopped = {
+                    val dragged = offsetX.value
+                    if (dragged <= -thresholdPx && canGoNext) {
+                        onNext()
+                    } else if (dragged >= thresholdPx && canGoPrevious) {
+                        onPrevious()
+                    } else {
+                        coroutineScope.launch { offsetX.animateTo(0f, animationSpec = MotionSpecs.snappy()) }
+                    }
+                }
+            ),
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onPrevious, enabled = canGoPrevious) {
+                Icon(Icons.Filled.ChevronLeft, contentDescription = stringResource(R.string.home_history_previous))
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    stringResource(R.string.home_history_title),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(lesson.title.get(language), style = MaterialTheme.typography.titleMedium, maxLines = 1)
+                Text(
+                    stringResource(
+                        R.string.home_history_summary,
+                        formatCompletedDate(progress.completedAtEpochMillis!!),
+                        progress.bestScorePercent,
+                        formatDuration(progress.durationMillis)
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    stringResource(R.string.home_history_position, position + 1, total),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            IconButton(onClick = onNext, enabled = canGoNext) {
+                Icon(Icons.Filled.ChevronRight, contentDescription = stringResource(R.string.home_history_next))
+            }
+        }
+    }
+}
+
+private val historyStepThreshold = 56.dp

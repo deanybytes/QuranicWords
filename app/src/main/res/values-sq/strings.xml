@@ -70,6 +70,11 @@
     <string name="home_chapter_coverage_stat">%1$s%% e Kuranit · %2$s%% e mbuluar deri tani</string>
     <string name="home_continue_learning">Vazhdo të Mësosh</string>
     <string name="roadmap_title">Harta e Rrugës</string>
+    <string name="home_history_title">Përfunduar Kohët e Fundit</string>
+    <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
+    <string name="home_history_position">%1$d/%2$d</string>
+    <string name="home_history_previous">Mësimi i mëparshëm i përfunduar</string>
+    <string name="home_history_next">Mësimi tjetër i përfunduar</string>
 
     <!-- Progress tab -->
     <string name="progress_title">Përparimi</string>

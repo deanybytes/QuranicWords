@@ -60,7 +60,10 @@ data class HomeUiState(
      * card - see [cumulativeCoveragePercentByChapter]. Every chapter in this curriculum has the
      * same word count (460), which is why chapter cards show coverage %, not word count - a
      * constant repeated on every card carries no information. */
-    val cumulativeCoveragePercentByChapter: Map<String, Double> = emptyMap()
+    val cumulativeCoveragePercentByChapter: Map<String, Double> = emptyMap(),
+    /** Every COMPLETED lesson across the whole curriculum, most-recently-completed first - backs
+     * the swipeable history card (see [completedLessonsHistory]). */
+    val completedHistory: List<Pair<LessonEntity, UserProgressEntity>> = emptyList()
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -118,6 +121,35 @@ fun cumulativeCoveragePercentByChapter(chapters: List<ChapterWithSections>): Map
     }
 }
 
+/** Pure derivation, no DB access - every COMPLETED lesson across the whole curriculum tree with a
+ * real completion timestamp, most-recently-completed first. Backs the swipeable history card on
+ * Home (a lightweight peek through the learner's own completed lessons, not free navigation -
+ * that's [com.quranicwords.app.feature.roadmap.RoadmapScreen]'s job). A lesson with a COMPLETED
+ * status row but a null [UserProgressEntity.completedAtEpochMillis] can't happen in practice (every
+ * writer that sets COMPLETED also stamps the timestamp) but is defensively excluded rather than
+ * assumed. */
+fun completedLessonsHistory(
+    chapters: List<ChapterWithSections>,
+    progressByLessonId: Map<String, UserProgressEntity>
+): List<Pair<LessonEntity, UserProgressEntity>> {
+    val allLessons = chapters.flatMap { chapterWithSections ->
+        chapterWithSections.sections.flatMap { it.lessons } + chapterWithSections.chapterLevelLessons
+    }
+    return allLessons.mapNotNull { lesson ->
+        val progress = progressByLessonId[lesson.id] ?: return@mapNotNull null
+        if (progress.status != LessonStatus.COMPLETED || progress.completedAtEpochMillis == null) return@mapNotNull null
+        lesson to progress
+    }.sortedByDescending { (_, progress) -> progress.completedAtEpochMillis }
+}
+
+/** Pure, no DB access - steps a history-browse index by [delta], clamped to `[0, size-1]` rather
+ * than wrapping, so swiping past either end of the learner's completed-lesson history stops
+ * instead of silently looping back around. */
+fun stepHistoryIndex(currentIndex: Int, size: Int, delta: Int): Int {
+    if (size <= 0) return 0
+    return (currentIndex + delta).coerceIn(0, size - 1)
+}
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
@@ -156,7 +188,8 @@ class HomeViewModel @Inject constructor(
                     hasReviewableItems = hasReviewableItems,
                     initiallyExpandedChapterId = currentChapterId,
                     initiallyExpandedSectionId = currentSectionId,
-                    cumulativeCoveragePercentByChapter = cumulativeCoverage
+                    cumulativeCoveragePercentByChapter = cumulativeCoverage,
+                    completedHistory = completedLessonsHistory(chapters, progressByLessonId)
                 )
             }.collect { _uiState.value = it }
         }

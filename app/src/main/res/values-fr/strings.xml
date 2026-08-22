@@ -70,6 +70,11 @@
     <string name="home_chapter_coverage_stat">%1$s %% du Coran · %2$s %% couvert jusqu\'ici</string>
     <string name="home_continue_learning">Continuer l\'apprentissage</string>
     <string name="roadmap_title">Feuille de route</string>
+    <string name="home_history_title">Récemment terminé</string>
+    <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
+    <string name="home_history_position">%1$d/%2$d</string>
+    <string name="home_history_previous">Leçon terminée précédente</string>
+    <string name="home_history_next">Leçon terminée suivante</string>
 
     <!-- Progress tab -->
     <string name="progress_title">Progrès</string>

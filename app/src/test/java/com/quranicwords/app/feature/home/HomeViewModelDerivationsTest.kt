@@ -108,4 +108,67 @@ class HomeViewModelDerivationsTest {
     fun `aggregateStatus of an empty lesson list is LOCKED, not a crash`() {
         assertEquals(LessonStatus.LOCKED, aggregateStatus(emptyList(), emptyMap()))
     }
+
+    // --- completedLessonsHistory ---
+
+    private fun completedProgress(lessonId: String, completedAtEpochMillis: Long, bestScorePercent: Int = 100) =
+        UserProgressEntity(
+            userId = "u",
+            lessonId = lessonId,
+            status = LessonStatus.COMPLETED,
+            bestScorePercent = bestScorePercent,
+            completedAtEpochMillis = completedAtEpochMillis
+        )
+
+    @Test
+    fun `completedLessonsHistory orders completed lessons most-recent-first`() {
+        val progressByLessonId = mapOf(
+            "l1" to completedProgress("l1", completedAtEpochMillis = 1000),
+            "l2" to completedProgress("l2", completedAtEpochMillis = 3000),
+            "chapter_1_exam" to completedProgress("chapter_1_exam", completedAtEpochMillis = 2000)
+        )
+
+        val result = completedLessonsHistory(chapters, progressByLessonId)
+
+        assertEquals(listOf("l2", "chapter_1_exam", "l1"), result.map { it.first.id })
+    }
+
+    @Test
+    fun `completedLessonsHistory excludes lessons that are unlocked but not completed`() {
+        val progressByLessonId = mapOf(
+            "l1" to completedProgress("l1", completedAtEpochMillis = 1000),
+            "l2" to UserProgressEntity("u", "l2", LessonStatus.UNLOCKED, 0, completedAtEpochMillis = null)
+        )
+
+        val result = completedLessonsHistory(chapters, progressByLessonId)
+
+        assertEquals(listOf("l1"), result.map { it.first.id })
+    }
+
+    @Test
+    fun `completedLessonsHistory is empty when nothing has been completed`() {
+        assertEquals(emptyList<Any>(), completedLessonsHistory(chapters, emptyMap()))
+    }
+
+    // --- stepHistoryIndex ---
+
+    @Test
+    fun `stepHistoryIndex advances within bounds`() {
+        assertEquals(1, stepHistoryIndex(currentIndex = 0, size = 3, delta = 1))
+    }
+
+    @Test
+    fun `stepHistoryIndex clamps at the last index instead of wrapping`() {
+        assertEquals(2, stepHistoryIndex(currentIndex = 2, size = 3, delta = 1))
+    }
+
+    @Test
+    fun `stepHistoryIndex clamps at zero instead of going negative`() {
+        assertEquals(0, stepHistoryIndex(currentIndex = 0, size = 3, delta = -1))
+    }
+
+    @Test
+    fun `stepHistoryIndex on an empty history is always zero`() {
+        assertEquals(0, stepHistoryIndex(currentIndex = 0, size = 0, delta = 1))
+    }
 }
