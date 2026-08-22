@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Ini adalah pratinjau Surah Al-Kautsar, surah terpendek, dalam setiap gaya.</string>
     <string name="font_pending_note">Berkas font berlisensi untuk gaya ini belum tersedia, saat ini menampilkan tulisan bawaan.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Tetapkan target harian Anda</string>
+    <string name="onboarding_daily_goal_subtitle">Pilih berapa menit Anda ingin berlatih setiap hari. Anda dapat mengubahnya nanti di Pengaturan.</string>
+    <string name="daily_goal_casual">Santai</string>
+    <string name="daily_goal_steady">Rutin</string>
+    <string name="daily_goal_devoted">Berdedikasi</string>
+    <string name="daily_goal_minutes_suffix">%d menit per hari</string>
+    <string name="home_daily_challenge_completed">Tantangan harian selesai</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bab</string>
     <string name="intro_section_label">Bagian</string>

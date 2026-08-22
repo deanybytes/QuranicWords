@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">این پیش‌نمایشی از سوره الکوثر، کوتاه‌ترین سوره، در هر سبک است.</string>
     <string name="font_pending_note">فایل فونت مجاز این سبک هنوز بارگذاری نشده است، فعلاً خط پیش‌فرض نمایش داده می‌شود.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">هدف روزانه خود را تعیین کنید</string>
+    <string name="onboarding_daily_goal_subtitle">انتخاب کنید هر روز چند دقیقه می‌خواهید تمرین کنید. می‌توانید بعداً در تنظیمات آن را تغییر دهید.</string>
+    <string name="daily_goal_casual">معمولی</string>
+    <string name="daily_goal_steady">منظم</string>
+    <string name="daily_goal_devoted">متعهد</string>
+    <string name="daily_goal_minutes_suffix">%d دقیقه در روز</string>
+    <string name="home_daily_challenge_completed">چالش روزانه تکمیل شد</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">فصل</string>
     <string name="intro_section_label">بخش</string>

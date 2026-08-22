@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Bu, en kısa sure olan Kevser Suresi\'nin her stildeki önizlemesidir.</string>
     <string name="font_pending_note">Bu stilin lisanslı yazı tipi dosyası henüz eklenmedi, şimdilik varsayılan yazı gösteriliyor.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Günlük hedefini belirle</string>
+    <string name="onboarding_daily_goal_subtitle">Her gün kaç dakika pratik yapmak istediğini seç. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
+    <string name="daily_goal_casual">Rahat</string>
+    <string name="daily_goal_steady">Düzenli</string>
+    <string name="daily_goal_devoted">Adanmış</string>
+    <string name="daily_goal_minutes_suffix">Günde %d dakika</string>
+    <string name="home_daily_challenge_completed">Günlük görev tamamlandı</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bölüm</string>
     <string name="intro_section_label">Kısım</string>

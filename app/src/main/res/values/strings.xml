@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">This is a preview of Surah Al-Kawthar, the shortest surah, in each style.</string>
     <string name="font_pending_note">This style\'s licensed font file isn\'t bundled yet, showing the default script for now.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Set your daily goal</string>
+    <string name="onboarding_daily_goal_subtitle">Pick how many minutes you want to practice each day. You can change this later in Settings.</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
+    <string name="daily_goal_minutes_suffix">%d minutes a day</string>
+    <string name="home_daily_challenge_completed">Daily challenge completed</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapter</string>
     <string name="intro_section_label">Section</string>

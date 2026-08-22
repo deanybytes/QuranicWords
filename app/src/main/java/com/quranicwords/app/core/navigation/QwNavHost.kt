@@ -26,6 +26,7 @@ import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
 import com.quranicwords.app.feature.wordbrowse.WordBrowseScreen
 import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
+import com.quranicwords.app.feature.onboarding.dailygoal.DailyGoalSelectScreen
 import com.quranicwords.app.feature.onboarding.font.FontSelectScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.settings.SettingsScreen
@@ -128,8 +129,22 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             FontSelectScreen(
                 onContinue = {
-                    navController.navigate(Route.Home) {
+                    navController.navigate(Route.DailyGoalSelect) {
                         popUpTo(Route.FontSelect) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<Route.DailyGoalSelect>(
+            enterTransition = t.onboardingEnter,
+            exitTransition = t.onboardingExit,
+            popEnterTransition = t.onboardingPopEnter,
+            popExitTransition = t.onboardingPopExit
+        ) {
+            DailyGoalSelectScreen(
+                onContinue = {
+                    navController.navigate(Route.Home) {
+                        popUpTo(Route.DailyGoalSelect) { inclusive = true }
                     }
                 }
             )

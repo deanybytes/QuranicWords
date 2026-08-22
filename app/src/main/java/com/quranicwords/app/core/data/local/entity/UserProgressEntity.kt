@@ -16,5 +16,6 @@ data class UserProgressEntity(
     val lessonId: String,
     val status: LessonStatus,
     val bestScorePercent: Int,
-    val completedAtEpochMillis: Long?
+    val completedAtEpochMillis: Long?,
+    val durationMillis: Long? = null
 )

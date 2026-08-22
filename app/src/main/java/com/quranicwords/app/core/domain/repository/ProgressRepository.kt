@@ -29,7 +29,8 @@ interface ProgressRepository {
         userId: String,
         lessonId: String,
         correctCount: Int,
-        totalCount: Int
+        totalCount: Int,
+        durationMillis: Long
     ): LessonResult
 
     /** Logs one scored check against a single letter/word - the per-item signal
@@ -55,5 +56,10 @@ interface ProgressRepository {
     /** Sibling to [completeLesson] for a Review session, which has no single lesson to mark
      * complete: still awards points/streak the same way, but never writes to `user_progress` -
      * there's no lessonId for that write to attach to. */
-    suspend fun completeReviewSession(userId: String, correctCount: Int, totalCount: Int): LessonResult
+    suspend fun completeReviewSession(
+        userId: String,
+        correctCount: Int,
+        totalCount: Int,
+        durationMillis: Long
+    ): LessonResult
 }

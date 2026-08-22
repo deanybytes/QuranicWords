@@ -19,14 +19,25 @@ import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.time.Clock
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ProgressRepositoryImpl @Inject constructor(
     private val database: QwDatabase,
-    private val streakCalculator: StreakCalculator
+    private val streakCalculator: StreakCalculator,
+    private val clock: Clock
 ) : ProgressRepository {
+
+    /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
+     * Review session shouldn't silently contribute 0 toward the daily goal. */
+    private suspend fun recordDailyPracticeMinutes(userId: String, durationMillis: Long) {
+        val minutes = ((durationMillis + 59_999L) / 60_000L).toInt()
+        if (minutes <= 0) return
+        database.dailyPracticeDao().addMinutes(userId, LocalDate.now(clock).toString(), minutes)
+    }
 
     override fun observeStats(userId: String): Flow<UserStatsEntity?> =
         database.userStatsDao().observe(userId)
@@ -47,12 +58,14 @@ class ProgressRepositoryImpl @Inject constructor(
         userId: String,
         lessonId: String,
         correctCount: Int,
-        totalCount: Int
+        totalCount: Int,
+        durationMillis: Long
     ): LessonResult = withContext(Dispatchers.IO) {
         val points = GamificationConfig.pointsForLesson(correctCount, totalCount)
         val previousStats = database.userStatsDao().get(userId)
         val update = streakCalculator.recordActivity(previousStats, userId, points)
         database.userStatsDao().upsert(update.stats)
+        recordDailyPracticeMinutes(userId, durationMillis)
 
         val scorePercent = GamificationConfig.percentOf(correctCount, totalCount)
         val progress = UserProgressEntity(
@@ -63,7 +76,8 @@ class ProgressRepositoryImpl @Inject constructor(
                 scorePercent,
                 database.userProgressDao().get(userId, lessonId)?.bestScorePercent ?: 0
             ),
-            completedAtEpochMillis = System.currentTimeMillis()
+            completedAtEpochMillis = System.currentTimeMillis(),
+            durationMillis = durationMillis
         )
         database.userProgressDao().upsert(progress)
 
@@ -81,7 +95,8 @@ class ProgressRepositoryImpl @Inject constructor(
             currentStreak = update.stats.currentStreak,
             streakIncreased = update.streakIncreased,
             nextLessonId = nextLessonId,
-            lessonKind = lesson?.kind
+            lessonKind = lesson?.kind,
+            durationMillis = durationMillis
         )
     }
 
@@ -147,15 +162,18 @@ class ProgressRepositoryImpl @Inject constructor(
     override suspend fun completeReviewSession(
         userId: String,
         correctCount: Int,
-        totalCount: Int
+        totalCount: Int,
+        durationMillis: Long
     ): LessonResult = withContext(Dispatchers.IO) {
         val points = GamificationConfig.pointsForLesson(correctCount, totalCount)
         val previousStats = database.userStatsDao().get(userId)
         val update = streakCalculator.recordActivity(previousStats, userId, points)
         database.userStatsDao().upsert(update.stats)
+        recordDailyPracticeMinutes(userId, durationMillis)
 
         // Unlike completeLesson, there's no single lessonId here to attach a user_progress write
-        // to. Stats/points/streak are still recorded locally the same way.
+        // to. Stats/points/streak (and now daily practice minutes) are still recorded locally the
+        // same way - a Review-only day still counts toward the daily goal.
         LessonResult(
             lessonId = REVIEW_SESSION_LESSON_ID,
             correctCount = correctCount,
@@ -164,7 +182,8 @@ class ProgressRepositoryImpl @Inject constructor(
             newTotalPoints = update.stats.totalPoints,
             currentStreak = update.stats.currentStreak,
             streakIncreased = update.streakIncreased,
-            nextLessonId = null
+            nextLessonId = null,
+            durationMillis = durationMillis
         )
     }
 }

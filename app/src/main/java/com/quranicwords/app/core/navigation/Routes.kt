@@ -8,6 +8,7 @@ sealed interface Route {
     @Serializable data object Splash : Route
     @Serializable data object LanguageSelect : Route
     @Serializable data object FontSelect : Route
+    @Serializable data object DailyGoalSelect : Route
     @Serializable data object Home : Route
     @Serializable data class ChapterIntro(val chapterId: String) : Route
     @Serializable data class SectionIntro(val sectionId: String) : Route
@@ -33,7 +34,9 @@ sealed interface Route {
          * lesson/exam/Review, if any - ids rather than full defs so this stays a plain
          * String list; resolve back via [com.quranicwords.app.core.domain.AchievementCatalog
          * .byId] at the point of use. */
-        val newlyUnlockedAchievementIds: List<String> = emptyList()
+        val newlyUnlockedAchievementIds: List<String> = emptyList(),
+        /** See [com.quranicwords.app.core.domain.model.LessonResult.durationMillis]. */
+        val durationMillis: Long = 0L
     ) : Route
     @Serializable data object Settings : Route
     @Serializable data object Achievements : Route
