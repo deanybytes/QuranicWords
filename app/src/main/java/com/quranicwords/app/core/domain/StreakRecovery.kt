@@ -39,4 +39,23 @@ object StreakRecovery {
             ?: return false
         return ChronoUnit.DAYS.between(lastActivity, today) >= 2
     }
+
+    /** How long it's actually been, in whatever unit reads most naturally at that scale - "3
+     * days" is meaningful, "620 days" isn't. Only meaningful when [isLocked] is true; the caller
+     * (Home's unlock dialog) is expected to check that first. */
+    fun inactivityDuration(stats: UserStatsEntity?, today: LocalDate): InactivityDuration? {
+        val lastActivity = stats?.lastActivityLocalDate
+            ?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+            ?: return null
+        val days = ChronoUnit.DAYS.between(lastActivity, today)
+        if (days < 0) return null
+        return when {
+            days < 30 -> InactivityDuration(days.toInt().coerceAtLeast(1), InactivityUnit.DAYS)
+            days < 365 -> InactivityDuration((days / 30).toInt().coerceAtLeast(1), InactivityUnit.MONTHS)
+            else -> InactivityDuration((days / 365).toInt().coerceAtLeast(1), InactivityUnit.YEARS)
+        }
+    }
 }
+
+enum class InactivityUnit { DAYS, MONTHS, YEARS }
+data class InactivityDuration(val value: Int, val unit: InactivityUnit)

@@ -94,4 +94,29 @@ class StreakRecoveryTest {
         val s = stats(currentStreak = 10, lastActivityLocalDate = null)
         assertFalse(StreakRecovery.isLocked(s, today))
     }
+
+    // --- inactivityDuration ---
+
+    @Test
+    fun `inactivityDuration reports days under a month`() {
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(5).toString())
+        assertEquals(InactivityDuration(5, InactivityUnit.DAYS), StreakRecovery.inactivityDuration(s, today))
+    }
+
+    @Test
+    fun `inactivityDuration switches to months at the 30-day boundary`() {
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(60).toString())
+        assertEquals(InactivityDuration(2, InactivityUnit.MONTHS), StreakRecovery.inactivityDuration(s, today))
+    }
+
+    @Test
+    fun `inactivityDuration switches to years at the 365-day boundary`() {
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(400).toString())
+        assertEquals(InactivityDuration(1, InactivityUnit.YEARS), StreakRecovery.inactivityDuration(s, today))
+    }
+
+    @Test
+    fun `inactivityDuration is null with no stats`() {
+        assertNull(StreakRecovery.inactivityDuration(null, today))
+    }
 }

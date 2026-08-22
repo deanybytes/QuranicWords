@@ -5,6 +5,15 @@
     <string name="streak_content_description">%d ditë radhazi</string>
     <string name="streak_locked_label">Vazhdimësia e Kyçur</string>
     <string name="streak_locked_recover_hint">Përgjigju %d pyetjeve për ta rikuperuar</string>
+    <string name="streak_locked_dialog_title">Vazhdimësia jote është e kyçur</string>
+    <string name="streak_locked_dialog_message">Vazhdimësia jote humbi për shkak të mosveprimit prej %s. Bëj një test të shpejtë për ta shkyçur dhe vazhdo.</string>
+    <string name="streak_locked_inactivity_days">%d ditë</string>
+    <string name="streak_locked_inactivity_months">%d muaj</string>
+    <string name="streak_locked_inactivity_years">%d vite</string>
+    <string name="streak_locked_take_test">Bëj Testin</string>
+    <string name="streak_locked_later">Më vonë</string>
+    <string name="hadith_consistency_quote">Profeti ﷺ tha: \"Veprat më të dashura tek Allahu janë ato që bëhen rregullisht, edhe nëse janë të vogla.\"</string>
+    <string name="hadith_consistency_reference">Sahih al-Buhari 6465</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>

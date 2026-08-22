@@ -5,6 +5,15 @@
     <string name="streak_content_description">%d দিনের স্ট্রিক</string>
     <string name="streak_locked_label">স্ট্রিক লক করা হয়েছে</string>
     <string name="streak_locked_recover_hint">এটি পুনরুদ্ধার করতে %d টি প্রশ্নের উত্তর দিন</string>
+    <string name="streak_locked_dialog_title">আপনার স্ট্রিক লক হয়ে গেছে</string>
+    <string name="streak_locked_dialog_message">নিষ্ক্রিয়তার কারণে %s ধরে আপনার স্ট্রিক হারিয়ে গেছে। এটি আনলক করে চালিয়ে যেতে একটি সংক্ষিপ্ত পরীক্ষা দিন।</string>
+    <string name="streak_locked_inactivity_days">%d দিন</string>
+    <string name="streak_locked_inactivity_months">%d মাস</string>
+    <string name="streak_locked_inactivity_years">%d বছর</string>
+    <string name="streak_locked_take_test">পরীক্ষা দিন</string>
+    <string name="streak_locked_later">পরে</string>
+    <string name="hadith_consistency_quote">নবী (ﷺ) কে জিজ্ঞাসা করা হল যে, আল্লাহ তা\'আলার কাছে সবচাইতে প্রিয় আমল কি? তিনি বললেনঃ যে আমল নিয়মিত করা হয়, যদিও তা অল্প হোক। তিনি আরও বললেন, তোমরা সাধ্যমত আমল করে যাও।</string>
+    <string name="hadith_consistency_reference">আল জামিউস সহীহ - ইমাম বুখারী রহঃ, হাদীস নং ৬০২১, আন্তর্জাতিক নং ৬৪৬৫</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
