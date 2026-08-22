@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">Kjo do të fshijë përgjithmonë përparimin e mësimeve, pikët, vazhdimësinë dhe historikun e praktikës në këtë pajisje. Gjuha, modaliteti dhe cilësimet e tjera nuk do të ndryshojnë. Kjo nuk mund të zhbëhet.</string>
     <string name="settings_reset_progress_confirm_button">Rivendos</string>
     <string name="settings_reset_progress_done">Përparimi u rivendos.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">Ku qëllimi i DEANY takon BYTES dixhitale.</string>
+    <string name="settings_section_connect">Lidhu</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">Email</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

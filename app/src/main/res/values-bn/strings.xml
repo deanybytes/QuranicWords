@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">এটি স্থায়ীভাবে এই ডিভাইসের আপনার লেসন অগ্রগতি, পয়েন্ট, স্ট্রিক এবং অনুশীলনের ইতিহাস মুছে ফেলবে। আপনার ভাষা, মোড এবং অন্যান্য সেটিংস অপরিবর্তিত থাকবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।</string>
     <string name="settings_reset_progress_confirm_button">রিসেট করুন</string>
     <string name="settings_reset_progress_done">অগ্রগতি রিসেট করা হয়েছে।</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">যেখানে DEANY-র উদ্দেশ্য ডিজিটাল BYTES-এর সাথে মিলিত হয়।</string>
+    <string name="settings_section_connect">যোগাযোগ</string>
+    <string name="settings_connect_github">গিটহাব</string>
+    <string name="settings_connect_youtube">ইউটিউব</string>
+    <string name="settings_connect_email">ইমেইল</string>
+    <string name="settings_connect_telegram">টেলিগ্রাম</string>
+    <string name="settings_connect_whatsapp">হোয়াটসঅ্যাপ</string>
 </resources>

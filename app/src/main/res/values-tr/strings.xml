@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">Bu, bu cihazdaki ders ilerlemenizi, puanlarınızı, serinizi ve pratik geçmişinizi kalıcı olarak siler. Dil, mod ve diğer ayarlarınız değişmeyecek. Bu işlem geri alınamaz.</string>
     <string name="settings_reset_progress_confirm_button">Sıfırla</string>
     <string name="settings_reset_progress_done">İlerleme sıfırlandı.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">DEANY\'nin amacının dijital BYTES ile buluştuğu yer.</string>
+    <string name="settings_section_connect">Bağlan</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">E-posta</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

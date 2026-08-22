@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">这将永久清除此设备上的课程进度、积分、连续记录和练习历史。您的语言、模式和其他设置不会改变。此操作无法撤销。</string>
     <string name="settings_reset_progress_confirm_button">重置</string>
     <string name="settings_reset_progress_done">进度已重置。</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">DEANY 的宗旨与数字 BYTES 相遇之处。</string>
+    <string name="settings_section_connect">联系我们</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">电子邮件</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

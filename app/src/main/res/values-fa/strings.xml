@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">این کار به‌طور دائم پیشرفت درس، امتیاز، روزشمار و سابقه تمرین شما را در این دستگاه پاک می‌کند. زبان، حالت و سایر تنظیمات شما تغییر نخواهد کرد. این عمل قابل بازگشت نیست.</string>
     <string name="settings_reset_progress_confirm_button">بازنشانی</string>
     <string name="settings_reset_progress_done">پیشرفت بازنشانی شد.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">جایی که هدف DEANY با بایت‌های دیجیتال (BYTES) ملاقات می‌کند.</string>
+    <string name="settings_section_connect">ارتباط</string>
+    <string name="settings_connect_github">گیت‌هاب</string>
+    <string name="settings_connect_youtube">یوتیوب</string>
+    <string name="settings_connect_email">ایمیل</string>
+    <string name="settings_connect_telegram">تلگرام</string>
+    <string name="settings_connect_whatsapp">واتساپ</string>
 </resources>

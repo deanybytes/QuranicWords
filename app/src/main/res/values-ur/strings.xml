@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">یہ اس ڈیوائس پر آپ کی سبق کی پیش رفت، پوائنٹس، تسلسل اور مشق کی تاریخ کو مستقل طور پر حذف کر دے گا۔ آپ کی زبان، موڈ اور دیگر ترتیبات تبدیل نہیں ہوں گی۔ اسے واپس نہیں کیا جا سکتا۔</string>
     <string name="settings_reset_progress_confirm_button">ری سیٹ کریں</string>
     <string name="settings_reset_progress_done">پیش رفت ری سیٹ کر دی گئی ہے۔</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">جہاں DEANY کا مقصد ڈیجیٹل BYTES سے ملتا ہے۔</string>
+    <string name="settings_section_connect">رابطہ کریں</string>
+    <string name="settings_connect_github">گٹ ہب</string>
+    <string name="settings_connect_youtube">یوٹیوب</string>
+    <string name="settings_connect_email">ای میل</string>
+    <string name="settings_connect_telegram">ٹیلیگرام</string>
+    <string name="settings_connect_whatsapp">واٹس ایپ</string>
 </resources>
