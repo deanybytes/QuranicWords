@@ -18,6 +18,14 @@
     <string name="language_select_title">Pilih bahasa Anda</string>
     <string name="language_select_subtitle">Anda dapat mengubahnya nanti di Pengaturan.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Bagaimana Anda ingin memulai?</string>
+    <string name="onboarding_path_select_subtitle">Anda dapat mengubah ini nanti di Pengaturan.</string>
+    <string name="path_learn_title">Pelajari Kosakata</string>
+    <string name="path_learn_description">Mulai dari awal dan bangun kosakata Al-Qur\'an Anda, kata demi kata.</string>
+    <string name="path_test_only_title">Uji Apa yang Saya Ketahui</string>
+    <string name="path_test_only_description">Lewati pelajaran dan langsung mulai kuis pada kata-kata yang sudah Anda ketahui.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Pilih gaya tulisan Al-Qur\'an Anda</string>
     <string name="font_select_subtitle">Ini adalah pratinjau Surah Al-Kautsar, surah terpendek, dalam setiap gaya.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Pilih gaya belajar Anda</string>
     <string name="onboarding_learning_style_subtitle">Ini menentukan berapa kali setiap kata diulang sebelum melanjutkan. Anda dapat mengubahnya nanti di Pengaturan.</string>
-    <string name="learning_style_sharp">Tajam</string>
-    <string name="learning_style_sharp_description">Setiap kata sekali, ujian sekali</string>
-    <string name="learning_style_slow">Lambat</string>
-    <string name="learning_style_slow_description">Setiap kata 3 kali, ujian 3 kali</string>
-    <string name="learning_style_cozy">Santai</string>
-    <string name="learning_style_cozy_description">Setiap kata 5 kali, ujian 5 kali</string>
+    <string name="learning_style_sharp">Sentuhan Ringan</string>
+    <string name="learning_style_sharp_description">Lihat setiap kata sekali, lalu lanjutkan</string>
+    <string name="learning_style_slow">Dasar yang Kuat</string>
+    <string name="learning_style_slow_description">Setiap kata diulang 3 kali untuk dasar yang stabil</string>
+    <string name="learning_style_cozy">Benar-benar Melekat</string>
+    <string name="learning_style_cozy_description">Setiap kata diulang 5 kali agar benar-benar melekat</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bab</string>

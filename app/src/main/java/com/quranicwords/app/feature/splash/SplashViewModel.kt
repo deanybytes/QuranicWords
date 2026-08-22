@@ -3,6 +3,7 @@ package com.quranicwords.app.feature.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.util.SfxEffect
@@ -31,14 +32,23 @@ class SplashViewModel @Inject constructor(
             contentRepository.ensureSeeded()
 
             val language = preferences.languageFlow.first()
+            val learningPathChoiceMade = preferences.learningPathChoiceMadeFlow.first()
             val fontChoiceMade = preferences.fontChoiceMadeFlow.first()
+            val learningPath = preferences.learningPathFlow.first()
             val learningStyleChoiceMade = preferences.learningStyleChoiceMadeFlow.first()
             val dailyGoalChoiceMade = preferences.dailyGoalChoiceMadeFlow.first()
 
+            // Test/Quiz-only never visits LearningStyleSelect (see QwNavHost's FontSelect
+            // onContinue branch), so resuming mid-onboarding must skip that check for it too -
+            // otherwise a Test-only user who quit right after FontSelect would get stuck being
+            // resumed to a step they can never actually reach.
+            val needsLearningStyle = learningPath == LearningPath.LEARN && !learningStyleChoiceMade
+
             _destination.value = when {
                 language == null -> Route.LanguageSelect
+                !learningPathChoiceMade -> Route.PathSelect
                 !fontChoiceMade -> Route.FontSelect
-                !learningStyleChoiceMade -> Route.LearningStyleSelect
+                needsLearningStyle -> Route.LearningStyleSelect
                 !dailyGoalChoiceMade -> Route.DailyGoalSelect
                 else -> Route.Home
             }

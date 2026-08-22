@@ -18,6 +18,14 @@
     <string name="language_select_title">Wähle deine Sprache</string>
     <string name="language_select_subtitle">Du kannst dies später in den Einstellungen ändern.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Wie möchtest du starten?</string>
+    <string name="onboarding_path_select_subtitle">Du kannst dies später in den Einstellungen ändern.</string>
+    <string name="path_learn_title">Wortschatz lernen</string>
+    <string name="path_learn_description">Beginne von vorne und baue Schritt für Schritt deinen koranischen Wortschatz auf.</string>
+    <string name="path_test_only_title">Testen, was ich schon weiß</string>
+    <string name="path_test_only_description">Überspringe die Lektionen und starte direkt mit Quizfragen zu Wörtern, die du bereits kennst.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Wähle deinen Koran-Schriftstil</string>
     <string name="font_select_subtitle">Dies ist eine Vorschau der Sure Al-Kauthar, der kürzesten Sure, in jedem Stil.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Wähle deinen Lernstil</string>
     <string name="onboarding_learning_style_subtitle">Dies bestimmt, wie oft jedes Wort wiederholt wird, bevor es weitergeht. Du kannst dies später in den Einstellungen ändern.</string>
-    <string name="learning_style_sharp">Scharf</string>
-    <string name="learning_style_sharp_description">Jedes Wort einmal, Prüfung einmal</string>
-    <string name="learning_style_slow">Langsam</string>
-    <string name="learning_style_slow_description">Jedes Wort 3 Mal, Prüfung 3 Mal</string>
-    <string name="learning_style_cozy">Gemütlich</string>
-    <string name="learning_style_cozy_description">Jedes Wort 5 Mal, Prüfung 5 Mal</string>
+    <string name="learning_style_sharp">Leichter Einstieg</string>
+    <string name="learning_style_sharp_description">Jedes Wort einmal sehen, dann weiter</string>
+    <string name="learning_style_slow">Solide Basis</string>
+    <string name="learning_style_slow_description">Jedes Wort wiederholt sich 3 Mal für einen festen Stand</string>
+    <string name="learning_style_cozy">Fest verankert</string>
+    <string name="learning_style_cozy_description">Jedes Wort wiederholt sich 5 Mal, um wirklich sitzen zu bleiben</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Kapitel</string>

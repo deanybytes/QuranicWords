@@ -18,6 +18,14 @@
     <string name="language_select_title">Выберите язык</string>
     <string name="language_select_subtitle">Вы можете изменить это позже в настройках.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Как вы хотите начать?</string>
+    <string name="onboarding_path_select_subtitle">Вы можете изменить это позже в настройках.</string>
+    <string name="path_learn_title">Изучать словарь</string>
+    <string name="path_learn_description">Начните с самого начала и постепенно осваивайте кораническую лексику, слово за словом.</string>
+    <string name="path_test_only_title">Проверить, что я уже знаю</string>
+    <string name="path_test_only_description">Пропустите уроки и сразу переходите к тестам на уже известные вам слова.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Выберите стиль коранического письма</string>
     <string name="font_select_subtitle">Это предпросмотр суры Аль-Каусар, самой короткой суры, в каждом стиле.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Выберите стиль обучения</string>
     <string name="onboarding_learning_style_subtitle">Это определяет, сколько раз каждое слово повторяется, прежде чем перейти дальше. Это можно изменить позже в настройках.</string>
-    <string name="learning_style_sharp">Чёткий</string>
-    <string name="learning_style_sharp_description">Каждое слово один раз, экзамен один раз</string>
-    <string name="learning_style_slow">Медленный</string>
-    <string name="learning_style_slow_description">Каждое слово 3 раза, экзамен 3 раза</string>
-    <string name="learning_style_cozy">Уютный</string>
-    <string name="learning_style_cozy_description">Каждое слово 5 раз, экзамен 5 раз</string>
+    <string name="learning_style_sharp">Лёгкое знакомство</string>
+    <string name="learning_style_sharp_description">Увидьте каждое слово один раз и двигайтесь дальше</string>
+    <string name="learning_style_slow">Прочная основа</string>
+    <string name="learning_style_slow_description">Каждое слово повторяется 3 раза для устойчивой основы</string>
+    <string name="learning_style_cozy">Прочно закреплено</string>
+    <string name="learning_style_cozy_description">Каждое слово повторяется 5 раз, чтобы точно запомниться</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Глава</string>

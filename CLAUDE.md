@@ -56,7 +56,7 @@ feature/
 └── lessonsummary/
 ```
 
-There is no `onboarding/tier/` step and no `leaderboard/` package — onboarding today is Splash → Language → Font → Home (see `core/navigation/Routes.kt`).
+There is no `leaderboard/` package. Onboarding today is Splash → Language → Path (Learn vs. Test/Quiz-only) → Font → Learning Style (Learn only) → Daily Goal → Home (see `core/navigation/Routes.kt`); `SplashViewModel` resumes mid-chain for a returning user by checking each step's own `*_choice_made` flag in that order, skipping the Learning Style check entirely for a Test/Quiz-only user since that route is unreachable for them.
 
 ### `ExerciseContent` — the polymorphic exercise model
 
