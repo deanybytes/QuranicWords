@@ -4,15 +4,22 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
+import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
+import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.SectionEntity
+import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.domain.model.ExerciseType
+import com.quranicwords.app.core.domain.model.ItemKind
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -194,5 +201,88 @@ class ProgressRepositoryImplTest {
 
         val today = java.time.LocalDate.now(clock).toString()
         assertNull(database.dailyPracticeDao().get(userId, today))
+    }
+
+    @Test
+    fun `completeReviewSession defaults to REVIEW sessionType`() = runTest {
+        seedTree()
+
+        val result = repository.completeReviewSession(userId, correctCount = 5, totalCount = 5, durationMillis = 60_000L)
+
+        assertEquals(LessonSessionType.REVIEW, result.sessionType)
+    }
+
+    @Test
+    fun `completeReviewSession reports whatever sessionType the caller passes`() = runTest {
+        seedTree()
+
+        val result = repository.completeReviewSession(
+            userId, correctCount = 5, totalCount = 5, durationMillis = 60_000L, sessionType = LessonSessionType.OPEN_PRACTICE
+        )
+
+        assertEquals(LessonSessionType.OPEN_PRACTICE, result.sessionType)
+    }
+
+    private suspend fun seedExercise(id: String, practicedItemId: String) {
+        database.exerciseDao().insertAll(
+            listOf(
+                ExerciseEntity(
+                    id = id,
+                    lessonId = "l1",
+                    orderIndex = 0,
+                    type = ExerciseType.MULTIPLE_CHOICE,
+                    contentJson = "{}",
+                    practicedItemId = practicedItemId
+                )
+            )
+        )
+    }
+
+    @Test
+    fun `getOpenPracticeExercises draws only from words the user has already practiced`() = runTest {
+        seedTree()
+        seedExercise("ex_a", "word_a")
+        seedExercise("ex_b", "word_b")
+        seedExercise("ex_c", "word_c")
+        database.exerciseAttemptDao().insert(
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = 1L)
+        )
+
+        val result = repository.getOpenPracticeExercises(userId, batchSize = 18)
+
+        assertEquals(listOf("word_a"), result.map { it.practicedItemId })
+    }
+
+    @Test
+    fun `getOpenPracticeExercises falls back to the full corpus when nothing has been practiced yet`() = runTest {
+        seedTree()
+        seedExercise("ex_a", "word_a")
+        seedExercise("ex_b", "word_b")
+        database.wordFrequencyDao().insertAll(
+            listOf(
+                WordFrequencyEntity("word_a", "ا", 1, 100, mapOf("en" to "a"), null, 1),
+                WordFrequencyEntity("word_b", "ب", 2, 90, mapOf("en" to "b"), null, 1)
+            )
+        )
+
+        val result = repository.getOpenPracticeExercises(userId, batchSize = 18)
+
+        assertEquals(setOf("word_a", "word_b"), result.map { it.practicedItemId }.toSet())
+    }
+
+    @Test
+    fun `getOpenPracticeExercises caps at batchSize`() = runTest {
+        seedTree()
+        (1..25).forEach { seedExercise("ex_$it", "word_$it") }
+        (1..25).forEach {
+            database.exerciseAttemptDao().insert(
+                ExerciseAttemptEntity(userId = userId, itemId = "word_$it", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = it.toLong())
+            )
+        }
+
+        val result = repository.getOpenPracticeExercises(userId, batchSize = 10)
+
+        assertEquals(10, result.size)
+        assertTrue(result.map { it.practicedItemId }.toSet().all { it!!.startsWith("word_") })
     }
 }

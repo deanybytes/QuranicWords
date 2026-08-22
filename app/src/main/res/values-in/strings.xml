@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Pencapaian baru terbuka!</string>
     <string name="lesson_summary_continue">Lanjutkan</string>
     <string name="lesson_summary_back_to_home">Kembali ke beranda</string>
+    <string name="lesson_summary_keep_practicing">Terus Berlatih</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Pencapaian</string>

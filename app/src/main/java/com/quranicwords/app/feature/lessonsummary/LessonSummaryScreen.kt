@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.AchievementCatalog
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.AchievementBadge
@@ -215,8 +216,11 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             StaggeredEntrance(index = 5) {
                 QwPrimaryButton(
                     text = stringResource(
-                        if (route.nextLessonId != null) R.string.lesson_summary_continue
-                        else R.string.lesson_summary_back_to_home
+                        when {
+                            route.sessionType == LessonSessionType.OPEN_PRACTICE -> R.string.lesson_summary_keep_practicing
+                            route.nextLessonId != null -> R.string.lesson_summary_continue
+                            else -> R.string.lesson_summary_back_to_home
+                        }
                     ),
                     onClick = onContinue,
                     modifier = Modifier.fillMaxWidth()

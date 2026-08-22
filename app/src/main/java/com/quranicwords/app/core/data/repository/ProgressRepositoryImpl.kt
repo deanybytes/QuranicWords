@@ -9,16 +9,19 @@ import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.CurriculumUnlockResolver
+import com.quranicwords.app.core.domain.OpenPracticePool
 import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonResult
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.time.Clock
 import java.time.LocalDate
@@ -175,7 +178,8 @@ class ProgressRepositoryImpl @Inject constructor(
         userId: String,
         correctCount: Int,
         totalCount: Int,
-        durationMillis: Long
+        durationMillis: Long,
+        sessionType: LessonSessionType
     ): LessonResult = withContext(Dispatchers.IO) {
         val points = GamificationConfig.pointsForLesson(correctCount, totalCount)
         val previousStats = database.userStatsDao().get(userId)
@@ -195,7 +199,20 @@ class ProgressRepositoryImpl @Inject constructor(
             currentStreak = update.stats.currentStreak,
             streakIncreased = update.streakIncreased,
             nextLessonId = null,
-            durationMillis = durationMillis
+            durationMillis = durationMillis,
+            sessionType = sessionType
         )
     }
+
+    override suspend fun getOpenPracticeExercises(userId: String, batchSize: Int): List<ExerciseEntity> =
+        withContext(Dispatchers.IO) {
+            val practicedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
+            val pool = practicedIds.ifEmpty {
+                database.wordFrequencyDao().observeAllByFrequency().first().map { it.id }
+            }
+            if (pool.isEmpty()) return@withContext emptyList()
+            val sampledIds = OpenPracticePool.sampleIds(pool, batchSize)
+            val exercises = database.exerciseDao().getScoredExercisesForItems(sampledIds)
+            OpenPracticePool.oneExercisePerWord(exercises)
+        }
 }

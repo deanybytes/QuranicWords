@@ -65,4 +65,12 @@ interface ExerciseAttemptDao {
         """
     )
     suspend fun getMasteredItemIds(userId: String): List<String>
+
+    /** Every distinct `itemId` this user has ever attempted, regardless of correctness - the word
+     * pool for Open Practice (falls back to the full corpus only when this is empty - see
+     * `ProgressRepositoryImpl.getOpenPracticeExercises`) and, unlike that fallback, the *only*
+     * source for a streak-recovery quiz, which must never quiz on a word the learner has never
+     * actually studied. */
+    @Query("SELECT DISTINCT itemId FROM exercise_attempts WHERE userId = :userId")
+    suspend fun getAllPracticedItemIds(userId: String): List<String>
 }

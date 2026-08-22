@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Новое достижение разблокировано!</string>
     <string name="lesson_summary_continue">Продолжить</string>
     <string name="lesson_summary_back_to_home">Назад на главную</string>
+    <string name="lesson_summary_keep_practicing">Продолжить практику</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Достижения</string>

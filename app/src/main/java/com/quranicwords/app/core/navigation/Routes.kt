@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.navigation
 
 import com.quranicwords.app.core.data.local.entity.LessonKind
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import kotlinx.serialization.Serializable
 
 /** Type-safe Navigation-Compose destinations. */
@@ -38,7 +39,15 @@ sealed interface Route {
          * .byId] at the point of use. */
         val newlyUnlockedAchievementIds: List<String> = emptyList(),
         /** See [com.quranicwords.app.core.domain.model.LessonResult.durationMillis]. */
-        val durationMillis: Long = 0L
+        val durationMillis: Long = 0L,
+        /** See [LessonSessionType]. */
+        val sessionType: LessonSessionType = LessonSessionType.LESSON
     ) : Route
     @Serializable data object Roadmap : Route
+    /** An unbounded random-word-pool quiz - see [LessonSessionType.OPEN_PRACTICE]. [isOpenPractice]
+     * is always true - a `data class` rather than `data object` purely so this field lands in
+     * `LessonViewModel`'s `SavedStateHandle` (keyed by property name, same as [Lesson.lessonId]),
+     * giving that shared ViewModel a third distinguishable state alongside "has a lessonId" and
+     * "reached via [Review]" without a bigger refactor of how it tells its modes apart. */
+    @Serializable data class OpenPractice(val isOpenPractice: Boolean = true) : Route
 }

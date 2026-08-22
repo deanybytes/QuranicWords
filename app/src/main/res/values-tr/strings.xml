@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Yeni başarı kilidi açıldı!</string>
     <string name="lesson_summary_continue">Devam et</string>
     <string name="lesson_summary_back_to_home">Ana sayfaya dön</string>
+    <string name="lesson_summary_keep_practicing">Pratiğe Devam Et</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Başarılar</string>

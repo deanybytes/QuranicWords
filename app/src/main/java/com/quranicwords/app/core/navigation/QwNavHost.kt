@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.domain.model.LearningPath
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
@@ -249,6 +250,21 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 }
             )
         }
+        composable<Route.OpenPractice>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            LessonScreen(
+                onExit = { navController.popBackStack() },
+                onFinished = { summary ->
+                    navController.navigate(summary) {
+                        popUpTo(Route.Home)
+                    }
+                }
+            )
+        }
         composable<Route.LessonSummary>(
             enterTransition = t.crossfadeEnter,
             exitTransition = t.crossfadeExit,
@@ -259,7 +275,15 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 route = route,
                 onContinue = {
                     val nextLessonId = route.nextLessonId
-                    if (nextLessonId != null) {
+                    if (route.sessionType == LessonSessionType.OPEN_PRACTICE) {
+                        // "Keep Practicing" - a fresh random batch instead of dropping back to
+                        // Home, same back-stack shape as the other branches (pop everything above
+                        // Home, then push) so this can loop indefinitely without piling up a
+                        // LessonSummary -> OpenPractice -> LessonSummary -> ... chain.
+                        navController.navigate(Route.OpenPractice()) {
+                            popUpTo(Route.Home)
+                        }
+                    } else if (nextLessonId != null) {
                         // Flow straight into the next lesson instead of always dropping back to
                         // Home - same "pop everything above Home, then push" shape as opening a
                         // lesson normally from Home, so the back stack ends up identical either
