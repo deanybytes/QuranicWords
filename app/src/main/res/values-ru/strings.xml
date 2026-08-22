@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">Резервная копия восстановлена.</string>
     <string name="settings_backup_import_failed">Не удалось восстановить этот файл резервной копии.</string>
     <string name="settings_section_about">О приложении</string>
-    <string name="settings_copyright">© rmrashahriar, 2026. Лицензия GPL-3.0.</string>
+    <string name="settings_copyright">© DEANY BYTES, 2026. Лицензия GPL-3.0.</string>
     <string name="settings_content_provenance_note">Содержимое словаря взято из открытых коранических источников. Значения слов на бенгальском языке составлены с помощью ИИ и находятся на постоянной проверке — подробности см. в документации проекта.</string>
     <string name="settings_licenses_button">Лицензии и источники</string>
     <string name="settings_licenses_title">Лицензии и источники</string>

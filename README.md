@@ -16,7 +16,7 @@
   <img alt="Status" src="https://img.shields.io/badge/status-in%20development-orange" />
   <img alt="Release" src="https://img.shields.io/github/v/release/rmrashahriar/QuranicWords" />
   <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
-  <img alt="Copyright" src="https://img.shields.io/badge/copyright-rmrashahriar-2E7D32" />
+  <img alt="Copyright" src="https://img.shields.io/badge/copyright-DEANY%20BYTES-2E7D32" />
 </p>
 
 ---
@@ -161,5 +161,5 @@ QuranicWords is free software: you can redistribute it and/or modify it under th
 ---
 
 <p align="center">
-  Developed by <strong>rmrashahriar</strong> · Copyright © 2026 · Licensed under <a href="LICENSE">GPL-3.0</a>
+  Developed by <strong>DEANY BYTES</strong> · Copyright © 2026 · Licensed under <a href="LICENSE">GPL-3.0</a>
 </p>

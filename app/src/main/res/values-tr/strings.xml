@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">Yedek geri yüklendi.</string>
     <string name="settings_backup_import_failed">Bu yedek dosyası geri yüklenemedi.</string>
     <string name="settings_section_about">Hakkında</string>
-    <string name="settings_copyright">Telif hakkı © rmrashahriar 2026. GPL-3.0 lisansı altındadır.</string>
+    <string name="settings_copyright">Telif hakkı © DEANY BYTES 2026. GPL-3.0 lisansı altındadır.</string>
     <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an kaynaklarından alınmıştır. Bengalce kelime anlamları yapay zeka destekli olup sürekli gözden geçirilmektedir — ayrıntılar için proje belgelerine bakın.</string>
     <string name="settings_licenses_button">Lisanslar ve kaynaklar</string>
     <string name="settings_licenses_title">Lisanslar ve kaynaklar</string>

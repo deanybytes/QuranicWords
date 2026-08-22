@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">Sicherung wiederhergestellt.</string>
     <string name="settings_backup_import_failed">Diese Sicherungsdatei konnte nicht wiederhergestellt werden.</string>
     <string name="settings_section_about">Über</string>
-    <string name="settings_copyright">Copyright © rmrashahriar 2026. Lizenziert unter GPL-3.0.</string>
+    <string name="settings_copyright">Copyright © DEANY BYTES 2026. Lizenziert unter GPL-3.0.</string>
     <string name="settings_content_provenance_note">Der Wortschatzinhalt stammt aus offenen koranischen Korpora. Bengalische Wortbedeutungen sind KI-unterstützt und werden fortlaufend überprüft — Details siehe Projektdokumentation.</string>
     <string name="settings_licenses_button">Lizenzen &amp; Quellen</string>
     <string name="settings_licenses_title">Lizenzen &amp; Quellen</string>

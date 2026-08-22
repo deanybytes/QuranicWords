@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">Rezerva u rikthye.</string>
     <string name="settings_backup_import_failed">Ai skedar rezervë nuk u rikthye dot.</string>
     <string name="settings_section_about">Rreth</string>
-    <string name="settings_copyright">Të drejtat e autorit © rmrashahriar 2026. Licencuar nën GPL-3.0.</string>
+    <string name="settings_copyright">Të drejtat e autorit © DEANY BYTES 2026. Licencuar nën GPL-3.0.</string>
     <string name="settings_content_provenance_note">Përmbajtja e fjalorit vjen nga korpuse të hapura kuranore. Kuptimet në bengalisht janë me ndihmën e IA-së dhe në rishikim vazhdues — shih dokumentacionin e projektit për detaje.</string>
     <string name="settings_licenses_button">Licencat &amp; burimet</string>
     <string name="settings_licenses_title">Licencat &amp; burimet</string>

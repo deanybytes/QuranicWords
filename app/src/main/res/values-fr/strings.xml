@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">Sauvegarde restaurée.</string>
     <string name="settings_backup_import_failed">Impossible de restaurer ce fichier de sauvegarde.</string>
     <string name="settings_section_about">À propos</string>
-    <string name="settings_copyright">Copyright © rmrashahriar 2026. Sous licence GPL-3.0.</string>
+    <string name="settings_copyright">Copyright © DEANY BYTES 2026. Sous licence GPL-3.0.</string>
     <string name="settings_content_provenance_note">Le contenu du vocabulaire provient de corpus coraniques ouverts. Les significations en bengali sont assistées par IA et en cours de révision — voir la documentation du projet pour plus de détails.</string>
     <string name="settings_licenses_button">Licences &amp; sources</string>
     <string name="settings_licenses_title">Licences &amp; sources</string>
