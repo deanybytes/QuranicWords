@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">समर्पित</string>
     <string name="daily_goal_minutes_suffix">प्रतिदिन %d मिनट</string>
     <string name="home_daily_challenge_completed">दैनिक चुनौती पूर्ण</string>
+    <string name="test_only_start_quiz_title">क्विज़ शुरू करें</string>
+    <string name="test_only_start_quiz_subtitle">आपके पहले से जाने हुए शब्दों से यादृच्छिक प्रश्न</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">अपनी सीखने की शैली चुनें</string>

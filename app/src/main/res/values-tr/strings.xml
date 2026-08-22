@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">Adanmış</string>
     <string name="daily_goal_minutes_suffix">Günde %d dakika</string>
     <string name="home_daily_challenge_completed">Günlük görev tamamlandı</string>
+    <string name="test_only_start_quiz_title">Sınava Başla</string>
+    <string name="test_only_start_quiz_subtitle">Zaten bildiğin kelimelerden rastgele sorular</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Öğrenme tarzını seç</string>

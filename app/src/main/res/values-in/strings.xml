@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">Berdedikasi</string>
     <string name="daily_goal_minutes_suffix">%d menit per hari</string>
     <string name="home_daily_challenge_completed">Tantangan harian selesai</string>
+    <string name="test_only_start_quiz_title">Mulai Kuis</string>
+    <string name="test_only_start_quiz_subtitle">Pertanyaan acak dari kata-kata yang sudah Anda ketahui</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Pilih gaya belajar Anda</string>

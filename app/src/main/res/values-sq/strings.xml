@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">I përkushtuar</string>
     <string name="daily_goal_minutes_suffix">%d minuta në ditë</string>
     <string name="home_daily_challenge_completed">Sfida ditore u përfundua</string>
+    <string name="test_only_start_quiz_title">Fillo një Kuiz</string>
+    <string name="test_only_start_quiz_subtitle">Pyetje të rastësishme nga fjalët që di tashmë</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Zgjidh stilin tënd të mësimit</string>

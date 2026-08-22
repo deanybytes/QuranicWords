@@ -193,7 +193,8 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
-                onOpenRoadmap = { navController.navigate(Route.Roadmap) }
+                onOpenRoadmap = { navController.navigate(Route.Roadmap) },
+                onOpenOpenPractice = { navController.navigate(Route.OpenPractice()) }
             )
         }
         composable<Route.ChapterIntro>(

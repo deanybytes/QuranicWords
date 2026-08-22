@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">متعهد</string>
     <string name="daily_goal_minutes_suffix">%d دقیقه در روز</string>
     <string name="home_daily_challenge_completed">چالش روزانه تکمیل شد</string>
+    <string name="test_only_start_quiz_title">شروع آزمون</string>
+    <string name="test_only_start_quiz_subtitle">سوالات تصادفی از کلماتی که از قبل می‌دانید</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">سبک یادگیری خود را انتخاب کنید</string>
