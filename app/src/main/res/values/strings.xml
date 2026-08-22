@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">New achievement unlocked!</string>
     <string name="lesson_summary_continue">Continue</string>
     <string name="lesson_summary_back_to_home">Back to home</string>
+    <string name="lesson_summary_keep_practicing">Keep Practicing</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Achievements</string>

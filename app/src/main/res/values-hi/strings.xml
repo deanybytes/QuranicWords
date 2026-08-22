@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">नई उपलब्धि अनलॉक हुई!</string>
     <string name="lesson_summary_continue">जारी रखें</string>
     <string name="lesson_summary_back_to_home">होम पर वापस जाएँ</string>
+    <string name="lesson_summary_keep_practicing">अभ्यास जारी रखें</string>
 
     <!-- Achievements -->
     <string name="achievements_title">उपलब्धियां</string>

@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Neue Errungenschaft freigeschaltet!</string>
     <string name="lesson_summary_continue">Weiter</string>
     <string name="lesson_summary_back_to_home">Zurück zur Startseite</string>
+    <string name="lesson_summary_keep_practicing">Weiter üben</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Erfolge</string>

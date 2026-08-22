@@ -15,6 +15,7 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonResult
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.OptionsBearing
 import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.isScored
@@ -93,10 +94,18 @@ class LessonViewModel @Inject constructor(
     // learner actually spent, threaded into ProgressRepository's duration tracking.
     private val sessionStartMillis: Long = clock.millis()
 
+    /** True when reached via Route.OpenPractice - see that route's doc comment for why this is a
+     * `SavedStateHandle` field rather than another null-lessonId inference. Checked before
+     * [isReviewSession] everywhere the two matter, since both leave [lessonId] null. */
+    private val isOpenPractice: Boolean = savedStateHandle["isOpenPractice"] ?: false
+
     /** True when reached via Route.Review rather than a real lesson - [init] then assembles its
      * exercise list from missed items instead of a fixed lesson, and [finishLesson] records the
-     * result via `completeReviewSession` instead of `completeLesson`. */
-    private val isReviewSession: Boolean = lessonId == null
+     * result via `completeReviewSession` instead of `completeLesson`. False for Open Practice too
+     * (see [isOpenPractice]) even though it shares `completeReviewSession`'s semantics - the two
+     * differ in exercise-sourcing ([init]) and in what [finishLesson] reports back as the result's
+     * `sessionType`. */
+    private val isReviewSession: Boolean = lessonId == null && !isOpenPractice
 
     // Single-value today (vocabulary words only) - see ItemKind's doc comment.
     private val itemKind: ItemKind = ItemKind.WORD
@@ -115,8 +124,11 @@ class LessonViewModel @Inject constructor(
             // stays fully concurrent with the other two reads exactly as before.
             val missedItemIdsDeferred = async { progressRepository.getMissedItemIds(userId).toSet() }
             val exercisesDeferred = async {
-                if (isReviewSession) progressRepository.getReviewExercises(missedItemIdsDeferred.await().toList())
-                else contentRepository.getExercisesForLesson(checkNotNull(lessonId))
+                when {
+                    isOpenPractice -> progressRepository.getOpenPracticeExercises(userId)
+                    isReviewSession -> progressRepository.getReviewExercises(missedItemIdsDeferred.await().toList())
+                    else -> contentRepository.getExercisesForLesson(checkNotNull(lessonId))
+                }
             }
             val candidatesDeferred = async {
                 if (itemKind == ItemKind.WORD) contentRepository.getWordCandidates() else emptyList()
@@ -140,7 +152,12 @@ class LessonViewModel @Inject constructor(
                 // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
                 // comment) so each repeated instance gets its own independent distractor/shuffle
                 // pass below, rather than N identical copies of the same regenerated exercise.
-                val repeated = LessonContentRepeater.apply(decoded, learningStyle.repeatCount)
+                // Open Practice always uses a 1x multiplier (no-op) regardless of the learner's
+                // stored LearningStyle - each batch is already freshly randomized, so repeating a
+                // word within one batch wouldn't add the same "extra reinforcement" it does for a
+                // fixed lesson's authored word set.
+                val repeatCount = if (isOpenPractice) 1 else learningStyle.repeatCount
+                val repeated = LessonContentRepeater.apply(decoded, repeatCount)
                     .map { content -> regenerateDistractors(content, candidatePool, missedItemIds) }
                 AdaptiveSequencer.reorderForAdaptivePractice(repeated, missedItemIds)
             }
@@ -361,12 +378,13 @@ class LessonViewModel @Inject constructor(
             val userId = userIdProvider.get()
             val totalCount = state.contents.count { it.isScored }
             val durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
-            val result = if (isReviewSession) {
+            val result = if (isReviewSession || isOpenPractice) {
                 progressRepository.completeReviewSession(
                     userId = userId,
                     correctCount = state.correctCount,
                     totalCount = totalCount,
-                    durationMillis = durationMillis
+                    durationMillis = durationMillis,
+                    sessionType = if (isOpenPractice) LessonSessionType.OPEN_PRACTICE else LessonSessionType.REVIEW
                 )
             } else {
                 progressRepository.completeLesson(

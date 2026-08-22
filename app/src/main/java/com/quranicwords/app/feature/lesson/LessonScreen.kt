@@ -102,7 +102,8 @@ fun LessonScreen(
                     nextLessonId = result.nextLessonId,
                     lessonKind = result.lessonKind,
                     newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id },
-                    durationMillis = result.durationMillis
+                    durationMillis = result.durationMillis,
+                    sessionType = result.sessionType
                 )
             )
         }

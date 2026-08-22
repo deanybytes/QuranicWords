@@ -25,7 +25,10 @@ data class LessonResult(
     /** Wall-clock time spent on this lesson/session, from the moment its ViewModel was
      * constructed to the moment it finished - shown on completed lesson/summary UI and rolled
      * into daily practice-minutes tracking (see [com.quranicwords.app.core.data.local.entity.DailyPracticeEntity]). */
-    val durationMillis: Long = 0L
+    val durationMillis: Long = 0L,
+    /** See [LessonSessionType] - which of the four session kinds this result came from, so the
+     * summary screen can pick the right primary-button behavior. */
+    val sessionType: LessonSessionType = LessonSessionType.LESSON
 ) {
     val accuracyPercent: Int
         get() = GamificationConfig.percentOf(correctCount, totalCount)

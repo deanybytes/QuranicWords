@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">دستاورد جدید باز شد!</string>
     <string name="lesson_summary_continue">ادامه</string>
     <string name="lesson_summary_back_to_home">بازگشت به خانه</string>
+    <string name="lesson_summary_keep_practicing">به تمرین ادامه دهید</string>
 
     <!-- Achievements -->
     <string name="achievements_title">دستاوردها</string>

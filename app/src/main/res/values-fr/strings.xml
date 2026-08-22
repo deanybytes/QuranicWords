@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Nouveau succès débloqué !</string>
     <string name="lesson_summary_continue">Continuer</string>
     <string name="lesson_summary_back_to_home">Retour à l\'accueil</string>
+    <string name="lesson_summary_keep_practicing">Continuer à s\'entraîner</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Succès</string>

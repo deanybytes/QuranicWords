@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">Arritje e re u zhbllokua!</string>
     <string name="lesson_summary_continue">Vazhdo</string>
     <string name="lesson_summary_back_to_home">Kthehu në fillim</string>
+    <string name="lesson_summary_keep_practicing">Vazhdo të Praktikosh</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Arritjet</string>

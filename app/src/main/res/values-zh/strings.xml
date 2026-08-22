@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">解锁了新成就！</string>
     <string name="lesson_summary_continue">继续</string>
     <string name="lesson_summary_back_to_home">返回主页</string>
+    <string name="lesson_summary_keep_practicing">继续练习</string>
 
     <!-- Achievements -->
     <string name="achievements_title">成就</string>

@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">নতুন অর্জন আনলক হয়েছে!</string>
     <string name="lesson_summary_continue">চালিয়ে যান</string>
     <string name="lesson_summary_back_to_home">হোমে ফিরুন</string>
+    <string name="lesson_summary_keep_practicing">চর্চা চালিয়ে যান</string>
 
     <!-- Achievements -->
     <string name="achievements_title">অর্জনসমূহ</string>

@@ -7,6 +7,7 @@ import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonResult
+import com.quranicwords.app.core.domain.model.LessonSessionType
 import kotlinx.coroutines.flow.Flow
 
 interface ProgressRepository {
@@ -71,11 +72,23 @@ interface ProgressRepository {
 
     /** Sibling to [completeLesson] for a Review session, which has no single lesson to mark
      * complete: still awards points/streak the same way, but never writes to `user_progress` -
-     * there's no lessonId for that write to attach to. */
+     * there's no lessonId for that write to attach to. Also reused as-is for Open Practice (see
+     * [getOpenPracticeExercises]) - identical completion semantics, distinguished only by the
+     * [sessionType] the caller reports back on the result. */
     suspend fun completeReviewSession(
         userId: String,
         correctCount: Int,
         totalCount: Int,
-        durationMillis: Long
+        durationMillis: Long,
+        sessionType: LessonSessionType = LessonSessionType.REVIEW
     ): LessonResult
+
+    /** A batch of up to [batchSize] scored exercises drawn from a flexible word pool rather than
+     * one fixed lesson - the shared engine behind Test/Quiz-only mode's Home, the post-100%-
+     * completion practice loop, and (via a stricter variant) streak recovery. Pool is every word
+     * [userId] has ever attempted (`ExerciseAttemptDao.getAllPracticedItemIds`), falling back to
+     * the full corpus only when that's empty (a brand-new Test/Quiz-only user's very first batch,
+     * before they've attempted anything at all). See [com.quranicwords.app.core.domain
+     * .OpenPracticePool] for the pure sampling/collapsing steps this delegates to. */
+    suspend fun getOpenPracticeExercises(userId: String, batchSize: Int = 18): List<ExerciseEntity>
 }

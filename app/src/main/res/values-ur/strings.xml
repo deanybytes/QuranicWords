@@ -124,6 +124,7 @@
     <string name="lesson_summary_achievement_unlocked">نئی کامیابی حاصل ہوئی!</string>
     <string name="lesson_summary_continue">جاری رکھیں</string>
     <string name="lesson_summary_back_to_home">ہوم پر واپس جائیں</string>
+    <string name="lesson_summary_keep_practicing">مشق جاری رکھیں</string>
 
     <!-- Achievements -->
     <string name="achievements_title">کامیابیاں</string>
