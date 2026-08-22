@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
@@ -104,6 +105,7 @@ fun HomeScreen(
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
     onOpenAchievements: () -> Unit,
+    onOpenRoadmap: () -> Unit,
     /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
      * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
     expandedChapterIds: Set<String>?,
@@ -150,6 +152,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.home_title)) },
                 actions = {
+                    IconButton(onClick = onOpenRoadmap) {
+                        Icon(Icons.Filled.Map, contentDescription = stringResource(R.string.roadmap_title))
+                    }
                     IconButton(onClick = onOpenAchievements) {
                         Icon(Icons.Filled.EmojiEvents, contentDescription = stringResource(R.string.home_open_achievements))
                     }

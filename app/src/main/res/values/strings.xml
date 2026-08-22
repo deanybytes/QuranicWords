@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">%1$s%% of the Qur\'an · %2$s%% covered so far</string>
     <string name="home_continue_learning">Continue Learning</string>
+    <string name="roadmap_title">Roadmap</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Check</string>

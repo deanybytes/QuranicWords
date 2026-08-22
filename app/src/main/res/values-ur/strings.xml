@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">قرآن کا %1$s%% · اب تک %2$s%% احاطہ کیا گیا</string>
     <string name="home_continue_learning">سیکھنا جاری رکھیں</string>
+    <string name="roadmap_title">روڈ میپ</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">جانچیں</string>

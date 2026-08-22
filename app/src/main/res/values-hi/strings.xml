@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">क़ुरआन का %1$s%% · अब तक %2$s%% कवर हुआ</string>
     <string name="home_continue_learning">सीखना जारी रखें</string>
+    <string name="roadmap_title">रोडमैप</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">जाँचें</string>

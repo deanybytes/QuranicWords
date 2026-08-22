@@ -28,6 +28,7 @@ import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
 import com.quranicwords.app.feature.onboarding.dailygoal.DailyGoalSelectScreen
 import com.quranicwords.app.feature.onboarding.font.FontSelectScreen
 import com.quranicwords.app.feature.onboarding.learningstyle.LearningStyleSelectScreen
+import com.quranicwords.app.feature.roadmap.RoadmapScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.splash.SplashScreen
 
@@ -172,7 +173,8 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
-                onOpenAchievements = { navController.navigate(Route.Achievements) }
+                onOpenAchievements = { navController.navigate(Route.Achievements) },
+                onOpenRoadmap = { navController.navigate(Route.Roadmap) }
             )
         }
         composable<Route.ChapterIntro>(
@@ -261,6 +263,16 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             popExitTransition = t.modalPopExit
         ) {
             AchievementsScreen(onBack = { navController.popBackStack() })
+        }
+        composable<Route.Roadmap>(
+            enterTransition = t.modalEnter,
+            exitTransition = t.modalExit,
+            popExitTransition = t.modalPopExit
+        ) {
+            RoadmapScreen(
+                onBack = { navController.popBackStack() },
+                onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) }
+            )
         }
     }
 }

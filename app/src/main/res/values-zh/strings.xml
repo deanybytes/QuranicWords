@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">占《古兰经》%1$s%% · 目前已覆盖%2$s%%</string>
     <string name="home_continue_learning">继续学习</string>
+    <string name="roadmap_title">路线图</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">检查</string>

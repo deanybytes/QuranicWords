@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">%1$s%% e Kuranit · %2$s%% e mbuluar deri tani</string>
     <string name="home_continue_learning">Vazhdo të Mësosh</string>
+    <string name="roadmap_title">Harta e Rrugës</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Kontrollo</string>
