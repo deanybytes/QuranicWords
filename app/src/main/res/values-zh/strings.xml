@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">备份已恢复。</string>
     <string name="settings_backup_import_failed">无法恢复该备份文件。</string>
     <string name="settings_section_about">关于</string>
-    <string name="settings_copyright">版权所有 © rmrashahriar 2026。基于 GPL-3.0 许可发布。</string>
+    <string name="settings_copyright">版权所有 © DEANY BYTES 2026。基于 GPL-3.0 许可发布。</string>
     <string name="settings_content_provenance_note">词汇内容来源于公开的古兰经语料库。孟加拉语词义由人工智能辅助生成，仍在持续审核中 — 详见项目文档。</string>
     <string name="settings_licenses_button">许可证与来源</string>
     <string name="settings_licenses_title">许可证与来源</string>

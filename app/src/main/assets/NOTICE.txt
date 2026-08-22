@@ -1,5 +1,5 @@
 QuranicWords - Third-Party Content Notices
-Copyright © rmrashahriar 2026. Application code licensed under GPL-3.0 (see LICENSE).
+Copyright © DEANY BYTES 2026. Application code licensed under GPL-3.0 (see LICENSE).
 
 This application bundles vocabulary and translation content derived from
 the open-licensed sources below, plus machine-synthesized word-pronunciation

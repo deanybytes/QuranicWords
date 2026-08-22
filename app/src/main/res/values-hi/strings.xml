@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">बैकअप बहाल किया गया।</string>
     <string name="settings_backup_import_failed">वह बैकअप फ़ाइल बहाल नहीं की जा सकी।</string>
     <string name="settings_section_about">परिचय</string>
-    <string name="settings_copyright">कॉपीराइट © rmrashahriar 2026। GPL-3.0 के तहत लाइसेंस प्राप्त।</string>
+    <string name="settings_copyright">कॉपीराइट © DEANY BYTES 2026। GPL-3.0 के तहत लाइसेंस प्राप्त।</string>
     <string name="settings_content_provenance_note">शब्दावली सामग्री खुले क़ुरआनी स्रोतों से ली गई है। बांग्ला शब्दार्थ AI-सहायता प्राप्त हैं और निरंतर समीक्षाधीन हैं — विवरण के लिए परियोजना का दस्तावेज़ देखें।</string>
     <string name="settings_licenses_button">लाइसेंस और स्रोत</string>
     <string name="settings_licenses_title">लाइसेंस और स्रोत</string>

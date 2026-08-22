@@ -124,7 +124,7 @@
     <string name="settings_backup_import_success">پشتیبان بازیابی شد.</string>
     <string name="settings_backup_import_failed">این فایل پشتیبان بازیابی نشد.</string>
     <string name="settings_section_about">درباره</string>
-    <string name="settings_copyright">کپی‌رایت © rmrashahriar ۲۰۲۶. تحت مجوز GPL-3.0.</string>
+    <string name="settings_copyright">کپی‌رایت © DEANY BYTES ۲۰۲۶. تحت مجوز GPL-3.0.</string>
     <string name="settings_content_provenance_note">محتوای واژگان از منابع باز قرآنی گرفته شده است. معانی بنگالی با کمک هوش مصنوعی تهیه شده و در حال بازبینی مستمر است — برای جزئیات به مستندات پروژه مراجعه کنید.</string>
     <string name="settings_licenses_button">مجوزها و منابع</string>
     <string name="settings_licenses_title">مجوزها و منابع</string>
