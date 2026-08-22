@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">مقفل</string>
-    <string name="home_open_achievements">کامیابیاں</string>
     <string name="home_open_settings">سیٹنگز</string>
     <string name="home_review_title">چھوٹے ہوئے الفاظ کا اعادہ کریں</string>
     <string name="home_review_subtitle">جو پچھلی بار غلط ہوئے تھے ان کی مشق کریں۔</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">قرآن کا %1$s%% · اب تک %2$s%% احاطہ کیا گیا</string>
     <string name="home_continue_learning">سیکھنا جاری رکھیں</string>
     <string name="roadmap_title">روڈ میپ</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">پیش رفت</string>
+    <string name="progress_current_streak">روزانہ تسلسل</string>
+    <string name="progress_total_points">کل پوائنٹس</string>
+    <string name="progress_words_learned">سیکھے گئے الفاظ</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">ہدف والے دن</string>
+    <string name="progress_quran_coverage">قرآن کوریج</string>
+    <string name="progress_lessons_this_week">اس ہفتے کے اسباق</string>
+    <string name="progress_days_practiced">%d دن مشق کی گئی (آخری 28)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">جانچیں</string>

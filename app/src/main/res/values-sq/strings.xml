@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">E kyçur</string>
-    <string name="home_open_achievements">Arritjet</string>
     <string name="home_open_settings">Cilësimet</string>
     <string name="home_review_title">Rishiko fjalët e gabuara</string>
     <string name="home_review_subtitle">Praktiko ato që i ke gabuar herën e fundit.</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">%1$s%% e Kuranit · %2$s%% e mbuluar deri tani</string>
     <string name="home_continue_learning">Vazhdo të Mësosh</string>
     <string name="roadmap_title">Harta e Rrugës</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">Përparimi</string>
+    <string name="progress_current_streak">Ditë Radhazi</string>
+    <string name="progress_total_points">Pikët Totale</string>
+    <string name="progress_words_learned">Fjalë të Mësuara</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">Ditë me Qëllim të Arritur</string>
+    <string name="progress_quran_coverage">Mbulimi i Kuranit</string>
+    <string name="progress_lessons_this_week">Mësimet Këtë Javë</string>
+    <string name="progress_days_practiced">%d Ditë Praktikuar (28 të Fundit)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Kontrollo</string>

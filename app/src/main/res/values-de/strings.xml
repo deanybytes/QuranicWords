@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Gesperrt</string>
-    <string name="home_open_achievements">Erfolge</string>
     <string name="home_open_settings">Einstellungen</string>
     <string name="home_review_title">Verpasste Wörter wiederholen</string>
     <string name="home_review_subtitle">Übe die, die du letztes Mal falsch hattest.</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">%1$s%% des Korans · bisher %2$s%% abgedeckt</string>
     <string name="home_continue_learning">Weiterlernen</string>
     <string name="roadmap_title">Roadmap</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">Fortschritt</string>
+    <string name="progress_current_streak">Tage-Serie</string>
+    <string name="progress_total_points">Gesamtpunkte</string>
+    <string name="progress_words_learned">Gelernte Wörter</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">Zieltage</string>
+    <string name="progress_quran_coverage">Koran-Abdeckung</string>
+    <string name="progress_lessons_this_week">Lektionen diese Woche</string>
+    <string name="progress_days_practiced">%d Tage geübt (letzte 28)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Prüfen</string>

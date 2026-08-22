@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.data.repository
 
 import com.quranicwords.app.core.data.local.QwDatabase
+import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
@@ -151,6 +152,14 @@ class ProgressRepositoryImpl @Inject constructor(
 
     override suspend fun getMissedItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
         database.exerciseAttemptDao().getMissedItemIds(userId)
+    }
+
+    override suspend fun getMasteredItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
+        database.exerciseAttemptDao().getMasteredItemIds(userId)
+    }
+
+    override suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity> = withContext(Dispatchers.IO) {
+        database.dailyPracticeDao().getAllForUserOnce(userId)
     }
 
     override suspend fun getReviewExercises(missedItemIds: List<String>, limit: Int): List<ExerciseEntity> =

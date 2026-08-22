@@ -4,28 +4,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,38 +29,32 @@ import com.quranicwords.app.core.ui.components.displayDescription
 import com.quranicwords.app.core.ui.components.displayName
 import com.quranicwords.app.core.ui.theme.Elevation
 
-@OptIn(ExperimentalMaterial3Api::class)
+/**
+ * The achievements grid, embedded as a scrollable section inside the Progress tab
+ * (`feature/progress/ProgressScreen.kt`) rather than a separately-pushed screen - a plain
+ * [Column] (not lazily windowed), since the catalog only ever has ~15-20 entries. Hosted inside
+ * ProgressScreen's own outer `LazyColumn`, so this must not introduce a second scrolling
+ * container of its own.
+ */
 @Composable
-fun AchievementsScreen(onBack: () -> Unit, viewModel: AchievementsViewModel = hiltViewModel()) {
+fun AchievementsSection(viewModel: AchievementsViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.achievements_title)) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
-                    }
-                }
-            )
-        }
-    ) { padding ->
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            stringResource(R.string.achievements_title),
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.semantics { heading() }.padding(bottom = 8.dp)
+        )
         if (uiState.isLoading) {
-            Box(modifier = Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
-            return@Scaffold
+            return@Column
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            itemsIndexed(uiState.items, key = { _, item -> item.def.id }) { index, item ->
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            uiState.items.forEachIndexed { index, item ->
                 StaggeredEntrance(index = index.coerceAtMost(8)) {
                     AchievementRow(item)
                 }

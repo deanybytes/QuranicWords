@@ -20,7 +20,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
-import com.quranicwords.app.feature.achievements.AchievementsScreen
 import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
 import com.quranicwords.app.feature.wordbrowse.WordBrowseScreen
@@ -173,7 +172,6 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
-                onOpenAchievements = { navController.navigate(Route.Achievements) },
                 onOpenRoadmap = { navController.navigate(Route.Roadmap) }
             )
         }
@@ -256,13 +254,6 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                     }
                 }
             )
-        }
-        composable<Route.Achievements>(
-            enterTransition = t.modalEnter,
-            exitTransition = t.modalExit,
-            popExitTransition = t.modalPopExit
-        ) {
-            AchievementsScreen(onBack = { navController.popBackStack() })
         }
         composable<Route.Roadmap>(
             enterTransition = t.modalEnter,

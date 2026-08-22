@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Locked</string>
-    <string name="home_open_achievements">Achievements</string>
     <string name="home_open_settings">Settings</string>
     <string name="home_review_title">Review missed words</string>
     <string name="home_review_subtitle">Practice the ones you got wrong last time.</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">%1$s%% of the Qur\'an · %2$s%% covered so far</string>
     <string name="home_continue_learning">Continue Learning</string>
     <string name="roadmap_title">Roadmap</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">Progress</string>
+    <string name="progress_current_streak">Day Streak</string>
+    <string name="progress_total_points">Total Points</string>
+    <string name="progress_words_learned">Words Learned</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">Goal Days</string>
+    <string name="progress_quran_coverage">Qur\'an Coverage</string>
+    <string name="progress_lessons_this_week">Lessons This Week</string>
+    <string name="progress_days_practiced">%d Days Practiced (Last 28)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Check</string>
