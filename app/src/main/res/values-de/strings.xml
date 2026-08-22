@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Zurück</string>
     <string name="action_confirm">Bestätigen</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Lernmodus</string>
+    <string name="settings_learning_path_label">Lernpfad</string>
+    <string name="settings_learning_path_learn">Lernen</string>
+    <string name="settings_learning_path_test_only">Nur Test/Quiz</string>
+    <string name="settings_learning_style_label">Wortwiederholung</string>
+    <string name="settings_daily_goal_label">Tagesziel</string>
+    <string name="settings_reset_progress_label">Fortschritt zurücksetzen</string>
+    <string name="settings_reset_progress_description">Löscht den gesamten Lektionsfortschritt, Punkte, Serie und Verlauf auf diesem Gerät. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="settings_reset_progress_button">Fortschritt zurücksetzen</string>
+    <string name="settings_reset_progress_confirm_title">Gesamten Fortschritt zurücksetzen?</string>
+    <string name="settings_reset_progress_confirm_message">Dies löscht dauerhaft deinen Lektionsfortschritt, Punkte, Serie und Übungsverlauf auf diesem Gerät. Deine Sprache, dein Modus und andere Einstellungen ändern sich nicht. Dies kann nicht rückgängig gemacht werden.</string>
+    <string name="settings_reset_progress_confirm_button">Zurücksetzen</string>
+    <string name="settings_reset_progress_done">Fortschritt wurde zurückgesetzt.</string>
 </resources>

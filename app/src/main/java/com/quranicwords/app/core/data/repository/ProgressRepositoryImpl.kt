@@ -242,4 +242,13 @@ class ProgressRepositoryImpl @Inject constructor(
             }
             passed
         }
+
+    override suspend fun resetProgress(userId: String): Unit = withContext(Dispatchers.IO) {
+        database.userProgressDao().deleteForUser(userId)
+        database.userStatsDao().deleteForUser(userId)
+        database.exerciseAttemptDao().deleteForUser(userId)
+        database.dailyPracticeDao().deleteForUser(userId)
+        database.achievementDao().deleteForUser(userId)
+        ensureCurriculumStarted(userId)
+    }
 }

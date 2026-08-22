@@ -23,4 +23,9 @@ interface AchievementDao {
     /** One-shot read for backup export - [observeForUser] is a live [Flow], not suitable there. */
     @Query("SELECT * FROM achievements WHERE userId = :userId")
     suspend fun getAllForUserOnce(userId: String): List<AchievementEntity>
+
+    /** Used by [com.quranicwords.app.core.domain.repository.ProgressRepository.resetProgress] -
+     * the Settings "reset progress" action's per-table wipe. */
+    @Query("DELETE FROM achievements WHERE userId = :userId")
+    suspend fun deleteForUser(userId: String)
 }

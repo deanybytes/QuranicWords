@@ -33,4 +33,9 @@ interface DailyPracticeDao {
 
     @Query("SELECT * FROM daily_practice WHERE userId = :userId AND localDate BETWEEN :startDate AND :endDate ORDER BY localDate ASC")
     fun observeForRange(userId: String, startDate: String, endDate: String): Flow<List<DailyPracticeEntity>>
+
+    /** Used by [com.quranicwords.app.core.domain.repository.ProgressRepository.resetProgress] -
+     * the Settings "reset progress" action's per-table wipe. */
+    @Query("DELETE FROM daily_practice WHERE userId = :userId")
+    suspend fun deleteForUser(userId: String)
 }

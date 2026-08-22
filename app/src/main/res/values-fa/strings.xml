@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">بازگشت</string>
     <string name="action_confirm">تأیید</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">حالت یادگیری</string>
+    <string name="settings_learning_path_label">مسیر یادگیری</string>
+    <string name="settings_learning_path_learn">یادگیری</string>
+    <string name="settings_learning_path_test_only">فقط آزمون/تمرین</string>
+    <string name="settings_learning_style_label">تکرار واژه</string>
+    <string name="settings_daily_goal_label">هدف روزانه</string>
+    <string name="settings_reset_progress_label">بازنشانی پیشرفت</string>
+    <string name="settings_reset_progress_description">تمام پیشرفت درس، امتیاز، روزشمار و سابقه را در این دستگاه پاک می‌کند. این عمل قابل بازگشت نیست.</string>
+    <string name="settings_reset_progress_button">بازنشانی پیشرفت</string>
+    <string name="settings_reset_progress_confirm_title">همه پیشرفت بازنشانی شود؟</string>
+    <string name="settings_reset_progress_confirm_message">این کار به‌طور دائم پیشرفت درس، امتیاز، روزشمار و سابقه تمرین شما را در این دستگاه پاک می‌کند. زبان، حالت و سایر تنظیمات شما تغییر نخواهد کرد. این عمل قابل بازگشت نیست.</string>
+    <string name="settings_reset_progress_confirm_button">بازنشانی</string>
+    <string name="settings_reset_progress_done">پیشرفت بازنشانی شد.</string>
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -55,8 +56,11 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LearningPath
+import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.ui.components.AbstractBookMotif
@@ -86,10 +90,15 @@ fun SettingsScreen(
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
     val streakReminderMinute by viewModel.streakReminderMinute.collectAsStateWithLifecycle()
     val backupUiState by viewModel.backupUiState.collectAsStateWithLifecycle()
+    val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
+    val learningStyle by viewModel.learningStyle.collectAsStateWithLifecycle()
+    val dailyGoalLevel by viewModel.dailyGoalLevel.collectAsStateWithLifecycle()
+    val progressResetDone by viewModel.progressResetDone.collectAsStateWithLifecycle()
     val displayLanguage = rememberSelectedLanguage()
     val context = LocalContext.current
     var showLicenses by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
+    var showResetProgressConfirm by remember { mutableStateOf(false) }
     var notificationPermissionDenied by remember { mutableStateOf(false) }
 
     val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
@@ -124,6 +133,13 @@ fun SettingsScreen(
         if (backupUiState.lastMessageResId != null) {
             delay(4000)
             viewModel.dismissBackupMessage()
+        }
+    }
+
+    LaunchedEffect(progressResetDone) {
+        if (progressResetDone) {
+            delay(4000)
+            viewModel.dismissProgressResetDone()
         }
     }
 
@@ -229,6 +245,61 @@ fun SettingsScreen(
         } }
 
         StaggeredEntrance(index = 1) { SettingsSectionCard {
+            SectionTitle(stringResource(R.string.settings_section_mode))
+
+            Text(stringResource(R.string.settings_learning_path_label), style = MaterialTheme.typography.labelLarge)
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                val options = listOf(
+                    LearningPath.LEARN to stringResource(R.string.settings_learning_path_learn),
+                    LearningPath.TEST_ONLY to stringResource(R.string.settings_learning_path_test_only)
+                )
+                options.forEachIndexed { index, (path, label) ->
+                    SegmentedButton(
+                        selected = learningPath == path,
+                        onClick = { viewModel.setLearningPath(path) },
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
+                    ) { Text(label) }
+                }
+            }
+
+            // Repeat-count tiers only apply to the Learn path's teach step - Test/Quiz-only has no
+            // teach step for them to govern, same reason it skips LearningStyleSelect in onboarding.
+            if (learningPath == LearningPath.LEARN) {
+                Text(stringResource(R.string.settings_learning_style_label), style = MaterialTheme.typography.labelLarge)
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                    val options = listOf(
+                        LearningStyle.SHARP to stringResource(R.string.learning_style_sharp),
+                        LearningStyle.SLOW to stringResource(R.string.learning_style_slow),
+                        LearningStyle.COZY to stringResource(R.string.learning_style_cozy)
+                    )
+                    options.forEachIndexed { index, (style, label) ->
+                        SegmentedButton(
+                            selected = learningStyle == style,
+                            onClick = { viewModel.setLearningStyle(style) },
+                            shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
+                        ) { Text(label) }
+                    }
+                }
+            }
+
+            Text(stringResource(R.string.settings_daily_goal_label), style = MaterialTheme.typography.labelLarge)
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                val options = listOf(
+                    DailyGoalLevel.CASUAL to stringResource(R.string.daily_goal_casual),
+                    DailyGoalLevel.STEADY to stringResource(R.string.daily_goal_steady),
+                    DailyGoalLevel.DEVOTED to stringResource(R.string.daily_goal_devoted)
+                )
+                options.forEachIndexed { index, (level, label) ->
+                    SegmentedButton(
+                        selected = dailyGoalLevel == level,
+                        onClick = { viewModel.setDailyGoalLevel(level) },
+                        shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
+                    ) { Text(label) }
+                }
+            }
+        } }
+
+        StaggeredEntrance(index = 2) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_notifications))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -265,7 +336,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 2) { SettingsSectionCard {
+        StaggeredEntrance(index = 3) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_backup))
             Text(
                 stringResource(R.string.settings_backup_description),
@@ -300,9 +371,29 @@ fun SettingsScreen(
                     else MaterialTheme.colorScheme.primary
                 )
             }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+            Text(stringResource(R.string.settings_reset_progress_label), style = MaterialTheme.typography.labelLarge)
+            Text(
+                stringResource(R.string.settings_reset_progress_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            QwSecondaryButton(
+                text = stringResource(R.string.settings_reset_progress_button),
+                onClick = { showResetProgressConfirm = true }
+            )
+            if (progressResetDone) {
+                Text(
+                    stringResource(R.string.settings_reset_progress_done),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         } }
 
-        StaggeredEntrance(index = 3) { SettingsSectionCard {
+        StaggeredEntrance(index = 4) { SettingsSectionCard {
             SectionTitle(stringResource(R.string.settings_section_about))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 QwLogo(size = 56.dp)
@@ -346,6 +437,23 @@ fun SettingsScreen(
         ) {
             TimePicker(state = timePickerState)
         }
+    }
+
+    if (showResetProgressConfirm) {
+        AlertDialog(
+            onDismissRequest = { showResetProgressConfirm = false },
+            title = { Text(stringResource(R.string.settings_reset_progress_confirm_title)) },
+            text = { Text(stringResource(R.string.settings_reset_progress_confirm_message)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showResetProgressConfirm = false
+                    viewModel.resetProgress()
+                }) { Text(stringResource(R.string.settings_reset_progress_confirm_button), color = MaterialTheme.colorScheme.error) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showResetProgressConfirm = false }) { Text(stringResource(R.string.settings_close)) }
+            }
+        )
     }
 
     if (showLicenses) {
