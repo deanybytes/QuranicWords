@@ -10,6 +10,7 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.SectionEntity
+import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
@@ -284,5 +285,44 @@ class ProgressRepositoryImplTest {
 
         assertEquals(10, result.size)
         assertTrue(result.map { it.practicedItemId }.toSet().all { it!!.startsWith("word_") })
+    }
+
+    @Test
+    fun `getStreakRecoveryExercises never falls back to the full corpus`() = runTest {
+        seedTree()
+        seedExercise("ex_a", "word_a")
+        database.wordFrequencyDao().insertAll(listOf(WordFrequencyEntity("word_a", "ا", 1, 100, mapOf("en" to "a"), null, 1)))
+        // No attempt history at all for this user - unlike getOpenPracticeExercises, this must
+        // stay empty rather than falling back to word_frequency's full corpus.
+
+        val result = repository.getStreakRecoveryExercises(userId, count = 3)
+
+        assertEquals(emptyList<Any>(), result)
+    }
+
+    @Test
+    fun `attemptStreakRecovery on a passing score restores lastActivityLocalDate without touching currentStreak`() = runTest {
+        seedTree()
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+
+        val passed = repository.attemptStreakRecovery(userId, correctCount = 4, totalCount = 5)
+
+        assertTrue(passed)
+        val stats = database.userStatsDao().get(userId)
+        assertEquals(15, stats?.currentStreak)
+        assertEquals(java.time.LocalDate.now(clock).toString(), stats?.lastActivityLocalDate)
+    }
+
+    @Test
+    fun `attemptStreakRecovery under the passing threshold leaves stats untouched`() = runTest {
+        seedTree()
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+
+        val passed = repository.attemptStreakRecovery(userId, correctCount = 2, totalCount = 5)
+
+        assertEquals(false, passed)
+        val stats = database.userStatsDao().get(userId)
+        assertEquals("2020-01-01", stats?.lastActivityLocalDate)
+        assertEquals(15, stats?.currentStreak)
     }
 }

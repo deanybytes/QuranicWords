@@ -9,6 +9,7 @@ import com.quranicwords.app.core.domain.AchievementDef
 import com.quranicwords.app.core.domain.AdaptiveSequencer
 import com.quranicwords.app.core.domain.DistractorGenerator
 import com.quranicwords.app.core.domain.LessonContentRepeater
+import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.WordCandidatePool
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
@@ -17,6 +18,7 @@ import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.OptionsBearing
+import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
 import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.isScored
 import com.quranicwords.app.core.domain.model.practicedItemId
@@ -99,13 +101,18 @@ class LessonViewModel @Inject constructor(
      * [isReviewSession] everywhere the two matter, since both leave [lessonId] null. */
     private val isOpenPractice: Boolean = savedStateHandle["isOpenPractice"] ?: false
 
+    /** True when reached via Route.StreakRecovery - same `SavedStateHandle` marker shape as
+     * [isOpenPractice], for the same reason (a fourth distinguishable state, all sharing the
+     * null-[lessonId] convention). See [StreakRecovery]. */
+    private val isStreakRecovery: Boolean = savedStateHandle["isStreakRecovery"] ?: false
+
     /** True when reached via Route.Review rather than a real lesson - [init] then assembles its
      * exercise list from missed items instead of a fixed lesson, and [finishLesson] records the
-     * result via `completeReviewSession` instead of `completeLesson`. False for Open Practice too
-     * (see [isOpenPractice]) even though it shares `completeReviewSession`'s semantics - the two
-     * differ in exercise-sourcing ([init]) and in what [finishLesson] reports back as the result's
-     * `sessionType`. */
-    private val isReviewSession: Boolean = lessonId == null && !isOpenPractice
+     * result via `completeReviewSession` instead of `completeLesson`. False for Open Practice and
+     * Streak Recovery too (see [isOpenPractice]/[isStreakRecovery]) even though Open Practice
+     * shares `completeReviewSession`'s semantics - all three differ in exercise-sourcing ([init])
+     * and in what [finishLesson] reports back as the result's `sessionType`. */
+    private val isReviewSession: Boolean = lessonId == null && !isOpenPractice && !isStreakRecovery
 
     // Single-value today (vocabulary words only) - see ItemKind's doc comment.
     private val itemKind: ItemKind = ItemKind.WORD
@@ -125,6 +132,11 @@ class LessonViewModel @Inject constructor(
             val missedItemIdsDeferred = async { progressRepository.getMissedItemIds(userId).toSet() }
             val exercisesDeferred = async {
                 when {
+                    isStreakRecovery -> {
+                        val currentStreak = progressRepository.observeStats(userId).first()?.currentStreak ?: 0
+                        val count = StreakRecovery.recoveryQuestionCount(currentStreak) ?: 3
+                        progressRepository.getStreakRecoveryExercises(userId, count)
+                    }
                     isOpenPractice -> progressRepository.getOpenPracticeExercises(userId)
                     isReviewSession -> progressRepository.getReviewExercises(missedItemIdsDeferred.await().toList())
                     else -> contentRepository.getExercisesForLesson(checkNotNull(lessonId))
@@ -152,11 +164,11 @@ class LessonViewModel @Inject constructor(
                 // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
                 // comment) so each repeated instance gets its own independent distractor/shuffle
                 // pass below, rather than N identical copies of the same regenerated exercise.
-                // Open Practice always uses a 1x multiplier (no-op) regardless of the learner's
-                // stored LearningStyle - each batch is already freshly randomized, so repeating a
-                // word within one batch wouldn't add the same "extra reinforcement" it does for a
-                // fixed lesson's authored word set.
-                val repeatCount = if (isOpenPractice) 1 else learningStyle.repeatCount
+                // Open Practice and Streak Recovery always use a 1x multiplier (no-op) regardless
+                // of the learner's stored LearningStyle - each batch is already freshly
+                // randomized, so repeating a word within one batch wouldn't add the same "extra
+                // reinforcement" it does for a fixed lesson's authored word set.
+                val repeatCount = if (isOpenPractice || isStreakRecovery) 1 else learningStyle.repeatCount
                 val repeated = LessonContentRepeater.apply(decoded, repeatCount)
                     .map { content -> regenerateDistractors(content, candidatePool, missedItemIds) }
                 AdaptiveSequencer.reorderForAdaptivePractice(repeated, missedItemIds)
@@ -378,7 +390,27 @@ class LessonViewModel @Inject constructor(
             val userId = userIdProvider.get()
             val totalCount = state.contents.count { it.isScored }
             val durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
-            val result = if (isReviewSession || isOpenPractice) {
+            val result = if (isStreakRecovery) {
+                // Deliberately not completeLesson/completeReviewSession - see
+                // attemptStreakRecovery's doc comment for why. No points awarded either: this is
+                // a "prove you know it" gate, not practice, so it shouldn't double as a way to
+                // farm bonus points on top of getting the streak back.
+                val passed = progressRepository.attemptStreakRecovery(userId, state.correctCount, totalCount)
+                val stats = progressRepository.observeStats(userId).first()
+                LessonResult(
+                    lessonId = REVIEW_SESSION_LESSON_ID,
+                    correctCount = state.correctCount,
+                    totalCount = totalCount,
+                    pointsAwarded = 0,
+                    newTotalPoints = stats?.totalPoints ?: 0,
+                    currentStreak = stats?.currentStreak ?: 0,
+                    // Reused for this session type only to mean "recovery succeeded" - see
+                    // LessonSummaryScreen's streakIncreased handling under STREAK_RECOVERY.
+                    streakIncreased = passed,
+                    durationMillis = durationMillis,
+                    sessionType = LessonSessionType.STREAK_RECOVERY
+                )
+            } else if (isReviewSession || isOpenPractice) {
                 progressRepository.completeReviewSession(
                     userId = userId,
                     correctCount = state.correctCount,

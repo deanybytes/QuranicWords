@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.domain.DailyGoalCalculator
+import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,10 @@ import javax.inject.Inject
 data class TestOnlyHomeUiState(
     val totalPoints: Int = 0,
     val currentStreak: Int = 0,
-    val isDailyGoalMetToday: Boolean = false
+    val isDailyGoalMetToday: Boolean = false,
+    /** See [StreakRecovery.isLocked]. */
+    val isStreakLocked: Boolean = false,
+    val streakRecoveryQuestionCount: Int = 0
 )
 
 /**
@@ -42,7 +46,8 @@ class TestOnlyHomeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            val today = LocalDate.now(clock).toString()
+            val todayDate = LocalDate.now(clock)
+            val today = todayDate.toString()
 
             combine(
                 progressRepository.observeStats(userId),
@@ -55,7 +60,9 @@ class TestOnlyHomeViewModel @Inject constructor(
                     isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(
                         todayPractice?.minutesPracticed ?: 0,
                         goalLevel.minutes
-                    )
+                    ),
+                    isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
+                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0
                 )
             }.collect { _uiState.value = it }
         }

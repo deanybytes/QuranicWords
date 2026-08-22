@@ -210,9 +210,36 @@ class ProgressRepositoryImpl @Inject constructor(
             val pool = practicedIds.ifEmpty {
                 database.wordFrequencyDao().observeAllByFrequency().first().map { it.id }
             }
-            if (pool.isEmpty()) return@withContext emptyList()
-            val sampledIds = OpenPracticePool.sampleIds(pool, batchSize)
-            val exercises = database.exerciseDao().getScoredExercisesForItems(sampledIds)
-            OpenPracticePool.oneExercisePerWord(exercises)
+            sampleExercises(pool, batchSize)
+        }
+
+    override suspend fun getStreakRecoveryExercises(userId: String, count: Int): List<ExerciseEntity> =
+        withContext(Dispatchers.IO) {
+            // No full-corpus fallback here, unlike getOpenPracticeExercises - a recovery quiz must
+            // only ever test words this specific learner has actually studied.
+            val pool = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
+            sampleExercises(pool, count)
+        }
+
+    private suspend fun sampleExercises(pool: List<String>, count: Int): List<ExerciseEntity> {
+        if (pool.isEmpty()) return emptyList()
+        val sampledIds = OpenPracticePool.sampleIds(pool, count)
+        val exercises = database.exerciseDao().getScoredExercisesForItems(sampledIds)
+        return OpenPracticePool.oneExercisePerWord(exercises)
+    }
+
+    override suspend fun attemptStreakRecovery(userId: String, correctCount: Int, totalCount: Int): Boolean =
+        withContext(Dispatchers.IO) {
+            val passed = GamificationConfig.percentOf(correctCount, totalCount) >= GamificationConfig.PASSING_SCORE_PERCENT
+            if (passed) {
+                val stats = database.userStatsDao().get(userId) ?: return@withContext false
+                database.userStatsDao().upsert(
+                    stats.copy(
+                        lastActivityLocalDate = LocalDate.now(clock).toString(),
+                        longestStreak = maxOf(stats.longestStreak, stats.currentStreak)
+                    )
+                )
+            }
+            passed
         }
 }

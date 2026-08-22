@@ -3,6 +3,8 @@
     <string name="app_logo_content_description">QuranicWords-Logo</string>
     <string name="points_content_description">%d Punkte</string>
     <string name="streak_content_description">%d Tage in Folge</string>
+    <string name="streak_locked_label">Serie gesperrt</string>
+    <string name="streak_locked_recover_hint">Beantworte %d Fragen, um sie wiederherzustellen</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
@@ -129,6 +131,8 @@
     <string name="lesson_summary_continue">Weiter</string>
     <string name="lesson_summary_back_to_home">Zurück zur Startseite</string>
     <string name="lesson_summary_keep_practicing">Weiter üben</string>
+    <string name="lesson_summary_streak_restored">Serie wiederhergestellt! 🔥</string>
+    <string name="lesson_summary_streak_recovery_failed">Serie nicht wiederhergestellt — Neustart</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Erfolge</string>
@@ -171,6 +175,7 @@
     <string name="notification_channel_streak_description">Lokale Erinnerungen, wenn deine Übungsserie zu unterbrechen droht.</string>
     <string name="notification_streak_title">Verliere deine Serie nicht!</string>
     <string name="notification_streak_body">Du hast eine %1$d-Tage-Serie — übe heute, um sie fortzusetzen.</string>
+    <string name="notification_streak_body_recoverable">Du hast eine %1$d-Tage-Serie — übe heute, sonst musst du sie mit einem kurzen Quiz zurückholen.</string>
     <string name="settings_section_backup">Sicherung</string>
     <string name="settings_backup_description">Dein Fortschritt existiert nur auf diesem Gerät. Exportiere eine Sicherungsdatei, um ihn zu schützen, oder importiere eine, um den Fortschritt auf diesem oder einem anderen Gerät wiederherzustellen.</string>
     <string name="settings_backup_export">Sicherung exportieren</string>

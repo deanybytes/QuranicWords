@@ -5,12 +5,14 @@ import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -64,6 +66,32 @@ fun StreakBadge(streakDays: Int, modifier: Modifier = Modifier) {
         ) {
             StreakFlame(streakDays = streakDays)
             Text(animatedStreak.toString(), color = MaterialTheme.colorScheme.onTertiaryContainer)
+        }
+    }
+}
+
+/** Replaces [StreakBadge] when [com.quranicwords.app.core.domain.StreakRecovery.isLocked] is
+ * true - tapping it starts the recovery quiz (`Route.StreakRecovery`). Deliberately not animated
+ * the way [DailyGoalBadge] is: a lock appearing isn't a reward moment worth celebrating, it's a
+ * warning that needs to be noticed and acted on. */
+@Composable
+fun StreakLockedChip(questionCount: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val description = stringResource(R.string.streak_locked_recover_hint, questionCount)
+    Surface(
+        modifier = modifier.clickable(onClick = onClick).semantics { contentDescription = description },
+        shape = RoundedCornerShape(50),
+        color = MaterialTheme.colorScheme.errorContainer
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Lock,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onErrorContainer
+            )
+            Text(stringResource(R.string.streak_locked_label), color = MaterialTheme.colorScheme.onErrorContainer)
         }
     }
 }

@@ -38,6 +38,7 @@ import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
+import com.quranicwords.app.core.ui.components.StreakLockedChip
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.theme.Elevation
 
@@ -52,6 +53,7 @@ import com.quranicwords.app.core.ui.theme.Elevation
 @Composable
 fun TestOnlyHomeScreen(
     onStartQuiz: () -> Unit,
+    onOpenStreakRecovery: () -> Unit,
     viewModel: TestOnlyHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,7 +75,11 @@ fun TestOnlyHomeScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     PointsBadge(uiState.totalPoints)
-                    StreakBadge(uiState.currentStreak)
+                    if (uiState.isStreakLocked) {
+                        StreakLockedChip(questionCount = uiState.streakRecoveryQuestionCount, onClick = onOpenStreakRecovery)
+                    } else {
+                        StreakBadge(uiState.currentStreak)
+                    }
                     DailyGoalBadge(visible = uiState.isDailyGoalMetToday)
                 }
 

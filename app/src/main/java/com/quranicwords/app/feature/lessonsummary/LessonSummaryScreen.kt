@@ -64,13 +64,17 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
         animationSpec = MotionSpecs.countUp,
         label = "pointsEarned"
     )
+    val isStreakRecoverySession = route.sessionType == LessonSessionType.STREAK_RECOVERY
     // Only exam/flashback kinds actually gate on score (see LessonKind.requiresPassingScore /
     // ProgressRepositoryImpl.completeLesson, which this must agree with) - a REGULAR lesson or a
     // Review session (lessonKind == null) always "passes" regardless of accuracy, since it always
     // unlocks what's next. Getting this wrong previously showed retry-style messaging on a
     // low-score regular lesson that had, in fact, already advanced the learner.
-    val requiresPassing = route.lessonKind?.requiresPassingScore() ?: false
-    val passed = !requiresPassing || route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
+    val requiresPassing = !isStreakRecoverySession && (route.lessonKind?.requiresPassingScore() ?: false)
+    // For a recovery session, route.streakIncreased is repurposed to mean "recovery succeeded"
+    // (see LessonViewModel.finishLesson's STREAK_RECOVERY branch) rather than its usual meaning.
+    val passed = if (isStreakRecoverySession) route.streakIncreased
+        else !requiresPassing || route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
     val celebrationIntensity = if (route.accuracyPercent >= 100) CelebrationIntensity.PERFECT else CelebrationIntensity.PASSED
     val newlyUnlockedAchievements = remember(route.newlyUnlockedAchievementIds) {
         route.newlyUnlockedAchievementIds.mapNotNull { AchievementCatalog.byId[it] }
@@ -118,6 +122,8 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
         ) {
             StaggeredEntrance(index = 0) {
                 val titleRes = when {
+                    isStreakRecoverySession && passed -> R.string.lesson_summary_streak_restored
+                    isStreakRecoverySession -> R.string.lesson_summary_streak_recovery_failed
                     !requiresPassing -> R.string.lesson_summary_title_complete
                     passed -> R.string.lesson_summary_title_pass
                     else -> R.string.lesson_summary_title_retry
@@ -146,11 +152,13 @@ fun LessonSummaryScreen(route: Route.LessonSummary, onContinue: () -> Unit) {
             }
             Spacer(modifier = Modifier.height(16.dp))
 
-            StaggeredEntrance(index = 2) {
-                Text(
-                    stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
-                    style = MaterialTheme.typography.titleLarge
-                )
+            if (!isStreakRecoverySession) {
+                StaggeredEntrance(index = 2) {
+                    Text(
+                        stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
             }
             StaggeredEntrance(index = 3) {
                 Text(
