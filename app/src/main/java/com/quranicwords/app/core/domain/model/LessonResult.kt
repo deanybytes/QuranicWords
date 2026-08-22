@@ -21,7 +21,11 @@ data class LessonResult(
      * per-kind gating rule ([com.quranicwords.app.core.domain.requiresPassingScore]) instead of a
      * hardcoded accuracy threshold - see [com.quranicwords.app.core.data.repository
      * .ProgressRepositoryImpl.completeLesson], which already gates on exactly this. */
-    val lessonKind: LessonKind? = null
+    val lessonKind: LessonKind? = null,
+    /** Wall-clock time spent on this lesson/session, from the moment its ViewModel was
+     * constructed to the moment it finished - shown on completed lesson/summary UI and rolled
+     * into daily practice-minutes tracking (see [com.quranicwords.app.core.data.local.entity.DailyPracticeEntity]). */
+    val durationMillis: Long = 0L
 ) {
     val accuracyPercent: Int
         get() = GamificationConfig.percentOf(correctCount, totalCount)

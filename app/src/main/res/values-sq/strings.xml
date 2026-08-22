@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Ky është një parapamje i Sures Al-Kevther, sureja më e shkurtër, në secilin stil.</string>
     <string name="font_pending_note">Skedari i licencuar i këtij stili nuk është bashkangjitur ende, po shfaqet shkrimi i parazgjedhur për tani.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Cakto qëllimin tënd ditor</string>
+    <string name="onboarding_daily_goal_subtitle">Zgjidh sa minuta dëshiron të praktikosh çdo ditë. Mund ta ndryshosh më vonë te Cilësimet.</string>
+    <string name="daily_goal_casual">Rastësor</string>
+    <string name="daily_goal_steady">I qëndrueshëm</string>
+    <string name="daily_goal_devoted">I përkushtuar</string>
+    <string name="daily_goal_minutes_suffix">%d minuta në ditë</string>
+    <string name="home_daily_challenge_completed">Sfida ditore u përfundua</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Kapitulli</string>
     <string name="intro_section_label">Seksioni</string>

@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
@@ -44,6 +45,8 @@ class UserPreferencesDataStore @Inject constructor(
         val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
         val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
         val STREAK_REMINDER_MINUTE = intPreferencesKey("streak_reminder_minute")
+        val DAILY_GOAL_LEVEL = stringPreferencesKey("daily_goal_level")
+        val DAILY_GOAL_CHOICE_MADE = booleanPreferencesKey("daily_goal_choice_made")
     }
 
     /**
@@ -150,4 +153,19 @@ class UserPreferencesDataStore @Inject constructor(
             it[Keys.STREAK_REMINDER_MINUTE] = minute
         }
     }
+
+    /** Daily practice-time goal (onboarding step, changeable later) - defaults to
+     * [DailyGoalLevel.DEFAULT] before a choice is ever made, same shape as [fontStyleFlow]. */
+    val dailyGoalLevelFlow: Flow<DailyGoalLevel> =
+        context.dataStore.data.map { DailyGoalLevel.fromName(it[Keys.DAILY_GOAL_LEVEL]) }
+
+    suspend fun setDailyGoalLevel(level: DailyGoalLevel) {
+        context.dataStore.edit {
+            it[Keys.DAILY_GOAL_LEVEL] = level.name
+            it[Keys.DAILY_GOAL_CHOICE_MADE] = true
+        }
+    }
+
+    val dailyGoalChoiceMadeFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.DAILY_GOAL_CHOICE_MADE] == true }
 }

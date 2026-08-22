@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Это предпросмотр суры Аль-Каусар, самой короткой суры, в каждом стиле.</string>
     <string name="font_pending_note">Лицензированный файл шрифта для этого стиля пока не включён, сейчас отображается стиль по умолчанию.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Установите дневную цель</string>
+    <string name="onboarding_daily_goal_subtitle">Выберите, сколько минут в день вы хотите заниматься. Это можно изменить позже в настройках.</string>
+    <string name="daily_goal_casual">Лёгкий</string>
+    <string name="daily_goal_steady">Регулярный</string>
+    <string name="daily_goal_devoted">Усердный</string>
+    <string name="daily_goal_minutes_suffix">%d минут в день</string>
+    <string name="home_daily_challenge_completed">Дневное задание выполнено</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Глава</string>
     <string name="intro_section_label">Раздел</string>

@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">这是最短的古兰经章节——考赛尔章，在每种样式下的预览。</string>
     <string name="font_pending_note">此样式的授权字体文件尚未内置，暂时显示默认字体。</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">设置每日目标</string>
+    <string name="onboarding_daily_goal_subtitle">选择您每天想练习的分钟数。您可以稍后在设置中更改。</string>
+    <string name="daily_goal_casual">轻松</string>
+    <string name="daily_goal_steady">稳定</string>
+    <string name="daily_goal_devoted">专注</string>
+    <string name="daily_goal_minutes_suffix">每天%d分钟</string>
+    <string name="home_daily_challenge_completed">每日挑战已完成</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">章</string>
     <string name="intro_section_label">节</string>

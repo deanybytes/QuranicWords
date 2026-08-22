@@ -94,7 +94,8 @@ fun LessonScreen(
                     streakIncreased = result.streakIncreased,
                     nextLessonId = result.nextLessonId,
                     lessonKind = result.lessonKind,
-                    newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id }
+                    newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id },
+                    durationMillis = result.durationMillis
                 )
             )
         }

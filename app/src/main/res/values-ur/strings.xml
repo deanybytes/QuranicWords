@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">یہ سب سے چھوٹی سورت، سورۃ الکوثر کا ہر انداز میں پیش نظارہ ہے۔</string>
     <string name="font_pending_note">اس انداز کی لائسنس یافتہ فونٹ فائل ابھی شامل نہیں ہے، فی الحال ڈیفالٹ رسم الخط دکھایا جا رہا ہے۔</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">اپنا روزانہ ہدف مقرر کریں</string>
+    <string name="onboarding_daily_goal_subtitle">منتخب کریں کہ آپ روزانہ کتنے منٹ مشق کرنا چاہتے ہیں۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
+    <string name="daily_goal_casual">آسان</string>
+    <string name="daily_goal_steady">باقاعدہ</string>
+    <string name="daily_goal_devoted">پرعزم</string>
+    <string name="daily_goal_minutes_suffix">روزانہ %d منٹ</string>
+    <string name="home_daily_challenge_completed">روزانہ چیلنج مکمل ہوا</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">باب</string>
     <string name="intro_section_label">حصہ</string>

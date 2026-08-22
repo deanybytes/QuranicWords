@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">यह सबसे छोटी सूरह, सूरह अल-कौसर का प्रत्येक शैली में पूर्वावलोकन है।</string>
     <string name="font_pending_note">इस शैली की लाइसेंस प्राप्त फ़ॉन्ट फ़ाइल अभी शामिल नहीं है, फ़िलहाल डिफ़ॉल्ट लिपि दिखाई जा रही है।</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">अपना दैनिक लक्ष्य निर्धारित करें</string>
+    <string name="onboarding_daily_goal_subtitle">चुनें कि आप हर दिन कितने मिनट अभ्यास करना चाहते हैं। आप इसे बाद में सेटिंग्स में बदल सकते हैं।</string>
+    <string name="daily_goal_casual">सामान्य</string>
+    <string name="daily_goal_steady">नियमित</string>
+    <string name="daily_goal_devoted">समर्पित</string>
+    <string name="daily_goal_minutes_suffix">प्रतिदिन %d मिनट</string>
+    <string name="home_daily_challenge_completed">दैनिक चुनौती पूर्ण</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">अध्याय</string>
     <string name="intro_section_label">खंड</string>

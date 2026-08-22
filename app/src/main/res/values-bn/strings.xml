@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">এটি সবচেয়ে ছোট সূরা, সূরা আল-কাউসারের একটি প্রিভিউ, প্রতিটি শৈলীতে।</string>
     <string name="font_pending_note">এই শৈলীর লাইসেন্সকৃত ফন্ট ফাইল এখনো যুক্ত করা হয়নি, আপাতত ডিফল্ট লিপি দেখানো হচ্ছে।</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">আপনার দৈনিক লক্ষ্য নির্ধারণ করুন</string>
+    <string name="onboarding_daily_goal_subtitle">প্রতিদিন কত মিনিট অনুশীলন করতে চান তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
+    <string name="daily_goal_casual">সাধারণ</string>
+    <string name="daily_goal_steady">নিয়মিত</string>
+    <string name="daily_goal_devoted">নিবেদিত</string>
+    <string name="daily_goal_minutes_suffix">প্রতিদিন %d মিনিট</string>
+    <string name="home_daily_challenge_completed">দৈনিক চ্যালেঞ্জ সম্পন্ন</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">অধ্যায়</string>
     <string name="intro_section_label">বিভাগ</string>

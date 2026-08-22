@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Voici un aperçu de la sourate Al-Kawthar, la plus courte, dans chaque style.</string>
     <string name="font_pending_note">Le fichier de police sous licence de ce style n\'est pas encore inclus ; le style par défaut s\'affiche pour l\'instant.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Définissez votre objectif quotidien</string>
+    <string name="onboarding_daily_goal_subtitle">Choisissez combien de minutes vous voulez pratiquer chaque jour. Vous pourrez le modifier plus tard dans les Paramètres.</string>
+    <string name="daily_goal_casual">Décontracté</string>
+    <string name="daily_goal_steady">Régulier</string>
+    <string name="daily_goal_devoted">Assidu</string>
+    <string name="daily_goal_minutes_suffix">%d minutes par jour</string>
+    <string name="home_daily_challenge_completed">Défi quotidien terminé</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapitre</string>
     <string name="intro_section_label">Section</string>

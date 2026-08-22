@@ -23,6 +23,15 @@
     <string name="font_select_subtitle">Dies ist eine Vorschau der Sure Al-Kauthar, der kürzesten Sure, in jedem Stil.</string>
     <string name="font_pending_note">Die lizenzierte Schriftdatei für diesen Stil ist noch nicht enthalten, vorerst wird die Standardschrift angezeigt.</string>
 
+    <!-- Daily goal select -->
+    <string name="onboarding_daily_goal_title">Lege dein Tagesziel fest</string>
+    <string name="onboarding_daily_goal_subtitle">Wähle, wie viele Minuten du täglich üben möchtest. Du kannst dies später in den Einstellungen ändern.</string>
+    <string name="daily_goal_casual">Locker</string>
+    <string name="daily_goal_steady">Regelmäßig</string>
+    <string name="daily_goal_devoted">Engagiert</string>
+    <string name="daily_goal_minutes_suffix">%d Minuten pro Tag</string>
+    <string name="home_daily_challenge_completed">Tägliche Herausforderung abgeschlossen</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Kapitel</string>
     <string name="intro_section_label">Abschnitt</string>

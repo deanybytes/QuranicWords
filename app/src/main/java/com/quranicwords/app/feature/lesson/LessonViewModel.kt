@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Clock
 import javax.inject.Inject
 
 /** One mismatched-tap moment in a Matching exercise, for the shake animation - [token] is
@@ -75,6 +76,7 @@ class LessonViewModel @Inject constructor(
     private val userIdProvider: CurrentUserIdProvider,
     private val audioPlayer: AudioPlayer,
     private val sfxPlayer: SfxPlayer,
+    private val clock: Clock,
     savedStateHandle: androidx.lifecycle.SavedStateHandle
 ) : ViewModel() {
 
@@ -82,6 +84,10 @@ class LessonViewModel @Inject constructor(
     // no lessonId argument at all) rather than Route.Lesson - a type-safe alternative to the
     // sentinel-string approach this used to take, which risked colliding with a real lesson id.
     private val lessonId: String? = savedStateHandle["lessonId"]
+
+    // Captured once at construction - finishLesson() diffs against this to report how long the
+    // learner actually spent, threaded into ProgressRepository's duration tracking.
+    private val sessionStartMillis: Long = clock.millis()
 
     /** True when reached via Route.Review rather than a real lesson - [init] then assembles its
      * exercise list from missed items instead of a fixed lesson, and [finishLesson] records the
@@ -328,18 +334,21 @@ class LessonViewModel @Inject constructor(
             val state = _uiState.value
             val userId = userIdProvider.get()
             val totalCount = state.contents.count { it.isScored }
+            val durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
             val result = if (isReviewSession) {
                 progressRepository.completeReviewSession(
                     userId = userId,
                     correctCount = state.correctCount,
-                    totalCount = totalCount
+                    totalCount = totalCount,
+                    durationMillis = durationMillis
                 )
             } else {
                 progressRepository.completeLesson(
                     userId = userId,
                     lessonId = checkNotNull(lessonId),
                     correctCount = state.correctCount,
-                    totalCount = totalCount
+                    totalCount = totalCount,
+                    durationMillis = durationMillis
                 )
             }
             // Checked after both completion paths (a Review session can cross a word-mastery-style

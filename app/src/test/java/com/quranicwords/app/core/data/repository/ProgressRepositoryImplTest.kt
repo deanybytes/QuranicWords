@@ -39,14 +39,14 @@ class ProgressRepositoryImplTest {
     private lateinit var database: QwDatabase
     private lateinit var repository: ProgressRepositoryImpl
     private val userId = "test_user"
+    private val clock = Clock.fixed(Instant.parse("2026-08-22T10:00:00Z"), ZoneOffset.UTC)
 
     @Before
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), QwDatabase::class.java)
             .allowMainThreadQueries()
             .build()
-        val clock = Clock.fixed(Instant.parse("2026-08-22T10:00:00Z"), ZoneOffset.UTC)
-        repository = ProgressRepositoryImpl(database, StreakCalculator(clock))
+        repository = ProgressRepositoryImpl(database, StreakCalculator(clock), clock)
     }
 
     @After
@@ -82,7 +82,7 @@ class ProgressRepositoryImplTest {
     fun `section exam at exactly the 80 percent threshold unlocks the next lesson`() = runTest {
         seedTree()
 
-        val result = repository.completeLesson(userId, "section_exam", correctCount = 8, totalCount = 10)
+        val result = repository.completeLesson(userId, "section_exam", correctCount = 8, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(80, result.accuracyPercent)
         assertEquals(LessonKind.SECTION_EXAM, result.lessonKind)
@@ -94,7 +94,7 @@ class ProgressRepositoryImplTest {
     fun `section exam just under the threshold does not unlock the next lesson`() = runTest {
         seedTree()
 
-        val result = repository.completeLesson(userId, "section_exam", correctCount = 7, totalCount = 10)
+        val result = repository.completeLesson(userId, "section_exam", correctCount = 7, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(70, result.accuracyPercent)
         assertNull(result.nextLessonId)
@@ -105,7 +105,7 @@ class ProgressRepositoryImplTest {
     fun `chapter exam at the threshold unlocks what comes next`() = runTest {
         seedTree()
 
-        val result = repository.completeLesson(userId, "chapter_1_exam", correctCount = 9, totalCount = 10)
+        val result = repository.completeLesson(userId, "chapter_1_exam", correctCount = 9, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(LessonKind.CHAPTER_EXAM, result.lessonKind)
         // Chapter 1 has no CHAPTER_FLASHBACK row (nothing earlier to flash back to - see
@@ -117,7 +117,7 @@ class ProgressRepositoryImplTest {
     fun `chapter exam under the threshold does not unlock what comes next`() = runTest {
         seedTree()
 
-        val result = repository.completeLesson(userId, "chapter_1_exam", correctCount = 1, totalCount = 10)
+        val result = repository.completeLesson(userId, "chapter_1_exam", correctCount = 1, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(10, result.accuracyPercent)
         assertNull(result.nextLessonId)
@@ -127,7 +127,7 @@ class ProgressRepositoryImplTest {
     fun `a REGULAR lesson at a low score still unlocks the next lesson`() = runTest {
         seedTree()
 
-        val result = repository.completeLesson(userId, "l1", correctCount = 1, totalCount = 10)
+        val result = repository.completeLesson(userId, "l1", correctCount = 1, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(LessonKind.REGULAR, result.lessonKind)
         assertEquals(10, result.accuracyPercent)
@@ -139,8 +139,8 @@ class ProgressRepositoryImplTest {
     fun `bestScorePercent takes the max across repeated attempts`() = runTest {
         seedTree()
 
-        repository.completeLesson(userId, "l1", correctCount = 3, totalCount = 10)
-        repository.completeLesson(userId, "l1", correctCount = 1, totalCount = 10)
+        repository.completeLesson(userId, "l1", correctCount = 3, totalCount = 10, durationMillis = 60_000L)
+        repository.completeLesson(userId, "l1", correctCount = 1, totalCount = 10, durationMillis = 60_000L)
 
         assertEquals(30, database.userProgressDao().get(userId, "l1")?.bestScorePercent)
     }
@@ -149,9 +149,50 @@ class ProgressRepositoryImplTest {
     fun `completeReviewSession reports a null lessonKind`() = runTest {
         seedTree()
 
-        val result = repository.completeReviewSession(userId, correctCount = 5, totalCount = 5)
+        val result = repository.completeReviewSession(userId, correctCount = 5, totalCount = 5, durationMillis = 60_000L)
 
         assertNull(result.lessonKind)
         assertNull(result.nextLessonId)
+    }
+
+    @Test
+    fun `completeLesson persists durationMillis on the progress row`() = runTest {
+        seedTree()
+
+        repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 125_000L)
+
+        assertEquals(125_000L, database.userProgressDao().get(userId, "l1")?.durationMillis)
+    }
+
+    @Test
+    fun `completeLesson rounds a session's duration up into today's daily practice minutes`() = runTest {
+        seedTree()
+
+        // 90 seconds should round up to 2 minutes, not truncate to 1.
+        repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 90_000L)
+
+        val today = java.time.LocalDate.now(clock).toString()
+        assertEquals(2, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+    }
+
+    @Test
+    fun `daily practice minutes accumulate across multiple sessions the same day`() = runTest {
+        seedTree()
+
+        repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 60_000L)
+        repository.completeReviewSession(userId, correctCount = 5, totalCount = 5, durationMillis = 60_000L)
+
+        val today = java.time.LocalDate.now(clock).toString()
+        assertEquals(2, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+    }
+
+    @Test
+    fun `a zero-duration session does not create a daily practice row`() = runTest {
+        seedTree()
+
+        repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 0L)
+
+        val today = java.time.LocalDate.now(clock).toString()
+        assertNull(database.dailyPracticeDao().get(userId, today))
     }
 }
