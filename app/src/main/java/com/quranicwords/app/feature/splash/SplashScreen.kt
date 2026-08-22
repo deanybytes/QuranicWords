@@ -71,8 +71,11 @@ fun SplashScreen(
     }
     var revealed by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { revealed = true }
+    // Wider start delta than before (0.4f, was 0.6f) - MotionSpecs.celebratory()'s bouncy spring
+    // overshoots past 1f proportionally to how far it travels, so this alone makes the reveal
+    // read as a genuine pop rather than a gentle settle, without hand-tuning a new spring.
     val logoScale by animateFloatAsState(
-        targetValue = if (revealed) 1f else 0.6f,
+        targetValue = if (revealed) 1f else 0.4f,
         animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
         label = "splashLogoScale"
     )
@@ -80,7 +83,7 @@ fun SplashScreen(
     // settles to upright as the scale-in spring finishes, echoing an opening/unfolding motion
     // without literally depicting a book or page (see this file's own guardrail below).
     val logoRotation by animateFloatAsState(
-        targetValue = if (revealed) 0f else -16f,
+        targetValue = if (revealed) 0f else -22f,
         animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
         label = "splashLogoRotation"
     )

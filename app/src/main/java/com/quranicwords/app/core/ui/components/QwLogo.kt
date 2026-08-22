@@ -1,6 +1,8 @@
 package com.quranicwords.app.core.ui.components
 
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.StartOffset
+import androidx.compose.animation.core.StartOffsetType
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -26,19 +28,33 @@ import com.quranicwords.app.core.ui.theme.StreakAccent
  * chapter/section intro, word-browse). A slow, subtle glow pulse behind the mark is the animation
  * this is meant to carry - not a spin or bounce, since a logo should read as calm/premium rather
  * than playful. No-ops to a static mark under reduced motion.
+ *
+ * Two-layer glow (a tight inner pulse + a larger, softer, phase-offset outer bloom) rather than
+ * one flat ring, so the mark reads as genuinely luminous against the surrounding background
+ * instead of blending into it.
  */
 @Composable
 fun QwLogo(modifier: Modifier = Modifier, size: Dp = 96.dp) {
     val reducedMotion = rememberReducedMotion()
     val infiniteTransition = rememberInfiniteTransition(label = "qwLogoGlow")
-    val glowAlpha by infiniteTransition.animateFloat(
-        initialValue = 0.15f,
-        targetValue = if (reducedMotion) 0.15f else 0.4f,
+    val innerGlowAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.20f,
+        targetValue = if (reducedMotion) 0.20f else 0.55f,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 2200),
             repeatMode = RepeatMode.Reverse
         ),
-        label = "qwLogoGlowAlpha"
+        label = "qwLogoInnerGlowAlpha"
+    )
+    val outerGlowAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.06f,
+        targetValue = if (reducedMotion) 0.06f else 0.24f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 3100),
+            repeatMode = RepeatMode.Reverse,
+            initialStartOffset = StartOffset(650, StartOffsetType.FastForward)
+        ),
+        label = "qwLogoOuterGlowAlpha"
     )
 
     Image(
@@ -47,7 +63,8 @@ fun QwLogo(modifier: Modifier = Modifier, size: Dp = 96.dp) {
         modifier = modifier
             .size(size)
             .drawBehind {
-                drawCircle(color = StreakAccent, radius = size.toPx() * 0.56f, alpha = glowAlpha)
+                drawCircle(color = StreakAccent, radius = size.toPx() * 0.95f, alpha = outerGlowAlpha)
+                drawCircle(color = StreakAccent, radius = size.toPx() * 0.68f, alpha = innerGlowAlpha)
             }
     )
 }
