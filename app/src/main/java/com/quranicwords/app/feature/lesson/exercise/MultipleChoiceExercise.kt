@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -55,14 +56,16 @@ fun MultipleChoiceExerciseContent(
         }
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             content.options.forEach { option ->
-                OptionCard(
-                    option = option,
-                    language = language,
-                    isSelected = option.id == selectedOptionId,
-                    isChecked = isChecked,
-                    isCorrectOption = option.id == content.correctOptionId,
-                    onClick = { onSelect(option.id) }
-                )
+                key(option.id) {
+                    OptionCard(
+                        option = option,
+                        language = language,
+                        isSelected = option.id == selectedOptionId,
+                        isChecked = isChecked,
+                        isCorrectOption = option.id == content.correctOptionId,
+                        onClick = { onSelect(option.id) }
+                    )
+                }
             }
         }
     }
