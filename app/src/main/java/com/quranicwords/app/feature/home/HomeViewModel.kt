@@ -11,6 +11,7 @@ import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
+import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -74,7 +75,12 @@ data class HomeUiState(
     val isDailyGoalMetToday: Boolean = false,
     /** Every lesson across the whole curriculum tree is COMPLETED - see [isCurriculumComplete].
      * Drives the "no dead end" celebratory card + Open Practice loop at the top of Home. */
-    val isCurriculumComplete: Boolean = false
+    val isCurriculumComplete: Boolean = false,
+    /** See [com.quranicwords.app.core.domain.StreakRecovery.isLocked] - replaces the normal
+     * streak badge with a "Streak Locked" chip into `Route.StreakRecovery` when true. */
+    val isStreakLocked: Boolean = false,
+    /** How many questions the recovery quiz needs - only meaningful when [isStreakLocked]. */
+    val streakRecoveryQuestionCount: Int = 0
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -198,7 +204,8 @@ class HomeViewModel @Inject constructor(
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
             val chapters = loadCurriculumTree()
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
-            val today = LocalDate.now(clock).toString()
+            val todayDate = LocalDate.now(clock)
+            val today = todayDate.toString()
 
             combine(
                 progressRepository.observeProgress(userId),
@@ -223,7 +230,9 @@ class HomeViewModel @Inject constructor(
                         todayPractice?.minutesPracticed ?: 0,
                         goalLevel.minutes
                     ),
-                    isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId)
+                    isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId),
+                    isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
+                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0
                 )
             }.collect { _uiState.value = it }
         }

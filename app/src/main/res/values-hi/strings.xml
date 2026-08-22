@@ -3,6 +3,8 @@
     <string name="app_logo_content_description">QuranicWords लोगो</string>
     <string name="points_content_description">%d अंक</string>
     <string name="streak_content_description">%d दिन की लगातार स्ट्रीक</string>
+    <string name="streak_locked_label">स्ट्रीक लॉक हो गई</string>
+    <string name="streak_locked_recover_hint">इसे पुनर्प्राप्त करने के लिए %d प्रश्नों के उत्तर दें</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
@@ -129,6 +131,8 @@
     <string name="lesson_summary_continue">जारी रखें</string>
     <string name="lesson_summary_back_to_home">होम पर वापस जाएँ</string>
     <string name="lesson_summary_keep_practicing">अभ्यास जारी रखें</string>
+    <string name="lesson_summary_streak_restored">स्ट्रीक पुनर्स्थापित हुई! 🔥</string>
+    <string name="lesson_summary_streak_recovery_failed">स्ट्रीक पुनर्प्राप्त नहीं हुई — नई शुरुआत</string>
 
     <!-- Achievements -->
     <string name="achievements_title">उपलब्धियां</string>
@@ -171,6 +175,7 @@
     <string name="notification_channel_streak_description">जब आपकी अभ्यास स्ट्रीक टूटने के जोखिम में हो, तो स्थानीय रिमाइंडर।</string>
     <string name="notification_streak_title">अपनी स्ट्रीक मत खोइए!</string>
     <string name="notification_streak_body">आपकी %1$d-दिन की स्ट्रीक है — इसे जारी रखने के लिए आज अभ्यास करें।</string>
+    <string name="notification_streak_body_recoverable">आपकी %1$d-दिन की स्ट्रीक है — आज अभ्यास करें, वरना इसे वापस पाने के लिए एक छोटा क्विज़ देना होगा।</string>
     <string name="settings_section_backup">बैकअप</string>
     <string name="settings_backup_description">आपकी प्रगति केवल इसी डिवाइस पर सुरक्षित है। इसे सुरक्षित रखने के लिए बैकअप फ़ाइल निर्यात करें, या इस या किसी अन्य डिवाइस पर प्रगति बहाल करने के लिए एक आयात करें।</string>
     <string name="settings_backup_export">बैकअप निर्यात करें</string>

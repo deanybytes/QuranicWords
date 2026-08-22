@@ -3,6 +3,8 @@
     <string name="app_logo_content_description">QuranicWords logo</string>
     <string name="points_content_description">%d points</string>
     <string name="streak_content_description">%d day streak</string>
+    <string name="streak_locked_label">Streak Locked</string>
+    <string name="streak_locked_recover_hint">Answer %d questions to recover it</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
@@ -129,6 +131,8 @@
     <string name="lesson_summary_continue">Continue</string>
     <string name="lesson_summary_back_to_home">Back to home</string>
     <string name="lesson_summary_keep_practicing">Keep Practicing</string>
+    <string name="lesson_summary_streak_restored">Streak Restored! 🔥</string>
+    <string name="lesson_summary_streak_recovery_failed">Streak not recovered — starting fresh</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Achievements</string>
@@ -171,6 +175,7 @@
     <string name="notification_channel_streak_description">Local reminders when your practice streak is at risk of breaking.</string>
     <string name="notification_streak_title">Don\'t lose your streak!</string>
     <string name="notification_streak_body">You have a %1$d-day streak — practice today to keep it going.</string>
+    <string name="notification_streak_body_recoverable">You have a %1$d-day streak — practice today, or you\'ll need a quick quiz to get it back.</string>
     <string name="settings_section_backup">Backup</string>
     <string name="settings_backup_description">Your progress lives only on this device. Export a backup file to keep it safe, or import one to restore progress on this or another device.</string>
     <string name="settings_backup_export">Export backup</string>

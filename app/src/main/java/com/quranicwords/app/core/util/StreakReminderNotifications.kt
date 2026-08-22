@@ -54,10 +54,15 @@ object StreakReminderNotifications {
             Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        // A streak this long is worth a recovery quiz if missed (see StreakRecovery's own 7-day
+        // floor) - the body text foreshadows that consequence rather than just repeating the
+        // generic reminder, so this notification doubles as the "prior warning" that feature
+        // needs without a second notification channel/worker.
+        val bodyRes = if (currentStreak >= 7) R.string.notification_streak_body_recoverable else R.string.notification_streak_body
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification_streak)
             .setContentTitle(context.getString(R.string.notification_streak_title))
-            .setContentText(context.getString(R.string.notification_streak_body, currentStreak))
+            .setContentText(context.getString(bodyRes, currentStreak))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setContentIntent(openAppIntent)

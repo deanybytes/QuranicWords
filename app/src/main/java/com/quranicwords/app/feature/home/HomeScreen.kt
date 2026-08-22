@@ -91,6 +91,7 @@ import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
+import com.quranicwords.app.core.ui.components.StreakLockedChip
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
@@ -130,6 +131,7 @@ fun HomeScreen(
     onOpenWordBrowse: (String) -> Unit,
     onOpenRoadmap: () -> Unit,
     onOpenOpenPractice: () -> Unit,
+    onOpenStreakRecovery: () -> Unit,
     /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
      * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
     expandedChapterIds: Set<String>?,
@@ -228,7 +230,11 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         PointsBadge(uiState.totalPoints)
-                        StreakBadge(uiState.currentStreak)
+                        if (uiState.isStreakLocked) {
+                            StreakLockedChip(questionCount = uiState.streakRecoveryQuestionCount, onClick = onOpenStreakRecovery)
+                        } else {
+                            StreakBadge(uiState.currentStreak)
+                        }
                         DailyGoalBadge(visible = uiState.isDailyGoalMetToday)
                     }
                 }

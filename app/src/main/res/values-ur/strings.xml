@@ -3,6 +3,8 @@
     <string name="app_logo_content_description">QuranicWords کا لوگو</string>
     <string name="points_content_description">%d پوائنٹس</string>
     <string name="streak_content_description">%d دن کا تسلسل</string>
+    <string name="streak_locked_label">تسلسل مقفل ہے</string>
+    <string name="streak_locked_recover_hint">اسے بحال کرنے کے لیے %d سوالات کے جواب دیں</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
@@ -129,6 +131,8 @@
     <string name="lesson_summary_continue">جاری رکھیں</string>
     <string name="lesson_summary_back_to_home">ہوم پر واپس جائیں</string>
     <string name="lesson_summary_keep_practicing">مشق جاری رکھیں</string>
+    <string name="lesson_summary_streak_restored">تسلسل بحال ہو گیا! 🔥</string>
+    <string name="lesson_summary_streak_recovery_failed">تسلسل بحال نہیں ہوا — نئے سرے سے شروع</string>
 
     <!-- Achievements -->
     <string name="achievements_title">کامیابیاں</string>
@@ -171,6 +175,7 @@
     <string name="notification_channel_streak_description">جب آپ کی مشق کا تسلسل ٹوٹنے کے خطرے میں ہو تو مقامی یاد دہانیاں۔</string>
     <string name="notification_streak_title">اپنا تسلسل مت کھوئیں!</string>
     <string name="notification_streak_body">آپ کا %1$d دن کا تسلسل ہے — اسے جاری رکھنے کے لیے آج مشق کریں۔</string>
+    <string name="notification_streak_body_recoverable">آپ کا %1$d دن کا تسلسل ہے — آج مشق کریں، ورنہ اسے واپس حاصل کرنے کے لیے ایک مختصر کوئز دینا ہوگا۔</string>
     <string name="settings_section_backup">بیک اپ</string>
     <string name="settings_backup_description">آپ کی پیش رفت صرف اسی آلے پر محفوظ ہے۔ اسے محفوظ رکھنے کے لیے بیک اپ فائل ایکسپورٹ کریں، یا اس یا کسی اور آلے پر پیش رفت بحال کرنے کے لیے ایک امپورٹ کریں۔</string>
     <string name="settings_backup_export">بیک اپ ایکسپورٹ کریں</string>

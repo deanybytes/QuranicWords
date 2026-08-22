@@ -91,4 +91,20 @@ interface ProgressRepository {
      * before they've attempted anything at all). See [com.quranicwords.app.core.domain
      * .OpenPracticePool] for the pure sampling/collapsing steps this delegates to. */
     suspend fun getOpenPracticeExercises(userId: String, batchSize: Int = 18): List<ExerciseEntity>
+
+    /** A strictly-scoped sibling of [getOpenPracticeExercises] for the streak-recovery quiz - only
+     * ever draws from words [userId] has actually practiced (see
+     * `ExerciseAttemptDao.getAllPracticedItemIds`), never the full-corpus fallback, since a
+     * recovery quiz must never test a word the learner has never seen. */
+    suspend fun getStreakRecoveryExercises(userId: String, count: Int): List<ExerciseEntity>
+
+    /** Records a streak-recovery attempt - deliberately **not** routed through
+     * [com.quranicwords.app.core.util.StreakCalculator.recordActivity] (see
+     * [com.quranicwords.app.core.domain.StreakRecovery]'s doc comment for why that would clobber
+     * the very streak this is trying to restore). On a pass (>= [com.quranicwords.app.core.util
+     * .GamificationConfig.PASSING_SCORE_PERCENT]), stamps today as the last-activity date so the
+     * streak is "alive" again and returns true; on a fail, leaves stats untouched and returns
+     * false - the locked state simply persists until the next successful attempt or the streak
+     * naturally resets via a normal lesson/review completion. */
+    suspend fun attemptStreakRecovery(userId: String, correctCount: Int, totalCount: Int): Boolean
 }

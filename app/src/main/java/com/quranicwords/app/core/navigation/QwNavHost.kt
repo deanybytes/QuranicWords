@@ -194,7 +194,8 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
                 onOpenRoadmap = { navController.navigate(Route.Roadmap) },
-                onOpenOpenPractice = { navController.navigate(Route.OpenPractice()) }
+                onOpenOpenPractice = { navController.navigate(Route.OpenPractice()) },
+                onOpenStreakRecovery = { navController.navigate(Route.StreakRecovery()) }
             )
         }
         composable<Route.ChapterIntro>(
@@ -252,6 +253,21 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             )
         }
         composable<Route.OpenPractice>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            LessonScreen(
+                onExit = { navController.popBackStack() },
+                onFinished = { summary ->
+                    navController.navigate(summary) {
+                        popUpTo(Route.Home)
+                    }
+                }
+            )
+        }
+        composable<Route.StreakRecovery>(
             enterTransition = t.immersiveEnter,
             exitTransition = t.immersiveExit,
             popEnterTransition = t.immersivePopEnter,

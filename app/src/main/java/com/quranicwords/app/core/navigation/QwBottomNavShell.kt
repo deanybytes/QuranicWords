@@ -51,6 +51,7 @@ fun QwBottomNavShell(
     onOpenWordBrowse: (String) -> Unit,
     onOpenRoadmap: () -> Unit,
     onOpenOpenPractice: () -> Unit,
+    onOpenStreakRecovery: () -> Unit,
     viewModel: QwBottomNavShellViewModel = hiltViewModel()
 ) {
     var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
@@ -85,7 +86,7 @@ fun QwBottomNavShell(
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
             when (selectedTab) {
                 BottomTab.HOME -> if (learningPath == LearningPath.TEST_ONLY) {
-                    TestOnlyHomeScreen(onStartQuiz = onOpenOpenPractice)
+                    TestOnlyHomeScreen(onStartQuiz = onOpenOpenPractice, onOpenStreakRecovery = onOpenStreakRecovery)
                 } else {
                     HomeScreen(
                         onOpenLesson = onOpenLesson,
@@ -95,6 +96,7 @@ fun QwBottomNavShell(
                         onOpenWordBrowse = onOpenWordBrowse,
                         onOpenRoadmap = onOpenRoadmap,
                         onOpenOpenPractice = onOpenOpenPractice,
+                        onOpenStreakRecovery = onOpenStreakRecovery,
                         expandedChapterIds = expandedChapterIds,
                         onExpandedChapterIdsChange = { expandedChapterIds = it },
                         expandedSectionIds = expandedSectionIds,
