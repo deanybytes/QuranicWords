@@ -15,4 +15,9 @@ interface AchievementRepository {
      * so the caller can drive a "newly unlocked" reveal without re-deriving that from the full set.
      */
     suspend fun checkAndUnlock(userId: String): List<AchievementDef>
+
+    /** Running-total Quran coverage percent from every completed chapter exam - the same
+     * calculation [checkAndUnlock] uses internally to check coverage-band achievements, exposed
+     * directly for the Progress tab's coverage donut so it isn't duplicated. */
+    suspend fun getCumulativeCoveragePercent(userId: String): Double
 }

@@ -2,6 +2,8 @@ package com.quranicwords.app.core.data.repository
 
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.AchievementEntity
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
+import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.domain.AchievementCatalog
@@ -22,6 +24,32 @@ class AchievementRepositoryImpl @Inject constructor(
     override fun observeUnlocked(userId: String): Flow<List<AchievementEntity>> =
         database.achievementDao().observeForUser(userId)
 
+    override suspend fun getCumulativeCoveragePercent(userId: String): Double = withContext(Dispatchers.IO) {
+        val progress = database.userProgressDao().getAllForUserOnce(userId)
+        val completedLessonIds = progress.filter { it.status == LessonStatus.COMPLETED }.map { it.lessonId }.toSet()
+        val lessons = database.lessonDao().getAll()
+        val chapters = database.chapterDao().getAll()
+        coverageForCompletedChapters(lessons, chapters, completedLessonIds)
+    }
+
+    /** Sums [ChapterEntity.quranOccurrencePercent] over every chapter whose CHAPTER_EXAM is in
+     * [completedLessonIds] - shared by [checkAndUnlock] (coverage-band achievements) and
+     * [getCumulativeCoveragePercent] (the Progress tab's coverage donut) so the definition of
+     * "cumulative coverage" lives in exactly one place. */
+    private fun coverageForCompletedChapters(
+        lessons: List<LessonEntity>,
+        chapters: List<ChapterEntity>,
+        completedLessonIds: Set<String>
+    ): Double {
+        val completedChapterExamChapterIds = lessons
+            .filter { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
+            .map { it.chapterId }
+            .toSet()
+        return chapters
+            .filter { it.id in completedChapterExamChapterIds }
+            .sumOf { it.quranOccurrencePercent }
+    }
+
     override suspend fun checkAndUnlock(userId: String): List<AchievementDef> = withContext(Dispatchers.IO) {
         val alreadyUnlocked = database.achievementDao().getAllForUserOnce(userId).map { it.achievementId }.toSet()
         val candidates = AchievementCatalog.all.filterNot { it.id in alreadyUnlocked }
@@ -38,9 +66,7 @@ class AchievementRepositoryImpl @Inject constructor(
             .filter { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
             .map { it.chapterId }
             .toSet()
-        val cumulativeCoveragePercent = chapters
-            .filter { it.id in completedChapterExamChapterIds }
-            .sumOf { it.quranOccurrencePercent }
+        val cumulativeCoveragePercent = coverageForCompletedChapters(lessons, chapters, completedLessonIds)
 
         val hasCompletedRegularLesson = completedLessonIds.any { id -> lessonById[id]?.kind == LessonKind.REGULAR }
         val hasPassedAnExam = progress.any { row ->

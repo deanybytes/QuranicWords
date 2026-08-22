@@ -104,7 +104,6 @@ fun HomeScreen(
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
-    onOpenAchievements: () -> Unit,
     onOpenRoadmap: () -> Unit,
     /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
      * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
@@ -154,9 +153,6 @@ fun HomeScreen(
                 actions = {
                     IconButton(onClick = onOpenRoadmap) {
                         Icon(Icons.Filled.Map, contentDescription = stringResource(R.string.roadmap_title))
-                    }
-                    IconButton(onClick = onOpenAchievements) {
-                        Icon(Icons.Filled.EmojiEvents, contentDescription = stringResource(R.string.home_open_achievements))
                     }
                 }
             )

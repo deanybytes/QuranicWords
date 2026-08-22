@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Terkunci</string>
-    <string name="home_open_achievements">Pencapaian</string>
     <string name="home_open_settings">Pengaturan</string>
     <string name="home_review_title">Tinjau kata yang terlewat</string>
     <string name="home_review_subtitle">Latih kata-kata yang salah pada terakhir kali.</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">%1$s%% dari Al-Qur\'an · %2$s%% tercakup sejauh ini</string>
     <string name="home_continue_learning">Lanjutkan Belajar</string>
     <string name="roadmap_title">Peta Jalan</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">Kemajuan</string>
+    <string name="progress_current_streak">Rentetan Hari</string>
+    <string name="progress_total_points">Total Poin</string>
+    <string name="progress_words_learned">Kata yang Dipelajari</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">Hari Target Tercapai</string>
+    <string name="progress_quran_coverage">Cakupan Al-Qur\'an</string>
+    <string name="progress_lessons_this_week">Pelajaran Minggu Ini</string>
+    <string name="progress_days_practiced">%d Hari Berlatih (28 Terakhir)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Periksa</string>

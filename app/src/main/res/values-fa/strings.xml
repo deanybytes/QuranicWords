@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">قفل‌شده</string>
-    <string name="home_open_achievements">دستاوردها</string>
     <string name="home_open_settings">تنظیمات</string>
     <string name="home_review_title">مرور کلمات اشتباه</string>
     <string name="home_review_subtitle">کلماتی را که دفعه قبل اشتباه پاسخ دادید تمرین کنید.</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">%1$s%% از قرآن · تاکنون %2$s%% پوشش داده شده</string>
     <string name="home_continue_learning">ادامه یادگیری</string>
     <string name="roadmap_title">نقشه راه</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">پیشرفت</string>
+    <string name="progress_current_streak">روزهای متوالی</string>
+    <string name="progress_total_points">امتیاز کل</string>
+    <string name="progress_words_learned">کلمات آموخته‌شده</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">روزهای هدف</string>
+    <string name="progress_quran_coverage">پوشش قرآن</string>
+    <string name="progress_lessons_this_week">دروس این هفته</string>
+    <string name="progress_days_practiced">%d روز تمرین‌شده (28 روز اخیر)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">بررسی</string>

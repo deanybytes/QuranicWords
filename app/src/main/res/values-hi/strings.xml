@@ -58,7 +58,6 @@
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">लॉक</string>
-    <string name="home_open_achievements">उपलब्धियां</string>
     <string name="home_open_settings">सेटिंग्स</string>
     <string name="home_review_title">छूटे हुए शब्दों की समीक्षा करें</string>
     <string name="home_review_subtitle">जो पिछली बार ग़लत हुए थे उनका अभ्यास करें।</string>
@@ -71,6 +70,17 @@
     <string name="home_chapter_coverage_stat">क़ुरआन का %1$s%% · अब तक %2$s%% कवर हुआ</string>
     <string name="home_continue_learning">सीखना जारी रखें</string>
     <string name="roadmap_title">रोडमैप</string>
+
+    <!-- Progress tab -->
+    <string name="progress_title">प्रगति</string>
+    <string name="progress_current_streak">दिन की लकीर</string>
+    <string name="progress_total_points">कुल अंक</string>
+    <string name="progress_words_learned">सीखे गए शब्द</string>
+    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_label">लक्ष्य दिन</string>
+    <string name="progress_quran_coverage">क़ुरआन कवरेज</string>
+    <string name="progress_lessons_this_week">इस सप्ताह के पाठ</string>
+    <string name="progress_days_practiced">%d दिन अभ्यास किया (पिछले 28)</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">जाँचें</string>

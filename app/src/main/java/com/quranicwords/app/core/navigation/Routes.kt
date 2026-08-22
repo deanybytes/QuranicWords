@@ -39,6 +39,5 @@ sealed interface Route {
         /** See [com.quranicwords.app.core.domain.model.LessonResult.durationMillis]. */
         val durationMillis: Long = 0L
     ) : Route
-    @Serializable data object Achievements : Route
     @Serializable data object Roadmap : Route
 }

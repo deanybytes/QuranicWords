@@ -1,5 +1,6 @@
 package com.quranicwords.app.core.domain.repository
 
+import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
@@ -46,6 +47,15 @@ interface ProgressRepository {
     /** Ids whose most recent attempt was incorrect - drives adaptive sequencing and the Review
      * session. Empty if [userId] has no attempt history yet. */
     suspend fun getMissedItemIds(userId: String): List<String>
+
+    /** Ids whose most recent attempt was correct - the Progress tab's "words learned" metric.
+     * See [com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao.getMasteredItemIds]. */
+    suspend fun getMasteredItemIds(userId: String): List<String>
+
+    /** Full per-day practice-minutes history for the Progress tab's days-practiced heatmap and
+     * daily-goal-streak tiles - a one-shot read (this screen doesn't need it to be live-observed
+     * the way [observeProgress] does). */
+    suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity>
 
     /** Assembles a session from [missedItemIds] instead of a fixed lesson - drills words the
      * learner has gotten wrong. Takes the ids directly (rather than a userId + re-querying
