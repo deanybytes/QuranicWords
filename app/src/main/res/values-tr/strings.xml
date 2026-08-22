@@ -79,6 +79,8 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">Kur\'an\'ın %1$s%%\'i · şimdiye kadar %2$s%% kapsandı</string>
     <string name="home_continue_learning">Öğrenmeye Devam Et</string>
+    <string name="home_curriculum_complete_title">Tüm müfredatı tamamladın!</string>
+    <string name="home_curriculum_complete_subtitle">Rastgele sorularla pratiğe devam etmek için dokun</string>
     <string name="roadmap_title">Yol Haritası</string>
     <string name="home_history_title">Son Tamamlananlar</string>
     <string name="home_history_summary">%1$s · %%%2$d · %3$s</string>

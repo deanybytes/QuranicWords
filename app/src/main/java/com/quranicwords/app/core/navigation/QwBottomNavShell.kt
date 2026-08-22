@@ -94,6 +94,7 @@ fun QwBottomNavShell(
                         onOpenSectionIntro = onOpenSectionIntro,
                         onOpenWordBrowse = onOpenWordBrowse,
                         onOpenRoadmap = onOpenRoadmap,
+                        onOpenOpenPractice = onOpenOpenPractice,
                         expandedChapterIds = expandedChapterIds,
                         onExpandedChapterIdsChange = { expandedChapterIds = it },
                         expandedSectionIds = expandedSectionIds,

@@ -84,6 +84,8 @@ import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.CelebrationBurst
+import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.DailyGoalBadge
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -127,6 +129,7 @@ fun HomeScreen(
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
     onOpenRoadmap: () -> Unit,
+    onOpenOpenPractice: () -> Unit,
     /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
      * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
     expandedChapterIds: Set<String>?,
@@ -243,6 +246,12 @@ fun HomeScreen(
                     ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    if (uiState.isCurriculumComplete) {
+                        item(key = "curriculum_complete") {
+                            CurriculumCompleteCard(onClick = onOpenOpenPractice)
+                        }
+                    }
+
                     if (uiState.hasReviewableItems) {
                         item(key = "review_entry") {
                             ReviewEntryCard(onClick = onOpenReview)
@@ -685,6 +694,61 @@ private fun ReviewEntryCard(onClick: () -> Unit) {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onTertiaryContainer
                     )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Shown once the whole curriculum is finished (see [HomeUiState.isCurriculumComplete]) - the "no
+ * dead end" answer: instead of the chapter list just running out with nothing new to do, a
+ * celebratory card offers to keep practicing via `Route.OpenPractice`'s unbounded random-word
+ * quiz. Reuses the same "3D box" hero treatment and [CelebrationBurst] vocabulary as a passed
+ * lesson/exam, since finishing the entire curriculum is a bigger milestone than either of those.
+ * The chapter list still renders below this unchanged - this is additive, not a replacement, so
+ * a completed learner can still revisit any chapter via Roadmap. */
+@Composable
+private fun CurriculumCompleteCard(onClick: () -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val shape = MaterialTheme.shapes.medium
+
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            Modifier
+                .matchParentSize()
+                .offset(x = 3.dp, y = 5.dp)
+                .blur(10.dp)
+                .background(Color.Black.copy(alpha = 0.18f), shape)
+        )
+        Card(
+            modifier = Modifier.fillMaxWidth().pressDepth(interactionSource),
+            shape = shape,
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
+            elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating),
+            onClick = onClick,
+            interactionSource = interactionSource
+        ) {
+            Box {
+                CelebrationBurst(intensity = CelebrationIntensity.PERFECT, modifier = Modifier.fillMaxSize())
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Icon(Icons.Filled.EmojiEvents, contentDescription = null, tint = MaterialTheme.colorScheme.onTertiaryContainer)
+                    Column {
+                        Text(
+                            stringResource(R.string.home_curriculum_complete_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                        Text(
+                            stringResource(R.string.home_curriculum_complete_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                    }
                 }
             }
         }

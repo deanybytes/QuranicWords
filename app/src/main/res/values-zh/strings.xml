@@ -79,6 +79,8 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">占《古兰经》%1$s%% · 目前已覆盖%2$s%%</string>
     <string name="home_continue_learning">继续学习</string>
+    <string name="home_curriculum_complete_title">您已完成整个课程！</string>
+    <string name="home_curriculum_complete_subtitle">点击继续用随机问题练习</string>
     <string name="roadmap_title">路线图</string>
     <string name="home_history_title">最近完成</string>
     <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
