@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Назад</string>
     <string name="action_confirm">Подтвердить</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Режим обучения</string>
+    <string name="settings_learning_path_label">Путь обучения</string>
+    <string name="settings_learning_path_learn">Учиться</string>
+    <string name="settings_learning_path_test_only">Только тест/викторина</string>
+    <string name="settings_learning_style_label">Повторение слов</string>
+    <string name="settings_daily_goal_label">Дневная цель</string>
+    <string name="settings_reset_progress_label">Сбросить прогресс</string>
+    <string name="settings_reset_progress_description">Удаляет весь прогресс уроков, очки, серию и историю на этом устройстве. Это действие нельзя отменить.</string>
+    <string name="settings_reset_progress_button">Сбросить прогресс</string>
+    <string name="settings_reset_progress_confirm_title">Сбросить весь прогресс?</string>
+    <string name="settings_reset_progress_confirm_message">Это навсегда удалит ваш прогресс уроков, очки, серию и историю практики на этом устройстве. Ваш язык, режим и другие настройки не изменятся. Это действие нельзя отменить.</string>
+    <string name="settings_reset_progress_confirm_button">Сбросить</string>
+    <string name="settings_reset_progress_done">Прогресс сброшен.</string>
 </resources>

@@ -24,4 +24,9 @@ interface UserProgressDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertAll(progress: List<UserProgressEntity>)
+
+    /** Used by [com.quranicwords.app.core.domain.repository.ProgressRepository.resetProgress] -
+     * the Settings "reset progress" action's per-table wipe. */
+    @Query("DELETE FROM user_progress WHERE userId = :userId")
+    suspend fun deleteForUser(userId: String)
 }

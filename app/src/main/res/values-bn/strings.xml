@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">পেছনে</string>
     <string name="action_confirm">নিশ্চিত করুন</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">শেখার মোড</string>
+    <string name="settings_learning_path_label">শেখার পথ</string>
+    <string name="settings_learning_path_learn">শেখা</string>
+    <string name="settings_learning_path_test_only">শুধু টেস্ট / কুইজ</string>
+    <string name="settings_learning_style_label">শব্দ পুনরাবৃত্তি</string>
+    <string name="settings_daily_goal_label">দৈনিক লক্ষ্য</string>
+    <string name="settings_reset_progress_label">অগ্রগতি রিসেট করুন</string>
+    <string name="settings_reset_progress_description">এই ডিভাইসের সব লেসন অগ্রগতি, পয়েন্ট, স্ট্রিক এবং ইতিহাস মুছে ফেলুন। এটি পূর্বাবস্থায় ফেরানো যাবে না।</string>
+    <string name="settings_reset_progress_button">অগ্রগতি রিসেট করুন</string>
+    <string name="settings_reset_progress_confirm_title">সব অগ্রগতি রিসেট করবেন?</string>
+    <string name="settings_reset_progress_confirm_message">এটি স্থায়ীভাবে এই ডিভাইসের আপনার লেসন অগ্রগতি, পয়েন্ট, স্ট্রিক এবং অনুশীলনের ইতিহাস মুছে ফেলবে। আপনার ভাষা, মোড এবং অন্যান্য সেটিংস অপরিবর্তিত থাকবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।</string>
+    <string name="settings_reset_progress_confirm_button">রিসেট করুন</string>
+    <string name="settings_reset_progress_done">অগ্রগতি রিসেট করা হয়েছে।</string>
 </resources>

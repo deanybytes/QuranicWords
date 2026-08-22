@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">返回</string>
     <string name="action_confirm">确认</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">学习模式</string>
+    <string name="settings_learning_path_label">学习路径</string>
+    <string name="settings_learning_path_learn">学习</string>
+    <string name="settings_learning_path_test_only">仅测验 / 小测</string>
+    <string name="settings_learning_style_label">单词重复</string>
+    <string name="settings_daily_goal_label">每日目标</string>
+    <string name="settings_reset_progress_label">重置进度</string>
+    <string name="settings_reset_progress_description">清除此设备上的所有课程进度、积分、连续记录和历史记录。此操作无法撤销。</string>
+    <string name="settings_reset_progress_button">重置进度</string>
+    <string name="settings_reset_progress_confirm_title">重置所有进度？</string>
+    <string name="settings_reset_progress_confirm_message">这将永久清除此设备上的课程进度、积分、连续记录和练习历史。您的语言、模式和其他设置不会改变。此操作无法撤销。</string>
+    <string name="settings_reset_progress_confirm_button">重置</string>
+    <string name="settings_reset_progress_done">进度已重置。</string>
 </resources>

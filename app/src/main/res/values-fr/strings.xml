@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Retour</string>
     <string name="action_confirm">Confirmer</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Mode d\'apprentissage</string>
+    <string name="settings_learning_path_label">Parcours d\'apprentissage</string>
+    <string name="settings_learning_path_learn">Apprendre</string>
+    <string name="settings_learning_path_test_only">Test / Quiz uniquement</string>
+    <string name="settings_learning_style_label">Répétition des mots</string>
+    <string name="settings_daily_goal_label">Objectif quotidien</string>
+    <string name="settings_reset_progress_label">Réinitialiser la progression</string>
+    <string name="settings_reset_progress_description">Efface toute la progression des leçons, les points, la série et l\'historique sur cet appareil. Cette action est irréversible.</string>
+    <string name="settings_reset_progress_button">Réinitialiser la progression</string>
+    <string name="settings_reset_progress_confirm_title">Réinitialiser toute la progression ?</string>
+    <string name="settings_reset_progress_confirm_message">Cela efface définitivement votre progression des leçons, vos points, votre série et votre historique de pratique sur cet appareil. Votre langue, votre mode et vos autres paramètres ne changeront pas. Cette action est irréversible.</string>
+    <string name="settings_reset_progress_confirm_button">Réinitialiser</string>
+    <string name="settings_reset_progress_done">La progression a été réinitialisée.</string>
 </resources>

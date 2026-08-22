@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Geri</string>
     <string name="action_confirm">Onayla</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Öğrenme Modu</string>
+    <string name="settings_learning_path_label">Öğrenme Yolu</string>
+    <string name="settings_learning_path_learn">Öğren</string>
+    <string name="settings_learning_path_test_only">Yalnızca Test / Sınav</string>
+    <string name="settings_learning_style_label">Kelime Tekrarı</string>
+    <string name="settings_daily_goal_label">Günlük Hedef</string>
+    <string name="settings_reset_progress_label">İlerlemeyi Sıfırla</string>
+    <string name="settings_reset_progress_description">Bu cihazdaki tüm ders ilerlemesini, puanları, seriyi ve geçmişi siler. Bu işlem geri alınamaz.</string>
+    <string name="settings_reset_progress_button">İlerlemeyi Sıfırla</string>
+    <string name="settings_reset_progress_confirm_title">Tüm ilerleme sıfırlansın mı?</string>
+    <string name="settings_reset_progress_confirm_message">Bu, bu cihazdaki ders ilerlemenizi, puanlarınızı, serinizi ve pratik geçmişinizi kalıcı olarak siler. Dil, mod ve diğer ayarlarınız değişmeyecek. Bu işlem geri alınamaz.</string>
+    <string name="settings_reset_progress_confirm_button">Sıfırla</string>
+    <string name="settings_reset_progress_done">İlerleme sıfırlandı.</string>
 </resources>

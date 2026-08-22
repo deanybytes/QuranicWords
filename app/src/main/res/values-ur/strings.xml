@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">واپس</string>
     <string name="action_confirm">تصدیق کریں</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">سیکھنے کا موڈ</string>
+    <string name="settings_learning_path_label">سیکھنے کا راستہ</string>
+    <string name="settings_learning_path_learn">سیکھیں</string>
+    <string name="settings_learning_path_test_only">صرف ٹیسٹ / کوئز</string>
+    <string name="settings_learning_style_label">لفظ کی تکرار</string>
+    <string name="settings_daily_goal_label">یومیہ ہدف</string>
+    <string name="settings_reset_progress_label">پیش رفت ری سیٹ کریں</string>
+    <string name="settings_reset_progress_description">اس ڈیوائس پر تمام سبق کی پیش رفت، پوائنٹس، تسلسل اور تاریخ حذف کریں۔ اسے واپس نہیں کیا جا سکتا۔</string>
+    <string name="settings_reset_progress_button">پیش رفت ری سیٹ کریں</string>
+    <string name="settings_reset_progress_confirm_title">تمام پیش رفت ری سیٹ کریں؟</string>
+    <string name="settings_reset_progress_confirm_message">یہ اس ڈیوائس پر آپ کی سبق کی پیش رفت، پوائنٹس، تسلسل اور مشق کی تاریخ کو مستقل طور پر حذف کر دے گا۔ آپ کی زبان، موڈ اور دیگر ترتیبات تبدیل نہیں ہوں گی۔ اسے واپس نہیں کیا جا سکتا۔</string>
+    <string name="settings_reset_progress_confirm_button">ری سیٹ کریں</string>
+    <string name="settings_reset_progress_done">پیش رفت ری سیٹ کر دی گئی ہے۔</string>
 </resources>

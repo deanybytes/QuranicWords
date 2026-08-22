@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Kembali</string>
     <string name="action_confirm">Konfirmasi</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Mode Belajar</string>
+    <string name="settings_learning_path_label">Jalur Belajar</string>
+    <string name="settings_learning_path_learn">Belajar</string>
+    <string name="settings_learning_path_test_only">Hanya Tes / Kuis</string>
+    <string name="settings_learning_style_label">Pengulangan Kata</string>
+    <string name="settings_daily_goal_label">Target Harian</string>
+    <string name="settings_reset_progress_label">Atur Ulang Progres</string>
+    <string name="settings_reset_progress_description">Menghapus semua progres pelajaran, poin, rentetan, dan riwayat di perangkat ini. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="settings_reset_progress_button">Atur Ulang Progres</string>
+    <string name="settings_reset_progress_confirm_title">Atur ulang semua progres?</string>
+    <string name="settings_reset_progress_confirm_message">Ini akan menghapus progres pelajaran, poin, rentetan, dan riwayat latihan Anda secara permanen di perangkat ini. Bahasa, mode, dan pengaturan lain Anda tidak akan berubah. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="settings_reset_progress_confirm_button">Atur Ulang</string>
+    <string name="settings_reset_progress_done">Progres telah diatur ulang.</string>
 </resources>

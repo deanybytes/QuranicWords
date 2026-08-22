@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">वापस</string>
     <string name="action_confirm">पुष्टि करें</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">सीखने का मोड</string>
+    <string name="settings_learning_path_label">सीखने का पथ</string>
+    <string name="settings_learning_path_learn">सीखें</string>
+    <string name="settings_learning_path_test_only">केवल टेस्ट / क्विज़</string>
+    <string name="settings_learning_style_label">शब्द पुनरावृत्ति</string>
+    <string name="settings_daily_goal_label">दैनिक लक्ष्य</string>
+    <string name="settings_reset_progress_label">प्रगति रीसेट करें</string>
+    <string name="settings_reset_progress_description">इस डिवाइस पर सभी पाठ प्रगति, अंक, स्ट्रीक और इतिहास मिटा दें। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="settings_reset_progress_button">प्रगति रीसेट करें</string>
+    <string name="settings_reset_progress_confirm_title">सारी प्रगति रीसेट करें?</string>
+    <string name="settings_reset_progress_confirm_message">यह इस डिवाइस पर आपकी पाठ प्रगति, अंक, स्ट्रीक और अभ्यास इतिहास को स्थायी रूप से मिटा देगा। आपकी भाषा, मोड और अन्य सेटिंग्स नहीं बदलेंगी। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="settings_reset_progress_confirm_button">रीसेट करें</string>
+    <string name="settings_reset_progress_done">प्रगति रीसेट कर दी गई है।</string>
 </resources>

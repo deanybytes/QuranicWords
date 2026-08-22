@@ -107,4 +107,11 @@ interface ProgressRepository {
      * false - the locked state simply persists until the next successful attempt or the streak
      * naturally resets via a normal lesson/review completion. */
     suspend fun attemptStreakRecovery(userId: String, correctCount: Int, totalCount: Int): Boolean
+
+    /** The Settings "reset progress" action - wipes every progress/stats table for [userId]
+     * (lesson unlocks/scores, points/streak, per-item attempt history, daily practice minutes,
+     * achievements) and re-bootstraps lesson 1 via [ensureCurriculumStarted], leaving onboarding
+     * preferences (language, learning path, font, etc.) untouched - this is a progress reset, not
+     * a full app reset. */
+    suspend fun resetProgress(userId: String)
 }

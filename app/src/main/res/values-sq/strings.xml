@@ -203,4 +203,19 @@
     <!-- Common -->
     <string name="action_back">Prapa</string>
     <string name="action_confirm">Konfirmo</string>
+
+    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    <string name="settings_section_mode">Modaliteti i të Mësuarit</string>
+    <string name="settings_learning_path_label">Rruga e të Mësuarit</string>
+    <string name="settings_learning_path_learn">Mëso</string>
+    <string name="settings_learning_path_test_only">Vetëm Test / Kuiz</string>
+    <string name="settings_learning_style_label">Përsëritja e Fjalëve</string>
+    <string name="settings_daily_goal_label">Qëllimi Ditor</string>
+    <string name="settings_reset_progress_label">Rivendos Përparimin</string>
+    <string name="settings_reset_progress_description">Fshin gjithë përparimin e mësimeve, pikët, vazhdimësinë dhe historikun në këtë pajisje. Kjo nuk mund të zhbëhet.</string>
+    <string name="settings_reset_progress_button">Rivendos Përparimin</string>
+    <string name="settings_reset_progress_confirm_title">Të rivendoset gjithë përparimi?</string>
+    <string name="settings_reset_progress_confirm_message">Kjo do të fshijë përgjithmonë përparimin e mësimeve, pikët, vazhdimësinë dhe historikun e praktikës në këtë pajisje. Gjuha, modaliteti dhe cilësimet e tjera nuk do të ndryshojnë. Kjo nuk mund të zhbëhet.</string>
+    <string name="settings_reset_progress_confirm_button">Rivendos</string>
+    <string name="settings_reset_progress_done">Përparimi u rivendos.</string>
 </resources>

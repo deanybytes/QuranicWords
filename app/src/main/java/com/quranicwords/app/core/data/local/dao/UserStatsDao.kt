@@ -17,4 +17,9 @@ interface UserStatsDao {
 
     @Query("SELECT * FROM user_stats WHERE userId = :userId LIMIT 1")
     fun observe(userId: String): Flow<UserStatsEntity?>
+
+    /** Used by [com.quranicwords.app.core.domain.repository.ProgressRepository.resetProgress] -
+     * the Settings "reset progress" action's per-table wipe. */
+    @Query("DELETE FROM user_stats WHERE userId = :userId")
+    suspend fun deleteForUser(userId: String)
 }
