@@ -3,12 +3,14 @@ package com.quranicwords.app.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.domain.DailyGoalCalculator
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,7 +65,13 @@ data class HomeUiState(
     val cumulativeCoveragePercentByChapter: Map<String, Double> = emptyMap(),
     /** Every COMPLETED lesson across the whole curriculum, most-recently-completed first - backs
      * the swipeable history card (see [completedLessonsHistory]). */
-    val completedHistory: List<Pair<LessonEntity, UserProgressEntity>> = emptyList()
+    val completedHistory: List<Pair<LessonEntity, UserProgressEntity>> = emptyList(),
+    /** Whether today's [com.quranicwords.app.core.domain.model.DailyGoalLevel] target has been
+     * met - drives the "daily challenge completed" indicator alongside the top status badges.
+     * Live (see [ProgressRepository.observeTodayPractice]), not a one-shot snapshot, so it flips
+     * true the moment a lesson finishing today crosses the goal without needing this ViewModel
+     * to be recreated. */
+    val isDailyGoalMetToday: Boolean = false
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -154,6 +162,7 @@ fun stepHistoryIndex(currentIndex: Int, size: Int, delta: Int): Int {
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
+    private val preferences: UserPreferencesDataStore,
     private val userIdProvider: CurrentUserIdProvider,
     private val clock: Clock
 ) : ViewModel() {
@@ -172,11 +181,14 @@ class HomeViewModel @Inject constructor(
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
             val chapters = loadCurriculumTree()
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
+            val today = LocalDate.now(clock).toString()
 
             combine(
                 progressRepository.observeProgress(userId),
-                progressRepository.observeStats(userId)
-            ) { progress, stats ->
+                progressRepository.observeStats(userId),
+                progressRepository.observeTodayPractice(userId, today),
+                preferences.dailyGoalLevelFlow
+            ) { progress, stats, todayPractice, goalLevel ->
                 val progressByLessonId = progress.associateBy { it.lessonId }
                 val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
                 HomeUiState(
@@ -189,7 +201,11 @@ class HomeViewModel @Inject constructor(
                     initiallyExpandedChapterId = currentChapterId,
                     initiallyExpandedSectionId = currentSectionId,
                     cumulativeCoveragePercentByChapter = cumulativeCoverage,
-                    completedHistory = completedLessonsHistory(chapters, progressByLessonId)
+                    completedHistory = completedLessonsHistory(chapters, progressByLessonId),
+                    isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(
+                        todayPractice?.minutesPracticed ?: 0,
+                        goalLevel.minutes
+                    )
                 )
             }.collect { _uiState.value = it }
         }

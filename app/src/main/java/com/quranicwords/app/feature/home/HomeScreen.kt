@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -82,6 +84,7 @@ import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.DailyGoalBadge
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StarfieldMotif
@@ -217,11 +220,13 @@ fun HomeScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState())
                             .padding(horizontal = 16.dp, vertical = 8.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         PointsBadge(uiState.totalPoints)
                         StreakBadge(uiState.currentStreak)
+                        DailyGoalBadge(visible = uiState.isDailyGoalMetToday)
                     }
                 }
 
