@@ -45,7 +45,8 @@ fun QwBottomNavShell(
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
-    onOpenAchievements: () -> Unit
+    onOpenAchievements: () -> Unit,
+    onOpenRoadmap: () -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
     var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
@@ -84,6 +85,7 @@ fun QwBottomNavShell(
                     onOpenSectionIntro = onOpenSectionIntro,
                     onOpenWordBrowse = onOpenWordBrowse,
                     onOpenAchievements = onOpenAchievements,
+                    onOpenRoadmap = onOpenRoadmap,
                     expandedChapterIds = expandedChapterIds,
                     onExpandedChapterIdsChange = { expandedChapterIds = it },
                     expandedSectionIds = expandedSectionIds,

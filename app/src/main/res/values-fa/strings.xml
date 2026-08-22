@@ -70,6 +70,7 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">%1$s%% از قرآن · تاکنون %2$s%% پوشش داده شده</string>
     <string name="home_continue_learning">ادامه یادگیری</string>
+    <string name="roadmap_title">نقشه راه</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">بررسی</string>
