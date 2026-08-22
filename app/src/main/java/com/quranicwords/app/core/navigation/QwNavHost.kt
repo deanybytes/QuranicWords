@@ -32,6 +32,7 @@ import com.quranicwords.app.feature.onboarding.learningstyle.LearningStyleSelect
 import com.quranicwords.app.feature.onboarding.pathselect.PathSelectScreen
 import com.quranicwords.app.feature.roadmap.RoadmapScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
+import com.quranicwords.app.feature.splash.OnboardingInvocationScreen
 import com.quranicwords.app.feature.splash.SplashScreen
 
 private typealias EnterSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
@@ -177,8 +178,19 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             DailyGoalSelectScreen(
                 onContinue = {
-                    navController.navigate(Route.Home) {
+                    navController.navigate(Route.OnboardingInvocation) {
                         popUpTo(Route.DailyGoalSelect) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<Route.OnboardingInvocation>(
+            exitTransition = t.crossfadeExit
+        ) {
+            OnboardingInvocationScreen(
+                onFinished = {
+                    navController.navigate(Route.Home) {
+                        popUpTo(Route.OnboardingInvocation) { inclusive = true }
                     }
                 }
             )

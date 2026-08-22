@@ -37,10 +37,12 @@ import com.quranicwords.app.core.ui.motion.rememberReducedMotion
  * The in-app decision screen shown after the platform SplashScreen API's brief cold-start
  * window - runs first-launch content seeding and routes to wherever onboarding left off.
  *
- * Plays [OpeningInvocationSequence] first, every launch (not gated on first-run) - the
- * Ta'awwudh, then the Basmala, then "Rabbi zidni ilma" pulsed three times. See that
- * composable's doc comment for why this is a deliberate, narrow exception to the guardrail
- * below rather than a contradiction of it.
+ * Plays [OpeningInvocationSequence] only when [destination] resolves straight to [Route.Home] -
+ * i.e. every later cold start for an already-onboarded learner, not a first-time user still
+ * headed into onboarding. A first-time user gets the invocation later instead, at the true end
+ * of onboarding (`Route.OnboardingInvocation`, from `DailyGoalSelect`) - playing it here for that
+ * case would render it before [Route.LanguageSelect] has ever run, in the device's raw system
+ * locale rather than the learner's own chosen one. See that route's doc comment.
  *
  * After the invocation finishes (or is tapped through early), the ceremonial "opening" moment
  * (redesign plan): an ambient low-opacity geometric lattice behind a spring-scaled logo reveal -
@@ -55,12 +57,14 @@ fun SplashScreen(
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val reducedMotion = rememberReducedMotion()
     var invocationFinished by remember { mutableStateOf(false) }
+    val playsInvocationHere = destination == Route.Home
 
     LaunchedEffect(destination, invocationFinished) {
-        if (invocationFinished) destination?.let(onNavigateTo)
+        val dest = destination ?: return@LaunchedEffect
+        if (dest != Route.Home || invocationFinished) onNavigateTo(dest)
     }
 
-    if (!invocationFinished) {
+    if (playsInvocationHere && !invocationFinished) {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             OpeningInvocationSequence(
                 reducedMotion = reducedMotion,

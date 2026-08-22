@@ -12,6 +12,12 @@ sealed interface Route {
     @Serializable data object FontSelect : Route
     @Serializable data object LearningStyleSelect : Route
     @Serializable data object DailyGoalSelect : Route
+    /** Plays the opening invocation exactly once, right at the true end of onboarding (navigated
+     * to from [DailyGoalSelect]) - after the learner has actually chosen a language, so it renders
+     * in their own language instead of the device's raw system locale the way playing it before
+     * [LanguageSelect] would. See `SplashScreen`'s own doc comment for why *that* screen no longer
+     * plays it for a first-time user. */
+    @Serializable data object OnboardingInvocation : Route
     @Serializable data object Home : Route
     @Serializable data class ChapterIntro(val chapterId: String) : Route
     @Serializable data class SectionIntro(val sectionId: String) : Route
