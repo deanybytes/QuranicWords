@@ -134,7 +134,15 @@ fun HomeScreen(
         }
     ) { padding ->
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
-            GeometricPatternBackground(modifier = Modifier.fillMaxSize(), alpha = 0.03f)
+            // Raised from the original 0.03f/status-strip-only treatment - the old combination
+            // read as a flat, empty page. Both layers stay low-alpha and purely ambient (never
+            // competing with card/path content), now drawn in the brand palette from Color.kt.
+            GeometricPatternBackground(modifier = Modifier.fillMaxSize(), alpha = 0.08f)
+            StarfieldMotif(
+                modifier = Modifier.fillMaxSize(),
+                starCount = 24,
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.04f)
+            )
 
             Column(modifier = Modifier.fillMaxSize()) {
                 Box {

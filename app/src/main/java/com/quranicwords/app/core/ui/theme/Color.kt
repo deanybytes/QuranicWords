@@ -2,61 +2,68 @@ package com.quranicwords.app.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// "Illuminated manuscript" palette - deep emerald + warm gold + parchment cream, hand-authored so
-// the brand identity stays consistent regardless of the user's wallpaper (dynamic color is
-// deliberately disabled, see Theme.kt). Deepened from the prior flat forest-green scheme and
-// warmed off pure white/black so surfaces read as parchment rather than generic Material default.
+// Brand palette, derived from the app logo's actual colors - gold #ebc971, dark green #053827,
+// light green #7ed957, green #00bf63, white - hand-authored so the brand identity stays
+// consistent regardless of the user's wallpaper (dynamic color is deliberately disabled, see
+// Theme.kt). `primary` is a deepened variant of the brand green (#00bf63 itself fails WCAG AA
+// contrast with white text, ~2.4:1 - #007A42 clears 5.4:1) so filled buttons stay legible;
+// #00bf63/#7ed957 still appear directly as container/dark-scheme accents where contrast allows.
+// Every on*/* pair below was checked against WCAG AA (4.5:1 text) before being finalized.
 
-val md_theme_light_primary = Color(0xFF0B6E4F)
+val md_theme_light_primary = Color(0xFF007A42)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
-val md_theme_light_primaryContainer = Color(0xFFB7F2D5)
-val md_theme_light_onPrimaryContainer = Color(0xFF00210F)
-val md_theme_light_secondary = Color(0xFF52634F)
+val md_theme_light_primaryContainer = Color(0xFFD3F5C4)
+val md_theme_light_onPrimaryContainer = Color(0xFF053827)
+val md_theme_light_secondary = Color(0xFF4C7A44)
 val md_theme_light_onSecondary = Color(0xFFFFFFFF)
-val md_theme_light_secondaryContainer = Color(0xFFD5E8CF)
-val md_theme_light_onSecondaryContainer = Color(0xFF101F0F)
+val md_theme_light_secondaryContainer = Color(0xFFDCEFD2)
+val md_theme_light_onSecondaryContainer = Color(0xFF1B3213)
 // Tertiary is the gold family - the same accent family as StreakAccent below, used for
-// premium/celebratory UI (medallions, podium framing, display-title underlines).
-val md_theme_light_tertiary = Color(0xFF8A6D00)
-val md_theme_light_onTertiary = Color(0xFFFFFFFF)
-val md_theme_light_tertiaryContainer = Color(0xFFFFE08C)
-val md_theme_light_onTertiaryContainer = Color(0xFF261A00)
+// premium/celebratory UI (medallions, podium framing, display-title underlines). #ebc971 is
+// light enough that it needs a dark (not white) on-color, unlike the darker gold this replaces.
+val md_theme_light_tertiary = Color(0xFFEBC971)
+val md_theme_light_onTertiary = Color(0xFF053827)
+val md_theme_light_tertiaryContainer = Color(0xFFFBEFD1)
+val md_theme_light_onTertiaryContainer = Color(0xFF053827)
 val md_theme_light_error = Color(0xFFBA1A1A)
 val md_theme_light_onError = Color(0xFFFFFFFF)
 val md_theme_light_errorContainer = Color(0xFFFFDAD6)
 val md_theme_light_onErrorContainer = Color(0xFF410002)
 val md_theme_light_background = Color(0xFFFBF6EC)
-val md_theme_light_onBackground = Color(0xFF1F1B13)
+val md_theme_light_onBackground = Color(0xFF053827)
 val md_theme_light_surface = Color(0xFFFBF6EC)
-val md_theme_light_onSurface = Color(0xFF1F1B13)
-val md_theme_light_surfaceVariant = Color(0xFFEBE1CB)
-val md_theme_light_onSurfaceVariant = Color(0xFF4B4636)
-val md_theme_light_outline = Color(0xFF7C7564)
+val md_theme_light_onSurface = Color(0xFF053827)
+val md_theme_light_surfaceVariant = Color(0xFFEAE4D2)
+val md_theme_light_onSurfaceVariant = Color(0xFF3F4A3F)
+val md_theme_light_outline = Color(0xFF74806F)
 
-val md_theme_dark_primary = Color(0xFF7FDDB0)
-val md_theme_dark_onPrimary = Color(0xFF00382A)
-val md_theme_dark_primaryContainer = Color(0xFF00543D)
-val md_theme_dark_onPrimaryContainer = Color(0xFFB7F2D5)
-val md_theme_dark_secondary = Color(0xFFB9CCB3)
-val md_theme_dark_onSecondary = Color(0xFF243422)
-val md_theme_dark_secondaryContainer = Color(0xFF3A4B37)
-val md_theme_dark_onSecondaryContainer = Color(0xFFD5E8CF)
-val md_theme_dark_tertiary = Color(0xFFE8C36B)
-val md_theme_dark_onTertiary = Color(0xFF3E2E00)
-val md_theme_dark_tertiaryContainer = Color(0xFF574200)
-val md_theme_dark_onTertiaryContainer = Color(0xFFFFE08C)
+// Dark background/surface is the brand dark green itself (#053827) - it already equals
+// colors.xml's ic_launcher_background, so dark mode now literally matches the launcher icon.
+val md_theme_dark_primary = Color(0xFF7ED957)
+val md_theme_dark_onPrimary = Color(0xFF053827)
+val md_theme_dark_primaryContainer = Color(0xFF0B5A38)
+val md_theme_dark_onPrimaryContainer = Color(0xFFCFF5DC)
+val md_theme_dark_secondary = Color(0xFFA9D9A0)
+val md_theme_dark_onSecondary = Color(0xFF1B3213)
+val md_theme_dark_secondaryContainer = Color(0xFF2E4A28)
+val md_theme_dark_onSecondaryContainer = Color(0xFFD6EFC9)
+val md_theme_dark_tertiary = Color(0xFFEBC971)
+val md_theme_dark_onTertiary = Color(0xFF053827)
+val md_theme_dark_tertiaryContainer = Color(0xFF4A3B0F)
+val md_theme_dark_onTertiaryContainer = Color(0xFFFBEFD1)
 val md_theme_dark_error = Color(0xFFFFB4AB)
 val md_theme_dark_onError = Color(0xFF690005)
 val md_theme_dark_errorContainer = Color(0xFF93000A)
 val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
-val md_theme_dark_background = Color(0xFF15130D)
-val md_theme_dark_onBackground = Color(0xFFE9E2D3)
-val md_theme_dark_surface = Color(0xFF15130D)
-val md_theme_dark_onSurface = Color(0xFFE9E2D3)
-val md_theme_dark_surfaceVariant = Color(0xFF4B4636)
-val md_theme_dark_onSurfaceVariant = Color(0xFFCFC6AE)
-val md_theme_dark_outline = Color(0xFF988F79)
+val md_theme_dark_background = Color(0xFF053827)
+val md_theme_dark_onBackground = Color(0xFFF2F7F0)
+val md_theme_dark_surface = Color(0xFF053827)
+val md_theme_dark_onSurface = Color(0xFFF2F7F0)
+val md_theme_dark_surfaceVariant = Color(0xFF1E3B2E)
+val md_theme_dark_onSurfaceVariant = Color(0xFFC4D6C9)
+val md_theme_dark_outline = Color(0xFF7FA08D)
 
-/** Warm gold used for streak flames/point badges - same family as the tertiary role above, kept
- * as a standalone token since components reference it directly rather than through the theme. */
-val StreakAccent = Color(0xFFF9A825)
+/** Brand gold, used for streak flames/point badges/logo glow - same family as the tertiary role
+ * above, kept as a standalone token since components reference it directly rather than through
+ * the theme. */
+val StreakAccent = Color(0xFFEBC971)
