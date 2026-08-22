@@ -80,6 +80,13 @@ fun LessonScreen(
         }
     }
 
+    // Matching only flips isChecked on its LAST pair (see LessonViewModel.selectMatchingRight) -
+    // without this, every mismatched tap on an earlier pair played the wrong sound with no
+    // vibration to match, since the effect above never fires until the exercise is fully solved.
+    LaunchedEffect(uiState.attempt.lastMismatch) {
+        if (uiState.attempt.lastMismatch != null) haptics.onIncorrectAnswer()
+    }
+
     LaunchedEffect(uiState.isFinished) {
         val result = uiState.result
         if (uiState.isFinished && result != null) {

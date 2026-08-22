@@ -38,7 +38,13 @@ sealed interface ExerciseContent {
     @SerialName("matching")
     data class Matching(
         override val prompt: LocalizedText,
-        val pairs: List<MatchPair>
+        val pairs: List<MatchPair>,
+        /** An extra, never-matchable meaning-side option - runtime-regenerated per lesson entry
+         * (see `LessonViewModel.regenerateDistractors`), same "not baked into content JSON"
+         * discipline as [OptionsBearing]'s options. `null` for legacy content whose pairs carry no
+         * [MatchPair.wordId] to search a distractor around, or if content is too sparse to find
+         * one - the extra tile simply doesn't render in that case. */
+        val distractorRight: ChoiceOption? = null
     ) : ExerciseContent
 
     /**

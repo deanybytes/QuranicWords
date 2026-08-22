@@ -79,4 +79,42 @@ class DistractorGeneratorTest {
         val distractors = DistractorGenerator.pickDistractors("correct", pool(*words.toTypedArray()), emptySet(), count = 100)
         assertFalse("justOutside" in distractors)
     }
+
+    @Test
+    fun `pickMatchingDistractor excludes every id in the used set, not just the anchor`() {
+        val candidates = pool(
+            word("p1", rank = 100),
+            word("p2", rank = 101),
+            word("p3", rank = 102),
+            word("extra", rank = 103)
+        )
+        val distractor = DistractorGenerator.pickMatchingDistractor(
+            usedWordIds = setOf("p1", "p2", "p3"),
+            pool = candidates,
+            missedItemIds = emptySet()
+        )
+        assertEquals("extra", distractor)
+    }
+
+    @Test
+    fun `pickMatchingDistractor returns null when no candidate exists outside the used set`() {
+        val candidates = pool(word("p1", rank = 1), word("p2", rank = 2))
+        val distractor = DistractorGenerator.pickMatchingDistractor(
+            usedWordIds = setOf("p1", "p2"),
+            pool = candidates,
+            missedItemIds = emptySet()
+        )
+        assertEquals(null, distractor)
+    }
+
+    @Test
+    fun `pickMatchingDistractor returns null for an empty used set - legacy content with no wordIds`() {
+        val candidates = pool(word("p1", rank = 1), word("p2", rank = 2))
+        val distractor = DistractorGenerator.pickMatchingDistractor(
+            usedWordIds = emptySet(),
+            pool = candidates,
+            missedItemIds = emptySet()
+        )
+        assertEquals(null, distractor)
+    }
 }
