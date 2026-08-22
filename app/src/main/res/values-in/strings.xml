@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">Ini akan menghapus progres pelajaran, poin, rentetan, dan riwayat latihan Anda secara permanen di perangkat ini. Bahasa, mode, dan pengaturan lain Anda tidak akan berubah. Tindakan ini tidak dapat dibatalkan.</string>
     <string name="settings_reset_progress_confirm_button">Atur Ulang</string>
     <string name="settings_reset_progress_done">Progres telah diatur ulang.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">Tempat Tujuan DEANY Bertemu BYTES Digital.</string>
+    <string name="settings_section_connect">Terhubung</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">Email</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

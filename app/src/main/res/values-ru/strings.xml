@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">Это навсегда удалит ваш прогресс уроков, очки, серию и историю практики на этом устройстве. Ваш язык, режим и другие настройки не изменятся. Это действие нельзя отменить.</string>
     <string name="settings_reset_progress_confirm_button">Сбросить</string>
     <string name="settings_reset_progress_done">Прогресс сброшен.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">Где цель DEANY встречается с цифровыми BYTES.</string>
+    <string name="settings_section_connect">Связаться</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">Эл. почта</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

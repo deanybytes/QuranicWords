@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">Dies löscht dauerhaft deinen Lektionsfortschritt, Punkte, Serie und Übungsverlauf auf diesem Gerät. Deine Sprache, dein Modus und andere Einstellungen ändern sich nicht. Dies kann nicht rückgängig gemacht werden.</string>
     <string name="settings_reset_progress_confirm_button">Zurücksetzen</string>
     <string name="settings_reset_progress_done">Fortschritt wurde zurückgesetzt.</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">Wo DEANY-Zweck auf digitale BYTES trifft.</string>
+    <string name="settings_section_connect">Verbinden</string>
+    <string name="settings_connect_github">GitHub</string>
+    <string name="settings_connect_youtube">YouTube</string>
+    <string name="settings_connect_email">E-Mail</string>
+    <string name="settings_connect_telegram">Telegram</string>
+    <string name="settings_connect_whatsapp">WhatsApp</string>
 </resources>

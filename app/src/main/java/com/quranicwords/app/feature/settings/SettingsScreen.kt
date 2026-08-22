@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -19,6 +20,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Chat
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,6 +48,7 @@ import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +57,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -402,6 +410,11 @@ fun SettingsScreen(
                     color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.18f)
                 )
             }
+            Text(
+                stringResource(R.string.settings_motto),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary
+            )
             Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
             Text(
                 stringResource(R.string.settings_content_provenance_note),
@@ -411,6 +424,36 @@ fun SettingsScreen(
             QwSecondaryButton(
                 text = stringResource(R.string.settings_licenses_button),
                 onClick = { showLicenses = true }
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+            SectionTitle(stringResource(R.string.settings_section_connect))
+            val uriHandler = LocalUriHandler.current
+            ConnectLinkRow(
+                icon = Icons.Filled.Code,
+                label = stringResource(R.string.settings_connect_github),
+                onClick = { uriHandler.openUri("https://github.com/deanybytes/QuranicWords") }
+            )
+            ConnectLinkRow(
+                icon = Icons.Filled.PlayCircle,
+                label = stringResource(R.string.settings_connect_youtube),
+                onClick = { uriHandler.openUri("https://youtube.com/@deanytalks") }
+            )
+            ConnectLinkRow(
+                icon = Icons.Filled.Email,
+                label = stringResource(R.string.settings_connect_email),
+                onClick = { uriHandler.openUri("mailto:deanybytes@gmail.com") }
+            )
+            ConnectLinkRow(
+                icon = Icons.AutoMirrored.Filled.Send,
+                label = stringResource(R.string.settings_connect_telegram),
+                onClick = { uriHandler.openUri("https://t.me/deanytalks") }
+            )
+            ConnectLinkRow(
+                icon = Icons.AutoMirrored.Filled.Chat,
+                label = stringResource(R.string.settings_connect_whatsapp),
+                onClick = { uriHandler.openUri("https://whatsapp.com/channel/0029VaLkfgUEwEk0cgLkcD3G") }
             )
         } }
         }
@@ -477,6 +520,25 @@ fun SettingsScreen(
                 }
             }
         )
+    }
+}
+
+/** One row in the About section's "Connect" list - opens an external link/app via
+ * [LocalUriHandler] (browser, mail client, or the Telegram/WhatsApp app if installed). URLs are
+ * user-supplied contact channels, not seeded content, so they're plain hardcoded strings here
+ * rather than a data/domain model. */
+@Composable
+private fun ConnectLinkRow(icon: ImageVector, label: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+        Text(label, style = MaterialTheme.typography.bodyLarge)
     }
 }
 

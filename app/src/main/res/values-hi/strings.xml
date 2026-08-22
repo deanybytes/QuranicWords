@@ -218,4 +218,13 @@
     <string name="settings_reset_progress_confirm_message">यह इस डिवाइस पर आपकी पाठ प्रगति, अंक, स्ट्रीक और अभ्यास इतिहास को स्थायी रूप से मिटा देगा। आपकी भाषा, मोड और अन्य सेटिंग्स नहीं बदलेंगी। इसे पूर्ववत नहीं किया जा सकता।</string>
     <string name="settings_reset_progress_confirm_button">रीसेट करें</string>
     <string name="settings_reset_progress_done">प्रगति रीसेट कर दी गई है।</string>
+
+    <!-- Settings: About motto + Connect links -->
+    <string name="settings_motto">जहाँ DEANY का उद्देश्य डिजिटल BYTES से मिलता है।</string>
+    <string name="settings_section_connect">जुड़ें</string>
+    <string name="settings_connect_github">गिटहब</string>
+    <string name="settings_connect_youtube">यूट्यूब</string>
+    <string name="settings_connect_email">ईमेल</string>
+    <string name="settings_connect_telegram">टेलीग्राम</string>
+    <string name="settings_connect_whatsapp">व्हाट्सएप</string>
 </resources>
