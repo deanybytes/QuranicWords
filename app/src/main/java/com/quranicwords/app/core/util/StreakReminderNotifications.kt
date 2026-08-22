@@ -59,10 +59,16 @@ object StreakReminderNotifications {
         // generic reminder, so this notification doubles as the "prior warning" that feature
         // needs without a second notification channel/worker.
         val bodyRes = if (currentStreak >= 7) R.string.notification_streak_body_recoverable else R.string.notification_streak_body
+        val body = context.getString(bodyRes, currentStreak)
+        // Expanded (long-press/swipe-open) form only - the collapsed contentText stays the short
+        // streak-specific line so the notification shade isn't dominated by the citation; the
+        // hadith is the "why regular practice matters" reinforcement for whoever expands it.
+        val expandedBody = "$body\n\n${context.getString(R.string.hadith_consistency_quote)}"
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification_streak)
             .setContentTitle(context.getString(R.string.notification_streak_title))
-            .setContentText(context.getString(bodyRes, currentStreak))
+            .setContentText(body)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(expandedBody))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setContentIntent(openAppIntent)

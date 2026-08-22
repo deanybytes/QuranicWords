@@ -11,6 +11,7 @@ import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
+import com.quranicwords.app.core.domain.InactivityDuration
 import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
@@ -80,7 +81,11 @@ data class HomeUiState(
      * streak badge with a "Streak Locked" chip into `Route.StreakRecovery` when true. */
     val isStreakLocked: Boolean = false,
     /** How many questions the recovery quiz needs - only meaningful when [isStreakLocked]. */
-    val streakRecoveryQuestionCount: Int = 0
+    val streakRecoveryQuestionCount: Int = 0,
+    /** How long it's been since the learner last practiced - only meaningful when
+     * [isStreakLocked]. Drives the "lost due to inactivity for N days/months/years" unlock
+     * dialog. */
+    val streakInactivityDuration: InactivityDuration? = null
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -232,7 +237,8 @@ class HomeViewModel @Inject constructor(
                     ),
                     isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId),
                     isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
-                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0
+                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
+                    streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate)
                 )
             }.collect { _uiState.value = it }
         }

@@ -5,6 +5,15 @@
     <string name="streak_content_description">%d günlük seri</string>
     <string name="streak_locked_label">Seri Kilitli</string>
     <string name="streak_locked_recover_hint">Kurtarmak için %d soruyu yanıtla</string>
+    <string name="streak_locked_dialog_title">Serin kilitli</string>
+    <string name="streak_locked_dialog_message">Serin, %s süren hareketsizlik nedeniyle kaybedildi. Kilidini açmak ve devam etmek için kısa bir test yap.</string>
+    <string name="streak_locked_inactivity_days">%d gün</string>
+    <string name="streak_locked_inactivity_months">%d ay</string>
+    <string name="streak_locked_inactivity_years">%d yıl</string>
+    <string name="streak_locked_take_test">Teste Gir</string>
+    <string name="streak_locked_later">Daha Sonra</string>
+    <string name="hadith_consistency_quote">Peygamber ﷺ şöyle buyurdu: \"Allah\'a en sevimli ameller, az da olsa düzenli yapılanlardır.\"</string>
+    <string name="hadith_consistency_reference">Sahih-i Buhari 6465</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>

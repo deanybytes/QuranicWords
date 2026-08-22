@@ -23,7 +23,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -39,6 +42,7 @@ import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.StreakLockedChip
+import com.quranicwords.app.core.ui.components.StreakLockedDialog
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.theme.Elevation
 
@@ -57,6 +61,18 @@ fun TestOnlyHomeScreen(
     viewModel: TestOnlyHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    var streakLockedDialogDismissed by rememberSaveable(uiState.isStreakLocked) { mutableStateOf(false) }
+    if (uiState.isStreakLocked && !streakLockedDialogDismissed) {
+        StreakLockedDialog(
+            inactivityDuration = uiState.streakInactivityDuration,
+            onTakeTest = {
+                streakLockedDialogDismissed = true
+                onOpenStreakRecovery()
+            },
+            onDismiss = { streakLockedDialogDismissed = true }
+        )
+    }
 
     Scaffold(
         topBar = { TopAppBar(title = { Text(stringResource(R.string.home_title)) }) }

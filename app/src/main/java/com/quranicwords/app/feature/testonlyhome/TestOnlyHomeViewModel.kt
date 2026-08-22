@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.domain.DailyGoalCalculator
+import com.quranicwords.app.core.domain.InactivityDuration
 import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ data class TestOnlyHomeUiState(
     val isDailyGoalMetToday: Boolean = false,
     /** See [StreakRecovery.isLocked]. */
     val isStreakLocked: Boolean = false,
-    val streakRecoveryQuestionCount: Int = 0
+    val streakRecoveryQuestionCount: Int = 0,
+    val streakInactivityDuration: InactivityDuration? = null
 )
 
 /**

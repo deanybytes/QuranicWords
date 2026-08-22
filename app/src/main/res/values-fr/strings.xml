@@ -5,6 +5,15 @@
     <string name="streak_content_description">%d jours de suite</string>
     <string name="streak_locked_label">Série verrouillée</string>
     <string name="streak_locked_recover_hint">Répondez à %d questions pour la récupérer</string>
+    <string name="streak_locked_dialog_title">Votre série est verrouillée</string>
+    <string name="streak_locked_dialog_message">Votre série a été perdue en raison d\'une inactivité de %s. Passez un test rapide pour la déverrouiller et continuer.</string>
+    <string name="streak_locked_inactivity_days">%d jours</string>
+    <string name="streak_locked_inactivity_months">%d mois</string>
+    <string name="streak_locked_inactivity_years">%d ans</string>
+    <string name="streak_locked_take_test">Passer le test</string>
+    <string name="streak_locked_later">Plus tard</string>
+    <string name="hadith_consistency_quote">Le Prophète ﷺ a dit : « Les actions les plus aimées d\'Allah sont celles faites régulièrement, même si elles sont petites. »</string>
+    <string name="hadith_consistency_reference">Sahih al-Boukhari 6465</string>
 
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>

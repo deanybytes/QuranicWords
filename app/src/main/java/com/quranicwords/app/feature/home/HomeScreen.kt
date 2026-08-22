@@ -55,6 +55,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -92,6 +93,7 @@ import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.StarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.StreakLockedChip
+import com.quranicwords.app.core.ui.components.StreakLockedDialog
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
@@ -151,6 +153,21 @@ fun HomeScreen(
     // so a newly-completed lesson elsewhere doesn't yank the learner's browse position.
     var historyIndex by rememberSaveable { mutableIntStateOf(0) }
     val clampedHistoryIndex = historyIndex.coerceIn(0, (uiState.completedHistory.size - 1).coerceAtLeast(0))
+
+    // Dialog auto-shows once per lock episode (reset by the recovery flow, since a successful
+    // recovery flips isStreakLocked back to false) - rememberSaveable so a config change or
+    // tab-switch-away-and-back while it's dismissed doesn't pop it right back up.
+    var streakLockedDialogDismissed by rememberSaveable(uiState.isStreakLocked) { mutableStateOf(false) }
+    if (uiState.isStreakLocked && !streakLockedDialogDismissed) {
+        StreakLockedDialog(
+            inactivityDuration = uiState.streakInactivityDuration,
+            onTakeTest = {
+                streakLockedDialogDismissed = true
+                onOpenStreakRecovery()
+            },
+            onDismiss = { streakLockedDialogDismissed = true }
+        )
+    }
 
     // Seeds the expand state from the learner's real current position exactly once, the first
     // time it becomes available - never re-forces expansion afterward, so a manual collapse by
