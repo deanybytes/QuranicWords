@@ -79,6 +79,8 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">কুরআনের %1$s%% · এখন পর্যন্ত মোট %2$s%% কভার হয়েছে</string>
     <string name="home_continue_learning">শেখা চালিয়ে যান</string>
+    <string name="home_curriculum_complete_title">আপনি পুরো পাঠ্যক্রম সম্পন্ন করেছেন!</string>
+    <string name="home_curriculum_complete_subtitle">র‍্যান্ডম প্রশ্নের মাধ্যমে চর্চা চালিয়ে যেতে ট্যাপ করুন</string>
     <string name="roadmap_title">রোডম্যাপ</string>
     <string name="home_history_title">সম্প্রতি সম্পন্ন হয়েছে</string>
     <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>

@@ -71,7 +71,10 @@ data class HomeUiState(
      * Live (see [ProgressRepository.observeTodayPractice]), not a one-shot snapshot, so it flips
      * true the moment a lesson finishing today crosses the goal without needing this ViewModel
      * to be recreated. */
-    val isDailyGoalMetToday: Boolean = false
+    val isDailyGoalMetToday: Boolean = false,
+    /** Every lesson across the whole curriculum tree is COMPLETED - see [isCurriculumComplete].
+     * Drives the "no dead end" celebratory card + Open Practice loop at the top of Home. */
+    val isCurriculumComplete: Boolean = false
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -158,6 +161,20 @@ fun stepHistoryIndex(currentIndex: Int, size: Int, delta: Int): Int {
     return (currentIndex + delta).coerceIn(0, size - 1)
 }
 
+/** Pure derivation, no DB access - true only when every lesson across the whole curriculum tree
+ * (section lessons + every chapter's trailing exam/flashback lessons, all chapters) is
+ * COMPLETED. An empty tree (seeding hasn't produced any chapters yet) is deliberately false, not
+ * vacuously true - there's nothing to celebrate finishing if nothing was ever loaded. */
+fun isCurriculumComplete(chapters: List<ChapterWithSections>, progressByLessonId: Map<String, UserProgressEntity>): Boolean {
+    if (chapters.isEmpty()) return false
+    val allLessonIds = chapters.flatMap { chapterWithSections ->
+        chapterWithSections.sections.flatMap { s -> s.lessons.map { it.id } } +
+            chapterWithSections.chapterLevelLessons.map { it.id }
+    }
+    if (allLessonIds.isEmpty()) return false
+    return allLessonIds.all { progressByLessonId[it]?.status == LessonStatus.COMPLETED }
+}
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
@@ -205,7 +222,8 @@ class HomeViewModel @Inject constructor(
                     isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(
                         todayPractice?.minutesPracticed ?: 0,
                         goalLevel.minutes
-                    )
+                    ),
+                    isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId)
                 )
             }.collect { _uiState.value = it }
         }

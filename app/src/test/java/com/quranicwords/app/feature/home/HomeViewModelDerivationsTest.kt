@@ -171,4 +171,38 @@ class HomeViewModelDerivationsTest {
     fun `stepHistoryIndex on an empty history is always zero`() {
         assertEquals(0, stepHistoryIndex(currentIndex = 0, size = 0, delta = 1))
     }
+
+    // --- isCurriculumComplete ---
+
+    @Test
+    fun `isCurriculumComplete is true when every lesson across every chapter is completed`() {
+        val allComplete = progress(
+            "l1" to LessonStatus.COMPLETED,
+            "l2" to LessonStatus.COMPLETED,
+            "chapter_1_exam" to LessonStatus.COMPLETED,
+            "l3" to LessonStatus.COMPLETED
+        )
+        assertEquals(true, isCurriculumComplete(chapters, allComplete))
+    }
+
+    @Test
+    fun `isCurriculumComplete is false when one lesson is still unlocked`() {
+        val almostComplete = progress(
+            "l1" to LessonStatus.COMPLETED,
+            "l2" to LessonStatus.COMPLETED,
+            "chapter_1_exam" to LessonStatus.COMPLETED,
+            "l3" to LessonStatus.UNLOCKED
+        )
+        assertEquals(false, isCurriculumComplete(chapters, almostComplete))
+    }
+
+    @Test
+    fun `isCurriculumComplete is false with no progress at all`() {
+        assertEquals(false, isCurriculumComplete(chapters, emptyMap()))
+    }
+
+    @Test
+    fun `isCurriculumComplete is false for an empty curriculum tree, not vacuously true`() {
+        assertEquals(false, isCurriculumComplete(emptyList(), emptyMap()))
+    }
 }

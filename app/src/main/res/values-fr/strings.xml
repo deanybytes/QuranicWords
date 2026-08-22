@@ -79,6 +79,8 @@
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">%1$s %% du Coran · %2$s %% couvert jusqu\'ici</string>
     <string name="home_continue_learning">Continuer l\'apprentissage</string>
+    <string name="home_curriculum_complete_title">Vous avez terminé tout le programme !</string>
+    <string name="home_curriculum_complete_subtitle">Appuyez pour continuer à vous entraîner avec des questions aléatoires</string>
     <string name="roadmap_title">Feuille de route</string>
     <string name="home_history_title">Récemment terminé</string>
     <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
