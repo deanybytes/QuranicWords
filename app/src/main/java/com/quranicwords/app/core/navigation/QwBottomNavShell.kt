@@ -19,10 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.feature.home.HomeScreen
 import com.quranicwords.app.feature.progress.ProgressScreen
 import com.quranicwords.app.feature.settings.SettingsScreen
+import com.quranicwords.app.feature.testonlyhome.TestOnlyHomeScreen
 
 private enum class BottomTab { HOME, PROGRESS, SETTINGS }
 
@@ -45,11 +49,14 @@ fun QwBottomNavShell(
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
-    onOpenRoadmap: () -> Unit
+    onOpenRoadmap: () -> Unit,
+    onOpenOpenPractice: () -> Unit,
+    viewModel: QwBottomNavShellViewModel = hiltViewModel()
 ) {
     var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
     var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
     var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
+    val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
 
     Scaffold(
         bottomBar = {
@@ -77,18 +84,22 @@ fun QwBottomNavShell(
     ) { padding ->
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
             when (selectedTab) {
-                BottomTab.HOME -> HomeScreen(
-                    onOpenLesson = onOpenLesson,
-                    onOpenReview = onOpenReview,
-                    onOpenChapterIntro = onOpenChapterIntro,
-                    onOpenSectionIntro = onOpenSectionIntro,
-                    onOpenWordBrowse = onOpenWordBrowse,
-                    onOpenRoadmap = onOpenRoadmap,
-                    expandedChapterIds = expandedChapterIds,
-                    onExpandedChapterIdsChange = { expandedChapterIds = it },
-                    expandedSectionIds = expandedSectionIds,
-                    onExpandedSectionIdsChange = { expandedSectionIds = it }
-                )
+                BottomTab.HOME -> if (learningPath == LearningPath.TEST_ONLY) {
+                    TestOnlyHomeScreen(onStartQuiz = onOpenOpenPractice)
+                } else {
+                    HomeScreen(
+                        onOpenLesson = onOpenLesson,
+                        onOpenReview = onOpenReview,
+                        onOpenChapterIntro = onOpenChapterIntro,
+                        onOpenSectionIntro = onOpenSectionIntro,
+                        onOpenWordBrowse = onOpenWordBrowse,
+                        onOpenRoadmap = onOpenRoadmap,
+                        expandedChapterIds = expandedChapterIds,
+                        onExpandedChapterIdsChange = { expandedChapterIds = it },
+                        expandedSectionIds = expandedSectionIds,
+                        onExpandedSectionIdsChange = { expandedSectionIds = it }
+                    )
+                }
                 BottomTab.PROGRESS -> ProgressScreen()
                 BottomTab.SETTINGS -> SettingsScreen(onBack = {}, showBackButton = false)
             }

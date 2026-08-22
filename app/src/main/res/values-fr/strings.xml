@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">Assidu</string>
     <string name="daily_goal_minutes_suffix">%d minutes par jour</string>
     <string name="home_daily_challenge_completed">Défi quotidien terminé</string>
+    <string name="test_only_start_quiz_title">Démarrer un quiz</string>
+    <string name="test_only_start_quiz_subtitle">Questions aléatoires sur des mots que vous connaissez déjà</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Choisissez votre style d\'apprentissage</string>

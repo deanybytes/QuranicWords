@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">Усердный</string>
     <string name="daily_goal_minutes_suffix">%d минут в день</string>
     <string name="home_daily_challenge_completed">Дневное задание выполнено</string>
+    <string name="test_only_start_quiz_title">Начать викторину</string>
+    <string name="test_only_start_quiz_subtitle">Случайные вопросы по уже известным вам словам</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Выберите стиль обучения</string>

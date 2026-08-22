@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">专注</string>
     <string name="daily_goal_minutes_suffix">每天%d分钟</string>
     <string name="home_daily_challenge_completed">每日挑战已完成</string>
+    <string name="test_only_start_quiz_title">开始测验</string>
+    <string name="test_only_start_quiz_subtitle">从您已经知道的单词中随机出题</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">选择你的学习方式</string>

@@ -39,6 +39,8 @@
     <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d minutes a day</string>
     <string name="home_daily_challenge_completed">Daily challenge completed</string>
+    <string name="test_only_start_quiz_title">Start a Quiz</string>
+    <string name="test_only_start_quiz_subtitle">Random questions from words you already know</string>
 
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Choose your learning style</string>
