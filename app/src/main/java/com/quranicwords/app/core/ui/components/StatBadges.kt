@@ -1,11 +1,16 @@
 package com.quranicwords.app.core.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,6 +64,42 @@ fun StreakBadge(streakDays: Int, modifier: Modifier = Modifier) {
         ) {
             StreakFlame(streakDays = streakDays)
             Text(animatedStreak.toString(), color = MaterialTheme.colorScheme.onTertiaryContainer)
+        }
+    }
+}
+
+/** The "daily challenge completed" indicator (item 5 of the original redesign request) - a
+ * celebratory scale+fade reveal (matching the reward-moment vocabulary already used at lesson-
+ * complete/achievement-unlock) rather than a plain conditional row, since crossing today's goal
+ * is itself a small reward moment worth marking distinctly from the neutral points/streak badges
+ * beside it. [visible] is expected to flip live as the learner practices (see
+ * [com.quranicwords.app.feature.home.HomeUiState.isDailyGoalMetToday]), not just on first load. */
+@Composable
+fun DailyGoalBadge(visible: Boolean, modifier: Modifier = Modifier) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = scaleIn(animationSpec = MotionSpecs.celebratory()) + fadeIn(),
+        exit = fadeOut(),
+        modifier = modifier
+    ) {
+        Surface(
+            shape = RoundedCornerShape(50),
+            color = MaterialTheme.colorScheme.primaryContainer
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                Text(
+                    stringResource(R.string.home_daily_challenge_completed),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
         }
     }
 }

@@ -162,6 +162,9 @@ class ProgressRepositoryImpl @Inject constructor(
         database.dailyPracticeDao().getAllForUserOnce(userId)
     }
 
+    override fun observeTodayPractice(userId: String, localDate: String): Flow<DailyPracticeEntity?> =
+        database.dailyPracticeDao().observe(userId, localDate)
+
     override suspend fun getReviewExercises(missedItemIds: List<String>, limit: Int): List<ExerciseEntity> =
         withContext(Dispatchers.IO) {
             if (missedItemIds.isEmpty()) return@withContext emptyList()

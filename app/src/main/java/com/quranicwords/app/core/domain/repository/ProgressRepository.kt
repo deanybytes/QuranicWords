@@ -57,6 +57,12 @@ interface ProgressRepository {
      * the way [observeProgress] does). */
     suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity>
 
+    /** Live today's-practice row, unlike [getDailyPracticeHistory] - backs Home's "daily challenge
+     * completed" indicator, which needs to flip on the instant a lesson finishing today pushes
+     * the learner over their goal, without waiting for [HomeViewModel] to be recreated. Null means
+     * zero minutes practiced today (no row written yet), not an error. */
+    fun observeTodayPractice(userId: String, localDate: String): Flow<DailyPracticeEntity?>
+
     /** Assembles a session from [missedItemIds] instead of a fixed lesson - drills words the
      * learner has gotten wrong. Takes the ids directly (rather than a userId + re-querying
      * [getMissedItemIds] itself) since callers already have them from that call. Empty if
