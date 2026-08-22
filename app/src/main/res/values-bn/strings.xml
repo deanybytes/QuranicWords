@@ -70,6 +70,11 @@
     <string name="home_chapter_coverage_stat">কুরআনের %1$s%% · এখন পর্যন্ত মোট %2$s%% কভার হয়েছে</string>
     <string name="home_continue_learning">শেখা চালিয়ে যান</string>
     <string name="roadmap_title">রোডম্যাপ</string>
+    <string name="home_history_title">সম্প্রতি সম্পন্ন হয়েছে</string>
+    <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
+    <string name="home_history_position">%1$d/%2$d</string>
+    <string name="home_history_previous">আগের সম্পন্ন পাঠ</string>
+    <string name="home_history_next">পরবর্তী সম্পন্ন পাঠ</string>
 
     <!-- Progress tab -->
     <string name="progress_title">অগ্রগতি</string>
