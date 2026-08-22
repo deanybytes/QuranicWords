@@ -18,6 +18,14 @@
     <string name="language_select_title">اپنی زبان منتخب کریں</string>
     <string name="language_select_subtitle">آپ اسے بعد میں سیٹنگز میں تبدیل کر سکتے ہیں۔</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">آپ کیسے شروع کرنا چاہیں گے؟</string>
+    <string name="onboarding_path_select_subtitle">آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
+    <string name="path_learn_title">الفاظ سیکھیں</string>
+    <string name="path_learn_description">شروع سے آغاز کریں اور آہستہ آہستہ اپنا قرآنی ذخیرہ الفاظ بنائیں۔</string>
+    <string name="path_test_only_title">جو مجھے آتا ہے اسے آزمائیں</string>
+    <string name="path_test_only_description">اسباق کو نظرانداز کریں اور براہ راست ان الفاظ کی آزمائش شروع کریں جو آپ پہلے سے جانتے ہیں۔</string>
+
     <!-- Font select -->
     <string name="font_select_title">اپنا قرآنی رسم الخط منتخب کریں</string>
     <string name="font_select_subtitle">یہ سب سے چھوٹی سورت، سورۃ الکوثر کا ہر انداز میں پیش نظارہ ہے۔</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">اپنا سیکھنے کا انداز منتخب کریں</string>
     <string name="onboarding_learning_style_subtitle">یہ طے کرتا ہے کہ آگے بڑھنے سے پہلے ہر لفظ کتنی بار دہرایا جائے گا۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
-    <string name="learning_style_sharp">تیز</string>
-    <string name="learning_style_sharp_description">ہر لفظ ایک بار، امتحان ایک بار</string>
-    <string name="learning_style_slow">آہستہ</string>
-    <string name="learning_style_slow_description">ہر لفظ 3 بار، امتحان 3 بار</string>
-    <string name="learning_style_cozy">آرام دہ</string>
-    <string name="learning_style_cozy_description">ہر لفظ 5 بار، امتحان 5 بار</string>
+    <string name="learning_style_sharp">ہلکا لمس</string>
+    <string name="learning_style_sharp_description">ہر لفظ ایک بار دیکھیں، پھر آگے بڑھیں</string>
+    <string name="learning_style_slow">مضبوط بنیاد</string>
+    <string name="learning_style_slow_description">مستحکم بنیاد کے لیے ہر لفظ 3 بار دہرایا جاتا ہے</string>
+    <string name="learning_style_cozy">مکمل طور پر یاد</string>
+    <string name="learning_style_cozy_description">واقعی یاد رکھنے کے لیے ہر لفظ 5 بار دہرایا جاتا ہے</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">باب</string>

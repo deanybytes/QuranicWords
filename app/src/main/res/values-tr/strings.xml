@@ -18,6 +18,14 @@
     <string name="language_select_title">Dilinizi seçin</string>
     <string name="language_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsiniz.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Nasıl başlamak istersin?</string>
+    <string name="onboarding_path_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
+    <string name="path_learn_title">Kelime Dağarcığını Öğren</string>
+    <string name="path_learn_description">Baştan başla ve Kur\'an kelime dağarcığını kelime kelime oluştur.</string>
+    <string name="path_test_only_title">Bildiklerimi Test Et</string>
+    <string name="path_test_only_description">Dersleri atla ve doğrudan zaten bildiğin kelimelerle ilgili sınavlara geç.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Kur\'an yazı stilinizi seçin</string>
     <string name="font_select_subtitle">Bu, en kısa sure olan Kevser Suresi\'nin her stildeki önizlemesidir.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Öğrenme tarzını seç</string>
     <string name="onboarding_learning_style_subtitle">Bu, her kelimenin devam etmeden önce kaç kez tekrarlanacağını belirler. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
-    <string name="learning_style_sharp">Keskin</string>
-    <string name="learning_style_sharp_description">Her kelime bir kez, sınav bir kez</string>
-    <string name="learning_style_slow">Yavaş</string>
-    <string name="learning_style_slow_description">Her kelime 3 kez, sınav 3 kez</string>
-    <string name="learning_style_cozy">Rahat</string>
-    <string name="learning_style_cozy_description">Her kelime 5 kez, sınav 5 kez</string>
+    <string name="learning_style_sharp">Hafif Dokunuş</string>
+    <string name="learning_style_sharp_description">Her kelimeyi bir kez gör, sonra devam et</string>
+    <string name="learning_style_slow">Sağlam Temel</string>
+    <string name="learning_style_slow_description">Kararlı bir temel için her kelime 3 kez tekrarlanır</string>
+    <string name="learning_style_cozy">Tam Yerleşmiş</string>
+    <string name="learning_style_cozy_description">Gerçekten kalıcı olması için her kelime 5 kez tekrarlanır</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bölüm</string>

@@ -11,6 +11,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
@@ -50,6 +51,8 @@ class UserPreferencesDataStore @Inject constructor(
         val DAILY_GOAL_CHOICE_MADE = booleanPreferencesKey("daily_goal_choice_made")
         val LEARNING_STYLE = stringPreferencesKey("learning_style")
         val LEARNING_STYLE_CHOICE_MADE = booleanPreferencesKey("learning_style_choice_made")
+        val LEARNING_PATH = stringPreferencesKey("learning_path")
+        val LEARNING_PATH_CHOICE_MADE = booleanPreferencesKey("learning_path_choice_made")
     }
 
     /**
@@ -187,4 +190,19 @@ class UserPreferencesDataStore @Inject constructor(
 
     val learningStyleChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.LEARNING_STYLE_CHOICE_MADE] == true }
+
+    /** Learn vs. Test/Quiz-only onboarding branch (`Route.PathSelect`, right after language) - see
+     * [LearningPath]. Changeable later in Settings, same shape as [dailyGoalLevelFlow]. */
+    val learningPathFlow: Flow<LearningPath> =
+        context.dataStore.data.map { LearningPath.fromName(it[Keys.LEARNING_PATH]) }
+
+    suspend fun setLearningPath(path: LearningPath) {
+        context.dataStore.edit {
+            it[Keys.LEARNING_PATH] = path.name
+            it[Keys.LEARNING_PATH_CHOICE_MADE] = true
+        }
+    }
+
+    val learningPathChoiceMadeFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.LEARNING_PATH_CHOICE_MADE] == true }
 }

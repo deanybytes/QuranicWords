@@ -18,6 +18,14 @@
     <string name="language_select_title">আপনার ভাষা বেছে নিন</string>
     <string name="language_select_subtitle">আপনি পরে সেটিংস থেকে এটি পরিবর্তন করতে পারবেন।</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">আপনি কীভাবে শুরু করতে চান?</string>
+    <string name="onboarding_path_select_subtitle">আপনি পরে সেটিংসে এটি পরিবর্তন করতে পারবেন।</string>
+    <string name="path_learn_title">শব্দভাণ্ডার শিখুন</string>
+    <string name="path_learn_description">শুরু থেকে শুরু করুন এবং ধাপে ধাপে আপনার কুরআনের শব্দভাণ্ডার গড়ে তুলুন।</string>
+    <string name="path_test_only_title">আমি যা জানি তা যাচাই করুন</string>
+    <string name="path_test_only_description">পাঠ এড়িয়ে সরাসরি আপনার জানা শব্দগুলোর কুইজে চলে যান।</string>
+
     <!-- Font select -->
     <string name="font_select_title">আপনার কুরআনের লিপি শৈলী বেছে নিন</string>
     <string name="font_select_subtitle">এটি সবচেয়ে ছোট সূরা, সূরা আল-কাউসারের একটি প্রিভিউ, প্রতিটি শৈলীতে।</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">আপনার শেখার ধরন বেছে নিন</string>
     <string name="onboarding_learning_style_subtitle">এটি নির্ধারণ করে প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
-    <string name="learning_style_sharp">শার্প</string>
-    <string name="learning_style_sharp_description">প্রতিটি শব্দ একবার, পরীক্ষা একবার</string>
-    <string name="learning_style_slow">স্লো</string>
-    <string name="learning_style_slow_description">প্রতিটি শব্দ ৩ বার, পরীক্ষা ৩ বার</string>
-    <string name="learning_style_cozy">কোজি</string>
-    <string name="learning_style_cozy_description">প্রতিটি শব্দ ৫ বার, পরীক্ষা ৫ বার</string>
+    <string name="learning_style_sharp">হালকা ছোঁয়া</string>
+    <string name="learning_style_sharp_description">প্রতিটি শব্দ একবার দেখুন, তারপর এগিয়ে যান</string>
+    <string name="learning_style_slow">মজবুত ভিত্তি</string>
+    <string name="learning_style_slow_description">স্থিতিশীল ভিত্তির জন্য প্রতিটি শব্দ ৩ বার পুনরাবৃত্তি হয়</string>
+    <string name="learning_style_cozy">পূর্ণ আয়ত্ত</string>
+    <string name="learning_style_cozy_description">সত্যিকারের রপ্ত করার জন্য প্রতিটি শব্দ ৫ বার পুনরাবৃত্তি হয়</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">অধ্যায়</string>

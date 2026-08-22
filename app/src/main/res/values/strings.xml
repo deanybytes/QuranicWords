@@ -18,6 +18,14 @@
     <string name="language_select_title">Choose your language</string>
     <string name="language_select_subtitle">You can change this later in Settings.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">How would you like to start?</string>
+    <string name="onboarding_path_select_subtitle">You can change this later in Settings.</string>
+    <string name="path_learn_title">Learn the Vocabulary</string>
+    <string name="path_learn_description">Start from the beginning and build up your Qur\'an vocabulary, word by word.</string>
+    <string name="path_test_only_title">Test What I Know</string>
+    <string name="path_test_only_description">Skip the lessons and jump straight into quizzes on words you already know.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Choose your Quran script style</string>
     <string name="font_select_subtitle">This is a preview of Surah Al-Kawthar, the shortest surah, in each style.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Choose your learning style</string>
     <string name="onboarding_learning_style_subtitle">This decides how many times each word repeats before moving on. You can change this later in Settings.</string>
-    <string name="learning_style_sharp">Sharp</string>
-    <string name="learning_style_sharp_description">Every word once, exam once</string>
-    <string name="learning_style_slow">Slow</string>
-    <string name="learning_style_slow_description">Every word 3 times, exam 3 times</string>
-    <string name="learning_style_cozy">Cozy</string>
-    <string name="learning_style_cozy_description">Every word 5 times, exam 5 times</string>
+    <string name="learning_style_sharp">Light Touch</string>
+    <string name="learning_style_sharp_description">See each word once, then move on</string>
+    <string name="learning_style_slow">Solid Base</string>
+    <string name="learning_style_slow_description">Each word repeats 3 times for steady footing</string>
+    <string name="learning_style_cozy">Locked In</string>
+    <string name="learning_style_cozy_description">Each word repeats 5 times to really stick</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapter</string>

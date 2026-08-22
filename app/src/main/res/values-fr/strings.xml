@@ -18,6 +18,14 @@
     <string name="language_select_title">Choisissez votre langue</string>
     <string name="language_select_subtitle">Vous pourrez la modifier plus tard dans les paramètres.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Comment souhaitez-vous commencer ?</string>
+    <string name="onboarding_path_select_subtitle">Vous pourrez le modifier plus tard dans les paramètres.</string>
+    <string name="path_learn_title">Apprendre le vocabulaire</string>
+    <string name="path_learn_description">Commencez depuis le début et construisez votre vocabulaire coranique, mot par mot.</string>
+    <string name="path_test_only_title">Tester ce que je sais</string>
+    <string name="path_test_only_description">Passez les leçons et lancez-vous directement dans des quiz sur les mots que vous connaissez déjà.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Choisissez votre style d\'écriture coranique</string>
     <string name="font_select_subtitle">Voici un aperçu de la sourate Al-Kawthar, la plus courte, dans chaque style.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Choisissez votre style d\'apprentissage</string>
     <string name="onboarding_learning_style_subtitle">Cela détermine combien de fois chaque mot se répète avant de passer à la suite. Vous pourrez le modifier plus tard dans les Paramètres.</string>
-    <string name="learning_style_sharp">Précis</string>
-    <string name="learning_style_sharp_description">Chaque mot une fois, examen une fois</string>
-    <string name="learning_style_slow">Lent</string>
-    <string name="learning_style_slow_description">Chaque mot 3 fois, examen 3 fois</string>
-    <string name="learning_style_cozy">Confortable</string>
-    <string name="learning_style_cozy_description">Chaque mot 5 fois, examen 5 fois</string>
+    <string name="learning_style_sharp">Aperçu léger</string>
+    <string name="learning_style_sharp_description">Voyez chaque mot une fois, puis avancez</string>
+    <string name="learning_style_slow">Base solide</string>
+    <string name="learning_style_slow_description">Chaque mot se répète 3 fois pour une base stable</string>
+    <string name="learning_style_cozy">Bien ancré</string>
+    <string name="learning_style_cozy_description">Chaque mot se répète 5 fois pour vraiment s\'ancrer</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapitre</string>

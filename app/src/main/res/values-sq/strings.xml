@@ -18,6 +18,14 @@
     <string name="language_select_title">Zgjidhni gjuhën tuaj</string>
     <string name="language_select_subtitle">Mund ta ndryshoni më vonë te Cilësimet.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">Si dëshironi të filloni?</string>
+    <string name="onboarding_path_select_subtitle">Mund ta ndryshoni këtë më vonë te Cilësimet.</string>
+    <string name="path_learn_title">Mëso Fjalorin</string>
+    <string name="path_learn_description">Fillo nga fillimi dhe ndërto fjalorin tënd kuranor, fjalë pas fjale.</string>
+    <string name="path_test_only_title">Testo Çfarë Di</string>
+    <string name="path_test_only_description">Kapërce mësimet dhe kalo direkt te kuizet për fjalët që di tashmë.</string>
+
     <!-- Font select -->
     <string name="font_select_title">Zgjidhni stilin e shkrimit të Kuranit</string>
     <string name="font_select_subtitle">Ky është një parapamje i Sures Al-Kevther, sureja më e shkurtër, në secilin stil.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Zgjidh stilin tënd të mësimit</string>
     <string name="onboarding_learning_style_subtitle">Kjo përcakton sa herë përsëritet çdo fjalë përpara se të vazhdosh. Mund ta ndryshosh më vonë te Cilësimet.</string>
-    <string name="learning_style_sharp">I mprehtë</string>
-    <string name="learning_style_sharp_description">Çdo fjalë një herë, provimi një herë</string>
-    <string name="learning_style_slow">I ngadaltë</string>
-    <string name="learning_style_slow_description">Çdo fjalë 3 herë, provimi 3 herë</string>
-    <string name="learning_style_cozy">Komod</string>
-    <string name="learning_style_cozy_description">Çdo fjalë 5 herë, provimi 5 herë</string>
+    <string name="learning_style_sharp">Prekje e Lehtë</string>
+    <string name="learning_style_sharp_description">Shiko çdo fjalë një herë, pastaj vazhdo</string>
+    <string name="learning_style_slow">Bazë e Fortë</string>
+    <string name="learning_style_slow_description">Çdo fjalë përsëritet 3 herë për një bazë të qëndrueshme</string>
+    <string name="learning_style_cozy">Plotësisht e Mësuar</string>
+    <string name="learning_style_cozy_description">Çdo fjalë përsëritet 5 herë për t\'u ngulitur me të vërtetë</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Kapitulli</string>

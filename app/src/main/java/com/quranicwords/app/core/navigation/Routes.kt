@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable data object Splash : Route
     @Serializable data object LanguageSelect : Route
+    @Serializable data object PathSelect : Route
     @Serializable data object FontSelect : Route
     @Serializable data object LearningStyleSelect : Route
     @Serializable data object DailyGoalSelect : Route

@@ -18,6 +18,14 @@
     <string name="language_select_title">زبان خود را انتخاب کنید</string>
     <string name="language_select_subtitle">می‌توانید بعداً از بخش تنظیمات آن را تغییر دهید.</string>
 
+    <!-- Path select -->
+    <string name="onboarding_path_select_title">چگونه می‌خواهید شروع کنید؟</string>
+    <string name="onboarding_path_select_subtitle">می‌توانید این را بعداً در تنظیمات تغییر دهید.</string>
+    <string name="path_learn_title">یادگیری واژگان</string>
+    <string name="path_learn_description">از ابتدا شروع کنید و واژگان قرآنی خود را کلمه به کلمه بسازید.</string>
+    <string name="path_test_only_title">آزمودن آنچه می‌دانم</string>
+    <string name="path_test_only_description">درس‌ها را رد کنید و مستقیم به آزمون‌های کلماتی که از قبل می‌دانید بروید.</string>
+
     <!-- Font select -->
     <string name="font_select_title">سبک خط قرآن خود را انتخاب کنید</string>
     <string name="font_select_subtitle">این پیش‌نمایشی از سوره الکوثر، کوتاه‌ترین سوره، در هر سبک است.</string>
@@ -35,12 +43,12 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">سبک یادگیری خود را انتخاب کنید</string>
     <string name="onboarding_learning_style_subtitle">این تعیین می‌کند هر کلمه چند بار قبل از ادامه تکرار شود. می‌توانید بعداً در تنظیمات آن را تغییر دهید.</string>
-    <string name="learning_style_sharp">دقیق</string>
-    <string name="learning_style_sharp_description">هر کلمه یک بار، آزمون یک بار</string>
-    <string name="learning_style_slow">آهسته</string>
-    <string name="learning_style_slow_description">هر کلمه ۳ بار، آزمون ۳ بار</string>
-    <string name="learning_style_cozy">راحت</string>
-    <string name="learning_style_cozy_description">هر کلمه ۵ بار، آزمون ۵ بار</string>
+    <string name="learning_style_sharp">لمس سبک</string>
+    <string name="learning_style_sharp_description">هر کلمه را یک‌بار ببینید، سپس ادامه دهید</string>
+    <string name="learning_style_slow">پایه محکم</string>
+    <string name="learning_style_slow_description">هر کلمه ۳ بار تکرار می‌شود برای پایه‌ای مطمئن</string>
+    <string name="learning_style_cozy">کاملاً جا افتاده</string>
+    <string name="learning_style_cozy_description">هر کلمه ۵ بار تکرار می‌شود تا واقعاً ماندگار شود</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">فصل</string>

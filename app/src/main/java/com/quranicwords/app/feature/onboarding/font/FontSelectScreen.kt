@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
@@ -29,7 +30,7 @@ import com.quranicwords.app.core.util.QuranPreviewText
 
 @Composable
 fun FontSelectScreen(
-    onContinue: () -> Unit,
+    onContinue: (LearningPath) -> Unit,
     viewModel: FontSelectViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(top = 24.dp, start = 24.dp, end = 24.dp)) {

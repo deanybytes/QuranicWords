@@ -19,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
@@ -27,6 +28,7 @@ import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
 import com.quranicwords.app.feature.onboarding.dailygoal.DailyGoalSelectScreen
 import com.quranicwords.app.feature.onboarding.font.FontSelectScreen
 import com.quranicwords.app.feature.onboarding.learningstyle.LearningStyleSelectScreen
+import com.quranicwords.app.feature.onboarding.pathselect.PathSelectScreen
 import com.quranicwords.app.feature.roadmap.RoadmapScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.splash.SplashScreen
@@ -114,8 +116,22 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             LanguageSelectScreen(
                 onContinue = {
-                    navController.navigate(Route.FontSelect) {
+                    navController.navigate(Route.PathSelect) {
                         popUpTo(Route.LanguageSelect) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<Route.PathSelect>(
+            enterTransition = t.onboardingEnter,
+            exitTransition = t.onboardingExit,
+            popEnterTransition = t.onboardingPopEnter,
+            popExitTransition = t.onboardingPopExit
+        ) {
+            PathSelectScreen(
+                onContinue = {
+                    navController.navigate(Route.FontSelect) {
+                        popUpTo(Route.PathSelect) { inclusive = true }
                     }
                 }
             )
@@ -127,8 +143,12 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             popExitTransition = t.onboardingPopExit
         ) {
             FontSelectScreen(
-                onContinue = {
-                    navController.navigate(Route.LearningStyleSelect) {
+                onContinue = { path ->
+                    // Test/Quiz-only skips the repeat-count step entirely - it has no teach step
+                    // for a repeat count to apply to. See FontSelectViewModel.selectFont's doc
+                    // comment for why this is decided here rather than baked into a fixed target.
+                    val next = if (path == LearningPath.TEST_ONLY) Route.DailyGoalSelect else Route.LearningStyleSelect
+                    navController.navigate(next) {
                         popUpTo(Route.FontSelect) { inclusive = true }
                     }
                 }
