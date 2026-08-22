@@ -73,6 +73,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SettingsScreen(
     onBack: () -> Unit,
+    showBackButton: Boolean = true,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
@@ -131,8 +132,13 @@ fun SettingsScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
+                    // Absent when hosted as a bottom-nav tab (QwBottomNavShell) - there's no
+                    // "back" to go to from a tab, unlike when this was a pushed Route.Settings
+                    // destination.
+                    if (showBackButton) {
+                        IconButton(onClick = onBack) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
+                        }
                     }
                 }
             )

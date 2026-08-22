@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">%d menit per hari</string>
     <string name="home_daily_challenge_completed">Tantangan harian selesai</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">Pilih gaya belajar Anda</string>
+    <string name="onboarding_learning_style_subtitle">Ini menentukan berapa kali setiap kata diulang sebelum melanjutkan. Anda dapat mengubahnya nanti di Pengaturan.</string>
+    <string name="learning_style_sharp">Tajam</string>
+    <string name="learning_style_sharp_description">Setiap kata sekali, ujian sekali</string>
+    <string name="learning_style_slow">Lambat</string>
+    <string name="learning_style_slow_description">Setiap kata 3 kali, ujian 3 kali</string>
+    <string name="learning_style_cozy">Santai</string>
+    <string name="learning_style_cozy_description">Setiap kata 5 kali, ujian 5 kali</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bab</string>
     <string name="intro_section_label">Bagian</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">Pengaturan</string>
     <string name="home_review_title">Tinjau kata yang terlewat</string>
     <string name="home_review_subtitle">Latih kata-kata yang salah pada terakhir kali.</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Beranda</string>
+    <string name="bottom_nav_progress">Kemajuan</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">%1$s%% dari Al-Qur\'an · %2$s%% tercakup sejauh ini</string>
+    <string name="home_continue_learning">Lanjutkan Belajar</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Periksa</string>

@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">%d minutes a day</string>
     <string name="home_daily_challenge_completed">Daily challenge completed</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">Choose your learning style</string>
+    <string name="onboarding_learning_style_subtitle">This decides how many times each word repeats before moving on. You can change this later in Settings.</string>
+    <string name="learning_style_sharp">Sharp</string>
+    <string name="learning_style_sharp_description">Every word once, exam once</string>
+    <string name="learning_style_slow">Slow</string>
+    <string name="learning_style_slow_description">Every word 3 times, exam 3 times</string>
+    <string name="learning_style_cozy">Cozy</string>
+    <string name="learning_style_cozy_description">Every word 5 times, exam 5 times</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapter</string>
     <string name="intro_section_label">Section</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">Settings</string>
     <string name="home_review_title">Review missed words</string>
     <string name="home_review_subtitle">Practice the ones you got wrong last time.</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_progress">Progress</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">%1$s%% of the Qur\'an · %2$s%% covered so far</string>
+    <string name="home_continue_learning">Continue Learning</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Check</string>

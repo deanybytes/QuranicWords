@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">%d минут в день</string>
     <string name="home_daily_challenge_completed">Дневное задание выполнено</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">Выберите стиль обучения</string>
+    <string name="onboarding_learning_style_subtitle">Это определяет, сколько раз каждое слово повторяется, прежде чем перейти дальше. Это можно изменить позже в настройках.</string>
+    <string name="learning_style_sharp">Чёткий</string>
+    <string name="learning_style_sharp_description">Каждое слово один раз, экзамен один раз</string>
+    <string name="learning_style_slow">Медленный</string>
+    <string name="learning_style_slow_description">Каждое слово 3 раза, экзамен 3 раза</string>
+    <string name="learning_style_cozy">Уютный</string>
+    <string name="learning_style_cozy_description">Каждое слово 5 раз, экзамен 5 раз</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Глава</string>
     <string name="intro_section_label">Раздел</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">Настройки</string>
     <string name="home_review_title">Повторить пропущенные слова</string>
     <string name="home_review_subtitle">Потренируйте те, в которых вы ошиблись в прошлый раз.</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Главная</string>
+    <string name="bottom_nav_progress">Прогресс</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">%1$s%% Корана · %2$s%% охвачено на данный момент</string>
+    <string name="home_continue_learning">Продолжить обучение</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Проверить</string>

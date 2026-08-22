@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">Günde %d dakika</string>
     <string name="home_daily_challenge_completed">Günlük görev tamamlandı</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">Öğrenme tarzını seç</string>
+    <string name="onboarding_learning_style_subtitle">Bu, her kelimenin devam etmeden önce kaç kez tekrarlanacağını belirler. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
+    <string name="learning_style_sharp">Keskin</string>
+    <string name="learning_style_sharp_description">Her kelime bir kez, sınav bir kez</string>
+    <string name="learning_style_slow">Yavaş</string>
+    <string name="learning_style_slow_description">Her kelime 3 kez, sınav 3 kez</string>
+    <string name="learning_style_cozy">Rahat</string>
+    <string name="learning_style_cozy_description">Her kelime 5 kez, sınav 5 kez</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Bölüm</string>
     <string name="intro_section_label">Kısım</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">Ayarlar</string>
     <string name="home_review_title">Kaçırılan kelimeleri gözden geçir</string>
     <string name="home_review_subtitle">Geçen sefer yanlış yaptıklarınızı çalışın.</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Ana Sayfa</string>
+    <string name="bottom_nav_progress">İlerleme</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">Kur\'an\'ın %1$s%%\'i · şimdiye kadar %2$s%% kapsandı</string>
+    <string name="home_continue_learning">Öğrenmeye Devam Et</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Kontrol et</string>

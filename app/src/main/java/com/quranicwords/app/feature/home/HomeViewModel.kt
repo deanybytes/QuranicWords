@@ -54,7 +54,13 @@ data class HomeUiState(
      * is no such lesson (fresh install before ensureCurriculumStarted's bootstrap has produced
      * any progress rows yet, or the whole curriculum is already complete). */
     val initiallyExpandedChapterId: String? = null,
-    val initiallyExpandedSectionId: String? = null
+    val initiallyExpandedSectionId: String? = null,
+    /** Running-total Quran coverage percent through and including each chapter (chapter id ->
+     * cumulative %), for the "own share · running total" stat line on each chapter's summary
+     * card - see [cumulativeCoveragePercentByChapter]. Every chapter in this curriculum has the
+     * same word count (460), which is why chapter cards show coverage %, not word count - a
+     * constant repeated on every card carries no information. */
+    val cumulativeCoveragePercentByChapter: Map<String, Double> = emptyMap()
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -90,6 +96,28 @@ fun aggregateStatus(lessonIds: List<String>, progressByLessonId: Map<String, Use
     }
 }
 
+/** Fraction of [lessonIds] that are COMPLETED - drives the thin progress bar on a chapter/section
+ * summary card. Distinct from [aggregateStatus] (a three-state category) since a card benefits
+ * from showing granular "6 of 10 done" progress even while its overall status is still UNLOCKED. */
+fun progressFraction(lessonIds: List<String>, progressByLessonId: Map<String, UserProgressEntity>): Float {
+    if (lessonIds.isEmpty()) return 0f
+    val completed = lessonIds.count { progressByLessonId[it]?.status == LessonStatus.COMPLETED }
+    return completed.toFloat() / lessonIds.size
+}
+
+/** Pure derivation, no DB access - running-total Quran coverage percent through and including
+ * each chapter, in curriculum order. Chapter 1 -> its own percent; chapter 2 -> chapter 1 + 2;
+ * and so on, mirroring the exact cumulative sum [com.quranicwords.app.feature.intro.IntroViewModel]
+ * already computes for the chapter-intro screen, just keyed by chapter id for every chapter at
+ * once instead of one running total for a single chapter. */
+fun cumulativeCoveragePercentByChapter(chapters: List<ChapterWithSections>): Map<String, Double> {
+    var running = 0.0
+    return chapters.associate { chapterWithSections ->
+        running += chapterWithSections.chapter.quranOccurrencePercent
+        chapterWithSections.chapter.id to running
+    }
+}
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
@@ -111,6 +139,7 @@ class HomeViewModel @Inject constructor(
 
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
             val chapters = loadCurriculumTree()
+            val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
 
             combine(
                 progressRepository.observeProgress(userId),
@@ -126,7 +155,8 @@ class HomeViewModel @Inject constructor(
                     isLoading = false,
                     hasReviewableItems = hasReviewableItems,
                     initiallyExpandedChapterId = currentChapterId,
-                    initiallyExpandedSectionId = currentSectionId
+                    initiallyExpandedSectionId = currentSectionId,
+                    cumulativeCoveragePercentByChapter = cumulativeCoverage
                 )
             }.collect { _uiState.value = it }
         }

@@ -2,6 +2,7 @@ package com.quranicwords.app.feature.home
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -18,21 +19,25 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,9 +45,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
@@ -75,6 +79,8 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.unlockRevealShimmer
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.core.util.formatPercent
+import kotlinx.coroutines.launch
 import kotlin.math.sin
 
 /**
@@ -94,29 +100,50 @@ import kotlin.math.sin
 fun HomeScreen(
     onOpenLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
-    onOpenSettings: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
     onOpenAchievements: () -> Unit,
+    /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
+     * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
+    expandedChapterIds: Set<String>?,
+    onExpandedChapterIdsChange: (Set<String>?) -> Unit,
+    expandedSectionIds: Set<String>?,
+    onExpandedSectionIdsChange: (Set<String>?) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val language = rememberSelectedLanguage()
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
-    var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
-    var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
     // Seeds the expand state from the learner's real current position exactly once, the first
     // time it becomes available - never re-forces expansion afterward, so a manual collapse by
     // the learner sticks even as progress keeps changing underneath.
     LaunchedEffect(uiState.initiallyExpandedChapterId) {
         if (expandedChapterIds == null && uiState.initiallyExpandedChapterId != null) {
-            expandedChapterIds = setOfNotNull(uiState.initiallyExpandedChapterId)
-            expandedSectionIds = setOfNotNull(uiState.initiallyExpandedSectionId)
+            onExpandedChapterIdsChange(setOfNotNull(uiState.initiallyExpandedChapterId))
+            onExpandedSectionIdsChange(setOfNotNull(uiState.initiallyExpandedSectionId))
         }
     }
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()
     val currentExpandedSectionIds = expandedSectionIds ?: emptySet()
+
+    // "Continue Learning" FAB: re-expands (only) the chapter/section containing the learner's
+    // current lesson and scrolls to that chapter's card - for when they've collapsed/scrolled
+    // elsewhere and want back to "where I am" without hunting through the tree. Scrolls to the
+    // chapter card, not the exact lesson node - the chapter auto-expands its current section too,
+    // which is short enough (~10 lessons) to spot the highlighted current lesson without further
+    // scrolling, without needing to compute an exact lesson-level LazyColumn index.
+    fun jumpToCurrentPosition() {
+        val currentChapterId = uiState.initiallyExpandedChapterId ?: return
+        onExpandedChapterIdsChange(setOf(currentChapterId))
+        onExpandedSectionIdsChange(setOfNotNull(uiState.initiallyExpandedSectionId))
+        val chapterIndex = uiState.chapters.indexOfFirst { it.chapter.id == currentChapterId }
+        if (chapterIndex < 0) return
+        val itemIndex = chapterIndex + (if (uiState.hasReviewableItems) 1 else 0)
+        coroutineScope.launch { listState.animateScrollToItem(itemIndex) }
+    }
 
     Scaffold(
         topBar = {
@@ -126,11 +153,17 @@ fun HomeScreen(
                     IconButton(onClick = onOpenAchievements) {
                         Icon(Icons.Filled.EmojiEvents, contentDescription = stringResource(R.string.home_open_achievements))
                     }
-                    IconButton(onClick = onOpenSettings) {
-                        Icon(Icons.Filled.Settings, contentDescription = stringResource(R.string.home_open_settings))
-                    }
                 }
             )
+        },
+        floatingActionButton = {
+            if (uiState.initiallyExpandedChapterId != null) {
+                ExtendedFloatingActionButton(
+                    onClick = ::jumpToCurrentPosition,
+                    icon = { Icon(Icons.Filled.MyLocation, contentDescription = null) },
+                    text = { Text(stringResource(R.string.home_continue_learning)) }
+                )
+            }
         }
     ) { padding ->
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
@@ -166,8 +199,16 @@ fun HomeScreen(
                 }
 
                 LazyColumn(
+                    state = listState,
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
+                    // Extra bottom padding when the "Continue Learning" FAB is showing, so it
+                    // doesn't permanently cover the last visible card.
+                    contentPadding = PaddingValues(
+                        start = 16.dp,
+                        top = 16.dp,
+                        end = 16.dp,
+                        bottom = if (uiState.initiallyExpandedChapterId != null) 96.dp else 16.dp
+                    ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     if (uiState.hasReviewableItems) {
@@ -187,9 +228,13 @@ fun HomeScreen(
                             ChapterSummaryNode(
                                 title = chapter.title.get(language),
                                 status = chapterStatus,
+                                progress = progressFraction(chapterLessonIds, uiState.progressByLessonId),
+                                ownCoveragePercent = chapter.quranOccurrencePercent,
+                                cumulativeCoveragePercent = uiState.cumulativeCoveragePercentByChapter[chapter.id] ?: 0.0,
+                                isCurrent = chapter.id == uiState.initiallyExpandedChapterId,
                                 expanded = chapterExpanded,
                                 onToggle = {
-                                    expandedChapterIds = currentExpandedChapterIds.toggled(chapter.id)
+                                    onExpandedChapterIdsChange(currentExpandedChapterIds.toggled(chapter.id))
                                 },
                                 onOpenIntro = { onOpenChapterIntro(chapter.id) }
                             )
@@ -198,19 +243,19 @@ fun HomeScreen(
                         if (chapterExpanded) {
                             chapterWithSections.sections.forEach { sectionWithLessons ->
                                 val section = sectionWithLessons.section
-                                val sectionStatus = aggregateStatus(
-                                    sectionWithLessons.lessons.map { it.id },
-                                    uiState.progressByLessonId
-                                )
+                                val sectionLessonIds = sectionWithLessons.lessons.map { it.id }
+                                val sectionStatus = aggregateStatus(sectionLessonIds, uiState.progressByLessonId)
                                 val sectionExpanded = section.id in currentExpandedSectionIds
 
                                 item(key = "section_${section.id}") {
                                     SectionSummaryNode(
                                         title = section.title.get(language),
                                         status = sectionStatus,
+                                        progress = progressFraction(sectionLessonIds, uiState.progressByLessonId),
+                                        isCurrent = section.id == uiState.initiallyExpandedSectionId,
                                         expanded = sectionExpanded,
                                         onToggle = {
-                                            expandedSectionIds = currentExpandedSectionIds.toggled(section.id)
+                                            onExpandedSectionIdsChange(currentExpandedSectionIds.toggled(section.id))
                                         },
                                         onOpenIntro = { onOpenSectionIntro(section.id) },
                                         onOpenWordBrowse = { onOpenWordBrowse(section.id) }
@@ -261,18 +306,43 @@ private fun Set<String>.toggled(id: String): Set<String> = if (id in this) this 
 
 /** Collapsed-by-default chapter row - tap the row to expand/collapse, tap the title specifically
  * to open the chapter intro (same split affordance the old flat list used for chapter/section
- * headers). Reuses [statusContainerColor]/[unlockRevealShimmer] so this reads as the same visual
- * family as a lesson node, just one tier up the tree. */
+ * headers). Reuses [statusContainerColor]/[statusDefaultIconAndTint]/[unlockRevealShimmer] so this
+ * reads as the same visual family as a lesson node, just one tier up the tree. [isCurrent] marks
+ * the chapter containing the learner's actual next lesson with a tertiary (gold) outline - "you
+ * are here" at a glance among six-plus collapsed chapter rows. [progress] (0f-1f, completed/total
+ * lessons) draws a thin pill bar along the card's bottom edge - skipped while still LOCKED, since
+ * "0% of a chapter you can't start yet" isn't a useful signal.
+ *
+ * [ownCoveragePercent]/[cumulativeCoveragePercent] show "this chapter's share of the Qur'an ·
+ * running total through this chapter" - not word count, since every chapter has the same word
+ * count (460) in this curriculum, so repeating that constant on all eight cards would carry no
+ * information (see [HomeUiState.cumulativeCoveragePercentByChapter]'s doc comment). */
 @Composable
 private fun ChapterSummaryNode(
     title: String,
     status: LessonStatus,
+    progress: Float,
+    ownCoveragePercent: Double,
+    cumulativeCoveragePercent: Double,
+    isCurrent: Boolean,
     expanded: Boolean,
     onToggle: () -> Unit,
     onOpenIntro: () -> Unit
 ) {
+    val (icon, iconTint) = statusDefaultIconAndTint(status)
+    val shape = MaterialTheme.shapes.medium
     Card(
-        modifier = Modifier.fillMaxWidth().clickable(onClick = onToggle),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onToggle)
+            .then(
+                if (isCurrent) {
+                    Modifier.border(2.dp, MaterialTheme.colorScheme.tertiary, shape)
+                } else {
+                    Modifier
+                }
+            ),
+        shape = shape,
         colors = CardDefaults.cardColors(containerColor = statusContainerColor(status).copy(alpha = 0.85f)),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.raised)
     ) {
@@ -284,30 +354,61 @@ private fun ChapterSummaryNode(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                title,
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.weight(1f).clickable(onClick = onOpenIntro)
-            )
+            Icon(icon, contentDescription = null, tint = iconTint)
+            Column(modifier = Modifier.weight(1f).clickable(onClick = onOpenIntro)) {
+                Text(title, style = MaterialTheme.typography.headlineSmall)
+                Text(
+                    stringResource(
+                        R.string.home_chapter_coverage_stat,
+                        formatPercent(ownCoveragePercent),
+                        formatPercent(cumulativeCoveragePercent)
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
             Icon(
                 if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
                 contentDescription = null
             )
         }
+        if (status != LessonStatus.LOCKED) {
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 10.dp)
+                    .clip(RoundedCornerShape(50))
+                    .height(4.dp),
+                color = MaterialTheme.colorScheme.tertiary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        }
     }
 }
 
-/** Collapsed-by-default section row, one indentation tier below its chapter. */
+/** Collapsed-by-default section row, one indentation tier below its chapter. Same status-icon/
+ * current-outline/progress-bar treatment as [ChapterSummaryNode], one visual step down. */
 @Composable
 private fun SectionSummaryNode(
     title: String,
     status: LessonStatus,
+    progress: Float,
+    isCurrent: Boolean,
     expanded: Boolean,
     onToggle: () -> Unit,
     onOpenIntro: () -> Unit,
     onOpenWordBrowse: () -> Unit
 ) {
-    Column {
+    val (icon, iconTint) = statusDefaultIconAndTint(status)
+    Column(
+        modifier = if (isCurrent) {
+            Modifier.border(2.dp, MaterialTheme.colorScheme.tertiary, RoundedCornerShape(12.dp))
+        } else {
+            Modifier
+        }
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -318,11 +419,12 @@ private fun SectionSummaryNode(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(20.dp))
             Text(
                 title,
                 style = MaterialTheme.typography.titleLarge,
                 color = if (status == LessonStatus.LOCKED) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.weight(1f).clickable(onClick = onOpenIntro)
+                modifier = Modifier.weight(1f).padding(start = 8.dp).clickable(onClick = onOpenIntro)
             )
             Icon(
                 if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
@@ -331,6 +433,19 @@ private fun SectionSummaryNode(
             IconButton(onClick = onOpenWordBrowse) {
                 Icon(Icons.Filled.Style, contentDescription = stringResource(R.string.word_browse_title))
             }
+        }
+        if (status != LessonStatus.LOCKED) {
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 16.dp)
+                    .padding(bottom = 6.dp)
+                    .clip(RoundedCornerShape(50))
+                    .height(3.dp),
+                color = MaterialTheme.colorScheme.tertiary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
         }
         HorizontalDivider(
             modifier = Modifier.padding(start = 20.dp),

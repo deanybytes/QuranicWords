@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">روزانہ %d منٹ</string>
     <string name="home_daily_challenge_completed">روزانہ چیلنج مکمل ہوا</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">اپنا سیکھنے کا انداز منتخب کریں</string>
+    <string name="onboarding_learning_style_subtitle">یہ طے کرتا ہے کہ آگے بڑھنے سے پہلے ہر لفظ کتنی بار دہرایا جائے گا۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
+    <string name="learning_style_sharp">تیز</string>
+    <string name="learning_style_sharp_description">ہر لفظ ایک بار، امتحان ایک بار</string>
+    <string name="learning_style_slow">آہستہ</string>
+    <string name="learning_style_slow_description">ہر لفظ 3 بار، امتحان 3 بار</string>
+    <string name="learning_style_cozy">آرام دہ</string>
+    <string name="learning_style_cozy_description">ہر لفظ 5 بار، امتحان 5 بار</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">باب</string>
     <string name="intro_section_label">حصہ</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">سیٹنگز</string>
     <string name="home_review_title">چھوٹے ہوئے الفاظ کا اعادہ کریں</string>
     <string name="home_review_subtitle">جو پچھلی بار غلط ہوئے تھے ان کی مشق کریں۔</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">ہوم</string>
+    <string name="bottom_nav_progress">پیش رفت</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">قرآن کا %1$s%% · اب تک %2$s%% احاطہ کیا گیا</string>
+    <string name="home_continue_learning">سیکھنا جاری رکھیں</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">جانچیں</string>

@@ -32,11 +32,13 @@ class SplashViewModel @Inject constructor(
 
             val language = preferences.languageFlow.first()
             val fontChoiceMade = preferences.fontChoiceMadeFlow.first()
+            val learningStyleChoiceMade = preferences.learningStyleChoiceMadeFlow.first()
             val dailyGoalChoiceMade = preferences.dailyGoalChoiceMadeFlow.first()
 
             _destination.value = when {
                 language == null -> Route.LanguageSelect
                 !fontChoiceMade -> Route.FontSelect
+                !learningStyleChoiceMade -> Route.LearningStyleSelect
                 !dailyGoalChoiceMade -> Route.DailyGoalSelect
                 else -> Route.Home
             }

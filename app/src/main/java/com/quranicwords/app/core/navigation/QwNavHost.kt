@@ -21,15 +21,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.feature.achievements.AchievementsScreen
-import com.quranicwords.app.feature.home.HomeScreen
 import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
 import com.quranicwords.app.feature.wordbrowse.WordBrowseScreen
 import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
 import com.quranicwords.app.feature.onboarding.dailygoal.DailyGoalSelectScreen
 import com.quranicwords.app.feature.onboarding.font.FontSelectScreen
+import com.quranicwords.app.feature.onboarding.learningstyle.LearningStyleSelectScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
-import com.quranicwords.app.feature.settings.SettingsScreen
 import com.quranicwords.app.feature.splash.SplashScreen
 
 private typealias EnterSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
@@ -129,8 +128,22 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             FontSelectScreen(
                 onContinue = {
-                    navController.navigate(Route.DailyGoalSelect) {
+                    navController.navigate(Route.LearningStyleSelect) {
                         popUpTo(Route.FontSelect) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<Route.LearningStyleSelect>(
+            enterTransition = t.onboardingEnter,
+            exitTransition = t.onboardingExit,
+            popEnterTransition = t.onboardingPopEnter,
+            popExitTransition = t.onboardingPopExit
+        ) {
+            LearningStyleSelectScreen(
+                onContinue = {
+                    navController.navigate(Route.DailyGoalSelect) {
+                        popUpTo(Route.LearningStyleSelect) { inclusive = true }
                     }
                 }
             )
@@ -153,10 +166,9 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             enterTransition = t.onboardingEnter,
             popEnterTransition = t.immersivePopEnter
         ) {
-            HomeScreen(
+            QwBottomNavShell(
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) },
                 onOpenReview = { navController.navigate(Route.Review) },
-                onOpenSettings = { navController.navigate(Route.Settings) },
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
@@ -242,13 +254,6 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                     }
                 }
             )
-        }
-        composable<Route.Settings>(
-            enterTransition = t.modalEnter,
-            exitTransition = t.modalExit,
-            popExitTransition = t.modalPopExit
-        ) {
-            SettingsScreen(onBack = { navController.popBackStack() })
         }
         composable<Route.Achievements>(
             enterTransition = t.modalEnter,

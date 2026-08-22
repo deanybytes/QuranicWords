@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">প্রতিদিন %d মিনিট</string>
     <string name="home_daily_challenge_completed">দৈনিক চ্যালেঞ্জ সম্পন্ন</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">আপনার শেখার ধরন বেছে নিন</string>
+    <string name="onboarding_learning_style_subtitle">এটি নির্ধারণ করে প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
+    <string name="learning_style_sharp">শার্প</string>
+    <string name="learning_style_sharp_description">প্রতিটি শব্দ একবার, পরীক্ষা একবার</string>
+    <string name="learning_style_slow">স্লো</string>
+    <string name="learning_style_slow_description">প্রতিটি শব্দ ৩ বার, পরীক্ষা ৩ বার</string>
+    <string name="learning_style_cozy">কোজি</string>
+    <string name="learning_style_cozy_description">প্রতিটি শব্দ ৫ বার, পরীক্ষা ৫ বার</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">অধ্যায়</string>
     <string name="intro_section_label">বিভাগ</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">সেটিংস</string>
     <string name="home_review_title">ভুল হওয়া শব্দ পুনরালোচনা</string>
     <string name="home_review_subtitle">গতবার যেগুলোতে ভুল হয়েছিল তা অনুশীলন করুন।</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">হোম</string>
+    <string name="bottom_nav_progress">অগ্রগতি</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">কুরআনের %1$s%% · এখন পর্যন্ত মোট %2$s%% কভার হয়েছে</string>
+    <string name="home_continue_learning">শেখা চালিয়ে যান</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">যাচাই করুন</string>

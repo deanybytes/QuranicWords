@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">%d minuta në ditë</string>
     <string name="home_daily_challenge_completed">Sfida ditore u përfundua</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">Zgjidh stilin tënd të mësimit</string>
+    <string name="onboarding_learning_style_subtitle">Kjo përcakton sa herë përsëritet çdo fjalë përpara se të vazhdosh. Mund ta ndryshosh më vonë te Cilësimet.</string>
+    <string name="learning_style_sharp">I mprehtë</string>
+    <string name="learning_style_sharp_description">Çdo fjalë një herë, provimi një herë</string>
+    <string name="learning_style_slow">I ngadaltë</string>
+    <string name="learning_style_slow_description">Çdo fjalë 3 herë, provimi 3 herë</string>
+    <string name="learning_style_cozy">Komod</string>
+    <string name="learning_style_cozy_description">Çdo fjalë 5 herë, provimi 5 herë</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Kapitulli</string>
     <string name="intro_section_label">Seksioni</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">Cilësimet</string>
     <string name="home_review_title">Rishiko fjalët e gabuara</string>
     <string name="home_review_subtitle">Praktiko ato që i ke gabuar herën e fundit.</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Kreu</string>
+    <string name="bottom_nav_progress">Përparimi</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">%1$s%% e Kuranit · %2$s%% e mbuluar deri tani</string>
+    <string name="home_continue_learning">Vazhdo të Mësosh</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">Kontrollo</string>

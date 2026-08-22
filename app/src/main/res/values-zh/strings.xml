@@ -32,6 +32,16 @@
     <string name="daily_goal_minutes_suffix">每天%d分钟</string>
     <string name="home_daily_challenge_completed">每日挑战已完成</string>
 
+    <!-- Learning style select -->
+    <string name="onboarding_learning_style_title">选择你的学习方式</string>
+    <string name="onboarding_learning_style_subtitle">这决定了每个单词在继续之前重复的次数。您可以稍后在设置中更改。</string>
+    <string name="learning_style_sharp">精简</string>
+    <string name="learning_style_sharp_description">每个单词一次，测验一次</string>
+    <string name="learning_style_slow">缓慢</string>
+    <string name="learning_style_slow_description">每个单词3次，测验3次</string>
+    <string name="learning_style_cozy">舒适</string>
+    <string name="learning_style_cozy_description">每个单词5次，测验5次</string>
+
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">章</string>
     <string name="intro_section_label">节</string>
@@ -52,6 +62,14 @@
     <string name="home_open_settings">设置</string>
     <string name="home_review_title">复习错词</string>
     <string name="home_review_subtitle">练习上次答错的题目。</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">首页</string>
+    <string name="bottom_nav_progress">进度</string>
+
+    <!-- Chapter/section coverage stat line -->
+    <string name="home_chapter_coverage_stat">占《古兰经》%1$s%% · 目前已覆盖%2$s%%</string>
+    <string name="home_continue_learning">继续学习</string>
 
     <!-- Lesson -->
     <string name="lesson_check_button">检查</string>

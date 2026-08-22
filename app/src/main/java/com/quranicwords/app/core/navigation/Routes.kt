@@ -8,6 +8,7 @@ sealed interface Route {
     @Serializable data object Splash : Route
     @Serializable data object LanguageSelect : Route
     @Serializable data object FontSelect : Route
+    @Serializable data object LearningStyleSelect : Route
     @Serializable data object DailyGoalSelect : Route
     @Serializable data object Home : Route
     @Serializable data class ChapterIntro(val chapterId: String) : Route
@@ -38,6 +39,5 @@ sealed interface Route {
         /** See [com.quranicwords.app.core.domain.model.LessonResult.durationMillis]. */
         val durationMillis: Long = 0L
     ) : Route
-    @Serializable data object Settings : Route
     @Serializable data object Achievements : Route
 }
