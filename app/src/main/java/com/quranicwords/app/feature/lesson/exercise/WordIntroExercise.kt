@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -34,6 +32,7 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedPrompt
+import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
@@ -64,10 +63,10 @@ fun WordIntroExerciseContent(
     ) {
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
-        Card(
+        GlassSurface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+            tint = MaterialTheme.colorScheme.primaryContainer
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(32.dp),
@@ -106,9 +105,9 @@ fun WordIntroExerciseContent(
             )
         }
 
-        Card(
+        GlassSurface(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            tint = MaterialTheme.colorScheme.surfaceVariant
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp),

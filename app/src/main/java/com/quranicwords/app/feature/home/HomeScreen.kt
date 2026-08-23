@@ -794,13 +794,23 @@ private fun LessonNode(
         label = "nodeScale"
     )
 
+    // Exam kinds are real quizzes (graded checkpoints), distinct from a regular teach/practice
+    // lesson - marked with a distinct tertiary/gold tint (the app's existing "achievement" hue)
+    // *regardless of lock state*, plus the existing trophy icon (kindIcon) once unlocked. Coloring
+    // it even while locked matters in practice: on a fresh account almost the entire curriculum -
+    // quizzes included - starts locked, so gating the color on unlock (as the icon swap does) meant
+    // the very first quiz a learner could see (a locked chapter/section exam) looked identical to a
+    // locked lesson - no visible distinction until they'd already unlocked their way to it.
+    val isQuiz = kind == LessonKind.SECTION_EXAM || kind == LessonKind.CHAPTER_EXAM
+
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val containerColor = statusContainerColor(status)
-        val (defaultIcon, tint) = statusDefaultIconAndTint(status)
+        val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
+        val containerColor = if (isQuiz) MaterialTheme.colorScheme.tertiaryContainer else statusContainerColor(status)
+        val tint = if (isQuiz) MaterialTheme.colorScheme.onTertiaryContainer else defaultTint
         // The current lesson's play icon becomes the same "target" glyph the bottom nav bar's
         // Continue Learning item uses, so the two visually match up - every other state (locked,
         // completed, exam/flashback kind, or just a regular non-current unlocked lesson) keeps its
@@ -832,22 +842,30 @@ private fun LessonNode(
         GlassSurface(
             modifier = Modifier.width(160.dp),
             onClick = if (isUnlocked) onClick else null,
-            tint = if (isUnlocked) MaterialTheme.colorScheme.primaryContainer
-                else MaterialTheme.colorScheme.surfaceVariant,
+            tint = when {
+                isQuiz -> MaterialTheme.colorScheme.tertiaryContainer
+                isUnlocked -> MaterialTheme.colorScheme.primaryContainer
+                else -> MaterialTheme.colorScheme.surfaceVariant
+            },
             accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
+                val labelColor = when {
+                    isQuiz -> MaterialTheme.colorScheme.onTertiaryContainer
+                    isUnlocked -> MaterialTheme.colorScheme.onPrimaryContainer
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
+                }
                 Text(
                     title,
                     style = MaterialTheme.typography.labelLarge,
-                    color = if (isUnlocked) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = labelColor,
                     maxLines = 2
                 )
                 if (status == LessonStatus.COMPLETED) {
                     Text(
                         "${progress?.bestScorePercent ?: 0}%",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = labelColor
                     )
                 } else if (status == LessonStatus.LOCKED) {
                     Text(

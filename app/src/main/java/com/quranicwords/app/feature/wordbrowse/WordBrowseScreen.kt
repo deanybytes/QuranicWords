@@ -15,8 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
@@ -33,7 +31,6 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,11 +41,11 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
-import com.quranicwords.app.core.ui.theme.Elevation
 
 /**
  * Card-flip, "story-fold" browsing of a section's words - tap a card to flip it and reveal the
@@ -68,10 +65,6 @@ fun WordBrowseScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier = Modifier.shadow(
-                    Elevation.raised,
-                    RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
-                ),
                 title = { Text(stringResource(R.string.word_browse_title)) },
                 navigationIcon = {
                     QwIconButton(onClick = onBack) {
@@ -130,11 +123,10 @@ fun WordBrowseScreen(
 
 @Composable
 private fun WordCardFront(word: ExerciseContent.WordIntro) {
-    Card(
+    GlassSurface(
         modifier = Modifier.fillMaxSize(),
         shape = RoundedCornerShape(28.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating)
+        tint = MaterialTheme.colorScheme.primaryContainer
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(24.dp),
@@ -162,11 +154,10 @@ private fun WordCardBack(
     val meaning = word.meaning.get(language)
     val verseTranslation = word.exampleVerseTranslation.get(language)
 
-    Card(
+    GlassSurface(
         modifier = Modifier.fillMaxSize(),
         shape = RoundedCornerShape(28.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating)
+        tint = MaterialTheme.colorScheme.surfaceVariant
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(20.dp),
