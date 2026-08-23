@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">您想如何开始？</string>
     <string name="onboarding_path_select_subtitle">您可以稍后在设置中更改此项。</string>
-    <string name="path_learn_title">学习词汇</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">从头开始，逐词积累您的古兰经词汇量。</string>
-    <string name="path_test_only_title">测试我已掌握的内容</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">跳过课程，直接开始测验您已经知道的单词。</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">设置每日目标</string>
     <string name="onboarding_daily_goal_subtitle">选择您每天想练习的分钟数。您可以稍后在设置中更改。</string>
-    <string name="daily_goal_casual">轻松</string>
-    <string name="daily_goal_steady">稳定</string>
-    <string name="daily_goal_devoted">专注</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">每天%d分钟</string>
     <string name="home_daily_challenge_completed">每日挑战已完成</string>
     <string name="test_only_start_quiz_title">开始测验</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">选择你的学习方式</string>
     <string name="onboarding_learning_style_subtitle">这决定了每个单词在继续之前重复的次数。您可以稍后在设置中更改。</string>
-    <string name="learning_style_sharp">轻松浏览</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">每个单词看一次，然后继续</string>
-    <string name="learning_style_slow">稳固基础</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">为打下稳固基础，每个单词重复3次</string>
-    <string name="learning_style_cozy">牢牢记住</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">为真正牢记，每个单词重复5次</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">进度已重置。</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">DEANY 的宗旨与数字 BYTES 相遇之处。</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">联系我们</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>

@@ -22,6 +22,7 @@ class LessonContentRepeaterTest {
 
     private fun multipleChoice(wordId: String) = ExerciseContent.MultipleChoice(
         prompt = mapOf("en" to "Tap the meaning"),
+        wordId = wordId,
         options = listOf(ChoiceOption(id = wordId)),
         correctOptionId = wordId
     )

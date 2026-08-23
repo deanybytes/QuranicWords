@@ -18,7 +18,7 @@ class AdaptiveSequencerTest {
     )
 
     private fun quizStep(wordId: String) = ExerciseContent.MultipleChoice(
-        prompt = mapOf("en" to "p", "bn" to "p"),
+        prompt = mapOf("en" to "p", "bn" to "p"), wordId = wordId,
         options = listOf(ChoiceOption(id = wordId)), correctOptionId = wordId
     )
 

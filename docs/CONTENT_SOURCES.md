@@ -71,7 +71,7 @@ Superseded approaches (kept here for the record):
 
 **Known, measured limitation — not fixed in this pass:** gtaf.org's own per-language word-by-word segmentation isn't always semantically 1:1 across languages for multi-word idiomatic phrases (e.g. "مِن قَبْلِكَ" = "before you"). Word *count* per ayah matches perfectly across all 12 languages (verified: 0/6,236 ayat mismatched), so a naive alignment check doesn't catch this — some languages attach the full idiom's meaning to one word-slot (occasionally leaving a literal `*` placeholder on the other, filtered out and treated as no-match — measured 0–8.9% of all word entries depending on language, worst for Turkish/Farsi), while others split it more literally. This means a small fraction of matched translations attach a *neighboring* word's meaning rather than the target word's — not detected/corrected here, since there's no reliable in-repo signal to distinguish a genuine idiom-boundary difference from a real match. The `meaningReviewed = false` flag already signals "not independently verified" for exactly this kind of gap.
 
-**Propagation to quiz options/pairs (found and fixed during Phase 6 verification):** `ChoiceOption.label` (MultipleChoice, 52,156 options) and `MatchPair.right` (Matching, 3,680 pairs) are separate embedded copies of a word's meaning baked in at `07_emit_content.py` emission time, not references to `WordIntro.meaning`/`word_frequency.json` - so the initial Phase 4 pass populated the teach-step meaning but left every quiz option/pair falling back to English regardless of language, for the two most common scored exercise types. `13_translate_content_12lang.py` now propagates the same data afterward: `MatchPair.wordId` (added when `07_emit_content.py` was rewritten) gives a direct lookup; `ChoiceOption` has no `wordId` field in the emitted JSON or the Kotlin model, so options are matched by exact English label text against `word_frequency.json`'s own `meaning[en]` instead - reliable since both are derived from the same source string with the same truncation at emission time. Result: 8,062/52,156 options and 1,526/3,680 pairs gained at least one new language (bounded by how often a verse-spanned, successfully-matched word appears as an option/pair across lessons). Verified on-device: French and Turkish both show correctly in the WordIntro teach step *and* the MultipleChoice quiz for the same word.
+**Propagation to quiz options/pairs (found and fixed during Phase 6 verification):** `ChoiceOption.label` (MultipleChoice, 52,156 options) and `MatchPair.right` (Matching, 3,680 pairs) are separate embedded copies of a word's meaning baked in at `07_emit_content.py` emission time, not references to `WordIntro.meaning`/`word_frequency.json` - so the initial Phase 4 pass populated the teach-step meaning but left every quiz option/pair falling back to English regardless of language, for the two most common scored exercise types. `13_translate_content_12lang.py` now propagates the same data afterward: `MatchPair.wordId` (added when `07_emit_content.py` was rewritten) gives a direct lookup; at the time, `ChoiceOption`/`MultipleChoice` had no `wordId` field in the emitted JSON or the Kotlin model, so options were matched by exact English label text against `word_frequency.json`'s own `meaning[en]` instead - a fragile join that later turned out to be the direct cause of the drift documented below (**`MultipleChoice` now carries its own `wordId`, see that section**). Result: 8,062/52,156 options and 1,526/3,680 pairs gained at least one new language (bounded by how often a verse-spanned, successfully-matched word appears as an option/pair across lessons). Verified on-device: French and Turkish both show correctly in the WordIntro teach step *and* the MultipleChoice quiz for the same word.
 
 ## Independent verification of `meaning["bn"]` via gtaf.org (real, already run)
 
@@ -82,6 +82,64 @@ Superseded approaches (kept here for the record):
 **Result (after the QW-18 re-verification pass, which re-ran this script too): 3,585/3,680 words (97.4%) now independently verified** (`meaningReviewed["bn"] = true`), of which **2,469 disagreed with the original AI draft and were replaced** with the gtaf.org-sourced value. Coverage is bounded by the same verse-span limitation as everything else built on `10_add_highlight_spans.py` (now 3,668/3,680, up from 1,582); the remaining 95 words (83 with a span but no gtaf.org gloss, 12 with no span at all) stay AI-drafted and flagged `false`. `ChoiceOption.label["bn"]` and `MatchPair.right["bn"]` were also updated, same propagation fix as the 10-language pass.
 
 **Same known limitation applies:** gtaf.org's own per-language idiom-boundary segmentation (see the note above) means a small fraction of the 1,526 "verified" entries may carry a neighboring word's sense rather than the target word's — inherent to the source data, not something this pipeline can detect from a count-only signal. `meaningReviewed["bn"] = true` here means "independently sourced from gtaf.org," the same standard already applied to the other 10 languages, not "manually read by a human."
+
+## Fixing meaning-copy drift and making the app resolve meaning at read time (real, already run)
+
+Found via a real on-device report: the same word (إِلَىٰ / wf_10) showed a different Bengali
+translation on its WordIntro teach screen ("সাথে", wrong - "with") than on its `word_in_verse_tap`
+quiz screen ("দিকে, প্রতি", correct - "to/towards") for the exact same word. Root cause: a word's
+meaning was independently copy-embedded into up to 5 places (`word_frequency.json`,
+`word_intro.meaning`, `multiple_choice`'s correct option label, `matching.pairs[].right`,
+`word_in_verse_tap.meaning`) at `07_emit_content.py` emission time, and later correction passes
+(`13_translate_content_12lang.py`, `14_verify_bn_meaning_via_gtaf.py`) only patched some of those
+copies via a fragile English-label text join (see the note above) - `word_in_verse_tap` was never
+patched by either script, so it silently kept whatever it was originally emitted with while the
+other four copies drifted forward.
+
+**Auditing the actual scale** (`19_audit_meaning_consistency.py`, comparing every copy's en/bn
+text against `word_frequency.json` for the same word): **13,770 conflicting copies across
+3,557/3,680 words (96.7%)** - far larger than the single reported case. 3,474 of those words
+(97.7%) had their canonical `word_frequency.json`/`word_intro` value already marked
+`meaningReviewed["bn"] = true`, confirming the pattern is "canonical was correctly updated by the
+gtaf.org review pass, but the propagation to `multiple_choice`/`matching`/`word_in_verse_tap`
+silently failed" - not 3,557 independent translation errors. The reported wf_10 case itself was a
+genuine exception where the *canonical* value was wrong (`meaningReviewed["bn"] = true` but the
+gtaf-sourced gloss was itself mistranslated as "with" instead of "to/towards") and a scattered,
+never-patched `word_in_verse_tap` copy happened to hold the correct value - fixed by hand in
+`word_frequency.json` (en/bn/fr/de/ru/tr, the languages where this specific word's translation was
+actually wrong) before running the sync below, specifically so the sync wouldn't overwrite the one
+correct copy with the wrong canonical one.
+
+**Two-layer fix**, per the "store it once, resolve everywhere" principle:
+
+1. **App-level (durable fix):** `LessonViewModel.resolveCanonicalMeaning`/`rebuildOptions` now
+   override every baked `meaning`/`label`/`right` field with a fresh lookup against
+   `WordFrequencyEntity` (via `WordCandidatePool`, already used for runtime distractor
+   generation) at lesson-load time, keyed by each exercise's `wordId`. This makes the *app* the
+   final authority on displayed meaning regardless of what's in the shipped JSON, so this class of
+   bug can't recur even if a future content pass reintroduces a stray copy. `MultipleChoice`/
+   `TapWhatYouHear` gained a `wordId` field for this (previously identifiable only by their literal
+   `promptArabic` Arabic text or a per-exercise-local `correctOptionId` like `"o3"` - neither
+   usable as a real lookup key; `practicedItemId()` was also quietly wrong for these two types as
+   a result, logging the local option id instead of the word's real id, now fixed alongside it).
+2. **Content-level (belt-and-suspenders):** `tools/ingestion/17_backfill_mc_wordid.py` backfilled
+   `wordId` onto all 13,060 existing `multiple_choice` exercises (91% resolve by unique
+   `arabicWord`; the rest via same-lesson `word_intro` co-occurrence, deduping genuine duplicate
+   `word_frequency.json` rows, or an English-label match - zero left unresolved; `07_emit_content.py`
+   now emits `wordId` directly so future regenerations don't need this backfill). Then
+   `tools/ingestion/18_sync_meaning_from_canonical.py` rewrote every copy site to match
+   `word_frequency.json` for all 12 languages, so the shipped JSON is internally consistent too,
+   not just the app's runtime view. Re-running `19_audit_meaning_consistency.py` afterward
+   confirms **0 remaining conflicts**.
+
+**Not attempted in this pass:** a full semantic re-verification of all 3,680 words' translations
+against source lexicons (that's the scope of the gtaf.org verification project documented above,
+already run once) - this fix guarantees *consistency* (the same word shows the same meaning
+everywhere, in every language), and corrects the one *specific* mistranslation (wf_10) found while
+investigating, but does not re-audit whether every already-`meaningReviewed = true` value is
+itself semantically correct. `19_audit_meaning_consistency.py`'s output
+(`tools/ingestion/output/meaning_conflicts.tsv`, gitignored, regenerate on demand) is the tool to
+extend if a deeper re-verification pass is wanted later.
 
 ## Quran script fonts (real, already run — QW-15 closed)
 

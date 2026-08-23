@@ -104,13 +104,13 @@ fun MatchingExerciseContent(
         matchedPairIds.forEach { id -> if (id !in matchOrder) matchOrder.add(id) }
     }
 
-    val leftItems by remember {
+    val leftItems by remember(content) {
         derivedStateOf {
             val matched = matchOrder.mapNotNull { id -> leftShuffled.find { it.id == id } }
             matched + leftShuffled.filter { it.id !in matchOrder }
         }
     }
-    val rightItems by remember {
+    val rightItems by remember(content) {
         derivedStateOf {
             val matched = matchOrder.mapNotNull { id -> rightShuffled.find { it.id() == id } }
             matched + rightShuffled.filter { it.id() !in matchOrder }

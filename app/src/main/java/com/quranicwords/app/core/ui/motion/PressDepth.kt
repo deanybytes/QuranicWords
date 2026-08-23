@@ -48,3 +48,24 @@ fun Modifier.pressDepth(
         cameraDistance = 12f * density.density
     }
 }
+
+/**
+ * A bouncy scale-up while [selected] is true, using [MotionSpecs.celebratory] - for icons living
+ * inside an already-clickable/selectable surface (e.g. `NavigationBarItem`'s `icon` slot), where
+ * [pressDepth]/[QwIconButton][com.quranicwords.app.core.ui.components.QwIconButton] would wrongly
+ * nest a second interactive element inside the first (breaking TalkBack's traversal). Use this
+ * instead of [pressDepth] whenever the surrounding composable already owns the click/selection
+ * semantics; use `QwIconButton` when the icon itself is the standalone interactive element.
+ */
+fun Modifier.selectionBounce(selected: Boolean): Modifier = composed {
+    val reducedMotion = rememberReducedMotion()
+    val scale by animateFloatAsState(
+        targetValue = if (selected && !reducedMotion) 1.15f else 1f,
+        animationSpec = MotionSpecs.celebratory(),
+        label = "selectionBounceScale"
+    )
+    this.graphicsLayer {
+        scaleX = scale
+        scaleY = scale
+    }
+}

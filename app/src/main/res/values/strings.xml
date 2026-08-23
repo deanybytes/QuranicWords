@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">How would you like to start?</string>
     <string name="onboarding_path_select_subtitle">You can change this later in Settings.</string>
-    <string name="path_learn_title">Learn the Vocabulary</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">Start from the beginning and build up your Qur\'an vocabulary, word by word.</string>
-    <string name="path_test_only_title">Test What I Know</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">Skip the lessons and jump straight into quizzes on words you already know.</string>
 
     <!-- Font select -->
@@ -86,6 +86,7 @@
     <!-- Bottom navigation -->
     <string name="bottom_nav_home">Home</string>
     <string name="bottom_nav_progress">Progress</string>
+    <string name="bottom_nav_about">About</string>
 
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">%1$s%% of the Qur\'an · %2$s%% covered so far</string>
@@ -169,12 +170,15 @@
     <string name="settings_language_label">Language</string>
     <string name="settings_quran_font_label">Quran script style</string>
     <string name="settings_reduce_motion_label">Reduce motion</string>
-    <string name="settings_sound_effects_label">Sound effects</string>
+    <string name="settings_reduce_glass_label">Reduce glossy effects</string>
     <string name="settings_font_scale_label">Text size</string>
     <string name="settings_font_scale_small">Small</string>
     <string name="settings_font_scale_default">Default</string>
     <string name="settings_font_scale_large">Large</string>
     <string name="settings_font_scale_extra_large">Extra large</string>
+    <string name="settings_section_sound">Sound</string>
+    <string name="settings_sound_effects_label">Sound effects</string>
+    <string name="settings_pronunciation_audio_label">Word pronunciation audio</string>
     <string name="settings_section_mode">Learning Mode</string>
     <string name="settings_learning_path_label">Learning Path</string>
     <string name="settings_learning_path_learn">Learn</string>

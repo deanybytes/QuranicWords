@@ -4,7 +4,12 @@ import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import android.util.Log
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,13 +23,35 @@ import javax.inject.Singleton
  * ahead of time by `tools/ingestion/12_generate_word_audio.py` and bundled directly in the APK -
  * no runtime download, no remote-resolving repository. This class plays anything genuinely
  * shipped inside the APK, pronunciation clips included.
+ *
+ * Gated on [UserPreferencesDataStore.pronunciationAudioEnabledFlow] - independent of
+ * [SfxPlayer]'s own [UserPreferencesDataStore.soundEnabledFlow] gate, since the two are separate
+ * "Sound" settings toggles. [play] itself stays synchronous (its callers, e.g.
+ * `AudioPlayButton`'s `onPlay: () -> Boolean`, need an immediate result to show the "unavailable"
+ * fallback text), so the preference is mirrored into a plain field via a continuously-collecting
+ * app-scoped coroutine rather than suspending on every call.
  */
 @Singleton
-class AudioPlayer @Inject constructor(@ApplicationContext private val context: Context) {
+class AudioPlayer @Inject constructor(
+    @ApplicationContext private val context: Context,
+    preferences: UserPreferencesDataStore
+) {
     private var mediaPlayer: MediaPlayer? = null
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-    /** Returns true if playback actually started; false (no throw) if the asset is missing. */
+    @Volatile
+    private var pronunciationEnabled = true
+
+    init {
+        scope.launch {
+            preferences.pronunciationAudioEnabledFlow.collect { pronunciationEnabled = it }
+        }
+    }
+
+    /** Returns true if playback actually started; false (no throw) if the asset is missing or
+     * pronunciation audio is turned off in Settings. */
     fun play(assetPath: String, onCompletion: () -> Unit = {}): Boolean {
+        if (!pronunciationEnabled) return false
         release()
         val afd = openAsset(assetPath) ?: return false
         return try {

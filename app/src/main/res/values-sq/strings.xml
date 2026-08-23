@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">Si dëshironi të filloni?</string>
     <string name="onboarding_path_select_subtitle">Mund ta ndryshoni këtë më vonë te Cilësimet.</string>
-    <string name="path_learn_title">Mëso Fjalorin</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">Fillo nga fillimi dhe ndërto fjalorin tënd kuranor, fjalë pas fjale.</string>
-    <string name="path_test_only_title">Testo Çfarë Di</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">Kapërce mësimet dhe kalo direkt te kuizet për fjalët që di tashmë.</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">Cakto qëllimin tënd ditor</string>
     <string name="onboarding_daily_goal_subtitle">Zgjidh sa minuta dëshiron të praktikosh çdo ditë. Mund ta ndryshosh më vonë te Cilësimet.</string>
-    <string name="daily_goal_casual">Rastësor</string>
-    <string name="daily_goal_steady">I qëndrueshëm</string>
-    <string name="daily_goal_devoted">I përkushtuar</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d minuta në ditë</string>
     <string name="home_daily_challenge_completed">Sfida ditore u përfundua</string>
     <string name="test_only_start_quiz_title">Fillo një Kuiz</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Zgjidh stilin tënd të mësimit</string>
     <string name="onboarding_learning_style_subtitle">Kjo përcakton sa herë përsëritet çdo fjalë përpara se të vazhdosh. Mund ta ndryshosh më vonë te Cilësimet.</string>
-    <string name="learning_style_sharp">Prekje e Lehtë</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">Shiko çdo fjalë një herë, pastaj vazhdo</string>
-    <string name="learning_style_slow">Bazë e Fortë</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">Çdo fjalë përsëritet 3 herë për një bazë të qëndrueshme</string>
-    <string name="learning_style_cozy">Plotësisht e Mësuar</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">Çdo fjalë përsëritet 5 herë për t\'u ngulitur me të vërtetë</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">Përparimi u rivendos.</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Ku qëllimi i DEANY takon BYTES dixhitale.</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">Lidhu</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>

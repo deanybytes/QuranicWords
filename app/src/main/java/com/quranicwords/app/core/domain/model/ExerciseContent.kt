@@ -17,6 +17,7 @@ sealed interface ExerciseContent {
     data class MultipleChoice(
         override val prompt: LocalizedText,
         val promptArabic: String? = null,
+        override val wordId: String,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
     ) : OptionsBearing {
@@ -28,6 +29,7 @@ sealed interface ExerciseContent {
     data class TapWhatYouHear(
         override val prompt: LocalizedText,
         val audioAssetPath: String,
+        override val wordId: String,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
     ) : OptionsBearing {
@@ -98,7 +100,7 @@ sealed interface ExerciseContent {
     @SerialName("fill_in_the_blank")
     data class FillInTheBlank(
         override val prompt: LocalizedText,
-        val wordId: String,
+        override val wordId: String,
         val sentenceArabic: String,
         val blankStart: Int,
         val blankEnd: Int,
@@ -192,6 +194,7 @@ data class WordSpan(val start: Int, val end: Int)
  * one-line addition instead of a new branch to remember everywhere. [withOptions] exists because
  * `copy()` isn't part of the interface contract - each implementer forwards to its own `copy`. */
 sealed interface OptionsBearing : ExerciseContent {
+    val wordId: String
     val options: List<ChoiceOption>
     val correctOptionId: String
     fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent
@@ -210,15 +213,17 @@ val ExerciseContent.isScored: Boolean
     }
 
 /**
- * The id of the single word this exercise quizzes, for attempt logging - `correctOptionId`
- * doubles as the practiced item's id for [ExerciseContent.MultipleChoice]/[ExerciseContent.TapWhatYouHear].
- * `null` for teach steps (nothing scored yet) and for [ExerciseContent.Matching], which quizzes
- * multiple pairs in one exercise and is logged per-pair at the call site instead (see
- * `LessonViewModel.selectMatchingRight`) rather than through this single-id extension.
+ * The id of the single word this exercise quizzes, for attempt logging - [OptionsBearing.wordId]
+ * for [ExerciseContent.MultipleChoice]/[ExerciseContent.TapWhatYouHear] (NOT `correctOptionId`,
+ * which is only a per-exercise-local option id like "o3" and would fragment attempt logging for
+ * the same word across different exercises that happen to number their baked options
+ * differently). `null` for teach steps (nothing scored yet) and for [ExerciseContent.Matching],
+ * which quizzes multiple pairs in one exercise and is logged per-pair at the call site instead
+ * (see `LessonViewModel.selectMatchingRight`) rather than through this single-id extension.
  */
 fun ExerciseContent.practicedItemId(): String? = when (this) {
-    is ExerciseContent.MultipleChoice -> correctOptionId
-    is ExerciseContent.TapWhatYouHear -> correctOptionId
+    is ExerciseContent.MultipleChoice -> wordId
+    is ExerciseContent.TapWhatYouHear -> wordId
     is ExerciseContent.FillInTheBlank -> wordId
     is ExerciseContent.WordOrderBuilder -> wordId
     is ExerciseContent.ListenAndType -> wordId

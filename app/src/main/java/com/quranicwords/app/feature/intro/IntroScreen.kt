@@ -33,9 +33,10 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.util.formatPercent
 
 /**
- * Shown before a chapter/section's first lesson - see [IntroViewModel]'s doc comment. Every stat
- * shown here is read straight from precomputed `ChapterEntity`/`SectionEntity` columns, never
- * recomputed - the count-up/stagger here is purely presentational.
+ * Shown before a chapter/section's first lesson - see [IntroViewModel]'s doc comment for where
+ * [IntroUiState.cumulativePercent] actually comes from (the learner's real completed-exam
+ * progress, not just this unit's position in the curriculum). The count-up/stagger here is purely
+ * presentational.
  */
 @Composable
 fun IntroScreen(

@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">Nasıl başlamak istersin?</string>
     <string name="onboarding_path_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
-    <string name="path_learn_title">Kelime Dağarcığını Öğren</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">Baştan başla ve Kur\'an kelime dağarcığını kelime kelime oluştur.</string>
-    <string name="path_test_only_title">Bildiklerimi Test Et</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">Dersleri atla ve doğrudan zaten bildiğin kelimelerle ilgili sınavlara geç.</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">Günlük hedefini belirle</string>
     <string name="onboarding_daily_goal_subtitle">Her gün kaç dakika pratik yapmak istediğini seç. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
-    <string name="daily_goal_casual">Rahat</string>
-    <string name="daily_goal_steady">Düzenli</string>
-    <string name="daily_goal_devoted">Adanmış</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">Günde %d dakika</string>
     <string name="home_daily_challenge_completed">Günlük görev tamamlandı</string>
     <string name="test_only_start_quiz_title">Sınava Başla</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Öğrenme tarzını seç</string>
     <string name="onboarding_learning_style_subtitle">Bu, her kelimenin devam etmeden önce kaç kez tekrarlanacağını belirler. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
-    <string name="learning_style_sharp">Hafif Dokunuş</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">Her kelimeyi bir kez gör, sonra devam et</string>
-    <string name="learning_style_slow">Sağlam Temel</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">Kararlı bir temel için her kelime 3 kez tekrarlanır</string>
-    <string name="learning_style_cozy">Tam Yerleşmiş</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">Gerçekten kalıcı olması için her kelime 5 kez tekrarlanır</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">İlerleme sıfırlandı.</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">DEANY\'nin amacının dijital BYTES ile buluştuğu yer.</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">Bağlan</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>
