@@ -42,7 +42,9 @@ class UserPreferencesDataStore @Inject constructor(
         val CONTENT_SEEDED_VERSION = intPreferencesKey("content_seeded_version")
         val LOCAL_USER_ID = stringPreferencesKey("local_user_id")
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
+        val REDUCE_GLASS_EFFECTS = booleanPreferencesKey("reduce_glass_effects")
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
+        val PRONUNCIATION_AUDIO_ENABLED = booleanPreferencesKey("pronunciation_audio_enabled")
         val FONT_SCALE = stringPreferencesKey("font_scale")
         val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
         val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
@@ -119,6 +121,17 @@ class UserPreferencesDataStore @Inject constructor(
         context.dataStore.edit { it[Keys.REDUCE_MOTION] = enabled }
     }
 
+    /** User-facing "Reduce glossy effects" setting (Settings screen) - same shape as
+     * [reduceMotionFlow], consumed by [com.quranicwords.app.core.ui.motion.rememberReducedGlass]
+     * to gate [com.quranicwords.app.core.ui.components.GlassSurface]'s translucency/sheen and the
+     * correct-answer sheen in `AnswerFeedbackOverlay`. Off by default. */
+    val reduceGlassEffectsFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.REDUCE_GLASS_EFFECTS] == true }
+
+    suspend fun setReduceGlassEffects(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.REDUCE_GLASS_EFFECTS] = enabled }
+    }
+
     /** Master sound-effects toggle (Settings screen) - checked once inside
      * [com.quranicwords.app.core.util.SfxPlayer.play] rather than at every call site. Defaults
      * to on. */
@@ -127,6 +140,16 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setSoundEnabled(enabled: Boolean) {
         context.dataStore.edit { it[Keys.SOUND_ENABLED] = enabled }
+    }
+
+    /** Word-pronunciation audio toggle (Settings screen, "Sound" section) - gates
+     * [com.quranicwords.app.core.util.AudioPlayer.play] directly, independent of [soundEnabledFlow]
+     * (which only gates the short SFX chimes via `SfxPlayer`). Defaults to on. */
+    val pronunciationAudioEnabledFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.PRONUNCIATION_AUDIO_ENABLED] != false }
+
+    suspend fun setPronunciationAudioEnabled(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.PRONUNCIATION_AUDIO_ENABLED] = enabled }
     }
 
     val fontScaleFlow: Flow<FontScale> =

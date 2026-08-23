@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +34,12 @@ fun FontSelectScreen(
     onContinue: (LearningPath) -> Unit,
     viewModel: FontSelectViewModel = hiltViewModel()
 ) {
-    Column(modifier = Modifier.fillMaxSize().padding(top = 24.dp, start = 24.dp, end = 24.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding()
+            .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+    ) {
         Text(
             stringResource(R.string.font_select_title),
             style = MaterialTheme.typography.headlineMedium,

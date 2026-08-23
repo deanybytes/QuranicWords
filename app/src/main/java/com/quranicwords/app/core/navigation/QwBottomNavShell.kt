@@ -1,37 +1,48 @@
 package com.quranicwords.app.core.navigation
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Insights
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.LearningPath
+import com.quranicwords.app.core.ui.motion.rememberReducedGlass
+import com.quranicwords.app.core.ui.motion.selectionBounce
+import com.quranicwords.app.feature.about.AboutScreen
 import com.quranicwords.app.feature.home.HomeScreen
 import com.quranicwords.app.feature.progress.ProgressScreen
 import com.quranicwords.app.feature.settings.SettingsScreen
 import com.quranicwords.app.feature.testonlyhome.TestOnlyHomeScreen
 
-private enum class BottomTab { HOME, PROGRESS, SETTINGS }
+private enum class BottomTab { HOME, PROGRESS, ABOUT, SETTINGS }
 
 /**
- * The app's first-ever bottom navigation bar: Home / Progress / Settings. Tab switches happen
+ * The app's first-ever bottom navigation bar: Home / Progress / About / Settings. Tab switches happen
  * entirely inside this composable (not via Navigation-Compose route pushes), so a tab switch
  * never grows the back stack - the whole point of a tab bar. Lesson-taking, onboarding, and
  * chapter/section-intro routes stay outside this shell entirely (see `QwNavHost`'s `Route.Home`
@@ -58,27 +69,106 @@ fun QwBottomNavShell(
     var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
     var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
     val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
+    // Reported up by HomeScreen (see its onContinueLearningLessonIdChange doc comment) - this
+    // shell owns the FAB now, centered over the shared bottom nav bar rather than floating above
+    // Home's own content, since the bar itself is shell chrome even though the action is
+    // Home-tab-specific.
+    var continueLearningLessonId by remember { mutableStateOf<String?>(null) }
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            // Rounded top corners, mirroring HomeHeroHeader's rounded-bottom panel - bookends the
+            // screen between two rounded panels instead of one rounded, one sharp. Translucent
+            // container color (falls back to opaque under "reduce glossy effects") so the
+            // ambient pattern reads faintly through, plus the same glass-edge gradient border
+            // highlight every other glass surface uses - gives the bar the "3D glass" look
+            // without a drop shadow (shadows are off across every box in this app now).
+            val reducedGlass = rememberReducedGlass()
+            val navShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
+            NavigationBar(
+                modifier = Modifier
+                    .clip(navShape)
+                    .then(
+                        if (reducedGlass) {
+                            Modifier
+                        } else {
+                            Modifier.border(
+                                width = 1.dp,
+                                brush = Brush.linearGradient(
+                                    listOf(Color.White.copy(alpha = 0.28f), Color.Transparent)
+                                ),
+                                shape = navShape
+                            )
+                        }
+                    ),
+                containerColor = if (reducedGlass) {
+                    MaterialTheme.colorScheme.surfaceContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.6f)
+                }
+            ) {
+                // Icon-only (no `label`) per feedback - contentDescription still carries each
+                // tab's name for TalkBack even though it's no longer shown visually.
                 NavigationBarItem(
                     selected = selectedTab == BottomTab.HOME,
                     onClick = { selectedTab = BottomTab.HOME },
-                    icon = { Icon(Icons.Filled.Home, contentDescription = null) },
-                    label = { Text(stringResource(R.string.bottom_nav_home)) }
+                    icon = {
+                        Icon(
+                            Icons.Filled.Home,
+                            contentDescription = stringResource(R.string.bottom_nav_home),
+                            modifier = Modifier.selectionBounce(selectedTab == BottomTab.HOME)
+                        )
+                    }
                 )
                 NavigationBarItem(
                     selected = selectedTab == BottomTab.PROGRESS,
                     onClick = { selectedTab = BottomTab.PROGRESS },
-                    icon = { Icon(Icons.Filled.Insights, contentDescription = null) },
-                    label = { Text(stringResource(R.string.bottom_nav_progress)) }
+                    icon = {
+                        Icon(
+                            Icons.Filled.Insights,
+                            contentDescription = stringResource(R.string.bottom_nav_progress),
+                            modifier = Modifier.selectionBounce(selectedTab == BottomTab.PROGRESS)
+                        )
+                    }
+                )
+                // Not a real tab - a direct action (opens the learner's current lesson) reported
+                // up by HomeScreen (see onContinueLearningLessonIdChange's doc comment), so it
+                // never shows `selected = true` and doesn't touch `selectedTab`. Only rendered
+                // while there's an actual lesson to jump to and Home is the active tab, matching
+                // the old FAB's own visibility guard.
+                if (selectedTab == BottomTab.HOME && continueLearningLessonId != null) {
+                    NavigationBarItem(
+                        selected = false,
+                        onClick = { onOpenLesson(continueLearningLessonId!!) },
+                        icon = {
+                            Icon(
+                                Icons.Filled.MyLocation,
+                                contentDescription = stringResource(R.string.home_continue_learning)
+                            )
+                        }
+                    )
+                }
+                NavigationBarItem(
+                    selected = selectedTab == BottomTab.ABOUT,
+                    onClick = { selectedTab = BottomTab.ABOUT },
+                    icon = {
+                        Icon(
+                            Icons.Filled.Info,
+                            contentDescription = stringResource(R.string.bottom_nav_about),
+                            modifier = Modifier.selectionBounce(selectedTab == BottomTab.ABOUT)
+                        )
+                    }
                 )
                 NavigationBarItem(
                     selected = selectedTab == BottomTab.SETTINGS,
                     onClick = { selectedTab = BottomTab.SETTINGS },
-                    icon = { Icon(Icons.Filled.Settings, contentDescription = null) },
-                    label = { Text(stringResource(R.string.home_open_settings)) }
+                    icon = {
+                        Icon(
+                            Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.home_open_settings),
+                            modifier = Modifier.selectionBounce(selectedTab == BottomTab.SETTINGS)
+                        )
+                    }
                 )
             }
         }
@@ -100,10 +190,12 @@ fun QwBottomNavShell(
                         expandedChapterIds = expandedChapterIds,
                         onExpandedChapterIdsChange = { expandedChapterIds = it },
                         expandedSectionIds = expandedSectionIds,
-                        onExpandedSectionIdsChange = { expandedSectionIds = it }
+                        onExpandedSectionIdsChange = { expandedSectionIds = it },
+                        onContinueLearningLessonIdChange = { continueLearningLessonId = it }
                     )
                 }
                 BottomTab.PROGRESS -> ProgressScreen()
+                BottomTab.ABOUT -> AboutScreen()
                 BottomTab.SETTINGS -> SettingsScreen(onBack = {}, showBackButton = false)
             }
         }

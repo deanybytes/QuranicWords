@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">Как вы хотите начать?</string>
     <string name="onboarding_path_select_subtitle">Вы можете изменить это позже в настройках.</string>
-    <string name="path_learn_title">Изучать словарь</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">Начните с самого начала и постепенно осваивайте кораническую лексику, слово за словом.</string>
-    <string name="path_test_only_title">Проверить, что я уже знаю</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">Пропустите уроки и сразу переходите к тестам на уже известные вам слова.</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">Установите дневную цель</string>
     <string name="onboarding_daily_goal_subtitle">Выберите, сколько минут в день вы хотите заниматься. Это можно изменить позже в настройках.</string>
-    <string name="daily_goal_casual">Лёгкий</string>
-    <string name="daily_goal_steady">Регулярный</string>
-    <string name="daily_goal_devoted">Усердный</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d минут в день</string>
     <string name="home_daily_challenge_completed">Дневное задание выполнено</string>
     <string name="test_only_start_quiz_title">Начать викторину</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Выберите стиль обучения</string>
     <string name="onboarding_learning_style_subtitle">Это определяет, сколько раз каждое слово повторяется, прежде чем перейти дальше. Это можно изменить позже в настройках.</string>
-    <string name="learning_style_sharp">Лёгкое знакомство</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">Увидьте каждое слово один раз и двигайтесь дальше</string>
-    <string name="learning_style_slow">Прочная основа</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">Каждое слово повторяется 3 раза для устойчивой основы</string>
-    <string name="learning_style_cozy">Прочно закреплено</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">Каждое слово повторяется 5 раз, чтобы точно запомниться</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">Прогресс сброшен.</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Где цель DEANY встречается с цифровыми BYTES.</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">Связаться</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>

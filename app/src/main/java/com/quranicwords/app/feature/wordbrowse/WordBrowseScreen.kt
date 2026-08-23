@@ -33,6 +33,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,6 +44,7 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
@@ -66,9 +68,13 @@ fun WordBrowseScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                modifier = Modifier.shadow(
+                    Elevation.raised,
+                    RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
+                ),
                 title = { Text(stringResource(R.string.word_browse_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    QwIconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                     }
                 }

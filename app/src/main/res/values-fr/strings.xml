@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">Comment souhaitez-vous commencer ?</string>
     <string name="onboarding_path_select_subtitle">Vous pourrez le modifier plus tard dans les paramètres.</string>
-    <string name="path_learn_title">Apprendre le vocabulaire</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">Commencez depuis le début et construisez votre vocabulaire coranique, mot par mot.</string>
-    <string name="path_test_only_title">Tester ce que je sais</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">Passez les leçons et lancez-vous directement dans des quiz sur les mots que vous connaissez déjà.</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">Définissez votre objectif quotidien</string>
     <string name="onboarding_daily_goal_subtitle">Choisissez combien de minutes vous voulez pratiquer chaque jour. Vous pourrez le modifier plus tard dans les Paramètres.</string>
-    <string name="daily_goal_casual">Décontracté</string>
-    <string name="daily_goal_steady">Régulier</string>
-    <string name="daily_goal_devoted">Assidu</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d minutes par jour</string>
     <string name="home_daily_challenge_completed">Défi quotidien terminé</string>
     <string name="test_only_start_quiz_title">Démarrer un quiz</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">Choisissez votre style d\'apprentissage</string>
     <string name="onboarding_learning_style_subtitle">Cela détermine combien de fois chaque mot se répète avant de passer à la suite. Vous pourrez le modifier plus tard dans les Paramètres.</string>
-    <string name="learning_style_sharp">Aperçu léger</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">Voyez chaque mot une fois, puis avancez</string>
-    <string name="learning_style_slow">Base solide</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">Chaque mot se répète 3 fois pour une base stable</string>
-    <string name="learning_style_cozy">Bien ancré</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">Chaque mot se répète 5 fois pour vraiment s\'ancrer</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">La progression a été réinitialisée.</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Où le but de DEANY rencontre les BYTES numériques.</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">Nous suivre</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>

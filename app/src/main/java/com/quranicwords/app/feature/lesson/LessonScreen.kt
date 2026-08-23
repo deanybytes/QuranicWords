@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,11 +45,13 @@ import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.AnswerFeedbackOverlay
 import com.quranicwords.app.core.ui.components.FeedbackBanner
 import com.quranicwords.app.core.ui.components.FeedbackType
+import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberQwHaptics
+import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.ListenAndTypeExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
@@ -113,6 +116,10 @@ fun LessonScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
+                    modifier = Modifier.shadow(
+                        Elevation.raised,
+                        RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
+                    ),
                     title = {
                         val animatedProgress by animateFloatAsState(
                             targetValue = uiState.progressFraction,
@@ -130,7 +137,7 @@ fun LessonScreen(
                         )
                     },
                     navigationIcon = {
-                        IconButton(onClick = { showExitDialog = true }) {
+                        QwIconButton(onClick = { showExitDialog = true }) {
                             Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.action_back))
                         }
                     }

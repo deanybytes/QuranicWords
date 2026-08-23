@@ -32,9 +32,9 @@
     <!-- Path select -->
     <string name="onboarding_path_select_title">আপনি কীভাবে শুরু করতে চান?</string>
     <string name="onboarding_path_select_subtitle">আপনি পরে সেটিংসে এটি পরিবর্তন করতে পারবেন।</string>
-    <string name="path_learn_title">শব্দভাণ্ডার শিখুন</string>
+    <string name="path_learn_title">Learn &amp; Test</string>
     <string name="path_learn_description">শুরু থেকে শুরু করুন এবং ধাপে ধাপে আপনার কুরআনের শব্দভাণ্ডার গড়ে তুলুন।</string>
-    <string name="path_test_only_title">আমি যা জানি তা যাচাই করুন</string>
+    <string name="path_test_only_title">Test Only</string>
     <string name="path_test_only_description">পাঠ এড়িয়ে সরাসরি আপনার জানা শব্দগুলোর কুইজে চলে যান।</string>
 
     <!-- Font select -->
@@ -45,9 +45,9 @@
     <!-- Daily goal select -->
     <string name="onboarding_daily_goal_title">আপনার দৈনিক লক্ষ্য নির্ধারণ করুন</string>
     <string name="onboarding_daily_goal_subtitle">প্রতিদিন কত মিনিট অনুশীলন করতে চান তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
-    <string name="daily_goal_casual">সাধারণ</string>
-    <string name="daily_goal_steady">নিয়মিত</string>
-    <string name="daily_goal_devoted">নিবেদিত</string>
+    <string name="daily_goal_casual">Casual</string>
+    <string name="daily_goal_steady">Steady</string>
+    <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">প্রতিদিন %d মিনিট</string>
     <string name="home_daily_challenge_completed">দৈনিক চ্যালেঞ্জ সম্পন্ন</string>
     <string name="test_only_start_quiz_title">কুইজ শুরু করুন</string>
@@ -56,11 +56,11 @@
     <!-- Learning style select -->
     <string name="onboarding_learning_style_title">আপনার শেখার ধরন বেছে নিন</string>
     <string name="onboarding_learning_style_subtitle">এটি নির্ধারণ করে প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
-    <string name="learning_style_sharp">হালকা ছোঁয়া</string>
+    <string name="learning_style_sharp">Light Touch</string>
     <string name="learning_style_sharp_description">প্রতিটি শব্দ একবার দেখুন, তারপর এগিয়ে যান</string>
-    <string name="learning_style_slow">মজবুত ভিত্তি</string>
+    <string name="learning_style_slow">Solid Base</string>
     <string name="learning_style_slow_description">স্থিতিশীল ভিত্তির জন্য প্রতিটি শব্দ ৩ বার পুনরাবৃত্তি হয়</string>
-    <string name="learning_style_cozy">পূর্ণ আয়ত্ত</string>
+    <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">সত্যিকারের রপ্ত করার জন্য প্রতিটি শব্দ ৫ বার পুনরাবৃত্তি হয়</string>
 
     <!-- Chapter/section intro -->
@@ -220,7 +220,7 @@
     <string name="settings_reset_progress_done">অগ্রগতি রিসেট করা হয়েছে।</string>
 
     <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">যেখানে DEANY-র উদ্দেশ্য ডিজিটাল BYTES-এর সাথে মিলিত হয়।</string>
+    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_section_connect">যোগাযোগ</string>
     <string name="settings_connect_github">গিটহাব</string>
     <string name="settings_connect_youtube">ইউটিউব</string>

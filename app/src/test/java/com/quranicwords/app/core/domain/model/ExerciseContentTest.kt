@@ -22,8 +22,9 @@ class ExerciseContentTest {
         exampleVerseReference = "1:1"
     )
 
-    private fun quizStep(id: String) = ExerciseContent.MultipleChoice(
+    private fun quizStep(wordId: String) = ExerciseContent.MultipleChoice(
         prompt = mapOf("en" to "What does this word mean?", "bn" to "এই শব্দের অর্থ কী?"),
+        wordId = wordId,
         options = listOf(ChoiceOption(id = "o1", label = mapOf("en" to "from"))),
         correctOptionId = "o1"
     )
@@ -56,7 +57,7 @@ class ExerciseContentTest {
         assertTrue(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).isScored)
         assertTrue(
             ExerciseContent.TapWhatYouHear(
-                prompt = EN_BN, audioAssetPath = "a.mp3",
+                prompt = EN_BN, audioAssetPath = "a.mp3", wordId = "x",
                 options = emptyList(), correctOptionId = "x"
             ).isScored
         )
@@ -68,7 +69,7 @@ class ExerciseContentTest {
     @Test
     fun `practicedItemId resolves for scored types and is null for teach steps and matching`() {
         assertNull(teachStep("alif").practicedItemId())
-        assertEquals("o1", quizStep("q1").practicedItemId())
+        assertEquals("q1", quizStep("q1").practicedItemId())
         assertEquals("w1", fillInTheBlank("w1").practicedItemId())
         assertEquals("w1", wordOrder("w1").practicedItemId())
         assertEquals("w1", listenAndType("w1").practicedItemId())

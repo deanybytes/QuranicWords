@@ -8,11 +8,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,21 +19,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Code
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
@@ -48,7 +39,6 @@ import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -56,8 +46,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -71,10 +61,11 @@ import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
-import com.quranicwords.app.core.ui.components.AbstractBookMotif
-import com.quranicwords.app.core.ui.components.QwLogo
+import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.components.QwSecondaryButton
+import com.quranicwords.app.core.ui.components.SectionCard
+import com.quranicwords.app.core.ui.components.SectionTitle
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
@@ -92,7 +83,9 @@ fun SettingsScreen(
     val language by viewModel.language.collectAsStateWithLifecycle()
     val fontStyle by viewModel.fontStyle.collectAsStateWithLifecycle()
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
+    val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
+    val pronunciationAudioEnabled by viewModel.pronunciationAudioEnabled.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
@@ -104,7 +97,6 @@ fun SettingsScreen(
     val progressResetDone by viewModel.progressResetDone.collectAsStateWithLifecycle()
     val displayLanguage = rememberSelectedLanguage()
     val context = LocalContext.current
-    var showLicenses by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     var showResetProgressConfirm by remember { mutableStateOf(false) }
     var notificationPermissionDenied by remember { mutableStateOf(false) }
@@ -154,13 +146,17 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                modifier = Modifier.shadow(
+                    Elevation.raised,
+                    RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
+                ),
                 title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     // Absent when hosted as a bottom-nav tab (QwBottomNavShell) - there's no
                     // "back" to go to from a tab, unlike when this was a pushed Route.Settings
                     // destination.
                     if (showBackButton) {
-                        IconButton(onClick = onBack) {
+                        QwIconButton(onClick = onBack) {
                             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                         }
                     }
@@ -176,7 +172,7 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-        StaggeredEntrance(index = 0) { SettingsSectionCard {
+        StaggeredEntrance(index = 0) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_appearance))
 
             Text(stringResource(R.string.settings_theme_label), style = MaterialTheme.typography.labelLarge)
@@ -230,8 +226,8 @@ fun SettingsScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(R.string.settings_sound_effects_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = soundEnabled, onCheckedChange = viewModel::setSoundEnabled)
+                Text(stringResource(R.string.settings_reduce_glass_label), style = MaterialTheme.typography.labelLarge)
+                Switch(checked = reduceGlassEffects, onCheckedChange = viewModel::setReduceGlassEffects)
             }
 
             Text(stringResource(R.string.settings_font_scale_label), style = MaterialTheme.typography.labelLarge)
@@ -252,7 +248,28 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 1) { SettingsSectionCard {
+        StaggeredEntrance(index = 1) { SectionCard {
+            SectionTitle(stringResource(R.string.settings_section_sound))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(R.string.settings_sound_effects_label), style = MaterialTheme.typography.labelLarge)
+                Switch(checked = soundEnabled, onCheckedChange = viewModel::setSoundEnabled)
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(R.string.settings_pronunciation_audio_label), style = MaterialTheme.typography.labelLarge)
+                Switch(checked = pronunciationAudioEnabled, onCheckedChange = viewModel::setPronunciationAudioEnabled)
+            }
+        } }
+
+        StaggeredEntrance(index = 2) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_mode))
 
             Text(stringResource(R.string.settings_learning_path_label), style = MaterialTheme.typography.labelLarge)
@@ -307,7 +324,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 2) { SettingsSectionCard {
+        StaggeredEntrance(index = 3) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_notifications))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -344,7 +361,7 @@ fun SettingsScreen(
             }
         } }
 
-        StaggeredEntrance(index = 3) { SettingsSectionCard {
+        StaggeredEntrance(index = 4) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_backup))
             Text(
                 stringResource(R.string.settings_backup_description),
@@ -400,62 +417,6 @@ fun SettingsScreen(
                 )
             }
         } }
-
-        StaggeredEntrance(index = 4) { SettingsSectionCard {
-            SectionTitle(stringResource(R.string.settings_section_about))
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                QwLogo(size = 56.dp)
-                AbstractBookMotif(
-                    modifier = Modifier.size(40.dp),
-                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.18f)
-                )
-            }
-            Text(
-                stringResource(R.string.settings_motto),
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Text(stringResource(R.string.settings_copyright), style = MaterialTheme.typography.bodySmall)
-            Text(
-                stringResource(R.string.settings_content_provenance_note),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            QwSecondaryButton(
-                text = stringResource(R.string.settings_licenses_button),
-                onClick = { showLicenses = true }
-            )
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-
-            SectionTitle(stringResource(R.string.settings_section_connect))
-            val uriHandler = LocalUriHandler.current
-            ConnectLinkRow(
-                icon = Icons.Filled.Code,
-                label = stringResource(R.string.settings_connect_github),
-                onClick = { uriHandler.openUri("https://github.com/deanybytes/QuranicWords") }
-            )
-            ConnectLinkRow(
-                icon = Icons.Filled.PlayCircle,
-                label = stringResource(R.string.settings_connect_youtube),
-                onClick = { uriHandler.openUri("https://youtube.com/@deanytalks") }
-            )
-            ConnectLinkRow(
-                icon = Icons.Filled.Email,
-                label = stringResource(R.string.settings_connect_email),
-                onClick = { uriHandler.openUri("mailto:deanybytes@gmail.com") }
-            )
-            ConnectLinkRow(
-                icon = Icons.AutoMirrored.Filled.Send,
-                label = stringResource(R.string.settings_connect_telegram),
-                onClick = { uriHandler.openUri("https://t.me/deanytalks") }
-            )
-            ConnectLinkRow(
-                icon = Icons.AutoMirrored.Filled.Chat,
-                label = stringResource(R.string.settings_connect_whatsapp),
-                onClick = { uriHandler.openUri("https://whatsapp.com/channel/0029VaLkfgUEwEk0cgLkcD3G") }
-            )
-        } }
         }
     }
 
@@ -499,71 +460,4 @@ fun SettingsScreen(
         )
     }
 
-    if (showLicenses) {
-        val noticeText = remember {
-            runCatching { context.assets.open("NOTICE.txt").bufferedReader().use { it.readText() } }
-                .getOrDefault("")
-        }
-        AlertDialog(
-            onDismissRequest = { showLicenses = false },
-            title = { Text(stringResource(R.string.settings_licenses_title)) },
-            text = {
-                Text(
-                    noticeText,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.heightIn(max = 480.dp).verticalScroll(rememberScrollState())
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = { showLicenses = false }) {
-                    Text(stringResource(R.string.settings_close))
-                }
-            }
-        )
-    }
-}
-
-/** One row in the About section's "Connect" list - opens an external link/app via
- * [LocalUriHandler] (browser, mail client, or the Telegram/WhatsApp app if installed). URLs are
- * user-supplied contact channels, not seeded content, so they're plain hardcoded strings here
- * rather than a data/domain model. */
-@Composable
-private fun ConnectLinkRow(icon: ImageVector, label: String, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-        Text(label, style = MaterialTheme.typography.bodyLarge)
-    }
-}
-
-@Composable
-private fun SectionTitle(text: String) {
-    // titleLarge (Serif-mapped, see core/ui/theme/Type.kt) for the "manuscript display" feel
-    // used elsewhere in the app - was titleMedium (system default), a one-line chrome-refresh fix.
-    Text(text, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
-}
-
-/**
- * Gives each Settings section the "3D box" [Elevation.raised] card treatment instead of sitting
- * flat against the screen background - see `docs/UI_GUIDELINES.md`. Not itself tappable, so it
- * doesn't need `pressDepth`; the interactive controls inside (buttons, chips) carry their own.
- */
-@Composable
-private fun SettingsSectionCard(content: @Composable ColumnScope.() -> Unit) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.raised)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            content = content
-        )
-    }
 }

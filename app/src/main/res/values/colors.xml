@@ -5,4 +5,9 @@
          The full Material 3 tonal palette lives in core/ui/theme/Color.kt. -->
     <color name="ic_launcher_background">#053827</color>
     <color name="splash_background">#053827</color>
+    <!-- Deliberately darker than splash_background/BrandDarkGreen (#053827), which is the exact
+         hex of ic_qw_mark's own interior field - using the same color for both made the mark
+         visually merge into the splash screen. Only the pre-Compose splash uses this; the app's
+         base window background keeps splash_background. -->
+    <color name="splash_screen_background">#02140D</color>
 </resources>

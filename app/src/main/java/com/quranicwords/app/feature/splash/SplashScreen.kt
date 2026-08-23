@@ -1,6 +1,9 @@
 package com.quranicwords.app.feature.splash
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,7 +34,6 @@ import com.quranicwords.app.core.ui.components.CrescentMoonMotif
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.StarfieldMotif
-import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 
 /**
@@ -45,7 +48,7 @@ import com.quranicwords.app.core.ui.motion.rememberReducedMotion
  * locale rather than the learner's own chosen one. See that route's doc comment.
  *
  * After the invocation finishes (or is tapped through early), the ceremonial "opening" moment
- * (redesign plan): an ambient low-opacity geometric lattice behind a spring-scaled logo reveal -
+ * (redesign plan): an ambient low-opacity geometric lattice behind a big coin-flip logo reveal -
  * abstract/stylized only, never a literal Mushaf/page graphic, per the plan's guardrail against
  * rendering scripture as decoration.
  */
@@ -75,22 +78,33 @@ fun SplashScreen(
     }
     var revealed by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { revealed = true }
-    // Wider start delta than before (0.4f, was 0.6f) - MotionSpecs.celebratory()'s bouncy spring
-    // overshoots past 1f proportionally to how far it travels, so this alone makes the reveal
-    // read as a genuine pop rather than a gentle settle, without hand-tuning a new spring.
+    val density = LocalDensity.current
+    // Slow, low-stiffness spring (longer settle than MotionSpecs.celebratory()) so the pop-in
+    // reads as a deliberate reveal rather than a blink-and-you-miss-it flash.
     val logoScale by animateFloatAsState(
-        targetValue = if (revealed) 1f else 0.4f,
-        animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
+        targetValue = if (revealed) 1f else 0.3f,
+        animationSpec = if (reducedMotion) {
+            tween(durationMillis = 0)
+        } else {
+            spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessVeryLow)
+        },
         label = "splashLogoScale"
     )
-    // A slight unfurl-from-rotated-start on the mark itself, on top of QwLogo's own idle glow -
-    // settles to upright as the scale-in spring finishes, echoing an opening/unfolding motion
-    // without literally depicting a book or page (see this file's own guardrail below).
-    val logoRotation by animateFloatAsState(
-        targetValue = if (revealed) 0f else -22f,
-        animationSpec = if (reducedMotion) tween(durationMillis = 0) else MotionSpecs.celebratory(),
-        label = "splashLogoRotation"
+    // A tossed-coin spin around the Y axis (three full turns, decelerating to a stop face-on) -
+    // same rotationY/cameraDistance mechanics as Qw3DFlipCard, just a longer throw. Reads as a
+    // coin landing rather than a page unfurling, but stays abstract/geometric - no literal
+    // book/page depicted, per this file's guardrail below.
+    val logoRotationY by animateFloatAsState(
+        targetValue = if (revealed) 0f else -1080f,
+        animationSpec = if (reducedMotion) {
+            tween(durationMillis = 0)
+        } else {
+            tween(durationMillis = 1500, easing = FastOutSlowInEasing)
+        },
+        label = "splashLogoRotationY"
     )
+    val logoMirrorFix = ((logoRotationY % 360f) + 360f) % 360f
+    val logoScaleX = if (logoMirrorFix in 90f..270f) -1f else 1f
     val patternAlpha by animateFloatAsState(
         targetValue = if (revealed) 0.08f else 0f,
         animationSpec = if (reducedMotion) tween(durationMillis = 0) else tween(durationMillis = 900),
@@ -124,10 +138,12 @@ fun SplashScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 QwLogo(
+                    size = 160.dp,
                     modifier = Modifier.graphicsLayer {
-                        scaleX = logoScale
+                        scaleX = logoScale * logoScaleX
                         scaleY = logoScale
-                        rotationZ = logoRotation
+                        rotationY = logoRotationY
+                        cameraDistance = 12f * density.density
                     }
                 )
                 Spacer(modifier = Modifier.height(24.dp))

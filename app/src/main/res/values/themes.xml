@@ -9,8 +9,15 @@
 
     <!-- Applied only until the first Compose frame is drawn (see MainActivity/installSplashScreen). -->
     <style name="Theme.QuranicWords.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/splash_background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_qw_mark</item>
+        <item name="windowSplashScreenBackground">@color/splash_screen_background</item>
+        <!-- ic_qw_mark.png is full-bleed (its gold ring is drawn right to the canvas edge), but
+             the platform SplashScreen API expects an icon already inset to the adaptive-icon safe
+             zone - it scales/masks on that assumption regardless of an icon background color, so
+             the full-bleed mark got its outer ring cropped off entirely. ic_launcher_foreground
+             is the same badge already padded to that safe zone (it's the adaptive launcher icon's
+             foreground layer), so reuse it here instead of adding a new asset. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/splash_screen_background</item>
         <item name="postSplashScreenTheme">@style/Theme.QuranicWords</item>
     </style>
 </resources>

@@ -170,12 +170,37 @@ class LessonViewModel @Inject constructor(
                 // reinforcement" it does for a fixed lesson's authored word set.
                 val repeatCount = if (isOpenPractice || isStreakRecovery) 1 else learningStyle.repeatCount
                 val repeated = LessonContentRepeater.apply(decoded, repeatCount)
+                    .map { content -> resolveCanonicalMeaning(content, candidatePool) }
                     .map { content -> regenerateDistractors(content, candidatePool, missedItemIds) }
                 AdaptiveSequencer.reorderForAdaptivePractice(repeated, missedItemIds)
             }
             _uiState.update { it.copy(isLoading = false, contents = contents) }
         }
     }
+
+    /** Overrides every baked, content-pipeline-authored copy of a word's meaning with the single
+     * canonical value from [WordFrequencyEntity] (via [candidatePool]) - the same word can
+     * otherwise show different, independently-drifted translations on its WordIntro/Matching/
+     * TapWordInVerse screens (each was baked as its own copy at content-authoring time; a later
+     * correction to one copy doesn't propagate to the others). Falls back to the baked text when
+     * the word isn't in the pool (e.g. non-word content types have no [WordFrequencyEntity] row
+     * at all), matching [rebuildOptions]'s existing fallback discipline. [OptionsBearing]'s
+     * correct-option label is handled separately inside [rebuildOptions], since it shares that
+     * function's existing distractor-resolution machinery.
+     */
+    private fun resolveCanonicalMeaning(content: ExerciseContent, candidatePool: WordCandidatePool): ExerciseContent =
+        when (content) {
+            is ExerciseContent.WordIntro ->
+                candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
+            is ExerciseContent.TapWordInVerse ->
+                candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
+            is ExerciseContent.Matching -> content.copy(
+                pairs = content.pairs.map { pair ->
+                    pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
+                }
+            )
+            else -> content
+        }
 
     /** Replaces the content-pipeline's fixed, recency-baked options with a freshly-picked set
      * per lesson entry (see [DistractorGenerator]) - content that isn't [OptionsBearing]
@@ -186,7 +211,9 @@ class LessonViewModel @Inject constructor(
         missedItemIds: Set<String>
     ): ExerciseContent = when (content) {
         is OptionsBearing ->
-            content.withOptions(rebuildOptions(content.options, content.correctOptionId, candidatePool, missedItemIds))
+            content.withOptions(
+                rebuildOptions(content.options, content.wordId, content.correctOptionId, candidatePool, missedItemIds)
+            )
         is ExerciseContent.Matching ->
             content.copy(distractorRight = pickMatchingDistractor(content, candidatePool, missedItemIds))
         else -> content
@@ -210,19 +237,32 @@ class LessonViewModel @Inject constructor(
     /** Regenerates distractors from [candidatePool] and tops up from the pre-baked [baked] pool
      * when Room doesn't have enough siblings yet (e.g. alphabet items, which aren't in
      * [WordFrequencyEntity] at all - [candidatePool] is empty for those, so this falls through to
-     * [baked] entirely). The fallback stays visible here rather than hidden in the generator. */
+     * [baked] entirely). The fallback stays visible here rather than hidden in the generator.
+     *
+     * The correct option's label is resolved fresh from [candidatePool] via [wordId] rather than
+     * trusting [baked]'s copy verbatim - the same canonical-meaning discipline as
+     * [resolveCanonicalMeaning], applied here since this is where the correct option is otherwise
+     * the one baked value nothing else in the pipeline touches. */
     private fun rebuildOptions(
         baked: List<ChoiceOption>,
+        wordId: String,
         correctOptionId: String,
         candidatePool: WordCandidatePool,
         missedItemIds: Set<String>
     ): List<ChoiceOption> {
-        val correctOption = baked.find { it.id == correctOptionId } ?: return baked
-        val generated = DistractorGenerator.pickDistractors(correctOptionId, candidatePool, missedItemIds)
+        val bakedCorrectOption = baked.find { it.id == correctOptionId } ?: return baked
+        val correctOption = candidatePool.get(wordId)
+            ?.let { ChoiceOption(id = correctOptionId, labelArabic = it.arabicWord, label = it.meaning) }
+            ?: bakedCorrectOption
+        // wordId, not correctOptionId, is the real WordFrequencyEntity id pickDistractors needs
+        // to look itself up in the pool - correctOptionId is only a per-exercise-local option id
+        // ("o3") that was never a valid pool key, which silently made this always return
+        // emptyList() and fall through entirely to the baked topUp below.
+        val generated = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds)
             .mapNotNull { id -> candidatePool.get(id) }
             .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord, label = it.meaning) }
 
-        val usedIds = generated.map { it.id }.toSet() + correctOptionId
+        val usedIds = generated.map { it.id }.toSet() + correctOptionId + wordId
         val stillNeeded = 3 - generated.size
         val topUp = if (stillNeeded > 0) baked.filter { it.id !in usedIds }.take(stillNeeded) else emptyList()
 

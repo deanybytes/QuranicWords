@@ -13,6 +13,7 @@ import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
 import com.quranicwords.app.core.domain.InactivityDuration
 import com.quranicwords.app.core.domain.StreakRecovery
+import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -59,6 +60,18 @@ data class HomeUiState(
      * any progress rows yet, or the whole curriculum is already complete). */
     val initiallyExpandedChapterId: String? = null,
     val initiallyExpandedSectionId: String? = null,
+    /** The actual lesson id of the learner's current position (see [findCurrentLessonId]) - unlike
+     * [initiallyExpandedChapterId]/[initiallyExpandedSectionId], which only locate the containing
+     * chapter/section for the collapse/expand tree, this is the exact lesson the "Continue
+     * Learning" FAB opens directly. */
+    val currentLessonId: String? = null,
+    /** Running-total Quran coverage percent from every completed chapter exam (see
+     * [com.quranicwords.app.core.domain.repository.AchievementRepository.getCumulativeCoveragePercent]) -
+     * fetched once per Home session, same one-shot treatment as [hasReviewableItems], since it only
+     * changes on a chapter-exam pass (which recreates this ViewModel via Home's normal nav flow).
+     * Drives the header's hero coverage ring - the same figure the Progress tab's donut shows, so
+     * the two screens never disagree about "how much of the Qur'an have I actually covered". */
+    val quranCoveragePercent: Double = 0.0,
     /** Running-total Quran coverage percent through and including each chapter (chapter id ->
      * cumulative %), for the "own share · running total" stat line on each chapter's summary
      * card - see [cumulativeCoveragePercentByChapter]. Every chapter in this curriculum has the
@@ -105,6 +118,23 @@ fun findCurrentPosition(chapters: List<ChapterWithSections>, progressByLessonId:
         if (hasCurrentChapterLevel) return chapterWithSections.chapter.id to null
     }
     return null to null
+}
+
+/** Pure derivation, no DB access - the exact lesson id of the learner's current position (first
+ * UNLOCKED-but-not-COMPLETED lesson in tree order), rather than just its containing chapter/
+ * section (see [findCurrentPosition]). Drives the Home "Continue Learning" FAB, which opens this
+ * lesson directly instead of only scrolling/expanding the tree to where it lives. */
+fun findCurrentLessonId(chapters: List<ChapterWithSections>, progressByLessonId: Map<String, UserProgressEntity>): String? {
+    for (chapterWithSections in chapters) {
+        for (sectionWithLessons in chapterWithSections.sections) {
+            val current = sectionWithLessons.lessons.firstOrNull { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
+            if (current != null) return current.id
+        }
+        val currentChapterLevel = chapterWithSections.chapterLevelLessons
+            .firstOrNull { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
+        if (currentChapterLevel != null) return currentChapterLevel.id
+    }
+    return null
 }
 
 /** Pure derivation for a chapter/section summary node's own status, from its children's real
@@ -190,6 +220,7 @@ fun isCurriculumComplete(chapters: List<ChapterWithSections>, progressByLessonId
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
+    private val achievementRepository: AchievementRepository,
     private val preferences: UserPreferencesDataStore,
     private val userIdProvider: CurrentUserIdProvider,
     private val clock: Clock
@@ -207,6 +238,7 @@ class HomeViewModel @Inject constructor(
             progressRepository.ensureCurriculumStarted(userId)
 
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
+            val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
             val chapters = loadCurriculumTree()
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
             val todayDate = LocalDate.now(clock)
@@ -229,6 +261,8 @@ class HomeViewModel @Inject constructor(
                     hasReviewableItems = hasReviewableItems,
                     initiallyExpandedChapterId = currentChapterId,
                     initiallyExpandedSectionId = currentSectionId,
+                    currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
+                    quranCoveragePercent = coveragePercent,
                     cumulativeCoveragePercentByChapter = cumulativeCoverage,
                     completedHistory = completedLessonsHistory(chapters, progressByLessonId),
                     isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(

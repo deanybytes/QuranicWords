@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,25 +35,25 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Style
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -67,12 +69,14 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -89,16 +93,20 @@ import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.DailyGoalBadge
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
+import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.PointsBadge
-import com.quranicwords.app.core.ui.components.StarfieldMotif
+import com.quranicwords.app.core.ui.components.QwLogo
+import com.quranicwords.app.core.ui.components.QuranStarfieldMotif
 import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.StreakLockedChip
 import com.quranicwords.app.core.ui.components.StreakLockedDialog
+import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
+import com.quranicwords.app.core.ui.motion.rememberReducedGlass
 import com.quranicwords.app.core.ui.motion.unlockRevealShimmer
 import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.core.util.formatDuration
@@ -140,12 +148,16 @@ fun HomeScreen(
     onExpandedChapterIdsChange: (Set<String>?) -> Unit,
     expandedSectionIds: Set<String>?,
     onExpandedSectionIdsChange: (Set<String>?) -> Unit,
+    /** Reports the "Continue Learning" target up to [com.quranicwords.app.core.navigation
+     * .QwBottomNavShell], whose own `Scaffold` now hosts that FAB centered over the bottom nav
+     * bar - a Home-tab-specific action, but the bar itself is shared shell chrome, so the shell
+     * needs to know when to show it rather than Home rendering its own floating button. */
+    onContinueLearningLessonIdChange: (String?) -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val language = rememberSelectedLanguage()
     val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
 
     // Which entry of uiState.completedHistory (most-recent-first) the swipeable history card is
     // currently showing - rememberSaveable so it survives tab-switch-away-and-back like the
@@ -181,91 +193,97 @@ fun HomeScreen(
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()
     val currentExpandedSectionIds = expandedSectionIds ?: emptySet()
 
-    // "Continue Learning" FAB: re-expands (only) the chapter/section containing the learner's
-    // current lesson and scrolls to that chapter's card - for when they've collapsed/scrolled
-    // elsewhere and want back to "where I am" without hunting through the tree. Scrolls to the
-    // chapter card, not the exact lesson node - the chapter auto-expands its current section too,
-    // which is short enough (~10 lessons) to spot the highlighted current lesson without further
-    // scrolling, without needing to compute an exact lesson-level LazyColumn index.
-    fun jumpToCurrentPosition() {
-        val currentChapterId = uiState.initiallyExpandedChapterId ?: return
-        onExpandedChapterIdsChange(setOf(currentChapterId))
-        onExpandedSectionIdsChange(setOfNotNull(uiState.initiallyExpandedSectionId))
-        val chapterIndex = uiState.chapters.indexOfFirst { it.chapter.id == currentChapterId }
-        if (chapterIndex < 0) return
-        val itemIndex = chapterIndex + (if (uiState.hasReviewableItems) 1 else 0)
-        coroutineScope.launch { listState.animateScrollToItem(itemIndex) }
+    // Reports the "Continue Learning" target up to QwBottomNavShell - see
+    // onContinueLearningLessonIdChange's doc comment above. Guarded on currentLessonId (not just
+    // initiallyExpandedChapterId) so the FAB never shows unless there's an actual lesson to open.
+    LaunchedEffect(uiState.currentLessonId) {
+        onContinueLearningLessonIdChange(uiState.currentLessonId)
+    }
+    DisposableEffect(Unit) {
+        onDispose { onContinueLearningLessonIdChange(null) }
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.home_title)) },
-                actions = {
-                    IconButton(onClick = onOpenRoadmap) {
-                        Icon(Icons.Filled.Map, contentDescription = stringResource(R.string.roadmap_title))
-                    }
-                }
-            )
-        },
-        floatingActionButton = {
-            if (uiState.initiallyExpandedChapterId != null) {
-                ExtendedFloatingActionButton(
-                    onClick = ::jumpToCurrentPosition,
-                    icon = { Icon(Icons.Filled.MyLocation, contentDescription = null) },
-                    text = { Text(stringResource(R.string.home_continue_learning)) }
-                )
-            }
-        }
+        // No topBar - the hero header below is a custom panel (gradient/shadow/rounded corners),
+        // not a Material TopAppBar, so it can look like a genuine hero surface instead of a flat
+        // system bar. contentWindowInsets zeroed out - the outer QwBottomNavShell Scaffold (this
+        // screen's only caller) already reserves the status/nav bar insets around this whole tab;
+        // without zeroing this Scaffold's own default (`WindowInsets.safeDrawing`) it would reserve
+        // the status bar height a *second* time, leaving a blank gap above the header.
+        contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { padding ->
-        Box(modifier = Modifier.padding(padding).fillMaxSize()) {
-            // Raised from the original 0.03f/status-strip-only treatment - the old combination
-            // read as a flat, empty page. Both layers stay low-alpha and purely ambient (never
-            // competing with card/path content), now drawn in the brand palette from Color.kt.
-            GeometricPatternBackground(modifier = Modifier.fillMaxSize(), alpha = 0.08f)
-            StarfieldMotif(
+        Box(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            // Same gold lattice as the header panel below - brought back per feedback (liked there,
+            // wanted here too), plus the Quran scatter unchanged on top.
+            GeometricPatternBackground(modifier = Modifier.fillMaxSize(), alpha = 0.1f)
+            QuranStarfieldMotif(
                 modifier = Modifier.fillMaxSize(),
-                starCount = 24,
-                color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.04f)
+                count = 26,
+                color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)
             )
 
             Column(modifier = Modifier.fillMaxSize()) {
-                Box {
-                    // Very low-alpha starfield behind the status strip - matches the LazyColumn's
-                    // own 12dp rhythm below rather than the odd 8dp this row previously used
-                    // alone, and reads as a distinct "status strip" above the plain background.
-                    StarfieldMotif(
-                        modifier = Modifier.fillMaxWidth().height(64.dp),
-                        starCount = 8,
-                        color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.05f)
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .horizontalScroll(rememberScrollState())
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        PointsBadge(uiState.totalPoints)
-                        if (uiState.isStreakLocked) {
-                            StreakLockedChip(questionCount = uiState.streakRecoveryQuestionCount, onClick = onOpenStreakRecovery)
-                        } else {
-                            StreakBadge(uiState.currentStreak)
-                        }
-                        DailyGoalBadge(visible = uiState.isDailyGoalMetToday)
-                    }
-                }
+                HomeHeroHeader(
+                    totalPoints = uiState.totalPoints,
+                    currentStreak = uiState.currentStreak,
+                    isStreakLocked = uiState.isStreakLocked,
+                    streakRecoveryQuestionCount = uiState.streakRecoveryQuestionCount,
+                    isDailyGoalMetToday = uiState.isDailyGoalMetToday,
+                    quranCoveragePercent = uiState.quranCoveragePercent,
+                    onOpenRoadmap = onOpenRoadmap,
+                    onOpenStreakRecovery = onOpenStreakRecovery
+                )
 
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // The "central box" - a standalone floating glass panel, gapped from
+                // HomeHeroHeader above and the bottom nav bar below (not flush against either),
+                // fully rounded on all four corners like the chapter/section/lesson cards inside
+                // it. A real drawn shadow (Modifier.shadow, same recipe GlassSurface itself uses)
+                // rather than a manually blurred fake-shadow layer - the blur-hack shadow only
+                // reads correctly against an *opaque* surface sitting flush against its neighbor
+                // (HomeHeroHeader); against this panel's translucent fill it bled straight through
+                // the fill and smeared across the seam into the box above.
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    val centralShape = RoundedCornerShape(28.dp)
+                    val reducedGlass = rememberReducedGlass()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(centralShape)
+                            .background(MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.4f))
+                            .then(
+                                if (reducedGlass) {
+                                    Modifier
+                                } else {
+                                    Modifier.border(
+                                        width = 1.dp,
+                                        brush = Brush.linearGradient(
+                                            listOf(Color.White.copy(alpha = 0.28f), Color.Transparent)
+                                        ),
+                                        shape = centralShape
+                                    )
+                                }
+                            )
+                    ) {
                 LazyColumn(
                     state = listState,
-                    modifier = Modifier.fillMaxSize(),
-                    // Extra bottom padding when the "Continue Learning" FAB is showing, so it
-                    // doesn't permanently cover the last visible card.
+                    modifier = Modifier.weight(1f).fillMaxWidth(),
                     contentPadding = PaddingValues(
                         start = 16.dp,
                         top = 16.dp,
                         end = 16.dp,
-                        bottom = if (uiState.initiallyExpandedChapterId != null) 96.dp else 16.dp
+                        bottom = 16.dp
                     ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -355,6 +373,7 @@ fun HomeScreen(
                                             title = lesson.title.get(language),
                                             kind = lesson.kind,
                                             progress = uiState.progressByLessonId[lesson.id],
+                                            isCurrent = lesson.id == uiState.currentLessonId,
                                             onClick = { onOpenLesson(lesson.id) },
                                             indent = 24.dp
                                         )
@@ -372,10 +391,158 @@ fun HomeScreen(
                                         title = lesson.title.get(language),
                                         kind = lesson.kind,
                                         progress = uiState.progressByLessonId[lesson.id],
+                                        isCurrent = lesson.id == uiState.currentLessonId,
                                         onClick = { onOpenLesson(lesson.id) },
                                         indent = 0.dp
                                     )
                                 }
+                            }
+                        }
+                    }
+                }
+                }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+        }
+    }
+}
+
+/**
+ * Home's hero header - brand row plus a "current status" strip that pairs the learner's real
+ * Qur'an-coverage progress ([HomeUiState.quranCoveragePercent], the same running total the
+ * Progress tab's [DonutChart] shows) with the existing points/streak/daily-goal badges, all inside
+ * one rounded, gradient, drop-shadowed panel (the "3D box" hero-surface recipe from
+ * docs/UI_GUIDELINES.md - layered fake shadow + named elevation). Replaces the old flat
+ * TopAppBar-plus-badge-row treatment, which read as two disconnected strips floating over a plain
+ * background rather than a single deliberate surface.
+ */
+@Composable
+private fun HomeHeroHeader(
+    totalPoints: Int,
+    currentStreak: Int,
+    isStreakLocked: Boolean,
+    streakRecoveryQuestionCount: Int,
+    isDailyGoalMetToday: Boolean,
+    quranCoveragePercent: Double,
+    onOpenRoadmap: () -> Unit,
+    onOpenStreakRecovery: () -> Unit
+) {
+    val shape = RoundedCornerShape(28.dp)
+
+    Box(modifier = Modifier.fillMaxWidth()) {
+        // Same glass-edge border highlight as GlassSurface (kept as a raw .border(...) rather than
+        // routing this hero surface through GlassSurface itself, since its bespoke gradient fill
+        // is a deliberate hero-only treatment worth keeping distinct). No drop shadow - per
+        // feedback, shadows are off across every box on this screen.
+        val reducedGlass = rememberReducedGlass()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape)
+                .background(
+                    Brush.linearGradient(
+                        listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.surfaceVariant
+                        )
+                    )
+                )
+                .then(
+                    if (reducedGlass) {
+                        Modifier
+                    } else {
+                        Modifier.border(
+                            width = 1.dp,
+                            brush = Brush.linearGradient(
+                                listOf(Color.White.copy(alpha = 0.28f), Color.Transparent)
+                            ),
+                            shape = shape
+                        )
+                    }
+                )
+        ) {
+            Box {
+                // Gold lattice + starfield, denser/brighter than the ambient body background -
+                // this panel is meant to be looked at, not just sat behind content.
+                GeometricPatternBackground(
+                    modifier = Modifier.matchParentSize(),
+                    color = MaterialTheme.colorScheme.tertiary,
+                    alpha = 0.14f,
+                    tileSize = 44.dp
+                )
+                QuranStarfieldMotif(
+                    modifier = Modifier.matchParentSize(),
+                    count = 10,
+                    color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.6f)
+                )
+
+                Column(modifier = Modifier.fillMaxWidth().padding(20.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        QwLogo(size = 40.dp)
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            stringResource(R.string.home_title),
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        val roadmapInteractionSource = remember { MutableInteractionSource() }
+                        Surface(
+                            modifier = Modifier
+                                .clickable(
+                                    interactionSource = roadmapInteractionSource,
+                                    indication = null,
+                                    onClick = onOpenRoadmap
+                                )
+                                .pressDepth(roadmapInteractionSource),
+                            shape = CircleShape,
+                            color = MaterialTheme.colorScheme.tertiaryContainer,
+                            shadowElevation = 0.dp
+                        ) {
+                            Icon(
+                                Icons.Filled.Map,
+                                contentDescription = stringResource(R.string.roadmap_title),
+                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                modifier = Modifier.padding(10.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        DonutChart(
+                            percent = (quranCoveragePercent / 100.0).toFloat(),
+                            size = 68.dp,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.16f),
+                            centerLabel = "${formatPercent(quranCoveragePercent)}%",
+                            labelStyle = MaterialTheme.typography.labelLarge.copy(
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                stringResource(R.string.progress_quran_coverage),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row(
+                                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                PointsBadge(totalPoints)
+                                if (isStreakLocked) {
+                                    StreakLockedChip(questionCount = streakRecoveryQuestionCount, onClick = onOpenStreakRecovery)
+                                } else {
+                                    StreakBadge(currentStreak)
+                                }
+                                DailyGoalBadge(visible = isDailyGoalMetToday)
                             }
                         }
                     }
@@ -421,20 +588,12 @@ private fun ChapterSummaryNode(
 ) {
     val (icon, iconTint) = statusDefaultIconAndTint(status)
     val shape = MaterialTheme.shapes.medium
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onToggle)
-            .then(
-                if (isCurrent) {
-                    Modifier.border(2.dp, MaterialTheme.colorScheme.tertiary, shape)
-                } else {
-                    Modifier
-                }
-            ),
+    GlassSurface(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onToggle,
         shape = shape,
-        colors = CardDefaults.cardColors(containerColor = statusContainerColor(status).copy(alpha = 0.85f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.raised)
+        tint = statusContainerColor(status),
+        accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
     ) {
         Row(
             modifier = Modifier
@@ -444,7 +603,14 @@ private fun ChapterSummaryNode(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Icon(icon, contentDescription = null, tint = iconTint)
+            GlassStatusBadge(
+                icon = icon,
+                contentDescription = null,
+                tint = iconTint,
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                size = 40.dp,
+                onClick = null
+            )
             Column(modifier = Modifier.weight(1f).clickable(onClick = onOpenIntro)) {
                 Text(title, style = MaterialTheme.typography.headlineSmall)
                 Text(
@@ -492,24 +658,32 @@ private fun SectionSummaryNode(
     onOpenWordBrowse: () -> Unit
 ) {
     val (icon, iconTint) = statusDefaultIconAndTint(status)
-    Column(
-        modifier = if (isCurrent) {
-            Modifier.border(2.dp, MaterialTheme.colorScheme.tertiary, RoundedCornerShape(12.dp))
-        } else {
-            Modifier
-        }
+    val sectionShape = RoundedCornerShape(12.dp)
+    GlassSurface(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onToggle,
+        shape = sectionShape,
+        tint = statusContainerColor(status),
+        tonalAlpha = 0.35f,
+        accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp)
-                .clickable(onClick = onToggle)
                 .unlockRevealShimmer(status, MaterialTheme.colorScheme.tertiary)
                 .padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(20.dp))
+            GlassStatusBadge(
+                icon = icon,
+                contentDescription = null,
+                tint = iconTint,
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                size = 32.dp,
+                onClick = null
+            )
             Text(
                 title,
                 style = MaterialTheme.typography.titleLarge,
@@ -557,6 +731,7 @@ private fun LessonPathNode(
     title: String,
     kind: LessonKind,
     progress: UserProgressEntity?,
+    isCurrent: Boolean = false,
     onClick: () -> Unit,
     indent: Dp = 0.dp
 ) {
@@ -585,6 +760,7 @@ private fun LessonPathNode(
             title = title,
             kind = kind,
             progress = progress,
+            isCurrent = isCurrent,
             onClick = onClick,
             modifier = Modifier.align(BiasAlignment(horizontalBias = bias, verticalBias = 0f))
         )
@@ -605,6 +781,7 @@ private fun LessonNode(
     title: String,
     kind: LessonKind,
     progress: UserProgressEntity?,
+    isCurrent: Boolean = false,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -624,28 +801,40 @@ private fun LessonNode(
     ) {
         val containerColor = statusContainerColor(status)
         val (defaultIcon, tint) = statusDefaultIconAndTint(status)
-        val icon = if (status == LessonStatus.LOCKED) defaultIcon else (kindIcon(kind) ?: defaultIcon)
+        // The current lesson's play icon becomes the same "target" glyph the bottom nav bar's
+        // Continue Learning item uses, so the two visually match up - every other state (locked,
+        // completed, exam/flashback kind, or just a regular non-current unlocked lesson) keeps its
+        // existing icon untouched.
+        val icon = when {
+            status == LessonStatus.LOCKED -> defaultIcon
+            isCurrent && status == LessonStatus.UNLOCKED && kindIcon(kind) == null -> Icons.Filled.MyLocation
+            else -> kindIcon(kind) ?: defaultIcon
+        }
 
         Box(
             modifier = Modifier
                 .size(64.dp)
                 .graphicsLayer { scaleX = scale; scaleY = scale }
-                .unlockRevealShimmer(status, MaterialTheme.colorScheme.tertiary)
-                .clip(CircleShape)
-                .background(containerColor),
+                .unlockRevealShimmer(status, MaterialTheme.colorScheme.tertiary),
             contentAlignment = Alignment.Center
         ) {
-            IconButton(onClick = onClick, enabled = isUnlocked) {
-                Icon(icon, contentDescription = title, tint = tint)
-            }
+            GlassStatusBadge(
+                icon = icon,
+                contentDescription = title,
+                tint = tint,
+                containerColor = containerColor,
+                size = 64.dp,
+                onClick = if (isUnlocked) onClick else null,
+                accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
+            )
         }
 
-        Card(
+        GlassSurface(
             modifier = Modifier.width(160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = if (isUnlocked) MaterialTheme.colorScheme.primaryContainer
-                else MaterialTheme.colorScheme.surfaceVariant
-            )
+            onClick = if (isUnlocked) onClick else null,
+            tint = if (isUnlocked) MaterialTheme.colorScheme.primaryContainer
+                else MaterialTheme.colorScheme.surfaceVariant,
+            accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Text(
@@ -672,31 +861,52 @@ private fun LessonNode(
     }
 }
 
+/** Shared circular "glass" status badge (play/lock/checkmark/exam icon) - the same [GlassSurface]
+ * treatment as the chapter/section/lesson boxes it sits inside, just circular. Centralizes what
+ * used to be three near-identical `Box.clip(CircleShape).background(...)` copies (chapter icon,
+ * section icon, lesson play/lock circle) into one, so "give every box the glass look" only needed
+ * fixing here once. */
+@Composable
+private fun GlassStatusBadge(
+    icon: ImageVector,
+    contentDescription: String?,
+    tint: Color,
+    containerColor: Color,
+    size: Dp,
+    onClick: (() -> Unit)?,
+    accentBorderColor: Color? = null
+) {
+    GlassSurface(
+        modifier = Modifier.size(size),
+        onClick = onClick,
+        shape = CircleShape,
+        tint = containerColor,
+        accentBorderColor = accentBorderColor,
+        accentBorderWidth = 1.5.dp
+    ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(icon, contentDescription = contentDescription, tint = tint)
+        }
+    }
+}
+
 /** Entry point into the dynamic Review session (see `LessonViewModel`'s `isReviewSession` path) -
  * only shown when [HomeUiState.hasReviewableItems] is true, i.e. the learner has at least one
- * item whose most recent attempt was wrong. The most prominent CTA on this screen, so it gets the
- * full "3D box" hero treatment (see docs/UI_GUIDELINES.md): [Elevation.floating] + press-depth +
- * a layered fake shadow. */
+ * item whose most recent attempt was wrong. The most prominent CTA on this screen - press-depth
+ * feedback, no drop shadow (shadows are off across every box on this screen per feedback). */
 @Composable
 private fun ReviewEntryCard(onClick: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     val shape = MaterialTheme.shapes.medium
 
     Box(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            Modifier
-                .matchParentSize()
-                .offset(x = 3.dp, y = 5.dp)
-                .blur(10.dp)
-                .background(Color.Black.copy(alpha = 0.18f), shape)
-        )
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .pressDepth(interactionSource),
             shape = shape,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-            elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             onClick = onClick,
             interactionSource = interactionSource
         ) {
@@ -737,18 +947,11 @@ private fun CurriculumCompleteCard(onClick: () -> Unit) {
     val shape = MaterialTheme.shapes.medium
 
     Box(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            Modifier
-                .matchParentSize()
-                .offset(x = 3.dp, y = 5.dp)
-                .blur(10.dp)
-                .background(Color.Black.copy(alpha = 0.18f), shape)
-        )
         Card(
             modifier = Modifier.fillMaxWidth().pressDepth(interactionSource),
             shape = shape,
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-            elevation = CardDefaults.cardElevation(defaultElevation = Elevation.floating),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             onClick = onClick,
             interactionSource = interactionSource
         ) {

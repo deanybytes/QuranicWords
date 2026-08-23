@@ -56,8 +56,14 @@ class SettingsViewModel @Inject constructor(
     val reduceMotion: StateFlow<Boolean> =
         preferences.reduceMotionFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
+    val reduceGlassEffects: StateFlow<Boolean> =
+        preferences.reduceGlassEffectsFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
     val soundEnabled: StateFlow<Boolean> =
         preferences.soundEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
+
+    val pronunciationAudioEnabled: StateFlow<Boolean> =
+        preferences.pronunciationAudioEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
     val fontScale: StateFlow<FontScale> =
         preferences.fontScaleFlow.stateIn(viewModelScope, SharingStarted.Eagerly, FontScale.DEFAULT)
@@ -90,8 +96,16 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { preferences.setReduceMotion(enabled) }
     }
 
+    fun setReduceGlassEffects(enabled: Boolean) {
+        viewModelScope.launch { preferences.setReduceGlassEffects(enabled) }
+    }
+
     fun setSoundEnabled(enabled: Boolean) {
         viewModelScope.launch { preferences.setSoundEnabled(enabled) }
+    }
+
+    fun setPronunciationAudioEnabled(enabled: Boolean) {
+        viewModelScope.launch { preferences.setPronunciationAudioEnabled(enabled) }
     }
 
     fun setFontScale(scale: FontScale) {

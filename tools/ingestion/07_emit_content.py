@@ -112,6 +112,7 @@ def main():
                     "type": "multiple_choice",
                     "prompt": dict(QUIZ_PROMPT),
                     "promptArabic": lemma["arabic"],
+                    "wordId": wid,
                     "options": options,
                     "correctOptionId": correct_option_id,
                 }
