@@ -19,7 +19,13 @@ sealed interface ExerciseContent {
         val promptArabic: String? = null,
         override val wordId: String,
         override val options: List<ChoiceOption>,
-        override val correctOptionId: String
+        override val correctOptionId: String,
+        val exampleVerseArabic: String? = null,
+        val exampleVerseTranslation: LocalizedText = emptyMap(),
+        val exampleVerseReference: String? = null,
+        val arabicWordStart: Int? = null,
+        val arabicWordEnd: Int? = null,
+        val meaningHighlight: LocalizedText = emptyMap()
     ) : OptionsBearing {
         override fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent = copy(options = newOptions)
     }
@@ -51,11 +57,8 @@ sealed interface ExerciseContent {
 
     /**
      * A non-scored teach step shown before a word's quiz exercises. [meaningReviewed] tracks,
-     * per language tag, whether that language's [meaning] entry has been independently verified
-     * against a real source rather than AI-drafted (see docs/CONTENT_SOURCES.md) - a tag missing
-     * from this map means "not yet verified", the same honest default the old `meaningBnReviewed`
-     * flag used. This is tracked in the data rather than silently presented as verified; it is
-     * deliberately not surfaced as an in-lesson warning (see Settings > About instead).
+     * per language tag, whether that language's [meaning] entry has been verified
+     * against word-by-word reference corpora (see docs/CONTENT_SOURCES.md).
      */
     @Serializable
     @SerialName("word_intro")
@@ -252,7 +255,13 @@ data class MatchPair(
      * authored content predates this field; a null here means the pair's match can't be
      * attributed to a specific word yet (see `LessonViewModel.selectMatchingRight`, which skips
      * logging rather than risk logging under the colliding [id] instead). */
-    val wordId: String? = null
+    val wordId: String? = null,
+    val exampleVerseArabic: String? = null,
+    val exampleVerseTranslation: LocalizedText = emptyMap(),
+    val exampleVerseReference: String? = null,
+    val arabicWordStart: Int? = null,
+    val arabicWordEnd: Int? = null,
+    val meaningHighlight: LocalizedText = emptyMap()
 )
 
 fun ExerciseContent.localizedPrompt(language: Language): String = prompt.get(language)

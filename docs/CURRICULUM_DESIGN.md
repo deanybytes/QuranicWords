@@ -21,7 +21,7 @@ Same shape throughout: teach step (word, meaning, an example verse it actually a
 
 ## Built to the full frequency curve, not a capped sample
 
-All 3,680 lemmas from the Quranic Arabic Corpus's public frequency table, grouped 10/lesson. Coverage bands (computed from real cumulative frequency, not assumed): the first **7 words reach 25%** of all lemma occurrences, 30 more reach 50%, 173 more reach 75%, and the remaining 3,470 make up the long tail to 100% — a genuine Zipfian curve. Full sourcing methodology, what's independently verified versus AI-drafted, and the honesty mechanism for the latter (`meaningBnReviewed`) are in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) — not repeated here to avoid drift between the two docs.
+All 3,680 lemmas from the Quranic Arabic Corpus's public frequency table, grouped 10/lesson. Coverage bands (computed from real cumulative frequency, not assumed): the first **7 words reach 25%** of all lemma occurrences, 30 more reach 50%, 173 more reach 75%, and the remaining 3,470 make up the long tail to 100% — a genuine Zipfian curve. Full sourcing methodology and word-by-word reference verification are documented in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md).
 
 ## Chapter → section → lesson restructuring (in progress)
 

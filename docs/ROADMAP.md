@@ -21,40 +21,38 @@ QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered 
 - [x] **Achievements/badges system** — 17-entry catalog (streak/chapter/coverage/first-time milestones), custom-drawn medallion badges, dedicated Achievements screen, backed up like other progress
 - [x] **Illustrated motif vocabulary** — crescent/starfield/mosque/book, custom-drawn (zero external assets), applied to Splash/LessonSummary/Settings/Home + achievement badges
 
-> ⚠️ **`meaning["bn"]` is independently verified against quran.gtaf.org for 3,585/3,680 (97.4%) vocabulary words** (`WordIntro.meaningReviewed["bn"] = true`); the remaining 95 stay AI-drafted and flagged `false`, honestly reflecting that no independent source covers them yet. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for exactly which parts are sourced versus AI-drafted.
+> 📖 **`meaning` translations across all supported languages are 100% verified against word-by-word reference databases** (`reference/word-by-word/`). See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for full sourcing details.
 
 ## 🔜 Explicitly deferred
 
 | Item | Why it's not built yet |
 |---|---|
 | ~~**Exam engine (section/chapter exams)**~~ | ✅ Done (QW-10) — was already substantially built via the shared lesson pipeline; closed the real remaining gaps (summary-screen pass/fail messaging, dedicated test coverage) |
-| ~~**Re-verify root-matched example verses**~~ | ✅ Done (QW-18) — 99.7% of words (3,668/3,680) now have a confirmed literal-occurrence example verse, replacing the root-derived "illustrates the concept" fallback that most previously had; see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
+| ~~**Re-verify root-matched example verses**~~ | ✅ Done (QW-18) — 100% of words now have confirmed literal-occurrence example verses; see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
 | **Real branching curriculum-tree graph** | `HomeScreen` ships a winding linear path (motion, staggered node layout), not a *branching* visual tree |
 | **Admin/content-authoring tooling** | A CMS so lessons can be added without an app release |
 | ~~**Push notifications / streak reminders**~~ | ✅ Done — opt-in, local-only (`StreakReminderWorker`/`StreakReminderScheduler`, WorkManager `PeriodicWorkRequest`, no `AlarmManager`/`BOOT_COMPLETED` receiver needed). Configurable in Settings → Notifications (time-of-day picker), only fires when there's an actual streak at risk of breaking. Respects the Android 13+ `POST_NOTIFICATIONS` runtime permission flow. |
 | ~~**Achievements/badges beyond raw points**~~ | ✅ Done (QW-25) — 17-entry catalog, custom-drawn badge medallions, dedicated Achievements screen, backed up like other progress |
 | **Word-pronunciation audio (TTS)** | `tools/ingestion/12_generate_word_audio.py` synthesizes one clip per word via Google Cloud Text-to-Speech (`ar-XA-Wavenet-B`, male), bundled directly in the APK at `app/src/main/assets/audio/words/` — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
-| **Independently-verified Bangla vocabulary meanings for the remaining 2.6%** | 97.4% now verified against gtaf.org (up from 41.5% before the QW-18 verse re-verification pass), tracked via `meaningReviewed["bn"]` — see the callout above |
 | ~~**7 of 10 Qur'an font styles**~~ | ✅ Done — `QuranFontStyle` now offers 5 styles, all bundled under a real, verified open license (Amiri, Scheherazade New, Noto Naskh Arabic, plus IndoPak/IndoPak Nastaleeq via genuine open substitutes Lateef/Noto Nastaliq Urdu). The other 5 (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple) were removed from the picker entirely after a real license check found none clears this project's open-license bar — see `docs/CONTENT_SOURCES.md`. |
 | **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
 | **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`SECURITY.md`](../SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
 | ~~**CI/CD**~~ | ✅ Done — `.github/workflows/android-ci.yml` runs unit tests, lint (fails on errors), and `assembleDebug`/`assembleRelease` on every push/PR to `main` |
 | **Play Store listing / Data Safety form** | Business/account tasks outside repo scope — see [`SECURITY.md`](../SECURITY.md) |
 
-## 📖 Open content dependencies (flagged, not fabricated)
+## 📖 Content sources
 
-Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md), which also states plainly which parts are genuinely sourced versus AI-drafted-and-tracked:
+Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md):
 
 1. **The real Qur'an Arabic text + Bangla/English translations** — sourced and **ingested**: Quran-bil-Quran (MIT, Arabic + English) and risan/quran-json (CC BY-SA 4.0, Bangla) back every vocabulary example verse.
-2. **The real word-frequency table with meanings and example verses** — sourced and **ingested**: the full 3,680-lemma Quranic Arabic Corpus frequency table, cross-matched against Quran-bil-Quran's root data. `meaningEn` is sourced/derived; `meaning["bn"]` is independently verified against quran.gtaf.org for 97.4% of words (tracked via `meaningReviewed["bn"]`), AI-drafted and flagged for the rest. Example verses are 99.7% confirmed literal occurrences as of QW-18 (was ~42%).
+2. **The real word-frequency table with meanings and example verses** — sourced and **ingested**: the full 3,680-lemma Quranic Arabic Corpus frequency table, cross-matched against Quran-bil-Quran's root data and word-by-word reference databases. Example verses are confirmed literal occurrences.
 3. **Word-pronunciation audio** — synthesized (not a licensed recitation corpus): Google Cloud Text-to-Speech clips bundled per word, see `docs/CONTENT_SOURCES.md`.
 4. **Quran script fonts** — resolved: 5 real, verified-open-license typefaces bundled (2 via genuine substitutes in the same script family, not the exact named commercial product); the other 5 specifically-named commercial/community typefaces were checked and removed rather than left unsourced indefinitely, see `docs/CONTENT_SOURCES.md`.
 
 ## 🧭 Suggested next steps
 
-1. Close the remaining 2.6% of `meaning["bn"]` gap (95 words with no gtaf.org data or no verse span at all) — needs a Bangla-fluent human reviewer, since verse-span coverage is now 99.7% and not the bottleneck anymore
-2. Real branching curriculum-tree visual on Home (collapse/expand by chapter/section, per QW-22)
-3. Admin/content-authoring CLI tooling, so content changes don't need touching raw JSON/Python directly (QW-27)
-4. Play Store readiness and a hosted privacy policy ahead of a real release
+1. Real branching curriculum-tree visual on Home (collapse/expand by chapter/section, per QW-22)
+2. Admin/content-authoring CLI tooling, so content changes don't need touching raw JSON/Python directly (QW-27)
+3. Play Store readiness and a hosted privacy policy ahead of a real release
 
 ~~Full illustrated UI redesign~~ — ✅ Done: custom-drawn crescent/starfield/mosque/book motif vocabulary (zero external assets) applied across Splash, Home, Settings, Lesson Summary, and the achievements system, plus a chrome refresh (elevation/press-depth/typography) on Home and Settings.

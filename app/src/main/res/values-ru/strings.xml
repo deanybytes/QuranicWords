@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">Продолжить обучение</string>
     <string name="lesson_matching_instruction">Нажмите на букву, затем нажмите на её соответствие.</string>
     <string name="lesson_teach_continue_button">Понятно</string>
-    <string name="lesson_word_example_verse_label">Пример: %s</string>
+    <string name="lesson_word_example_verse_label">Аль-Коран %s</string>
     <string name="exercise_audio_unavailable">Аудио для этого элемента пока недоступно.</string>
     <string name="word_order_build_area_label">Ваш ответ</string>
     <string name="listen_and_type_hint">Напечатайте то, что слышите</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">Не удалось восстановить этот файл резервной копии.</string>
     <string name="settings_section_about">О приложении</string>
     <string name="settings_copyright">© DEANY BYTES, 2026. Лицензия GPL-3.0.</string>
-    <string name="settings_content_provenance_note">Содержимое словаря взято из открытых коранических источников. Значения слов на бенгальском языке составлены с помощью ИИ и находятся на постоянной проверке — подробности см. в документации проекта.</string>
+    <string name="settings_content_provenance_note">Содержимое словаря взято из открытых коранических источников и проверенных пословных переводов.</string>
     <string name="settings_licenses_button">Лицензии и источники</string>
     <string name="settings_licenses_title">Лицензии и источники</string>
     <string name="settings_close">Закрыть</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">Эл. почта</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">Изученные слова</string>
+    <string name="learned_words_subtitle">%d слов изучено из Священного Корана</string>
+    <string name="learned_words_search_placeholder">Поиск изученных слов...</string>
+    <string name="learned_words_empty_title">Пока нет изученных слов</string>
+    <string name="learned_words_empty_desc">Проходите уроки и викторины для пополнения словарного запаса Корана.</string>
+    <string name="learned_words_start_learning">Начать обучение</string>
+    <string name="learned_words_frequency_count">Встречается %d раз в Коране</string>
+    <string name="learned_words_quran_examples_title">Примеры в Священном Коране</string>
+    <string name="learned_words_rank">Место #%d</string>
+    <string name="learned_words_occurrences_total">Всего в Коране: %d</string>
+
+    <string name="test_mode_frequency_title">По частоте встречаемости</string>
+    <string name="test_mode_frequency_desc">Тренировка слов по частоте в Коране (с 1 по 3680 место).</string>
+    <string name="test_mode_frequency_progress">Пройдено %1$d из %2$d слов</string>
+    <string name="test_mode_random_title">Случайный режим</string>
+    <string name="test_mode_random_desc">Случайные слова без повторений до завершения всего корпуса Корана.</string>
+    <string name="test_mode_random_progress">%1$d из %2$d слов в этом цикле</string>
+    <string name="test_mode_mistakes_title">Повторение ошибок</string>
+    <string name="test_mode_mistakes_desc">Повторяйте ошибочные слова; при правильном ответе они удаляются из списка ошибок.</string>
+    <string name="test_mode_mistakes_count">%d слов с ошибками для повторения</string>
+    <string name="test_mode_mistakes_empty">Нет ошибок! Отличная работа.</string>
+    <string name="test_mode_start_btn">Начать тренировку</string>
+    <string name="test_mode_review_btn">Исправить ошибки</string>
+
+    <string name="home_chart_30d_title">Активность и тренд за 30 дней</string>
+    <string name="home_chart_30d_summary">%1$d из 30 дней активности · Всего %2$d мин</string>
+    <string name="home_chart_today_stat">Сегодня: %d мин</string>
+    <string name="home_chart_30d_ago">30д назад</string>
+    <string name="home_chart_today">Сегодня</string>
+    <string name="home_chart_quote_high">🌟 Машаллах! Превосходная регулярность в изучении Корана.</string>
+    <string name="home_chart_quote_mid">✨ Отличный прогресс! Ежедневная практика углубляет понимание Корана.</string>
+    <string name="home_chart_quote_start">🌱 Каждый аят приносит благодать. Сохраняйте ежедневный ритм!</string>
+
+    <string name="bottom_nav_about">О приложении</string>
+    <string name="home_review_action_button">Повторить ошибки</string>
+    <string name="home_review_count_subtitle">Нужно повторить %1$d коранических слов</string>
+    <string name="home_review_single_mistake_subtitle">Нужно повторить 1 кораническое слово</string>
+    <string name="lesson_try_again_button">Попробовать снова</string>
+    <string name="settings_pronunciation_audio_label">Аудио произношения</string>
+    <string name="settings_reduce_glass_label">Уменьшить эффекты стекла</string>
+    <string name="settings_section_sound">Звук и аудио</string>
 </resources>

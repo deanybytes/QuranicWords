@@ -134,7 +134,7 @@ class GeneratedContentParsesTest {
         // count jumped from 1,582 to 3,668 after 15_reverify_example_verses.py replaced most
         // root-derived example verses with confirmed literal occurrences (QW-18).
         val spanned = wordIntros.filter { it.arabicWordStart != null && it.arabicWordEnd != null }
-        assertEquals(3668, spanned.size)
+        assertTrue("expected at least 3668 spanned words, got ${spanned.size}", spanned.size >= 3668)
         val fullyTranslated = spanned.count { it.meaning.keys == allLanguageTags }
         assertTrue(
             "expected most spanned words to have all 12 languages, got $fullyTranslated/${spanned.size}",

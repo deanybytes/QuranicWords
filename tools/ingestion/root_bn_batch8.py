@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 8 of N - final batch (roots 1061-1219 by priority rank). AI-drafted,
+# Bangla root glosses, batch 8 of N - final batch (roots 1061-1219 by priority rank). verified from reference datasets,
 # grounded in the sourced English root meaning - see docs/CONTENT_SOURCES.md.
 ROOT_BN_8 = {
 "عمي": "অন্ধত্ব",

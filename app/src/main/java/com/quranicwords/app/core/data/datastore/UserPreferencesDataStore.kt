@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.FontScale
@@ -55,6 +56,8 @@ class UserPreferencesDataStore @Inject constructor(
         val LEARNING_STYLE_CHOICE_MADE = booleanPreferencesKey("learning_style_choice_made")
         val LEARNING_PATH = stringPreferencesKey("learning_path")
         val LEARNING_PATH_CHOICE_MADE = booleanPreferencesKey("learning_path_choice_made")
+        val TEST_FREQUENCY_OFFSET = intPreferencesKey("test_frequency_offset")
+        val TEST_RANDOM_COVERED_IDS = stringSetPreferencesKey("test_random_covered_ids")
     }
 
     /**
@@ -228,4 +231,27 @@ class UserPreferencesDataStore @Inject constructor(
 
     val learningPathChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.LEARNING_PATH_CHOICE_MADE] == true }
+
+    val testFrequencyOffsetFlow: Flow<Int> =
+        context.dataStore.data.map { it[Keys.TEST_FREQUENCY_OFFSET] ?: 0 }
+
+    suspend fun setTestFrequencyOffset(offset: Int) {
+        context.dataStore.edit { it[Keys.TEST_FREQUENCY_OFFSET] = offset }
+    }
+
+    val testRandomCoveredWordIdsFlow: Flow<Set<String>> =
+        context.dataStore.data.map { it[Keys.TEST_RANDOM_COVERED_IDS] ?: emptySet() }
+
+    suspend fun addTestRandomCoveredWordIds(ids: Collection<String>) {
+        context.dataStore.edit { prefs ->
+            val current = prefs[Keys.TEST_RANDOM_COVERED_IDS] ?: emptySet()
+            prefs[Keys.TEST_RANDOM_COVERED_IDS] = current + ids
+        }
+    }
+
+    suspend fun resetTestRandomCoveredWordIds() {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.TEST_RANDOM_COVERED_IDS] = emptySet()
+        }
+    }
 }

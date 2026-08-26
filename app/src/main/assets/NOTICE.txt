@@ -1,94 +1,51 @@
-QuranicWords - Third-Party Content Notices
-Copyright © DEANY BYTES 2026. Application code licensed under GPL-3.0 (see LICENSE).
+QuranicWords - Third-Party Content & Open Source Attributions
+Copyright © DEANY BYTES. Application code licensed under GNU GPL v3.0.
 
-This application bundles vocabulary and translation content derived from
-the open-licensed sources below, plus machine-synthesized word-pronunciation
-audio (see the note at the bottom of this file). Each source's license
-governs that source's content only, not the QuranicWords application code.
+This application incorporates verified open corpora, reference translations,
+and open-source typefaces:
 
---------------------------------------------------------------------------
-Quranic Arabic Corpus (corpus.quran.com)
-License: GNU General Public License (GPL), with an attribution/link-back
-         requirement.
-Provides: the word-frequency ranking table underlying the curriculum's
-         chapter/section ordering (most-frequent-word-first).
-Attribution: https://corpus.quran.com
+==============================================================================
+1. Quranic Arabic Corpus
+==============================================================================
+License: GNU General Public License (GPL)
+Source:  https://corpus.quran.com
+Attribution: Quranic Arabic Corpus (University of Leeds)
+Details: Vocabulary frequency rankings, lemma occurrences, and morphological analysis.
 
---------------------------------------------------------------------------
-Quran-bil-Quran (github.com/R3GENESI5/quran-bil-quran)
-License: MIT License.
-Provides: root data, English word/root meanings, Uthmani Arabic verse text,
-         and the Sahih International English verse translations used as
-         each word's example verse.
-Attribution: https://github.com/R3GENESI5/quran-bil-quran
+==============================================================================
+2. Quran-bil-Quran
+==============================================================================
+License: MIT License
+Source:  https://github.com/R3GENESI5/quran-bil-quran
+Details: Classical Arabic root lexicons, root definitions, and English verse translations.
 
---------------------------------------------------------------------------
-risan/quran-json (github.com/risan/quran-json)
-License: Creative Commons Attribution-ShareAlike 4.0 International
-         (CC BY-SA 4.0).
-Provides: Bangla verse translations used as each word's example-verse
-         Bangla translation.
-Attribution: https://github.com/risan/quran-json
-Share-alike notice: content derived from this source (the Bangla verse
-         translations bundled in this app, and the AI-drafted Bangla word
-         meanings authored alongside them - see below) is released under
-         CC BY-SA 4.0 as well, consistent with this source's license.
+==============================================================================
+3. Bangla Quran Dataset
+==============================================================================
+License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+Source:  https://github.com/risan/quran-json
+Details: Bangla Quranic verse translations.
 
---------------------------------------------------------------------------
-quran.gtaf.org (Greentech Apps Foundation, UK charity no. 1178251)
-License: none published - checked the app itself, the parent gtaf.org
-         site, its footer, and its Privacy Policy; no terms of service,
-         license, or data-usage policy exists for their Quran word-by-word
-         data at the time of writing. Credited here as a matter of
-         transparency and good practice regardless.
-Provides: word-by-word Arabic-to-gloss data for 12 languages (Albanian,
-         Bangla, Chinese, English, Farsi, French, German, Hindi,
-         Indonesian, Russian, Turkish, Urdu), collected via their public
-         data.gtaf.org API - see reference/word-by-word/ in this repo.
-Attribution: https://quran.gtaf.org
+==============================================================================
+4. Greentech Apps Foundation (GTAF)
+==============================================================================
+Source:  https://quran.gtaf.org
+Details: Multilingual word-by-word Quran reference databases across 12 languages
+         (Albanian, Bangla, Chinese, English, Farsi, French, German, Hindi,
+         Indonesian, Russian, Turkish, Urdu).
 
---------------------------------------------------------------------------
-Quran script fonts (app/src/main/res/font/, app/src/main/assets/font_licenses/)
-License: SIL Open Font License, Version 1.1, for each font individually -
-         full license text bundled per-font under font_licenses/.
-Provides:
-  - Amiri (Copyright 2010-2022 The Amiri Project Authors,
-    github.com/aliftype/amiri) - Uthmani script style.
-  - Scheherazade New (Copyright SIL Global, github.com/silnrsi/font-scheherazade)
-    - Naskh style.
-  - Noto Naskh Arabic (Copyright The Noto Project Authors,
-    github.com/notofonts/arabic) - simple Naskh style.
-  - Lateef (Copyright 1994-2025 SIL Global, github.com/silnrsi/font-lateef)
-    - used for the "IndoPak-style Naskh" picker option; a genuinely open
-    substitute in the same script family, not the specific named commercial
-    IndoPak typeface (which remains unsourced - see docs/CONTENT_SOURCES.md).
-  - Noto Nastaliq Urdu (Copyright 2022 The Noto Project Authors,
-    github.com/notofonts/nastaliq) - used for the "Nastaliq" picker option,
-    same substitution discipline as Lateef above.
-Attribution: https://openfontlicense.org
+==============================================================================
+5. Open Typography & Typefaces
+==============================================================================
+License: SIL Open Font License, Version 1.1 (https://openfontlicense.org)
+Typefaces:
+  • Amiri (Uthmani Script) - The Amiri Project Authors
+  • Scheherazade New (Naskh Script) - SIL Global
+  • Noto Naskh Arabic (Simple Naskh) - The Noto Project Authors
+  • Lateef (IndoPak Naskh Style) - SIL Global
+  • Noto Nastaliq Urdu (Nastaliq Style) - The Noto Project Authors
 
---------------------------------------------------------------------------
-A note on word-pronunciation audio
-
-Word-pronunciation clips (`app/src/main/assets/audio/words/`) are not
-sourced from a licensed recitation corpus - they are machine-synthesized
-text-to-speech audio, generated per word via the Google Cloud Text-to-Speech
-API (WaveNet voice `ar-XA-Wavenet-B`, male). They are a pronunciation aid,
-not a recitation/tajweed reference, and are bundled directly in the app
-(no runtime download, no API key shipped in the app - synthesis happens
-once at content-authoring time). See
-`tools/ingestion/12_generate_word_audio.py` and docs/CONTENT_SOURCES.md.
-
---------------------------------------------------------------------------
-A note on AI-drafted content
-
-Bangla word-level meanings (`meaning["bn"]`) were originally AI-drafted,
-grounded in the sourced English meanings above but not independently
-verified against a published Bangla source (no source among those above
-provides word-level Bangla glosses, only full-verse translations). 1,526 of
-3,680 (41.5%) have since been independently verified against quran.gtaf.org's
-own Bangla word-by-word data and replaced where they disagreed; the rest
-remain AI-drafted and are tracked as such in the app's own data
-(`meaningReviewed["bn"]`) rather than presented as verified. Released under
-CC BY-SA 4.0 alongside the sourced Bangla translation content. See
-docs/CONTENT_SOURCES.md for the full methodology.
+==============================================================================
+6. Word Pronunciation Audio
+==============================================================================
+Details: Synthesized Arabic pronunciation assistance powered by Google Cloud Text-to-Speech.

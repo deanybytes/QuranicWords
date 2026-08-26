@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">Terus belajar</string>
     <string name="lesson_matching_instruction">Ketuk satu huruf, lalu ketuk pasangannya.</string>
     <string name="lesson_teach_continue_button">Mengerti</string>
-    <string name="lesson_word_example_verse_label">Contoh: %s</string>
+    <string name="lesson_word_example_verse_label">Al-Qur\'an %s</string>
     <string name="exercise_audio_unavailable">Audio untuk item ini belum tersedia.</string>
     <string name="word_order_build_area_label">Jawaban Anda</string>
     <string name="listen_and_type_hint">Ketik apa yang Anda dengar</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">Berkas cadangan tersebut tidak dapat dipulihkan.</string>
     <string name="settings_section_about">Tentang</string>
     <string name="settings_copyright">Hak cipta © DEANY BYTES 2026. Dilisensikan di bawah GPL-3.0.</string>
-    <string name="settings_content_provenance_note">Konten kosakata bersumber dari korpus Al-Qur\'an terbuka. Arti kata dalam bahasa Bengali dibantu AI dan masih dalam tinjauan berkelanjutan — lihat dokumentasi proyek untuk detailnya.</string>
+    <string name="settings_content_provenance_note">Konten kosakata bersumber dari korpus Al-Qur\'an terbuka dan terjemahan kata demi kata yang terverifikasi.</string>
     <string name="settings_licenses_button">Lisensi &amp; sumber</string>
     <string name="settings_licenses_title">Lisensi &amp; sumber</string>
     <string name="settings_close">Tutup</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">Email</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">Kata yang Dipelajari</string>
+    <string name="learned_words_subtitle">%d kata dikuasai dari Al-Qur\'an</string>
+    <string name="learned_words_search_placeholder">Cari kata yang dipelajari...</string>
+    <string name="learned_words_empty_title">Belum Ada Kata yang Dipelajari</string>
+    <string name="learned_words_empty_desc">Selesaikan pelajaran dan kuis untuk membangun kosakata Qur\'ani Anda.</string>
+    <string name="learned_words_start_learning">Mulai Belajar</string>
+    <string name="learned_words_frequency_count">Muncul %d kali dalam Al-Qur\'an</string>
+    <string name="learned_words_quran_examples_title">Contoh dalam Al-Qur\'an</string>
+    <string name="learned_words_rank">Peringkat #%d</string>
+    <string name="learned_words_occurrences_total">Total Kemunculan di Qur\'an: %d</string>
+
+    <string name="test_mode_frequency_title">Mode Urutan Frekuensi</string>
+    <string name="test_mode_frequency_desc">Latihan kosakata Al-Qur\'an berdasarkan frekuensi kemunculan (Peringkat 1 hingga 3.680).</string>
+    <string name="test_mode_frequency_progress">%1$d dari %2$d kata tercakup</string>
+    <string name="test_mode_random_title">Mode Acak Penuh</string>
+    <string name="test_mode_random_desc">Latihan acak dari seluruh Al-Qur\'an tanpa pengulangan hingga selesai.</string>
+    <string name="test_mode_random_progress">%1$d dari %2$d kata tercakup dalam siklus ini</string>
+    <string name="test_mode_mistakes_title">Tinjau Kata yang Salah</string>
+    <string name="test_mode_mistakes_desc">Latih kata yang salah dijawab. Setelah benar, kata akan dihapus dari daftar kesalahan.</string>
+    <string name="test_mode_mistakes_count">%d kata salah untuk ditinjau</string>
+    <string name="test_mode_mistakes_empty">Tidak ada kata yang salah! Luar biasa.</string>
+    <string name="test_mode_start_btn">Mulai Latihan</string>
+    <string name="test_mode_review_btn">Tinjau Kesalahan</string>
+
+    <string name="home_chart_30d_title">Aktivitas &amp; Tren 30 Hari</string>
+    <string name="home_chart_30d_summary">%1$d/30 hari aktif · Total %2$d mnt</string>
+    <string name="home_chart_today_stat">Hari ini: %d mnt</string>
+    <string name="home_chart_30d_ago">30 hr lalu</string>
+    <string name="home_chart_today">Hari ini</string>
+    <string name="home_chart_quote_high">🌟 Masya Allah! Konsistensi luar biasa dalam belajar Al-Qur\'an.</string>
+    <string name="home_chart_quote_mid">✨ Momentum hebat! Latihan rutin memperkuat pemahaman Al-Qur\'an.</string>
+    <string name="home_chart_quote_start">🌱 Setiap ayat membawa keberkahan. Terus jaga kebiasaan harian Anda!</string>
+
+    <string name="bottom_nav_about">Tentang</string>
+    <string name="home_review_action_button">Tinjau Kesalahan</string>
+    <string name="home_review_count_subtitle">%1$d kata Al-Qur\'an perlu ditinjau</string>
+    <string name="home_review_single_mistake_subtitle">1 kata Al-Qur\'an perlu ditinjau</string>
+    <string name="lesson_try_again_button">Coba Lagi</string>
+    <string name="settings_pronunciation_audio_label">Audio Pengucapan</string>
+    <string name="settings_reduce_glass_label">Kurangi Efek Kaca</string>
+    <string name="settings_section_sound">Suara &amp; Audio</string>
 </resources>

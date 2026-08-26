@@ -57,7 +57,24 @@ class ContentRepositoryImpl @Inject constructor(
     @Volatile
     private var wordCandidatesCache: List<WordFrequencyEntity>? = null
 
+    @Volatile
+    private var wordIntrosCache: Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>? = null
+
     override suspend fun getWordCandidates(): List<WordFrequencyEntity> =
         wordCandidatesCache ?: database.wordFrequencyDao().observeAllByFrequency().first()
             .also { wordCandidatesCache = it }
+
+    override suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro> {
+        wordIntrosCache?.let { return it }
+        val intros = database.exerciseDao().getAllTeachWords().mapNotNull {
+            runCatching {
+                com.quranicwords.app.core.util.AppJson.decodeFromString(
+                    com.quranicwords.app.core.domain.model.ExerciseContent.serializer(),
+                    it.contentJson
+                )
+            }.getOrNull() as? com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro
+        }.associateBy { it.wordId }
+        wordIntrosCache = intros
+        return intros
+    }
 }

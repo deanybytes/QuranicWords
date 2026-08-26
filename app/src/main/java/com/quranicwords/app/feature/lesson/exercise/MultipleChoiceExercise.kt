@@ -22,6 +22,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,9 +35,13 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedLabel
+import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
+import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 
 @Composable
 fun MultipleChoiceExerciseContent(
@@ -41,20 +51,87 @@ fun MultipleChoiceExerciseContent(
     onSelect: (String) -> Unit
 ) {
     val language = rememberSelectedLanguage()
+    val highlightStyle = SpanStyle(
+        color = MaterialTheme.colorScheme.primary,
+        fontWeight = FontWeight.Bold
+    )
+    val verseTranslation = content.exampleVerseTranslation.getOrNull(language)
+    val meaningHighlight = content.meaningHighlight.getOrNull(language)
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         content.promptArabic?.let { arabic ->
             Text(
                 text = arabic,
-                fontSize = 64.sp,
+                fontFamily = DefaultQuranArabicFontFamily,
+                fontSize = 52.sp,
+                lineHeight = 64.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+
+        if (content.exampleVerseArabic != null && content.exampleVerseReference != null) {
+            GlassSurface(
+                modifier = Modifier.fillMaxWidth(),
+                tint = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.75f)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.lesson_word_example_verse_label, content.exampleVerseReference),
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontFamily = QuranCitationFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 0.5.sp
+                        ),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = buildAnnotatedString {
+                            append(content.exampleVerseArabic)
+                            val start = content.arabicWordStart
+                            val end = content.arabicWordEnd
+                            if (start != null && end != null &&
+                                start in 0..content.exampleVerseArabic.length &&
+                                end in start..content.exampleVerseArabic.length
+                            ) {
+                                addStyle(highlightStyle, start, end)
+                            }
+                        },
+                        fontFamily = DefaultQuranArabicFontFamily,
+                        fontSize = 19.sp,
+                        lineHeight = 32.sp,
+                        textAlign = TextAlign.End,
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    if (!verseTranslation.isNullOrBlank()) {
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                        Text(
+                            text = buildAnnotatedString {
+                                append(verseTranslation)
+                                val idx = meaningHighlight?.let { verseTranslation.indexOf(it) } ?: -1
+                                if (idx >= 0 && meaningHighlight != null) {
+                                    addStyle(highlightStyle, idx, idx + meaningHighlight.length)
+                                }
+                            },
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontFamily = QuranCitationFontFamily,
+                                fontStyle = FontStyle.Italic
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+        }
+
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             content.options.forEach { option ->
                 key(option.id) {
                     OptionCard(

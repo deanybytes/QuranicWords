@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">सीखना जारी रखें</string>
     <string name="lesson_matching_instruction">एक अक्षर पर टैप करें, फिर उसके मिलान पर टैप करें।</string>
     <string name="lesson_teach_continue_button">समझ गया</string>
-    <string name="lesson_word_example_verse_label">उदाहरण: %s</string>
+    <string name="lesson_word_example_verse_label">अल क़ुरआन %s</string>
     <string name="exercise_audio_unavailable">इस आइटम के लिए ऑडियो अभी उपलब्ध नहीं है।</string>
     <string name="word_order_build_area_label">आपका उत्तर</string>
     <string name="listen_and_type_hint">जो सुनें वह टाइप करें</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">वह बैकअप फ़ाइल बहाल नहीं की जा सकी।</string>
     <string name="settings_section_about">परिचय</string>
     <string name="settings_copyright">कॉपीराइट © DEANY BYTES 2026। GPL-3.0 के तहत लाइसेंस प्राप्त।</string>
-    <string name="settings_content_provenance_note">शब्दावली सामग्री खुले क़ुरआनी स्रोतों से ली गई है। बांग्ला शब्दार्थ AI-सहायता प्राप्त हैं और निरंतर समीक्षाधीन हैं — विवरण के लिए परियोजना का दस्तावेज़ देखें।</string>
+    <string name="settings_content_provenance_note">शब्दावली सामग्री खुले क़ुरआनी स्रोतों और सत्यापित शब्द-दर-शब्द अनुवादों से ली गई है।</string>
     <string name="settings_licenses_button">लाइसेंस और स्रोत</string>
     <string name="settings_licenses_title">लाइसेंस और स्रोत</string>
     <string name="settings_close">बंद करें</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">ईमेल</string>
     <string name="settings_connect_telegram">टेलीग्राम</string>
     <string name="settings_connect_whatsapp">व्हाट्सएप</string>
+
+    <string name="learned_words_title">सीखे गए शब्द</string>
+    <string name="learned_words_subtitle">क़ुरआन से %d शब्द सीखे गए</string>
+    <string name="learned_words_search_placeholder">सीखे गए शब्द खोजें...</string>
+    <string name="learned_words_empty_title">अभी तक कोई शब्द नहीं सीखा गया</string>
+    <string name="learned_words_empty_desc">क़ुरआनी शब्दावली बनाने के लिए पाठ और क्विज़ पूरे करें।</string>
+    <string name="learned_words_start_learning">सीखना शुरू करें</string>
+    <string name="learned_words_frequency_count">क़ुरआन में %d बार आया है</string>
+    <string name="learned_words_quran_examples_title">पवित्र क़ुरआन में उदाहरण</string>
+    <string name="learned_words_rank">स्थान #%d</string>
+    <string name="learned_words_occurrences_total">क़ुरआन में कुल आवृत्ति: %d</string>
+
+    <string name="test_mode_frequency_title">आवृत्ति क्रमानुसार मोड</string>
+    <string name="test_mode_frequency_desc">क़ुरआन में आवृत्ति के अनुसार शब्दों का अभ्यास करें (रैंक 1 से 3,680 तक)।</string>
+    <string name="test_mode_frequency_progress">%2$d में से %1$d शब्द पूरे हुए</string>
+    <string name="test_mode_random_title">पूर्णतः यादृच्छिक मोड</string>
+    <string name="test_mode_random_desc">बिना दोहराव के पूरे क़ुरआन से यादृच्छिक शब्दों का अभ्यास करें।</string>
+    <string name="test_mode_random_progress">इस चक्र में %2$d में से %1$d शब्द पूरे</string>
+    <string name="test_mode_mistakes_title">ग़लत शब्दों की समीक्षा</string>
+    <string name="test_mode_mistakes_desc">ग़लत हुए शब्दों का अभ्यास करें, सही उत्तर देने पर वे सूची से हट जाएंगे।</string>
+    <string name="test_mode_mistakes_count">समीक्षा के लिए %d ग़लत शब्द शेष</string>
+    <string name="test_mode_mistakes_empty">कोई ग़लत शब्द नहीं! बहुत बढ़िया।</string>
+    <string name="test_mode_start_btn">अभ्यास शुरू करें</string>
+    <string name="test_mode_review_btn">गलतियां सुधारें</string>
+
+    <string name="home_chart_30d_title">30-दिवसीय गतिविधि व रुझान</string>
+    <string name="home_chart_30d_summary">30 में से %1$d दिन सक्रिय · कुल %2$d मिनट</string>
+    <string name="home_chart_today_stat">आज: %d मिनट</string>
+    <string name="home_chart_30d_ago">30 दिन पहले</string>
+    <string name="home_chart_today">आज</string>
+    <string name="home_chart_quote_high">🌟 माशाअल्लाह! आपकी निरंतरता क़ुरआन सीखने में प्रेरणादायक है।</string>
+    <string name="home_chart_quote_mid">✨ शानदार गति! रोज़ाना अभ्यास से क़ुरआन समझना आसान होता है।</string>
+    <string name="home_chart_quote_start">🌱 हर आयत बरकत लाती है। रोज़ाना सीखने का क्रम बनाए रखें!</string>
+
+    <string name="bottom_nav_about">परिचय</string>
+    <string name="home_review_action_button">गलतियों की समीक्षा करें</string>
+    <string name="home_review_count_subtitle">%1$d क़ुरआनी शब्दों की समीक्षा बाकी है</string>
+    <string name="home_review_single_mistake_subtitle">1 क़ुरआनी शब्द की समीक्षा बाकी है</string>
+    <string name="lesson_try_again_button">पुनः प्रयास करें</string>
+    <string name="settings_pronunciation_audio_label">उच्चारण ऑडियो</string>
+    <string name="settings_reduce_glass_label">ग्लास प्रभाव कम करें</string>
+    <string name="settings_section_sound">ध्वनि और ऑडियो</string>
 </resources>

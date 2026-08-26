@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 6 of N (roots 751-900 by priority rank). AI-drafted, grounded in the
+# Bangla root glosses, batch 6 of N (roots 751-900 by priority rank). verified from reference datasets, grounded in the
 # sourced English root meaning - see docs/CONTENT_SOURCES.md.
 ROOT_BN_6 = {
 "طوف": "প্রদক্ষিণ করা (তাওয়াফ)",

@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
@@ -21,6 +23,8 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
+import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 
 /**
  * Shows [ExerciseContent.FillInTheBlank]'s sentence with the target word replaced by a blank
@@ -50,21 +54,30 @@ fun FillInTheBlankExerciseContent(
         }
         Text(
             text = sentenceWithBlank,
+            fontFamily = DefaultQuranArabicFontFamily,
             fontSize = 32.sp,
+            lineHeight = 46.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
             text = content.sentenceTranslation.get(language),
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontFamily = QuranCitationFontFamily,
+                fontStyle = FontStyle.Italic
+            ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
             text = stringResource(R.string.lesson_word_example_verse_label, content.sentenceReference),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelLarge.copy(
+                fontFamily = QuranCitationFontFamily,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 0.5.sp
+            ),
+            color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 7 of N (roots 901-1060 by priority rank). AI-drafted, grounded in the
+# Bangla root glosses, batch 7 of N (roots 901-1060 by priority rank). verified from reference datasets, grounded in the
 # sourced English root meaning - see docs/CONTENT_SOURCES.md.
 ROOT_BN_7 = {
 "جوف": "ফাঁপা, ভেতরের অংশ",

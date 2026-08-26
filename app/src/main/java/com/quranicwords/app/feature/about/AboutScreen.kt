@@ -2,6 +2,7 @@ package com.quranicwords.app.feature.about
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,11 +48,7 @@ import com.quranicwords.app.core.ui.components.SectionTitle
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 
 /**
- * The app's own bottom-nav tab (Home / Progress / About / Settings) - was previously the bottom-
- * most section inside [com.quranicwords.app.feature.settings.SettingsScreen], split out into its
- * own tab so the app's identity/provenance/contact info isn't buried at the end of a long
- * preferences scroll. Same content as before (logo, motto, copyright, content-provenance note,
- * licenses, Connect links), same [SectionCard]/[SectionTitle] treatment, just its own screen.
+ * The app's bottom-nav tab for app identity, verified sources, and community links.
  */
 @Composable
 fun AboutScreen() {
@@ -94,6 +91,42 @@ fun AboutScreen() {
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            } }
+        }
+
+        item {
+            StaggeredEntrance(index = 2) { SectionCard {
+                SectionTitle(stringResource(R.string.settings_licenses_title))
+                SourceItemRow(
+                    title = "Quranic Arabic Corpus",
+                    subtitle = "Vocabulary frequency, lemma distribution & morphology",
+                    onClick = { uriHandler.openUri("https://corpus.quran.com") }
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                SourceItemRow(
+                    title = "Quran-bil-Quran",
+                    subtitle = "Classical root lexicons & English translations",
+                    onClick = { uriHandler.openUri("https://github.com/R3GENESI5/quran-bil-quran") }
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                SourceItemRow(
+                    title = "Bangla Quran Dataset",
+                    subtitle = "Bangla verse translations (risan/quran-json)",
+                    onClick = { uriHandler.openUri("https://github.com/risan/quran-json") }
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                SourceItemRow(
+                    title = "Greentech Apps Foundation",
+                    subtitle = "Multilingual word-by-word reference databases",
+                    onClick = { uriHandler.openUri("https://quran.gtaf.org") }
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                SourceItemRow(
+                    title = "SIL Open Font Typography",
+                    subtitle = "Amiri, Scheherazade New, Noto Naskh, Lateef & Nastaliq",
+                    onClick = { uriHandler.openUri("https://openfontlicense.org") }
+                )
+
                 QwSecondaryButton(
                     text = stringResource(R.string.settings_licenses_button),
                     onClick = { showLicenses = true }
@@ -102,7 +135,7 @@ fun AboutScreen() {
         }
 
         item {
-            StaggeredEntrance(index = 2) { SectionCard {
+            StaggeredEntrance(index = 3) { SectionCard {
                 SectionTitle(stringResource(R.string.settings_section_connect))
                 ConnectLinkRow(
                     icon = Icons.Filled.Code,
@@ -157,10 +190,33 @@ fun AboutScreen() {
     }
 }
 
-/** One row in the "Connect" list - opens an external link/app via [LocalUriHandler] (browser,
- * mail client, or the Telegram/WhatsApp app if installed). URLs are user-supplied contact
- * channels, not seeded content, so they're plain hardcoded strings here rather than a data/domain
- * model - moved verbatim from the old Settings-hosted About section. */
+@Composable
+private fun SourceItemRow(
+    title: String,
+    subtitle: String,
+    onClick: (() -> Unit)? = null
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Icon(
+            Icons.Filled.Code,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+            modifier = Modifier.size(16.dp)
+        )
+    }
+}
+
 @Composable
 private fun ConnectLinkRow(icon: ImageVector, label: String, onClick: () -> Unit) {
     Row(
@@ -175,3 +231,4 @@ private fun ConnectLinkRow(icon: ImageVector, label: String, onClick: () -> Unit
         Text(label, style = MaterialTheme.typography.bodyLarge)
     }
 }
+

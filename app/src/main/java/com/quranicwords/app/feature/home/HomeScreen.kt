@@ -80,7 +80,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.local.entity.LessonEntity
@@ -101,6 +101,7 @@ import com.quranicwords.app.core.ui.components.StreakBadge
 import com.quranicwords.app.core.ui.components.StreakLockedChip
 import com.quranicwords.app.core.ui.components.StreakLockedDialog
 import com.quranicwords.app.core.ui.components.charts.DonutChart
+import com.quranicwords.app.core.ui.components.charts.Home30DayActivityTrendChart
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
@@ -108,6 +109,7 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
 import com.quranicwords.app.core.ui.motion.rememberReducedGlass
 import com.quranicwords.app.core.ui.motion.unlockRevealShimmer
+import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.core.util.formatDuration
 import com.quranicwords.app.core.util.formatPercent
@@ -142,6 +144,7 @@ fun HomeScreen(
     onOpenRoadmap: () -> Unit,
     onOpenOpenPractice: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
+    onOpenLearnedWords: () -> Unit = {},
     /** Hoisted to QwBottomNavShell (not `remember`ed here) so a tab switch away and back doesn't
      * lose the learner's manual collapse/expand choices - see that composable's doc comment. */
     expandedChapterIds: Set<String>?,
@@ -193,14 +196,8 @@ fun HomeScreen(
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()
     val currentExpandedSectionIds = expandedSectionIds ?: emptySet()
 
-    // Reports the "Continue Learning" target up to QwBottomNavShell - see
-    // onContinueLearningLessonIdChange's doc comment above. Guarded on currentLessonId (not just
-    // initiallyExpandedChapterId) so the FAB never shows unless there's an actual lesson to open.
     LaunchedEffect(uiState.currentLessonId) {
         onContinueLearningLessonIdChange(uiState.currentLessonId)
-    }
-    DisposableEffect(Unit) {
-        onDispose { onContinueLearningLessonIdChange(null) }
     }
 
     Scaffold(
@@ -235,8 +232,12 @@ fun HomeScreen(
                     streakRecoveryQuestionCount = uiState.streakRecoveryQuestionCount,
                     isDailyGoalMetToday = uiState.isDailyGoalMetToday,
                     quranCoveragePercent = uiState.quranCoveragePercent,
+                    last30DaysMinutes = uiState.last30DaysMinutes,
+                    activeDaysCount = uiState.last30DaysActiveCount,
+                    totalMinutes = uiState.last30DaysTotalMinutes,
                     onOpenRoadmap = onOpenRoadmap,
-                    onOpenStreakRecovery = onOpenStreakRecovery
+                    onOpenStreakRecovery = onOpenStreakRecovery,
+                    onOpenLearnedWords = onOpenLearnedWords
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -295,7 +296,10 @@ fun HomeScreen(
 
                     if (uiState.hasReviewableItems) {
                         item(key = "review_entry") {
-                            ReviewEntryCard(onClick = onOpenReview)
+                            ReviewEntryCard(
+                                missedCount = uiState.missedWordsCount,
+                                onClick = onOpenReview
+                            )
                         }
                     }
 
@@ -426,8 +430,12 @@ private fun HomeHeroHeader(
     streakRecoveryQuestionCount: Int,
     isDailyGoalMetToday: Boolean,
     quranCoveragePercent: Double,
+    last30DaysMinutes: List<Int> = emptyList(),
+    activeDaysCount: Int = 0,
+    totalMinutes: Int = 0,
     onOpenRoadmap: () -> Unit,
-    onOpenStreakRecovery: () -> Unit
+    onOpenStreakRecovery: () -> Unit,
+    onOpenLearnedWords: () -> Unit = {}
 ) {
     val shape = RoundedCornerShape(28.dp)
 
@@ -513,7 +521,13 @@ private fun HomeHeroHeader(
 
                     Spacer(modifier = Modifier.height(18.dp))
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .clickable(onClick = onOpenLearnedWords)
+                            .padding(vertical = 4.dp)
+                    ) {
                         DonutChart(
                             percent = (quranCoveragePercent / 100.0).toFloat(),
                             size = 68.dp,
@@ -546,6 +560,15 @@ private fun HomeHeroHeader(
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // 30-Day Activity Bar / Trend Chart + Time-Spent Spline Curve
+                    Home30DayActivityTrendChart(
+                        last30DaysMinutes = last30DaysMinutes,
+                        activeDaysCount = activeDaysCount,
+                        totalMinutes = totalMinutes
+                    )
                 }
             }
         }
@@ -909,43 +932,106 @@ private fun GlassStatusBadge(
 }
 
 /** Entry point into the dynamic Review session (see `LessonViewModel`'s `isReviewSession` path) -
- * only shown when [HomeUiState.hasReviewableItems] is true, i.e. the learner has at least one
- * item whose most recent attempt was wrong. The most prominent CTA on this screen - press-depth
- * feedback, no drop shadow (shadows are off across every box on this screen per feedback). */
+ * only shown when [HomeUiState.hasReviewableItems] is true (i.e. [HomeUiState.missedWordsCount] > 0).
+ * Displays a dedicated mistaken words review box with word count badge and quick practice CTA. */
 @Composable
-private fun ReviewEntryCard(onClick: () -> Unit) {
+private fun ReviewEntryCard(
+    missedCount: Int,
+    onClick: () -> Unit
+) {
     val interactionSource = remember { MutableInteractionSource() }
-    val shape = MaterialTheme.shapes.medium
+    val shape = RoundedCornerShape(20.dp)
+    val reducedGlass = rememberReducedGlass()
 
-    Box(modifier = Modifier.fillMaxWidth()) {
-        Card(
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .pressDepth(interactionSource),
+        shape = shape,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.9f)
+        ),
+        border = if (reducedGlass) null else androidx.compose.foundation.BorderStroke(
+            width = 1.dp,
+            color = BrandGold.copy(alpha = 0.45f)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        onClick = onClick,
+        interactionSource = interactionSource
+    ) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .pressDepth(interactionSource),
-            shape = shape,
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-            onClick = onClick,
-            interactionSource = interactionSource
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            Box(
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.22f)),
+                contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Filled.Refresh, contentDescription = null, tint = MaterialTheme.colorScheme.onTertiaryContainer)
-                Column {
+                Icon(
+                    imageVector = Icons.Filled.Refresh,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+            Column(modifier = Modifier.weight(1f)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
                     Text(
-                        stringResource(R.string.home_review_title),
+                        text = stringResource(R.string.home_review_title),
                         style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onTertiaryContainer
                     )
-                    Text(
-                        stringResource(R.string.home_review_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
+                    if (missedCount > 0) {
+                        Surface(
+                            shape = CircleShape,
+                            color = MaterialTheme.colorScheme.error,
+                            contentColor = MaterialTheme.colorScheme.onError
+                        ) {
+                            Text(
+                                text = "$missedCount",
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
                 }
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = if (missedCount == 1) {
+                        stringResource(R.string.home_review_single_mistake_subtitle)
+                    } else if (missedCount > 1) {
+                        stringResource(R.string.home_review_count_subtitle, missedCount)
+                    } else {
+                        stringResource(R.string.home_review_subtitle)
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.85f)
+                )
+            }
+
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.tertiary,
+                contentColor = MaterialTheme.colorScheme.onTertiary
+            ) {
+                Text(
+                    text = stringResource(R.string.home_review_action_button),
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                )
             }
         }
     }

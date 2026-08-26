@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">سیکھنا جاری رکھیں</string>
     <string name="lesson_matching_instruction">ایک حرف پر تھپتھپائیں، پھر اس کے جوڑے پر تھپتھپائیں۔</string>
     <string name="lesson_teach_continue_button">سمجھ گیا</string>
-    <string name="lesson_word_example_verse_label">مثال: %s</string>
+    <string name="lesson_word_example_verse_label">القرآن %s</string>
     <string name="exercise_audio_unavailable">اس آئٹم کے لیے آڈیو ابھی دستیاب نہیں ہے۔</string>
     <string name="word_order_build_area_label">آپ کا جواب</string>
     <string name="listen_and_type_hint">جو سنیں وہ ٹائپ کریں</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">وہ بیک اپ فائل بحال نہیں ہو سکی۔</string>
     <string name="settings_section_about">تعارف</string>
     <string name="settings_copyright">جملہ حقوق © DEANY BYTES 2026۔ GPL-3.0 کے تحت لائسنس یافتہ۔</string>
-    <string name="settings_content_provenance_note">ذخیرہ الفاظ کا مواد کھلے قرآنی مصادر سے لیا گیا ہے۔ بنگالی معانی AI کی مدد سے تیار کیے گئے ہیں اور مسلسل نظرثانی کے تحت ہیں — تفصیلات کے لیے پروجیکٹ کی دستاویزات دیکھیں۔</string>
+    <string name="settings_content_provenance_note">ذخیرہ الفاظ کا مواد کھلے قرآنی مصادر اور تصدیق شدہ لفظ بہ لفظ تراجم سے لیا گیا ہے۔</string>
     <string name="settings_licenses_button">لائسنس اور مصادر</string>
     <string name="settings_licenses_title">لائسنس اور مصادر</string>
     <string name="settings_close">بند کریں</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">ای میل</string>
     <string name="settings_connect_telegram">ٹیلیگرام</string>
     <string name="settings_connect_whatsapp">واٹس ایپ</string>
+
+    <string name="learned_words_title">سیکھے گئے الفاظ</string>
+    <string name="learned_words_subtitle">قرآن مجید سے %d الفاظ یاد ہو چکے ہیں</string>
+    <string name="learned_words_search_placeholder">الفاظ تلاش کریں...</string>
+    <string name="learned_words_empty_title">ابھی تک کوئی لفظ نہیں سیکھا گیا</string>
+    <string name="learned_words_empty_desc">اپنے قرآنی ذخیرہ الفاظ بنانے کے لیے اسباق اور کوئز مکمل کریں۔</string>
+    <string name="learned_words_start_learning">سیکھنا شروع کریں</string>
+    <string name="learned_words_frequency_count">قرآن میں %d مرتبہ آیا ہے</string>
+    <string name="learned_words_quran_examples_title">قرآن مجید میں مثالیں</string>
+    <string name="learned_words_rank">درجہ #%d</string>
+    <string name="learned_words_occurrences_total">قرآن میں کل تعداد: %d</string>
+
+    <string name="test_mode_frequency_title">تعدد کے مطابق ترتیب</string>
+    <string name="test_mode_frequency_desc">قرآن مجید میں کثرتِ استعمال کی ترتیب سے الفاظ کی مشق کریں۔</string>
+    <string name="test_mode_frequency_progress">%2$d الفاظ میں سے %1$d مکمل</string>
+    <string name="test_mode_random_title">مکمل بے ترتیب موڈ</string>
+    <string name="test_mode_random_desc">بغیر تکرار کے قرآن کے تمام الفاظ کی بے ترتیب مشق۔</string>
+    <string name="test_mode_random_progress">اس چکر میں %2$d میں سے %1$d الفاظ مکمل</string>
+    <string name="test_mode_mistakes_title">غلط الفاظ کا جائزہ</string>
+    <string name="test_mode_mistakes_desc">غلط ہونے والے الفاظ کی مشق کریں، درست ہونے پر غلطی کی فہرست سے خارج ہو جائیں گے۔</string>
+    <string name="test_mode_mistakes_count">%d غلط الفاظ دہرانے کے لیے باقی ہیں</string>
+    <string name="test_mode_mistakes_empty">کوئی غلط لفظ نہیں ہے! بہترین کارکردگی۔</string>
+    <string name="test_mode_start_btn">مشق شروع کریں</string>
+    <string name="test_mode_review_btn">غلطیاں درست کریں</string>
+
+    <string name="home_chart_30d_title">30 روزہ سرگرمی اور رجحان</string>
+    <string name="home_chart_30d_summary">30 میں سے %1$d دن فعال · کل %2$d منٹ</string>
+    <string name="home_chart_today_stat">آج: %d منٹ</string>
+    <string name="home_chart_30d_ago">30 دن پہلے</string>
+    <string name="home_chart_today">آج</string>
+    <string name="home_chart_quote_high">🌟 ماشاءاللہ! قرآن فہمی میں آپ کا تسلسل لائق تحسین ہے۔</string>
+    <string name="home_chart_quote_mid">✨ شاندار رفتار! روزانہ کی مشق قرآنی الفاظ کو پختہ کرتی ہے۔</string>
+    <string name="home_chart_quote_start">🌱 ہر آیت برکت کا ذریعہ ہے۔ روزانہ کی مشق جاری رکھیں!</string>
+
+    <string name="bottom_nav_about">تعارف</string>
+    <string name="home_review_action_button">غلطیوں کا جائزہ لیں</string>
+    <string name="home_review_count_subtitle">%1$d قرآنی الفاظ کا جائزہ درکار ہے</string>
+    <string name="home_review_single_mistake_subtitle">1 قرآنی لفظ کا جائزہ درکار ہے</string>
+    <string name="lesson_try_again_button">دوبارہ کوشش کریں</string>
+    <string name="settings_pronunciation_audio_label">تلفظ کی آڈیو</string>
+    <string name="settings_reduce_glass_label">گلاس اثرات کم کریں</string>
+    <string name="settings_section_sound">آواز اور آڈیو</string>
 </resources>

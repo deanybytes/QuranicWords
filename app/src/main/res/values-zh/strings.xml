@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">继续学习</string>
     <string name="lesson_matching_instruction">点击一个字母，然后点击与之匹配的项。</string>
     <string name="lesson_teach_continue_button">知道了</string>
-    <string name="lesson_word_example_verse_label">示例：%s</string>
+    <string name="lesson_word_example_verse_label">古兰经 %s</string>
     <string name="exercise_audio_unavailable">此项目的音频暂不可用。</string>
     <string name="word_order_build_area_label">您的答案</string>
     <string name="listen_and_type_hint">输入您听到的内容</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">无法恢复该备份文件。</string>
     <string name="settings_section_about">关于</string>
     <string name="settings_copyright">版权所有 © DEANY BYTES 2026。基于 GPL-3.0 许可发布。</string>
-    <string name="settings_content_provenance_note">词汇内容来源于公开的古兰经语料库。孟加拉语词义由人工智能辅助生成，仍在持续审核中 — 详见项目文档。</string>
+    <string name="settings_content_provenance_note">词汇内容来源于公开的古兰经语料库及经过验证的逐词翻译。</string>
     <string name="settings_licenses_button">许可证与来源</string>
     <string name="settings_licenses_title">许可证与来源</string>
     <string name="settings_close">关闭</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">电子邮件</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">已学词汇</string>
+    <string name="learned_words_subtitle">已掌握古兰经中的 %d 个词汇</string>
+    <string name="learned_words_search_placeholder">搜索已学词汇...</string>
+    <string name="learned_words_empty_title">暂无已学词汇</string>
+    <string name="learned_words_empty_desc">完成课程和测验以建立您的古兰经词汇库。</string>
+    <string name="learned_words_start_learning">开始学习</string>
+    <string name="learned_words_frequency_count">在古兰经中出现 %d 次</string>
+    <string name="learned_words_quran_examples_title">古兰经中的示例</string>
+    <string name="learned_words_rank">排名 #%d</string>
+    <string name="learned_words_occurrences_total">在古兰经中总计: %d 次</string>
+
+    <string name="test_mode_frequency_title">词频顺序模式</string>
+    <string name="test_mode_frequency_desc">按照古兰经中的出现频率顺序练习词汇（排名 1 至 3680）。</string>
+    <string name="test_mode_frequency_progress">已覆盖 %1$d / %2$d 个词汇</string>
+    <string name="test_mode_random_title">完全随机模式</string>
+    <string name="test_mode_random_desc">全古兰经词汇无重复随机测验，直至全部完成。</string>
+    <string name="test_mode_random_progress">本轮已完成 %1$d / %2$d 个词汇</string>
+    <string name="test_mode_mistakes_title">错词复习</string>
+    <string name="test_mode_mistakes_desc">复习做错的词汇。答对后将从错题集中移除。</string>
+    <string name="test_mode_mistakes_count">%d 个错词待复习</string>
+    <string name="test_mode_mistakes_empty">没有错词！太棒了。</string>
+    <string name="test_mode_start_btn">开始练习</string>
+    <string name="test_mode_review_btn">复习错题</string>
+
+    <string name="home_chart_30d_title">近30天学习活跃度与趋势</string>
+    <string name="home_chart_30d_summary">30天内活跃 %1$d 天 · 共 %2$d 分钟</string>
+    <string name="home_chart_today_stat">今日: %d 分钟</string>
+    <string name="home_chart_30d_ago">30天前</string>
+    <string name="home_chart_today">今日</string>
+    <string name="home_chart_quote_high">🌟 太棒了！持之以恒的学习让古兰经词汇更加深刻。</string>
+    <string name="home_chart_quote_mid">✨ 势头良好！坚持每日练习有助于掌握古兰经。</string>
+    <string name="home_chart_quote_start">🌱 每一句经文都充满吉祥。请保持每日学习！</string>
+
+    <string name="bottom_nav_about">关于</string>
+    <string name="home_review_action_button">复习错词</string>
+    <string name="home_review_count_subtitle">有 %1$d 个古兰经词汇待复习</string>
+    <string name="home_review_single_mistake_subtitle">有 1 个古兰经词汇待复习</string>
+    <string name="lesson_try_again_button">重试</string>
+    <string name="settings_pronunciation_audio_label">发音音频</string>
+    <string name="settings_reduce_glass_label">减少毛玻璃效果</string>
+    <string name="settings_section_sound">声音与音频</string>
 </resources>

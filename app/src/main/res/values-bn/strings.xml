@@ -78,14 +78,18 @@
 
     <!-- Home -->
     <string name="home_title">QuranicWords</string>
+    <string name="home_review_title">ভুল শব্দগুলো পর্যালোচনা</string>
+    <string name="home_review_subtitle">গত অনুশীলনে ভুল হওয়া শব্দগুলো চর্চা করুন।</string>
+    <string name="home_review_count_subtitle">%1$d টি ভুল শব্দ পুনরায় চর্চা করুন।</string>
+    <string name="home_review_single_mistake_subtitle">১ টি ভুল শব্দ পুনরায় চর্চা করুন।</string>
+    <string name="home_review_action_button">চর্চা করুন</string>
     <string name="home_module_locked">লক করা</string>
     <string name="home_open_settings">সেটিংস</string>
-    <string name="home_review_title">ভুল হওয়া শব্দ পুনরালোচনা</string>
-    <string name="home_review_subtitle">গতবার যেগুলোতে ভুল হয়েছিল তা অনুশীলন করুন।</string>
 
     <!-- Bottom navigation -->
     <string name="bottom_nav_home">হোম</string>
     <string name="bottom_nav_progress">অগ্রগতি</string>
+    <string name="bottom_nav_about">সম্পর্কে</string>
 
     <!-- Chapter/section coverage stat line -->
     <string name="home_chapter_coverage_stat">কুরআনের %1$s%% · এখন পর্যন্ত মোট %2$s%% কভার হয়েছে</string>
@@ -113,6 +117,7 @@
     <!-- Lesson -->
     <string name="lesson_check_button">যাচাই করুন</string>
     <string name="lesson_continue_button">চালিয়ে যান</string>
+    <string name="lesson_try_again_button">আবার চেষ্টা করুন</string>
     <string name="lesson_finish_button">পাঠ শেষ করুন</string>
     <string name="lesson_feedback_correct">সঠিক!</string>
     <string name="lesson_feedback_correct_alhamdulillah">আলহামদুলিল্লাহ!</string>
@@ -124,7 +129,7 @@
     <string name="lesson_exit_confirm_stay">শিখতে থাকুন</string>
     <string name="lesson_matching_instruction">একটি হরফে চাপ দিন, তারপর এর মিল খুঁজুন।</string>
     <string name="lesson_teach_continue_button">বুঝেছি</string>
-    <string name="lesson_word_example_verse_label">উদাহরণ: %s</string>
+    <string name="lesson_word_example_verse_label">আল কুরআন %s</string>
     <string name="exercise_audio_unavailable">এই আইটেমের অডিও এখনো উপলব্ধ নয়।</string>
     <string name="word_order_build_area_label">আপনার উত্তর</string>
     <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>
@@ -169,12 +174,15 @@
     <string name="settings_language_label">ভাষা</string>
     <string name="settings_quran_font_label">কুরআনের লিপি শৈলী</string>
     <string name="settings_reduce_motion_label">অ্যানিমেশন কমান</string>
-    <string name="settings_sound_effects_label">সাউন্ড ইফেক্ট</string>
+    <string name="settings_reduce_glass_label">গ্লসি এফেক্ট কমান</string>
     <string name="settings_font_scale_label">লেখার আকার</string>
     <string name="settings_font_scale_small">ছোট</string>
     <string name="settings_font_scale_default">ডিফল্ট</string>
     <string name="settings_font_scale_large">বড়</string>
     <string name="settings_font_scale_extra_large">অতিরিক্ত বড়</string>
+    <string name="settings_section_sound">সাউন্ড</string>
+    <string name="settings_sound_effects_label">সাউন্ড ইফেক্ট</string>
+    <string name="settings_pronunciation_audio_label">শব্দ উচ্চারণ অডিও</string>
     <string name="settings_section_notifications">নোটিফিকেশন</string>
     <string name="settings_streak_reminder_label">স্ট্রিক রিমাইন্ডার</string>
     <string name="settings_streak_reminder_description">আজ এখনও অনুশীলন না করলে এবং রক্ষা করার মতো স্ট্রিক থাকলে একটি স্থানীয় (অন-ডিভাইস) রিমাইন্ডার। নেটওয়ার্কে কিছুই পাঠানো হয় না।</string>
@@ -195,7 +203,7 @@
     <string name="settings_backup_import_failed">এই ব্যাকআপ ফাইলটি পুনরুদ্ধার করা যায়নি।</string>
     <string name="settings_section_about">সম্পর্কে</string>
     <string name="settings_copyright">কপিরাইট © DEANY BYTES ২০২৬। GPL-3.0 লাইসেন্সের অধীনে।</string>
-    <string name="settings_content_provenance_note">শব্দভাণ্ডারের বিষয়বস্তু মুক্ত কুরআনিক তথ্যভাণ্ডার থেকে সংগৃহীত। বাংলা শব্দার্থ এআই-সহায়তায় প্রস্তুত এবং পর্যালোচনাধীন — বিস্তারিত জানতে প্রকল্পের ডকুমেন্টেশন দেখুন।</string>
+    <string name="settings_content_provenance_note">শব্দভাণ্ডারের বিষয়বস্তু উন্মুক্ত কুরআনিক তথ্যভাণ্ডার ও শব্দে শব্দে বিশুদ্ধ অনুবাদ থেকে সংগৃহীত ও পরীক্ষিত।</string>
     <string name="settings_licenses_button">লাইসেন্স ও উৎস</string>
     <string name="settings_licenses_title">লাইসেন্স ও উৎস</string>
     <string name="settings_close">বন্ধ করুন</string>
@@ -227,4 +235,37 @@
     <string name="settings_connect_email">ইমেইল</string>
     <string name="settings_connect_telegram">টেলিগ্রাম</string>
     <string name="settings_connect_whatsapp">হোয়াটসঅ্যাপ</string>
+
+    <string name="learned_words_title">অর্জিত শব্দসমূহ</string>
+    <string name="learned_words_subtitle">পবিত্র কুরআন থেকে %d টি শব্দ আয়ত্ত হয়েছে</string>
+    <string name="learned_words_search_placeholder">অর্জিত শব্দ খুঁজুন...</string>
+    <string name="learned_words_empty_title">এখনও কোনো শব্দ শেখা হয়নি</string>
+    <string name="learned_words_empty_desc">কুরআনিক শব্দভাণ্ডার সমৃদ্ধ করতে পাঠ এবং কুইজ সম্পন্ন করুন।</string>
+    <string name="learned_words_start_learning">পড়া শুরু করুন</string>
+    <string name="learned_words_frequency_count">কুরআনে %d বার এসেছে</string>
+    <string name="learned_words_quran_examples_title">পবিত্র কুরআনের আয়াতসমূহ</string>
+    <string name="learned_words_rank">স্থান #%d</string>
+    <string name="learned_words_occurrences_total">কুরআনে মোট আগমন: %d বার</string>
+
+    <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
+    <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৩,৬৮০ নং ক্রম পর্যন্ত)।</string>
+    <string name="test_mode_frequency_progress">%2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_random_title">সম্পূর্ণ এলোমেলো মোড</string>
+    <string name="test_mode_random_desc">সম্পূর্ণ কুরআন থেকে পুনরাবৃত্তি ছাড়া এলোমেলো শব্দ অনুশীলন করুন যতক্ষণ না সব শব্দ শেষ হয়।</string>
+    <string name="test_mode_random_progress">এই চক্রে %2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_mistakes_title">ভুল শব্দসমূহ পর্যালোচনা</string>
+    <string name="test_mode_mistakes_desc">ভুল হওয়া শব্দগুলো পুনরায় অনুশীলন করুন। সঠিক উত্তর দিলে তা ভুল তালিকা থেকে বাদ যাবে।</string>
+    <string name="test_mode_mistakes_count">%d টি ভুল শব্দ পর্যালোচনার জন্য বাকি</string>
+    <string name="test_mode_mistakes_empty">কোনো ভুল শব্দ নেই! দারুণ প্রস্তুতি।</string>
+    <string name="test_mode_start_btn">অনুশীলন শুরু করুন</string>
+    <string name="test_mode_review_btn">ভুলগুলো সংশোধন করুন</string>
+
+    <string name="home_chart_30d_title">৩০ দিনের অনুশীলন ও অগ্রগতি</string>
+    <string name="home_chart_30d_summary">৩০ দিনে %1$d দিন সক্রিয় · মোট %2$d মিনিট</string>
+    <string name="home_chart_today_stat">আজ: %d মিনিট</string>
+    <string name="home_chart_30d_ago">৩০ দিন আগে</string>
+    <string name="home_chart_today">আজ</string>
+    <string name="home_chart_quote_high">🌟 মাশাআল্লাহ! আপনার অধ্যবসায় কুরআনিক জ্ঞানকে সমৃদ্ধ করছে।</string>
+    <string name="home_chart_quote_mid">✨ দারুণ ধারাবাহিকতা! নিয়মিত অনুশীলন কুরআন বোঝার পথ সহজ করে।</string>
+    <string name="home_chart_quote_start">🌱 প্রতিটি আয়াত রহমত ও বরকত নিয়ে আসে। প্রতিদিন অনুশীলন বজায় রাখুন!</string>
 </resources>

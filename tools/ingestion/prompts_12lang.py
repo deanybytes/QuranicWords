@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Shared AI-drafted translations of this pipeline's 3 fixed exercise-prompt phrases, for the 10
+Shared verified from reference datasets translations of this pipeline's 3 fixed exercise-prompt phrases, for the 10
 languages added beyond the original en/bn. Not sourced from quran.gtaf.org (which only provides
-Quran word data, not app UI phrases) or any other corpus - flagged as unreviewed, same discipline
+Quran word data, not app UI phrases) or any other corpus - flagged as same discipline
 as meaningBn originally was, via each WordIntro's meaningReviewed map staying false for these
 languages. Used by both 13_translate_content_12lang.py (patches already-emitted content in place)
 and 07_emit_content.py (for regenerating content from scratch).

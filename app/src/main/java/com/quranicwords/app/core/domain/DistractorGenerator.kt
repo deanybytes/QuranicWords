@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.domain
 
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.domain.model.LocalizedText
 import kotlin.math.abs
 
 /**
@@ -15,6 +16,8 @@ class WordCandidatePool private constructor(
     private val indexById: Map<String, Int>
 ) {
     fun get(id: String): WordFrequencyEntity? = indexById[id]?.let { sortedByRank[it] }
+
+    val all: List<WordFrequencyEntity> get() = sortedByRank
 
     /** The `radius` nearest-by-list-position entries around [id] (i.e. nearest by frequency rank,
      * since the pool is sorted by rank) - a bounded slice [DistractorGenerator] filters/sorts
@@ -40,13 +43,9 @@ class WordCandidatePool private constructor(
  * bakes into each exercise's JSON (see `tools/ingestion/09_fix_distractor_pools.py`) - a
  * stateless object since selection is pure data-in/data-out with no dependencies to inject.
  *
- * Every word in the currently-seeded corpus shares one `tierLevel`, so that filter is a no-op
- * today; it stays in place for when a wider tier range is seeded. The only live signal is
- * `frequencyRank` proximity, with a soft tie-break toward the learner's past confusions. Only
- * searches within [WINDOW_RADIUS] positions of the correct item in [WordCandidatePool] (bounded
- * work per call) rather than the whole pool - if a sparser future tier means fewer than [count]
- * same-tier siblings fall inside that window, the caller's existing baked-options fallback (see
- * `LessonViewModel.rebuildOptions`) already covers topping up the remainder.
+ * Guarantees that every distractor has a distinct meaning (and Arabic word) from the correct
+ * option and from all other chosen distractors, so all 4 options presented to the learner
+ * are strictly unique.
  */
 object DistractorGenerator {
     private const val WINDOW_RADIUS = 60
@@ -59,7 +58,8 @@ object DistractorGenerator {
     ): List<String> {
         val correct = pool.get(correctId) ?: return emptyList()
         val window = pool.windowAround(correctId, WINDOW_RADIUS) ?: return emptyList()
-        return window
+
+        val candidates = window
             .asSequence()
             .filter { it.id != correctId && it.tierLevel == correct.tierLevel }
             .sortedWith(
@@ -68,26 +68,66 @@ object DistractorGenerator {
                     { if (it.id in missedItemIds) 0 else 1 }
                 )
             )
-            .take(count)
-            .map { it.id }
-            .toList()
+
+        val selected = mutableListOf<WordFrequencyEntity>()
+        for (cand in candidates) {
+            if (selected.size >= count) break
+            if (!wordsCollide(cand, correct) && selected.none { wordsCollide(it, cand) }) {
+                selected.add(cand)
+            }
+        }
+
+        return selected.map { it.id }
     }
 
     /** One extra, never-matchable id for the Matching exercise's meaning-side distractor tile
      * (see [com.quranicwords.app.core.domain.model.ExerciseContent.Matching.distractorRight]).
-     * Unlike [pickDistractors], which only excludes its single [correctId], this excludes the
-     * whole [usedWordIds] set - a Matching exercise quizzes several words at once, all of which
-     * must stay ineligible as the "extra" one. Searches around the first id in [usedWordIds]
-     * (arbitrary but stable - all of a lesson's words share one tier, so any anchor works) and
-     * returns null if [usedWordIds] is empty (legacy content with no wordId-bearing pairs) or no
-     * candidate outside the used set is found. */
+     * Excludes all [usedWordIds] and any words sharing the same meaning or Arabic word with any
+     * of the used words. */
     fun pickMatchingDistractor(
         usedWordIds: Set<String>,
         pool: WordCandidatePool,
         missedItemIds: Set<String>
     ): String? {
         val anchorId = usedWordIds.firstOrNull() ?: return null
-        return pickDistractors(anchorId, pool, missedItemIds, count = usedWordIds.size + 3)
-            .firstOrNull { it !in usedWordIds }
+        val anchor = pool.get(anchorId) ?: return null
+        val usedWords = usedWordIds.mapNotNull { pool.get(it) }
+
+        val window = pool.windowAround(anchorId, WINDOW_RADIUS) ?: return null
+        val candidates = window
+            .asSequence()
+            .filter { it.id !in usedWordIds && it.tierLevel == anchor.tierLevel }
+            .sortedWith(
+                compareBy(
+                    { abs(it.frequencyRank - anchor.frequencyRank) },
+                    { if (it.id in missedItemIds) 0 else 1 }
+                )
+            )
+
+        return candidates.firstOrNull { cand ->
+            usedWords.none { used -> wordsCollide(used, cand) }
+        }?.id
+    }
+
+    fun wordsCollide(a: WordFrequencyEntity, b: WordFrequencyEntity): Boolean {
+        if (a.id == b.id) return true
+        val arabicA = a.arabicWord.trim()
+        val arabicB = b.arabicWord.trim()
+        if (arabicA.isNotEmpty() && arabicB.isNotEmpty() && arabicA == arabicB) return true
+
+        return meaningsCollide(a.meaning, b.meaning)
+    }
+
+    fun meaningsCollide(a: LocalizedText, b: LocalizedText): Boolean {
+        val commonKeys = a.keys.intersect(b.keys)
+        for (k in commonKeys) {
+            val valA = a[k]?.trim()?.lowercase().orEmpty()
+            val valB = b[k]?.trim()?.lowercase().orEmpty()
+            if (valA.isNotEmpty() && valB.isNotEmpty() && valA == valB) return true
+        }
+        val enA = (a["en"] ?: a.values.firstOrNull())?.trim()?.lowercase().orEmpty()
+        val enB = (b["en"] ?: b.values.firstOrNull())?.trim()?.lowercase().orEmpty()
+        if (enA.isNotEmpty() && enB.isNotEmpty() && enA == enB) return true
+        return false
     }
 }

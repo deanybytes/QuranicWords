@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,7 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
@@ -47,6 +48,7 @@ import com.quranicwords.app.core.ui.components.FeedbackBanner
 import com.quranicwords.app.core.ui.components.FeedbackType
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
+import com.quranicwords.app.core.ui.components.QwSecondaryButton
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
@@ -106,7 +108,8 @@ fun LessonScreen(
                     lessonKind = result.lessonKind,
                     newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id },
                     durationMillis = result.durationMillis,
-                    sessionType = result.sessionType
+                    sessionType = result.sessionType,
+                    openPracticeMode = viewModel.openPracticeMode
                 )
             )
         }
@@ -224,13 +227,35 @@ fun LessonScreen(
                 Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                     val isLastExercise = uiState.currentIndex == uiState.contents.lastIndex
                     when {
-                        uiState.isChecked -> QwPrimaryButton(
-                            text = stringResource(
-                                if (isLastExercise) R.string.lesson_finish_button else R.string.lesson_continue_button
-                            ),
-                            onClick = viewModel::onContinuePressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                        uiState.isChecked -> {
+                            if (uiState.lastAnswerCorrect == false) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    QwSecondaryButton(
+                                        text = stringResource(R.string.lesson_try_again_button),
+                                        onClick = viewModel::onTryAgainPressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    QwPrimaryButton(
+                                        text = stringResource(
+                                            if (isLastExercise) R.string.lesson_finish_button else R.string.lesson_continue_button
+                                        ),
+                                        onClick = viewModel::onContinuePressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            } else {
+                                QwPrimaryButton(
+                                    text = stringResource(
+                                        if (isLastExercise) R.string.lesson_finish_button else R.string.lesson_continue_button
+                                    ),
+                                    onClick = viewModel::onContinuePressed,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        }
                         uiState.currentContent is ExerciseContent.MultipleChoice ||
                             uiState.currentContent is ExerciseContent.TapWhatYouHear ||
                             uiState.currentContent is ExerciseContent.FillInTheBlank -> QwPrimaryButton(

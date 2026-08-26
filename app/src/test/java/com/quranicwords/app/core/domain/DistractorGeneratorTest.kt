@@ -108,13 +108,48 @@ class DistractorGeneratorTest {
     }
 
     @Test
-    fun `pickMatchingDistractor returns null for an empty used set - legacy content with no wordIds`() {
-        val candidates = pool(word("p1", rank = 1), word("p2", rank = 2))
+    fun `never picks distractors with the same meaning as the correct answer`() {
+        val candidates = pool(
+            word("w1", rank = 1).copy(meaning = mapOf("en" to "Lord")),
+            word("w2", rank = 2).copy(meaning = mapOf("en" to "Lord")), // Same meaning as correct
+            word("w3", rank = 3).copy(meaning = mapOf("en" to "Day")),
+            word("w4", rank = 4).copy(meaning = mapOf("en" to "Night"))
+        )
+        val distractors = DistractorGenerator.pickDistractors("w1", candidates, emptySet(), count = 2)
+        assertFalse("w2 should be excluded because it shares the meaning 'Lord'", "w2" in distractors)
+        assertEquals(listOf("w3", "w4"), distractors)
+    }
+
+    @Test
+    fun `never picks two distractors with the same meaning as each other`() {
+        val candidates = pool(
+            word("w1", rank = 1).copy(meaning = mapOf("en" to "Creator")),
+            word("w2", rank = 2).copy(meaning = mapOf("en" to "Book")),
+            word("w3", rank = 3).copy(meaning = mapOf("en" to "Book")), // Same meaning as w2
+            word("w4", rank = 4).copy(meaning = mapOf("en" to "Pen")),
+            word("w5", rank = 5).copy(meaning = mapOf("en" to "Light"))
+        )
+        val distractors = DistractorGenerator.pickDistractors("w1", candidates, emptySet(), count = 3)
+        assertEquals(3, distractors.size)
+        assertTrue("w2" in distractors)
+        assertFalse("w3 should be excluded because w2 already uses meaning 'Book'", "w3" in distractors)
+        assertEquals(listOf("w2", "w4", "w5"), distractors)
+    }
+
+    @Test
+    fun `pickMatchingDistractor excludes words with the same meaning as any used word`() {
+        val candidates = pool(
+            word("p1", rank = 1).copy(meaning = mapOf("en" to "Heaven")),
+            word("p2", rank = 2).copy(meaning = mapOf("en" to "Earth")),
+            word("p3", rank = 3).copy(meaning = mapOf("en" to "Sun")),
+            word("synonymOfEarth", rank = 4).copy(meaning = mapOf("en" to "Earth")), // Duplicate meaning of p2
+            word("validExtra", rank = 5).copy(meaning = mapOf("en" to "Moon"))
+        )
         val distractor = DistractorGenerator.pickMatchingDistractor(
-            usedWordIds = emptySet(),
+            usedWordIds = setOf("p1", "p2", "p3"),
             pool = candidates,
             missedItemIds = emptySet()
         )
-        assertEquals(null, distractor)
+        assertEquals("validExtra", distractor)
     }
 }

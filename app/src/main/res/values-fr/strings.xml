@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">Continuer à apprendre</string>
     <string name="lesson_matching_instruction">Touchez une lettre, puis touchez sa correspondance.</string>
     <string name="lesson_teach_continue_button">Compris</string>
-    <string name="lesson_word_example_verse_label">Exemple : %s</string>
+    <string name="lesson_word_example_verse_label">Al-Coran %s</string>
     <string name="exercise_audio_unavailable">L\'audio de cet élément n\'est pas encore disponible.</string>
     <string name="word_order_build_area_label">Votre réponse</string>
     <string name="listen_and_type_hint">Écrivez ce que vous entendez</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">Impossible de restaurer ce fichier de sauvegarde.</string>
     <string name="settings_section_about">À propos</string>
     <string name="settings_copyright">Copyright © DEANY BYTES 2026. Sous licence GPL-3.0.</string>
-    <string name="settings_content_provenance_note">Le contenu du vocabulaire provient de corpus coraniques ouverts. Les significations en bengali sont assistées par IA et en cours de révision — voir la documentation du projet pour plus de détails.</string>
+    <string name="settings_content_provenance_note">Le contenu du vocabulaire provient de corpus coraniques ouverts et de traductions mot à mot vérifiées.</string>
     <string name="settings_licenses_button">Licences &amp; sources</string>
     <string name="settings_licenses_title">Licences &amp; sources</string>
     <string name="settings_close">Fermer</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">E-mail</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">Mots Appris</string>
+    <string name="learned_words_subtitle">%d mots maîtrisés du Saint Coran</string>
+    <string name="learned_words_search_placeholder">Rechercher des mots...</string>
+    <string name="learned_words_empty_title">Aucun mot appris pour le moment</string>
+    <string name="learned_words_empty_desc">Terminez des leçons et des quiz pour enrichir votre vocabulaire coranique.</string>
+    <string name="learned_words_start_learning">Commencer à Apprendre</string>
+    <string name="learned_words_frequency_count">Apparaît %d fois dans le Coran</string>
+    <string name="learned_words_quran_examples_title">Exemples dans le Saint Coran</string>
+    <string name="learned_words_rank">Rang #%d</string>
+    <string name="learned_words_occurrences_total">Nombre total dans le Coran: %d</string>
+
+    <string name="test_mode_frequency_title">Mode Ordre de Fréquence</string>
+    <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 3 680).</string>
+    <string name="test_mode_frequency_progress">%1$d sur %2$d mots couverts</string>
+    <string name="test_mode_random_title">Mode Aléatoire Complet</string>
+    <string name="test_mode_random_desc">Mots aléatoires sans répétition jusqu\'à ce que tout le Coran soit complété.</string>
+    <string name="test_mode_random_progress">%1$d sur %2$d mots complétés dans ce cycle</string>
+    <string name="test_mode_mistakes_title">Révision des Mots Incorrects</string>
+    <string name="test_mode_mistakes_desc">Révisez les mots manqués. Une fois réussis, ils sont retirés des erreurs.</string>
+    <string name="test_mode_mistakes_count">%d mots incorrects à réviser</string>
+    <string name="test_mode_mistakes_empty">Aucun mot incorrect ! Bravo.</string>
+    <string name="test_mode_start_btn">Commencer</string>
+    <string name="test_mode_review_btn">Corriger les Erreurs</string>
+
+    <string name="home_chart_30d_title">Activité &amp; Tendance sur 30 jours</string>
+    <string name="home_chart_30d_summary">%1$d/30 jours actifs · %2$d min au total</string>
+    <string name="home_chart_today_stat">Aujourd\'hui : %d min</string>
+    <string name="home_chart_30d_ago">Il y a 30j</string>
+    <string name="home_chart_today">Aujourd\'hui</string>
+    <string name="home_chart_quote_high">🌟 Masha\'Allah ! Excellente régularité dans votre apprentissage coranique.</string>
+    <string name="home_chart_quote_mid">✨ Bel élan ! La pratique quotidienne renforce la compréhension du Coran.</string>
+    <string name="home_chart_quote_start">🌱 Chaque verset est source de bénédiction. Maintenez votre rythme quotidien !</string>
+
+    <string name="bottom_nav_about">À propos</string>
+    <string name="home_review_action_button">Revoir les erreurs</string>
+    <string name="home_review_count_subtitle">%1$d mots coraniques à réviser</string>
+    <string name="home_review_single_mistake_subtitle">1 mot coranique à réviser</string>
+    <string name="lesson_try_again_button">Réessayer</string>
+    <string name="settings_pronunciation_audio_label">Audio de prononciation</string>
+    <string name="settings_reduce_glass_label">Réduire les effets de verre</string>
+    <string name="settings_section_sound">Son et Audio</string>
 </resources>

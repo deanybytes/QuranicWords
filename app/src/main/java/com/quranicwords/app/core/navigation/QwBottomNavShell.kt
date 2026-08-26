@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.LearningPath
@@ -61,19 +61,16 @@ fun QwBottomNavShell(
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
     onOpenRoadmap: () -> Unit,
-    onOpenOpenPractice: () -> Unit,
+    onOpenOpenPractice: (String) -> Unit,
     onOpenStreakRecovery: () -> Unit,
+    onOpenLearnedWords: () -> Unit = {},
     viewModel: QwBottomNavShellViewModel = hiltViewModel()
 ) {
     var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
     var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
     var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
     val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
-    // Reported up by HomeScreen (see its onContinueLearningLessonIdChange doc comment) - this
-    // shell owns the FAB now, centered over the shared bottom nav bar rather than floating above
-    // Home's own content, since the bar itself is shell chrome even though the action is
-    // Home-tab-specific.
-    var continueLearningLessonId by remember { mutableStateOf<String?>(null) }
+    val currentLessonId by viewModel.currentLessonId.collectAsStateWithLifecycle()
 
     Scaffold(
         bottomBar = {
@@ -131,15 +128,12 @@ fun QwBottomNavShell(
                         )
                     }
                 )
-                // Not a real tab - a direct action (opens the learner's current lesson) reported
-                // up by HomeScreen (see onContinueLearningLessonIdChange's doc comment), so it
-                // never shows `selected = true` and doesn't touch `selectedTab`. Only rendered
-                // while there's an actual lesson to jump to and Home is the active tab, matching
-                // the old FAB's own visibility guard.
-                if (selectedTab == BottomTab.HOME && continueLearningLessonId != null) {
+                // Center "Continue Learning" action: always visible across all tabs (Home, Progress,
+                // About, Settings) as long as there is an unlocked lesson to progress in.
+                if (currentLessonId != null) {
                     NavigationBarItem(
                         selected = false,
-                        onClick = { onOpenLesson(continueLearningLessonId!!) },
+                        onClick = { onOpenLesson(currentLessonId!!) },
                         icon = {
                             Icon(
                                 Icons.Filled.MyLocation,
@@ -176,7 +170,11 @@ fun QwBottomNavShell(
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
             when (selectedTab) {
                 BottomTab.HOME -> if (learningPath == LearningPath.TEST_ONLY) {
-                    TestOnlyHomeScreen(onStartQuiz = onOpenOpenPractice, onOpenStreakRecovery = onOpenStreakRecovery)
+                    TestOnlyHomeScreen(
+                        onStartQuiz = onOpenOpenPractice,
+                        onOpenReview = onOpenReview,
+                        onOpenStreakRecovery = onOpenStreakRecovery
+                    )
                 } else {
                     HomeScreen(
                         onOpenLesson = onOpenLesson,
@@ -185,16 +183,16 @@ fun QwBottomNavShell(
                         onOpenSectionIntro = onOpenSectionIntro,
                         onOpenWordBrowse = onOpenWordBrowse,
                         onOpenRoadmap = onOpenRoadmap,
-                        onOpenOpenPractice = onOpenOpenPractice,
+                        onOpenOpenPractice = { onOpenOpenPractice("RANDOM") },
                         onOpenStreakRecovery = onOpenStreakRecovery,
+                        onOpenLearnedWords = onOpenLearnedWords,
                         expandedChapterIds = expandedChapterIds,
                         onExpandedChapterIdsChange = { expandedChapterIds = it },
                         expandedSectionIds = expandedSectionIds,
-                        onExpandedSectionIdsChange = { expandedSectionIds = it },
-                        onContinueLearningLessonIdChange = { continueLearningLessonId = it }
+                        onExpandedSectionIdsChange = { expandedSectionIds = it }
                     )
                 }
-                BottomTab.PROGRESS -> ProgressScreen()
+                BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords)
                 BottomTab.ABOUT -> AboutScreen()
                 BottomTab.SETTINGS -> SettingsScreen(onBack = {}, showBackButton = false)
             }

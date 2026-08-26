@@ -25,14 +25,19 @@ data class TestOnlyHomeUiState(
     /** See [StreakRecovery.isLocked]. */
     val isStreakLocked: Boolean = false,
     val streakRecoveryQuestionCount: Int = 0,
-    val streakInactivityDuration: InactivityDuration? = null
+    val streakInactivityDuration: InactivityDuration? = null,
+    val frequencyCoveredCount: Int = 0,
+    val totalWordsCount: Int = 3680,
+    val randomCoveredCount: Int = 0,
+    val missedWordsCount: Int = 0
 )
 
 /**
- * Backs [TestOnlyHomeScreen] - deliberately minimal next to [com.quranicwords.app.feature.home
- * .HomeViewModel]: a Test/Quiz-only user has no chapter/section/lesson tree to load at all (no
- * `ensureCurriculumStarted` call either - there's nothing for it to bootstrap), just the same
- * status badges Learn-path Home already shows plus one entry point into Open Practice.
+ * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all 3
+ * Test/Quiz-only modes:
+ * 1. Frequency Order Mode (sequential Quranic frequency)
+ * 2. Full Random Mode (non-repeating until corpus is exhausted)
+ * 3. Mistaken Words Review (adaptive retry of missed vocabulary)
  */
 @HiltViewModel
 class TestOnlyHomeViewModel @Inject constructor(
@@ -51,11 +56,21 @@ class TestOnlyHomeViewModel @Inject constructor(
             val todayDate = LocalDate.now(clock)
             val today = todayDate.toString()
 
+            val statsFlow = progressRepository.observeStats(userId)
+            val todayPracticeFlow = progressRepository.observeTodayPractice(userId, today)
+            val dailyGoalFlow = preferences.dailyGoalLevelFlow
+            val freqOffsetFlow = preferences.testFrequencyOffsetFlow
+            val randomCoveredFlow = preferences.testRandomCoveredWordIdsFlow
+            val missedIdsFlow = progressRepository.observeMissedItemIds(userId)
+
             combine(
-                progressRepository.observeStats(userId),
-                progressRepository.observeTodayPractice(userId, today),
-                preferences.dailyGoalLevelFlow
-            ) { stats, todayPractice, goalLevel ->
+                combine(statsFlow, todayPracticeFlow, dailyGoalFlow) { stats, practice, goal ->
+                    Triple(stats, practice, goal)
+                },
+                combine(freqOffsetFlow, randomCoveredFlow, missedIdsFlow) { freq, random, missed ->
+                    Triple(freq, random, missed)
+                }
+            ) { (stats, todayPractice, goalLevel), (freqOffset, randomCovered, missedIds) ->
                 TestOnlyHomeUiState(
                     totalPoints = stats?.totalPoints ?: 0,
                     currentStreak = stats?.currentStreak ?: 0,
@@ -64,7 +79,11 @@ class TestOnlyHomeViewModel @Inject constructor(
                         goalLevel.minutes
                     ),
                     isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
-                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0
+                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
+                    frequencyCoveredCount = freqOffset.coerceAtMost(3680),
+                    totalWordsCount = 3680,
+                    randomCoveredCount = randomCovered.size.coerceAtMost(3680),
+                    missedWordsCount = missedIds.size
                 )
             }.collect { _uiState.value = it }
         }

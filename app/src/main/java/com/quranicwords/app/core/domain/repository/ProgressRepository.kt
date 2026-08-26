@@ -49,6 +49,10 @@ interface ProgressRepository {
      * session. Empty if [userId] has no attempt history yet. */
     suspend fun getMissedItemIds(userId: String): List<String>
 
+    /** Live Flow of [getMissedItemIds] - keeps Home and Review entry points reactive to every
+     * new attempt. */
+    fun observeMissedItemIds(userId: String): Flow<List<String>>
+
     /** Ids whose most recent attempt was correct - the Progress tab's "words learned" metric.
      * See [com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao.getMasteredItemIds]. */
     suspend fun getMasteredItemIds(userId: String): List<String>
@@ -57,6 +61,9 @@ interface ProgressRepository {
      * daily-goal-streak tiles - a one-shot read (this screen doesn't need it to be live-observed
      * the way [observeProgress] does). */
     suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity>
+
+    /** Live Flow of per-day practice rows for a date range - backs the 30-day activity trend chart. */
+    fun observePracticeHistoryForRange(userId: String, startDate: String, endDate: String): Flow<List<DailyPracticeEntity>>
 
     /** Live today's-practice row, unlike [getDailyPracticeHistory] - backs Home's "daily challenge
      * completed" indicator, which needs to flip on the instant a lesson finishing today pushes
@@ -83,14 +90,12 @@ interface ProgressRepository {
         sessionType: LessonSessionType = LessonSessionType.REVIEW
     ): LessonResult
 
-    /** A batch of up to [batchSize] scored exercises drawn from a flexible word pool rather than
-     * one fixed lesson - the shared engine behind Test/Quiz-only mode's Home, the post-100%-
-     * completion practice loop, and (via a stricter variant) streak recovery. Pool is every word
-     * [userId] has ever attempted (`ExerciseAttemptDao.getAllPracticedItemIds`), falling back to
-     * the full corpus only when that's empty (a brand-new Test/Quiz-only user's very first batch,
-     * before they've attempted anything at all). See [com.quranicwords.app.core.domain
-     * .OpenPracticePool] for the pure sampling/collapsing steps this delegates to. */
-    suspend fun getOpenPracticeExercises(userId: String, batchSize: Int = 18): List<ExerciseEntity>
+    /** A batch of up to [batchSize] scored exercises drawn from a flexible word pool according
+     * to the requested mode:
+     * - "FREQUENCY": Sequential Quranic frequency order (Rank #1 upwards) advancing monotonically.
+     * - "RANDOM": Random sampling across the entire 3,680-word corpus without repetition until the full corpus is completed.
+     * - "MISTAKES": Sourced from user's current mistaken/missed word list. */
+    suspend fun getOpenPracticeExercises(userId: String, mode: String = "RANDOM", batchSize: Int = 18): List<ExerciseEntity>
 
     /** A strictly-scoped sibling of [getOpenPracticeExercises] for the streak-recovery quiz - only
      * ever draws from words [userId] has actually practiced (see

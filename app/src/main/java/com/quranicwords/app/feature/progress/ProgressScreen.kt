@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MenuBook
@@ -25,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
@@ -42,7 +43,10 @@ import com.quranicwords.app.feature.achievements.AchievementsSection
  * section below the charts rather than a separately-pushed screen.
  */
 @Composable
-fun ProgressScreen(viewModel: ProgressViewModel = hiltViewModel()) {
+fun ProgressScreen(
+    onOpenLearnedWords: () -> Unit = {},
+    viewModel: ProgressViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (uiState.isLoading) {
@@ -95,10 +99,11 @@ fun ProgressScreen(viewModel: ProgressViewModel = hiltViewModel()) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     MetricTile(
-                        icon = Icons.Filled.MenuBook,
+                        icon = Icons.AutoMirrored.Filled.MenuBook,
                         value = uiState.wordsLearnedCount.toString(),
                         label = stringResource(R.string.progress_words_learned),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onClick = onOpenLearnedWords
                     )
                     MetricTile(
                         icon = Icons.Filled.CheckCircle,

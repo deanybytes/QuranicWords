@@ -31,7 +31,7 @@ fun CelebrationBurst(intensity: CelebrationIntensity, modifier: Modifier = Modif
     // Brand gold/emerald/mint family, matching the theme's tertiary (gold) and primary (emerald)
     // roles - see core/ui/theme/Color.kt. Konfetti's public examples pass colors without an alpha
     // prefix (opaque RGB); matched here rather than introducing an untested 0xFF-prefixed form.
-    val colors = remember { listOf(0xD4AF37, 0x0B6E4F, 0xF9A825, 0xB7F2D5).map { it.toInt() } }
+    val colors = remember { listOf(0xD4AF37, 0x0B6E4F, 0xF9A825, 0xB7F2D5) }
     val party = remember(intensity) {
         Party(
             speed = 8f,

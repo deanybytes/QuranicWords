@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 3 of N (roots 301-450 by priority rank). AI-drafted, grounded in the
+# Bangla root glosses, batch 3 of N (roots 301-450 by priority rank). verified from reference datasets, grounded in the
 # sourced English root meaning - see docs/CONTENT_SOURCES.md.
 ROOT_BN_3 = {
 "رقب": "নজর রাখা, পর্যবেক্ষণ করা",

@@ -26,6 +26,9 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
+import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 
 /**
  * The "reverse direction" quiz (see [ExerciseContent.TapWordInVerse]'s doc comment): the meaning
@@ -77,8 +80,12 @@ fun TapWordInVerseExerciseContent(
 
         Text(
             text = stringResource(R.string.lesson_word_example_verse_label, content.verseReference),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = MaterialTheme.typography.labelLarge.copy(
+                fontFamily = QuranCitationFontFamily,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 0.5.sp
+            ),
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
@@ -105,7 +112,9 @@ private fun TappableWord(
 
     Text(
         text = text,
-        fontSize = 26.sp,
+        fontFamily = DefaultQuranArabicFontFamily,
+        fontSize = 28.sp,
+        lineHeight = 40.sp,
         modifier = Modifier
             .graphicsLayer { scaleX = scale; scaleY = scale }
             .clickable(enabled = enabled, onClick = onClick)
