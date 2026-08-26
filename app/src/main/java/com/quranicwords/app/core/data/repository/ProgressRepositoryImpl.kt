@@ -34,8 +34,8 @@ class ProgressRepositoryImpl @Inject constructor(
     private val database: QwDatabase,
     private val streakCalculator: StreakCalculator,
     private val clock: Clock,
-    private val preferences: UserPreferencesDataStore? = null,
-    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context? = null
+    private val preferences: UserPreferencesDataStore,
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context
 ) : ProgressRepository {
 
     /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
@@ -93,10 +93,8 @@ class ProgressRepositoryImpl @Inject constructor(
             (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
         val nextLessonId = if (lesson != null && passed) unlockNextLesson(userId, lesson) else null
 
-        context?.let { ctx ->
-            runCatching {
-                com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(ctx, advanceRotation = false)
-            }
+        runCatching {
+            com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
         }
 
         LessonResult(
@@ -233,10 +231,10 @@ class ProgressRepositoryImpl @Inject constructor(
 
         val itemIds = when (mode.uppercase()) {
             "FREQUENCY" -> {
-                val offset = preferences?.testFrequencyOffsetFlow?.first() ?: 0
+                val offset = preferences.testFrequencyOffsetFlow.first()
                 val safeOffset = if (offset >= allWords.size) 0 else offset
                 val slice = allWords.drop(safeOffset).take(batchSize).map { it.id }
-                preferences?.setTestFrequencyOffset((safeOffset + slice.size) % allWords.size)
+                preferences.setTestFrequencyOffset((safeOffset + slice.size) % allWords.size)
                 slice
             }
             "MISTAKES" -> {
@@ -246,16 +244,16 @@ class ProgressRepositoryImpl @Inject constructor(
             }
             else -> { // "RANDOM"
                 val allIds = allWords.map { it.id }
-                val covered = preferences?.testRandomCoveredWordIdsFlow?.first() ?: emptySet()
+                val covered = preferences.testRandomCoveredWordIdsFlow.first()
                 val remaining = allIds.filter { it !in covered }
                 val pool = if (remaining.size < batchSize) {
-                    preferences?.resetTestRandomCoveredWordIds()
+                    preferences.resetTestRandomCoveredWordIds()
                     allIds
                 } else {
                     remaining
                 }
                 val sampled = pool.shuffled().take(batchSize)
-                preferences?.addTestRandomCoveredWordIds(sampled)
+                preferences.addTestRandomCoveredWordIds(sampled)
                 sampled
             }
         }
