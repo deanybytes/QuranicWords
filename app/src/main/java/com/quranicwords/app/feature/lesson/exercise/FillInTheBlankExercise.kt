@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.lesson.exercise
+﻿package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,8 +23,8 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 /**
  * Shows [ExerciseContent.FillInTheBlank]'s sentence with the target word replaced by a blank
@@ -54,7 +54,7 @@ fun FillInTheBlankExerciseContent(
         }
         Text(
             text = sentenceWithBlank,
-            fontFamily = DefaultQuranArabicFontFamily,
+            fontFamily = LocalQuranFontFamily.current,
             fontSize = 32.sp,
             lineHeight = 46.sp,
             textAlign = TextAlign.Center,

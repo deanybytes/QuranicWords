@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.lesson.exercise
+﻿package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,8 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 /**
  * The "reverse direction" quiz (see [ExerciseContent.TapWordInVerse]'s doc comment): the meaning
@@ -112,7 +112,7 @@ private fun TappableWord(
 
     Text(
         text = text,
-        fontFamily = DefaultQuranArabicFontFamily,
+        fontFamily = LocalQuranFontFamily.current,
         fontSize = 28.sp,
         lineHeight = 40.sp,
         modifier = Modifier

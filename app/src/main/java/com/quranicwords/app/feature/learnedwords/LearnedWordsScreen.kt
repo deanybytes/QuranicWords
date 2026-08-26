@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.learnedwords
+﻿package com.quranicwords.app.feature.learnedwords
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -73,8 +73,8 @@ import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -229,7 +229,7 @@ private fun LearnedWordCard(
                 ) {
                     Text(
                         text = word.arabicWord,
-                        fontFamily = DefaultQuranArabicFontFamily,
+                        fontFamily = LocalQuranFontFamily.current,
                         fontSize = 28.sp,
                         lineHeight = 36.sp,
                         color = MaterialTheme.colorScheme.primary
@@ -341,7 +341,7 @@ private fun WordQuranExamplesSheet(
                 ) {
                     Text(
                         text = word.arabicWord,
-                        fontFamily = DefaultQuranArabicFontFamily,
+                        fontFamily = LocalQuranFontFamily.current,
                         fontSize = 44.sp,
                         lineHeight = 56.sp,
                         textAlign = TextAlign.Center,
@@ -411,7 +411,7 @@ private fun WordQuranExamplesSheet(
                                     addStyle(highlightStyle, start, end)
                                 }
                             },
-                            fontFamily = DefaultQuranArabicFontFamily,
+                            fontFamily = LocalQuranFontFamily.current,
                             fontSize = 21.sp,
                             lineHeight = 36.sp,
                             textAlign = TextAlign.End,

@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.wordbrowse
+﻿package com.quranicwords.app.feature.wordbrowse
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,7 +37,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -50,6 +49,7 @@ import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 /**
  * Card-flip, "story-fold" browsing of a section's words - tap a card to flip it and reveal the
@@ -189,7 +189,7 @@ private fun WordCardBack(
             }
             Text(
                 text = word.exampleVerseArabic,
-                fontFamily = DefaultQuranArabicFontFamily,
+                fontFamily = LocalQuranFontFamily.current,
                 fontSize = 20.sp,
                 lineHeight = 34.sp,
                 textAlign = TextAlign.End,

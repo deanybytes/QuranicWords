@@ -1,14 +1,13 @@
 package com.quranicwords.app.core.ui.theme
 
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 
 /**
- * Maps a [QuranFontStyle] to the actual bundled typeface. Only styles backed by a genuinely
- * open-licensed (SIL OFL) font - see app/src/main/assets/font_licenses/ - are bundled; the rest
- * fall back to the system default Arabic font until their real licensed file is sourced.
+ * Maps a [QuranFontStyle] to the actual bundled typeface.
  */
 fun QuranFontStyle.toFontFamily(): FontFamily = when (fontKey) {
     "amiri" -> FontFamily(Font(R.font.amiri_regular))
@@ -22,3 +21,12 @@ fun QuranFontStyle.toFontFamily(): FontFamily = when (fontKey) {
 val DefaultQuranArabicFontFamily: FontFamily = FontFamily(Font(R.font.amiri_regular))
 val QuranCitationFontFamily: FontFamily = FontFamily.Serif
 
+/**
+ * CompositionLocal providing the active [FontFamily] selected by the user for all Arabic Quranic text.
+ */
+val LocalQuranFontFamily = compositionLocalOf { DefaultQuranArabicFontFamily }
+
+/**
+ * CompositionLocal providing the active [QuranFontStyle] selected by the user.
+ */
+val LocalQuranFontStyle = compositionLocalOf { QuranFontStyle.DEFAULT }

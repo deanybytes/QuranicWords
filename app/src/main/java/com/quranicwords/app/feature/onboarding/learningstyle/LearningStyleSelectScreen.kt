@@ -2,19 +2,15 @@ package com.quranicwords.app.feature.onboarding.learningstyle
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -23,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.LearningStyle
-import com.quranicwords.app.core.ui.components.IconLabelChip
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.QwSelectableCard
 
@@ -74,15 +69,8 @@ private fun LearningStyleOptionCard(style: LearningStyle, onClick: () -> Unit) {
         LearningStyle.COZY -> R.string.learning_style_cozy to R.string.learning_style_cozy_description
     }
     QwSelectableCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
-                IconLabelChip(icon = Icons.Filled.Repeat, label = "${style.repeatCount}x")
-            }
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
             Text(
                 stringResource(descriptionRes),
                 style = MaterialTheme.typography.bodyMedium,

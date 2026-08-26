@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.lesson.exercise
+﻿package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,8 +35,8 @@ import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 /**
  * Non-scored teach step shown before a word's quiz exercises: the word, its meaning, and one
@@ -78,7 +78,7 @@ fun WordIntroExerciseContent(
             ) {
                 Text(
                     text = content.arabicWord,
-                    fontFamily = DefaultQuranArabicFontFamily,
+                    fontFamily = LocalQuranFontFamily.current,
                     fontSize = 56.sp,
                     lineHeight = 68.sp,
                     textAlign = TextAlign.Center,
@@ -139,7 +139,7 @@ fun WordIntroExerciseContent(
                             addStyle(highlightStyle, start, end)
                         }
                     },
-                    fontFamily = DefaultQuranArabicFontFamily,
+                    fontFamily = LocalQuranFontFamily.current,
                     fontSize = 22.sp,
                     lineHeight = 36.sp,
                     textAlign = TextAlign.End,
