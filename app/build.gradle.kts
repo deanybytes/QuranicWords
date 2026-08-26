@@ -33,7 +33,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.quranicwords.app"
+        applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 37
         versionCode = 8
