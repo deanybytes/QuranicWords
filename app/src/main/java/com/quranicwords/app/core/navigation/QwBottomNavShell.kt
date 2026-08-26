@@ -173,7 +173,9 @@ fun QwBottomNavShell(
                     TestOnlyHomeScreen(
                         onStartQuiz = onOpenOpenPractice,
                         onOpenReview = onOpenReview,
-                        onOpenStreakRecovery = onOpenStreakRecovery
+                        onOpenStreakRecovery = onOpenStreakRecovery,
+                        onOpenRoadmap = onOpenRoadmap,
+                        onOpenLearnedWords = onOpenLearnedWords
                     )
                 } else {
                     HomeScreen(
