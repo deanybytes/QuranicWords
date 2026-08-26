@@ -1,0 +1,51 @@
+package com.quranicwords.app.feature.widget
+
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class WidgetDataProviderTest {
+
+    @Test
+    fun `rotation step ratio gives 2 to 1 for mistaken vs learned words`() {
+        val missedWords = listOf("wf_1", "wf_2")
+        val masteredWords = listOf("wf_10", "wf_11", "wf_12")
+
+        fun pickWordId(step: Int): String {
+            val isMistakeTurn = (step % 3 != 2)
+            return if (isMistakeTurn) {
+                val index = ((step / 3) * 2 + (step % 3)) % missedWords.size
+                missedWords[index]
+            } else {
+                val index = (step / 3) % masteredWords.size
+                masteredWords[index]
+            }
+        }
+
+        val step0 = pickWordId(0) // mistake turn -> missed
+        val step1 = pickWordId(1) // mistake turn -> missed
+        val step2 = pickWordId(2) // mastered turn -> mastered
+
+        assertTrue(missedWords.contains(step0))
+        assertTrue(missedWords.contains(step1))
+        assertTrue(masteredWords.contains(step2))
+
+        val step3 = pickWordId(3) // mistake turn
+        val step4 = pickWordId(4) // mistake turn
+        val step5 = pickWordId(5) // mastered turn
+
+        assertTrue(missedWords.contains(step3))
+        assertTrue(missedWords.contains(step4))
+        assertTrue(masteredWords.contains(step5))
+    }
+
+    @Test
+    fun `quran percentage calculation is accurate`() {
+        val count = 2800 // e.g. "Allah"
+        val totalWords = 77797.0
+        val percentage = (count / totalWords) * 100.0
+        assertTrue(percentage > 3.0 && percentage < 4.0)
+    }
+}

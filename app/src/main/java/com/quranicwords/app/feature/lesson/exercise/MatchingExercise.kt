@@ -257,8 +257,6 @@ fun MatchingExerciseContent(
         val selectedPair = leftItems.find { it.id == pendingLeftId }
         val exampleArabic = selectedPair?.exampleVerseArabic
         val exampleRef = selectedPair?.exampleVerseReference
-        val exampleTrans = selectedPair?.exampleVerseTranslation?.getOrNull(language)
-        val exampleHighlight = selectedPair?.meaningHighlight?.getOrNull(language)
 
         AnimatedVisibility(
             visible = selectedPair != null && exampleArabic != null && exampleRef != null,
@@ -306,23 +304,6 @@ fun MatchingExerciseContent(
                             modifier = Modifier.fillMaxWidth(),
                             color = MaterialTheme.colorScheme.onSurface
                         )
-                        if (!exampleTrans.isNullOrBlank()) {
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-                            Text(
-                                text = buildAnnotatedString {
-                                    append(exampleTrans)
-                                    val idx = exampleHighlight?.let { exampleTrans.indexOf(it) } ?: -1
-                                    if (idx >= 0 && exampleHighlight != null) {
-                                        addStyle(highlightStyle, idx, idx + exampleHighlight.length)
-                                    }
-                                },
-                                style = MaterialTheme.typography.bodySmall.copy(
-                                    fontFamily = QuranCitationFontFamily,
-                                    fontStyle = FontStyle.Italic
-                                ),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
                     }
                 }
             }
@@ -437,40 +418,40 @@ private fun MatchTile(
                 textAlign = TextAlign.Center,
                 color = contentColor
             )
+        }
 
-            // Glossy glass reflect animation on correct match
-            if (justMatched && !reducedMotion && !reducedGlass) {
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .clip(tileShape)
-                        .drawBehind {
-                            val w = size.width
-                            val h = size.height
-                            val bandWidth = w * 0.45f
-                            val travel = w * 2.2f
-                            val bandCenter = -w * 0.6f + sheenProgress.value * travel
-                            rotate(degrees = 25f, pivot = Offset(w / 2f, h / 2f)) {
-                                drawRect(
-                                    brush = Brush.linearGradient(
-                                        colorStops = arrayOf(
-                                            0f to Color.Transparent,
-                                            0.3f to Color.White.copy(alpha = 0.35f),
-                                            0.5f to Color.White.copy(alpha = 0.85f),
-                                            0.7f to Color.White.copy(alpha = 0.35f),
-                                            1f to Color.Transparent
-                                        ),
-                                        start = Offset(bandCenter - bandWidth / 2f, 0f),
-                                        end = Offset(bandCenter + bandWidth / 2f, 0f)
+        // Glossy glass reflect animation on correct match across entire tile
+        if (justMatched && !reducedMotion && !reducedGlass) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(tileShape)
+                    .drawBehind {
+                        val w = size.width
+                        val h = size.height
+                        val bandWidth = (w + h) * 0.45f
+                        val totalDistance = w + h + bandWidth
+                        val currentCenter = -bandWidth / 2f + sheenProgress.value * totalDistance
+                        rotate(degrees = 25f, pivot = Offset(w / 2f, h / 2f)) {
+                            drawRect(
+                                brush = Brush.linearGradient(
+                                    colorStops = arrayOf(
+                                        0f to Color.Transparent,
+                                        0.25f to Color.White.copy(alpha = 0.25f),
+                                        0.5f to Color.White.copy(alpha = 0.85f),
+                                        0.75f to Color.White.copy(alpha = 0.25f),
+                                        1f to Color.Transparent
                                     ),
-                                    topLeft = Offset(-w, -h),
-                                    size = androidx.compose.ui.geometry.Size(w * 3f, h * 3f),
-                                    blendMode = BlendMode.Screen
-                                )
-                            }
+                                    start = Offset(currentCenter - bandWidth / 2f, -h),
+                                    end = Offset(currentCenter + bandWidth / 2f, h * 2f)
+                                ),
+                                topLeft = Offset(-w, -h),
+                                size = Size(w * 3f, h * 3f),
+                                blendMode = BlendMode.Screen
+                            )
                         }
-                )
-            }
+                    }
+            )
         }
     }
 }

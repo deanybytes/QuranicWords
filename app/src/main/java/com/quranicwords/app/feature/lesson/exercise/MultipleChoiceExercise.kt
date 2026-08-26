@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.lesson.exercise
+package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -55,8 +55,6 @@ fun MultipleChoiceExerciseContent(
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold
     )
-    val verseTranslation = content.exampleVerseTranslation.getOrNull(language)
-    val meaningHighlight = content.meaningHighlight.getOrNull(language)
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -110,23 +108,6 @@ fun MultipleChoiceExerciseContent(
                         modifier = Modifier.fillMaxWidth(),
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    if (!verseTranslation.isNullOrBlank()) {
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-                        Text(
-                            text = buildAnnotatedString {
-                                append(verseTranslation)
-                                val idx = meaningHighlight?.let { verseTranslation.indexOf(it) } ?: -1
-                                if (idx >= 0 && meaningHighlight != null) {
-                                    addStyle(highlightStyle, idx, idx + meaningHighlight.length)
-                                }
-                            },
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontStyle = FontStyle.Italic
-                            ),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
                 }
             }
         }

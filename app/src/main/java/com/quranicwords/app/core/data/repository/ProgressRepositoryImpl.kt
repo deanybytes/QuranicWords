@@ -34,7 +34,8 @@ class ProgressRepositoryImpl @Inject constructor(
     private val database: QwDatabase,
     private val streakCalculator: StreakCalculator,
     private val clock: Clock,
-    private val preferences: UserPreferencesDataStore? = null
+    private val preferences: UserPreferencesDataStore? = null,
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context? = null
 ) : ProgressRepository {
 
     /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
@@ -91,6 +92,12 @@ class ProgressRepositoryImpl @Inject constructor(
         val passed = lesson != null &&
             (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
         val nextLessonId = if (lesson != null && passed) unlockNextLesson(userId, lesson) else null
+
+        context?.let { ctx ->
+            runCatching {
+                com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(ctx, advanceRotation = false)
+            }
+        }
 
         LessonResult(
             lessonId = lessonId,

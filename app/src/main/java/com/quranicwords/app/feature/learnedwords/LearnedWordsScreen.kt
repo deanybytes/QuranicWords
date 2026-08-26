@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.learnedwords
+package com.quranicwords.app.feature.learnedwords
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -310,6 +310,7 @@ private fun WordQuranExamplesSheet(
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold
     )
+    val meaning = word.meaning.getOrNull(language)
     val verseTranslation = word.exampleVerseTranslation.getOrNull(language)
     val meaningHighlight = word.meaningHighlight.getOrNull(language)
 
@@ -423,9 +424,13 @@ private fun WordQuranExamplesSheet(
                             Text(
                                 text = buildAnnotatedString {
                                     append(verseTranslation)
-                                    val idx = meaningHighlight?.let { verseTranslation.indexOf(it) } ?: -1
-                                    if (idx >= 0 && meaningHighlight != null) {
-                                        addStyle(highlightStyle, idx, idx + meaningHighlight.length)
+                                    val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                                        verseTranslation = verseTranslation,
+                                        meaningHighlight = meaningHighlight,
+                                        meaning = meaning
+                                    )
+                                    if (range != null) {
+                                        addStyle(highlightStyle, range.first, range.second)
                                     }
                                 },
                                 style = MaterialTheme.typography.bodyMedium.copy(

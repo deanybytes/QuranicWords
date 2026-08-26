@@ -2,36 +2,11 @@
 """
 Post-processing pass adding word-highlight data to exercises_vocabulary.json's word_intro teach
 steps, so the app can visually highlight the taught word within its example verse (Arabic side)
-and, best-effort, the corresponding gloss within the translation (English/Bangla side).
-
-Arabic side: reuses the same diacritic-normalized, token-boundary-aware matching approach
-06_pick_verses.py already used to pick verses (exact skeleton match first across every token in
-the verse, substring fallback for bound clitics only if no exact match exists anywhere - the same
-two-pass structure that avoids short skeletons false-matching inside unrelated longer words, e.g.
-"min" inside "ar-Rahman"), extended to keep a position map so a skeleton match can be reported
-back as a char-offset range in the ORIGINAL (diacriticized) exampleVerseArabic string. Whole-token
-granularity (not sub-token), matching this app's existing word-level highlighting granularity
-elsewhere. No confident match -> both offsets left null, never guessed.
-
-Translation side: no open-licensed word-alignment dataset was found for Quranic Arabic <-> English/
-Bangla (checked corpus.quran.com's own word-by-word view and quranwbw.com - both plausible
-candidates, neither had a license confirmed for this use; see docs/CONTENT_SOURCES.md). This
-stays a best-effort heuristic: for English, the full gloss (stopwords stripped) as a contiguous
-phrase first, falling back to the longest single content word (tried exact, then with light
-suffix-tolerance - "believe" in the gloss can match "believing" in the translation); for Bangla,
-the longest single content word only (no stemmer available). No match -> left null. Real,
-honestly-partial coverage, printed at the end rather than assumed.
-
-Operates on the current LocalizedText map-based schema (content["meaning"]["en"]/["bn"],
-content["exampleVerseTranslation"]["en"]/["bn"], content["meaningHighlight"]["en"]/["bn"]) - a
-prior version of this script used the pre-refactor flat field names (meaningEn/meaningBn/etc.)
-and silently went stale when Phase 3's map-based-localization refactor landed; fixed alongside the
-QW-18 re-verification pass that first surfaced it (running this script is the only way to notice,
-since it would otherwise KeyError instead of quietly corrupting data - still worth flagging so a
-future schema change doesn't repeat it unnoticed for as long).
+and the corresponding gloss within the translation across all supported languages.
 """
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 from arabic_utils import strip_diacritics, strip_diacritics_with_map, strip_definite_article
@@ -39,71 +14,66 @@ from arabic_utils import strip_diacritics, strip_diacritics_with_map, strip_defi
 CONTENT_DIR = Path(__file__).parent.parent.parent / "app" / "src" / "main" / "assets" / "content"
 EXERCISES_PATH = CONTENT_DIR / "exercises_vocabulary.json"
 
-EN_STOPWORDS = {
-    "a", "an", "the", "of", "to", "in", "on", "at", "by", "for", "with", "and", "or", "is", "are",
-    "was", "were", "be", "as", "that", "this", "it", "its", "see", "example", "context", "verse",
-    "word", "meaning", "sense", "particle", "noun", "verb", "who", "which", "one", "also", "not",
-}
+
+def normalize_text(text: str) -> str:
+    """Strip combining diacritics / accents (e.g. macron vowels) for robust matching."""
+    return "".join(
+        c for c in unicodedata.normalize("NFKD", text)
+        if not unicodedata.combining(c)
+    )
 
 
-def content_words_en(meaning: str):
-    words = re.findall(r"[A-Za-z']+", meaning.lower())
-    return sorted({w for w in words if w not in EN_STOPWORDS and len(w) > 2}, key=len, reverse=True)
-
-
-def content_words_bn(meaning: str):
-    # Bangla has no diacritic-stripping concern like Arabic; whitespace tokenization is enough.
-    words = re.split(r"[\s,;।()]+", meaning.strip())
-    return sorted({w for w in words if len(w) > 1}, key=len, reverse=True)
-
-
-# Light stemming (en-only; no Bangla stemmer available in-repo) so a gloss word like "believe"
-# still cross-matches a differently-inflected translation word like "believing"/"believed" -
-# rather than trying to enumerate every English suffix (irregular spelling changes like the
-# silent-e drop before "-ing" make that fragile), take a shortening set of prefixes of the word
-# itself (down to a 4-character floor, short enough to catch real inflection, long enough to stay
-# a meaningfully specific match) and search each as a whole-word-start anchor. Still a single
-# content word, still whole-word-bounded - just inflection-tolerant, not a fuzzy/approximate match.
-def _en_word_stems(word: str):
-    stems = []
-    for cut in range(1, len(word) - 3):
-        stem = word[:-cut]
-        if len(stem) >= 4:
-            stems.append(stem)
-    return stems
-
-
-def find_en_highlight(meaning_en: str, translation_en: str):
-    if not meaning_en or not translation_en:
+def find_meaning_highlight(meaning: str, translation: str) -> str | None:
+    if not meaning or not translation:
         return None
-    # Pass 1: the full gloss (stopwords stripped) as a contiguous phrase - catches multi-word
-    # idioms like "the straight path" that pass 2's single-longest-word approach can only
-    # partially match.
-    phrase_words = [w for w in re.findall(r"[A-Za-z']+", meaning_en.lower()) if w not in EN_STOPWORDS]
-    if len(phrase_words) > 1:
-        phrase_pattern = r"\b" + r"\s+".join(re.escape(w) for w in phrase_words) + r"\b"
-        m = re.search(phrase_pattern, translation_en, re.IGNORECASE)
+
+    # 1. Clean parentheticals from meaning (e.g., "(relative pronoun)", "[i.e. Quran]")
+    cleaned = re.sub(r"\(.*?\)|\[.*?\]", "", meaning).strip()
+    if not cleaned:
+        return None
+
+    norm_trans = normalize_text(translation)
+
+    # 2. Split alternatives on commas, slashes, semicolons, and " or "
+    candidates = []
+    candidates.append(cleaned)
+    for part in re.split(r"[,;/|]|\bor\b", cleaned, flags=re.IGNORECASE):
+        p = part.strip()
+        if len(p) >= 2:
+            candidates.append(p)
+
+    candidates = sorted(set(candidates), key=len, reverse=True)
+
+    # 3. Pass 1: Try full candidate phrase matches (word-boundary bounded)
+    for cand in candidates:
+        norm_cand = normalize_text(cand)
+        if not norm_cand.strip():
+            continue
+        pattern = r"\b" + re.escape(norm_cand) + r"\b"
+        m = re.search(pattern, norm_trans, re.IGNORECASE)
         if m:
-            return translation_en[m.start():m.end()]
-    # Pass 2: longest single content word, tried as an exact whole word first, then - only if
-    # that fails - as a stemmed prefix (so "believe" in the gloss can match "believing" in the
-    # translation, still whole-word-bounded, just inflection-tolerant).
-    for word in content_words_en(meaning_en):
-        m = re.search(r"\b" + re.escape(word) + r"\b", translation_en, re.IGNORECASE)
-        if m:
-            return translation_en[m.start():m.end()]
-        for stem in _en_word_stems(word):
-            m = re.search(r"\b" + re.escape(stem) + r"[a-z']*\b", translation_en, re.IGNORECASE)
+            return translation[m.start():m.end()]
+
+    # 4. Pass 2: Try individual content words from candidates (longest first)
+    for cand in candidates:
+        words = [w for w in re.findall(r"[\w']+", cand, flags=re.UNICODE) if len(w) >= 2]
+        for w in sorted(words, key=len, reverse=True):
+            norm_w = normalize_text(w)
+            if not norm_w.strip():
+                continue
+            pattern = r"\b" + re.escape(norm_w) + r"\b"
+            m = re.search(pattern, norm_trans, re.IGNORECASE)
             if m:
-                return translation_en[m.start():m.end()]
-    return None
+                return translation[m.start():m.end()]
 
+    # 5. Pass 3: Non-word-boundary substring fallback for agglutinative/complex scripts (Bangla, etc.)
+    for cand in candidates:
+        norm_cand = normalize_text(cand)
+        if len(norm_cand) >= 2:
+            idx = norm_trans.lower().find(norm_cand.lower())
+            if idx != -1:
+                return translation[idx:idx + len(norm_cand)]
 
-def find_bn_highlight(meaning_bn: str, translation_bn: str):
-    for word in content_words_bn(meaning_bn):
-        idx = translation_bn.find(word)
-        if idx != -1:
-            return translation_bn[idx:idx + len(word)]
     return None
 
 
@@ -126,7 +96,6 @@ def find_arabic_span(arabic_word: str, verse_arabic: str):
             return start, start + len(token)
 
     # Pass 2: substring fallback for bound clitics - only tried once no exact match exists
-    # anywhere in this verse, mirroring 06_pick_verses.py's own two-pass approach.
     for start, token, skeleton in token_skeletons:
         if skeleton and any(t in skeleton for t in targets):
             return start, start + len(token)
@@ -140,8 +109,7 @@ def main():
 
     total = 0
     arabic_found = 0
-    en_found = 0
-    bn_found = 0
+    lang_found = {}
 
     for ex in data["exercises"]:
         content = ex["content"]
@@ -155,19 +123,16 @@ def main():
             content["arabicWordEnd"] = end
             arabic_found += 1
 
-        meaning = content.get("meaning", {})
-        translation = content.get("exampleVerseTranslation", {})
+        meaning_map = content.get("meaning", {})
+        trans_map = content.get("exampleVerseTranslation", {})
         highlight = content.get("meaningHighlight", {})
 
-        en_highlight = find_en_highlight(meaning.get("en", ""), translation.get("en", ""))
-        if en_highlight:
-            highlight["en"] = en_highlight
-            en_found += 1
-
-        bn_highlight = find_bn_highlight(meaning.get("bn", ""), translation.get("bn", ""))
-        if bn_highlight:
-            highlight["bn"] = bn_highlight
-            bn_found += 1
+        for lang, meaning_str in meaning_map.items():
+            trans_str = trans_map.get(lang, "")
+            hl = find_meaning_highlight(meaning_str, trans_str)
+            if hl:
+                highlight[lang] = hl
+                lang_found[lang] = lang_found.get(lang, 0) + 1
 
         content["meaningHighlight"] = highlight
 
@@ -176,8 +141,8 @@ def main():
 
     print(f"word_intro entries processed: {total}")
     print(f"Arabic verse-word span found: {arabic_found} ({arabic_found * 100 // total}%)")
-    print(f"English translation highlight found: {en_found} ({en_found * 100 // total}%)")
-    print(f"Bangla translation highlight found: {bn_found} ({bn_found * 100 // total}%)")
+    for lang, count in sorted(lang_found.items()):
+        print(f"Language [{lang}] highlight found: {count} ({count * 100 // total}%)")
 
 
 if __name__ == "__main__":

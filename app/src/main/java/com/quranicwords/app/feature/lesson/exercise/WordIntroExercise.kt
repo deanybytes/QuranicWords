@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.lesson.exercise
+package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -150,9 +150,13 @@ fun WordIntroExerciseContent(
                 Text(
                     text = buildAnnotatedString {
                         append(verseTranslation)
-                        val idx = meaningHighlight?.let { verseTranslation.indexOf(it) } ?: -1
-                        if (idx >= 0 && meaningHighlight != null) {
-                            addStyle(highlightStyle, idx, idx + meaningHighlight.length)
+                        val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                            verseTranslation = verseTranslation,
+                            meaningHighlight = meaningHighlight,
+                            meaning = meaning
+                        )
+                        if (range != null) {
+                            addStyle(highlightStyle, range.first, range.second)
                         }
                     },
                     style = MaterialTheme.typography.bodyMedium.copy(

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Theme Glassmorphism Widget Colors -->
+    <color name="widget_bg_gradient_start">#E6072D20</color>
+    <color name="widget_bg_gradient_end">#CC021810</color>
+    <color name="widget_bg_stroke">#337ED957</color>
+    <color name="widget_surface_card">#38114431</color>
+    <color name="widget_surface_card_stroke">#267ED957</color>
+    <color name="widget_text_primary">#F2F7F0</color>
+    <color name="widget_text_secondary">#B2E6AA</color>
+    <color name="widget_text_tertiary">#8EA896</color>
+    <color name="widget_accent_primary">#7ED957</color>
+    <color name="widget_accent_gold">#EBC971</color>
+    <color name="widget_mistake_tag_bg">#40FFB4AB</color>
+    <color name="widget_mistake_tag_text">#FFB4AB</color>
+    <color name="widget_mastered_tag_bg">#407ED957</color>
+    <color name="widget_mastered_tag_text">#7ED957</color>
+    <color name="widget_progress_track">#337ED957</color>
+    <color name="widget_progress_fill">#7ED957</color>
+    <color name="widget_reflection_color">#4DFFFFFF</color>
+</resources>

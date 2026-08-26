@@ -16,9 +16,5 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideQwDatabase(@ApplicationContext context: Context): QwDatabase =
-        Room.databaseBuilder(context, QwDatabase::class.java, QwDatabase.DATABASE_NAME)
-            // Pre-launch schema, no installed base to preserve - destructive fallback is
-            // deliberate here (see QwDatabase.kt's own comment).
-            .fallbackToDestructiveMigration(dropAllTables = true)
-            .build()
+        QwDatabase.getInstance(context)
 }
