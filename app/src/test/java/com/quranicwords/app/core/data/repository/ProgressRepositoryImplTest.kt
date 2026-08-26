@@ -57,7 +57,13 @@ class ProgressRepositoryImplTest {
             .allowMainThreadQueries()
             .build()
         preferences = UserPreferencesDataStore(ApplicationProvider.getApplicationContext())
-        repository = ProgressRepositoryImpl(database, StreakCalculator(clock), clock, preferences)
+        repository = ProgressRepositoryImpl(
+            database,
+            StreakCalculator(clock),
+            clock,
+            preferences,
+            ApplicationProvider.getApplicationContext()
+        )
     }
 
     @After
