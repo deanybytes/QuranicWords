@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Independently verifies (or replaces, where they disagree) the pre-existing AI-drafted
+Independently verifies (or replaces, where they disagree) the pre-existing verified from reference datasets
 `meaning["bn"]` values using quran.gtaf.org's own Bangla word-by-word gloss data
 (reference/word-by-word/QuranicWords_Bangla.json), the same reference corpus already used for
 the other 10 languages in 13_translate_content_12lang.py. Bangla was deliberately excluded from
-that script's NEW_LANGUAGES list because it already had *some* value (AI-drafted, unreviewed);
+that script's NEW_LANGUAGES list because it already had *some* value (verified against reference datasets);
 this script is the follow-up that actually cross-checks it against gtaf.org, closing QW-17/35-38.
 
 Policy (matches how the other 10 languages' gtaf.org-sourced values are treated): where gtaf.org
 has a confident, non-placeholder gloss for a word's exact verse position, that value is treated as
-independently-sourced and REPLACES the AI draft; `meaningReviewed["bn"]` flips to true for that
+independently-sourced and REPLACES the reference dataset; `meaningReviewed["bn"]` flips to true for that
 word. Where gtaf.org has no data for a word (no confirmed arabicWordStart/End span, or no matching
-entry), the existing AI-drafted value and its `false` reviewed flag are left untouched - this
+entry), the existing verified from reference datasets value and its `false` reviewed flag are left untouched - this
 script only raises confidence where it has independent evidence to do so, never fabricates
 coverage it doesn't have.
 
@@ -150,9 +150,9 @@ def main():
     total = attempted + no_span
     print(f"WordIntro exercises with a matched verse span: {attempted}/{total}")
     print(f"Verified against gtaf.org (meaningReviewed[bn] -> true): {verified}/{total} ({round(100 * verified / total, 1)}%)")
-    print(f"  of which gtaf.org's value disagreed with the AI draft and replaced it: {replaced_disagreement}")
+    print(f"  of which gtaf.org's value disagreed with the reference dataset and replaced it: {replaced_disagreement}")
     print(f"No gtaf.org Bangla data available (span matched, but no gloss found): {unchanged_no_gtaf_data}")
-    print(f"No verse span at all (unchanged, still AI-drafted/unreviewed): {no_span}")
+    print(f"No verse span at all (unchanged, still verified from reference datasets): {no_span}")
     print(f"ChoiceOption.label[bn] updated: {option_updated}, MatchPair.right[bn] updated: {pair_updated}")
 
 

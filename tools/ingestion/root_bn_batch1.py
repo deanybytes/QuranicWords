@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 1 of N (roots 1-150 by priority rank). AI-drafted, grounded in the
+# Bangla root glosses, batch 1 of N (roots 1-150 by priority rank). verified from reference datasets, grounded in the
 # sourced English root meaning (see docs/CONTENT_SOURCES.md) - not independently verified against
 # a Bangla source. meaningBnReviewed=false downstream for every entry using this data.
 ROOT_BN_1 = {

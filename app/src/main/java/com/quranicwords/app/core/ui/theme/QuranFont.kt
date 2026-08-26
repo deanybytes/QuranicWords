@@ -16,5 +16,9 @@ fun QuranFontStyle.toFontFamily(): FontFamily = when (fontKey) {
     "noto_naskh" -> FontFamily(Font(R.font.noto_naskh_regular))
     "lateef" -> FontFamily(Font(R.font.lateef_regular))
     "noto_nastaliq_urdu" -> FontFamily(Font(R.font.noto_nastaliq_urdu_regular))
-    else -> FontFamily.Default
+    else -> FontFamily(Font(R.font.amiri_regular))
 }
+
+val DefaultQuranArabicFontFamily: FontFamily = FontFamily(Font(R.font.amiri_regular))
+val QuranCitationFontFamily: FontFamily = FontFamily.Serif
+

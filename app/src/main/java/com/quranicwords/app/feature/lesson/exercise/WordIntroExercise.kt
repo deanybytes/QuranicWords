@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,8 @@ import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
+import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 
 /**
  * Non-scored teach step shown before a word's quiz exercises: the word, its meaning, and one
@@ -75,7 +78,9 @@ fun WordIntroExerciseContent(
             ) {
                 Text(
                     text = content.arabicWord,
+                    fontFamily = DefaultQuranArabicFontFamily,
                     fontSize = 56.sp,
+                    lineHeight = 68.sp,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -111,13 +116,16 @@ fun WordIntroExerciseContent(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
                     text = stringResource(R.string.lesson_word_example_verse_label, content.exampleVerseReference),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontFamily = QuranCitationFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.5.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
                 )
                 Text(
                     text = buildAnnotatedString {
@@ -131,13 +139,14 @@ fun WordIntroExerciseContent(
                             addStyle(highlightStyle, start, end)
                         }
                     },
-                    fontSize = 20.sp,
-                    lineHeight = 32.sp,
+                    fontFamily = DefaultQuranArabicFontFamily,
+                    fontSize = 22.sp,
+                    lineHeight = 36.sp,
                     textAlign = TextAlign.End,
                     modifier = Modifier.fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                HorizontalDivider()
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
                 Text(
                     text = buildAnnotatedString {
                         append(verseTranslation)
@@ -146,7 +155,10 @@ fun WordIntroExerciseContent(
                             addStyle(highlightStyle, idx, idx + meaningHighlight.length)
                         }
                     },
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontFamily = QuranCitationFontFamily,
+                        fontStyle = FontStyle.Italic
+                    ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

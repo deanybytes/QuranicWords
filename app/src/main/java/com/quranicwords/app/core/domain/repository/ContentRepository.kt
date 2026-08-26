@@ -24,4 +24,7 @@ interface ContentRepository {
     /** One-shot snapshot of the vocabulary corpus, ranked by frequency - the candidate pool
      * [com.quranicwords.app.core.domain.DistractorGenerator] picks siblings from. */
     suspend fun getWordCandidates(): List<WordFrequencyEntity>
+
+    /** Map of wordId -> WordIntro (containing Quran example verse and translation) across all vocabulary words. */
+    suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>
 }

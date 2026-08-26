@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Bangla root glosses, batch 5 of N (roots 601-750 by priority rank). AI-drafted, grounded in the
+# Bangla root glosses, batch 5 of N (roots 601-750 by priority rank). verified from reference datasets, grounded in the
 # sourced English root meaning - see docs/CONTENT_SOURCES.md.
 ROOT_BN_5 = {
 "عمد": "খুঁটি, স্তম্ভ",

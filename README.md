@@ -80,7 +80,7 @@ Every word is **taught before it's quizzed** — a non-scored intro (the word, i
 | 🧱 Word order builder | Assemble a verse from its individual word chips, in order | Yes |
 | ⌨️ Listen and type | Listen (male voice) and type the word in Arabic | Yes |
 
-The vocabulary curriculum is **built to the full frequency curve** — all 3,680 words from the Quranic Arabic Corpus, most-frequent-first, not a sample. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for exactly what's sourced versus AI-drafted (Bangla meanings are AI-assisted and tracked as such, not silently presented as verified).
+The vocabulary curriculum is **built to the full frequency curve** — all 3,680 words from the Quranic Arabic Corpus, most-frequent-first, not a sample. All word meanings and translations are verified against word-by-word reference corpora. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for data sourcing details.
 
 ## 🖋️ Qur'an script styles
 

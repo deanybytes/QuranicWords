@@ -2,6 +2,7 @@ package com.quranicwords.app.core.data.repository
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
@@ -45,6 +46,7 @@ import java.time.ZoneOffset
 class ProgressRepositoryImplTest {
 
     private lateinit var database: QwDatabase
+    private lateinit var preferences: UserPreferencesDataStore
     private lateinit var repository: ProgressRepositoryImpl
     private val userId = "test_user"
     private val clock = Clock.fixed(Instant.parse("2026-08-22T10:00:00Z"), ZoneOffset.UTC)
@@ -54,7 +56,8 @@ class ProgressRepositoryImplTest {
         database = Room.inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), QwDatabase::class.java)
             .allowMainThreadQueries()
             .build()
-        repository = ProgressRepositoryImpl(database, StreakCalculator(clock), clock)
+        preferences = UserPreferencesDataStore(ApplicationProvider.getApplicationContext())
+        repository = ProgressRepositoryImpl(database, StreakCalculator(clock), clock, preferences)
     }
 
     @After
@@ -240,22 +243,29 @@ class ProgressRepositoryImplTest {
     }
 
     @Test
-    fun `getOpenPracticeExercises draws only from words the user has already practiced`() = runTest {
+    fun `getOpenPracticeExercises in MISTAKES mode draws only from mistaken words`() = runTest {
         seedTree()
         seedExercise("ex_a", "word_a")
         seedExercise("ex_b", "word_b")
         seedExercise("ex_c", "word_c")
+        database.wordFrequencyDao().insertAll(
+            listOf(
+                WordFrequencyEntity("word_a", "ا", 1, 100, mapOf("en" to "a"), null, 1),
+                WordFrequencyEntity("word_b", "ب", 2, 90, mapOf("en" to "b"), null, 1),
+                WordFrequencyEntity("word_c", "ت", 3, 80, mapOf("en" to "c"), null, 1)
+            )
+        )
         database.exerciseAttemptDao().insert(
-            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = 1L)
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, attemptedAtEpochMillis = 1L)
         )
 
-        val result = repository.getOpenPracticeExercises(userId, batchSize = 18)
+        val result = repository.getOpenPracticeExercises(userId, mode = "MISTAKES", batchSize = 18)
 
         assertEquals(listOf("word_a"), result.map { it.practicedItemId })
     }
 
     @Test
-    fun `getOpenPracticeExercises falls back to the full corpus when nothing has been practiced yet`() = runTest {
+    fun `getOpenPracticeExercises in RANDOM mode falls back cleanly and samples full corpus`() = runTest {
         seedTree()
         seedExercise("ex_a", "word_a")
         seedExercise("ex_b", "word_b")
@@ -266,7 +276,7 @@ class ProgressRepositoryImplTest {
             )
         )
 
-        val result = repository.getOpenPracticeExercises(userId, batchSize = 18)
+        val result = repository.getOpenPracticeExercises(userId, mode = "RANDOM", batchSize = 18)
 
         assertEquals(setOf("word_a", "word_b"), result.map { it.practicedItemId }.toSet())
     }
@@ -274,14 +284,12 @@ class ProgressRepositoryImplTest {
     @Test
     fun `getOpenPracticeExercises caps at batchSize`() = runTest {
         seedTree()
+        database.wordFrequencyDao().insertAll(
+            (1..25).map { WordFrequencyEntity("word_$it", "w$it", it, 100 - it, mapOf("en" to "m$it"), null, 1) }
+        )
         (1..25).forEach { seedExercise("ex_$it", "word_$it") }
-        (1..25).forEach {
-            database.exerciseAttemptDao().insert(
-                ExerciseAttemptEntity(userId = userId, itemId = "word_$it", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = it.toLong())
-            )
-        }
 
-        val result = repository.getOpenPracticeExercises(userId, batchSize = 10)
+        val result = repository.getOpenPracticeExercises(userId, mode = "RANDOM", batchSize = 10)
 
         assertEquals(10, result.size)
         assertTrue(result.map { it.practicedItemId }.toSet().all { it!!.startsWith("word_") })
@@ -324,5 +332,91 @@ class ProgressRepositoryImplTest {
         val stats = database.userStatsDao().get(userId)
         assertEquals("2020-01-01", stats?.lastActivityLocalDate)
         assertEquals(15, stats?.currentStreak)
+    }
+
+    @Test
+    fun `observeMissedItemIds tracks mistaken words and removes them once answered correctly`() = runTest {
+        assertEquals(emptyList<String>(), repository.getMissedItemIds(userId))
+
+        // User makes a mistake on word_1 and word_2
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.TAP_WHAT_YOU_HEAR, wasCorrect = false)
+
+        val missedBefore = repository.getMissedItemIds(userId)
+        assertEquals(setOf("word_1", "word_2"), missedBefore.toSet())
+
+        // User corrects word_1 in review
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        val missedAfter = repository.getMissedItemIds(userId)
+        assertEquals(listOf("word_2"), missedAfter)
+
+        // User corrects word_2
+        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        val missedFinal = repository.getMissedItemIds(userId)
+        assertEquals(emptyList<String>(), missedFinal)
+    }
+
+    @Test
+    fun `getOpenPracticeExercises in FREQUENCY mode yields sequential items in order`() = runTest {
+        seedTree()
+        preferences.setTestFrequencyOffset(0)
+        database.wordFrequencyDao().insertAll(
+            listOf(
+                WordFrequencyEntity("wf_1", "w1", 1, 100, mapOf("en" to "m1"), null, 1),
+                WordFrequencyEntity("wf_2", "w2", 2, 90, mapOf("en" to "m2"), null, 1),
+                WordFrequencyEntity("wf_3", "w3", 3, 80, mapOf("en" to "m3"), null, 1)
+            )
+        )
+        database.exerciseDao().insertAll(
+            listOf(
+                ExerciseEntity("ex_1", "l1", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_1"),
+                ExerciseEntity("ex_2", "l1", 2, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_2"),
+                ExerciseEntity("ex_3", "l1", 3, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_3")
+            )
+        )
+
+        val batch1 = repository.getOpenPracticeExercises(userId, mode = "FREQUENCY", batchSize = 2)
+        assertEquals(2, batch1.size)
+        assertEquals("wf_1", batch1[0].practicedItemId)
+        assertEquals("wf_2", batch1[1].practicedItemId)
+
+        val batch2 = repository.getOpenPracticeExercises(userId, mode = "FREQUENCY", batchSize = 2)
+        assertEquals(1, batch2.size)
+        assertEquals("wf_3", batch2[0].practicedItemId)
+    }
+
+    @Test
+    fun `getOpenPracticeExercises in RANDOM mode covers items without immediate repetition`() = runTest {
+        seedTree()
+        preferences.resetTestRandomCoveredWordIds()
+        database.wordFrequencyDao().insertAll(
+            listOf(
+                WordFrequencyEntity("wf_1", "w1", 1, 100, mapOf("en" to "m1"), null, 1),
+                WordFrequencyEntity("wf_2", "w2", 2, 90, mapOf("en" to "m2"), null, 1),
+                WordFrequencyEntity("wf_3", "w3", 3, 80, mapOf("en" to "m3"), null, 1),
+                WordFrequencyEntity("wf_4", "w4", 4, 70, mapOf("en" to "m4"), null, 1)
+            )
+        )
+        database.exerciseDao().insertAll(
+            listOf(
+                ExerciseEntity("ex_1", "l1", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_1"),
+                ExerciseEntity("ex_2", "l1", 2, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_2"),
+                ExerciseEntity("ex_3", "l1", 3, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_3"),
+                ExerciseEntity("ex_4", "l1", 4, ExerciseType.MULTIPLE_CHOICE, "{}", "wf_4")
+            )
+        )
+
+        val batch1 = repository.getOpenPracticeExercises(userId, mode = "RANDOM", batchSize = 2)
+        assertEquals(2, batch1.size)
+        val items1 = batch1.mapNotNull { it.practicedItemId }.toSet()
+
+        val batch2 = repository.getOpenPracticeExercises(userId, mode = "RANDOM", batchSize = 2)
+        assertEquals(2, batch2.size)
+        val items2 = batch2.mapNotNull { it.practicedItemId }.toSet()
+
+        // Batch 1 and Batch 2 must have no overlap since 4 items total and 2 items sampled per batch
+        assertTrue(items1.intersect(items2).isEmpty())
     }
 }

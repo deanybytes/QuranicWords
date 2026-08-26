@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">ادامه یادگیری</string>
     <string name="lesson_matching_instruction">یک حرف را لمس کنید، سپس معادل آن را لمس کنید.</string>
     <string name="lesson_teach_continue_button">متوجه شدم</string>
-    <string name="lesson_word_example_verse_label">مثال: %s</string>
+    <string name="lesson_word_example_verse_label">قرآن کریم %s</string>
     <string name="exercise_audio_unavailable">صدای این مورد هنوز در دسترس نیست.</string>
     <string name="word_order_build_area_label">پاسخ شما</string>
     <string name="listen_and_type_hint">آنچه می‌شنوید را تایپ کنید</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">این فایل پشتیبان بازیابی نشد.</string>
     <string name="settings_section_about">درباره</string>
     <string name="settings_copyright">کپی‌رایت © DEANY BYTES ۲۰۲۶. تحت مجوز GPL-3.0.</string>
-    <string name="settings_content_provenance_note">محتوای واژگان از منابع باز قرآنی گرفته شده است. معانی بنگالی با کمک هوش مصنوعی تهیه شده و در حال بازبینی مستمر است — برای جزئیات به مستندات پروژه مراجعه کنید.</string>
+    <string name="settings_content_provenance_note">محتوای واژگان از منابع باز قرآنی و ترجمه‌های کلمه به کلمه معتبر تهیه شده است.</string>
     <string name="settings_licenses_button">مجوزها و منابع</string>
     <string name="settings_licenses_title">مجوزها و منابع</string>
     <string name="settings_close">بستن</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">ایمیل</string>
     <string name="settings_connect_telegram">تلگرام</string>
     <string name="settings_connect_whatsapp">واتساپ</string>
+
+    <string name="learned_words_title">کلمات آموخته شده</string>
+    <string name="learned_words_subtitle">%d کلمه از قرآن کریم فرا گرفته شد</string>
+    <string name="learned_words_search_placeholder">جستجوی کلمات...</string>
+    <string name="learned_words_empty_title">هنوز کلمه‌ای آموخته نشده است</string>
+    <string name="learned_words_empty_desc">برای یادگیری واژگان قرآنی، درس‌ها را کامل کنید.</string>
+    <string name="learned_words_start_learning">شروع یادگیری</string>
+    <string name="learned_words_frequency_count">%d بار در قرآن آمده است</string>
+    <string name="learned_words_quran_examples_title">آیات نمونه در قرآن کریم</string>
+    <string name="learned_words_rank">رتبه #%d</string>
+    <string name="learned_words_occurrences_total">تعداد کل در قرآن: %d</string>
+
+    <string name="test_mode_frequency_title">حالت ترتیب فراوانی</string>
+    <string name="test_mode_frequency_desc">تمرین کلمات به ترتیب فراوانی در قرآن کریم (رتبه ۱ تا ۳۶۸۰).</string>
+    <string name="test_mode_frequency_progress">%1$d از %2$d کلمه تکمیل شد</string>
+    <string name="test_mode_random_title">حالت کاملاً تصادفی</string>
+    <string name="test_mode_random_desc">تمرین تصادفی کلمات سراسر قرآن بدون تکرار تا پایان تمام کلمات.</string>
+    <string name="test_mode_random_progress">%1$d از %2$d کلمه در این دوره تکمیل شد</string>
+    <string name="test_mode_mistakes_title">مرور کلمات اشتباه</string>
+    <string name="test_mode_mistakes_desc">تمرین کلمات اشتباه شده؛ با پاسخ صحیح از لیست اشتباهات حذف می‌شوند.</string>
+    <string name="test_mode_mistakes_count">%d کلمه اشتباه برای مرور</string>
+    <string name="test_mode_mistakes_empty">هیچ کلمه اشتباهی وجود ندارد! عالی است.</string>
+    <string name="test_mode_start_btn">شروع تمرین</string>
+    <string name="test_mode_review_btn">تصحیح اشتباهات</string>
+
+    <string name="home_chart_30d_title">فعالیت و روند ۳۰ روزه</string>
+    <string name="home_chart_30d_summary">%1$d از ۳۰ روز فعال · مجموعاً %2$d دقیقه</string>
+    <string name="home_chart_today_stat">امروز: %d دقیقه</string>
+    <string name="home_chart_30d_ago">۳۰ روز پیش</string>
+    <string name="home_chart_today">امروز</string>
+    <string name="home_chart_quote_high">🌟 ماشاءالله! پشتکار شما در یادگیری قرآن شگفت‌انگیز است.</string>
+    <string name="home_chart_quote_mid">✨ تداوم عالی! تمرین روزانه درک قرآن را تعمیق می‌بخشد.</string>
+    <string name="home_chart_quote_start">🌱 هر آیه نوری از برکت است. استمرار روزانه را حفظ کنید!</string>
+
+    <string name="bottom_nav_about">درباره</string>
+    <string name="home_review_action_button">مرور اشتباهات</string>
+    <string name="home_review_count_subtitle">%1$d واژه قرآنی نیاز به مرور دارد</string>
+    <string name="home_review_single_mistake_subtitle">۱ واژه قرآنی نیاز به مرور دارد</string>
+    <string name="lesson_try_again_button">تلاش دوباره</string>
+    <string name="settings_pronunciation_audio_label">صوت تلفظ</string>
+    <string name="settings_reduce_glass_label">کاهش افکت‌های شیشه‌ای</string>
+    <string name="settings_section_sound">صدا و صوت</string>
 </resources>

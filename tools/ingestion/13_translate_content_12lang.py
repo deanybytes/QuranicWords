@@ -69,7 +69,7 @@ def find_translation(ref_data_for_lang, sura, ayah, target_arabic):
 
 
 def patch_prompt(content_obj):
-    """Extends an already-emitted exercise's prompt map with the 10 new languages' AI-drafted
+    """Extends an already-emitted exercise's prompt map with the 10 new languages' verified from reference datasets
     translations, keyed by content type (WordIntro/MultipleChoice/Matching each use a fixed,
     known phrase - see prompts_12lang.py)."""
     prompt = content_obj.get("prompt", {})

@@ -17,6 +17,7 @@ import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +33,8 @@ import javax.inject.Singleton
 class ProgressRepositoryImpl @Inject constructor(
     private val database: QwDatabase,
     private val streakCalculator: StreakCalculator,
-    private val clock: Clock
+    private val clock: Clock,
+    private val preferences: UserPreferencesDataStore? = null
 ) : ProgressRepository {
 
     /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
@@ -157,6 +159,9 @@ class ProgressRepositoryImpl @Inject constructor(
         database.exerciseAttemptDao().getMissedItemIds(userId)
     }
 
+    override fun observeMissedItemIds(userId: String): Flow<List<String>> =
+        database.exerciseAttemptDao().observeMissedItemIds(userId)
+
     override suspend fun getMasteredItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
         database.exerciseAttemptDao().getMasteredItemIds(userId)
     }
@@ -164,6 +169,13 @@ class ProgressRepositoryImpl @Inject constructor(
     override suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity> = withContext(Dispatchers.IO) {
         database.dailyPracticeDao().getAllForUserOnce(userId)
     }
+
+    override fun observePracticeHistoryForRange(
+        userId: String,
+        startDate: String,
+        endDate: String
+    ): Flow<List<DailyPracticeEntity>> =
+        database.dailyPracticeDao().observeForRange(userId, startDate, endDate)
 
     override fun observeTodayPractice(userId: String, localDate: String): Flow<DailyPracticeEntity?> =
         database.dailyPracticeDao().observe(userId, localDate)
@@ -204,14 +216,51 @@ class ProgressRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getOpenPracticeExercises(userId: String, batchSize: Int): List<ExerciseEntity> =
-        withContext(Dispatchers.IO) {
-            val practicedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
-            val pool = practicedIds.ifEmpty {
-                database.wordFrequencyDao().observeAllByFrequency().first().map { it.id }
+    override suspend fun getOpenPracticeExercises(
+        userId: String,
+        mode: String,
+        batchSize: Int
+    ): List<ExerciseEntity> = withContext(Dispatchers.IO) {
+        val allWords = database.wordFrequencyDao().observeAllByFrequency().first()
+        if (allWords.isEmpty()) return@withContext emptyList()
+
+        val itemIds = when (mode.uppercase()) {
+            "FREQUENCY" -> {
+                val offset = preferences?.testFrequencyOffsetFlow?.first() ?: 0
+                val safeOffset = if (offset >= allWords.size) 0 else offset
+                val slice = allWords.drop(safeOffset).take(batchSize).map { it.id }
+                preferences?.setTestFrequencyOffset((safeOffset + slice.size) % allWords.size)
+                slice
             }
-            sampleExercises(pool, batchSize)
+            "MISTAKES" -> {
+                val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
+                if (missed.isEmpty()) return@withContext emptyList()
+                missed.shuffled().take(batchSize)
+            }
+            else -> { // "RANDOM"
+                val allIds = allWords.map { it.id }
+                val covered = preferences?.testRandomCoveredWordIdsFlow?.first() ?: emptySet()
+                val remaining = allIds.filter { it !in covered }
+                val pool = if (remaining.size < batchSize) {
+                    preferences?.resetTestRandomCoveredWordIds()
+                    allIds
+                } else {
+                    remaining
+                }
+                val sampled = pool.shuffled().take(batchSize)
+                preferences?.addTestRandomCoveredWordIds(sampled)
+                sampled
+            }
         }
+
+        val exercises = database.exerciseDao().getScoredExercisesForItems(itemIds)
+        if (mode.uppercase() == "FREQUENCY") {
+            val byItem = exercises.groupBy { it.practicedItemId }
+            itemIds.mapNotNull { byItem[it]?.random() }
+        } else {
+            OpenPracticePool.oneExercisePerWord(exercises)
+        }
+    }
 
     override suspend fun getStreakRecoveryExercises(userId: String, count: Int): List<ExerciseEntity> =
         withContext(Dispatchers.IO) {

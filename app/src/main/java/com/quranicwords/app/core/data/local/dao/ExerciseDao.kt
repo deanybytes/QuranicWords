@@ -24,4 +24,7 @@ interface ExerciseDao {
      * caller (`ProgressRepository.getReviewExercises`) is what applies the session's size cap. */
     @Query("SELECT * FROM exercises WHERE practicedItemId IN (:itemIds)")
     suspend fun getScoredExercisesForItems(itemIds: List<String>): List<ExerciseEntity>
+
+    @Query("SELECT * FROM exercises WHERE type = 'TEACH_WORD'")
+    suspend fun getAllTeachWords(): List<ExerciseEntity>
 }

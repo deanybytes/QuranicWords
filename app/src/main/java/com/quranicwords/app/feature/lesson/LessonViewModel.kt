@@ -101,6 +101,8 @@ class LessonViewModel @Inject constructor(
      * [isReviewSession] everywhere the two matter, since both leave [lessonId] null. */
     private val isOpenPractice: Boolean = savedStateHandle["isOpenPractice"] ?: false
 
+    val openPracticeMode: String? = savedStateHandle["mode"]
+
     /** True when reached via Route.StreakRecovery - same `SavedStateHandle` marker shape as
      * [isOpenPractice], for the same reason (a fourth distinguishable state, all sharing the
      * null-[lessonId] convention). See [StreakRecovery]. */
@@ -137,7 +139,10 @@ class LessonViewModel @Inject constructor(
                         val count = StreakRecovery.recoveryQuestionCount(currentStreak) ?: 3
                         progressRepository.getStreakRecoveryExercises(userId, count)
                     }
-                    isOpenPractice -> progressRepository.getOpenPracticeExercises(userId)
+                    isOpenPractice -> {
+                        val mode: String = savedStateHandle["mode"] ?: "RANDOM"
+                        progressRepository.getOpenPracticeExercises(userId, mode = mode)
+                    }
                     isReviewSession -> progressRepository.getReviewExercises(missedItemIdsDeferred.await().toList())
                     else -> contentRepository.getExercisesForLesson(checkNotNull(lessonId))
                 }
@@ -145,9 +150,11 @@ class LessonViewModel @Inject constructor(
             val candidatesDeferred = async {
                 if (itemKind == ItemKind.WORD) contentRepository.getWordCandidates() else emptyList()
             }
+            val wordIntrosDeferred = async { contentRepository.getAllWordIntros() }
             val exercises = exercisesDeferred.await()
             val missedItemIds = missedItemIdsDeferred.await()
             val candidates = candidatesDeferred.await()
+            val wordIntros = wordIntrosDeferred.await()
             val learningStyle = preferences.learningStyleFlow.first()
 
             val contents = withContext(Dispatchers.Default) {
@@ -169,34 +176,57 @@ class LessonViewModel @Inject constructor(
                 // randomized, so repeating a word within one batch wouldn't add the same "extra
                 // reinforcement" it does for a fixed lesson's authored word set.
                 val repeatCount = if (isOpenPractice || isStreakRecovery) 1 else learningStyle.repeatCount
-                val repeated = LessonContentRepeater.apply(decoded, repeatCount)
-                    .map { content -> resolveCanonicalMeaning(content, candidatePool) }
+                val sequenced = AdaptiveSequencer.reorderForAdaptivePractice(decoded, missedItemIds)
+                LessonContentRepeater.apply(sequenced, repeatCount)
+                    .map { content -> resolveCanonicalMeaning(content, candidatePool, wordIntros) }
                     .map { content -> regenerateDistractors(content, candidatePool, missedItemIds) }
-                AdaptiveSequencer.reorderForAdaptivePractice(repeated, missedItemIds)
             }
             _uiState.update { it.copy(isLoading = false, contents = contents) }
         }
     }
 
     /** Overrides every baked, content-pipeline-authored copy of a word's meaning with the single
-     * canonical value from [WordFrequencyEntity] (via [candidatePool]) - the same word can
-     * otherwise show different, independently-drifted translations on its WordIntro/Matching/
-     * TapWordInVerse screens (each was baked as its own copy at content-authoring time; a later
-     * correction to one copy doesn't propagate to the others). Falls back to the baked text when
-     * the word isn't in the pool (e.g. non-word content types have no [WordFrequencyEntity] row
-     * at all), matching [rebuildOptions]'s existing fallback discipline. [OptionsBearing]'s
-     * correct-option label is handled separately inside [rebuildOptions], since it shares that
-     * function's existing distractor-resolution machinery.
+     * canonical value from [WordFrequencyEntity] (via [candidatePool]) and enriches quiz types
+     * with their canonical Quran example verses from [wordIntros].
      */
-    private fun resolveCanonicalMeaning(content: ExerciseContent, candidatePool: WordCandidatePool): ExerciseContent =
+    private fun resolveCanonicalMeaning(
+        content: ExerciseContent,
+        candidatePool: WordCandidatePool,
+        wordIntros: Map<String, ExerciseContent.WordIntro>
+    ): ExerciseContent =
         when (content) {
             is ExerciseContent.WordIntro ->
                 candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
             is ExerciseContent.TapWordInVerse ->
                 candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
+            is ExerciseContent.MultipleChoice -> {
+                val intro = wordIntros[content.wordId]
+                if (intro != null) {
+                    content.copy(
+                        exampleVerseArabic = intro.exampleVerseArabic,
+                        exampleVerseTranslation = intro.exampleVerseTranslation,
+                        exampleVerseReference = intro.exampleVerseReference,
+                        arabicWordStart = intro.arabicWordStart,
+                        arabicWordEnd = intro.arabicWordEnd,
+                        meaningHighlight = intro.meaningHighlight
+                    )
+                } else content
+            }
             is ExerciseContent.Matching -> content.copy(
                 pairs = content.pairs.map { pair ->
-                    pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
+                    var updated = pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
+                    val intro = pair.wordId?.let { wordIntros[it] }
+                    if (intro != null) {
+                        updated = updated.copy(
+                            exampleVerseArabic = intro.exampleVerseArabic,
+                            exampleVerseTranslation = intro.exampleVerseTranslation,
+                            exampleVerseReference = intro.exampleVerseReference,
+                            arabicWordStart = intro.arabicWordStart,
+                            arabicWordEnd = intro.arabicWordEnd,
+                            meaningHighlight = intro.meaningHighlight
+                        )
+                    }
+                    updated
                 }
             )
             else -> content
@@ -254,19 +284,65 @@ class LessonViewModel @Inject constructor(
         val correctOption = candidatePool.get(wordId)
             ?.let { ChoiceOption(id = correctOptionId, labelArabic = it.arabicWord, label = it.meaning) }
             ?: bakedCorrectOption
-        // wordId, not correctOptionId, is the real WordFrequencyEntity id pickDistractors needs
-        // to look itself up in the pool - correctOptionId is only a per-exercise-local option id
-        // ("o3") that was never a valid pool key, which silently made this always return
-        // emptyList() and fall through entirely to the baked topUp below.
-        val generated = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds)
+
+        val generated = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds, count = 3)
             .mapNotNull { id -> candidatePool.get(id) }
             .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord, label = it.meaning) }
 
-        val usedIds = generated.map { it.id }.toSet() + correctOptionId + wordId
-        val stillNeeded = 3 - generated.size
-        val topUp = if (stillNeeded > 0) baked.filter { it.id !in usedIds }.take(stillNeeded) else emptyList()
+        val selectedOptions = mutableListOf<ChoiceOption>()
+        selectedOptions.add(correctOption)
 
-        return (generated + topUp + correctOption).shuffled()
+        for (gen in generated) {
+            if (selectedOptions.none { optionsCollide(it, gen) }) {
+                selectedOptions.add(gen)
+            }
+        }
+
+        // Top up from baked if needed, strictly rejecting any duplicate meanings or labels
+        if (selectedOptions.size < 4) {
+            for (bakedOpt in baked) {
+                if (selectedOptions.size >= 4) break
+                if (selectedOptions.none { optionsCollide(it, bakedOpt) }) {
+                    selectedOptions.add(bakedOpt)
+                }
+            }
+        }
+
+        // Fallback to wider pool if still needed to ensure 4 strictly unique options
+        if (selectedOptions.size < 4) {
+            val extraCandidates = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds, count = 12)
+                .mapNotNull { candidatePool.get(it) }
+            for (cand in extraCandidates) {
+                if (selectedOptions.size >= 4) break
+                val opt = ChoiceOption(id = cand.id, labelArabic = cand.arabicWord, label = cand.meaning)
+                if (selectedOptions.none { optionsCollide(it, opt) }) {
+                    selectedOptions.add(opt)
+                }
+            }
+        }
+
+        return selectedOptions.shuffled()
+    }
+
+    private fun optionsCollide(a: ChoiceOption, b: ChoiceOption): Boolean {
+        if (a.id == b.id) return true
+
+        val arabicA = a.labelArabic?.trim().orEmpty()
+        val arabicB = b.labelArabic?.trim().orEmpty()
+        if (arabicA.isNotEmpty() && arabicB.isNotEmpty() && arabicA == arabicB) return true
+
+        val commonKeys = a.label.keys.intersect(b.label.keys)
+        for (k in commonKeys) {
+            val valA = a.label[k]?.trim()?.lowercase().orEmpty()
+            val valB = b.label[k]?.trim()?.lowercase().orEmpty()
+            if (valA.isNotEmpty() && valB.isNotEmpty() && valA == valB) return true
+        }
+
+        val enA = (a.label["en"] ?: a.label.values.firstOrNull())?.trim()?.lowercase().orEmpty()
+        val enB = (b.label["en"] ?: b.label.values.firstOrNull())?.trim()?.lowercase().orEmpty()
+        if (enA.isNotEmpty() && enB.isNotEmpty() && enA == enB) return true
+
+        return false
     }
 
     /** Returns false (no throw) if the clip isn't bundled - callers show a subtle "unavailable"
@@ -325,7 +401,7 @@ class LessonViewModel @Inject constructor(
     fun selectMatchingLeft(pairId: String) {
         _uiState.update {
             if (it.isChecked || pairId in it.attempt.matchedPairIds) it
-            else it.copy(attempt = it.attempt.copy(pendingLeftId = pairId))
+            else it.copy(attempt = it.attempt.copy(pendingLeftId = if (it.attempt.pendingLeftId == pairId) null else pairId))
         }
     }
 
@@ -404,6 +480,16 @@ class LessonViewModel @Inject constructor(
     private fun logAttempt(itemId: String, exerciseType: ExerciseType, correct: Boolean) {
         viewModelScope.launch {
             progressRepository.logAttempt(userIdProvider.get(), itemId, itemKind, exerciseType, correct)
+        }
+    }
+
+    fun onTryAgainPressed() {
+        _uiState.update {
+            it.copy(
+                attempt = ExerciseAttemptState(),
+                isChecked = false,
+                lastAnswerCorrect = null
+            )
         }
     }
 

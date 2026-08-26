@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">Öğrenmeye devam et</string>
     <string name="lesson_matching_instruction">Bir harfe dokunun, ardından eşleşenine dokunun.</string>
     <string name="lesson_teach_continue_button">Anladım</string>
-    <string name="lesson_word_example_verse_label">Örnek: %s</string>
+    <string name="lesson_word_example_verse_label">Kur\'an-ı Kerim %s</string>
     <string name="exercise_audio_unavailable">Bu öğe için ses henüz mevcut değil.</string>
     <string name="word_order_build_area_label">Cevabınız</string>
     <string name="listen_and_type_hint">Duyduğunuzu yazın</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">Bu yedek dosyası geri yüklenemedi.</string>
     <string name="settings_section_about">Hakkında</string>
     <string name="settings_copyright">Telif hakkı © DEANY BYTES 2026. GPL-3.0 lisansı altındadır.</string>
-    <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an kaynaklarından alınmıştır. Bengalce kelime anlamları yapay zeka destekli olup sürekli gözden geçirilmektedir — ayrıntılar için proje belgelerine bakın.</string>
+    <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an kaynaklarından ve doğrulanmış kelime kelime tercümelerden alınmıştır.</string>
     <string name="settings_licenses_button">Lisanslar ve kaynaklar</string>
     <string name="settings_licenses_title">Lisanslar ve kaynaklar</string>
     <string name="settings_close">Kapat</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">E-posta</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">Öğrenilen Kelimeler</string>
+    <string name="learned_words_subtitle">Kur\'an-ı Kerim\'den %d kelime öğrenildi</string>
+    <string name="learned_words_search_placeholder">Kelimelerde ara...</string>
+    <string name="learned_words_empty_title">Henüz Öğrenilen Kelime Yok</string>
+    <string name="learned_words_empty_desc">Kur\'an kelime dağarcığınızı geliştirmek için dersleri tamamlayın.</string>
+    <string name="learned_words_start_learning">Öğrenmeye Başla</string>
+    <string name="learned_words_frequency_count">Kur\'an\'da %d kez geçmektedir</string>
+    <string name="learned_words_quran_examples_title">Kur\'an-ı Kerim\'deki Örnekler</string>
+    <string name="learned_words_rank">Sıralama #%d</string>
+    <string name="learned_words_occurrences_total">Kur\'an\'daki Toplam Sayı: %d</string>
+
+    <string name="test_mode_frequency_title">Sıklık Sırasına Göre Mod</string>
+    <string name="test_mode_frequency_desc">Kur\'an\'da geçiş sıklığına göre kelime pratiği yapın (1\'den 3.680\'e kadar).</string>
+    <string name="test_mode_frequency_progress">%2$d kelimeden %1$d tanesi tamamlandı</string>
+    <string name="test_mode_random_title">Tamamen Rastgele Mod</string>
+    <string name="test_mode_random_desc">Tüm Kur\'an kelimelerini tekrar etmeden rastgele çalışın.</string>
+    <string name="test_mode_random_progress">Bu döngüde %2$d kelimeden %1$d tamamlandı</string>
+    <string name="test_mode_mistakes_title">Yanlış Yapılan Kelimeleri Tekrarla</string>
+    <string name="test_mode_mistakes_desc">Yanlış bildiğiniz kelimeleri tekrar edin; doğru yanıtlandığında listeden kalkar.</string>
+    <string name="test_mode_mistakes_count">Tekrar edilecek %d yanlış kelime var</string>
+    <string name="test_mode_mistakes_empty">Yanlış kelime yok! Harika gidiyorsunuz.</string>
+    <string name="test_mode_start_btn">Pratiğe Başla</string>
+    <string name="test_mode_review_btn">Hataları Düzelt</string>
+
+    <string name="home_chart_30d_title">30 Günlük Aktivite ve Trend</string>
+    <string name="home_chart_30d_summary">30 günde %1$d gün aktif · Toplam %2$d dk</string>
+    <string name="home_chart_today_stat">Bugün: %d dk</string>
+    <string name="home_chart_30d_ago">30 gün önce</string>
+    <string name="home_chart_today">Bugün</string>
+    <string name="home_chart_quote_high">🌟 Maşallah! Kur\'an öğreniminizdeki istikrarınız harika.</string>
+    <string name="home_chart_quote_mid">✨ Güçlü ivme! Düzenli pratik Kur\'an anlayışını pekiştirir.</string>
+    <string name="home_chart_quote_start">🌱 Her bir ayet bereket getirir. Günlük pratiğinizi sürdürün!</string>
+
+    <string name="bottom_nav_about">Hakkında</string>
+    <string name="home_review_action_button">Hataları İncele</string>
+    <string name="home_review_count_subtitle">İncelenecek %1$d Kur\'an kelimesi var</string>
+    <string name="home_review_single_mistake_subtitle">İncelenecek 1 Kur\'an kelimesi var</string>
+    <string name="lesson_try_again_button">Tekrar Dene</string>
+    <string name="settings_pronunciation_audio_label">Telaffuz Sesi</string>
+    <string name="settings_reduce_glass_label">Cam Efektlerini Azalt</string>
+    <string name="settings_section_sound">Ses ve Seslendirme</string>
 </resources>

@@ -47,7 +47,9 @@ sealed interface Route {
         /** See [com.quranicwords.app.core.domain.model.LessonResult.durationMillis]. */
         val durationMillis: Long = 0L,
         /** See [LessonSessionType]. */
-        val sessionType: LessonSessionType = LessonSessionType.LESSON
+        val sessionType: LessonSessionType = LessonSessionType.LESSON,
+        /** Carries forward the test mode ("FREQUENCY" or "RANDOM") if this was an OpenPractice session. */
+        val openPracticeMode: String? = null
     ) : Route
     @Serializable data object Roadmap : Route
     /** An unbounded random-word-pool quiz - see [LessonSessionType.OPEN_PRACTICE]. [isOpenPractice]
@@ -55,9 +57,15 @@ sealed interface Route {
      * `LessonViewModel`'s `SavedStateHandle` (keyed by property name, same as [Lesson.lessonId]),
      * giving that shared ViewModel a third distinguishable state alongside "has a lessonId" and
      * "reached via [Review]" without a bigger refactor of how it tells its modes apart. */
-    @Serializable data class OpenPractice(val isOpenPractice: Boolean = true) : Route
+    @Serializable data class OpenPractice(
+        val isOpenPractice: Boolean = true,
+        val mode: String = "RANDOM"
+    ) : Route
     /** Pass/fail quiz to restore a locked streak - see [LessonSessionType.STREAK_RECOVERY] and
      * [com.quranicwords.app.core.domain.StreakRecovery]. Same `data class`-for-a-SavedStateHandle-
      * marker shape as [OpenPractice], for the same reason. */
     @Serializable data class StreakRecovery(val isStreakRecovery: Boolean = true) : Route
+
+    /** Full list of mastered/learned Quranic words with interactive Quran occurrences lookup. */
+    @Serializable data object LearnedWords : Route
 }

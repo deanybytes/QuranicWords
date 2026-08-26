@@ -18,23 +18,44 @@ import androidx.compose.ui.unit.dp
 /** A small stat card (icon + big number + label) for the Progress tab's metric-tile grid -
  * current streak, total points, words learned, and similar single-number stats. */
 @Composable
-fun MetricTile(icon: ImageVector, value: String, label: String, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth().padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+fun MetricTile(
+    icon: ImageVector,
+    value: String,
+    label: String,
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null
+) {
+    if (onClick != null) {
+        Card(
+            onClick = onClick,
+            modifier = modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
         ) {
-            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.tertiary)
-            Text(value, style = MaterialTheme.typography.titleLarge)
-            Text(
-                label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center
-            )
+            MetricTileContent(icon, value, label)
         }
+    } else {
+        Card(
+            modifier = modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            MetricTileContent(icon, value, label)
+        }
+    }
+}
+
+@Composable
+private fun MetricTileContent(icon: ImageVector, value: String, label: String) {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.tertiary)
+        Text(value, style = MaterialTheme.typography.titleLarge)
+        Text(
+            label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
     }
 }

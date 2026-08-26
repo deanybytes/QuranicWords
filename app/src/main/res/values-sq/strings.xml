@@ -124,7 +124,7 @@
     <string name="lesson_exit_confirm_stay">Vazhdo mësimin</string>
     <string name="lesson_matching_instruction">Prek një shkronjë, pastaj prek përputhjen e saj.</string>
     <string name="lesson_teach_continue_button">E kuptova</string>
-    <string name="lesson_word_example_verse_label">Shembull: %s</string>
+    <string name="lesson_word_example_verse_label">Kurani %s</string>
     <string name="exercise_audio_unavailable">Audioja për këtë artikull nuk është ende e disponueshme.</string>
     <string name="word_order_build_area_label">Përgjigja juaj</string>
     <string name="listen_and_type_hint">Shkruaj çfarë dëgjon</string>
@@ -195,7 +195,7 @@
     <string name="settings_backup_import_failed">Ai skedar rezervë nuk u rikthye dot.</string>
     <string name="settings_section_about">Rreth</string>
     <string name="settings_copyright">Të drejtat e autorit © DEANY BYTES 2026. Licencuar nën GPL-3.0.</string>
-    <string name="settings_content_provenance_note">Përmbajtja e fjalorit vjen nga korpuse të hapura kuranore. Kuptimet në bengalisht janë me ndihmën e IA-së dhe në rishikim vazhdues — shih dokumentacionin e projektit për detaje.</string>
+    <string name="settings_content_provenance_note">Përmbajtja e fjalorit vjen nga korpuse të hapura kuranore dhe përkthime fjalë për fjalë të verifikuara.</string>
     <string name="settings_licenses_button">Licencat &amp; burimet</string>
     <string name="settings_licenses_title">Licencat &amp; burimet</string>
     <string name="settings_close">Mbyll</string>
@@ -227,4 +227,46 @@
     <string name="settings_connect_email">Email</string>
     <string name="settings_connect_telegram">Telegram</string>
     <string name="settings_connect_whatsapp">WhatsApp</string>
+
+    <string name="learned_words_title">Fjalët e Mësuara</string>
+    <string name="learned_words_subtitle">%d fjalë të mësuara nga Kurani Famëlartë</string>
+    <string name="learned_words_search_placeholder">Kërko fjalët e mësuara...</string>
+    <string name="learned_words_empty_title">Ende nuk keni mësuar fjalë</string>
+    <string name="learned_words_empty_desc">Përfundoni mësimet dhe kuizet për të pasuruar fjalorin kuranor.</string>
+    <string name="learned_words_start_learning">Fillo Mësimin</string>
+    <string name="learned_words_frequency_count">Përmendet %d herë në Kuran</string>
+    <string name="learned_words_quran_examples_title">Shembuj në Kuranin Famëlartë</string>
+    <string name="learned_words_rank">Renditja #%d</string>
+    <string name="learned_words_occurrences_total">Gjithsej në Kuran: %d</string>
+
+    <string name="test_mode_frequency_title">Sipas Renditjes së Frekuencës</string>
+    <string name="test_mode_frequency_desc">Praktikoni fjalët sipas shpeshtësisë në Kuran (nga vendi 1 deri 3,680).</string>
+    <string name="test_mode_frequency_progress">Përfunduar %1$d nga %2$d fjalë</string>
+    <string name="test_mode_random_title">Modaliteti Plotësisht i Rastësishëm</string>
+    <string name="test_mode_random_desc">Fjalë të rastësishme pa përsëritje derisa të përfundojë i gjithë Kurani.</string>
+    <string name="test_mode_random_progress">%1$d nga %2$d fjalë në këtë cikël</string>
+    <string name="test_mode_mistakes_title">Rishikimi i Gabimeve</string>
+    <string name="test_mode_mistakes_desc">Praktikoni fjalët e gabuara; me përgjigje të saktë hiqen nga lista e gabimeve.</string>
+    <string name="test_mode_mistakes_count">%d fjalë të gabuara për rishikim</string>
+    <string name="test_mode_mistakes_empty">Nuk keni fjalë të gabuara! Shumë mirë.</string>
+    <string name="test_mode_start_btn">Fillo Praktikën</string>
+    <string name="test_mode_review_btn">Rishiko Gabimet</string>
+
+    <string name="home_chart_30d_title">Aktiviteti &amp; Trendi 30-ditor</string>
+    <string name="home_chart_30d_summary">%1$d/30 ditë aktive · %2$d min gjithsej</string>
+    <string name="home_chart_today_stat">Sot: %d min</string>
+    <string name="home_chart_30d_ago">30d më parë</string>
+    <string name="home_chart_today">Sot</string>
+    <string name="home_chart_quote_high">🌟 Mashallah! Përkushtim i shkëlqyer në mësimin e Kuranit.</string>
+    <string name="home_chart_quote_mid">✨ Ecuri e shkëlqyer! Praktika e përditshme lehtëson kuptimin e Kuranit.</string>
+    <string name="home_chart_quote_start">🌱 Çdo ajet sjell bereqet. Vazhdoni serinë tuaj ditore!</string>
+
+    <string name="bottom_nav_about">Rreth</string>
+    <string name="home_review_action_button">Rishiko Gabimet</string>
+    <string name="home_review_count_subtitle">%1$d fjalë kuranore për t\'u rishikuar</string>
+    <string name="home_review_single_mistake_subtitle">1 fjalë kuranore për t\'u rishikuar</string>
+    <string name="lesson_try_again_button">Provo Përsëri</string>
+    <string name="settings_pronunciation_audio_label">Audio e Shqiptimit</string>
+    <string name="settings_reduce_glass_label">Redukto Efektet e Qelqit</string>
+    <string name="settings_section_sound">Zëri &amp; Audio</string>
 </resources>

@@ -22,7 +22,9 @@ import androidx.navigation.toRoute
 import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
+import com.quranicwords.app.feature.home.HomeScreen
 import com.quranicwords.app.feature.intro.IntroScreen
+import com.quranicwords.app.feature.learnedwords.LearnedWordsScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
 import com.quranicwords.app.feature.wordbrowse.WordBrowseScreen
 import com.quranicwords.app.feature.lessonsummary.LessonSummaryScreen
@@ -206,8 +208,9 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
                 onOpenRoadmap = { navController.navigate(Route.Roadmap) },
-                onOpenOpenPractice = { navController.navigate(Route.OpenPractice()) },
-                onOpenStreakRecovery = { navController.navigate(Route.StreakRecovery()) }
+                onOpenOpenPractice = { mode -> navController.navigate(Route.OpenPractice(mode = mode)) },
+                onOpenStreakRecovery = { navController.navigate(Route.StreakRecovery()) },
+                onOpenLearnedWords = { navController.navigate(Route.LearnedWords) }
             )
         }
         composable<Route.ChapterIntro>(
@@ -305,11 +308,11 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onContinue = {
                     val nextLessonId = route.nextLessonId
                     if (route.sessionType == LessonSessionType.OPEN_PRACTICE) {
-                        // "Keep Practicing" - a fresh random batch instead of dropping back to
+                        // "Keep Practicing" - a fresh batch in the current mode instead of dropping back to
                         // Home, same back-stack shape as the other branches (pop everything above
                         // Home, then push) so this can loop indefinitely without piling up a
                         // LessonSummary -> OpenPractice -> LessonSummary -> ... chain.
-                        navController.navigate(Route.OpenPractice()) {
+                        navController.navigate(Route.OpenPractice(mode = route.openPracticeMode ?: "RANDOM")) {
                             popUpTo(Route.Home)
                         }
                     } else if (nextLessonId != null) {
@@ -336,6 +339,15 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             RoadmapScreen(
                 onBack = { navController.popBackStack() },
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) }
+            )
+        }
+        composable<Route.LearnedWords>(
+            enterTransition = t.modalEnter,
+            exitTransition = t.modalExit,
+            popExitTransition = t.modalPopExit
+        ) {
+            LearnedWordsScreen(
+                onBack = { navController.popBackStack() }
             )
         }
     }

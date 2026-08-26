@@ -47,6 +47,20 @@ interface ExerciseAttemptDao {
     )
     suspend fun getMissedItemIds(userId: String): List<String>
 
+    @Query(
+        """
+        SELECT a.itemId FROM exercise_attempts a
+        WHERE a.userId = :userId
+        AND a.wasCorrect = 0
+        AND a.attemptedAtEpochMillis = (
+            SELECT MAX(b.attemptedAtEpochMillis) FROM exercise_attempts b
+            WHERE b.userId = a.userId AND b.itemId = a.itemId
+        )
+        GROUP BY a.itemId
+        """
+    )
+    fun observeMissedItemIds(userId: String): Flow<List<String>>
+
     /** Inverse of [getMissedItemIds]: distinct `itemId`s whose most recent attempt was correct -
      * the derived definition of "words learned" used by the Progress tab (see
      * `com.quranicwords.app.feature.progress.ProgressViewModel`). Not a permanent "mastered"

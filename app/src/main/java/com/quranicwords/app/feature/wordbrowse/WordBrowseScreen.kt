@@ -32,10 +32,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
+import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
@@ -185,8 +189,9 @@ private fun WordCardBack(
             }
             Text(
                 text = word.exampleVerseArabic,
-                fontSize = 18.sp,
-                lineHeight = 28.sp,
+                fontFamily = DefaultQuranArabicFontFamily,
+                fontSize = 20.sp,
+                lineHeight = 34.sp,
                 textAlign = TextAlign.End,
                 modifier = Modifier.fillMaxWidth().background(
                     MaterialTheme.colorScheme.surface,
@@ -195,13 +200,20 @@ private fun WordCardBack(
             )
             Text(
                 text = verseTranslation,
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontFamily = QuranCitationFontFamily,
+                    fontStyle = FontStyle.Italic
+                ),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = stringResource(R.string.lesson_word_example_verse_label, word.exampleVerseReference),
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontFamily = QuranCitationFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.5.sp
+                ),
                 color = MaterialTheme.colorScheme.primary
             )
         }

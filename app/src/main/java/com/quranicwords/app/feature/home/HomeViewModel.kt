@@ -48,11 +48,10 @@ data class HomeUiState(
     val totalPoints: Int = 0,
     val currentStreak: Int = 0,
     val isLoading: Boolean = true,
-    /** Whether the Review entry point should show - fetched once per Home session, not live
-     * (the missed-items query is a one-shot suspend read, not a Flow), so it can go stale if a
-     * Review/lesson session completes without this ViewModel being recreated. Acceptable given
-     * the entry point itself re-checks emptiness before assembling a session either way. */
+    /** Whether the Review entry point should show - live-observed so it flips reactively as
+     * mistakes occur or get corrected in review sessions. */
     val hasReviewableItems: Boolean = false,
+    val missedWordsCount: Int = 0,
     /** The chapter/section containing the learner's actual current lesson (first UNLOCKED-but-
      * not-COMPLETED one) - the collapse/expand tree auto-opens to here on load rather than
      * requiring a tap first, softening the collapse-by-default UX trade-off. Null/null when there
@@ -98,7 +97,11 @@ data class HomeUiState(
     /** How long it's been since the learner last practiced - only meaningful when
      * [isStreakLocked]. Drives the "lost due to inactivity for N days/months/years" unlock
      * dialog. */
-    val streakInactivityDuration: InactivityDuration? = null
+    val streakInactivityDuration: InactivityDuration? = null,
+    /** Per-day minutes practiced for each of the last 30 days (oldest to today). */
+    val last30DaysMinutes: List<Int> = emptyList(),
+    val last30DaysActiveCount: Int = 0,
+    val last30DaysTotalMinutes: Int = 0
 )
 
 /** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
@@ -243,22 +246,43 @@ class HomeViewModel @Inject constructor(
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
             val todayDate = LocalDate.now(clock)
             val today = todayDate.toString()
+            val startDate = todayDate.minusDays(29).toString()
+            val practiceRangeFlow = progressRepository.observePracticeHistoryForRange(userId, startDate, today)
 
             combine(
-                progressRepository.observeProgress(userId),
-                progressRepository.observeStats(userId),
-                progressRepository.observeTodayPractice(userId, today),
-                preferences.dailyGoalLevelFlow
-            ) { progress, stats, todayPractice, goalLevel ->
+                combine(
+                    progressRepository.observeProgress(userId),
+                    progressRepository.observeStats(userId),
+                    progressRepository.observeTodayPractice(userId, today)
+                ) { progress, stats, todayPractice ->
+                    Triple(progress, stats, todayPractice)
+                },
+                combine(
+                    progressRepository.observeMissedItemIds(userId),
+                    preferences.dailyGoalLevelFlow,
+                    practiceRangeFlow
+                ) { missedItemIds, goalLevel, rangeHistory ->
+                    Triple(missedItemIds, goalLevel, rangeHistory)
+                }
+            ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory) ->
                 val progressByLessonId = progress.associateBy { it.lessonId }
                 val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
+                val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
+                val last30DaysMinutes = (29 downTo 0).map { offset ->
+                    val d = todayDate.minusDays(offset.toLong()).toString()
+                    practiceMap[d] ?: 0
+                }
+                val total30DaysMins = last30DaysMinutes.sum()
+                val active30DaysDays = last30DaysMinutes.count { it > 0 }
+
                 HomeUiState(
                     chapters = chapters,
                     progressByLessonId = progressByLessonId,
                     totalPoints = stats?.totalPoints ?: 0,
                     currentStreak = displayedStreak(stats),
                     isLoading = false,
-                    hasReviewableItems = hasReviewableItems,
+                    hasReviewableItems = missedItemIds.isNotEmpty(),
+                    missedWordsCount = missedItemIds.size,
                     initiallyExpandedChapterId = currentChapterId,
                     initiallyExpandedSectionId = currentSectionId,
                     currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
@@ -272,7 +296,10 @@ class HomeViewModel @Inject constructor(
                     isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId),
                     isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
                     streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
-                    streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate)
+                    streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate),
+                    last30DaysMinutes = last30DaysMinutes,
+                    last30DaysActiveCount = active30DaysDays,
+                    last30DaysTotalMinutes = total30DaysMins
                 )
             }.collect { _uiState.value = it }
         }
