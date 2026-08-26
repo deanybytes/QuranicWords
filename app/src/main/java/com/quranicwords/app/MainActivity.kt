@@ -44,7 +44,10 @@ import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.navigation.QwNavHost
 import com.quranicwords.app.core.ui.motion.LocalReduceGlassPreference
 import com.quranicwords.app.core.ui.motion.LocalReduceMotionPreference
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontStyle
 import com.quranicwords.app.core.ui.theme.QuranicWordsTheme
+import com.quranicwords.app.core.ui.theme.toFontFamily
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -149,6 +152,7 @@ class MainActivity : AppCompatActivity() {
             val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
             val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
             val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
+            val fontStyle by viewModel.fontStyle.collectAsStateWithLifecycle()
 
             // AppCompatDelegate.setApplicationLocales() updates the process-wide Configuration
             // (natively via LocaleManager on API 33+, via AppCompatActivity's own compat shim
@@ -183,7 +187,9 @@ class MainActivity : AppCompatActivity() {
             CompositionLocalProvider(
                 LocalReduceMotionPreference provides reduceMotion,
                 LocalReduceGlassPreference provides reduceGlassEffects,
-                LocalDensity provides scaledDensity
+                LocalDensity provides scaledDensity,
+                LocalQuranFontFamily provides fontStyle.toFontFamily(),
+                LocalQuranFontStyle provides fontStyle
             ) {
                 QuranicWordsTheme(themeMode = themeMode) {
                     Surface(

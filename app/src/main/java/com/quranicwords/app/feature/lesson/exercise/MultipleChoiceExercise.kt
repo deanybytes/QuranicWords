@@ -1,4 +1,4 @@
-package com.quranicwords.app.feature.lesson.exercise
+﻿package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -40,8 +40,8 @@ import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 @Composable
 fun MultipleChoiceExerciseContent(
@@ -65,7 +65,7 @@ fun MultipleChoiceExerciseContent(
         content.promptArabic?.let { arabic ->
             Text(
                 text = arabic,
-                fontFamily = DefaultQuranArabicFontFamily,
+                fontFamily = LocalQuranFontFamily.current,
                 fontSize = 52.sp,
                 lineHeight = 64.sp,
                 textAlign = TextAlign.Center,
@@ -103,7 +103,7 @@ fun MultipleChoiceExerciseContent(
                                 addStyle(highlightStyle, start, end)
                             }
                         },
-                        fontFamily = DefaultQuranArabicFontFamily,
+                        fontFamily = LocalQuranFontFamily.current,
                         fontSize = 19.sp,
                         lineHeight = 32.sp,
                         textAlign = TextAlign.End,

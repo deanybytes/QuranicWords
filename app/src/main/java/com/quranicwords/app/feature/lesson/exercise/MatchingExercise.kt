@@ -6,7 +6,9 @@ import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -21,8 +23,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,13 +76,12 @@ import com.quranicwords.app.core.ui.motion.rememberQwHaptics
 import com.quranicwords.app.core.ui.motion.rememberReducedGlass
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.core.ui.theme.BrandGold
-import com.quranicwords.app.core.ui.theme.DefaultQuranArabicFontFamily
-import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.feature.lesson.MismatchEvent
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 
 /** Sentinel id for the extra, never-matchable meaning-side tile (see
  * [ExerciseContent.Matching.distractorRight]) - never equals a real [MatchPair.id] ("p1", "p2",
@@ -300,7 +299,7 @@ fun MatchingExerciseContent(
                                     addStyle(highlightStyle, start, end)
                                 }
                             },
-                            fontFamily = DefaultQuranArabicFontFamily,
+                            fontFamily = LocalQuranFontFamily.current,
                             fontSize = 19.sp,
                             lineHeight = 32.sp,
                             textAlign = TextAlign.End,
@@ -402,7 +401,9 @@ private fun MatchTile(
         label = "matchTileSelectionScale"
     )
 
-    Card(
+    val tileShape = RoundedCornerShape(14.dp)
+
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = 60.dp)
@@ -412,20 +413,16 @@ private fun MatchTile(
                 scaleY = selectionScale
                 alpha = tileAlpha
             }
-            .border(
-                width = borderWidth,
-                color = borderColor,
-                shape = RoundedCornerShape(14.dp)
+            .pressDepth(interactionSource)
+            .clip(tileShape)
+            .background(container)
+            .border(width = borderWidth, color = borderColor, shape = tileShape)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = !isMatched && !isMismatch,
+                onClick = onClick
             )
-            .pressDepth(interactionSource),
-        colors = CardDefaults.cardColors(containerColor = container, contentColor = contentColor),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = if (isPressed) Elevation.pressed else if (isSelected) Elevation.floating else Elevation.raised
-        ),
-        onClick = onClick,
-        enabled = !isMatched && !isMismatch,
-        interactionSource = interactionSource,
-        shape = RoundedCornerShape(14.dp)
     ) {
         Box(
             modifier = Modifier
@@ -435,17 +432,18 @@ private fun MatchTile(
         ) {
             Text(
                 text = text,
-                fontFamily = if (isArabic) DefaultQuranArabicFontFamily else null,
+                fontFamily = if (isArabic) LocalQuranFontFamily.current else null,
                 style = if (isArabic) MaterialTheme.typography.titleLarge else MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = contentColor
             )
 
-            // Glossy glass reflect animation (Alhamdulillah sheen) on correct match
+            // Glossy glass reflect animation on correct match
             if (justMatched && !reducedMotion && !reducedGlass) {
                 Box(
                     modifier = Modifier
                         .matchParentSize()
-                        .clip(RoundedCornerShape(14.dp))
+                        .clip(tileShape)
                         .drawBehind {
                             val w = size.width
                             val h = size.height
@@ -466,7 +464,7 @@ private fun MatchTile(
                                         end = Offset(bandCenter + bandWidth / 2f, 0f)
                                     ),
                                     topLeft = Offset(-w, -h),
-                                    size = Size(w * 3f, h * 3f),
+                                    size = androidx.compose.ui.geometry.Size(w * 3f, h * 3f),
                                     blendMode = BlendMode.Screen
                                 )
                             }
@@ -476,3 +474,4 @@ private fun MatchTile(
         }
     }
 }
+

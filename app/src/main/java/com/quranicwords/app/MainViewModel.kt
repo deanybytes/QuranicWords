@@ -34,6 +34,9 @@ class MainViewModel @Inject constructor(
     val fontScale: StateFlow<FontScale> = preferences.fontScaleFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, FontScale.DEFAULT)
 
+    val fontStyle: StateFlow<com.quranicwords.app.core.domain.model.QuranFontStyle> = preferences.fontStyleFlow
+        .stateIn(viewModelScope, SharingStarted.Eagerly, com.quranicwords.app.core.domain.model.QuranFontStyle.DEFAULT)
+
     init {
         // If the system-level per-app language (Android 13+ Settings > App languages, or a prior
         // session's AppCompatDelegate persistence) already differs from what's in DataStore,
