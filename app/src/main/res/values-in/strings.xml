@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">Audio Pengucapan</string>
     <string name="settings_reduce_glass_label">Kurangi Efek Kaca</string>
     <string name="settings_section_sound">Suara &amp; Audio</string>
+    <string name="lesson_kind_regular">Pelajaran</string>
+    <string name="lesson_kind_lesson_quiz">Kuis</string>
+    <string name="lesson_kind_section_exam">Ujian Bagian</string>
+    <string name="lesson_kind_section_flashback">Ulasan Bagian</string>
+    <string name="lesson_kind_chapter_exam">Ujian Bab</string>
+    <string name="lesson_kind_chapter_flashback">Ulasan Utama</string>
 </resources>

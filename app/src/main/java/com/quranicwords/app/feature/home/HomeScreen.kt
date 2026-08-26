@@ -31,6 +31,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
@@ -80,6 +81,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
@@ -104,6 +106,7 @@ import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.Home30DayActivityTrendChart
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
+import com.quranicwords.app.core.ui.components.rememberLessonKindVisual
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
@@ -790,15 +793,6 @@ private fun LessonPathNode(
     }
 }
 
-/** Regular lessons use the usual play/lock/check iconography; exam and flashback kinds get a
- * distinct icon so the path visually flags "this one's a checkpoint" before the learner taps in -
- * a simple, functional cue for now, refined further in the full gamified-UI pass. */
-private fun kindIcon(kind: LessonKind): ImageVector? = when (kind) {
-    LessonKind.REGULAR -> null
-    LessonKind.SECTION_EXAM, LessonKind.CHAPTER_EXAM -> Icons.Filled.EmojiEvents
-    LessonKind.LESSON_FLASHBACK, LessonKind.SECTION_FLASHBACK, LessonKind.CHAPTER_FLASHBACK -> Icons.Filled.History
-}
-
 @Composable
 private fun LessonNode(
     title: String,
@@ -810,6 +804,7 @@ private fun LessonNode(
 ) {
     val status = progress?.status ?: LessonStatus.LOCKED
     val isUnlocked = status != LessonStatus.LOCKED
+    val kindVisual = rememberLessonKindVisual(kind)
 
     val scale by animateFloatAsState(
         targetValue = if (isUnlocked) 1f else 0.9f,
@@ -817,38 +812,41 @@ private fun LessonNode(
         label = "nodeScale"
     )
 
-    // Exam kinds are real quizzes (graded checkpoints), distinct from a regular teach/practice
-    // lesson - marked with a distinct tertiary/gold tint (the app's existing "achievement" hue)
-    // *regardless of lock state*, plus the existing trophy icon (kindIcon) once unlocked. Coloring
-    // it even while locked matters in practice: on a fresh account almost the entire curriculum -
-    // quizzes included - starts locked, so gating the color on unlock (as the icon swap does) meant
-    // the very first quiz a learner could see (a locked chapter/section exam) looked identical to a
-    // locked lesson - no visible distinction until they'd already unlocked their way to it.
-    val isQuiz = kind == LessonKind.SECTION_EXAM || kind == LessonKind.CHAPTER_EXAM
-
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
-        val containerColor = if (isQuiz) MaterialTheme.colorScheme.tertiaryContainer else statusContainerColor(status)
-        val tint = if (isQuiz) MaterialTheme.colorScheme.onTertiaryContainer else defaultTint
-        // The current lesson's play icon becomes the same "target" glyph the bottom nav bar's
-        // Continue Learning item uses, so the two visually match up - every other state (locked,
-        // completed, exam/flashback kind, or just a regular non-current unlocked lesson) keeps its
-        // existing icon untouched.
+        val containerColor = if (kindVisual.isQuizOrExam) {
+            kindVisual.containerColor
+        } else {
+            statusContainerColor(status)
+        }
+        val tint = if (kindVisual.isQuizOrExam) {
+            kindVisual.accentColor
+        } else {
+            defaultTint
+        }
+
         val icon = when {
-            status == LessonStatus.LOCKED -> defaultIcon
-            isCurrent && status == LessonStatus.UNLOCKED && kindIcon(kind) == null -> Icons.Filled.MyLocation
-            else -> kindIcon(kind) ?: defaultIcon
+            status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
+            isCurrent && status == LessonStatus.UNLOCKED && !kindVisual.isQuizOrExam -> Icons.Filled.MyLocation
+            status == LessonStatus.COMPLETED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.CheckCircle
+            else -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
+        }
+
+        val badgeAccentBorder = when {
+            isCurrent -> MaterialTheme.colorScheme.tertiary
+            kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.45f)
+            else -> null
         }
 
         Box(
             modifier = Modifier
                 .size(64.dp)
                 .graphicsLayer { scaleX = scale; scaleY = scale }
-                .unlockRevealShimmer(status, MaterialTheme.colorScheme.tertiary),
+                .unlockRevealShimmer(status, if (kindVisual.isQuizOrExam) kindVisual.accentColor else MaterialTheme.colorScheme.tertiary),
             contentAlignment = Alignment.Center
         ) {
             GlassStatusBadge(
@@ -858,23 +856,56 @@ private fun LessonNode(
                 containerColor = containerColor,
                 size = 64.dp,
                 onClick = if (isUnlocked) onClick else null,
-                accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
+                accentBorderColor = badgeAccentBorder
             )
         }
 
         GlassSurface(
-            modifier = Modifier.width(160.dp),
+            modifier = Modifier.width(170.dp),
             onClick = if (isUnlocked) onClick else null,
             tint = when {
-                isQuiz -> MaterialTheme.colorScheme.tertiaryContainer
+                kindVisual.isQuizOrExam -> kindVisual.containerColor
                 isUnlocked -> MaterialTheme.colorScheme.primaryContainer
                 else -> MaterialTheme.colorScheme.surfaceVariant
             },
-            accentBorderColor = if (isCurrent) MaterialTheme.colorScheme.tertiary else null
+            accentBorderColor = when {
+                isCurrent -> MaterialTheme.colorScheme.tertiary
+                kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.4f)
+                else -> null
+            }
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
+                // Quiz / Exam Distinctive Tag
+                if (kindVisual.isQuizOrExam) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(kindVisual.accentColor.copy(alpha = 0.20f))
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Icon(
+                            kindVisual.icon,
+                            contentDescription = null,
+                            tint = kindVisual.accentColor,
+                            modifier = Modifier.size(11.dp)
+                        )
+                        Text(
+                            stringResource(kindVisual.labelResId),
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = kindVisual.accentColor
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                }
+
                 val labelColor = when {
-                    isQuiz -> MaterialTheme.colorScheme.onTertiaryContainer
+                    kindVisual.isQuizOrExam && isUnlocked -> kindVisual.onContainerColor
+                    kindVisual.isQuizOrExam && !isUnlocked -> kindVisual.accentColor.copy(alpha = 0.7f)
                     isUnlocked -> MaterialTheme.colorScheme.onPrimaryContainer
                     else -> MaterialTheme.colorScheme.onSurfaceVariant
                 }
@@ -887,8 +918,8 @@ private fun LessonNode(
                 if (status == LessonStatus.COMPLETED) {
                     Text(
                         "${progress?.bestScorePercent ?: 0}%",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = labelColor
+                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = if (kindVisual.isQuizOrExam) kindVisual.accentColor else labelColor
                     )
                 } else if (status == LessonStatus.LOCKED) {
                     Text(

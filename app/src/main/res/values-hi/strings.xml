@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">उच्चारण ऑडियो</string>
     <string name="settings_reduce_glass_label">ग्लास प्रभाव कम करें</string>
     <string name="settings_section_sound">ध्वनि और ऑडियो</string>
+    <string name="lesson_kind_regular">पाठ</string>
+    <string name="lesson_kind_lesson_quiz">प्रश्नोत्तरी</string>
+    <string name="lesson_kind_section_exam">अनुभाग परीक्षा</string>
+    <string name="lesson_kind_section_flashback">अनुभाग समीक्षा</string>
+    <string name="lesson_kind_chapter_exam">अध्याय परीक्षा</string>
+    <string name="lesson_kind_chapter_flashback">महा समीक्षा</string>
 </resources>
