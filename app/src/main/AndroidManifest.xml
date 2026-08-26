@@ -43,6 +43,49 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
+
+        <!-- Widget Providers -->
+        <receiver
+            android:name=".feature.widget.StatsWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_stats_info" />
+        </receiver>
+
+        <receiver
+            android:name=".feature.widget.WordWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_word_info" />
+        </receiver>
+
+        <receiver
+            android:name=".feature.widget.CombinedWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_combined_info" />
+        </receiver>
+
+        <!-- Widget Background Receivers -->
+        <receiver
+            android:name=".feature.widget.WidgetAlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".feature.widget.WidgetRefreshReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

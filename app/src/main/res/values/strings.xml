@@ -270,4 +270,25 @@
     <string name="lesson_kind_section_flashback">Section Review</string>
     <string name="lesson_kind_chapter_exam">Chapter Exam</string>
     <string name="lesson_kind_chapter_flashback">Grand Review</string>
+
+    <!-- Widget Strings -->
+    <string name="widget_stats_name">Stats &amp; Streak</string>
+    <string name="widget_stats_description">View your Quranic learning streak, mastered words count, daily goal progress, and review queue.</string>
+    <string name="widget_word_name">Word of the Moment</string>
+    <string name="widget_word_description">Rotates learned &amp; mistaken words every 3 minutes with meanings, Quran occurrences, and verse examples.</string>
+    <string name="widget_combined_name">Combined Master Widget</string>
+    <string name="widget_combined_description">Combines your learning streak &amp; statistics with rotating Quranic words and example verses.</string>
+    <string name="widget_streak_days">%d Day Streak</string>
+    <string name="widget_streak_zero">0 Day Streak</string>
+    <string name="widget_words_learned_label">Words Learned</string>
+    <string name="widget_accuracy_label">Accuracy</string>
+    <string name="widget_review_label">To Review</string>
+    <string name="widget_daily_goal_label">Daily Goal</string>
+    <string name="widget_empty_words_title">Begin Your Journey</string>
+    <string name="widget_empty_words_desc">Complete your first lesson in Quranic Words to see your learned words here!</string>
+    <string name="widget_mistake_badge">Needs Review</string>
+    <string name="widget_mastered_badge">Mastered</string>
+    <string name="widget_occurrences_format">%d occurrences</string>
+    <string name="widget_quran_pct_format">%.2f%% of Qur\'an</string>
+    <string name="widget_rank_format">Rank #%d</string>
 </resources>

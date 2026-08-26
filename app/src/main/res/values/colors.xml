@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand green, used only by the small set of platform XML surfaces Compose doesn't own:
-         the adaptive launcher icon background and the pre-Compose splash screen theme.
-         The full Material 3 tonal palette lives in core/ui/theme/Color.kt. -->
     <color name="ic_launcher_background">#053827</color>
     <color name="splash_background">#053827</color>
-    <!-- Deliberately darker than splash_background/BrandDarkGreen (#053827), which is the exact
-         hex of ic_qw_mark's own interior field - using the same color for both made the mark
-         visually merge into the splash screen. Only the pre-Compose splash uses this; the app's
-         base window background keeps splash_background. -->
     <color name="splash_screen_background">#02140D</color>
+
+    <!-- Light Theme Glassmorphism Widget Colors -->
+    <color name="widget_bg_gradient_start">#E6FDF9F0</color>
+    <color name="widget_bg_gradient_end">#CCF4EBD8</color>
+    <color name="widget_bg_stroke">#80FFFFFF</color>
+    <color name="widget_surface_card">#73FFFFFF</color>
+    <color name="widget_surface_card_stroke">#66FFFFFF</color>
+    <color name="widget_text_primary">#053827</color>
+    <color name="widget_text_secondary">#355E30</color>
+    <color name="widget_text_tertiary">#5D6E5C</color>
+    <color name="widget_accent_primary">#007A42</color>
+    <color name="widget_accent_gold">#C48300</color>
+    <color name="widget_mistake_tag_bg">#26BA1A1A</color>
+    <color name="widget_mistake_tag_text">#BA1A1A</color>
+    <color name="widget_mastered_tag_bg">#26007A42</color>
+    <color name="widget_mastered_tag_text">#007A42</color>
+    <color name="widget_progress_track">#33007A42</color>
+    <color name="widget_progress_fill">#007A42</color>
+    <color name="widget_reflection_color">#66FFFFFF</color>
 </resources>

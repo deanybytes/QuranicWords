@@ -59,5 +59,21 @@ abstract class QwDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"
+
+        @Volatile
+        private var INSTANCE: QwDatabase? = null
+
+        fun getInstance(context: android.content.Context): QwDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: androidx.room.Room.databaseBuilder(
+                    context.applicationContext,
+                    QwDatabase::class.java,
+                    DATABASE_NAME
+                )
+                .fallbackToDestructiveMigration(dropAllTables = true)
+                .build()
+                .also { INSTANCE = it }
+            }
+        }
     }
 }
