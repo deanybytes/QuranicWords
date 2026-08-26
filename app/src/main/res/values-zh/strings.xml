@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">发音音频</string>
     <string name="settings_reduce_glass_label">减少毛玻璃效果</string>
     <string name="settings_section_sound">声音与音频</string>
+    <string name="lesson_kind_regular">课程</string>
+    <string name="lesson_kind_lesson_quiz">测验</string>
+    <string name="lesson_kind_section_exam">小节考试</string>
+    <string name="lesson_kind_section_flashback">小节复习</string>
+    <string name="lesson_kind_chapter_exam">章节大考</string>
+    <string name="lesson_kind_chapter_flashback">综合复习</string>
 </resources>

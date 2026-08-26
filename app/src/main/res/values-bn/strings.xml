@@ -268,4 +268,10 @@
     <string name="home_chart_quote_high">🌟 মাশাআল্লাহ! আপনার অধ্যবসায় কুরআনিক জ্ঞানকে সমৃদ্ধ করছে।</string>
     <string name="home_chart_quote_mid">✨ দারুণ ধারাবাহিকতা! নিয়মিত অনুশীলন কুরআন বোঝার পথ সহজ করে।</string>
     <string name="home_chart_quote_start">🌱 প্রতিটি আয়াত রহমত ও বরকত নিয়ে আসে। প্রতিদিন অনুশীলন বজায় রাখুন!</string>
+    <string name="lesson_kind_regular">পাঠ</string>
+    <string name="lesson_kind_lesson_quiz">কুইজ</string>
+    <string name="lesson_kind_section_exam">বিভাগ পরীক্ষা</string>
+    <string name="lesson_kind_section_flashback">বিভাগ পর্যালোচনা</string>
+    <string name="lesson_kind_chapter_exam">অধ্যায় চূড়ান্ত পরীক্ষা</string>
+    <string name="lesson_kind_chapter_flashback">প্রধান পর্যালোচনা</string>
 </resources>

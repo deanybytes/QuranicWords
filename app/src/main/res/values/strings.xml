@@ -264,4 +264,10 @@
     <string name="home_chart_quote_high">🌟 Masha\'Allah! Superb consistency in your Quranic journey.</string>
     <string name="home_chart_quote_mid">✨ Strong momentum! Regular practice builds deep Quran understanding.</string>
     <string name="home_chart_quote_start">🌱 Every single verse brings blessings. Keep your daily streak going!</string>
+    <string name="lesson_kind_regular">Lesson</string>
+    <string name="lesson_kind_lesson_quiz">Quiz</string>
+    <string name="lesson_kind_section_exam">Section Exam</string>
+    <string name="lesson_kind_section_flashback">Section Review</string>
+    <string name="lesson_kind_chapter_exam">Chapter Exam</string>
+    <string name="lesson_kind_chapter_flashback">Grand Review</string>
 </resources>

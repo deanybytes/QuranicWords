@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">صوت تلفظ</string>
     <string name="settings_reduce_glass_label">کاهش افکت‌های شیشه‌ای</string>
     <string name="settings_section_sound">صدا و صوت</string>
+    <string name="lesson_kind_regular">درس</string>
+    <string name="lesson_kind_lesson_quiz">آزمونک</string>
+    <string name="lesson_kind_section_exam">آزمون بخش</string>
+    <string name="lesson_kind_section_flashback">مرور بخش</string>
+    <string name="lesson_kind_chapter_exam">آزمون فصل</string>
+    <string name="lesson_kind_chapter_flashback">مرور جامع</string>
 </resources>

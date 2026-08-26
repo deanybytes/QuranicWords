@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">تلفظ کی آڈیو</string>
     <string name="settings_reduce_glass_label">گلاس اثرات کم کریں</string>
     <string name="settings_section_sound">آواز اور آڈیو</string>
+    <string name="lesson_kind_regular">سبق</string>
+    <string name="lesson_kind_lesson_quiz">کوئز</string>
+    <string name="lesson_kind_section_exam">سیکشن امتحان</string>
+    <string name="lesson_kind_section_flashback">سیکشن جائزہ</string>
+    <string name="lesson_kind_chapter_exam">باب امتحان</string>
+    <string name="lesson_kind_chapter_flashback">جامع جائزہ</string>
 </resources>

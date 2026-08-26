@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">Audio de prononciation</string>
     <string name="settings_reduce_glass_label">Réduire les effets de verre</string>
     <string name="settings_section_sound">Son et Audio</string>
+    <string name="lesson_kind_regular">Leçon</string>
+    <string name="lesson_kind_lesson_quiz">Quiz</string>
+    <string name="lesson_kind_section_exam">Examen de section</string>
+    <string name="lesson_kind_section_flashback">Révision de section</string>
+    <string name="lesson_kind_chapter_exam">Examen de chapitre</string>
+    <string name="lesson_kind_chapter_flashback">Grande révision</string>
 </resources>

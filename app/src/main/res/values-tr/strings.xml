@@ -269,4 +269,10 @@
     <string name="settings_pronunciation_audio_label">Telaffuz Sesi</string>
     <string name="settings_reduce_glass_label">Cam Efektlerini Azalt</string>
     <string name="settings_section_sound">Ses ve Seslendirme</string>
+    <string name="lesson_kind_regular">Ders</string>
+    <string name="lesson_kind_lesson_quiz">Quiz</string>
+    <string name="lesson_kind_section_exam">Bölüm Sınavı</string>
+    <string name="lesson_kind_section_flashback">Bölüm Tekrarı</string>
+    <string name="lesson_kind_chapter_exam">Ana Bölüm Sınavı</string>
+    <string name="lesson_kind_chapter_flashback">Genel Tekrar</string>
 </resources>
