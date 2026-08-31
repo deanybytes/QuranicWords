@@ -1,0 +1,64 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Fetch
+      uses: actions/checkout@v4
+    - name: Unshallow
+      run: git fetch --prune --unshallow --tags --force
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y pandoc
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+    - name: Build
+      run: |
+        make -j -B dist
+    - name: Upload artifacts
+      if: github.ref_type == 'tag'
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: Amiri-*.zip
+        if-no-files-found: error
+
+  deploy:
+    if: github.ref_type == 'tag'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: dist
+
+    - name: Extract release notes from annotated tag message
+      run: |
+        # GH checkout action doesn't preserve tag annotations, we must fetch them
+        # https://github.com/actions/checkout/issues/290
+        git fetch --tags --force
+        echo "$(git tag -l --format='%(contents:body)' ${{ github.ref_name }})" > "${{ runner.temp }}/release_body.md"
+        echo "release_name=$(git tag -l --format='%(contents:subject)' ${{ github.ref_name }})" >> $GITHUB_ENV
+
+    - name: Publish
+      uses: softprops/action-gh-release@v2
+      with:
+        name: ${{ env.release_name }}
+        body_path: ${{ runner.temp }}/release_body.md
+        fail_on_unmatched_files: true
+        files: |
+          dist/*/*

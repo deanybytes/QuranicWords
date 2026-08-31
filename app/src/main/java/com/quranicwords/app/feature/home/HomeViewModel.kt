@@ -64,18 +64,17 @@ data class HomeUiState(
      * chapter/section for the collapse/expand tree, this is the exact lesson the "Continue
      * Learning" FAB opens directly. */
     val currentLessonId: String? = null,
-    /** Running-total Quran coverage percent from every completed chapter exam (see
-     * [com.quranicwords.app.core.domain.repository.AchievementRepository.getCumulativeCoveragePercent]) -
-     * fetched once per Home session, same one-shot treatment as [hasReviewableItems], since it only
-     * changes on a chapter-exam pass (which recreates this ViewModel via Home's normal nav flow).
+    /** Running-total Quran coverage percent achieved by the user across the whole curriculum.
+     * Computed dynamically from the user's completed lessons.
      * Drives the header's hero coverage ring - the same figure the Progress tab's donut shows, so
      * the two screens never disagree about "how much of the Qur'an have I actually covered". */
     val quranCoveragePercent: Double = 0.0,
+    /** Real Quran coverage percent the user has completed within each chapter (chapter id ->
+     * user covered %). Used on each chapter summary card so the user sees real progress,
+     * e.g. "84.8% of the Qur'an · 25.4% covered so far". */
+    val userCoveragePercentByChapter: Map<String, Double> = emptyMap(),
     /** Running-total Quran coverage percent through and including each chapter (chapter id ->
-     * cumulative %), for the "own share · running total" stat line on each chapter's summary
-     * card - see [cumulativeCoveragePercentByChapter]. Every chapter in this curriculum has the
-     * same word count (460), which is why chapter cards show coverage %, not word count - a
-     * constant repeated on every card carries no information. */
+     * cumulative %), for the theoretical cumulative maximum. */
     val cumulativeCoveragePercentByChapter: Map<String, Double> = emptyMap(),
     /** Every COMPLETED lesson across the whole curriculum, most-recently-completed first - backs
      * the swipeable history card (see [completedLessonsHistory]). */
@@ -163,6 +162,46 @@ fun progressFraction(lessonIds: List<String>, progressByLessonId: Map<String, Us
     return completed.toFloat() / lessonIds.size
 }
 
+/** Pure derivation, no DB access - calculates the real Quran occurrence percent the learner has
+ * actually covered within each chapter based on their completed lessons.
+ * For each chapter, section lessons contribute `(completedCount / totalCount) * section.quranOccurrencePercent`.
+ * Returns a map of chapterId -> real user covered occurrence percent within that chapter. */
+fun userCoveragePercentByChapter(
+    chapters: List<ChapterWithSections>,
+    progressByLessonId: Map<String, UserProgressEntity>
+): Map<String, Double> {
+    return chapters.associate { chapterWithSections ->
+        var chapterCovered = 0.0
+        val sections = chapterWithSections.sections
+        if (sections.isNotEmpty()) {
+            sections.forEach { sectionWithLessons ->
+                val totalLessons = sectionWithLessons.lessons.size
+                if (totalLessons > 0) {
+                    val completed = sectionWithLessons.lessons.count { lesson ->
+                        progressByLessonId[lesson.id]?.status == LessonStatus.COMPLETED
+                    }
+                    chapterCovered += (completed.toDouble() / totalLessons) * sectionWithLessons.section.quranOccurrencePercent
+                }
+            }
+        } else {
+            val total = chapterWithSections.chapterLevelLessons.size
+            if (total > 0) {
+                val completed = chapterWithSections.chapterLevelLessons.count { lesson ->
+                    progressByLessonId[lesson.id]?.status == LessonStatus.COMPLETED
+                }
+                chapterCovered += (completed.toDouble() / total) * chapterWithSections.chapter.quranOccurrencePercent
+            }
+        }
+        chapterWithSections.chapter.id to chapterCovered.coerceIn(0.0, chapterWithSections.chapter.quranOccurrencePercent)
+    }
+}
+
+/** Pure derivation, no DB access - calculates the total Quran occurrence percent the user has covered
+ * across all chapters in the curriculum. */
+fun calculateTotalUserCoveragePercent(userCoverageByChapter: Map<String, Double>): Double {
+    return userCoverageByChapter.values.sum()
+}
+
 /** Pure derivation, no DB access - running-total Quran coverage percent through and including
  * each chapter, in curriculum order. Chapter 1 -> its own percent; chapter 2 -> chapter 1 + 2;
  * and so on, mirroring the exact cumulative sum [com.quranicwords.app.feature.intro.IntroViewModel]
@@ -241,7 +280,6 @@ class HomeViewModel @Inject constructor(
             progressRepository.ensureCurriculumStarted(userId)
 
             val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
-            val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
             val chapters = loadCurriculumTree()
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
             val todayDate = LocalDate.now(clock)
@@ -274,6 +312,8 @@ class HomeViewModel @Inject constructor(
                 }
                 val total30DaysMins = last30DaysMinutes.sum()
                 val active30DaysDays = last30DaysMinutes.count { it > 0 }
+                val userCoverage = userCoveragePercentByChapter(chapters, progressByLessonId)
+                val totalUserCoverage = calculateTotalUserCoveragePercent(userCoverage)
 
                 HomeUiState(
                     chapters = chapters,
@@ -286,7 +326,8 @@ class HomeViewModel @Inject constructor(
                     initiallyExpandedChapterId = currentChapterId,
                     initiallyExpandedSectionId = currentSectionId,
                     currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
-                    quranCoveragePercent = coveragePercent,
+                    quranCoveragePercent = totalUserCoverage,
+                    userCoveragePercentByChapter = userCoverage,
                     cumulativeCoveragePercentByChapter = cumulativeCoverage,
                     completedHistory = completedLessonsHistory(chapters, progressByLessonId),
                     isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(

@@ -28,16 +28,14 @@ val hasReleaseSigningConfig = keystorePropertiesFile.exists()
 
 android {
     namespace = "com.quranicwords.app"
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
-        targetSdk = 37
-        versionCode = 10
-        versionName = "2.0.1"
+        targetSdk = 35
+        versionCode = 11
+        versionName = "2.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

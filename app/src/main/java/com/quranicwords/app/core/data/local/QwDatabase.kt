@@ -41,7 +41,7 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
         AchievementEntity::class,
         DailyPracticeEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(Converters::class)

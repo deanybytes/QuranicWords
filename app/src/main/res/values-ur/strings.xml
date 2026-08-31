@@ -43,25 +43,28 @@
     <string name="font_pending_note">اس انداز کی لائسنس یافتہ فونٹ فائل ابھی شامل نہیں ہے، فی الحال ڈیفالٹ رسم الخط دکھایا جا رہا ہے۔</string>
 
     <!-- Daily goal select -->
-    <string name="onboarding_daily_goal_title">اپنا روزانہ ہدف مقرر کریں</string>
-    <string name="onboarding_daily_goal_subtitle">منتخب کریں کہ آپ روزانہ کتنے منٹ مشق کرنا چاہتے ہیں۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
-    <string name="daily_goal_casual">Casual</string>
-    <string name="daily_goal_steady">Steady</string>
-    <string name="daily_goal_devoted">Devoted</string>
+    <string name="onboarding_daily_goal_title">آپ کا روزانہ کا ہدف کیا ہے؟</string>
+    <string name="onboarding_daily_goal_subtitle">منتخب کریں کہ آپ روزانہ قرآنی الفاظ سیکھنے میں کتنا وقت لگانا چاہتے ہیں۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
+    <string name="daily_goal_casual">معمولی (10 منٹ)</string>
+    <string name="daily_goal_casual_description">مسلسل عادت بنانے کے لیے روزانہ 10 منٹ کا مختصر سیشن۔</string>
+    <string name="daily_goal_steady">مستقل (20 منٹ)</string>
+    <string name="daily_goal_steady_description">مسلسل پیش رفت کے لیے روزانہ 20 منٹ کی متوازن مشق۔</string>
+    <string name="daily_goal_devoted">پرجوش (30 منٹ)</string>
+    <string name="daily_goal_devoted_description">تیزی سے ذخیرہ الفاظ بڑھانے کے لیے روزانہ 30 منٹ کا جامع سیشن۔</string>
     <string name="daily_goal_minutes_suffix">روزانہ %d منٹ</string>
     <string name="home_daily_challenge_completed">روزانہ چیلنج مکمل ہوا</string>
     <string name="test_only_start_quiz_title">کوئز شروع کریں</string>
     <string name="test_only_start_quiz_subtitle">ان الفاظ سے بے ترتیب سوالات جو آپ پہلے سے جانتے ہیں</string>
 
     <!-- Learning style select -->
-    <string name="onboarding_learning_style_title">اپنا سیکھنے کا انداز منتخب کریں</string>
-    <string name="onboarding_learning_style_subtitle">یہ طے کرتا ہے کہ آگے بڑھنے سے پہلے ہر لفظ کتنی بار دہرایا جائے گا۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
-    <string name="learning_style_sharp">Light Touch</string>
-    <string name="learning_style_sharp_description">ہر لفظ ایک بار دیکھیں، پھر آگے بڑھیں</string>
-    <string name="learning_style_slow">Solid Base</string>
-    <string name="learning_style_slow_description">مستحکم بنیاد کے لیے ہر لفظ 3 بار دہرایا جاتا ہے</string>
-    <string name="learning_style_cozy">Locked In</string>
-    <string name="learning_style_cozy_description">واقعی یاد رکھنے کے لیے ہر لفظ 5 بار دہرایا جاتا ہے</string>
+    <string name="onboarding_learning_style_title">آپ ہر لفظ کی مشق کیسے کرنا چاہتے ہیں؟</string>
+    <string name="onboarding_learning_style_subtitle">آسانی سے یاد کرنے کے لیے سبق کے دوران ہر لفظ اور سوال کتنی بار دہرایا جائے، یہ منتخب کریں۔</string>
+    <string name="learning_style_sharp">1 بار مشق (تیز)</string>
+    <string name="learning_style_sharp_description">میں ہر لفظ کی 1 بار مشق کر کے جلدی آگے بڑھنا چاہتا ہوں۔</string>
+    <string name="learning_style_slow">3 بار مشق (تجویز کردہ)</string>
+    <string name="learning_style_slow_description">مضبوط یادداشت کے لیے میں ہر لفظ 3 بار دہرانا چاہتا ہوں۔</string>
+    <string name="learning_style_cozy">5 بار مشق (گہری یاددہانی)</string>
+    <string name="learning_style_cozy_description">مکمل طور پر یاد کرنے اور مہارت حاصل کرنے کے لیے میں ہر لفظ 5 بار دہرانا چاہتا ہوں۔</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">باب</string>
@@ -275,4 +278,31 @@
     <string name="lesson_kind_section_flashback">سیکشن جائزہ</string>
     <string name="lesson_kind_chapter_exam">باب امتحان</string>
     <string name="lesson_kind_chapter_flashback">جامع جائزہ</string>
+
+    <string name="widget_combined_name">مشترکہ ماسٹر وجٹ</string>
+    <string name="widget_combined_description">آپ کے سیکھنے کے تسلسل اور اعداد و شمار کے ساتھ قرآنی الفاظ اور مثالیں دکھاتا ہے۔</string>
+    <string name="widget_stats_name">اعداد و شمار اور تسلسل</string>
+    <string name="widget_stats_description">اپنے قرآنی الفاظ کا تسلسل، سیکھے گئے الفاظ اور روزانہ کا ہدف دیکھیں۔</string>
+    <string name="widget_word_name">اس لمحے کا قرآنی لفظ</string>
+    <string name="widget_word_description">معانی، قرآنی تکرار اور آیت کی مثال کے ساتھ ہر ۳ منٹ بعد لفظ تبدیل ہوتا ہے۔</string>
+    <string name="widget_empty_words_title">اپنا سفر شروع کریں</string>
+    <string name="widget_empty_words_desc">یہاں سیکھے ہوئے الفاظ دیکھنے کے لیے قرآنی ورڈز میں اپنا پہلا سبق مکمل کریں!</string>
+    <string name="widget_streak_days">%d دن کا تسلسل</string>
+    <string name="widget_streak_zero">0 دن کا تسلسل</string>
+    <string name="widget_mastered_badge">مکمل یاد</string>
+    <string name="widget_mistake_badge">دہرائی درکار</string>
+    <string name="widget_words_learned_label">سیکھے گئے الفاظ</string>
+    <string name="widget_daily_goal_label">روزانہ کا ہدف</string>
+    <string name="widget_accuracy_label">درستگی</string>
+    <string name="widget_review_label">دہرائی</string>
+    <string name="widget_occurrences_format">%d بار آیا ہے</string>
+    <string name="widget_rank_format">درجہ #%d</string>
+    <string name="widget_quran_pct_format">قرآن کا %.2f%%</string>
+
+    <string name="lesson_category_noun">اسم کا سبق</string>
+    <string name="lesson_category_verb">فعل کا سبق</string>
+    <string name="word_category_noun">اسم</string>
+    <string name="word_category_verb">فعل</string>
+    <string name="polysemy_tab_format">معنی [%d]</string>
+    <string name="polysemy_meanings_title">سیاقی معانی (وجوہ القرآن)</string>
 </resources>

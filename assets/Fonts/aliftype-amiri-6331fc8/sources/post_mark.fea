@@ -1,0 +1,3 @@
+feature mark {
+    pos [hamza-ar] [dotvowelbelow-ar]' <0 -195 0 0>;
+} mark;

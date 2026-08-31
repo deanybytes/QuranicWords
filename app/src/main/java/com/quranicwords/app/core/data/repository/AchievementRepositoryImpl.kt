@@ -28,19 +28,34 @@ class AchievementRepositoryImpl @Inject constructor(
         val progress = database.userProgressDao().getAllForUserOnce(userId)
         val completedLessonIds = progress.filter { it.status == LessonStatus.COMPLETED }.map { it.lessonId }.toSet()
         val lessons = database.lessonDao().getAll()
+        val sections = database.sectionDao().getAll()
         val chapters = database.chapterDao().getAll()
-        coverageForCompletedChapters(lessons, chapters, completedLessonIds)
+        coverageForCompletedLessons(lessons, sections, chapters, completedLessonIds)
     }
 
-    /** Sums [ChapterEntity.quranOccurrencePercent] over every chapter whose CHAPTER_EXAM is in
-     * [completedLessonIds] - shared by [checkAndUnlock] (coverage-band achievements) and
-     * [getCumulativeCoveragePercent] (the Progress tab's coverage donut) so the definition of
-     * "cumulative coverage" lives in exactly one place. */
-    private fun coverageForCompletedChapters(
+    /** Calculates real proportional Quran coverage percent over completed lessons/sections,
+     * with fallback to chapter exams if section occurrence percentages are unpopulated.
+     * Shared by [checkAndUnlock] (coverage-band achievements) and [getCumulativeCoveragePercent]
+     * (the Progress tab's coverage donut). */
+    private fun coverageForCompletedLessons(
         lessons: List<LessonEntity>,
+        sections: List<com.quranicwords.app.core.data.local.entity.SectionEntity>,
         chapters: List<ChapterEntity>,
         completedLessonIds: Set<String>
     ): Double {
+        val hasSectionPercents = sections.any { it.quranOccurrencePercent > 0.0 }
+        if (hasSectionPercents) {
+            val lessonsBySection = lessons.filter { it.sectionId != null }.groupBy { it.sectionId!! }
+            var total = 0.0
+            sections.forEach { section ->
+                val sectionLessons = lessonsBySection[section.id] ?: emptyList()
+                if (sectionLessons.isNotEmpty()) {
+                    val completed = sectionLessons.count { it.id in completedLessonIds }
+                    total += (completed.toDouble() / sectionLessons.size) * section.quranOccurrencePercent
+                }
+            }
+            return total
+        }
         val completedChapterExamChapterIds = lessons
             .filter { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
             .map { it.chapterId }
@@ -60,13 +75,14 @@ class AchievementRepositoryImpl @Inject constructor(
         val completedLessonIds = progress.filter { it.status == LessonStatus.COMPLETED }.map { it.lessonId }.toSet()
         val lessons = database.lessonDao().getAll()
         val lessonById = lessons.associateBy { it.id }
+        val sections = database.sectionDao().getAll()
         val chapters = database.chapterDao().getAll()
 
         val completedChapterExamChapterIds = lessons
             .filter { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
             .map { it.chapterId }
             .toSet()
-        val cumulativeCoveragePercent = coverageForCompletedChapters(lessons, chapters, completedLessonIds)
+        val cumulativeCoveragePercent = coverageForCompletedLessons(lessons, sections, chapters, completedLessonIds)
 
         val hasCompletedRegularLesson = completedLessonIds.any { id -> lessonById[id]?.kind == LessonKind.REGULAR }
         val hasPassedAnExam = progress.any { row ->

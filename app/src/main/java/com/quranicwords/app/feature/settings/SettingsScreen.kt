@@ -5,24 +5,28 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,18 +42,24 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDialog
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberTimePickerState
-import androidx.compose.ui.Alignment
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -70,6 +80,8 @@ import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.core.ui.theme.toFontFamily
+import com.quranicwords.app.core.util.QuranPreviewText
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -213,6 +225,28 @@ fun SettingsScreen(
                 }
             }
 
+            // Live preview showing selected font rendering
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                    Text(
+                        text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   "),
+                        fontFamily = fontStyle.toFontFamily(),
+                        fontSize = 20.sp,
+                        lineHeight = 38.sp,
+                        textAlign = TextAlign.Right,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -293,9 +327,9 @@ fun SettingsScreen(
                 Text(stringResource(R.string.settings_learning_style_label), style = MaterialTheme.typography.labelLarge)
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                     val options = listOf(
-                        LearningStyle.SHARP to stringResource(R.string.learning_style_sharp),
-                        LearningStyle.SLOW to stringResource(R.string.learning_style_slow),
-                        LearningStyle.COZY to stringResource(R.string.learning_style_cozy)
+                        LearningStyle.SHARP to "1x",
+                        LearningStyle.SLOW to "3x",
+                        LearningStyle.COZY to "5x"
                     )
                     options.forEachIndexed { index, (style, label) ->
                         SegmentedButton(
@@ -305,14 +339,24 @@ fun SettingsScreen(
                         ) { Text(label) }
                     }
                 }
+                val learningStyleDesc = when (learningStyle) {
+                    LearningStyle.SHARP -> R.string.learning_style_sharp_description
+                    LearningStyle.SLOW -> R.string.learning_style_slow_description
+                    LearningStyle.COZY -> R.string.learning_style_cozy_description
+                }
+                Text(
+                    stringResource(learningStyleDesc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
 
             Text(stringResource(R.string.settings_daily_goal_label), style = MaterialTheme.typography.labelLarge)
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                 val options = listOf(
-                    DailyGoalLevel.CASUAL to stringResource(R.string.daily_goal_casual),
-                    DailyGoalLevel.STEADY to stringResource(R.string.daily_goal_steady),
-                    DailyGoalLevel.DEVOTED to stringResource(R.string.daily_goal_devoted)
+                    DailyGoalLevel.CASUAL to "${DailyGoalLevel.CASUAL.minutes} min",
+                    DailyGoalLevel.STEADY to "${DailyGoalLevel.STEADY.minutes} min",
+                    DailyGoalLevel.DEVOTED to "${DailyGoalLevel.DEVOTED.minutes} min"
                 )
                 options.forEachIndexed { index, (level, label) ->
                     SegmentedButton(
@@ -322,6 +366,16 @@ fun SettingsScreen(
                     ) { Text(label) }
                 }
             }
+            val dailyGoalDesc = when (dailyGoalLevel) {
+                DailyGoalLevel.CASUAL -> R.string.daily_goal_casual_description
+                DailyGoalLevel.STEADY -> R.string.daily_goal_steady_description
+                DailyGoalLevel.DEVOTED -> R.string.daily_goal_devoted_description
+            }
+            Text(
+                stringResource(dailyGoalDesc),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         } }
 
         StaggeredEntrance(index = 3) { SectionCard {

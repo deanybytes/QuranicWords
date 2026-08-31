@@ -43,25 +43,28 @@
     <string name="font_pending_note">এই শৈলীর লাইসেন্সকৃত ফন্ট ফাইল এখনো যুক্ত করা হয়নি, আপাতত ডিফল্ট লিপি দেখানো হচ্ছে।</string>
 
     <!-- Daily goal select -->
-    <string name="onboarding_daily_goal_title">আপনার দৈনিক লক্ষ্য নির্ধারণ করুন</string>
-    <string name="onboarding_daily_goal_subtitle">প্রতিদিন কত মিনিট অনুশীলন করতে চান তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
-    <string name="daily_goal_casual">Casual</string>
-    <string name="daily_goal_steady">Steady</string>
-    <string name="daily_goal_devoted">Devoted</string>
+    <string name="onboarding_daily_goal_title">আপনার দৈনিক লক্ষ্য কী?</string>
+    <string name="onboarding_daily_goal_subtitle">প্রতিদিন কুরআনের শব্দ শেখার জন্য আপনি কত সময় দিতে চান তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
+    <string name="daily_goal_casual">নিয়মিত (১০ মিনিট)</string>
+    <string name="daily_goal_casual_description">প্রতিদিনের অভ্যাস গড়ে তুলতে ১০ মিনিটের একটি সংক্ষিপ্ত সেশন।</string>
+    <string name="daily_goal_steady">পরিমিত (২০ মিনিট)</string>
+    <string name="daily_goal_steady_description">নিয়মিত অগ্রগতির জন্য ২০ মিনিটের একটি ভারসাম্যপূর্ণ অনুশীলন।</string>
+    <string name="daily_goal_devoted">নিবেদিত (৩০ মিনিট)</string>
+    <string name="daily_goal_devoted_description">দ্রুত শব্দভাণ্ডার সমৃদ্ধ করতে ৩০ মিনিটের নিবেদিত সেশন।</string>
     <string name="daily_goal_minutes_suffix">প্রতিদিন %d মিনিট</string>
     <string name="home_daily_challenge_completed">দৈনিক চ্যালেঞ্জ সম্পন্ন</string>
     <string name="test_only_start_quiz_title">কুইজ শুরু করুন</string>
     <string name="test_only_start_quiz_subtitle">আপনার জানা শব্দ থেকে র‍্যান্ডম প্রশ্ন</string>
 
     <!-- Learning style select -->
-    <string name="onboarding_learning_style_title">আপনার শেখার ধরন বেছে নিন</string>
-    <string name="onboarding_learning_style_subtitle">এটি নির্ধারণ করে প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
-    <string name="learning_style_sharp">Light Touch</string>
-    <string name="learning_style_sharp_description">প্রতিটি শব্দ একবার দেখুন, তারপর এগিয়ে যান</string>
-    <string name="learning_style_slow">Solid Base</string>
-    <string name="learning_style_slow_description">স্থিতিশীল ভিত্তির জন্য প্রতিটি শব্দ ৩ বার পুনরাবৃত্তি হয়</string>
-    <string name="learning_style_cozy">Locked In</string>
-    <string name="learning_style_cozy_description">সত্যিকারের রপ্ত করার জন্য প্রতিটি শব্দ ৫ বার পুনরাবৃত্তি হয়</string>
+    <string name="onboarding_learning_style_title">প্রতিটি শব্দ কীভাবে অনুশীলন করতে চান?</string>
+    <string name="onboarding_learning_style_subtitle">মুখস্থ করতে সুবিধার জন্য পাঠ চলাকালীন প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
+    <string name="learning_style_sharp">১ বার অনুশীলন (দ্রুত)</string>
+    <string name="learning_style_sharp_description">আমি প্রতিটি শব্দ ১ বার অনুশীলন করে দ্রুত এগিয়ে যেতে চাই।</string>
+    <string name="learning_style_slow">৩ বার অনুশীলন (সুপারিশকৃত)</string>
+    <string name="learning_style_slow_description">সহজে মনে রাখার জন্য প্রতিটি শব্দ ৩ বার পুনরাবৃত্তি করে শিখতে চাই।</string>
+    <string name="learning_style_cozy">৫ বার অনুশীলন (গভীরভাবে মুখস্থ)</string>
+    <string name="learning_style_cozy_description">প্রতিটি শব্দ ভালোভাবে মুখস্থ ও আয়ত্ত করতে ৫ বার পুনরাবৃত্তি করতে চাই।</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">অধ্যায়</string>
@@ -274,4 +277,31 @@
     <string name="lesson_kind_section_flashback">বিভাগ পর্যালোচনা</string>
     <string name="lesson_kind_chapter_exam">অধ্যায় চূড়ান্ত পরীক্ষা</string>
     <string name="lesson_kind_chapter_flashback">প্রধান পর্যালোচনা</string>
+
+    <string name="widget_combined_name">মাস্টার কম্বাইন্ড উইজেট</string>
+    <string name="widget_combined_description">আপনার শেখার ধারাবাহিকতা ও পরিসংখ্যানের সাথে কুরআনিক শব্দসমূহ প্রদর্শন করে।</string>
+    <string name="widget_stats_name">পরিসংখ্যান ও ধারাবাহিকতা</string>
+    <string name="widget_stats_description">আপনার কুরআনিক শিক্ষার ধারাবাহিকতা, আয়ত্তকৃত শব্দ এবং দৈনিক লক্ষ্যের অগ্রগতি দেখুন।</string>
+    <string name="widget_word_name">মুহূর্তের কুরআনিক শব্দ</string>
+    <string name="widget_word_description">অর্থ, কুরআনে পুনরাবৃত্তি এবং আয়াতের উদাহরণ সহ প্রতি ৩ মিনিটে শব্দ পরিবর্তন করে।</string>
+    <string name="widget_empty_words_title">আপনার যাত্রা শুরু করুন</string>
+    <string name="widget_empty_words_desc">এখানে শেখা শব্দগুলো দেখতে কুরআনিক ওয়ার্ডস-এ আপনার প্রথম পাঠ সম্পন্ন করুন!</string>
+    <string name="widget_streak_days">%d দিনের ধারাবাহিকতা</string>
+    <string name="widget_streak_zero">০ দিনের ধারাবাহিকতা</string>
+    <string name="widget_mastered_badge">আয়ত্তকৃত</string>
+    <string name="widget_mistake_badge">পুনরাবৃত্তি প্রয়োজন</string>
+    <string name="widget_words_learned_label">অর্জিত শব্দ</string>
+    <string name="widget_daily_goal_label">দৈনিক লক্ষ্য</string>
+    <string name="widget_accuracy_label">সঠিকতা</string>
+    <string name="widget_review_label">রিভিউ</string>
+    <string name="widget_occurrences_format">%d বার উল্লেখ</string>
+    <string name="widget_rank_format">র‍্যাংক #%d</string>
+    <string name="widget_quran_pct_format">কুরআনের %.2f%%</string>
+
+    <string name="lesson_category_noun">বিশেষ্য পাঠ</string>
+    <string name="lesson_category_verb">ক্রিয়াপদ পাঠ</string>
+    <string name="word_category_noun">বিশেষ্য</string>
+    <string name="word_category_verb">ক্রিয়াপদ</string>
+    <string name="polysemy_tab_format">অর্থ [%d]</string>
+    <string name="polysemy_meanings_title">প্রাসঙ্গিক অর্থসমূহ (উজূহুল কুরআন)</string>
 </resources>

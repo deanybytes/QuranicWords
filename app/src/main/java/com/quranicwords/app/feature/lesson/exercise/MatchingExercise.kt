@@ -30,6 +30,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
@@ -324,34 +325,43 @@ private fun MatchTile(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Brief "just matched" window right after a correct match - drives the green glow border,
-    // glass reflect sheen sweep animation, and delays the fade-to-retired alpha.
+    // Brief "just matched" celebration window right after a correct match - drives the green glow border,
+    // Alhamdulillah-style glass reflect sheen sweep animation, and delays the fade-to-retired alpha.
     var justMatched by remember { mutableStateOf(false) }
     val sheenProgress = remember { Animatable(0f) }
+    var tapClickCount by remember { mutableIntStateOf(0) }
+    val tapReflectionProgress = remember { Animatable(0f) }
 
     LaunchedEffect(isMatched) {
         if (isMatched) {
             justMatched = true
             if (!reducedMotion && !reducedGlass) {
                 sheenProgress.snapTo(0f)
-                sheenProgress.animateTo(1f, animationSpec = tween(durationMillis = 800, easing = LinearEasing))
+                sheenProgress.animateTo(1f, animationSpec = tween(durationMillis = 850, easing = LinearEasing))
             }
-            delay(if (reducedMotion) 0L else 500L)
+            delay(if (reducedMotion) 0L else 850L)
             justMatched = false
         }
     }
 
+    LaunchedEffect(tapClickCount) {
+        if (tapClickCount > 0 && !reducedMotion && !reducedGlass && !isMatched && !justMatched) {
+            tapReflectionProgress.snapTo(0f)
+            tapReflectionProgress.animateTo(1f, animationSpec = tween(durationMillis = 450, easing = LinearEasing))
+        }
+    }
+
     val targetContainer = when {
-        justMatched -> MaterialTheme.colorScheme.primary
-        isMismatch -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
-        isMatched -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.45f)
-        isSelected -> BrandGold.copy(alpha = 0.18f)
-        else -> MaterialTheme.colorScheme.surfaceVariant
+        justMatched -> if (reducedGlass) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.85f)
+        isMismatch -> if (reducedGlass) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f)
+        isMatched -> if (reducedGlass) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f) else MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.22f)
+        isSelected -> if (reducedGlass) MaterialTheme.colorScheme.secondaryContainer else BrandGold.copy(alpha = 0.22f)
+        else -> if (reducedGlass) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
     }
     val container by animateColorAsState(targetContainer, tween(250), label = "matchTileContainer")
 
     val targetContentColor = when {
-        justMatched -> MaterialTheme.colorScheme.onPrimary
+        justMatched -> MaterialTheme.colorScheme.onPrimaryContainer
         isMismatch -> MaterialTheme.colorScheme.onErrorContainer
         isMatched -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
         isSelected -> MaterialTheme.colorScheme.onSurface
@@ -360,29 +370,34 @@ private fun MatchTile(
     val contentColor by animateColorAsState(targetContentColor, tween(200), label = "matchTileContentColor")
 
     val tileAlpha by animateFloatAsState(
-        targetValue = if (isMatched && !justMatched) 0.5f else 1f,
-        animationSpec = tween(durationMillis = 400, delayMillis = if (isMatched && !reducedMotion) 300 else 0),
+        targetValue = if (isMatched && !justMatched) 0.55f else 1f,
+        animationSpec = tween(durationMillis = 400, delayMillis = if (isMatched && !reducedMotion) 150 else 0),
         label = "matchTileAlpha"
     )
 
-    // Border: golden when selected, red on mismatch, primary green on justMatched
-    val borderColor = when {
-        justMatched -> MaterialTheme.colorScheme.primary
-        isMismatch -> MaterialTheme.colorScheme.error
-        isSelected -> BrandGold
-        else -> MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
-    }
-    val borderWidth = if (isSelected || isMismatch || justMatched) 2.5.dp else 1.dp
-
     val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
     val selectionScale by animateFloatAsState(
-        targetValue = if (isSelected) 1.04f else 1f,
+        targetValue = if (isSelected) 1.03f else 1f,
         animationSpec = MotionSpecs.celebratory(),
         label = "matchTileSelectionScale"
     )
 
     val tileShape = RoundedCornerShape(14.dp)
+
+    val borderModifier = when {
+        justMatched -> Modifier.border(2.5.dp, MaterialTheme.colorScheme.primary, tileShape)
+        isMismatch -> Modifier.border(2.5.dp, MaterialTheme.colorScheme.error, tileShape)
+        isSelected -> Modifier.border(2.5.dp, BrandGold, tileShape)
+        isMatched -> Modifier.border(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f), tileShape)
+        reducedGlass -> Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f), tileShape)
+        else -> Modifier.border(
+            width = 1.dp,
+            brush = Brush.linearGradient(
+                listOf(Color.White.copy(alpha = 0.28f), Color.Transparent)
+            ),
+            shape = tileShape
+        )
+    }
 
     Box(
         modifier = modifier
@@ -397,12 +412,15 @@ private fun MatchTile(
             .pressDepth(interactionSource)
             .clip(tileShape)
             .background(container)
-            .border(width = borderWidth, color = borderColor, shape = tileShape)
+            .then(borderModifier)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 enabled = !isMatched && !isMismatch,
-                onClick = onClick
+                onClick = {
+                    tapClickCount++
+                    onClick()
+                }
             )
     ) {
         Box(
@@ -420,7 +438,39 @@ private fun MatchTile(
             )
         }
 
-        // Glossy glass reflect animation on correct match across entire tile
+        // Tap glass reflection sweep on click (same technique as GlassSurface)
+        if (tapReflectionProgress.value > 0f && !reducedMotion && !reducedGlass && !justMatched) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(tileShape)
+                    .drawBehind {
+                        val w = size.width
+                        val h = size.height
+                        val bandWidth = w * 0.4f
+                        val travel = w * 1.8f
+                        val bandCenter = -w * 0.4f + tapReflectionProgress.value * travel
+                        rotate(degrees = 20f, pivot = Offset(w / 2f, h / 2f)) {
+                            drawRect(
+                                brush = Brush.linearGradient(
+                                    colorStops = arrayOf(
+                                        0f to Color.Transparent,
+                                        0.5f to Color.White.copy(alpha = 0.5f),
+                                        1f to Color.Transparent
+                                    ),
+                                    start = Offset(bandCenter - bandWidth / 2f, 0f),
+                                    end = Offset(bandCenter + bandWidth / 2f, 0f)
+                                ),
+                                topLeft = Offset(-w, -h),
+                                size = Size(w * 3f, h * 3f),
+                                blendMode = BlendMode.Screen
+                            )
+                        }
+                    }
+            )
+        }
+
+        // Glossy celebratory glass reflect sheen sweep on correct match (exact technique as AnswerFeedbackOverlay / "Alhamdulillah")
         if (justMatched && !reducedMotion && !reducedGlass) {
             Box(
                 modifier = Modifier
@@ -429,21 +479,19 @@ private fun MatchTile(
                     .drawBehind {
                         val w = size.width
                         val h = size.height
-                        val bandWidth = (w + h) * 0.45f
-                        val totalDistance = w + h + bandWidth
-                        val currentCenter = -bandWidth / 2f + sheenProgress.value * totalDistance
-                        rotate(degrees = 25f, pivot = Offset(w / 2f, h / 2f)) {
+                        val bandWidth = w * 0.35f
+                        val travel = w * 1.8f
+                        val bandCenter = -w * 0.4f + sheenProgress.value * travel
+                        rotate(degrees = 20f, pivot = Offset(w / 2f, h / 2f)) {
                             drawRect(
                                 brush = Brush.linearGradient(
                                     colorStops = arrayOf(
                                         0f to Color.Transparent,
-                                        0.25f to Color.White.copy(alpha = 0.25f),
-                                        0.5f to Color.White.copy(alpha = 0.85f),
-                                        0.75f to Color.White.copy(alpha = 0.25f),
+                                        0.5f to Color.White.copy(alpha = 0.65f),
                                         1f to Color.Transparent
                                     ),
-                                    start = Offset(currentCenter - bandWidth / 2f, -h),
-                                    end = Offset(currentCenter + bandWidth / 2f, h * 2f)
+                                    start = Offset(bandCenter - bandWidth / 2f, 0f),
+                                    end = Offset(bandCenter + bandWidth / 2f, 0f)
                                 ),
                                 topLeft = Offset(-w, -h),
                                 size = Size(w * 3f, h * 3f),

@@ -56,9 +56,22 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * A non-scored teach step shown before a word's quiz exercises. [meaningReviewed] tracks,
-     * per language tag, whether that language's [meaning] entry has been verified
-     * against word-by-word reference corpora (see docs/CONTENT_SOURCES.md).
+     * One contextual meaning and example verse entry for a word (supports polysemy / Wujūh al-Qur'an).
+     */
+    @Serializable
+    data class PolysemyEntry(
+        val meaningIndex: Int = 1,
+        val contextualMeaning: LocalizedText = emptyMap(),
+        val verseReference: String? = null,
+        val verseArabic: String? = null,
+        val arabicWordStart: Int? = null,
+        val arabicWordEnd: Int? = null,
+        val verseTranslation: LocalizedText = emptyMap(),
+        val translationHighlight: LocalizedText? = null
+    )
+
+    /**
+     * A non-scored teach step shown before a word's quiz exercises.
      */
     @Serializable
     @SerialName("word_intro")
@@ -67,27 +80,17 @@ sealed interface ExerciseContent {
         val wordId: String,
         val arabicWord: String,
         val meaning: LocalizedText,
+        val lemmaCategory: LemmaCategory = LemmaCategory.NOUN,
+        val polysemyEntries: List<PolysemyEntry> = emptyList(),
         val meaningReviewed: Map<String, Boolean> = emptyMap(),
         val root: String? = null,
-        val exampleVerseArabic: String,
-        val exampleVerseTranslation: LocalizedText,
-        val exampleVerseReference: String,
-        // True when [exampleVerseArabic] was confirmed to literally contain [arabicWord]'s exact
-        // surface form (tools/ingestion/15_reverify_example_verses.py's word-boundary-aware
-        // search), false when no such occurrence exists anywhere in the Quran and the verse shown
-        // is still the older root-derived "illustrates the concept" fallback - never silently
-        // presented as an exact citation. See docs/CONTENT_SOURCES.md.
+        val exampleVerseArabic: String? = null,
+        val exampleVerseTranslation: LocalizedText = emptyMap(),
+        val exampleVerseReference: String? = null,
         val exampleVerseVerified: Boolean = false,
         val audioAssetPath: String? = null,
-        // Char offsets of [arabicWord]'s occurrence within [exampleVerseArabic] (original string,
-        // diacritics included), null when the ingestion pipeline's diacritic-normalized matcher
-        // couldn't confidently locate it - never guessed. See tools/ingestion/10_add_highlight_spans.py.
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
-        // Best-effort literal substrings of the translation fields corresponding to [meaning] -
-        // null (per-language, via LocalizedText.getOrNull) when no confident match was found
-        // (translations are idiomatic full sentences, not word-aligned, so this is deliberately
-        // partial rather than fabricated).
         val meaningHighlight: LocalizedText = emptyMap()
     ) : ExerciseContent
 

@@ -44,4 +44,11 @@ class Converters {
 
     @TypeConverter
     fun toLessonKind(value: String): LessonKind = LessonKind.valueOf(value)
+
+    @TypeConverter
+    fun fromLemmaCategory(value: com.quranicwords.app.core.domain.model.LemmaCategory): String = value.name
+
+    @TypeConverter
+    fun toLemmaCategory(value: String): com.quranicwords.app.core.domain.model.LemmaCategory =
+        com.quranicwords.app.core.domain.model.LemmaCategory.valueOf(value)
 }

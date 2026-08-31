@@ -31,17 +31,20 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.MyLocation
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Style
+import com.quranicwords.app.core.domain.model.LemmaCategory
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -338,7 +341,7 @@ fun HomeScreen(
                                 status = chapterStatus,
                                 progress = progressFraction(chapterLessonIds, uiState.progressByLessonId),
                                 ownCoveragePercent = chapter.quranOccurrencePercent,
-                                cumulativeCoveragePercent = uiState.cumulativeCoveragePercentByChapter[chapter.id] ?: 0.0,
+                                userCoveragePercent = uiState.userCoveragePercentByChapter[chapter.id] ?: 0.0,
                                 isCurrent = chapter.id == uiState.initiallyExpandedChapterId,
                                 expanded = chapterExpanded,
                                 onToggle = {
@@ -379,6 +382,7 @@ fun HomeScreen(
                                             index = index,
                                             title = lesson.title.get(language),
                                             kind = lesson.kind,
+                                            category = lesson.category,
                                             progress = uiState.progressByLessonId[lesson.id],
                                             isCurrent = lesson.id == uiState.currentLessonId,
                                             onClick = { onOpenLesson(lesson.id) },
@@ -397,6 +401,7 @@ fun HomeScreen(
                                         index = index,
                                         title = lesson.title.get(language),
                                         kind = lesson.kind,
+                                        category = lesson.category,
                                         progress = uiState.progressByLessonId[lesson.id],
                                         isCurrent = lesson.id == uiState.currentLessonId,
                                         onClick = { onOpenLesson(lesson.id) },
@@ -595,18 +600,15 @@ private fun formatCompletedDate(epochMillis: Long): String {
  * are here" at a glance among six-plus collapsed chapter rows. [progress] (0f-1f, completed/total
  * lessons) draws a thin pill bar along the card's bottom edge - skipped while still LOCKED, since
  * "0% of a chapter you can't start yet" isn't a useful signal.
- *
- * [ownCoveragePercent]/[cumulativeCoveragePercent] show "this chapter's share of the Qur'an ·
- * running total through this chapter" - not word count, since every chapter has the same word
- * count (460) in this curriculum, so repeating that constant on all eight cards would carry no
- * information (see [HomeUiState.cumulativeCoveragePercentByChapter]'s doc comment). */
+ * [ownCoveragePercent]/[userCoveragePercent] show "this chapter's share of the Qur'an ·
+ * user's real covered occurrence percent in this chapter" (see [HomeUiState.userCoveragePercentByChapter]). */
 @Composable
 private fun ChapterSummaryNode(
     title: String,
     status: LessonStatus,
     progress: Float,
     ownCoveragePercent: Double,
-    cumulativeCoveragePercent: Double,
+    userCoveragePercent: Double,
     isCurrent: Boolean,
     expanded: Boolean,
     onToggle: () -> Unit,
@@ -643,7 +645,7 @@ private fun ChapterSummaryNode(
                     stringResource(
                         R.string.home_chapter_coverage_stat,
                         formatPercent(ownCoveragePercent),
-                        formatPercent(cumulativeCoveragePercent)
+                        formatPercent(userCoveragePercent)
                     ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -756,6 +758,7 @@ private fun LessonPathNode(
     index: Int,
     title: String,
     kind: LessonKind,
+    category: LemmaCategory = LemmaCategory.NOUN,
     progress: UserProgressEntity?,
     isCurrent: Boolean = false,
     onClick: () -> Unit,
@@ -785,6 +788,7 @@ private fun LessonPathNode(
         LessonNode(
             title = title,
             kind = kind,
+            category = category,
             progress = progress,
             isCurrent = isCurrent,
             onClick = onClick,
@@ -797,6 +801,7 @@ private fun LessonPathNode(
 private fun LessonNode(
     title: String,
     kind: LessonKind,
+    category: LemmaCategory = LemmaCategory.NOUN,
     progress: UserProgressEntity?,
     isCurrent: Boolean = false,
     onClick: () -> Unit,
@@ -818,20 +823,25 @@ private fun LessonNode(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
+        val isVerb = category == LemmaCategory.VERB
         val containerColor = if (kindVisual.isQuizOrExam) {
             kindVisual.containerColor
+        } else if (isVerb && isUnlocked) {
+            MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
         } else {
             statusContainerColor(status)
         }
         val tint = if (kindVisual.isQuizOrExam) {
             kindVisual.accentColor
+        } else if (isVerb && isUnlocked) {
+            MaterialTheme.colorScheme.tertiary
         } else {
             defaultTint
         }
 
         val icon = when {
             status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
-            isCurrent && status == LessonStatus.UNLOCKED && !kindVisual.isQuizOrExam -> Icons.Filled.MyLocation
+            isCurrent && status == LessonStatus.UNLOCKED && !kindVisual.isQuizOrExam -> Icons.Filled.PlayArrow
             status == LessonStatus.COMPLETED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.CheckCircle
             else -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
         }
@@ -839,6 +849,7 @@ private fun LessonNode(
         val badgeAccentBorder = when {
             isCurrent -> MaterialTheme.colorScheme.tertiary
             kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.45f)
+            isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.6f)
             else -> null
         }
 
@@ -865,17 +876,19 @@ private fun LessonNode(
             onClick = if (isUnlocked) onClick else null,
             tint = when {
                 kindVisual.isQuizOrExam -> kindVisual.containerColor
+                isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.80f)
                 isUnlocked -> MaterialTheme.colorScheme.primaryContainer
                 else -> MaterialTheme.colorScheme.surfaceVariant
             },
             accentBorderColor = when {
                 isCurrent -> MaterialTheme.colorScheme.tertiary
                 kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.4f)
+                isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)
                 else -> null
             }
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
-                // Quiz / Exam Distinctive Tag
+                // Quiz / Exam or Noun / Verb Distinctive Tag
                 if (kindVisual.isQuizOrExam) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -898,6 +911,36 @@ private fun LessonNode(
                                 fontWeight = FontWeight.Bold
                             ),
                             color = kindVisual.accentColor
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                } else {
+                    // Explicit Noun vs Verb Badge
+                    val categoryIcon = if (isVerb) Icons.Filled.FlashOn else Icons.Filled.AutoStories
+                    val categoryLabelRes = if (isVerb) R.string.lesson_category_verb else R.string.lesson_category_noun
+                    val categoryAccent = if (isVerb) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(categoryAccent.copy(alpha = 0.15f))
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Icon(
+                            categoryIcon,
+                            contentDescription = null,
+                            tint = categoryAccent,
+                            modifier = Modifier.size(11.dp)
+                        )
+                        Text(
+                            stringResource(categoryLabelRes),
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = categoryAccent
                         )
                     }
                     Spacer(modifier = Modifier.height(4.dp))

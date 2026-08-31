@@ -43,25 +43,28 @@
     <string name="font_pending_note">Le fichier de police sous licence de ce style n\'est pas encore inclus ; le style par défaut s\'affiche pour l\'instant.</string>
 
     <!-- Daily goal select -->
-    <string name="onboarding_daily_goal_title">Définissez votre objectif quotidien</string>
-    <string name="onboarding_daily_goal_subtitle">Choisissez combien de minutes vous voulez pratiquer chaque jour. Vous pourrez le modifier plus tard dans les Paramètres.</string>
-    <string name="daily_goal_casual">Casual</string>
-    <string name="daily_goal_steady">Steady</string>
-    <string name="daily_goal_devoted">Devoted</string>
+    <string name="onboarding_daily_goal_title">Quel est votre objectif quotidien ?</string>
+    <string name="onboarding_daily_goal_subtitle">Choisissez combien de minutes vous voulez consacrer à l\'apprentissage des mots coraniques chaque jour. Vous pourrez le modifier plus tard dans les Paramètres.</string>
+    <string name="daily_goal_casual">Tranquille (10 minutes)</string>
+    <string name="daily_goal_casual_description">Une courte session de 10 minutes par jour pour bâtir une habitude régulière.</string>
+    <string name="daily_goal_steady">Régulier (20 minutes)</string>
+    <string name="daily_goal_steady_description">Une pratique équilibrée de 20 minutes par jour pour progresser sereinement.</string>
+    <string name="daily_goal_devoted">Dévoué (30 minutes)</string>
+    <string name="daily_goal_devoted_description">Une session intensive de 30 minutes par jour pour enrichir rapidement votre vocabulaire.</string>
     <string name="daily_goal_minutes_suffix">%d minutes par jour</string>
     <string name="home_daily_challenge_completed">Défi quotidien terminé</string>
     <string name="test_only_start_quiz_title">Démarrer un quiz</string>
     <string name="test_only_start_quiz_subtitle">Questions aléatoires sur des mots que vous connaissez déjà</string>
 
     <!-- Learning style select -->
-    <string name="onboarding_learning_style_title">Choisissez votre style d\'apprentissage</string>
-    <string name="onboarding_learning_style_subtitle">Cela détermine combien de fois chaque mot se répète avant de passer à la suite. Vous pourrez le modifier plus tard dans les Paramètres.</string>
-    <string name="learning_style_sharp">Light Touch</string>
-    <string name="learning_style_sharp_description">Voyez chaque mot une fois, puis avancez</string>
-    <string name="learning_style_slow">Solid Base</string>
-    <string name="learning_style_slow_description">Chaque mot se répète 3 fois pour une base stable</string>
-    <string name="learning_style_cozy">Locked In</string>
-    <string name="learning_style_cozy_description">Chaque mot se répète 5 fois pour vraiment s\'ancrer</string>
+    <string name="onboarding_learning_style_title">Comment voulez-vous pratiquer chaque mot ?</string>
+    <string name="onboarding_learning_style_subtitle">Choisissez combien de fois chaque mot doit se répéter pendant une leçon pour faciliter sa mémorisation.</string>
+    <string name="learning_style_sharp">Pratiquer 1 fois (Rapide)</string>
+    <string name="learning_style_sharp_description">Je souhaite pratiquer chaque mot 1 fois et avancer rapidement.</string>
+    <string name="learning_style_slow">Pratiquer 3 fois (Recommandé)</string>
+    <string name="learning_style_slow_description">Je souhaite répéter chaque mot 3 fois pour une mémorisation solide et durable.</string>
+    <string name="learning_style_cozy">Pratiquer 5 fois (Mémorisation profonde)</string>
+    <string name="learning_style_cozy_description">Je souhaite répéter chaque mot 5 fois pour le maîtriser parfaitement.</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapitre</string>
@@ -275,4 +278,31 @@
     <string name="lesson_kind_section_flashback">Révision de section</string>
     <string name="lesson_kind_chapter_exam">Examen de chapitre</string>
     <string name="lesson_kind_chapter_flashback">Grande révision</string>
+
+    <string name="widget_combined_name">Widget combiné principal</string>
+    <string name="widget_combined_description">Combine votre série d\'apprentissage et vos statistiques avec des mots coraniques et des versets d\'exemple.</string>
+    <string name="widget_stats_name">Statistiques &amp; Série</string>
+    <string name="widget_stats_description">Consultez votre série d\'apprentissage coranique, vos mots maîtrisés, votre objectif quotidien et vos révisions.</string>
+    <string name="widget_word_name">Mot du moment</string>
+    <string name="widget_word_description">Fait défiler les mots appris toutes les 3 minutes avec significations, occurrences et versets d\'exemple.</string>
+    <string name="widget_empty_words_title">Commencez votre voyage</string>
+    <string name="widget_empty_words_desc">Terminez votre première leçon dans Quranic Words pour voir vos mots appris ici !</string>
+    <string name="widget_streak_days">Série de %d jours</string>
+    <string name="widget_streak_zero">Série de 0 jour</string>
+    <string name="widget_mastered_badge">Maîtrisé</string>
+    <string name="widget_mistake_badge">À réviser</string>
+    <string name="widget_words_learned_label">Mots appris</string>
+    <string name="widget_daily_goal_label">Objectif quotidien</string>
+    <string name="widget_accuracy_label">Précision</string>
+    <string name="widget_review_label">À réviser</string>
+    <string name="widget_occurrences_format">%d occurrences</string>
+    <string name="widget_rank_format">Rang #%d</string>
+    <string name="widget_quran_pct_format">%.2f%% du Coran</string>
+
+    <string name="lesson_category_noun">Leçon de Nom</string>
+    <string name="lesson_category_verb">Leçon de Verbe</string>
+    <string name="word_category_noun">Nom</string>
+    <string name="word_category_verb">Verbe</string>
+    <string name="polysemy_tab_format">Sens [%d]</string>
+    <string name="polysemy_meanings_title">Significations Contextuelles (Woujoûh al-Qor\'an)</string>
 </resources>
