@@ -68,13 +68,13 @@ fun DailyGoalSelectScreen(
 
 @Composable
 private fun DailyGoalOptionCard(level: DailyGoalLevel, onClick: () -> Unit) {
-    val nameRes = when (level) {
-        DailyGoalLevel.CASUAL -> R.string.daily_goal_casual
-        DailyGoalLevel.STEADY -> R.string.daily_goal_steady
-        DailyGoalLevel.DEVOTED -> R.string.daily_goal_devoted
+    val (nameRes, descriptionRes) = when (level) {
+        DailyGoalLevel.CASUAL -> R.string.daily_goal_casual to R.string.daily_goal_casual_description
+        DailyGoalLevel.STEADY -> R.string.daily_goal_steady to R.string.daily_goal_steady_description
+        DailyGoalLevel.DEVOTED -> R.string.daily_goal_devoted to R.string.daily_goal_devoted_description
     }
     QwSelectableCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -84,7 +84,7 @@ private fun DailyGoalOptionCard(level: DailyGoalLevel, onClick: () -> Unit) {
                 IconLabelChip(icon = Icons.Filled.Schedule, label = "${level.minutes} min")
             }
             Text(
-                stringResource(R.string.daily_goal_minutes_suffix, level.minutes),
+                stringResource(descriptionRes),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

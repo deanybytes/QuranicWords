@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.wordbrowse
+package com.quranicwords.app.feature.wordbrowse
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -187,35 +187,43 @@ private fun WordCardBack(
                     )
                 }
             }
-            Text(
-                text = word.exampleVerseArabic,
-                fontFamily = LocalQuranFontFamily.current,
-                fontSize = 20.sp,
-                lineHeight = 34.sp,
-                textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth().background(
-                    MaterialTheme.colorScheme.surface,
-                    RoundedCornerShape(12.dp)
-                ).padding(12.dp)
-            )
-            Text(
-                text = verseTranslation,
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontFamily = QuranCitationFontFamily,
-                    fontStyle = FontStyle.Italic
-                ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(R.string.lesson_word_example_verse_label, word.exampleVerseReference),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = QuranCitationFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 0.5.sp
-                ),
-                color = MaterialTheme.colorScheme.primary
-            )
+            val arabicVerse = word.exampleVerseArabic
+            val verseRef = word.exampleVerseReference
+            if (!arabicVerse.isNullOrBlank()) {
+                Text(
+                    text = arabicVerse,
+                    fontFamily = LocalQuranFontFamily.current,
+                    fontSize = 20.sp,
+                    lineHeight = 34.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth().background(
+                        MaterialTheme.colorScheme.surface,
+                        RoundedCornerShape(12.dp)
+                    ).padding(12.dp)
+                )
+            }
+            if (verseTranslation.isNotBlank()) {
+                Text(
+                    text = verseTranslation,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontFamily = QuranCitationFontFamily,
+                        fontStyle = FontStyle.Italic
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+            }
+            if (!verseRef.isNullOrBlank()) {
+                Text(
+                    text = stringResource(R.string.lesson_word_example_verse_label, verseRef),
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontFamily = QuranCitationFontFamily,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.5.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }

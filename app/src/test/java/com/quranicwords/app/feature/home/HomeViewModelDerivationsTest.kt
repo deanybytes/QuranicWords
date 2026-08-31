@@ -205,4 +205,62 @@ class HomeViewModelDerivationsTest {
     fun `isCurriculumComplete is false for an empty curriculum tree, not vacuously true`() {
         assertEquals(false, isCurriculumComplete(emptyList(), emptyMap()))
     }
+
+    // --- userCoveragePercentByChapter & calculateTotalUserCoveragePercent ---
+
+    @Test
+    fun `userCoveragePercentByChapter is zero when no lessons are completed`() {
+        val customChapters = listOf(
+            ChapterWithSections(
+                chapter = ChapterEntity("c1", emptyMap(), emptyMap(), 1, 0, 0, 80.0),
+                sections = listOf(
+                    SectionWithLessons(
+                        section = SectionEntity("s1", "c1", emptyMap(), 1, 0, 0, 80.0),
+                        lessons = listOf(
+                            LessonEntity("l1", "c1", "s1", emptyMap(), 1, LessonKind.REGULAR),
+                            LessonEntity("l2", "c1", "s1", emptyMap(), 2, LessonKind.REGULAR)
+                        )
+                    )
+                )
+            )
+        )
+        val coverage = userCoveragePercentByChapter(customChapters, emptyMap())
+        assertEquals(0.0, coverage["c1"] ?: -1.0, 0.001)
+        assertEquals(0.0, calculateTotalUserCoveragePercent(coverage), 0.001)
+    }
+
+    @Test
+    fun `userCoveragePercentByChapter calculates proportional real coverage based on completed lessons`() {
+        val customChapters = listOf(
+            ChapterWithSections(
+                chapter = ChapterEntity("c1", emptyMap(), emptyMap(), 1, 0, 0, 80.0),
+                sections = listOf(
+                    SectionWithLessons(
+                        section = SectionEntity("s1", "c1", emptyMap(), 1, 0, 0, 50.0),
+                        lessons = listOf(
+                            LessonEntity("l1", "c1", "s1", emptyMap(), 1, LessonKind.REGULAR),
+                            LessonEntity("l2", "c1", "s1", emptyMap(), 2, LessonKind.REGULAR)
+                        )
+                    ),
+                    SectionWithLessons(
+                        section = SectionEntity("s2", "c1", emptyMap(), 2, 0, 0, 30.0),
+                        lessons = listOf(
+                            LessonEntity("l3", "c1", "s2", emptyMap(), 1, LessonKind.REGULAR)
+                        )
+                    )
+                )
+            )
+        )
+        // 1 of 2 lessons completed in s1 (25.0%), s2 not completed (0%) -> c1 coverage = 25.0%
+        val p1 = progress("l1" to LessonStatus.COMPLETED)
+        val coverage1 = userCoveragePercentByChapter(customChapters, p1)
+        assertEquals(25.0, coverage1["c1"] ?: -1.0, 0.001)
+        assertEquals(25.0, calculateTotalUserCoveragePercent(coverage1), 0.001)
+
+        // all lessons completed in s1 (50.0%) and s2 (30.0%) -> c1 coverage = 80.0%
+        val p2 = progress("l1" to LessonStatus.COMPLETED, "l2" to LessonStatus.COMPLETED, "l3" to LessonStatus.COMPLETED)
+        val coverage2 = userCoveragePercentByChapter(customChapters, p2)
+        assertEquals(80.0, coverage2["c1"] ?: -1.0, 0.001)
+        assertEquals(80.0, calculateTotalUserCoveragePercent(coverage2), 0.001)
+    }
 }

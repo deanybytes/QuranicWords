@@ -37,18 +37,18 @@ class TestOnlyHomeViewModelTest {
     }
 
     @Test
-    fun `frequency mode clamps progress at total 3680 corpus limit`() {
+    fun `frequency mode clamps progress at total 4538 corpus limit`() {
         val offset1 = 50
-        val offset2 = 4000
+        val offset2 = 5000
 
-        assertEquals(50, offset1.coerceAtMost(3680))
-        assertEquals(3680, offset2.coerceAtMost(3680))
+        assertEquals(50, offset1.coerceAtMost(4538))
+        assertEquals(4538, offset2.coerceAtMost(4538))
     }
 
     @Test
     fun `random covered tracking counts distinct covered words`() {
         val coveredSet = setOf("w1", "w2", "w3", "w4", "w5")
-        assertEquals(5, coveredSet.size.coerceAtMost(3680))
+        assertEquals(5, coveredSet.size.coerceAtMost(4538))
     }
 
     @Test

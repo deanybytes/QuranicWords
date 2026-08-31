@@ -53,6 +53,6 @@ class ContentSeeder @Inject constructor(
     companion object {
         // Fresh fork, own content-version history - bump whenever bundled content JSON changes
         // shape in a way that needs a full reseed (see the wipe-and-reseed comment above).
-        const val CONTENT_VERSION = 10
+        const val CONTENT_VERSION = 11
     }
 }

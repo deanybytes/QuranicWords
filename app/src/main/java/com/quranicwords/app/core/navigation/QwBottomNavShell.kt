@@ -9,7 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Insights
-import androidx.compose.material.icons.filled.MyLocation
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -136,7 +136,7 @@ fun QwBottomNavShell(
                         onClick = { onOpenLesson(currentLessonId!!) },
                         icon = {
                             Icon(
-                                Icons.Filled.MyLocation,
+                                Icons.Filled.PlayArrow,
                                 contentDescription = stringResource(R.string.home_continue_learning)
                             )
                         }

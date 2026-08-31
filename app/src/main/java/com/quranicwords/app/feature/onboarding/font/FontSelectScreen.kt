@@ -28,15 +28,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -154,17 +157,20 @@ private fun FontOptionCard(style: QuranFontStyle, onClick: () -> Unit) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(14.dp))
                     .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f))
-                    .padding(horizontal = 16.dp, vertical = 14.dp)
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                contentAlignment = Alignment.CenterEnd
             ) {
-                Text(
-                    text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   "),
-                    fontFamily = style.toFontFamily(),
-                    fontSize = 22.sp,
-                    lineHeight = 36.sp,
-                    textAlign = TextAlign.End,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                    Text(
+                        text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   "),
+                        fontFamily = style.toFontFamily(),
+                        fontSize = 22.sp,
+                        lineHeight = 42.sp,
+                        textAlign = TextAlign.Right,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
 
             // Key Orthographical Features List

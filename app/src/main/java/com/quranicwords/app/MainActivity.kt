@@ -23,6 +23,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import kotlin.math.min
 import kotlin.math.sin
+import android.content.res.Configuration
+import java.util.Locale
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -34,7 +36,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.core.os.LocaleListCompat
@@ -42,6 +47,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.navigation.QwNavHost
+import com.quranicwords.app.core.ui.components.LocalAppLanguage
 import com.quranicwords.app.core.ui.motion.LocalReduceGlassPreference
 import com.quranicwords.app.core.ui.motion.LocalReduceMotionPreference
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
@@ -171,6 +177,24 @@ class MainActivity : AppCompatActivity() {
             // English regardless of device locale, per the product requirement. This never writes
             // to DataStore itself - see MainViewModel.init's guard for why persisting it here would
             // wrongly short-circuit the LanguageSelect step.
+            val selectedLanguage = language ?: Language.ENGLISH
+            val currentContext = LocalContext.current
+
+            val targetLocale = remember(selectedLanguage) {
+                Locale.forLanguageTag(selectedLanguage.tag)
+            }
+
+            val configuration = remember(targetLocale) {
+                Configuration(currentContext.resources.configuration).apply {
+                    setLocale(targetLocale)
+                    setLayoutDirection(targetLocale)
+                }
+            }
+
+            val localizedContext = remember(currentContext, configuration) {
+                currentContext.createConfigurationContext(configuration)
+            }
+
             LaunchedEffect(language) {
                 val targetTag = language?.tag ?: Language.ENGLISH.tag
                 val targetLocales = LocaleListCompat.forLanguageTags(targetTag)
@@ -185,6 +209,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             CompositionLocalProvider(
+                LocalContext provides localizedContext,
+                LocalConfiguration provides configuration,
+                LocalAppLanguage provides selectedLanguage,
                 LocalReduceMotionPreference provides reduceMotion,
                 LocalReduceGlassPreference provides reduceGlassEffects,
                 LocalDensity provides scaledDensity,

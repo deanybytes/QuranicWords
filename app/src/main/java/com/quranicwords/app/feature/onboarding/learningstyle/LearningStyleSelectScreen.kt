@@ -2,15 +2,19 @@ package com.quranicwords.app.feature.onboarding.learningstyle
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -19,11 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.LearningStyle
+import com.quranicwords.app.core.ui.components.IconLabelChip
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.QwSelectableCard
 
 /**
- * Onboarding step between the daily-goal step and Home - how many times each word (and each
+ * Onboarding step between the font step and Daily Goal - how many times each word (and each
  * Matching "exam" cycle) repeats within a lesson. See [LearningStyle] and
  * [com.quranicwords.app.core.domain.LessonContentRepeater] for how the choice is actually
  * applied at runtime. Changeable later in Settings, same as language/font/daily goal.
@@ -70,7 +75,14 @@ private fun LearningStyleOptionCard(style: LearningStyle, onClick: () -> Unit) {
     }
     QwSelectableCard(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
+                IconLabelChip(icon = Icons.Filled.Repeat, label = "${style.repeatCount}x")
+            }
             Text(
                 stringResource(descriptionRes),
                 style = MaterialTheme.typography.bodyMedium,

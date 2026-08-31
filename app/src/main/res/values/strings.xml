@@ -43,25 +43,28 @@
     <string name="font_pending_note">This style\'s licensed font file isn\'t bundled yet, showing the default script for now.</string>
 
     <!-- Daily goal select -->
-    <string name="onboarding_daily_goal_title">Set your daily goal</string>
-    <string name="onboarding_daily_goal_subtitle">Pick how many minutes you want to practice each day. You can change this later in Settings.</string>
-    <string name="daily_goal_casual">Casual</string>
-    <string name="daily_goal_steady">Steady</string>
-    <string name="daily_goal_devoted">Devoted</string>
+    <string name="onboarding_daily_goal_title">What is your daily target?</string>
+    <string name="onboarding_daily_goal_subtitle">Choose how much time you want to spend learning Quranic words each day. You can change this later in Settings.</string>
+    <string name="daily_goal_casual">Casual (10 minutes)</string>
+    <string name="daily_goal_casual_description">A quick 10-minute daily session to build a consistent habit.</string>
+    <string name="daily_goal_steady">Steady (20 minutes)</string>
+    <string name="daily_goal_steady_description">A balanced 20-minute daily practice for steady progress.</string>
+    <string name="daily_goal_devoted">Devoted (30 minutes)</string>
+    <string name="daily_goal_devoted_description">An intensive 30-minute daily session for fast vocabulary mastery.</string>
     <string name="daily_goal_minutes_suffix">%d minutes a day</string>
     <string name="home_daily_challenge_completed">Daily challenge completed</string>
     <string name="test_only_start_quiz_title">Start a Quiz</string>
     <string name="test_only_start_quiz_subtitle">Random questions from words you already know</string>
 
     <!-- Learning style select -->
-    <string name="onboarding_learning_style_title">Choose your learning style</string>
-    <string name="onboarding_learning_style_subtitle">This decides how many times each word repeats before moving on. You can change this later in Settings.</string>
-    <string name="learning_style_sharp">Light Touch</string>
-    <string name="learning_style_sharp_description">See each word once, then move on</string>
-    <string name="learning_style_slow">Solid Base</string>
-    <string name="learning_style_slow_description">Each word repeats 3 times for steady footing</string>
-    <string name="learning_style_cozy">Locked In</string>
-    <string name="learning_style_cozy_description">Each word repeats 5 times to really stick</string>
+    <string name="onboarding_learning_style_title">How do you want to practice each word?</string>
+    <string name="onboarding_learning_style_subtitle">Choose how many times each word and question should repeat during a lesson to help you memorize. You can change this later in Settings.</string>
+    <string name="learning_style_sharp">Practice Once (Quick)</string>
+    <string name="learning_style_sharp_description">I want to practice each word 1 time and move forward quickly.</string>
+    <string name="learning_style_slow">Practice 3 Times (Recommended)</string>
+    <string name="learning_style_slow_description">I want to repeat each word 3 times for solid memory and steady learning.</string>
+    <string name="learning_style_cozy">Practice 5 Times (Deep Memorization)</string>
+    <string name="learning_style_cozy_description">I want to repeat each word 5 times to thoroughly memorize and master.</string>
 
     <!-- Chapter/section intro -->
     <string name="intro_chapter_label">Chapter</string>
@@ -291,4 +294,11 @@
     <string name="widget_occurrences_format">%d occurrences</string>
     <string name="widget_quran_pct_format">%.2f%% of Qur\'an</string>
     <string name="widget_rank_format">Rank #%d</string>
+
+    <string name="lesson_category_noun">Noun Lesson</string>
+    <string name="lesson_category_verb">Verb Lesson</string>
+    <string name="word_category_noun">Noun</string>
+    <string name="word_category_verb">Verb</string>
+    <string name="polysemy_tab_format">Meaning [%d]</string>
+    <string name="polysemy_meanings_title">Contextual Meanings (Wujūh al-Qur\'an)</string>
 </resources>
