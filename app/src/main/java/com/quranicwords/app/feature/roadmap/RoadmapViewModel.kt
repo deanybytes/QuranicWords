@@ -51,7 +51,7 @@ class RoadmapViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            val chapters = loadCurriculumTree()
+            val chapters = contentRepository.getFullCurriculumTree()
             progressRepository.observeProgress(userId).collect { progress ->
                 _uiState.update {
                     it.copy(
@@ -63,15 +63,5 @@ class RoadmapViewModel @Inject constructor(
             }
         }
     }
-
-    private suspend fun loadCurriculumTree(): List<ChapterWithSections> {
-        val chapters = contentRepository.observeChapters().first()
-        return chapters.map { chapter ->
-            val sections = contentRepository.observeSections(chapter.id).first()
-            val sectionsWithLessons = sections.map { section ->
-                SectionWithLessons(section, contentRepository.observeLessons(section.id).first())
-            }
-            ChapterWithSections(chapter, sectionsWithLessons, contentRepository.getChapterLevelLessons(chapter.id))
-        }
-    }
 }
+

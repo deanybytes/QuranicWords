@@ -22,23 +22,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import com.quranicwords.app.core.domain.model.ChapterWithSections as DomainChapterWithSections
+import com.quranicwords.app.core.domain.model.SectionWithLessons as DomainSectionWithLessons
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
-data class SectionWithLessons(val section: SectionEntity, val lessons: List<LessonEntity>)
-data class ChapterWithSections(
-    val chapter: ChapterEntity,
-    val sections: List<SectionWithLessons>,
-    /** CHAPTER_EXAM (+ CHAPTER_FLASHBACK where one exists) - sectionId == null, so these can
-     * never come back from a per-section lessons query. Rendered after this chapter's last
-     * section. See ContentRepository.getChapterLevelLessons. */
-    val chapterLevelLessons: List<LessonEntity> = emptyList()
-)
+typealias SectionWithLessons = DomainSectionWithLessons
+typealias ChapterWithSections = DomainChapterWithSections
 
 data class HomeUiState(
+
+
     /** The whole curriculum tree, fetched once per Home session - static content that never
      * changes mid-session (seeding always completes before Home is first shown, see
      * SplashViewModel), so it's a one-shot snapshot rather than an observed Flow (unlike
@@ -346,16 +343,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadCurriculumTree(): List<ChapterWithSections> {
-        val chapters = contentRepository.observeChapters().first()
-        return chapters.map { chapter ->
-            val sections = contentRepository.observeSections(chapter.id).first()
-            val sectionsWithLessons = sections.map { section ->
-                SectionWithLessons(section, contentRepository.observeLessons(section.id).first())
-            }
-            ChapterWithSections(chapter, sectionsWithLessons, contentRepository.getChapterLevelLessons(chapter.id))
-        }
-    }
+    private suspend fun loadCurriculumTree(): List<ChapterWithSections> =
+        contentRepository.getFullCurriculumTree()
+
 
     /** [UserStatsEntity.currentStreak] is only ever recomputed by StreakCalculator when a
      * lesson completes, so a stored streak from days ago would otherwise still show as "alive"

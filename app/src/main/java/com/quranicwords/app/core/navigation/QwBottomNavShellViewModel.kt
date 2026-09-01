@@ -36,15 +36,11 @@ class QwBottomNavShellViewModel @Inject constructor(
     val currentLessonId: StateFlow<String?> = flow {
         val userId = userIdProvider.get()
         progressRepository.ensureCurriculumStarted(userId)
-        val chapters = contentRepository.observeChapters().first().map { chapter ->
-            val sections = contentRepository.observeSections(chapter.id).first().map { section ->
-                SectionWithLessons(section, contentRepository.observeLessons(section.id).first())
-            }
-            ChapterWithSections(chapter, sections, contentRepository.getChapterLevelLessons(chapter.id))
-        }
+        val chapters = contentRepository.getFullCurriculumTree()
         progressRepository.observeProgress(userId).collect { progressList ->
             val progressByLessonId = progressList.associateBy { it.lessonId }
             emit(findCurrentLessonId(chapters, progressByLessonId))
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
 }

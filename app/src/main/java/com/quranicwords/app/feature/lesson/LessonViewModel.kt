@@ -150,12 +150,14 @@ class LessonViewModel @Inject constructor(
             val candidatesDeferred = async {
                 if (itemKind == ItemKind.WORD) contentRepository.getWordCandidates() else emptyList()
             }
-            val wordIntrosDeferred = async { contentRepository.getAllWordIntros() }
             val exercises = exercisesDeferred.await()
+            val practicedIds = exercises.mapNotNull { it.practicedItemId }
+            val wordIntrosDeferred = async { contentRepository.getWordIntrosForItems(practicedIds) }
             val missedItemIds = missedItemIdsDeferred.await()
             val candidates = candidatesDeferred.await()
             val wordIntros = wordIntrosDeferred.await()
             val learningStyle = preferences.learningStyleFlow.first()
+
 
             val contents = withContext(Dispatchers.Default) {
                 // Built once per lesson load and reused for every options-bearing exercise below,
