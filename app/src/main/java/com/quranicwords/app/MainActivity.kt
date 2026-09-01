@@ -79,76 +79,83 @@ class MainActivity : AppCompatActivity() {
             Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f
         }.getOrDefault(false)
         splashScreen.setOnExitAnimationListener { splashScreenView ->
-            if (systemReducedMotion) {
-                splashScreenView.remove()
-                return@setOnExitAnimationListener
-            }
-            val icon = splashScreenView.iconView
-            val cameraDistance = 12000f * resources.displayMetrics.density
-            icon.cameraDistance = cameraDistance
-
-            // A rim glow (ring-shaped radial gradient - transparent at the center, so it never
-            // washes over the icon's own face) plus a screen-blended glossy sheen sweeping across
-            // it, clipped to the icon's own circle - the coin/glass highlight that a plain
-            // ImageView (all windowSplashScreenAnimatedIcon can be here) has no way to render on
-            // its own. Sized and positioned to exactly match iconView's laid-out bounds, and
-            // added as its sibling so it inherits the same parent-alpha fade-out below.
-            val glowSheenOverlay = GlowSheenOverlayView(this).apply {
-                layoutParams = ViewGroup.LayoutParams(icon.width, icon.height)
-                x = icon.x
-                y = icon.y
-                this.cameraDistance = cameraDistance
-            }
-            (splashScreenView.view as? ViewGroup)?.addView(glowSheenOverlay)
-
-            val flip = ObjectAnimator.ofFloat(icon, View.ROTATION_Y, 0f, 720f).apply {
-                duration = 900
-                interpolator = AccelerateDecelerateInterpolator()
-            }
-            val overlayFlip = ObjectAnimator.ofFloat(glowSheenOverlay, View.ROTATION_Y, 0f, 720f).apply {
-                duration = 900
-                interpolator = AccelerateDecelerateInterpolator()
-            }
-            val pop = ObjectAnimator.ofPropertyValuesHolder(
-                icon,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.18f, 1f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.18f, 1f)
-            ).apply {
-                duration = 900
-                interpolator = OvershootInterpolator()
-            }
-            val overlayPop = ObjectAnimator.ofPropertyValuesHolder(
-                glowSheenOverlay,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.18f, 1f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.18f, 1f)
-            ).apply {
-                duration = 900
-                interpolator = OvershootInterpolator()
-            }
-            // Glow pulses up then back down across the flip (peaking mid-turn); the sheen sweeps
-            // once across the badge in the same window, so both read as tied to the coin turning
-            // rather than looping independently of it.
-            val glowSheenProgress = ValueAnimator.ofFloat(0f, 1f).apply {
-                duration = 900
-                addUpdateListener {
-                    val t = it.animatedValue as Float
-                    glowSheenOverlay.glowAlpha = sin(t * Math.PI).toFloat().coerceIn(0f, 1f)
-                    glowSheenOverlay.sheenProgress = t
-                    glowSheenOverlay.invalidate()
+            try {
+                if (systemReducedMotion) {
+                    splashScreenView.remove()
+                    return@setOnExitAnimationListener
                 }
-            }
-            val fadeOut = ObjectAnimator.ofFloat(splashScreenView.view, View.ALPHA, 1f, 0f).apply {
-                duration = 300
-            }
-            AnimatorSet().apply {
-                playTogether(flip, overlayFlip, pop, overlayPop, glowSheenProgress)
-                play(fadeOut).after(flip)
-                addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        splashScreenView.remove()
+                val icon = splashScreenView.iconView
+                if (icon.width <= 0 || icon.height <= 0) {
+                    val fadeOut = ObjectAnimator.ofFloat(splashScreenView.view, View.ALPHA, 1f, 0f).apply {
+                        duration = 250
                     }
-                })
-                start()
+                    fadeOut.addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            splashScreenView.remove()
+                        }
+                    })
+                    fadeOut.start()
+                    return@setOnExitAnimationListener
+                }
+                val cameraDistance = 12000f * resources.displayMetrics.density
+                icon.cameraDistance = cameraDistance
+
+                val glowSheenOverlay = GlowSheenOverlayView(this).apply {
+                    layoutParams = ViewGroup.LayoutParams(icon.width, icon.height)
+                    x = icon.x
+                    y = icon.y
+                    this.cameraDistance = cameraDistance
+                }
+                (splashScreenView.view as? ViewGroup)?.addView(glowSheenOverlay)
+
+                val flip = ObjectAnimator.ofFloat(icon, View.ROTATION_Y, 0f, 720f).apply {
+                    duration = 900
+                    interpolator = AccelerateDecelerateInterpolator()
+                }
+                val overlayFlip = ObjectAnimator.ofFloat(glowSheenOverlay, View.ROTATION_Y, 0f, 720f).apply {
+                    duration = 900
+                    interpolator = AccelerateDecelerateInterpolator()
+                }
+                val pop = ObjectAnimator.ofPropertyValuesHolder(
+                    icon,
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.18f, 1f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.18f, 1f)
+                ).apply {
+                    duration = 900
+                    interpolator = OvershootInterpolator()
+                }
+                val overlayPop = ObjectAnimator.ofPropertyValuesHolder(
+                    glowSheenOverlay,
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.18f, 1f),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.18f, 1f)
+                ).apply {
+                    duration = 900
+                    interpolator = OvershootInterpolator()
+                }
+                val glowSheenProgress = ValueAnimator.ofFloat(0f, 1f).apply {
+                    duration = 900
+                    addUpdateListener {
+                        val t = it.animatedValue as Float
+                        glowSheenOverlay.glowAlpha = sin(t * Math.PI).toFloat().coerceIn(0f, 1f)
+                        glowSheenOverlay.sheenProgress = t
+                        glowSheenOverlay.invalidate()
+                    }
+                }
+                val fadeOut = ObjectAnimator.ofFloat(splashScreenView.view, View.ALPHA, 1f, 0f).apply {
+                    duration = 300
+                }
+                AnimatorSet().apply {
+                    playTogether(flip, overlayFlip, pop, overlayPop, glowSheenProgress)
+                    play(fadeOut).after(flip)
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            splashScreenView.remove()
+                        }
+                    })
+                    start()
+                }
+            } catch (_: Throwable) {
+                splashScreenView.remove()
             }
         }
 
@@ -160,23 +167,6 @@ class MainActivity : AppCompatActivity() {
             val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
             val fontStyle by viewModel.fontStyle.collectAsStateWithLifecycle()
 
-            // AppCompatDelegate.setApplicationLocales() updates the process-wide Configuration
-            // (natively via LocaleManager on API 33+, via AppCompatActivity's own compat shim
-            // below that) - but neither path reliably re-resolves resource-qualifier lookups
-            // (values-bn/, values-fr/, ...) inside an already-composed Compose tree without an
-            // explicit recreate(). Verified on a real API 37 device: the OS-level app locale did
-            // change (confirmed via `cmd locale get-app-locales`), but stringResource() calls kept
-            // resolving English until the Activity was recreated - so recreate() is called
-            // unconditionally here, not just below API 33 as an earlier version of this code
-            // assumed. The equality check avoids a recreate loop, since this effect re-fires with
-            // the same `language` right after recreate() runs.
-            //
-            // `language` is null before onboarding's LanguageSelect step has ever run - falling
-            // back to English (rather than no-op, which would leave resource resolution to follow
-            // the device's raw system locale) is what makes first-setup screens always start in
-            // English regardless of device locale, per the product requirement. This never writes
-            // to DataStore itself - see MainViewModel.init's guard for why persisting it here would
-            // wrongly short-circuit the LanguageSelect step.
             val selectedLanguage = language ?: Language.ENGLISH
             val currentContext = LocalContext.current
 
@@ -191,25 +181,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            val localizedContext = remember(currentContext, configuration) {
-                currentContext.createConfigurationContext(configuration)
-            }
-
-            LaunchedEffect(language) {
-                val targetTag = language?.tag ?: Language.ENGLISH.tag
-                val targetLocales = LocaleListCompat.forLanguageTags(targetTag)
-                if (AppCompatDelegate.getApplicationLocales() != targetLocales) {
-                    AppCompatDelegate.setApplicationLocales(targetLocales)
-                    recreate()
-                }
-            }
-
             val scaledDensity = LocalDensity.current.let { base ->
                 Density(density = base.density, fontScale = base.fontScale * fontScale.multiplier)
             }
 
             CompositionLocalProvider(
-                LocalContext provides localizedContext,
                 LocalConfiguration provides configuration,
                 LocalAppLanguage provides selectedLanguage,
                 LocalReduceMotionPreference provides reduceMotion,
