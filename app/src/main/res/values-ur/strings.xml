@@ -246,7 +246,7 @@
     <string name="settings_section_connect">رابطہ اور پیروی کریں</string>
     <string name="settings_connect_github">گٹ ہب (سورس کوڈ اور ایشوز)</string>
     <string name="settings_connect_youtube">یوٹیوب (@deanytalks)</string>
-    <string name="settings_connect_email">ای میل (deanybytes@gmail.com)</string>
+    <string name="settings_connect_email">ای میل کے ذریعے رابطہ کریں</string>
     <string name="settings_connect_telegram">ٹیلیگرام چینل</string>
     <string name="settings_connect_whatsapp">واٹس ایپ چینل</string>
 

@@ -447,7 +447,8 @@ private fun WordQuranExamplesSheet(
                             verseArabic = verseArabic,
                             start = arabicWordStart,
                             end = arabicWordEnd,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            arabicWord = word.arabicWord
                         )
                         if (!verseTranslation.isNullOrBlank()) {
                             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))

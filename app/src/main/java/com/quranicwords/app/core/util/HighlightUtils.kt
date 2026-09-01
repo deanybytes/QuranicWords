@@ -137,4 +137,72 @@ object HighlightUtils {
 
         return null
     }
+
+    /**
+     * Strips Arabic diacritics, normalization forms, and dagger alif for fuzzy Quranic token matching.
+     */
+    fun stripArabicTashkeel(text: String?): String {
+        if (text.isNullOrBlank()) return ""
+        return text
+            .replace('\u0670', 'ا')
+            .replace("[\u064B-\u065F\u06D6-\u06ED\uFEFF]".toRegex(), "")
+            .replace("[إأآٱ]".toRegex(), "ا")
+            .replace('ة', 'ه')
+            .replace('ى', 'ي')
+            .trim()
+    }
+
+    private val QURANIC_PREFIXES = listOf("وال", "فال", "بال", "كال", "لل", "ال", "و", "ف", "ب", "ل", "ك", "س", "ي", "ت", "ن", "ا")
+
+    private fun stripPrefixes(norm: String): String {
+        for (p in QURANIC_PREFIXES) {
+            if (norm.startsWith(p) && norm.length - p.length >= 2) {
+                return norm.substring(p.length)
+            }
+        }
+        return norm
+    }
+
+    /**
+     * Finds the exact character range (start, end) of an Arabic word in a full verse.
+     */
+    fun findArabicSpanInVerse(arabicWord: String?, verseArabic: String?): Pair<Int, Int>? {
+        if (arabicWord.isNullOrBlank() || verseArabic.isNullOrBlank()) return null
+
+        val exactIdx = verseArabic.indexOf(arabicWord)
+        if (exactIdx >= 0) {
+            return Pair(exactIdx, exactIdx + arabicWord.length)
+        }
+
+        val normTarget = stripArabicTashkeel(arabicWord)
+        if (normTarget.isEmpty()) return null
+
+        val tokenMatches = "\\S+".toRegex().findAll(verseArabic).toList()
+
+        // 1. Exact stripped token
+        for (m in tokenMatches) {
+            if (stripArabicTashkeel(m.value) == normTarget) {
+                return Pair(m.range.first, m.range.last + 1)
+            }
+        }
+
+        // 2. Token without Quranic prefix
+        for (m in tokenMatches) {
+            val tokNorm = stripArabicTashkeel(m.value)
+            if (stripPrefixes(tokNorm) == normTarget || stripPrefixes(tokNorm) == stripPrefixes(normTarget)) {
+                return Pair(m.range.first, m.range.last + 1)
+            }
+        }
+
+        // 3. Substring within token
+        for (m in tokenMatches) {
+            val tokNorm = stripArabicTashkeel(m.value)
+            if (normTarget in tokNorm) {
+                return Pair(m.range.first, m.range.last + 1)
+            }
+        }
+
+        return null
+    }
 }
+

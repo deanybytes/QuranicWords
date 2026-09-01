@@ -330,7 +330,8 @@ fun WordIntroExerciseContent(
                         verseArabic = verseArabic,
                         start = arabicWordStart,
                         end = arabicWordEnd,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        arabicWord = content.arabicWord
                     )
 
                     if (verseTranslation.isNotBlank()) {

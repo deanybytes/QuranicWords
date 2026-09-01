@@ -90,18 +90,20 @@ fun IntroScreen(
                     animationSpec = MotionSpecs.countUp,
                     label = "introWordCount"
                 )
+                val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(animatedWordCount.toString(), language)
                 Text(
-                    text = stringResource(R.string.intro_word_count, animatedWordCount),
+                    text = stringResource(R.string.intro_word_count, localizedWordCount),
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth().padding(top = 28.dp)
                 )
             }
             StaggeredEntrance(index = 4) {
+                val localizedOccurrence = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(uiState.occurrencePercent), language)
                 Text(
                     text = stringResource(
                         R.string.intro_occurrence_percent,
-                        formatPercent(uiState.occurrencePercent)
+                        localizedOccurrence
                     ),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
@@ -109,10 +111,11 @@ fun IntroScreen(
                 )
             }
             StaggeredEntrance(index = 5) {
+                val localizedCumulative = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(uiState.cumulativePercent), language)
                 Text(
                     text = stringResource(
                         R.string.intro_cumulative_percent,
-                        formatPercent(uiState.cumulativePercent)
+                        localizedCumulative
                     ),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
