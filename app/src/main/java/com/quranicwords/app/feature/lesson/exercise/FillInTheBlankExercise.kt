@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.lesson.exercise
+package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -71,7 +71,10 @@ fun FillInTheBlankExerciseContent(
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = stringResource(R.string.lesson_word_example_verse_label, content.sentenceReference),
+            text = stringResource(
+                R.string.lesson_word_example_verse_label,
+                com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.sentenceReference, language)
+            ),
             style = MaterialTheme.typography.labelLarge.copy(
                 fontFamily = QuranCitationFontFamily,
                 fontWeight = FontWeight.Bold,
