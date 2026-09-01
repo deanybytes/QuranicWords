@@ -270,17 +270,26 @@
     <string name="learned_words_rank">স্থান #%d</string>
     <string name="learned_words_occurrences_total">কুরআনে মোট আগমন: %d বার</string>
 
-    <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
-    <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৩,৬৮০ নং ক্রম পর্যন্ত)।</string>
-    <string name="test_mode_frequency_progress">%2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
-    <string name="test_mode_random_title">সম্পূর্ণ এলোমেলো মোড</string>
-    <string name="test_mode_random_desc">সম্পূর্ণ কুরআন থেকে পুনরাবৃত্তি ছাড়া এলোমেলো শব্দ অনুশীলন করুন যতক্ষণ না সব শব্দ শেষ হয়।</string>
+    <string name="test_mode_ism_title">বিশেষ্য (Ism) মোড</string>
+    <string name="test_mode_ism_desc">কুরআনের ৩,০৫৭টি বিশেষ্য, সর্বনাম ও আল্লাহর গুণবাচক নাম নিয়ে বিশেষ টেস্ট।</string>
+    <string name="test_mode_ism_progress">এই চক্রে %2$d টি বিশেষ্যের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_fil_title">ক্রিয়াপদ (Fi\'l) মোড</string>
+    <string name="test_mode_fil_desc">কুরআনের ১,৪৫০টি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
+    <string name="test_mode_fil_progress">এই চক্রে %2$d টি ক্রিয়ার মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_harf_title">হরফ (Ḥarf) মোড</string>
+    <string name="test_mode_harf_desc">কুরআনের ১০৯টি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
+    <string name="test_mode_harf_progress">এই চক্রে %2$d টি হরফের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_random_title">মিশ্র / র‍্যান্ডম মোড</string>
+    <string name="test_mode_random_desc">কুরআনের সকল ৪,৬১৬টি শব্দের (হরফ, ক্রিয়া, বিশেষ্য) মিশ্র কুইজ।</string>
     <string name="test_mode_random_progress">এই চক্রে %2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
+    <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৪,৬১৬ নং ক্রম পর্যন্ত)।</string>
+    <string name="test_mode_frequency_progress">%2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
     <string name="test_mode_mistakes_title">ভুল শব্দসমূহ পর্যালোচনা</string>
     <string name="test_mode_mistakes_desc">ভুল হওয়া শব্দগুলো পুনরায় অনুশীলন করুন। সঠিক উত্তর দিলে তা ভুল তালিকা থেকে বাদ যাবে।</string>
     <string name="test_mode_mistakes_count">%d টি ভুল শব্দ পর্যালোচনার জন্য বাকি</string>
     <string name="test_mode_mistakes_empty">কোনো ভুল শব্দ নেই! দারুণ প্রস্তুতি।</string>
-    <string name="test_mode_start_btn">অনুশীলন শুরু করুন</string>
+    <string name="test_mode_start_btn">টেস্ট শুরু করুন</string>
     <string name="test_mode_review_btn">ভুলগুলো সংশোধন করুন</string>
 
     <string name="home_chart_30d_title">৩০ দিনের অনুশীলন ও অগ্রগতি</string>

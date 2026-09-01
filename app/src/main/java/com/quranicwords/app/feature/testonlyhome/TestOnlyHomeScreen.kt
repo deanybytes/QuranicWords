@@ -22,7 +22,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.PlayArrow
@@ -142,37 +145,85 @@ fun TestOnlyHomeScreen(
                 )
             }
 
-            // 2. Mode 1: Frequency Order Mode (3D Glossy Card)
+            // 2. Mode 1: Ism (Nouns) Mode (3D Glossy Card)
             item {
                 GlossyTestModeCard(
-                    icon = Icons.Filled.FormatListNumbered,
-                    accentColor = MaterialTheme.colorScheme.primary,
+                    icon = Icons.Filled.AutoStories,
+                    accentColor = Color(0xFF2E7D32),
                     gradientColors = listOf(
-                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.45f),
+                        Color(0xFF2E7D32).copy(alpha = 0.35f),
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
-                    title = stringResource(R.string.test_mode_frequency_title),
-                    description = stringResource(R.string.test_mode_frequency_desc),
+                    title = stringResource(R.string.test_mode_ism_title),
+                    description = stringResource(R.string.test_mode_ism_desc),
                     progressText = stringResource(
-                        R.string.test_mode_frequency_progress,
-                        uiState.frequencyCoveredCount,
-                        uiState.totalWordsCount
+                        R.string.test_mode_ism_progress,
+                        uiState.ismCoveredCount,
+                        uiState.totalIsmCount
                     ),
-                    progressFraction = if (uiState.totalWordsCount > 0) {
-                        (uiState.frequencyCoveredCount.toFloat() / uiState.totalWordsCount).coerceIn(0f, 1f)
+                    progressFraction = if (uiState.totalIsmCount > 0) {
+                        (uiState.ismCoveredCount.toFloat() / uiState.totalIsmCount).coerceIn(0f, 1f)
                     } else 0f,
                     actionButtonText = stringResource(R.string.test_mode_start_btn),
-                    onAction = { onStartQuiz("FREQUENCY") }
+                    onAction = { onStartQuiz("ISM") }
                 )
             }
 
-            // 3. Mode 2: Full Random Mode (3D Glossy Card)
+            // 3. Mode 2: Fi'l (Verbs) Mode (3D Glossy Card)
+            item {
+                GlossyTestModeCard(
+                    icon = Icons.Filled.FlashOn,
+                    accentColor = BrandGold,
+                    gradientColors = listOf(
+                        BrandGold.copy(alpha = 0.35f),
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
+                    ),
+                    title = stringResource(R.string.test_mode_fil_title),
+                    description = stringResource(R.string.test_mode_fil_desc),
+                    progressText = stringResource(
+                        R.string.test_mode_fil_progress,
+                        uiState.filCoveredCount,
+                        uiState.totalFilCount
+                    ),
+                    progressFraction = if (uiState.totalFilCount > 0) {
+                        (uiState.filCoveredCount.toFloat() / uiState.totalFilCount).coerceIn(0f, 1f)
+                    } else 0f,
+                    actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    onAction = { onStartQuiz("FIL") }
+                )
+            }
+
+            // 4. Mode 3: Ḥarf (Particles) Mode (3D Glossy Card)
+            item {
+                GlossyTestModeCard(
+                    icon = Icons.Filled.AutoAwesome,
+                    accentColor = Color(0xFF0288D1),
+                    gradientColors = listOf(
+                        Color(0xFF0288D1).copy(alpha = 0.35f),
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
+                    ),
+                    title = stringResource(R.string.test_mode_harf_title),
+                    description = stringResource(R.string.test_mode_harf_desc),
+                    progressText = stringResource(
+                        R.string.test_mode_harf_progress,
+                        uiState.harfCoveredCount,
+                        uiState.totalHarfCount
+                    ),
+                    progressFraction = if (uiState.totalHarfCount > 0) {
+                        (uiState.harfCoveredCount.toFloat() / uiState.totalHarfCount).coerceIn(0f, 1f)
+                    } else 0f,
+                    actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    onAction = { onStartQuiz("HARF") }
+                )
+            }
+
+            // 5. Mode 4: Mix / Random Mode (3D Glossy Card)
             item {
                 GlossyTestModeCard(
                     icon = Icons.Filled.Shuffle,
-                    accentColor = MaterialTheme.colorScheme.tertiary,
+                    accentColor = Color(0xFF7E57C2),
                     gradientColors = listOf(
-                        MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.45f),
+                        Color(0xFF7E57C2).copy(alpha = 0.35f),
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
                     title = stringResource(R.string.test_mode_random_title),
@@ -190,7 +241,7 @@ fun TestOnlyHomeScreen(
                 )
             }
 
-            // 4. Mode 3: Mistaken Words Review (3D Glossy Card)
+            // 6. Mode 5: Mistaken Words Review (3D Glossy Card)
             item {
                 GlossyMistakesReviewCard(
                     missedCount = uiState.missedWordsCount,
