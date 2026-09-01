@@ -2,16 +2,20 @@ package com.quranicwords.app.feature.wordbrowse
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
@@ -27,10 +31,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -155,8 +162,18 @@ private fun WordCardBack(
     language: Language,
     onPlay: (String) -> Boolean
 ) {
-    val meaning = word.meaning.get(language)
-    val verseTranslation = word.exampleVerseTranslation.get(language)
+    var selectedMeaningIndex by remember(word) { androidx.compose.runtime.mutableIntStateOf(0) }
+    val activePolysemyEntry = word.polysemyEntries.getOrNull(selectedMeaningIndex)
+
+    val displayedMeaning = if (activePolysemyEntry != null && activePolysemyEntry.contextualMeaning.isNotEmpty()) {
+        activePolysemyEntry.contextualMeaning.get(language)
+    } else {
+        word.meaning.get(language)
+    }
+
+    val verseTranslation = activePolysemyEntry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
+    val arabicVerse = activePolysemyEntry?.verseArabic ?: word.exampleVerseArabic
+    val verseRef = activePolysemyEntry?.verseReference ?: word.exampleVerseReference
 
     GlassSurface(
         modifier = Modifier.fillMaxSize(),
@@ -164,16 +181,51 @@ private fun WordCardBack(
         tint = MaterialTheme.colorScheme.surfaceVariant
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(20.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(
-                text = meaning,
+                text = displayedMeaning,
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+
+            // Polysemy tabs if multiple meanings exist
+            if (word.polysemyEntries.size > 1) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    word.polysemyEntries.forEachIndexed { idx, _ ->
+                        val isSelected = selectedMeaningIndex == idx
+                        val tabBg = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+                        val tabTextColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+
+                        Box(
+                            modifier = Modifier
+                                .padding(horizontal = 4.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(tabBg)
+                                .clickable { selectedMeaningIndex = idx }
+                                .padding(horizontal = 10.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.polysemy_tab_format, idx + 1),
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                color = tabTextColor
+                            )
+                        }
+                    }
+                }
+            }
+
             word.audioAssetPath?.let { assetPath ->
                 FilledIconButton(
                     onClick = { onPlay(assetPath) },
@@ -187,8 +239,7 @@ private fun WordCardBack(
                     )
                 }
             }
-            val arabicVerse = word.exampleVerseArabic
-            val verseRef = word.exampleVerseReference
+
             if (!arabicVerse.isNullOrBlank()) {
                 Text(
                     text = arabicVerse,
@@ -196,10 +247,13 @@ private fun WordCardBack(
                     fontSize = 20.sp,
                     lineHeight = 34.sp,
                     textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth().background(
-                        MaterialTheme.colorScheme.surface,
-                        RoundedCornerShape(12.dp)
-                    ).padding(12.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            MaterialTheme.colorScheme.surface,
+                            RoundedCornerShape(12.dp)
+                        )
+                        .padding(12.dp)
                 )
             }
             if (verseTranslation.isNotBlank()) {

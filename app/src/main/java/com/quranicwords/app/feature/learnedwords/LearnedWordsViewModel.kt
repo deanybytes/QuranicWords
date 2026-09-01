@@ -30,7 +30,8 @@ data class LearnedWordItem(
     val exampleVerseReference: String? = null,
     val arabicWordStart: Int? = null,
     val arabicWordEnd: Int? = null,
-    val meaningHighlight: LocalizedText = emptyMap()
+    val meaningHighlight: LocalizedText = emptyMap(),
+    val polysemyEntries: List<ExerciseContent.PolysemyEntry> = emptyList()
 )
 
 data class LearnedWordsUiState(
@@ -103,7 +104,8 @@ class LearnedWordsViewModel @Inject constructor(
                     exampleVerseReference = intro?.exampleVerseReference,
                     arabicWordStart = intro?.arabicWordStart,
                     arabicWordEnd = intro?.arabicWordEnd,
-                    meaningHighlight = intro?.meaningHighlight ?: emptyMap()
+                    meaningHighlight = intro?.meaningHighlight ?: emptyMap(),
+                    polysemyEntries = intro?.polysemyEntries ?: emptyList()
                 )
             }.sortedBy { it.frequencyRank }
 
