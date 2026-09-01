@@ -51,8 +51,8 @@ class FullDatabaseSeedingTest {
         println("Seeded successfully: chapters=${chapters.size}, sections=${sections.size}, lessons=${lessons.size}, words=$wordsCount, exercises=$exercisesCount")
         assertEquals(10, chapters.size)
         assertEquals(100, sections.size)
-        assertEquals(1120, lessons.size)
-        assertEquals(4538, wordsCount)
-        assertEquals(11936, exercisesCount)
+        assertEquals(1202, lessons.size)
+        assertEquals(4616, wordsCount)
+        assertEquals(9242, exercisesCount)
     }
 }

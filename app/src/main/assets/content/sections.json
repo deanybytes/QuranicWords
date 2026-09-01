@@ -1,1604 +1,1604 @@
 {
   "sections": [
     {
-      "id": "sec_001",
+      "id": "sec_01_01",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 1: Divine Foundations",
-        "bn": "অধ্যায় 1: তাওহিদ",
-        "ur": "سیکشن 1: توحید اور بنیادی ارکان",
-        "in": "Bagian 1: Fondasi Ketauhidan",
-        "tr": "Bölüm 1: Tevhid",
-        "fr": "Section 1: Fondements Divins"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 17014,
-      "quranOccurrencePercent": 48.28
+      "wordCount": 47,
+      "quranOccurrenceCount": 43074,
+      "quranOccurrencePercent": 19.53
     },
     {
-      "id": "sec_002",
+      "id": "sec_01_02",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 2: Divine Foundations",
-        "bn": "অধ্যায় 2: তাওহিদ",
-        "ur": "سیکشن 2: توحید اور بنیادی ارکان",
-        "in": "Bagian 2: Fondasi Ketauhidan",
-        "tr": "Bölüm 2: Tevhid",
-        "fr": "Section 2: Fondements Divins"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 4744,
-      "quranOccurrencePercent": 13.46
+      "wordCount": 47,
+      "quranOccurrenceCount": 8681,
+      "quranOccurrencePercent": 3.94
     },
     {
-      "id": "sec_003",
+      "id": "sec_01_03",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 3: Divine Foundations",
-        "bn": "অধ্যায় 3: তাওহিদ",
-        "ur": "سیکشن 3: توحید اور بنیادی ارکان",
-        "in": "Bagian 3: Fondasi Ketauhidan",
-        "tr": "Bölüm 3: Tevhid",
-        "fr": "Section 3: Fondements Divins"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 45,
-      "quranOccurrenceCount": 2500,
-      "quranOccurrencePercent": 7.09
+      "wordCount": 47,
+      "quranOccurrenceCount": 8904,
+      "quranOccurrencePercent": 4.04
     },
     {
-      "id": "sec_004",
+      "id": "sec_01_04",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 4: Divine Foundations",
-        "bn": "অধ্যায় 4: তাওহিদ",
-        "ur": "سیکشن 4: توحید اور بنیادی ارکان",
-        "in": "Bagian 4: Fondasi Ketauhidan",
-        "tr": "Bölüm 4: Tevhid",
-        "fr": "Section 4: Fondements Divins"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 1449,
-      "quranOccurrencePercent": 4.11
+      "wordCount": 47,
+      "quranOccurrenceCount": 13653,
+      "quranOccurrencePercent": 6.19
     },
     {
-      "id": "sec_005",
+      "id": "sec_01_05",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 5: Divine Foundations",
-        "bn": "অধ্যায় 5: তাওহিদ",
-        "ur": "سیکشن 5: توحید اور بنیادی ارکان",
-        "in": "Bagian 5: Fondasi Ketauhidan",
-        "tr": "Bölüm 5: Tevhid",
-        "fr": "Section 5: Fondements Divins"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 44,
-      "quranOccurrenceCount": 779,
-      "quranOccurrencePercent": 2.21
+      "wordCount": 47,
+      "quranOccurrenceCount": 5690,
+      "quranOccurrencePercent": 2.58
     },
     {
-      "id": "sec_006",
+      "id": "sec_01_06",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 6: Divine Foundations",
-        "bn": "অধ্যায় 6: তাওহিদ",
-        "ur": "سیکشن 6: توحید اور بنیادی ارکان",
-        "in": "Bagian 6: Fondasi Ketauhidan",
-        "tr": "Bölüm 6: Tevhid",
-        "fr": "Section 6: Fondements Divins"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 548,
-      "quranOccurrencePercent": 1.56
-    },
-    {
-      "id": "sec_007",
-      "chapterId": "ch_01",
-      "title": {
-        "en": "Section 7: Divine Foundations",
-        "bn": "অধ্যায় 7: তাওহিদ",
-        "ur": "سیکشن 7: توحید اور بنیادی ارکان",
-        "in": "Bagian 7: Fondasi Ketauhidan",
-        "tr": "Bölüm 7: Tevhid",
-        "fr": "Section 7: Fondements Divins"
-      },
-      "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 415,
-      "quranOccurrencePercent": 1.18
-    },
-    {
-      "id": "sec_008",
-      "chapterId": "ch_01",
-      "title": {
-        "en": "Section 8: Divine Foundations",
-        "bn": "অধ্যায় 8: তাওহিদ",
-        "ur": "سیکشن 8: توحید اور بنیادی ارکان",
-        "in": "Bagian 8: Fondasi Ketauhidan",
-        "tr": "Bölüm 8: Tevhid",
-        "fr": "Section 8: Fondements Divins"
-      },
-      "sortOrder": 8,
-      "wordCount": 45,
-      "quranOccurrenceCount": 381,
-      "quranOccurrencePercent": 1.08
-    },
-    {
-      "id": "sec_009",
-      "chapterId": "ch_01",
-      "title": {
-        "en": "Section 9: Divine Foundations",
-        "bn": "অধ্যায় 9: তাওহিদ",
-        "ur": "سیکشن 9: توحید اور بنیادی ارکان",
-        "in": "Bagian 9: Fondasi Ketauhidan",
-        "tr": "Bölüm 9: Tevhid",
-        "fr": "Section 9: Fondements Divins"
-      },
-      "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 354,
-      "quranOccurrencePercent": 1.0
-    },
-    {
-      "id": "sec_010",
-      "chapterId": "ch_01",
-      "title": {
-        "en": "Section 10: Divine Foundations",
-        "bn": "অধ্যায় 10: তাওহিদ",
-        "ur": "سیکشن 10: توحید اور بنیادی ارکان",
-        "in": "Bagian 10: Fondasi Ketauhidan",
-        "tr": "Bölüm 10: Tevhid",
-        "fr": "Section 10: Fondements Divins"
-      },
-      "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 316,
+      "wordCount": 47,
+      "quranOccurrenceCount": 1993,
       "quranOccurrencePercent": 0.9
     },
     {
-      "id": "sec_011",
+      "id": "sec_01_07",
+      "chapterId": "ch_01",
+      "title": {
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
+      },
+      "sortOrder": 7,
+      "wordCount": 47,
+      "quranOccurrenceCount": 797,
+      "quranOccurrencePercent": 0.36
+    },
+    {
+      "id": "sec_01_08",
+      "chapterId": "ch_01",
+      "title": {
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
+      },
+      "sortOrder": 8,
+      "wordCount": 47,
+      "quranOccurrenceCount": 500,
+      "quranOccurrencePercent": 0.23
+    },
+    {
+      "id": "sec_01_09",
+      "chapterId": "ch_01",
+      "title": {
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
+      },
+      "sortOrder": 9,
+      "wordCount": 47,
+      "quranOccurrenceCount": 411,
+      "quranOccurrencePercent": 0.19
+    },
+    {
+      "id": "sec_01_10",
+      "chapterId": "ch_01",
+      "title": {
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
+      },
+      "sortOrder": 10,
+      "wordCount": 39,
+      "quranOccurrenceCount": 312,
+      "quranOccurrencePercent": 0.14
+    },
+    {
+      "id": "sec_02_01",
       "chapterId": "ch_02",
       "title": {
-        "en": "Section 1: Prophets, Nations",
-        "bn": "অধ্যায় 1: নবীগণ",
-        "ur": "سیکشن 1: انبیاء",
-        "in": "Bagian 1: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 1: Peygamberler, Kavimler",
-        "fr": "Section 1: Prophètes, Nations"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 307,
-      "quranOccurrencePercent": 0.87
+      "wordCount": 47,
+      "quranOccurrenceCount": 6128,
+      "quranOccurrencePercent": 2.78
     },
     {
-      "id": "sec_012",
+      "id": "sec_02_02",
       "chapterId": "ch_02",
       "title": {
-        "en": "Section 2: Prophets, Nations",
-        "bn": "অধ্যায় 2: নবীগণ",
-        "ur": "سیکشن 2: انبیاء",
-        "in": "Bagian 2: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 2: Peygamberler, Kavimler",
-        "fr": "Section 2: Prophètes, Nations"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 45,
-      "quranOccurrenceCount": 263,
-      "quranOccurrencePercent": 0.75
+      "wordCount": 47,
+      "quranOccurrenceCount": 8240,
+      "quranOccurrencePercent": 3.74
     },
     {
-      "id": "sec_013",
+      "id": "sec_02_03",
       "chapterId": "ch_02",
       "title": {
-        "en": "Section 3: Prophets, Nations",
-        "bn": "অধ্যায় 3: নবীগণ",
-        "ur": "سیکشن 3: انبیاء",
-        "in": "Bagian 3: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 3: Peygamberler, Kavimler",
-        "fr": "Section 3: Prophètes, Nations"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 253,
+      "wordCount": 47,
+      "quranOccurrenceCount": 7964,
+      "quranOccurrencePercent": 3.61
+    },
+    {
+      "id": "sec_02_04",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
+      },
+      "sortOrder": 4,
+      "wordCount": 47,
+      "quranOccurrenceCount": 3337,
+      "quranOccurrencePercent": 1.51
+    },
+    {
+      "id": "sec_02_05",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
+      },
+      "sortOrder": 5,
+      "wordCount": 47,
+      "quranOccurrenceCount": 306,
+      "quranOccurrencePercent": 0.14
+    },
+    {
+      "id": "sec_02_06",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
+      },
+      "sortOrder": 6,
+      "wordCount": 47,
+      "quranOccurrenceCount": 263,
+      "quranOccurrencePercent": 0.12
+    },
+    {
+      "id": "sec_02_07",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
+      },
+      "sortOrder": 7,
+      "wordCount": 47,
+      "quranOccurrenceCount": 235,
+      "quranOccurrencePercent": 0.11
+    },
+    {
+      "id": "sec_02_08",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
+      },
+      "sortOrder": 8,
+      "wordCount": 47,
+      "quranOccurrenceCount": 223,
+      "quranOccurrencePercent": 0.1
+    },
+    {
+      "id": "sec_02_09",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
+      },
+      "sortOrder": 9,
+      "wordCount": 47,
+      "quranOccurrenceCount": 188,
+      "quranOccurrencePercent": 0.09
+    },
+    {
+      "id": "sec_02_10",
+      "chapterId": "ch_02",
+      "title": {
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
+      },
+      "sortOrder": 10,
+      "wordCount": 39,
+      "quranOccurrenceCount": 156,
+      "quranOccurrencePercent": 0.07
+    },
+    {
+      "id": "sec_03_01",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
+      },
+      "sortOrder": 1,
+      "wordCount": 47,
+      "quranOccurrenceCount": 6014,
+      "quranOccurrencePercent": 2.73
+    },
+    {
+      "id": "sec_03_02",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
+      },
+      "sortOrder": 2,
+      "wordCount": 47,
+      "quranOccurrenceCount": 7358,
+      "quranOccurrencePercent": 3.34
+    },
+    {
+      "id": "sec_03_03",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
+      },
+      "sortOrder": 3,
+      "wordCount": 47,
+      "quranOccurrenceCount": 7082,
+      "quranOccurrencePercent": 3.21
+    },
+    {
+      "id": "sec_03_04",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
+      },
+      "sortOrder": 4,
+      "wordCount": 47,
+      "quranOccurrenceCount": 2160,
+      "quranOccurrencePercent": 0.98
+    },
+    {
+      "id": "sec_03_05",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
+      },
+      "sortOrder": 5,
+      "wordCount": 47,
+      "quranOccurrenceCount": 141,
+      "quranOccurrencePercent": 0.06
+    },
+    {
+      "id": "sec_03_06",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
+      },
+      "sortOrder": 6,
+      "wordCount": 47,
+      "quranOccurrenceCount": 122,
+      "quranOccurrencePercent": 0.06
+    },
+    {
+      "id": "sec_03_07",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
+      },
+      "sortOrder": 7,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_03_08",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
+      },
+      "sortOrder": 8,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_03_09",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
+      },
+      "sortOrder": 9,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_03_10",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
+      },
+      "sortOrder": 10,
+      "wordCount": 39,
+      "quranOccurrenceCount": 78,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_04_01",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
+      },
+      "sortOrder": 1,
+      "wordCount": 47,
+      "quranOccurrenceCount": 5327,
+      "quranOccurrencePercent": 2.42
+    },
+    {
+      "id": "sec_04_02",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
+      },
+      "sortOrder": 2,
+      "wordCount": 47,
+      "quranOccurrenceCount": 6507,
+      "quranOccurrencePercent": 2.95
+    },
+    {
+      "id": "sec_04_03",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
+      },
+      "sortOrder": 3,
+      "wordCount": 47,
+      "quranOccurrenceCount": 6230,
+      "quranOccurrencePercent": 2.83
+    },
+    {
+      "id": "sec_04_04",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
+      },
+      "sortOrder": 4,
+      "wordCount": 47,
+      "quranOccurrenceCount": 1868,
+      "quranOccurrencePercent": 0.85
+    },
+    {
+      "id": "sec_04_05",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
+      },
+      "sortOrder": 5,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_04_06",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
+      },
+      "sortOrder": 6,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_04_07",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
+      },
+      "sortOrder": 7,
+      "wordCount": 47,
+      "quranOccurrenceCount": 94,
+      "quranOccurrencePercent": 0.04
+    },
+    {
+      "id": "sec_04_08",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
+      },
+      "sortOrder": 8,
+      "wordCount": 47,
+      "quranOccurrenceCount": 75,
+      "quranOccurrencePercent": 0.03
+    },
+    {
+      "id": "sec_04_09",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
+      },
+      "sortOrder": 9,
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
+    },
+    {
+      "id": "sec_04_10",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
+      },
+      "sortOrder": 10,
+      "wordCount": 39,
+      "quranOccurrenceCount": 39,
+      "quranOccurrencePercent": 0.02
+    },
+    {
+      "id": "sec_05_01",
+      "chapterId": "ch_05",
+      "title": {
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
+      },
+      "sortOrder": 1,
+      "wordCount": 47,
+      "quranOccurrenceCount": 4656,
+      "quranOccurrencePercent": 2.11
+    },
+    {
+      "id": "sec_05_02",
+      "chapterId": "ch_05",
+      "title": {
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
+      },
+      "sortOrder": 2,
+      "wordCount": 47,
+      "quranOccurrenceCount": 5655,
+      "quranOccurrencePercent": 2.56
+    },
+    {
+      "id": "sec_05_03",
+      "chapterId": "ch_05",
+      "title": {
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
+      },
+      "sortOrder": 3,
+      "wordCount": 47,
+      "quranOccurrenceCount": 5379,
+      "quranOccurrencePercent": 2.44
+    },
+    {
+      "id": "sec_05_04",
+      "chapterId": "ch_05",
+      "title": {
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
+      },
+      "sortOrder": 4,
+      "wordCount": 47,
+      "quranOccurrenceCount": 1581,
       "quranOccurrencePercent": 0.72
     },
     {
-      "id": "sec_014",
-      "chapterId": "ch_02",
+      "id": "sec_05_05",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 4: Prophets, Nations",
-        "bn": "অধ্যায় 4: নবীগণ",
-        "ur": "سیکشن 4: انبیاء",
-        "in": "Bagian 4: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 4: Peygamberler, Kavimler",
-        "fr": "Section 4: Prophètes, Nations"
-      },
-      "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 216,
-      "quranOccurrencePercent": 0.61
-    },
-    {
-      "id": "sec_015",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 5: Prophets, Nations",
-        "bn": "অধ্যায় 5: নবীগণ",
-        "ur": "سیکشن 5: انبیاء",
-        "in": "Bagian 5: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 5: Peygamberler, Kavimler",
-        "fr": "Section 5: Prophètes, Nations"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 44,
-      "quranOccurrenceCount": 206,
-      "quranOccurrencePercent": 0.58
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_016",
-      "chapterId": "ch_02",
+      "id": "sec_05_06",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 6: Prophets, Nations",
-        "bn": "অধ্যায় 6: নবীগণ",
-        "ur": "سیکشن 6: انبیاء",
-        "in": "Bagian 6: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 6: Peygamberler, Kavimler",
-        "fr": "Section 6: Prophètes, Nations"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 215,
-      "quranOccurrencePercent": 0.61
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_017",
-      "chapterId": "ch_02",
+      "id": "sec_05_07",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 7: Prophets, Nations",
-        "bn": "অধ্যায় 7: নবীগণ",
-        "ur": "سیکشن 7: انبیاء",
-        "in": "Bagian 7: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 7: Peygamberler, Kavimler",
-        "fr": "Section 7: Prophètes, Nations"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 45,
-      "quranOccurrenceCount": 179,
-      "quranOccurrencePercent": 0.51
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_018",
-      "chapterId": "ch_02",
+      "id": "sec_05_08",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 8: Prophets, Nations",
-        "bn": "অধ্যায় 8: নবীগণ",
-        "ur": "سیکشن 8: انبیاء",
-        "in": "Bagian 8: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 8: Peygamberler, Kavimler",
-        "fr": "Section 8: Prophètes, Nations"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 169,
-      "quranOccurrencePercent": 0.48
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_019",
-      "chapterId": "ch_02",
+      "id": "sec_05_09",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 9: Prophets, Nations",
-        "bn": "অধ্যায় 9: নবীগণ",
-        "ur": "سیکشن 9: انبیاء",
-        "in": "Bagian 9: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 9: Peygamberler, Kavimler",
-        "fr": "Section 9: Prophètes, Nations"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 169,
-      "quranOccurrencePercent": 0.48
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_020",
-      "chapterId": "ch_02",
+      "id": "sec_05_10",
+      "chapterId": "ch_05",
       "title": {
-        "en": "Section 10: Prophets, Nations",
-        "bn": "অধ্যায় 10: নবীগণ",
-        "ur": "سیکشن 10: انبیاء",
-        "in": "Bagian 10: Para Nabi, Kisah Kaum",
-        "tr": "Bölüm 10: Peygamberler, Kavimler",
-        "fr": "Section 10: Prophètes, Nations"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 144,
-      "quranOccurrencePercent": 0.41
+      "wordCount": 39,
+      "quranOccurrenceCount": 39,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_021",
-      "chapterId": "ch_03",
+      "id": "sec_06_01",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 1: Worship, Devotion",
-        "bn": "অধ্যায় 1: ইবাদত",
-        "ur": "سیکشن 1: عبادت",
-        "in": "Bagian 1: Ibadah, Pengabdian",
-        "tr": "Bölüm 1: İbadet, Takva",
-        "fr": "Section 1: Adoration, Dévotion"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 138,
-      "quranOccurrencePercent": 0.39
+      "wordCount": 47,
+      "quranOccurrenceCount": 3985,
+      "quranOccurrencePercent": 1.81
     },
     {
-      "id": "sec_022",
-      "chapterId": "ch_03",
+      "id": "sec_06_02",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 2: Worship, Devotion",
-        "bn": "অধ্যায় 2: ইবাদত",
-        "ur": "سیکشن 2: عبادت",
-        "in": "Bagian 2: Ibadah, Pengabdian",
-        "tr": "Bölüm 2: İbadet, Takva",
-        "fr": "Section 2: Adoration, Dévotion"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 45,
-      "quranOccurrenceCount": 135,
-      "quranOccurrencePercent": 0.38
+      "wordCount": 47,
+      "quranOccurrenceCount": 4803,
+      "quranOccurrencePercent": 2.18
     },
     {
-      "id": "sec_023",
-      "chapterId": "ch_03",
+      "id": "sec_06_03",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 3: Worship, Devotion",
-        "bn": "অধ্যায় 3: ইবাদত",
-        "ur": "سیکشن 3: عبادت",
-        "in": "Bagian 3: Ibadah, Pengabdian",
-        "tr": "Bölüm 3: İbadet, Takva",
-        "fr": "Section 3: Adoration, Dévotion"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 131,
-      "quranOccurrencePercent": 0.37
+      "wordCount": 47,
+      "quranOccurrenceCount": 4527,
+      "quranOccurrencePercent": 2.05
     },
     {
-      "id": "sec_024",
-      "chapterId": "ch_03",
+      "id": "sec_06_04",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 4: Worship, Devotion",
-        "bn": "অধ্যায় 4: ইবাদত",
-        "ur": "سیکشن 4: عبادت",
-        "in": "Bagian 4: Ibadah, Pengabdian",
-        "tr": "Bölüm 4: İbadet, Takva",
-        "fr": "Section 4: Adoration, Dévotion"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 45,
-      "quranOccurrenceCount": 105,
-      "quranOccurrencePercent": 0.3
+      "wordCount": 47,
+      "quranOccurrenceCount": 1328,
+      "quranOccurrencePercent": 0.6
     },
     {
-      "id": "sec_025",
-      "chapterId": "ch_03",
+      "id": "sec_06_05",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 5: Worship, Devotion",
-        "bn": "অধ্যায় 5: ইবাদত",
-        "ur": "سیکشن 5: عبادت",
-        "in": "Bagian 5: Ibadah, Pengabdian",
-        "tr": "Bölüm 5: İbadet, Takva",
-        "fr": "Section 5: Adoration, Dévotion"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 104,
-      "quranOccurrencePercent": 0.3
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_026",
-      "chapterId": "ch_03",
+      "id": "sec_06_06",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 6: Worship, Devotion",
-        "bn": "অধ্যায় 6: ইবাদত",
-        "ur": "سیکشن 6: عبادت",
-        "in": "Bagian 6: Ibadah, Pengabdian",
-        "tr": "Bölüm 6: İbadet, Takva",
-        "fr": "Section 6: Adoration, Dévotion"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 97,
-      "quranOccurrencePercent": 0.28
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_027",
-      "chapterId": "ch_03",
+      "id": "sec_06_07",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 7: Worship, Devotion",
-        "bn": "অধ্যায় 7: ইবাদত",
-        "ur": "سیکشن 7: عبادت",
-        "in": "Bagian 7: Ibadah, Pengabdian",
-        "tr": "Bölüm 7: İbadet, Takva",
-        "fr": "Section 7: Adoration, Dévotion"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_028",
-      "chapterId": "ch_03",
+      "id": "sec_06_08",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 8: Worship, Devotion",
-        "bn": "অধ্যায় 8: ইবাদত",
-        "ur": "سیکشن 8: عبادت",
-        "in": "Bagian 8: Ibadah, Pengabdian",
-        "tr": "Bölüm 8: İbadet, Takva",
-        "fr": "Section 8: Adoration, Dévotion"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 92,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_029",
-      "chapterId": "ch_03",
+      "id": "sec_06_09",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 9: Worship, Devotion",
-        "bn": "অধ্যায় 9: ইবাদত",
-        "ur": "سیکشن 9: عبادت",
-        "in": "Bagian 9: Ibadah, Pengabdian",
-        "tr": "Bölüm 9: İbadet, Takva",
-        "fr": "Section 9: Adoration, Dévotion"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_030",
-      "chapterId": "ch_03",
+      "id": "sec_06_10",
+      "chapterId": "ch_06",
       "title": {
-        "en": "Section 10: Worship, Devotion",
-        "bn": "অধ্যায় 10: ইবাদত",
-        "ur": "سیکشن 10: عبادت",
-        "in": "Bagian 10: Ibadah, Pengabdian",
-        "tr": "Bölüm 10: İbadet, Takva",
-        "fr": "Section 10: Adoration, Dévotion"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 39,
+      "quranOccurrenceCount": 39,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_031",
-      "chapterId": "ch_04",
+      "id": "sec_07_01",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 1: Faith, Belief",
-        "bn": "অধ্যায় 1: ঈমান",
-        "ur": "سیکشن 1: ایمان",
-        "in": "Bagian 1: Iman, Keyakinan",
-        "tr": "Bölüm 1: İman, İnanç",
-        "fr": "Section 1: Foi, Croyance"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 3486,
+      "quranOccurrencePercent": 1.58
     },
     {
-      "id": "sec_032",
-      "chapterId": "ch_04",
+      "id": "sec_07_02",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 2: Faith, Belief",
-        "bn": "অধ্যায় 2: ঈমান",
-        "ur": "سیکشن 2: ایمان",
-        "in": "Bagian 2: Iman, Keyakinan",
-        "tr": "Bölüm 2: İman, İnanç",
-        "fr": "Section 2: Foi, Croyance"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 92,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 3939,
+      "quranOccurrencePercent": 1.79
     },
     {
-      "id": "sec_033",
-      "chapterId": "ch_04",
+      "id": "sec_07_03",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 3: Faith, Belief",
-        "bn": "অধ্যায় 3: ঈমান",
-        "ur": "سیکشن 3: ایمان",
-        "in": "Bagian 3: Iman, Keyakinan",
-        "tr": "Bölüm 3: İman, İnanç",
-        "fr": "Section 3: Foi, Croyance"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 92,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 3663,
+      "quranOccurrencePercent": 1.66
     },
     {
-      "id": "sec_034",
-      "chapterId": "ch_04",
+      "id": "sec_07_04",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 4: Faith, Belief",
-        "bn": "অধ্যায় 4: ঈমান",
-        "ur": "سیکشن 4: ایمان",
-        "in": "Bagian 4: Iman, Keyakinan",
-        "tr": "Bölüm 4: İman, İnanç",
-        "fr": "Section 4: Foi, Croyance"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 927,
+      "quranOccurrencePercent": 0.42
     },
     {
-      "id": "sec_035",
-      "chapterId": "ch_04",
+      "id": "sec_07_05",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 5: Faith, Belief",
-        "bn": "অধ্যায় 5: ঈমান",
-        "ur": "سیکشن 5: ایمان",
-        "in": "Bagian 5: Iman, Keyakinan",
-        "tr": "Bölüm 5: İman, İnanç",
-        "fr": "Section 5: Foi, Croyance"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 90,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_036",
-      "chapterId": "ch_04",
+      "id": "sec_07_06",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 6: Faith, Belief",
-        "bn": "অধ্যায় 6: ঈমান",
-        "ur": "سیکشن 6: ایمان",
-        "in": "Bagian 6: Iman, Keyakinan",
-        "tr": "Bölüm 6: İman, İnanç",
-        "fr": "Section 6: Foi, Croyance"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 45,
-      "quranOccurrenceCount": 87,
-      "quranOccurrencePercent": 0.25
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_037",
-      "chapterId": "ch_04",
+      "id": "sec_07_07",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 7: Faith, Belief",
-        "bn": "অধ্যায় 7: ঈমান",
-        "ur": "سیکشن 7: ایمان",
-        "in": "Bagian 7: Iman, Keyakinan",
-        "tr": "Bölüm 7: İman, İnanç",
-        "fr": "Section 7: Foi, Croyance"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 61,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_038",
-      "chapterId": "ch_04",
+      "id": "sec_07_08",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 8: Faith, Belief",
-        "bn": "অধ্যায় 8: ঈমান",
-        "ur": "سیکشن 8: ایمان",
-        "in": "Bagian 8: Iman, Keyakinan",
-        "tr": "Bölüm 8: İman, İnanç",
-        "fr": "Section 8: Foi, Croyance"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 61,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_039",
-      "chapterId": "ch_04",
+      "id": "sec_07_09",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 9: Faith, Belief",
-        "bn": "অধ্যায় 9: ঈমান",
-        "ur": "سیکشن 9: ایمان",
-        "in": "Bagian 9: Iman, Keyakinan",
-        "tr": "Bölüm 9: İman, İnanç",
-        "fr": "Section 9: Foi, Croyance"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 45,
-      "quranOccurrenceCount": 60,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_040",
-      "chapterId": "ch_04",
+      "id": "sec_07_10",
+      "chapterId": "ch_07",
       "title": {
-        "en": "Section 10: Faith, Belief",
-        "bn": "অধ্যায় 10: ঈমান",
-        "ur": "سیکشن 10: ایمان",
-        "in": "Bagian 10: Iman, Keyakinan",
-        "tr": "Bölüm 10: İman, İnanç",
-        "fr": "Section 10: Foi, Croyance"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 45,
-      "quranOccurrenceCount": 59,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 38,
+      "quranOccurrenceCount": 38,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_041",
-      "chapterId": "ch_05",
+      "id": "sec_08_01",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 1: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 1: সৃষ্টিজগৎ",
-        "ur": "سیکشن 1: تخلیقِ کائنات",
-        "in": "Bagian 1: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 1: Yaratılış, Gökyüzü",
-        "fr": "Section 1: Création, Cieux"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 45,
-      "quranOccurrenceCount": 60,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 47,
+      "quranOccurrenceCount": 2914,
+      "quranOccurrencePercent": 1.32
     },
     {
-      "id": "sec_042",
-      "chapterId": "ch_05",
+      "id": "sec_08_02",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 2: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 2: সৃষ্টিজগৎ",
-        "ur": "سیکشن 2: تخلیقِ کائنات",
-        "in": "Bagian 2: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 2: Yaratılış, Gökyüzü",
-        "fr": "Section 2: Création, Cieux"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 61,
-      "quranOccurrencePercent": 0.17
+      "wordCount": 47,
+      "quranOccurrenceCount": 3076,
+      "quranOccurrencePercent": 1.39
     },
     {
-      "id": "sec_043",
-      "chapterId": "ch_05",
+      "id": "sec_08_03",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 3: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 3: সৃষ্টিজগৎ",
-        "ur": "سیکشن 3: تخلیقِ کائنات",
-        "in": "Bagian 3: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 3: Yaratılış, Gökyüzü",
-        "fr": "Section 3: Création, Cieux"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 45,
-      "quranOccurrenceCount": 57,
-      "quranOccurrencePercent": 0.16
+      "wordCount": 47,
+      "quranOccurrenceCount": 2799,
+      "quranOccurrencePercent": 1.27
     },
     {
-      "id": "sec_044",
-      "chapterId": "ch_05",
+      "id": "sec_08_04",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 4: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 4: সৃষ্টিজগৎ",
-        "ur": "سیکشن 4: تخلیقِ کائنات",
-        "in": "Bagian 4: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 4: Yaratılış, Gökyüzü",
-        "fr": "Section 4: Création, Cieux"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 597,
+      "quranOccurrencePercent": 0.27
     },
     {
-      "id": "sec_045",
-      "chapterId": "ch_05",
+      "id": "sec_08_05",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 5: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 5: সৃষ্টিজগৎ",
-        "ur": "سیکشن 5: تخلیقِ کائنات",
-        "in": "Bagian 5: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 5: Yaratılış, Gökyüzü",
-        "fr": "Section 5: Création, Cieux"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_046",
-      "chapterId": "ch_05",
+      "id": "sec_08_06",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 6: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 6: সৃষ্টিজগৎ",
-        "ur": "سیکشن 6: تخلیقِ کائنات",
-        "in": "Bagian 6: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 6: Yaratılış, Gökyüzü",
-        "fr": "Section 6: Création, Cieux"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_047",
-      "chapterId": "ch_05",
+      "id": "sec_08_07",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 7: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 7: সৃষ্টিজগৎ",
-        "ur": "سیکشن 7: تخلیقِ کائنات",
-        "in": "Bagian 7: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 7: Yaratılış, Gökyüzü",
-        "fr": "Section 7: Création, Cieux"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_048",
-      "chapterId": "ch_05",
+      "id": "sec_08_08",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 8: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 8: সৃষ্টিজগৎ",
-        "ur": "سیکشن 8: تخلیقِ کائنات",
-        "in": "Bagian 8: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 8: Yaratılış, Gökyüzü",
-        "fr": "Section 8: Création, Cieux"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_049",
-      "chapterId": "ch_05",
+      "id": "sec_08_09",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 9: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 9: সৃষ্টিজগৎ",
-        "ur": "سیکشن 9: تخلیقِ کائنات",
-        "in": "Bagian 9: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 9: Yaratılış, Gökyüzü",
-        "fr": "Section 9: Création, Cieux"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_050",
-      "chapterId": "ch_05",
+      "id": "sec_08_10",
+      "chapterId": "ch_08",
       "title": {
-        "en": "Section 10: Creation, Heavens, Earth",
-        "bn": "অধ্যায় 10: সৃষ্টিজগৎ",
-        "ur": "سیکشن 10: تخلیقِ کائنات",
-        "in": "Bagian 10: Penciptaan Alam Semesta, Langit",
-        "tr": "Bölüm 10: Yaratılış, Gökyüzü",
-        "fr": "Section 10: Création, Cieux"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 44,
-      "quranOccurrencePercent": 0.12
+      "wordCount": 38,
+      "quranOccurrenceCount": 38,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_051",
-      "chapterId": "ch_06",
+      "id": "sec_09_01",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 1: Humanity, Society",
-        "bn": "অধ্যায় 1: মানবসমাজ",
-        "ur": "سیکشن 1: انسانی معاشرہ",
-        "in": "Bagian 1: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 1: İnsanlık, Toplum",
-        "fr": "Section 1: Humanité, Société"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 2171,
+      "quranOccurrencePercent": 0.98
     },
     {
-      "id": "sec_052",
-      "chapterId": "ch_06",
+      "id": "sec_09_02",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 2: Humanity, Society",
-        "bn": "অধ্যায় 2: মানবসমাজ",
-        "ur": "سیکشن 2: انسانی معاشرہ",
-        "in": "Bagian 2: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 2: İnsanlık, Toplum",
-        "fr": "Section 2: Humanité, Société"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 2224,
+      "quranOccurrencePercent": 1.01
     },
     {
-      "id": "sec_053",
-      "chapterId": "ch_06",
+      "id": "sec_09_03",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 3: Humanity, Society",
-        "bn": "অধ্যায় 3: মানবসমাজ",
-        "ur": "سیکشن 3: انسانی معاشرہ",
-        "in": "Bagian 3: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 3: İnsanlık, Toplum",
-        "fr": "Section 3: Humanité, Société"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 1948,
+      "quranOccurrencePercent": 0.88
     },
     {
-      "id": "sec_054",
-      "chapterId": "ch_06",
+      "id": "sec_09_04",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 4: Humanity, Society",
-        "bn": "অধ্যায় 4: মানবসমাজ",
-        "ur": "سیکشن 4: انسانی معاشرہ",
-        "in": "Bagian 4: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 4: İnsanlık, Toplum",
-        "fr": "Section 4: Humanité, Société"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 415,
+      "quranOccurrencePercent": 0.19
     },
     {
-      "id": "sec_055",
-      "chapterId": "ch_06",
+      "id": "sec_09_05",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 5: Humanity, Society",
-        "bn": "অধ্যায় 5: মানবসমাজ",
-        "ur": "سیکشن 5: انسانی معاشرہ",
-        "in": "Bagian 5: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 5: İnsanlık, Toplum",
-        "fr": "Section 5: Humanité, Société"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 44,
-      "quranOccurrenceCount": 44,
-      "quranOccurrencePercent": 0.12
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_056",
-      "chapterId": "ch_06",
+      "id": "sec_09_06",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 6: Humanity, Society",
-        "bn": "অধ্যায় 6: মানবসমাজ",
-        "ur": "سیکشن 6: انسانی معاشرہ",
-        "in": "Bagian 6: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 6: İnsanlık, Toplum",
-        "fr": "Section 6: Humanité, Société"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_057",
-      "chapterId": "ch_06",
+      "id": "sec_09_07",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 7: Humanity, Society",
-        "bn": "অধ্যায় 7: মানবসমাজ",
-        "ur": "سیکشن 7: انسانی معاشرہ",
-        "in": "Bagian 7: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 7: İnsanlık, Toplum",
-        "fr": "Section 7: Humanité, Société"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_058",
-      "chapterId": "ch_06",
+      "id": "sec_09_08",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 8: Humanity, Society",
-        "bn": "অধ্যায় 8: মানবসমাজ",
-        "ur": "سیکشن 8: انسانی معاشرہ",
-        "in": "Bagian 8: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 8: İnsanlık, Toplum",
-        "fr": "Section 8: Humanité, Société"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_059",
-      "chapterId": "ch_06",
+      "id": "sec_09_09",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 9: Humanity, Society",
-        "bn": "অধ্যায় 9: মানবসমাজ",
-        "ur": "سیکشن 9: انسانی معاشرہ",
-        "in": "Bagian 9: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 9: İnsanlık, Toplum",
-        "fr": "Section 9: Humanité, Société"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_060",
-      "chapterId": "ch_06",
+      "id": "sec_09_10",
+      "chapterId": "ch_09",
       "title": {
-        "en": "Section 10: Humanity, Society",
-        "bn": "অধ্যায় 10: মানবসমাজ",
-        "ur": "سیکشن 10: انسانی معاشرہ",
-        "in": "Bagian 10: Kemanusiaan, Masyarakat",
-        "tr": "Bölüm 10: İnsanlık, Toplum",
-        "fr": "Section 10: Humanité, Société"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 44,
-      "quranOccurrencePercent": 0.12
+      "wordCount": 38,
+      "quranOccurrenceCount": 38,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_061",
-      "chapterId": "ch_07",
+      "id": "sec_10_01",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 1: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 1: আখিরাত",
-        "ur": "سیکشن 1: آخرت",
-        "in": "Bagian 1: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 1: Ahiret, Kıyamet",
-        "fr": "Section 1: L'Au-delà, Résurrection"
+        "en": "Section 1: Key Lexicon",
+        "bn": "অনুচ্ছেদ 1: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 1: اہم الفاظ",
+        "in": "Bagian 1: Kosakata Inti",
+        "tr": "Bölümce 1: Temel Kelimeler",
+        "fr": "Section 1: Vocabulaire Clé"
       },
       "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 1490,
+      "quranOccurrencePercent": 0.68
     },
     {
-      "id": "sec_062",
-      "chapterId": "ch_07",
+      "id": "sec_10_02",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 2: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 2: আখিরাত",
-        "ur": "سیکشن 2: آخرت",
-        "in": "Bagian 2: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 2: Ahiret, Kıyamet",
-        "fr": "Section 2: L'Au-delà, Résurrection"
+        "en": "Section 2: Key Lexicon",
+        "bn": "অনুচ্ছেদ 2: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 2: اہم الفاظ",
+        "in": "Bagian 2: Kosakata Inti",
+        "tr": "Bölümce 2: Temel Kelimeler",
+        "fr": "Section 2: Vocabulaire Clé"
       },
       "sortOrder": 2,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 1360,
+      "quranOccurrencePercent": 0.62
     },
     {
-      "id": "sec_063",
-      "chapterId": "ch_07",
+      "id": "sec_10_03",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 3: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 3: আখিরাত",
-        "ur": "سیکشن 3: آخرت",
-        "in": "Bagian 3: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 3: Ahiret, Kıyamet",
-        "fr": "Section 3: L'Au-delà, Résurrection"
+        "en": "Section 3: Key Lexicon",
+        "bn": "অনুচ্ছেদ 3: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 3: اہم الفاظ",
+        "in": "Bagian 3: Kosakata Inti",
+        "tr": "Bölümce 3: Temel Kelimeler",
+        "fr": "Section 3: Vocabulaire Clé"
       },
       "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 1084,
+      "quranOccurrencePercent": 0.49
     },
     {
-      "id": "sec_064",
-      "chapterId": "ch_07",
+      "id": "sec_10_04",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 4: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 4: আখিরাত",
-        "ur": "سیکشن 4: آخرت",
-        "in": "Bagian 4: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 4: Ahiret, Kıyamet",
-        "fr": "Section 4: L'Au-delà, Résurrection"
+        "en": "Section 4: Key Lexicon",
+        "bn": "অনুচ্ছেদ 4: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 4: اہم الفاظ",
+        "in": "Bagian 4: Kosakata Inti",
+        "tr": "Bölümce 4: Temel Kelimeler",
+        "fr": "Section 4: Vocabulaire Clé"
       },
       "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 196,
+      "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_065",
-      "chapterId": "ch_07",
+      "id": "sec_10_05",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 5: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 5: আখিরাত",
-        "ur": "سیکشن 5: آخرت",
-        "in": "Bagian 5: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 5: Ahiret, Kıyamet",
-        "fr": "Section 5: L'Au-delà, Résurrection"
+        "en": "Section 5: Key Lexicon",
+        "bn": "অনুচ্ছেদ 5: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 5: اہم الفاظ",
+        "in": "Bagian 5: Kosakata Inti",
+        "tr": "Bölümce 5: Temel Kelimeler",
+        "fr": "Section 5: Vocabulaire Clé"
       },
       "sortOrder": 5,
-      "wordCount": 44,
-      "quranOccurrenceCount": 44,
-      "quranOccurrencePercent": 0.12
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_066",
-      "chapterId": "ch_07",
+      "id": "sec_10_06",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 6: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 6: আখিরাত",
-        "ur": "سیکشن 6: آخرت",
-        "in": "Bagian 6: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 6: Ahiret, Kıyamet",
-        "fr": "Section 6: L'Au-delà, Résurrection"
+        "en": "Section 6: Key Lexicon",
+        "bn": "অনুচ্ছেদ 6: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 6: اہم الفاظ",
+        "in": "Bagian 6: Kosakata Inti",
+        "tr": "Bölümce 6: Temel Kelimeler",
+        "fr": "Section 6: Vocabulaire Clé"
       },
       "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_067",
-      "chapterId": "ch_07",
+      "id": "sec_10_07",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 7: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 7: আখিরাত",
-        "ur": "سیکشن 7: آخرت",
-        "in": "Bagian 7: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 7: Ahiret, Kıyamet",
-        "fr": "Section 7: L'Au-delà, Résurrection"
+        "en": "Section 7: Key Lexicon",
+        "bn": "অনুচ্ছেদ 7: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 7: اہم الفاظ",
+        "in": "Bagian 7: Kosakata Inti",
+        "tr": "Bölümce 7: Temel Kelimeler",
+        "fr": "Section 7: Vocabulaire Clé"
       },
       "sortOrder": 7,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_068",
-      "chapterId": "ch_07",
+      "id": "sec_10_08",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 8: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 8: আখিরাত",
-        "ur": "سیکشن 8: آخرت",
-        "in": "Bagian 8: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 8: Ahiret, Kıyamet",
-        "fr": "Section 8: L'Au-delà, Résurrection"
+        "en": "Section 8: Key Lexicon",
+        "bn": "অনুচ্ছেদ 8: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 8: اہم الفاظ",
+        "in": "Bagian 8: Kosakata Inti",
+        "tr": "Bölümce 8: Temel Kelimeler",
+        "fr": "Section 8: Vocabulaire Clé"
       },
       "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_069",
-      "chapterId": "ch_07",
+      "id": "sec_10_09",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 9: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 9: আখিরাত",
-        "ur": "سیکشن 9: آخرت",
-        "in": "Bagian 9: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 9: Ahiret, Kıyamet",
-        "fr": "Section 9: L'Au-delà, Résurrection"
+        "en": "Section 9: Key Lexicon",
+        "bn": "অনুচ্ছেদ 9: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 9: اہم الفاظ",
+        "in": "Bagian 9: Kosakata Inti",
+        "tr": "Bölümce 9: Temel Kelimeler",
+        "fr": "Section 9: Vocabulaire Clé"
       },
       "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
+      "quranOccurrencePercent": 0.02
     },
     {
-      "id": "sec_070",
-      "chapterId": "ch_07",
+      "id": "sec_10_10",
+      "chapterId": "ch_10",
       "title": {
-        "en": "Section 10: The Hereafter, Resurrection",
-        "bn": "অধ্যায় 10: আখিরাত",
-        "ur": "سیکشن 10: آخرت",
-        "in": "Bagian 10: Hari Kiamat, Kebangkitan",
-        "tr": "Bölüm 10: Ahiret, Kıyamet",
-        "fr": "Section 10: L'Au-delà, Résurrection"
+        "en": "Section 10: Key Lexicon",
+        "bn": "অনুচ্ছেদ 10: প্রধান শব্দসম্ভার",
+        "ur": "سیکشن 10: اہم الفاظ",
+        "in": "Bagian 10: Kosakata Inti",
+        "tr": "Bölümce 10: Temel Kelimeler",
+        "fr": "Section 10: Vocabulaire Clé"
       },
       "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 44,
-      "quranOccurrencePercent": 0.12
-    },
-    {
-      "id": "sec_071",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 1: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 1: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 1: حکمتِ الٰہی",
-        "in": "Bagian 1: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 1: İlahi Hikmet, Meseller",
-        "fr": "Section 1: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 1,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_072",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 2: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 2: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 2: حکمتِ الٰہی",
-        "in": "Bagian 2: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 2: İlahi Hikmet, Meseller",
-        "fr": "Section 2: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 2,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_073",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 3: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 3: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 3: حکمتِ الٰہی",
-        "in": "Bagian 3: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 3: İlahi Hikmet, Meseller",
-        "fr": "Section 3: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_074",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 4: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 4: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 4: حکمتِ الٰہی",
-        "in": "Bagian 4: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 4: İlahi Hikmet, Meseller",
-        "fr": "Section 4: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 4,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_075",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 5: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 5: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 5: حکمتِ الٰہی",
-        "in": "Bagian 5: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 5: İlahi Hikmet, Meseller",
-        "fr": "Section 5: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_076",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 6: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 6: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 6: حکمتِ الٰہی",
-        "in": "Bagian 6: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 6: İlahi Hikmet, Meseller",
-        "fr": "Section 6: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 6,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_077",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 7: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 7: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 7: حکمتِ الٰہی",
-        "in": "Bagian 7: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 7: İlahi Hikmet, Meseller",
-        "fr": "Section 7: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 7,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_078",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 8: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 8: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 8: حکمتِ الٰہی",
-        "in": "Bagian 8: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 8: İlahi Hikmet, Meseller",
-        "fr": "Section 8: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_079",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 9: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 9: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 9: حکمتِ الٰہی",
-        "in": "Bagian 9: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 9: İlahi Hikmet, Meseller",
-        "fr": "Section 9: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 9,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_080",
-      "chapterId": "ch_08",
-      "title": {
-        "en": "Section 10: Divine Wisdom, Parables",
-        "bn": "অধ্যায় 10: ঐশ্বরিক প্রজ্ঞা",
-        "ur": "سیکشن 10: حکمتِ الٰہی",
-        "in": "Bagian 10: Hikmah Ilahi, Perumpamaan",
-        "tr": "Bölüm 10: İlahi Hikmet, Meseller",
-        "fr": "Section 10: Sagesse Divine, Paraboles"
-      },
-      "sortOrder": 10,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_081",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 1: Patience, Struggle",
-        "bn": "অধ্যায় 1: ধৈর্য",
-        "ur": "سیکشن 1: صبر",
-        "in": "Bagian 1: Kesabaran, Perjuangan",
-        "tr": "Bölüm 1: Sabır, Mücadele",
-        "fr": "Section 1: Patience, Épreuves"
-      },
-      "sortOrder": 1,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_082",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 2: Patience, Struggle",
-        "bn": "অধ্যায় 2: ধৈর্য",
-        "ur": "سیکشن 2: صبر",
-        "in": "Bagian 2: Kesabaran, Perjuangan",
-        "tr": "Bölüm 2: Sabır, Mücadele",
-        "fr": "Section 2: Patience, Épreuves"
-      },
-      "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_083",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 3: Patience, Struggle",
-        "bn": "অধ্যায় 3: ধৈর্য",
-        "ur": "سیکشن 3: صبر",
-        "in": "Bagian 3: Kesabaran, Perjuangan",
-        "tr": "Bölüm 3: Sabır, Mücadele",
-        "fr": "Section 3: Patience, Épreuves"
-      },
-      "sortOrder": 3,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_084",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 4: Patience, Struggle",
-        "bn": "অধ্যায় 4: ধৈর্য",
-        "ur": "سیکشن 4: صبر",
-        "in": "Bagian 4: Kesabaran, Perjuangan",
-        "tr": "Bölüm 4: Sabır, Mücadele",
-        "fr": "Section 4: Patience, Épreuves"
-      },
-      "sortOrder": 4,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_085",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 5: Patience, Struggle",
-        "bn": "অধ্যায় 5: ধৈর্য",
-        "ur": "سیکشن 5: صبر",
-        "in": "Bagian 5: Kesabaran, Perjuangan",
-        "tr": "Bölüm 5: Sabır, Mücadele",
-        "fr": "Section 5: Patience, Épreuves"
-      },
-      "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_086",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 6: Patience, Struggle",
-        "bn": "অধ্যায় 6: ধৈর্য",
-        "ur": "سیکشن 6: صبر",
-        "in": "Bagian 6: Kesabaran, Perjuangan",
-        "tr": "Bölüm 6: Sabır, Mücadele",
-        "fr": "Section 6: Patience, Épreuves"
-      },
-      "sortOrder": 6,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_087",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 7: Patience, Struggle",
-        "bn": "অধ্যায় 7: ধৈর্য",
-        "ur": "سیکشن 7: صبر",
-        "in": "Bagian 7: Kesabaran, Perjuangan",
-        "tr": "Bölüm 7: Sabır, Mücadele",
-        "fr": "Section 7: Patience, Épreuves"
-      },
-      "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_088",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 8: Patience, Struggle",
-        "bn": "অধ্যায় 8: ধৈর্য",
-        "ur": "سیکشن 8: صبر",
-        "in": "Bagian 8: Kesabaran, Perjuangan",
-        "tr": "Bölüm 8: Sabır, Mücadele",
-        "fr": "Section 8: Patience, Épreuves"
-      },
-      "sortOrder": 8,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_089",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 9: Patience, Struggle",
-        "bn": "অধ্যায় 9: ধৈর্য",
-        "ur": "سیکشن 9: صبر",
-        "in": "Bagian 9: Kesabaran, Perjuangan",
-        "tr": "Bölüm 9: Sabır, Mücadele",
-        "fr": "Section 9: Patience, Épreuves"
-      },
-      "sortOrder": 9,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_090",
-      "chapterId": "ch_09",
-      "title": {
-        "en": "Section 10: Patience, Struggle",
-        "bn": "অধ্যায় 10: ধৈর্য",
-        "ur": "سیکشن 10: صبر",
-        "in": "Bagian 10: Kesabaran, Perjuangan",
-        "tr": "Bölüm 10: Sabır, Mücadele",
-        "fr": "Section 10: Patience, Épreuves"
-      },
-      "sortOrder": 10,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_091",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 1: Comprehensive Lexicon",
-        "bn": "অধ্যায় 1: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 1: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 1: Kosakata Lengkap",
-        "tr": "Bölüm 1: Kapsamlı Sözlük",
-        "fr": "Section 1: Lexique Intégral"
-      },
-      "sortOrder": 1,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_092",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 2: Comprehensive Lexicon",
-        "bn": "অধ্যায় 2: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 2: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 2: Kosakata Lengkap",
-        "tr": "Bölüm 2: Kapsamlı Sözlük",
-        "fr": "Section 2: Lexique Intégral"
-      },
-      "sortOrder": 2,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_093",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 3: Comprehensive Lexicon",
-        "bn": "অধ্যায় 3: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 3: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 3: Kosakata Lengkap",
-        "tr": "Bölüm 3: Kapsamlı Sözlük",
-        "fr": "Section 3: Lexique Intégral"
-      },
-      "sortOrder": 3,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_094",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 4: Comprehensive Lexicon",
-        "bn": "অধ্যায় 4: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 4: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 4: Kosakata Lengkap",
-        "tr": "Bölüm 4: Kapsamlı Sözlük",
-        "fr": "Section 4: Lexique Intégral"
-      },
-      "sortOrder": 4,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_095",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 5: Comprehensive Lexicon",
-        "bn": "অধ্যায় 5: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 5: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 5: Kosakata Lengkap",
-        "tr": "Bölüm 5: Kapsamlı Sözlük",
-        "fr": "Section 5: Lexique Intégral"
-      },
-      "sortOrder": 5,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_096",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 6: Comprehensive Lexicon",
-        "bn": "অধ্যায় 6: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 6: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 6: Kosakata Lengkap",
-        "tr": "Bölüm 6: Kapsamlı Sözlük",
-        "fr": "Section 6: Lexique Intégral"
-      },
-      "sortOrder": 6,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_097",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 7: Comprehensive Lexicon",
-        "bn": "অধ্যায় 7: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 7: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 7: Kosakata Lengkap",
-        "tr": "Bölüm 7: Kapsamlı Sözlük",
-        "fr": "Section 7: Lexique Intégral"
-      },
-      "sortOrder": 7,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_098",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 8: Comprehensive Lexicon",
-        "bn": "অধ্যায় 8: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 8: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 8: Kosakata Lengkap",
-        "tr": "Bölüm 8: Kapsamlı Sözlük",
-        "fr": "Section 8: Lexique Intégral"
-      },
-      "sortOrder": 8,
-      "wordCount": 45,
-      "quranOccurrenceCount": 45,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_099",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 9: Comprehensive Lexicon",
-        "bn": "অধ্যায় 9: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 9: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 9: Kosakata Lengkap",
-        "tr": "Bölüm 9: Kapsamlı Sözlük",
-        "fr": "Section 9: Lexique Intégral"
-      },
-      "sortOrder": 9,
-      "wordCount": 46,
-      "quranOccurrenceCount": 46,
-      "quranOccurrencePercent": 0.13
-    },
-    {
-      "id": "sec_100",
-      "chapterId": "ch_10",
-      "title": {
-        "en": "Section 10: Comprehensive Lexicon",
-        "bn": "অধ্যায় 10: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "سیکشن 10: جامع قرآنی الفاظ اور بلاغت",
-        "in": "Bagian 10: Kosakata Lengkap",
-        "tr": "Bölüm 10: Kapsamlı Sözlük",
-        "fr": "Section 10: Lexique Intégral"
-      },
-      "sortOrder": 10,
-      "wordCount": 44,
-      "quranOccurrenceCount": 42,
-      "quranOccurrencePercent": 0.12
+      "wordCount": 38,
+      "quranOccurrenceCount": 38,
+      "quranOccurrencePercent": 0.02
     }
   ]
 }

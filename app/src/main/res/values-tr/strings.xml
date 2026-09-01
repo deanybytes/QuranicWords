@@ -302,10 +302,17 @@
     <string name="widget_rank_format">Sıra #%d</string>
     <string name="widget_quran_pct_format">Kur\'an\'ın %.2f%%\'si</string>
 
-    <string name="lesson_category_noun">İsim Dersi</string>
-    <string name="lesson_category_verb">Fiil Dersi</string>
+    <string name="lesson_category_noun">İsim (İsm) Dersi</string>
+    <string name="lesson_category_verb">Fiil (Fi\'l) Dersi</string>
+    <string name="lesson_category_particle">Harf / Edat Dersi</string>
     <string name="word_category_noun">İsim</string>
     <string name="word_category_verb">Fiil</string>
+    <string name="word_category_particle">Harf / Edat</string>
+    <string name="verb_conjugation_title">Fiil Çekimi ve Sarf (الصرف)</string>
+    <string name="past_tense_label">Geçmiş (الماضي)</string>
+    <string name="present_tense_label">Şimdiki/Geniş (المضارع)</string>
+    <string name="masdar_label">Mastar (المصدر)</string>
+    <string name="particle_type_label">Harf Türü (نوع الحرف)</string>
     <string name="polysemy_tab_format">Anlam [%d]</string>
     <string name="polysemy_meanings_title">Bağlamsal Anlamlar (Vücûhu\'l-Kur\'an)</string>
 
@@ -316,9 +323,9 @@
     <string name="chapter_intro_chapter_coverage_label">Bölüm Kapsamı</string>
     <string name="chapter_intro_accumulated_coverage_label">Kümülatif Kur\'an Kapsamı</string>
     <string name="chapter_intro_accumulated_desc">Bu bölümü tamamladıktan sonra Kur\'an kelime hazinesinin %1$s\'ini anlayacaksınız (toplam %2$s kelime).</string>
-    <string name="chapter_intro_pos_title">Kelime Türleri Dağılımı (İsim &amp; Fiil)</string>
-    <string name="chapter_intro_ism_label">İsim (İsimler)</string>
-    <string name="chapter_intro_fil_label">Fiil (Fiiller)</string>
-    <string name="chapter_intro_harf_label">Harf (Edatlar)</string>
-    <string name="chapter_intro_begin_button">Bölüm %1$s\'i Başlat</string>
+    <string name="chapter_intro_pos_title">Kelime Türleri Dağılımı (Aksâm-ı Kelâm)</string>
+    <string name="chapter_intro_ism_label">İsim</string>
+    <string name="chapter_intro_fil_label">Fiil</string>
+    <string name="chapter_intro_harf_label">Harf / Edat</string>
+    <string name="chapter_intro_begin_button">Bölüm %1$s Başlat</string>
 </resources>
