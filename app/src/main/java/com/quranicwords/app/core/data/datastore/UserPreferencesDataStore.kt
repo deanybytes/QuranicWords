@@ -58,6 +58,9 @@ class UserPreferencesDataStore @Inject constructor(
         val LEARNING_PATH_CHOICE_MADE = booleanPreferencesKey("learning_path_choice_made")
         val TEST_FREQUENCY_OFFSET = intPreferencesKey("test_frequency_offset")
         val TEST_RANDOM_COVERED_IDS = stringSetPreferencesKey("test_random_covered_ids")
+        val TEST_ISM_COVERED_IDS = stringSetPreferencesKey("test_ism_covered_ids")
+        val TEST_FIL_COVERED_IDS = stringSetPreferencesKey("test_fil_covered_ids")
+        val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
     }
 
     /**
@@ -252,6 +255,54 @@ class UserPreferencesDataStore @Inject constructor(
     suspend fun resetTestRandomCoveredWordIds() {
         context.dataStore.edit { prefs ->
             prefs[Keys.TEST_RANDOM_COVERED_IDS] = emptySet()
+        }
+    }
+
+    val testIsmCoveredWordIdsFlow: Flow<Set<String>> =
+        context.dataStore.data.map { it[Keys.TEST_ISM_COVERED_IDS] ?: emptySet() }
+
+    suspend fun addTestIsmCoveredWordIds(ids: Collection<String>) {
+        context.dataStore.edit { prefs ->
+            val current = prefs[Keys.TEST_ISM_COVERED_IDS] ?: emptySet()
+            prefs[Keys.TEST_ISM_COVERED_IDS] = current + ids
+        }
+    }
+
+    suspend fun resetTestIsmCoveredWordIds() {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.TEST_ISM_COVERED_IDS] = emptySet()
+        }
+    }
+
+    val testFilCoveredWordIdsFlow: Flow<Set<String>> =
+        context.dataStore.data.map { it[Keys.TEST_FIL_COVERED_IDS] ?: emptySet() }
+
+    suspend fun addTestFilCoveredWordIds(ids: Collection<String>) {
+        context.dataStore.edit { prefs ->
+            val current = prefs[Keys.TEST_FIL_COVERED_IDS] ?: emptySet()
+            prefs[Keys.TEST_FIL_COVERED_IDS] = current + ids
+        }
+    }
+
+    suspend fun resetTestFilCoveredWordIds() {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.TEST_FIL_COVERED_IDS] = emptySet()
+        }
+    }
+
+    val testHarfCoveredWordIdsFlow: Flow<Set<String>> =
+        context.dataStore.data.map { it[Keys.TEST_HARF_COVERED_IDS] ?: emptySet() }
+
+    suspend fun addTestHarfCoveredWordIds(ids: Collection<String>) {
+        context.dataStore.edit { prefs ->
+            val current = prefs[Keys.TEST_HARF_COVERED_IDS] ?: emptySet()
+            prefs[Keys.TEST_HARF_COVERED_IDS] = current + ids
+        }
+    }
+
+    suspend fun resetTestHarfCoveredWordIds() {
+        context.dataStore.edit { prefs ->
+            prefs[Keys.TEST_HARF_COVERED_IDS] = emptySet()
         }
     }
 }

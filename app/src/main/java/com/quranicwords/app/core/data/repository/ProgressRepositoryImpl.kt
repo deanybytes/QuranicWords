@@ -230,6 +230,56 @@ class ProgressRepositoryImpl @Inject constructor(
         if (allWords.isEmpty()) return@withContext emptyList()
 
         val itemIds = when (mode.uppercase()) {
+            "ISM", "NOUN" -> {
+                val ismWords = allWords.filter { it.id.startsWith("wn_") }
+                val allIsmIds = ismWords.map { it.id }
+                val covered = preferences.testIsmCoveredWordIdsFlow.first()
+                val remaining = allIsmIds.filter { it !in covered }
+                val pool = if (remaining.size < batchSize) {
+                    preferences.resetTestIsmCoveredWordIds()
+                    allIsmIds
+                } else {
+                    remaining
+                }
+                val sampled = pool.shuffled().take(batchSize)
+                preferences.addTestIsmCoveredWordIds(sampled)
+                sampled
+            }
+            "FIL", "VERB" -> {
+                val filWords = allWords.filter { it.id.startsWith("wv_") }
+                val allFilIds = filWords.map { it.id }
+                val covered = preferences.testFilCoveredWordIdsFlow.first()
+                val remaining = allFilIds.filter { it !in covered }
+                val pool = if (remaining.size < batchSize) {
+                    preferences.resetTestFilCoveredWordIds()
+                    allFilIds
+                } else {
+                    remaining
+                }
+                val sampled = pool.shuffled().take(batchSize)
+                preferences.addTestFilCoveredWordIds(sampled)
+                sampled
+            }
+            "HARF", "PARTICLE" -> {
+                val harfWords = allWords.filter { it.id.startsWith("wp_") }
+                val allHarfIds = harfWords.map { it.id }
+                val covered = preferences.testHarfCoveredWordIdsFlow.first()
+                val remaining = allHarfIds.filter { it !in covered }
+                val pool = if (remaining.size < batchSize) {
+                    preferences.resetTestHarfCoveredWordIds()
+                    allHarfIds
+                } else {
+                    remaining
+                }
+                val sampled = pool.shuffled().take(batchSize)
+                preferences.addTestHarfCoveredWordIds(sampled)
+                sampled
+            }
+            "MISTAKES" -> {
+                val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
+                if (missed.isEmpty()) return@withContext emptyList()
+                missed.shuffled().take(batchSize)
+            }
             "FREQUENCY" -> {
                 val offset = preferences.testFrequencyOffsetFlow.first()
                 val safeOffset = if (offset >= allWords.size) 0 else offset
@@ -237,12 +287,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 preferences.setTestFrequencyOffset((safeOffset + slice.size) % allWords.size)
                 slice
             }
-            "MISTAKES" -> {
-                val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
-                if (missed.isEmpty()) return@withContext emptyList()
-                missed.shuffled().take(batchSize)
-            }
-            else -> { // "RANDOM"
+            else -> { // "RANDOM", "MIX"
                 val allIds = allWords.map { it.id }
                 val covered = preferences.testRandomCoveredWordIdsFlow.first()
                 val remaining = allIds.filter { it !in covered }

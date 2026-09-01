@@ -61,6 +61,16 @@ fun MultipleChoiceExerciseContent(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        val category = com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(content.wordId)
+        if (category != null) {
+            androidx.compose.foundation.layout.Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
+            }
+        }
+
         content.promptArabic?.let { arabic ->
             Text(
                 text = arabic,

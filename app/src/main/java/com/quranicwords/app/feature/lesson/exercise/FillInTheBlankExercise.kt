@@ -43,6 +43,16 @@ fun FillInTheBlankExerciseContent(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        val category = com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(content.wordId)
+        if (category != null) {
+            androidx.compose.foundation.layout.Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
+            }
+        }
+
         val sentenceWithBlank = buildAnnotatedString {
             val start = content.blankStart.coerceIn(0, content.sentenceArabic.length)
             val end = content.blankEnd.coerceIn(start, content.sentenceArabic.length)

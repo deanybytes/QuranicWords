@@ -186,6 +186,11 @@ fun MatchingExerciseContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        val category = content.pairs.firstOrNull()?.wordId?.let { com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(it) }
+        if (category != null) {
+            com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
+        }
+
         Text(
             text = content.localizedPrompt(language),
             style = MaterialTheme.typography.titleLarge,

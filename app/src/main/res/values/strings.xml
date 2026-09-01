@@ -265,17 +265,26 @@
     <string name="learned_words_rank">Rank #%d</string>
     <string name="learned_words_occurrences_total">Total Occurrences in Qur\'an: %d</string>
 
-    <string name="test_mode_frequency_title">Frequency Order Mode</string>
-    <string name="test_mode_frequency_desc">Practice Quranic words in sequential order of occurrence frequency (Rank #1 to #3,680).</string>
-    <string name="test_mode_frequency_progress">Covered %1$d of %2$d words</string>
-    <string name="test_mode_random_title">Full Random Mode</string>
-    <string name="test_mode_random_desc">Random words across the entire Quran without repetition until the full corpus is completed.</string>
+    <string name="test_mode_ism_title">Ism (Nouns) Mode</string>
+    <string name="test_mode_ism_desc">Test your mastery across 3,057 Qur\'anic nouns, pronouns, and divine attributes.</string>
+    <string name="test_mode_ism_progress">%1$d of %2$d nouns completed in this cycle</string>
+    <string name="test_mode_fil_title">Fi\'l (Verbs) Mode</string>
+    <string name="test_mode_fil_desc">Practice all 1,450 Qur\'anic verbs across Form I–X with past, present, and root patterns.</string>
+    <string name="test_mode_fil_progress">%1$d of %2$d verbs completed in this cycle</string>
+    <string name="test_mode_harf_title">Ḥarf (Particles) Mode</string>
+    <string name="test_mode_harf_desc">Master all 109 foundational Qur\'anic particles, prepositions, and conjunctions.</string>
+    <string name="test_mode_harf_progress">%1$d of %2$d particles completed in this cycle</string>
+    <string name="test_mode_random_title">Mix / Random Mode</string>
+    <string name="test_mode_random_desc">Dynamic mixed quiz across all 4,616 Qur\'an words (Ism, Fi\'l, Ḥarf) with category tagging.</string>
     <string name="test_mode_random_progress">%1$d of %2$d words completed in this cycle</string>
+    <string name="test_mode_frequency_title">Frequency Order Mode</string>
+    <string name="test_mode_frequency_desc">Practice Quranic words in sequential order of occurrence frequency (Rank #1 to #4,616).</string>
+    <string name="test_mode_frequency_progress">Covered %1$d of %2$d words</string>
     <string name="test_mode_mistakes_title">Mistaken Words Review</string>
     <string name="test_mode_mistakes_desc">Practice words you missed. Once answered correctly, they are marked mastered and removed from mistakes.</string>
     <string name="test_mode_mistakes_count">%d mistaken words to review</string>
     <string name="test_mode_mistakes_empty">No mistaken words! All caught up.</string>
-    <string name="test_mode_start_btn">Start Practice</string>
+    <string name="test_mode_start_btn">Start Test</string>
     <string name="test_mode_review_btn">Review Mistakes</string>
 
     <string name="home_chart_30d_title">30-Day Activity &amp; Trend</string>

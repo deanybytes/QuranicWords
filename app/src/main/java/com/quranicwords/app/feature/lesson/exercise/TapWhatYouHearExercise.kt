@@ -35,6 +35,11 @@ fun TapWhatYouHearExerciseContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        val category = com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(content.wordId)
+        if (category != null) {
+            com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
+        }
+
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
         AudioPlayButton(onPlay = { onPlay(content.audioAssetPath) })

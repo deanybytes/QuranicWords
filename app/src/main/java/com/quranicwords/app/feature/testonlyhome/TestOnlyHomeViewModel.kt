@@ -28,9 +28,14 @@ data class TestOnlyHomeUiState(
     val isStreakLocked: Boolean = false,
     val streakRecoveryQuestionCount: Int = 0,
     val streakInactivityDuration: InactivityDuration? = null,
-    val frequencyCoveredCount: Int = 0,
-    val totalWordsCount: Int = 3680,
+    val ismCoveredCount: Int = 0,
+    val totalIsmCount: Int = 3057,
+    val filCoveredCount: Int = 0,
+    val totalFilCount: Int = 1450,
+    val harfCoveredCount: Int = 0,
+    val totalHarfCount: Int = 109,
     val randomCoveredCount: Int = 0,
+    val totalWordsCount: Int = 4616,
     val missedWordsCount: Int = 0,
     val quranCoveragePercent: Double = 0.0,
     val last30DaysMinutes: List<Int> = emptyList(),
@@ -39,11 +44,13 @@ data class TestOnlyHomeUiState(
 )
 
 /**
- * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all 3
+ * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all 5
  * Test/Quiz-only modes:
- * 1. Frequency Order Mode (sequential Quranic frequency)
- * 2. Full Random Mode (non-repeating until corpus is exhausted)
- * 3. Mistaken Words Review (adaptive retry of missed vocabulary)
+ * 1. Ism (Nouns) Mode (3,057 Quranic nouns)
+ * 2. Fi'l (Verbs) Mode (1,450 Quranic verbs)
+ * 3. Ḥarf (Particles) Mode (109 Quranic particles)
+ * 4. Mix / Random Mode (4,616 corpus mix)
+ * 5. Mistaken Words Review (adaptive retry of missed vocabulary)
  */
 @HiltViewModel
 class TestOnlyHomeViewModel @Inject constructor(
@@ -68,7 +75,9 @@ class TestOnlyHomeViewModel @Inject constructor(
             val statsFlow = progressRepository.observeStats(userId)
             val todayPracticeFlow = progressRepository.observeTodayPractice(userId, today)
             val dailyGoalFlow = preferences.dailyGoalLevelFlow
-            val freqOffsetFlow = preferences.testFrequencyOffsetFlow
+            val ismCoveredFlow = preferences.testIsmCoveredWordIdsFlow
+            val filCoveredFlow = preferences.testFilCoveredWordIdsFlow
+            val harfCoveredFlow = preferences.testHarfCoveredWordIdsFlow
             val randomCoveredFlow = preferences.testRandomCoveredWordIdsFlow
             val missedIdsFlow = progressRepository.observeMissedItemIds(userId)
             val practiceRangeFlow = progressRepository.observePracticeHistoryForRange(userId, startDate, today)
@@ -77,11 +86,14 @@ class TestOnlyHomeViewModel @Inject constructor(
                 combine(statsFlow, todayPracticeFlow, dailyGoalFlow) { stats, practice, goal ->
                     Triple(stats, practice, goal)
                 },
-                combine(freqOffsetFlow, randomCoveredFlow, missedIdsFlow, practiceRangeFlow) { freq, random, missed, range ->
-                    TestModeTrackerState(freq, random, missed, range)
+                combine(ismCoveredFlow, filCoveredFlow, harfCoveredFlow, randomCoveredFlow) { ism, fil, harf, random ->
+                    TestPosCoveredState(ism, fil, harf, random)
+                },
+                combine(missedIdsFlow, practiceRangeFlow) { missed, range ->
+                    Pair(missed, range)
                 }
-            ) { (stats, todayPractice, goalLevel), tracker ->
-                val practiceMap = tracker.rangeHistory.associate { it.localDate to it.minutesPracticed }
+            ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory) ->
+                val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
                 val last30DaysMinutes = (29 downTo 0).map { offset ->
                     val d = todayDate.minusDays(offset.toLong()).toString()
                     practiceMap[d] ?: 0
@@ -99,10 +111,15 @@ class TestOnlyHomeViewModel @Inject constructor(
                     isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
                     streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
                     streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate),
-                    frequencyCoveredCount = tracker.freqOffset.coerceAtMost(3680),
-                    totalWordsCount = 3680,
-                    randomCoveredCount = tracker.randomCovered.size.coerceAtMost(3680),
-                    missedWordsCount = tracker.missedIds.size,
+                    ismCoveredCount = posCovered.ismCovered.size.coerceAtMost(3057),
+                    totalIsmCount = 3057,
+                    filCoveredCount = posCovered.filCovered.size.coerceAtMost(1450),
+                    totalFilCount = 1450,
+                    harfCoveredCount = posCovered.harfCovered.size.coerceAtMost(109),
+                    totalHarfCount = 109,
+                    randomCoveredCount = posCovered.randomCovered.size.coerceAtMost(4616),
+                    totalWordsCount = 4616,
+                    missedWordsCount = missedIds.size,
                     quranCoveragePercent = coveragePercent,
                     last30DaysMinutes = last30DaysMinutes,
                     last30DaysActiveCount = active30DaysDays,
@@ -113,9 +130,9 @@ class TestOnlyHomeViewModel @Inject constructor(
     }
 }
 
-private data class TestModeTrackerState(
-    val freqOffset: Int,
-    val randomCovered: Set<String>,
-    val missedIds: List<String>,
-    val rangeHistory: List<com.quranicwords.app.core.data.local.entity.DailyPracticeEntity>
+private data class TestPosCoveredState(
+    val ismCovered: Set<String>,
+    val filCovered: Set<String>,
+    val harfCovered: Set<String>,
+    val randomCovered: Set<String>
 )
