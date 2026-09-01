@@ -18,10 +18,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
+import com.quranicwords.app.core.domain.model.get
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.CheckCircle
@@ -247,6 +249,60 @@ fun TestOnlyHomeScreen(
                     missedCount = uiState.missedWordsCount,
                     onReview = onOpenReview
                 )
+            }
+
+            // 7. Mode 6: Chapterwise Practice & Test Mode (10 Chapters)
+            if (uiState.chapters.isNotEmpty()) {
+                item {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 4.dp, vertical = 6.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Surface(
+                                shape = CircleShape,
+                                color = BrandGold.copy(alpha = 0.22f),
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .border(1.dp, BrandGold.copy(alpha = 0.45f), CircleShape)
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.MenuBook,
+                                        contentDescription = null,
+                                        tint = BrandGold,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+                            }
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.test_mode_chapterwise_title),
+                                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = stringResource(R.string.test_mode_chapterwise_subtitle),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+
+                items(items = uiState.chapters, key = { it.chapter.id }) { chapterItem ->
+                    GlossyChapterTestCard(
+                        chapterItem = chapterItem,
+                        onStartTest = { onStartQuiz("CHAPTER:${chapterItem.chapter.id}") }
+                    )
+                }
             }
         }
     }
@@ -731,4 +787,176 @@ private fun GlossyMistakesReviewCard(
     }
 }
 
+@Composable
+private fun GlossyChapterTestCard(
+    chapterItem: ChapterTestItem,
+    onStartTest: () -> Unit
+) {
+    val language = com.quranicwords.app.core.ui.components.rememberSelectedLanguage()
+    val shape = RoundedCornerShape(20.dp)
+    val accentColor = BrandGold
+    val ch = chapterItem.chapter
+
+    val progressFraction = if (chapterItem.totalCount > 0) {
+        (chapterItem.coveredCount.toFloat() / chapterItem.totalCount).coerceIn(0f, 1f)
+    } else 0f
+
+    val localizedChapterNum = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(ch.sortOrder.toString(), language)
+    val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(ch.wordCount.toString(), language)
+    val localizedOccPercent = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(ch.quranOccurrencePercent), language)
+    val localizedCoveredCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chapterItem.coveredCount.toString(), language)
+
+    val chapterOrdinalLabel = when (language) {
+        com.quranicwords.app.core.domain.model.Language.BANGLA -> "${localizedChapterNum}ম অধ্যায়"
+        com.quranicwords.app.core.domain.model.Language.URDU -> "باب نمبر $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.INDONESIAN -> "Bab $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.TURKISH -> "$localizedChapterNum. Bölüm"
+        com.quranicwords.app.core.domain.model.Language.FRENCH -> "Chapitre $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.ENGLISH -> "Chapter $localizedChapterNum"
+    }
+
+    GlassSurface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = shape,
+        tint = MaterialTheme.colorScheme.surfaceContainerHigh
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            // Header Row with Chapter Badge and Quran Coverage Badge
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Chapter Ordinal Pill
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(accentColor.copy(alpha = 0.16f))
+                        .border(1.dp, accentColor.copy(alpha = 0.35f), RoundedCornerShape(8.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        text = chapterOrdinalLabel,
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                        color = accentColor
+                    )
+                }
+
+                // Quran Coverage Stat Badge
+                Text(
+                    text = stringResource(
+                        R.string.test_mode_chapter_coverage_badge,
+                        localizedWordCount,
+                        localizedOccPercent
+                    ),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            // Chapter Title & Description
+            Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Text(
+                    text = ch.title.get(language),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = ch.description.get(language),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f),
+                    maxLines = 2
+                )
+            }
+
+            // Progress Bar
+            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                LinearProgressIndicator(
+                    progress = { progressFraction },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(6.dp)),
+                    color = accentColor,
+                    trackColor = accentColor.copy(alpha = 0.16f)
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(
+                            R.string.test_mode_chapter_progress,
+                            localizedCoveredCount,
+                            localizedWordCount
+                        ),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = "${(progressFraction * 100).toInt()}%",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = accentColor
+                    )
+                }
+            }
+
+            // Glossy 3D "Start Chapter Test" Button
+            val btnInteractionSource = remember { MutableInteractionSource() }
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(44.dp)
+                    .pressDepth(btnInteractionSource)
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable(
+                        interactionSource = btnInteractionSource,
+                        indication = null,
+                        onClick = onStartTest
+                    ),
+                shape = RoundedCornerShape(12.dp),
+                color = accentColor
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .border(
+                            1.dp,
+                            Brush.verticalGradient(
+                                listOf(Color.White.copy(alpha = 0.40f), Color.Transparent)
+                            ),
+                            RoundedCornerShape(12.dp)
+                        )
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            Icons.Filled.PlayArrow,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.test_mode_start_chapter_btn),
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 private fun formatPercent(percent: Double): String = String.format(Locale.US, "%.1f", percent)
+

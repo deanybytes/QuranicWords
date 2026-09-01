@@ -282,6 +282,11 @@
     <string name="test_mode_mistakes_empty">کوئی غلط لفظ نہیں ہے! بہترین کارکردگی۔</string>
     <string name="test_mode_start_btn">ٹیسٹ شروع کریں</string>
     <string name="test_mode_review_btn">غلطیاں درست کریں</string>
+    <string name="test_mode_chapterwise_title">ابواب کے مطابق ٹیسٹ موڈ</string>
+    <string name="test_mode_chapterwise_subtitle">پورے قرآنی نصاب کے ہر باب کے الفاظ کا الگ الگ ٹیسٹ دیں</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s الفاظ · قرآن کا %2$s%% احاطہ</string>
+    <string name="test_mode_chapter_progress">%2$s میں سے %1$s الفاظ کا ٹیسٹ مکمل</string>
+    <string name="test_mode_start_chapter_btn">باب کا ٹیسٹ شروع کریں</string>
 
     <string name="home_chart_30d_title">30 روزہ سرگرمی اور رجحان</string>
     <string name="home_chart_30d_summary">30 میں سے %1$d دن فعال · کل %2$d منٹ</string>

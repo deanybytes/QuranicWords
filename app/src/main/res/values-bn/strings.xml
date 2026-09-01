@@ -291,6 +291,11 @@
     <string name="test_mode_mistakes_empty">কোনো ভুল শব্দ নেই! দারুণ প্রস্তুতি।</string>
     <string name="test_mode_start_btn">টেস্ট শুরু করুন</string>
     <string name="test_mode_review_btn">ভুলগুলো সংশোধন করুন</string>
+    <string name="test_mode_chapterwise_title">অধ্যায়ভিত্তিক টেস্ট মোড</string>
+    <string name="test_mode_chapterwise_subtitle">সমগ্র কুরআন পাঠ্যক্রমের প্রতিটি অধ্যায়ের শব্দভাণ্ডার আলাদাভাবে পরীক্ষা করুন</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s টি শব্দ · কুরআনের %2$s%% অন্তর্ভুক্ত</string>
+    <string name="test_mode_chapter_progress">%2$s টির মধ্যে %1$s টি শব্দ পরীক্ষিত</string>
+    <string name="test_mode_start_chapter_btn">অধ্যায় টেস্ট শুরু করুন</string>
 
     <string name="home_chart_30d_title">৩০ দিনের অনুশীলন ও অগ্রগতি</string>
     <string name="home_chart_30d_summary">৩০ দিনে %1$d দিন সক্রিয় · মোট %2$d মিনিট</string>

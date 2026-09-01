@@ -305,4 +305,25 @@ class UserPreferencesDataStore @Inject constructor(
             prefs[Keys.TEST_HARF_COVERED_IDS] = emptySet()
         }
     }
+
+    fun testChapterCoveredWordIdsFlow(chapterId: String): Flow<Set<String>> =
+        context.dataStore.data.map { prefs ->
+            prefs[androidx.datastore.preferences.core.stringSetPreferencesKey("test_chapter_${chapterId}_covered_ids")] ?: emptySet()
+        }
+
+    suspend fun addTestChapterCoveredWordIds(chapterId: String, ids: Collection<String>) {
+        context.dataStore.edit { prefs ->
+            val key = androidx.datastore.preferences.core.stringSetPreferencesKey("test_chapter_${chapterId}_covered_ids")
+            val current = prefs[key] ?: emptySet()
+            prefs[key] = current + ids
+        }
+    }
+
+    suspend fun resetTestChapterCoveredWordIds(chapterId: String) {
+        context.dataStore.edit { prefs ->
+            val key = androidx.datastore.preferences.core.stringSetPreferencesKey("test_chapter_${chapterId}_covered_ids")
+            prefs[key] = emptySet()
+        }
+    }
 }
+

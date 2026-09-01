@@ -282,6 +282,11 @@
     <string name="test_mode_mistakes_empty">Aucun mot incorrect ! Bravo.</string>
     <string name="test_mode_start_btn">Commencer le Test</string>
     <string name="test_mode_review_btn">Corriger les Erreurs</string>
+    <string name="test_mode_chapterwise_title">Mode Test par Chapitre</string>
+    <string name="test_mode_chapterwise_subtitle">Testez et maîtrisez le vocabulaire chapitre par chapitre sur l\'ensemble du Coran</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s mots · Couvre %2$s%% du Coran</string>
+    <string name="test_mode_chapter_progress">%1$s sur %2$s mots testés</string>
+    <string name="test_mode_start_chapter_btn">Démarrer le Test du Chapitre</string>
 
     <string name="home_chart_30d_title">Activité &amp; Tendance sur 30 jours</string>
     <string name="home_chart_30d_summary">%1$d/30 jours actifs · %2$d min au total</string>

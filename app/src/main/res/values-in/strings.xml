@@ -279,6 +279,11 @@
     <string name="test_mode_mistakes_empty">Tidak ada kata yang salah! Luar biasa.</string>
     <string name="test_mode_start_btn">Mulai Tes</string>
     <string name="test_mode_review_btn">Tinjau Kesalahan</string>
+    <string name="test_mode_chapterwise_title">Mode Tes Per Bab</string>
+    <string name="test_mode_chapterwise_subtitle">Uji dan kuasai kosakata bab demi bab di seluruh kurikulum Al-Qur\'an</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s Kosakata · Mencakup %2$s%% Al-Qur\'an</string>
+    <string name="test_mode_chapter_progress">%1$s dari %2$s kata diuji</string>
+    <string name="test_mode_start_chapter_btn">Mulai Tes Bab</string>
 
     <string name="home_chart_30d_title">Aktivitas &amp; Tren 30 Hari</string>
     <string name="home_chart_30d_summary">%1$d/30 hari aktif · Total %2$d mnt</string>

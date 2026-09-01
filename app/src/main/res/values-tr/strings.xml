@@ -279,6 +279,11 @@
     <string name="test_mode_mistakes_empty">Yanlış kelime yok! Harika gidiyorsunuz.</string>
     <string name="test_mode_start_btn">Teste Başla</string>
     <string name="test_mode_review_btn">Hataları Düzelt</string>
+    <string name="test_mode_chapterwise_title">Bölüm Bazlı Test Modu</string>
+    <string name="test_mode_chapterwise_subtitle">Tüm Kur\'an müfredatında bölüm bölüm kelimeleri test edin ve ustalaşın</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s Kelime · Kur\'an\'ın %%%2$s\'sini kapsar</string>
+    <string name="test_mode_chapter_progress">%2$s kelimeden %1$s kelime test edildi</string>
+    <string name="test_mode_start_chapter_btn">Bölüm Testini Başlat</string>
 
     <string name="home_chart_30d_title">30 Günlük Aktivite ve Trend</string>
     <string name="home_chart_30d_summary">30 günde %1$d gün aktif · Toplam %2$d dk</string>

@@ -28,7 +28,11 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises WHERE (type = 'TEACH_WORD' OR type = 'WORD_INTRO') AND practicedItemId IN (:itemIds)")
     suspend fun getTeachWordsForItems(itemIds: List<String>): List<ExerciseEntity>
 
+    @Query("SELECT * FROM exercises WHERE lessonId IN (:lessonIds) ORDER BY orderIndex ASC")
+    suspend fun getForLessons(lessonIds: List<String>): List<ExerciseEntity>
+
     @Query("SELECT * FROM exercises WHERE type = 'TEACH_WORD' OR type = 'WORD_INTRO'")
     suspend fun getAllTeachWords(): List<ExerciseEntity>
 }
+
 
