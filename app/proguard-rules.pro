@@ -1,3 +1,6 @@
+# Disable aggressive code mutation/inlining optimizations that break reflection
+-dontoptimize
+
 # kotlinx.serialization
 -keepattributes *Annotation*, InnerClasses, Signature
 -dontnote kotlinx.serialization.AnnotationsKt
@@ -32,9 +35,34 @@
 # Keep ViewModels and Application
 -keep class com.quranicwords.app.QwApplication { *; }
 -keep class com.quranicwords.app.MainActivity { *; }
+-keep class * extends androidx.lifecycle.ViewModel {
+    <init>(...);
+    *;
+}
+-keep @dagger.hilt.android.lifecycle.HiltViewModel class * {
+    <init>(...);
+    *;
+}
+-keep class com.quranicwords.app.MainViewModel {
+    <init>(...);
+    *;
+}
+-keep class com.quranicwords.app.feature.**.*ViewModel {
+    <init>(...);
+    *;
+}
 
-# Hilt, Workers, and Startup
+# Hilt, Dagger, Workers, and Startup
+-keep class dagger.hilt.** { *; }
+-keep class com.quranicwords.app.**_Factory { *; }
+-keep class com.quranicwords.app.**_MembersInjector { *; }
+-keep class com.quranicwords.app.**_HiltModules** { *; }
+-keep class com.quranicwords.app.core.di.** { *; }
 -keep class * extends androidx.hilt.work.HiltWorkerFactory { *; }
 -keep class * extends androidx.work.ListenableWorker { *; }
 -keep class androidx.work.** { *; }
 -keep class androidx.startup.** { *; }
+
+# DataStore and Coroutines
+-keep class androidx.datastore.** { *; }
+-dontwarn kotlinx.coroutines.**
