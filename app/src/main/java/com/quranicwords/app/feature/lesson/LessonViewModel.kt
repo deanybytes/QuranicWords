@@ -26,7 +26,6 @@ import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.util.AppJson
-import com.quranicwords.app.core.util.AudioPlayer
 import com.quranicwords.app.core.util.SfxEffect
 import com.quranicwords.app.core.util.SfxPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -80,7 +79,6 @@ class LessonViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val achievementRepository: AchievementRepository,
     private val userIdProvider: CurrentUserIdProvider,
-    private val audioPlayer: AudioPlayer,
     private val sfxPlayer: SfxPlayer,
     private val preferences: UserPreferencesDataStore,
     private val clock: Clock,
@@ -166,10 +164,7 @@ class LessonViewModel @Inject constructor(
                 val candidatePool = WordCandidatePool.from(candidates)
                 val decoded = exercises
                     .map { AppJson.decodeFromString(ExerciseContent.serializer(), it.contentJson) }
-                    // ListenAndType has no valid interaction without its audio clip - filtered
-                    // out here rather than shown broken, same spirit as the existing
-                    // "audio unavailable" note but applied before the exercise is ever reached.
-                    .filter { content -> content !is ExerciseContent.ListenAndType || audioPlayer.isAvailable(content.audioAssetPath) }
+                    .filter { content -> content !is ExerciseContent.TapWhatYouHear && content !is ExerciseContent.ListenAndType }
                 // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
                 // comment) so each repeated instance gets its own independent distractor/shuffle
                 // pass below, rather than N identical copies of the same regenerated exercise.
@@ -347,14 +342,6 @@ class LessonViewModel @Inject constructor(
         return false
     }
 
-    /** Returns false (no throw) if the clip isn't bundled - callers show a subtle "unavailable"
-     * indication rather than nothing happening silently. */
-    fun playAudio(assetPath: String): Boolean = audioPlayer.play(assetPath)
-
-    override fun onCleared() {
-        audioPlayer.release()
-    }
-
     fun selectOption(optionId: String) {
         _uiState.update {
             if (it.isChecked) it else it.copy(attempt = it.attempt.copy(selectedOptionId = optionId))
@@ -366,15 +353,9 @@ class LessonViewModel @Inject constructor(
         val content = state.currentContent ?: return
         val correct = when (content) {
             is ExerciseContent.MultipleChoice -> state.attempt.selectedOptionId == content.correctOptionId
-            is ExerciseContent.TapWhatYouHear -> state.attempt.selectedOptionId == content.correctOptionId
             is ExerciseContent.FillInTheBlank -> state.attempt.selectedOptionId == content.correctOptionId
             is ExerciseContent.WordOrderBuilder ->
                 state.attempt.orderedChipIds == content.orderedChips.map { it.id }
-            is ExerciseContent.ListenAndType -> {
-                val typed = state.attempt.typedAnswer.trim()
-                typed.equals(content.correctAnswer, ignoreCase = true) ||
-                    content.acceptedAnswers.any { typed.equals(it, ignoreCase = true) }
-            }
             else -> return // matching self-validates as it's solved
         }
         finalizeCheck(correct)
@@ -468,10 +449,8 @@ class LessonViewModel @Inject constructor(
         viewModelScope.launch { sfxPlayer.play(if (correct) SfxEffect.CORRECT else SfxEffect.WRONG) }
         val exerciseType = when (content) {
             is ExerciseContent.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE
-            is ExerciseContent.TapWhatYouHear -> ExerciseType.TAP_WHAT_YOU_HEAR
             is ExerciseContent.FillInTheBlank -> ExerciseType.FILL_IN_THE_BLANK
             is ExerciseContent.WordOrderBuilder -> ExerciseType.WORD_ORDER
-            is ExerciseContent.ListenAndType -> ExerciseType.LISTEN_AND_TYPE
             is ExerciseContent.TapWordInVerse -> ExerciseType.WORD_IN_VERSE_TAP
             else -> return // Matching logs per-pair in selectMatchingRight; teach steps never reach here
         }

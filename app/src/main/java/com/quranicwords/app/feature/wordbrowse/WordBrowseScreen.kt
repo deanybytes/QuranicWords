@@ -18,13 +18,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -125,7 +121,7 @@ fun WordBrowseScreen(
                         .padding(24.dp)
                         .clickable { flippedByWordId[word.wordId] = !flipped },
                     front = { WordCardFront(word) },
-                    back = { WordCardBack(word, language, onPlay = viewModel::playAudio) }
+                    back = { WordCardBack(word, language) }
                 )
             }
         }
@@ -159,8 +155,7 @@ private fun WordCardFront(word: ExerciseContent.WordIntro) {
 @Composable
 private fun WordCardBack(
     word: ExerciseContent.WordIntro,
-    language: Language,
-    onPlay: (String) -> Boolean
+    language: Language
 ) {
     var selectedMeaningIndex by remember(word) { androidx.compose.runtime.mutableIntStateOf(0) }
     val activePolysemyEntry = word.polysemyEntries.getOrNull(selectedMeaningIndex)
@@ -223,20 +218,6 @@ private fun WordCardBack(
                             )
                         }
                     }
-                }
-            }
-
-            word.audioAssetPath?.let { assetPath ->
-                FilledIconButton(
-                    onClick = { onPlay(assetPath) },
-                    colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
-                    modifier = Modifier.size(40.dp)
-                ) {
-                    Icon(
-                        Icons.AutoMirrored.Filled.VolumeUp,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
                 }
             }
 
