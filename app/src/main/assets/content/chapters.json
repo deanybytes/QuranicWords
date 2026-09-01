@@ -3,163 +3,163 @@
     {
       "id": "ch_01",
       "title": {
-        "en": "Divine Foundations, Core Particles & Essential Lemmas",
-        "bn": "তাওহিদ, মৌলিক হরফ ও প্রাথমিক শব্দসম্ভার",
-        "ur": "توحید، بنیادی حروف اور بنیادی الفاظ",
-        "in": "Fondasi Ketauhidan, Partikel Utama & Kosakata Dasar",
-        "tr": "Tevhid, Temel Harfler ve Temel Kelimeler",
-        "fr": "Fondements Divins, Particules Clés & Lemmes Majeurs"
+        "en": "Foundational Qur'anic Particles, Essential Nouns & Core Verbs",
+        "bn": "কুরআনিক মৌলিক হরফ, অত্যাবশ্যকীয় বিশেষ্য ও প্রধান ক্রিয়াসমূহ",
+        "ur": "بنیادی قرآنی حروف، اہم اسماء اور بنیادی افعال",
+        "in": "Partikel Fondasi Al-Qur'an, Nomina Penting & Verba Inti",
+        "tr": "Temel Kur'an Harfleri, Önemli İsimler ve Ana Fiiller",
+        "fr": "Particules Fondamentales, Noms Essentiels et Verbes Clés"
       },
       "description": {
-        "en": "Covers high-frequency particles (حروف), core nouns (أسماء), and foundational verbs (أفعال) forming over 80% of Qur'anic text.",
-        "bn": "সর্বাধিক ব্যবহৃত হরফ (حروف), মৌলিক বিশেষ্য (أسماء) ও ক্রিয়াপদ (أفعال) যা কুরআনের ৮০% এরও বেশি অংশ জুড়ে বিদ্যমান।",
-        "ur": "سب سے زیادہ استعمال ہونے والے حروف، اسم اور افعال جو قرآن کے 80 فیصد سے زیادہ متن کا احاطہ کرتے ہیں۔",
-        "in": "Mencakup partikel frekuensi tinggi (harf), nomina utama (ism), dan verba dasar (fi'l) yang mencakup lebih dari 80% teks Al-Qur'an.",
-        "tr": "Kur'an metninin %80'inden fazlasını oluşturan en sık geçen harfler, isimler ve temel fiilleri kapsar.",
-        "fr": "Couvre les particules fondamentales (harf), noms essentiels (ism) et verbes de base (fi'l) constituant plus de 80% du texte coranique."
+        "en": "Highest-frequency Arabic particles (Harf), prepositions, conjunctions, core divine names, and fundamental verbs.",
+        "bn": "সর্বাধিক ব্যবহৃত হরফ (অব্যয়), অব্যয়সূচক শব্দ, আল্লাহর গুণবাচক নাম এবং দৈনন্দিন প্রধান ক্রিয়াপদ।",
+        "ur": "کثرت سے مستعمل حروف، حروفِ جار و عطف، اسمائے حسنیٰ اور بنیادی افعال۔",
+        "in": "Partikel paling sering muncul, kata depan, konjungsi, nama-nama agung Allah, dan verba utama.",
+        "tr": "En sık geçen harfler, edatlar, bağlaçlar, esma-i hüsna ve temel fiiller.",
+        "fr": "Particules les plus fréquentes, prépositions, conjonctions, noms divins et verbes fondamentaux."
       },
       "sortOrder": 1,
       "wordCount": 462,
-      "quranOccurrenceCount": 84015,
-      "quranOccurrencePercent": 38.1
+      "quranOccurrenceCount": 59995,
+      "quranOccurrencePercent": 69.63
     },
     {
       "id": "ch_02",
       "title": {
-        "en": "Prophets, Nations & Moral Guidance",
-        "bn": "নবীগণ, ঐতিহাসিক জাতিসমূহ ও নৈতিক শিক্ষা",
-        "ur": "انبیاء، اقوام اور اخلاقی رہنمائی",
-        "in": "Para Nabi, Kisah Kaum & Bimbingan Moral",
-        "tr": "Peygamberler, Kavimler ve Ahlak",
-        "fr": "Prophètes, Nations & Morales"
+        "en": "Tawheed, Divine Attributes & Sacred Prophethood",
+        "bn": "তাওহিদ, আল্লাহর ঐশী গুণাবলি ও নবুয়তের মূল পরিভাষা",
+        "ur": "توحید، صفاتِ الٰہیہ اور نبوت کے بنیادی الفاظ",
+        "in": "Tauhid, Sifat-sifat Ilahi & Kenabian Mulia",
+        "tr": "Tevhid, İlahi Sıfatlar ve Peygamberlik Terimleri",
+        "fr": "Tawhid, Attributs Divins & Prophétie Sacrée"
       },
       "description": {
-        "en": "Narratives of the messengers, prophetic dialogue verbs, and historical societal terms.",
-        "bn": "নবী-রাসূলগণের ঘটনাপঞ্জি, কথোপকথনের ক্রিয়াপদ এবং ঐতিহাসিক জাতিসমূহের শব্দভাণ্ডার।",
-        "ur": "انبیاء کرام کے واقعات، مکالماتی افعال اور تاریخی قوموں سے متعلق الفاظ۔",
-        "in": "Kisah para nabi, kata kerja dialog kenabian, dan istilah umat terdahulu.",
-        "tr": "Peygamberlerin kıssaları, diyalog fiilleri ve geçmiş kavimlere ait terimler.",
-        "fr": "Récits des prophètes, verbes de dialogue prophétique et lemmes historiques."
+        "en": "Oneness of Allah, sublime divine attributes, revelation terminology, and prophet narratives.",
+        "bn": "আল্লাহর একত্ববাদ, অনুপম গুণবাচক বিশেষণ, ওহী সংক্রান্ত পরিভাষা এবং নবীগণের ইতিহাস সংশ্লিষ্ট শব্দ।",
+        "ur": "اللہ کی وحدانیت، صفاتِ باری تعالیٰ، وحی کے اصطلاحات اور انبیاء کے واقعات۔",
+        "in": "Keesaan Allah, sifat-sifat mulia, istilah wahyu, dan kisah-kisah para nabi.",
+        "tr": "Allah'ın birliği, yüce sıfatlar, vahiy terimleri ve peygamber kıssaları.",
+        "fr": "Unicité d'Allah, attributs sublimes, termes de la révélation et récits prophétiques."
       },
       "sortOrder": 2,
       "wordCount": 462,
-      "quranOccurrenceCount": 27040,
-      "quranOccurrencePercent": 12.26
+      "quranOccurrenceCount": 8274,
+      "quranOccurrencePercent": 9.6
     },
     {
       "id": "ch_03",
       "title": {
-        "en": "Worship, Devotion & Righteous Deeds",
-        "bn": "ইবাদত, আত্মশুদ্ধি ও পুণ্যময় কর্ম",
-        "ur": "عبادت، تقویٰ اور اعمال صالحہ",
-        "in": "Ibadah, Pengabdian & Amal Saleh",
-        "tr": "İbadet, Takva ve Salih Ameller",
-        "fr": "Adoration, Dévotion & Bonnes Actions"
+        "en": "Creation of the Cosmos, Nature & Humanity",
+        "bn": "মহাবিশ্বের সৃষ্টি, প্রাকৃতিক নিদর্শন ও মানবজাতি",
+        "ur": "تخلیقِ کائنات، فطری نشانیاں اور انسان",
+        "in": "Penciptaan Alam Semesta, Tanda Alam & Manusia",
+        "tr": "Kainatın Yaratılışı, Tabiat ve İnsan",
+        "fr": "Création du Cosmos, Nature & Humanité"
       },
       "description": {
-        "en": "Prayers, fasting, charity, purification verbs, and terminology of inner devotion.",
-        "bn": "নামাজ, রোজা, জাকাত, আত্মশুদ্ধির ক্রিয়া এবং আধ্যাত্মিক একাগ্রতার শব্দাবলি।",
-        "ur": "نماز، روزہ، زکوٰۃ، تزکیہ نفس کے افعال اور تقویٰ و پرہیزگاری کے الفاظ۔",
-        "in": "Salat, puasa, zakat, verba penyucian jiwa, dan istilah ketakwaan.",
-        "tr": "Namaz, oruç, zekat, arınma fiilleri ve içsel takva terminolojisi.",
-        "fr": "Prières, jeûne, aumône, verbes de purification et termes de piété."
+        "en": "Heavens, earth, cosmic signs, atmospheric phenomena, and human biological creation.",
+        "bn": "আকাশমন্ডলী, পৃথিবী, প্রাকৃতিক নিদর্শনসমূহ, বৃষ্টি-বাতাস ও মানুষের সৃষ্টিতত্ত্ব সম্পর্কিত শব্দ।",
+        "ur": "آسمان و زمین، کائناتی نشانیاں، موسمی مظاہر اور تخلیقِ انسانی کے مراحل۔",
+        "in": "Langit, bumi, tanda-tanda kosmik, fenomena alam, dan tahapan penciptaan manusia.",
+        "tr": "Gökler, yer, kozmik işaretler, tabiat olayları ve insanın yaratılışı.",
+        "fr": "Cieux, terre, merveilles cosmiques, météores et genèse de l'humanité."
       },
       "sortOrder": 3,
       "wordCount": 462,
-      "quranOccurrenceCount": 23237,
-      "quranOccurrencePercent": 10.54
+      "quranOccurrenceCount": 4111,
+      "quranOccurrencePercent": 4.77
     },
     {
       "id": "ch_04",
       "title": {
-        "en": "Faith, Belief & Spiritual Realities",
-        "bn": "ঈমান, অন্তরের বিশ্বাস ও আধ্যাত্মিক বাস্তবতা",
-        "ur": "ایمان، قلبی یقین اور روحانی حقائق",
-        "in": "Keimanan, Keyakinan & Realitas Spiritual",
-        "tr": "İman, Kalbi Yakîn ve Manevi Hakikatler",
-        "fr": "Foi, Croyance & Réalités Spirituelles"
+        "en": "Acts of Devotion, Sacred Worship & Righteous Deeds",
+        "bn": "ইবাদত, আত্মশুদ্ধি ও সৎকর্মের শব্দভাণ্ডার",
+        "ur": "عبادات، بندگی اور اعمالِ صالحہ",
+        "in": "Ibadah, Penyucian Jiwa & Amal Saleh",
+        "tr": "İbadetler, Kulluk ve Salih Ameller",
+        "fr": "Actes d'Adoration, Dévotion & Bonnes Actions"
       },
       "description": {
-        "en": "Attributes of certainty, cognitive verbs of perception, and spiritual consciousness.",
-        "bn": "দৃঢ় বিশ্বাসের বৈশিষ্ট্য, উপলব্ধিমূলক ক্রিয়া এবং আধ্যাত্মিক সচেতনতা।",
-        "ur": "یقین کے اوصاف، فہم و ادراک کے افعال اور قلبی بیداری۔",
-        "in": "Sifat-sifat keyakinan, verba persepsi kognitif, dan kesadaran spiritual.",
-        "tr": "Yakîn sıfatları, idrak fiilleri ve manevi bilinç terimleri.",
-        "fr": "Attributs de certitude, verbes de perception et conscience spirituelle."
+        "en": "Prayer (Salah), fasting, remembrance (Dhikr), charity (Zakah), repentance, and ethical piety.",
+        "bn": "নামাজ, রোজা, আল্লাহর স্মরণ (জিকির), দান-সদকা, তওবা এবং নৈতিক সততা ও তাকওয়া সম্পর্কিত শব্দ।",
+        "ur": "نماز، روزہ، ذکرِ الٰہی، زکوٰۃ و صدقات، توبہ اور اخلاقی تقویٰ کے الفاظ۔",
+        "in": "Salat, puasa, zikir, sedekah, tobat, dan ketakwaan berakhlak mulia.",
+        "tr": "Namaz, oruç, zikir, zekat, tövbe ve ahlaki takva kavramları.",
+        "fr": "Prière (Salat), jeûne, évocation (Dhikr), aumône, repentir et piété."
       },
       "sortOrder": 4,
       "wordCount": 462,
-      "quranOccurrenceCount": 20375,
-      "quranOccurrencePercent": 9.24
+      "quranOccurrenceCount": 2696,
+      "quranOccurrencePercent": 3.13
     },
     {
       "id": "ch_05",
       "title": {
-        "en": "Creation, Heavens, Earth & Natural Signs",
-        "bn": "সৃষ্টিজগৎ, আকাশমণ্ডলী, পৃথিবী ও মহাজাগতিক নিদর্শন",
-        "ur": "تخلیق، آسمان و زمین اور کائناتی نشانیاں",
-        "in": "Penciptaan, Langit, Bumi & Tanda Alamiah",
-        "tr": "Yaratılış, Gökler, Yer ve Kevnî Ayetler",
-        "fr": "Création, Cieux, Terre & Signes Naturels"
+        "en": "Guidance, Heavenly Books & Unseen Realm",
+        "bn": "হিদায়াত, আসমানী কিতাব ও অদৃশ্যের জগত (গায়েব)",
+        "ur": "ہدایت، آسمانی کتب اور عالمِ غیب",
+        "in": "Petunjuk, Kitab Suci & Alam Gaib",
+        "tr": "Hidayet, İlahi Kitaplar ve Gayb Âlemi",
+        "fr": "Guidance, Livres Sacrés & Monde de l'Invisible"
       },
       "description": {
-        "en": "Cosmic phenomena, meteorological terms, natural elements, and verbs of origination.",
-        "bn": "মহাজাগতিক নিদর্শন, আবহাওয়া, প্রাকৃতিক উপাদান এবং সৃষ্টির আদি ক্রিয়াপদ।",
-        "ur": "کائناتی مظاہر، موسمی کیفیات، قدرتی عناصر اور تخلیق کے افعال۔",
-        "in": "Fenomena kosmis, istilah meteorologis, elemen alam, dan verba penciptaan.",
-        "tr": "Kozmik olaylar, doğa unsurları ve yaratma fiilleri.",
-        "fr": "Phénomènes cosmiques, termes météorologiques et verbes de création."
+        "en": "True guidance, Torah, Gospel, Quran, angels, Jinn, and belief in the unseen realm.",
+        "bn": "সঠিক পথের দিশা (হিদায়াত), তাওরাত, ইনজিল, কুরআন, ফেরেশতা ও গায়েবের প্রতি ঈমান।",
+        "ur": "صراطِ مستقیم، تورات، انجیل، قرآن، فرشتے اور امورِ غیبیہ پر ایمان۔",
+        "in": "Hidayah, Taurat, Injil, Al-Qur'an, malaikat, dan keimanan pada perkara gaib.",
+        "tr": "Hidayet, Tevrat, İncil, Kur'an, melekler ve gayba iman.",
+        "fr": "Guidance, Torah, Évangile, Coran, anges et foi en l'Invisible."
       },
       "sortOrder": 5,
       "wordCount": 462,
-      "quranOccurrenceCount": 17545,
-      "quranOccurrencePercent": 7.96
+      "quranOccurrenceCount": 1998,
+      "quranOccurrencePercent": 2.32
     },
     {
       "id": "ch_06",
       "title": {
-        "en": "Humanity, Society & Sacred Law",
-        "bn": "মানবজাতি, সমাজ ব্যবস্থা ও শরীয়তের বিধান",
-        "ur": "انسانیت، معاشرت اور احکام شریعت",
-        "in": "Kemanusiaan, Masyarakat & Hukum Syariat",
-        "tr": "İnsanlık, Toplum ve Şeriat Hükümleri",
-        "fr": "Humanité, Société & Lois Sacrées"
+        "en": "Sacred Law, Ethics, Family & Social Justice",
+        "bn": "শরীয়তের বিধান, নৈতিকতা, পরিবার ও সামাজিক ন্যায়বিচার",
+        "ur": "احکامِ شریعت، اخلاقیات، خاندان اور عدل و انصاف",
+        "in": "Hukum Syariat, Akhlak, Keluarga & Keadilan Sosial",
+        "tr": "Şeriat Hükümleri, Ahlak, Aile ve Sosyal Adalet",
+        "fr": "Loi Sacrée, Éthique, Famille & Justice Sociale"
       },
       "description": {
-        "en": "Family law, commercial ethics, justice, interpersonal rights, and legal obligations.",
-        "bn": "পারিবারিক বিধান, বাণিজ্যিক সততা, ন্যায়বিচার ও পারস্পরিক সামাজিক অধিকার।",
-        "ur": "خاندانی احکام، تجارتی اخلاقیات، عدل و انصاف اور باہمی حقوق۔",
-        "in": "Hukum keluarga, etika muamalah, keadilan, dan hak-hak sosial.",
-        "tr": "Aile hukuku, ticaret ahlakı, adalet ve sosyal haklar.",
-        "fr": "Droit familial, éthique commerciale, justice et obligations mutuelles."
+        "en": "Halal, Haram, covenant obligations, family welfare, commerce morality, and communal equity.",
+        "bn": "হালাল, হারাম, অঙ্গীকার রক্ষা, পারিবারিক মর্যাদা, বাণিজ্যিক সততা ও সমাজ সংস্কার।",
+        "ur": "حلال و حرام، عہد و پیمان، عائلی قوانین، دیانت دارانہ تجارت اور عدل۔",
+        "in": "Halal, haram, pemenuhan janji, hukum keluarga, kejujuran niaga, dan keadilan.",
+        "tr": "Helal, haram, ahitler, aile hukuku, ticari ahlak ve adalet ilkeleri.",
+        "fr": "Licite, illicite, pactes, famille, éthique commerciale et équité sociale."
       },
       "sortOrder": 6,
       "wordCount": 462,
-      "quranOccurrenceCount": 14917,
-      "quranOccurrencePercent": 6.76
+      "quranOccurrenceCount": 1790,
+      "quranOccurrencePercent": 2.08
     },
     {
       "id": "ch_07",
       "title": {
-        "en": "The Hereafter, Resurrection & Eternity",
-        "bn": "আখিরাত, পুনরুত্থান ও অনন্ত পরকাল",
-        "ur": "آخرت، قیامت اور ابدی زندگی",
-        "in": "Hari Akhir, Kebangkitan & Keabadian",
-        "tr": "Ahiret, Kıyamet ve Ebediyet",
-        "fr": "Au-delà, Résurrection & Éternité"
+        "en": "Eschatology, Resurrection & Hereafter Realities",
+        "bn": "আখিরাত, কেয়ামত, জান্নাত ও জাহান্নামের স্বরূপ",
+        "ur": "آخرت، قیامت، جنت اور جہنم کی حقیقتیں",
+        "in": "Eskatologi, Hari Kebangkitan, Surga & Neraka",
+        "tr": "Ahiret, Kıyamet, Cennet ve Cehennem Hakikatleri",
+        "fr": "Eschatologie, Résurrection & Réalités de l'Au-delà"
       },
       "description": {
-        "en": "Eschatological events, Paradise delights, Hellfire warnings, and eternal destinations.",
+        "en": "Day of Judgement, paradise pleasures, hellfire warnings, and eternal destinations.",
         "bn": "কেয়ামতের ঘটনাবলি, জান্নাতের নেয়ামত, জাহান্নামের সতর্কবার্তা ও অনন্ত গন্তব্য।",
-        "ur": "قیامت کے مناظر، جنت کی نعمتیں، جہنم کا عذاب اور ابدی ٹھکانے۔",
+        "ur": "قیامت کے مناظر، جنت کی نعمتیں، جہنم کا عذاب اور ابدی ٹھکانے।",
         "in": "Peristiwa eskatologis, kenikmatan surga, peringatan neraka, dan akhirat.",
         "tr": "Kıyamet ahvali, cennet nimetleri, cehennem azabı ve ebedi yurt.",
         "fr": "Événements eschatologiques, délices du Paradis et avertissements de l'Enfer."
       },
       "sortOrder": 7,
       "wordCount": 461,
-      "quranOccurrenceCount": 12288,
-      "quranOccurrencePercent": 5.57
+      "quranOccurrenceCount": 1561,
+      "quranOccurrencePercent": 1.81
     },
     {
       "id": "ch_08",
@@ -174,15 +174,15 @@
       "description": {
         "en": "Quranic allegories, moral parables, wisdom dictums, and contemplative expressions.",
         "bn": "কুরআনিক উপমা, নৈতিক রূপকগাথা, প্রজ্ঞাপূর্ণ বাণী ও চিন্তাশীল অভিব্যক্তি।",
-        "ur": "قرآنی تمثیلات، اخلاقی امثال، دانائی کے کلمات اور فکری بیانات۔",
+        "ur": "قرآنی تمثیلات، اخلاقی امثال، دانائی کے کلمات اور فکری بیانات।",
         "in": "Alegori Qur'ani, perumpamaan moral, mutiara hikmah, dan refleksi.",
         "tr": "Kur'an meselleri, ahlaki öğütler ve tefekkür ifadeleri.",
         "fr": "Allégories coraniques, paraboles morales et maximes de sagesse."
       },
       "sortOrder": 8,
       "wordCount": 461,
-      "quranOccurrenceCount": 9659,
-      "quranOccurrencePercent": 4.38
+      "quranOccurrenceCount": 1210,
+      "quranOccurrencePercent": 1.4
     },
     {
       "id": "ch_09",
@@ -197,15 +197,15 @@
       "description": {
         "en": "Steadfastness under trial, spiritual warfare verbs, triumph of truth, and divine aid.",
         "bn": "বিপদে ধৈর্যধারণ, সত্যের সংগ্রাম, বিজয়ের প্রতিশ্রুতি এবং আল্লাহর বিশেষ সাহায্য।",
-        "ur": "آزمائشوں میں ثابت قدمی، جہد و استقامت، فتح کی بشارت اور نصرت خداوندی۔",
+        "ur": "آزمائشوں میں ثابت قدمی، جہد و استقامت، فتح کی بشارت اور نصرت خداوندی।",
         "in": "Keteguhan dalam ujian, verba perjuangan, kemenangan hakiki, dan pertolongan Allah.",
         "tr": "Zorluklarda sabır, hak mücadele fiilleri ve ilahi yardım vaadi.",
         "fr": "Persévérance dans l'épreuve, verbes de lutte spirituelle et secours divin."
       },
       "sortOrder": 9,
       "wordCount": 461,
-      "quranOccurrenceCount": 7031,
-      "quranOccurrencePercent": 3.19
+      "quranOccurrenceCount": 1055,
+      "quranOccurrencePercent": 1.22
     },
     {
       "id": "ch_10",
@@ -220,15 +220,15 @@
       "description": {
         "en": "Rare rhetorical gems, hapax legomena, expressive nuance words, and mastery lexicon completing 100% of the Quran.",
         "bn": "কুরআনের অনুপম অলঙ্কারপূর্ণ শব্দ, বিরল প্রয়োগ এবং শতভাগ কুরআন বোঝার পূর্ণাঙ্গ শব্দসম্ভার।",
-        "ur": "قرآن کے نایاب اور فصیح الفاظ، گہرے معنوی لطائف اور 100 فیصد قرآن کی مکمل لغت۔",
+        "ur": "قرآن کے نایاب اور فصیح الفاظ، گہرے معنوی لطائف اور 100 فیصد قرآن کی مکمل لغت।",
         "in": "Kata-kata retoris istimewa, nuansa ekspresif mendalam, dan penguasaan 100% kosakata Al-Qur'an.",
         "tr": "Nadir belagat incileri, derin manalı kelimeler ve %100 Kur'an hakimiyetini tamamlayan sözlük.",
         "fr": "Joyaux rhétoriques rares, nuances expressives et maîtrise achevant 100% du Coran."
       },
       "sortOrder": 10,
       "wordCount": 461,
-      "quranOccurrenceCount": 4403,
-      "quranOccurrencePercent": 2.0
+      "quranOccurrenceCount": 3478,
+      "quranOccurrencePercent": 4.04
     }
   ]
 }
