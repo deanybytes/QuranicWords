@@ -15,8 +15,6 @@
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
   <img alt="Status" src="https://img.shields.io/badge/status-in%20development-orange" />
   <img alt="Release" src="https://img.shields.io/github/v/release/rmrashahriar/QuranicWords" />
-  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
-  <img alt="Copyright" src="https://img.shields.io/badge/copyright-DEANY%20BYTES-2E7D32" />
 </p>
 
 ---
@@ -154,12 +152,3 @@ docs/                          # the documentation set linked above
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and layer diagram.
 
-## 📜 License
-
-QuranicWords is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License v3.0](LICENSE) as published by the Free Software Foundation. Bundled third-party content (vocabulary data, translations, audio) is licensed separately under its own original terms — see [`NOTICE`](NOTICE) and [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md).
-
----
-
-<p align="center">
-  Developed by <strong>DEANY BYTES</strong> · Copyright © 2026 · Licensed under <a href="LICENSE">GPL-3.0</a>
-</p>
