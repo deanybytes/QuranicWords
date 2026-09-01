@@ -47,6 +47,14 @@ These are enforced by design, not just convention — PRs that violate them won'
 - Update the relevant doc under `docs/` if your change makes it stale.
 - Describe what you tested (unit tests run, device/emulator manual testing) in the PR description.
 
+## Open Source License & DEANY TALKS Ecosystem
+
+QuranicWords is licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). By contributing to QuranicWords, you agree that your contributions will be licensed under its GPL-3.0 terms.
+
+- **Dawah Platform Ecosystem**: QuranicWords is part of the **DEANY TALKS** digital Islamic education initiative.
+- **Contact & Inquiries**: Reach out to the core team via email at `contact.deanstalks@gmail.com` or join community discussions on GitHub.
+
 ## Reporting bugs / requesting features
 
-Use the issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/).
+Use the issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) or email `contact.deanstalks@gmail.com`.
+

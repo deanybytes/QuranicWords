@@ -51,9 +51,25 @@
 
 ## 🎯 The curriculum
 
-QuranicWords is a single, focused vocabulary curriculum — **no alphabet stage, no grammar track**. It assumes the learner can already read Arabic script and takes them straight into word meanings, **ordered by how frequently each word actually appears in the Qur'an**: the most common words first, so a learner's very first lessons cover the words they'll recognize most often when reciting.
+QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**):
 
-Content is organized as **chapters → sections → lessons**, with a pass-threshold exam at the end of each section and chapter gating progress into the next unit — so advancing through the app means demonstrating real recall, not just clicking through content.
+1. **Fi'l (الفعل — Verbs)**: 1,450 Quranic verbs structured across 145 lessons in 15 sections.
+2. **Ḥarf (الحرف — Particles)**: 109 Quranic particles structured across 11 lessons in 2 sections.
+3. **Ism (الاسم — Nouns)**: 3,057 Quranic nouns structured across 306 lessons in 31 sections.
+
+In total, **4,616 vocabulary items** covering 100% of the Quranic vocabulary curve are taught **ordered by their real occurrence frequency in the Qur'an**. Every word features full grammatical categorization, root details, contextual polysemy (**Wujūh al-Qur'an**), and interactive verse examples with complete Tashkīl/Ḥarakāt.
+
+Content is organized as **parts of speech → sections → lessons**, with section exams gating progress into subsequent units.
+
+## 🧪 Test-Only & Practice Modes
+
+For learners who want focused recall testing without linear lesson progression, the dedicated **Test-Only Mode** offers 5 specialized practice modes:
+
+1. 📖 **Ism Mode (الاسم — Nouns)**: 3,057 nouns.
+2. ⚡ **Fi'l Mode (الفعل — Verbs)**: 1,450 verbs.
+3. ✨ **Ḥarf Mode (الحرف — Particles)**: 109 particles.
+4. 🔀 **Mix / Random Mode**: Dynamic shuffle across all 4,616 words with live grammar category tags.
+5. 🔄 **Mistaken Words Review**: Adaptive spaced review of previously missed words with grammar category tags.
 
 ## 🎮 Gamification
 
@@ -61,35 +77,36 @@ Content is organized as **chapters → sections → lessons**, with a pass-thres
 ✅ Correct answer         → +10 points
 🏆 100% lesson accuracy   → +20 bonus points
 🔥 Daily streak           → local-calendar-date based, timezone-safe
-🔓 Progression unlocking  → each lesson/section/chapter unlocks the next on completion
+🔓 Progression unlocking  → each lesson and section unlocks the next on completion
+📊 Lesson End Summary     → words covered (Alhamdulillah), mistakes, accuracy %, and next lesson preview
 ```
 
 ## 🧩 How a lesson teaches (not just tests)
 
-Every word is **taught before it's quizzed** — a non-scored intro (the word, its meaning, and a real verse it appears in) immediately followed by that word's quiz, repeated per word, closed by a review exercise across the whole lesson. See [`docs/CURRICULUM_DESIGN.md`](docs/CURRICULUM_DESIGN.md) for the full rationale.
+Every word is **taught before it's quizzed** — a non-scored intro (the word, its meaning tabs for multiple contextual senses, and real example verses with full Tashkīl) immediately followed by that word's quiz, repeated per word, closed by an interactive lesson summary.
 
 | Type | Interaction | Scored? |
 |---|---|---|
-| 📖 Word intro | Word + meaning + a real example verse it appears in, tap "Got it" | No — teaching only |
-| 🔤 Multiple choice | Tap the correct transliteration/meaning for an Arabic word | Yes |
-| 🔊 Tap-what-you-hear | Listen (male voice) and select the matching word *(composable ready; audio clips exist for all 3,680 words, no exercises generated for this type yet — see [Roadmap](docs/ROADMAP.md))* | Yes |
-| 🔗 Matching | Pair Arabic words with their meanings | Yes |
-| ✏️ Fill in the blank | Complete a verse by choosing the missing word | Yes |
-| 🧱 Word order builder | Assemble a verse from its individual word chips, in order | Yes |
-| ⌨️ Listen and type | Listen (male voice) and type the word in Arabic | Yes |
+| 📖 Word intro | Word + meaning tabs (Wujūh al-Qur'an) + real verse examples with Tashkīl, tap "Continue" | No — teaching only |
+| 🔤 Multiple choice | Select the correct translation for the highlighted Arabic word | Yes |
+| 🔗 Matching | Pair Arabic words with their corresponding meanings | Yes |
+| ✏️ Fill in the blank | Complete a Quranic verse by choosing the missing word | Yes |
+| 🧱 Word order builder | Assemble a verse from individual word chips in correct order | Yes |
+| 👁️ Word in verse tap | Identify and tap the target word directly inside a Quranic verse | Yes |
 
-The vocabulary curriculum is **built to the full frequency curve** — all 3,680 words from the Quranic Arabic Corpus, most-frequent-first, not a sample. All word meanings and translations are verified against word-by-word reference corpora. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for data sourcing details.
+All word meanings and polysemic senses are verified against word-by-word reference corpora. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for data sourcing details.
 
 ## 🖋️ Qur'an script styles
 
-At setup, learners preview **Surah Al-Kawthar** (the shortest surah) in 10 of the most recognized Qur'an script styles and pick their favorite. Three are bundled as real, open-licensed (SIL OFL) fonts pulled from the official [Google Fonts](https://github.com/google/fonts) repository; the rest are selectable but render with the system default until their real licensed files are sourced — see [`docs/ROADMAP.md`](docs/ROADMAP.md) for why nothing is faked here.
+At setup or via Settings, learners preview **Surah Al-Kawthar** in clean, streamlined font cards showing the typeface name and live Arabic sample:
 
 | Style | Status |
 |---|---|
-| Uthmani (Amiri) | ✅ Bundled |
-| Scheherazade Naskh | ✅ Bundled |
-| Simple Naskh (Noto) | ✅ Bundled |
-| IndoPak, IndoPak Nastaleeq, Nurani, Taha Naskh, Al-Qalam Quran Majeed, KFGQPC Uthmanic, Madani Simple | 🔜 Pending licensed font file |
+| Uthmani (Amiri) | ✅ Bundled (SIL OFL) |
+| Scheherazade Naskh | ✅ Bundled (SIL OFL) |
+| Simple Naskh (Noto) | ✅ Bundled (SIL OFL) |
+| IndoPak Naskh (Lateef) | ✅ Bundled (SIL OFL) |
+| Nastaliq (Noto Urdu) | ✅ Bundled (SIL OFL) |
 
 ---
 
@@ -151,4 +168,14 @@ docs/                          # the documentation set linked above
 ```
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and layer diagram.
+
+---
+
+## 🤝 Open Source & Community
+
+**QuranicWords** is an open-source project licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). Contributions, bug reports, and pull requests are warmly welcomed to help make Quranic Arabic learning accessible to everyone worldwide.
+
+- 🌐 **GitHub Repository**: [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords)
+- 📢 **DEANY TALKS Ecosystem**: Part of the **DEANY TALKS** digital Dawah platforms, creating modern, open Islamic educational tools.
+- ✉️ **Contact & Feedback**: Reach out via email at `contact.deanstalks@gmail.com` or open an issue on GitHub.
 

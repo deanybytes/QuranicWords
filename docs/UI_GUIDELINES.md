@@ -73,25 +73,29 @@ than sitting on a single theme color). Prefer a theme role (`MaterialTheme.color
 ordinary UI; reach for the `Brand*` constants only when the *exact* logo color itself is the
 point, not just "something in the green/gold family."
 
-## Motif vocabulary
+## Grammar category badges (Parts of Speech)
 
-`core/ui/components/IslamicMotif.kt` is the single dispatcher for this app's custom-drawn (never
-externally licensed) illustration language — `MotifKind.CRESCENT` (crescent moon), `STARFIELD`
-(scattered 8-point stars), `MOSQUE` (a mosque silhouette), `BOOK` (an abstract closed-book form),
-in that priority order. Each is pure `Path`/`Canvas` math, same discipline as
-`GeometricPatternBackground`/`StreakFlame` — no bitmap or SVG assets, no external licensing
-question to track. **Reuse `IslamicMotif(kind, ...)` for any new decorative motif need — don't
-hand-roll a fifth one per screen.**
+`core/ui/components/GrammarCategoryBadge.kt` provides color-coded badges indicating grammatical classification:
 
-Current usage: Splash (crescent + starfield, low-alpha, alongside the geometric lattice),
-`LessonSummaryScreen` (crescent on a streak increase, mosque silhouette on a passed section/
-chapter exam — the biggest everyday milestones get the biggest visual payoff), Settings' About
-section (a small book motif near the brand logo), Home (a very low-alpha starfield behind the
-points/streak status strip), and the achievements system's badge medallions (`AchievementBadge`,
-category→motif: streak→crescent, chapter/section completion→mosque, vocabulary/coverage→book,
-general/first-time→starfield).
+| Part of Speech | Arabic | Container Color | Icon |
+|---|---|---|---|
+| **Ism** (Noun) | الاسم | Forest Green (`#2E7D32`) | `Icons.Filled.AutoStories` |
+| **Fi'l** (Verb) | الفعل | Warm Gold (`#D4AF37`) | `Icons.Filled.FlashOn` |
+| **Ḥarf** (Particle) | الحرف | Sky Blue (`#0288D1`) | `Icons.Filled.AutoAwesome` |
 
-Both hard constraints apply to every motif here: no human faces or figures (enforced by
-construction — none of the four motifs has anywhere to put one), and `AbstractBookMotif` in
-particular must never render actual letterforms or Arabic glyphs — it's a spine/page-edge
-suggestion, not a title.
+Badges are rendered on exercise headers, 5-mode test cards, and dictionary modals to provide continuous visual grounding.
+
+## Verse span & Tashkīl highlighting
+
+Highlighted Quranic vocabulary words within verse contexts must preserve complete diacritical fidelity (**Tashkīl**, **Ḥarakāt**, **Sukūn**, **Tashdīd**, **Tanwīn**).
+
+- **Continuous inline flow**: Highlighted words within verse spans use in-line text background tinting and bold weight rather than surrounding 3D card borders, preventing line-wrapping anomalies and maintaining natural Arabic typographical flow.
+- **Font rendering**: Arabic verses are rendered using `LocalQuranFontFamily.current` with proportional line-height (`fontSize = 20.sp`, `lineHeight = 34.sp`) to prevent diacritic clipping.
+
+## Streamlined font selection
+
+The font selection screen renders clean, focused cards containing solely:
+1. Font display name (localized)
+2. Live Arabic rendering of **Surah Al-Kawthar** using the target typeface.
+All extraneous descriptions, publisher bullet points, and script family tags are omitted for visual clarity.
+

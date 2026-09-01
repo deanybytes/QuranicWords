@@ -47,7 +47,7 @@ erDiagram
         string id PK
         string lessonId FK
         int orderIndex
-        enum type "MULTIPLE_CHOICE | TAP_WHAT_YOU_HEAR | MATCHING | TEACH_WORD | FILL_IN_THE_BLANK | WORD_ORDER | LISTEN_AND_TYPE"
+        enum type "MULTIPLE_CHOICE | MATCHING | TEACH_WORD | FILL_IN_THE_BLANK | WORD_ORDER | WORD_IN_VERSE_TAP"
         string contentJson "polymorphic ExerciseContent, JSON-encoded"
     }
     USER_PROGRESS {
@@ -66,77 +66,45 @@ erDiagram
     }
 ```
 
-> 💡 **`LocalizedText` is a `Map<String, String>` typealias** (`core/domain/model/LocalizedText.kt`), keyed by `Language.tag` (`"en"`, `"bn"`, `"sq"`, `"zh"`, `"fa"`, `"fr"`, `"de"`, `"hi"`, `"in"`, `"ru"`, `"tr"`, `"ur"`). Replaced the earlier flat `titleEn`/`titleBn`-style field-pair pattern once the app moved from 2 languages to 12 - `LocalizedText.get(language, fallback = ENGLISH)` looks up the requested tag, falling back to English then to any entry present rather than throwing. Room persists it via a `Converters.kt` TypeConverter (JSON-encoded string column); kotlinx.serialization handles `Map<String, String>` natively for the bundled JSON content, no custom serializer needed. Not every language has a populated entry for every field yet - `en`/`bn` are fully sourced, the other 10 are architecturally wired but not yet content-translated (see [`docs/ROADMAP.md`](ROADMAP.md)).
+> 💡 **`LocalizedText` is a `Map<String, String>` typealias** (`core/domain/model/LocalizedText.kt`), keyed by `Language.tag` (`"en"`, `"bn"`, `"sq"`, `"zh"`, `"fa"`, `"fr"`, `"de"`, `"hi"`, `"in"`, `"ru"`, `"tr"`, `"ur"`). `LocalizedText.get(language, fallback = ENGLISH)` looks up the requested tag, falling back to English then to any entry present rather than throwing. Room persists it via a `Converters.kt` TypeConverter (JSON-encoded string column); kotlinx.serialization handles `Map<String, String>` natively for the bundled JSON content.
 
-> 💡 **Why `EXERCISE.contentJson` is one JSON blob instead of many columns:** exercise shape genuinely varies by type (multiple choice needs options + a correct id; matching needs pairs; the `TEACH_WORD` teach step needs a meaning, root, and example verse - none of that overlaps cleanly into a fixed column set). `ExerciseContent` is a `kotlinx.serialization` sealed interface with one subtype per exercise type; the DB stores it pre-serialized so a single generic column works for every type without a wide, mostly-null table. `ExerciseContent.isScored` (an exhaustive `when`, `false` only for `WordIntro`) is how [`docs/ALGORITHMS.md`](ALGORITHMS.md)'s scoring excludes the teach step from a lesson's scored total.
->
-> **Exam/flashback lessons reuse the regular lesson/exercise/attempt pipeline** rather than being modeled as separate entities — every `LessonKind` except `REGULAR` requires a passing score to unlock what comes next, and flashback kinds pull questions from earlier siblings under the same parent only (never the unit just finished, never a later one).
-
-## 🌱 Content seeding (first launch only)
-
-```mermaid
-flowchart LR
-    A["assets/content/*.json<br/>(chapters, sections, lessons,<br/>exercises, word_frequency)"] --> B[ContentSeeder.seedIfNeeded]
-    B --> C{DataStore:<br/>content_seeded_version<br/>== CONTENT_VERSION?}
-    C -->|already seeded| Z[No-op]
-    C -->|not yet| D0["Clear seeded-content tables<br/>(never user_progress/user_stats/exercise_attempts)"]
-    D0 --> D[Parse JSON via kotlinx.serialization]
-    D --> E[(Room: bulk insertAll per DAO)]
-    E --> F[DataStore: mark seeded]
-```
-
-Runs once from `SplashViewModel`, gated by a version flag — bumping `ContentSeeder.CONTENT_VERSION` forces a re-seed on the next launch (e.g. once the chapter/section restructuring's new content ships). The explicit clear-before-insert step exists because `insertAll(..., OnConflictStrategy.REPLACE)` only overwrites rows whose id reappears in the new seed data — it never removes rows whose id is now gone, which a content restructure always produces. One real consequence: `UserProgressEntity` has no foreign key to `LessonEntity`, so a content restructure that changes lesson ids leaves any existing install's progress for old lesson ids orphaned/inert — it isn't deleted, but the newly-seeded lessons start fresh regardless. Acceptable pre-launch; a real migration would be needed to preserve progress across such a restructure post-launch.
+> 💡 **`EXERCISE.contentJson` Polymorphism:** `ExerciseContent` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `TapWordInVerse`. `ExerciseContent.isScored` is `false` only for `WordIntro` and `ChapterIntro`.
 
 ## 📄 Bundled JSON content shape
 
-`app/src/main/assets/content/exercises_vocabulary.json` — one entry per exercise, `exerciseType` picks the Room enum column, `content` is the polymorphic payload (discriminated by its own `type` field, matched via `@SerialName` on each `ExerciseContent` subtype):
+The curriculum dataset is modularized under `app/src/main/assets/content/`:
+- `curriculum_manifest.json`: Defines the 3 Parts of Speech (**Fi'l**, **Ḥarf**, **Ism**), chapters, sections, and lesson counts.
+- `section_fil_*.json`, `section_harf_*.json`, `section_ism_*.json`: Self-contained JSON packages per section containing lessons, exercises, and word metadata.
+
+Example `WordIntro` content payload with Wujūh al-Qur'an polysemy and Tashkīl:
 
 ```json
 {
-  "id": "ex_v1_1",
-  "lessonId": "lesson_vocabulary_1",
-  "orderIndex": 0,
-  "exerciseType": "MULTIPLE_CHOICE",
-  "content": {
-    "type": "multiple_choice",
-    "prompt": { "en": "Which word means \"from\"?", "bn": "কোন শব্দের অর্থ \"থেকে\"?" },
-    "promptArabic": null,
-    "options": [
-      { "id": "o1", "labelArabic": "مِن" },
-      { "id": "o2", "labelArabic": "فِي" }
-    ],
-    "correctOptionId": "o1"
-  }
+  "type": "word_intro",
+  "wordId": "wn_1",
+  "arabicWord": "اللَّه",
+  "meaning": { "en": "Allah, God", "bn": "আল্লাহ" },
+  "root": "اله",
+  "frequencyRank": 1,
+  "frequencyCount": 2699,
+  "exampleVerseArabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+  "exampleVerseTranslation": { "en": "In the name of Allah, the Entirely Merciful, the Especially Merciful.", "bn": "শুরু করছি আল্লাহর নামে যিনি পরম করুণাময়, অতি দয়ালু।" },
+  "exampleVerseReference": "1:1",
+  "arabicWordStart": 6,
+  "arabicWordEnd": 12,
+  "meaningHighlight": { "en": "Allah", "bn": "আল্লাহর" },
+  "polysemyEntries": [
+    {
+      "contextualMeaning": { "en": "The True God worthy of worship", "bn": "একমাত্র উপাস্য উপাসনা পাওয়ার যোগ্য" },
+      "verseArabic": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ",
+      "verseTranslation": { "en": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of all existence.", "bn": "আল্লাহ, তিনি ছাড়া কোনো সত্য উপাস্য নেই, তিনি চিরঞ্জীব, সবকিছুর ধারক।" },
+      "verseReference": "2:255",
+      "arabicWordStart": 0,
+      "arabicWordEnd": 6,
+      "translationHighlight": { "en": "Allah", "bn": "আল্লাহ" }
+    }
+  ]
 }
 ```
 
-Each lesson interleaves a non-scored `TEACH_WORD` step before that word's quiz (see [`docs/CURRICULUM_DESIGN.md`](CURRICULUM_DESIGN.md)) — real ingested data (see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md)), not placeholder:
-
-```json
-{
-  "id": "ex_v1_0",
-  "lessonId": "lesson_vocabulary_1",
-  "orderIndex": 0,
-  "exerciseType": "TEACH_WORD",
-  "content": {
-    "type": "word_intro",
-    "prompt": { "en": "Meet a new word", "bn": "একটি নতুন শব্দ চিনুন" },
-    "wordId": "wf_1",
-    "arabicWord": "مِن",
-    "meaning": { "en": "from", "bn": "থেকে" },
-    "meaningReviewed": {},
-    "root": null,
-    "exampleVerseArabic": "أُنزِلَ مِن قَبْلِكَ...",
-    "exampleVerseTranslation": { "en": "...was sent down before you...", "bn": "...আপনার পূর্বে অবতীর্ণ হয়েছে..." },
-    "exampleVerseReference": "2:4",
-    "audioAssetPath": "audio/words/wf_1.mp3",
-    "arabicWordStart": 8,
-    "arabicWordEnd": 11,
-    "meaningHighlight": { "en": "before" }
-  }
-}
-```
-
-`root` is nullable - `null` for particles/pronouns with no triliteral root (like "min" above), populated for content words matched against Quran-bil-Quran's root index. `meaningReviewed` is a `Map<String, Boolean>` (language tag → whether that language's `meaning` entry has been independently verified) - a tag missing from the map means "not yet verified", same honest default the old `meaningBnReviewed` boolean used, extended to all 12 languages. Currently empty (`{}`) for nearly every word in this increment - see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for exactly what that means and why it's tracked in the data rather than shown as an in-lesson warning.
-
-`arabicWordStart`/`arabicWordEnd` are char offsets (start inclusive, end exclusive) locating `arabicWord`'s occurrence inside `exampleVerseArabic`, letting the UI highlight it in place instead of just showing the word in an isolated card above the verse. `meaningHighlight` is a `LocalizedText` of best-effort literal substrings of the corresponding translation, for the same purpose on the meaning side - missing entries (not every language, and not every word) render plain unhighlighted text rather than guessing. `arabicWordStart`/`arabicWordEnd` are nullable and default to `null`. Populated by `tools/ingestion/10_add_highlight_spans.py`, a post-processing pass with real, partial (not universal) coverage - see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the measured match rates.
+`arabicWordStart`/`arabicWordEnd` locate the target word's occurrence inside `exampleVerseArabic` with character-exact offsets that include all Tashkīl and diacritics. Rendering ensures continuous flow in verse display without visual border clipping.
