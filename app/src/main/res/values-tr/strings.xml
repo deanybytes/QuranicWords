@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">QuranicWords</string>
     <string name="app_logo_content_description">QuranicWords logosu</string>
@@ -15,7 +16,7 @@
     <string name="hadith_consistency_quote">Peygamber ﷺ şöyle buyurdu: \"Allah\'a en sevimli ameller, az da olsa düzenli yapılanlardır.\"</string>
     <string name="hadith_consistency_reference">Sahih-i Buhari 6465</string>
 
-    <!-- Opening invocation (splash, every launch) -->
+    
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
     <string name="splash_invocation_taawwudh_translation">Kovulmuş şeytandan Allah\'a sığınırım</string>
     <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
@@ -25,24 +26,24 @@
     <string name="splash_invocation_rabbizidni_reference">Kur\'an 20:114</string>
     <string name="splash_invocation_skip_hint">Geçmek için dokunun</string>
 
-    <!-- Language select -->
+    
     <string name="language_select_title">Dilinizi seçin</string>
     <string name="language_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsiniz.</string>
 
-    <!-- Path select -->
+    
     <string name="onboarding_path_select_title">Nasıl başlamak istersin?</string>
     <string name="onboarding_path_select_subtitle">Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
-    <string name="path_learn_title">Learn &amp; Test</string>
+    <string name="path_learn_title">Öğren ve Test Et</string>
     <string name="path_learn_description">Baştan başla ve Kur\'an kelime dağarcığını kelime kelime oluştur.</string>
-    <string name="path_test_only_title">Test Only</string>
+    <string name="path_test_only_title">Yalnızca Test</string>
     <string name="path_test_only_description">Dersleri atla ve doğrudan zaten bildiğin kelimelerle ilgili sınavlara geç.</string>
 
-    <!-- Font select -->
+    
     <string name="font_select_title">Kur\'an yazı stilinizi seçin</string>
     <string name="font_select_subtitle">Bu, en kısa sure olan Kevser Suresi\'nin her stildeki önizlemesidir.</string>
     <string name="font_pending_note">Bu stilin lisanslı yazı tipi dosyası henüz eklenmedi, şimdilik varsayılan yazı gösteriliyor.</string>
 
-    <!-- Daily goal select -->
+    
     <string name="onboarding_daily_goal_title">Günlük hedefini belirle</string>
     <string name="onboarding_daily_goal_subtitle">Her gün kaç dakika pratik yapmak istediğini seç. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
     <string name="daily_goal_casual">Casual</string>
@@ -55,7 +56,7 @@
     <string name="test_only_start_quiz_title">Sınava Başla</string>
     <string name="test_only_start_quiz_subtitle">Zaten bildiğin kelimelerden rastgele sorular</string>
 
-    <!-- Learning style select -->
+    
     <string name="onboarding_learning_style_title">Öğrenme tarzını seç</string>
     <string name="onboarding_learning_style_subtitle">Bu, her kelimenin devam etmeden önce kaç kez tekrarlanacağını belirler. Bunu daha sonra Ayarlar\'dan değiştirebilirsin.</string>
     <string name="learning_style_sharp">Light Touch</string>
@@ -65,7 +66,7 @@
     <string name="learning_style_cozy">Locked In</string>
     <string name="learning_style_cozy_description">Gerçekten kalıcı olması için her kelime 5 kez tekrarlanır</string>
 
-    <!-- Chapter/section intro -->
+    
     <string name="intro_chapter_label">Bölüm</string>
     <string name="intro_section_label">Kısım</string>
     <string name="intro_word_count">İnşaallah, burada %1$d kelime öğreneceğiz.</string>
@@ -74,22 +75,22 @@
     <string name="intro_start_button">Başla</string>
     <string name="intro_skip_button">Geç</string>
 
-    <!-- Word browse -->
+    
     <string name="word_browse_title">Kelimelere göz at</string>
     <string name="word_browse_empty">Henüz göz atılacak kelime yok.</string>
 
-    <!-- Home -->
+    
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Kilitli</string>
     <string name="home_open_settings">Ayarlar</string>
     <string name="home_review_title">Kaçırılan kelimeleri gözden geçir</string>
     <string name="home_review_subtitle">Geçen sefer yanlış yaptıklarınızı çalışın.</string>
 
-    <!-- Bottom navigation -->
+    
     <string name="bottom_nav_home">Ana Sayfa</string>
     <string name="bottom_nav_progress">İlerleme</string>
 
-    <!-- Chapter/section coverage stat line -->
+    
     <string name="home_chapter_coverage_stat">Kur\'an\'ın %1$s%%\'i · şimdiye kadar %2$s%% kapsandı</string>
     <string name="home_continue_learning">Öğrenmeye Devam Et</string>
     <string name="home_curriculum_complete_title">Tüm müfredatı tamamladın!</string>
@@ -101,7 +102,7 @@
     <string name="home_history_previous">Önceki tamamlanan ders</string>
     <string name="home_history_next">Sonraki tamamlanan ders</string>
 
-    <!-- Progress tab -->
+    
     <string name="progress_title">İlerleme</string>
     <string name="progress_current_streak">Günlük Seri</string>
     <string name="progress_total_points">Toplam Puan</string>
@@ -112,7 +113,7 @@
     <string name="progress_lessons_this_week">Bu Haftaki Dersler</string>
     <string name="progress_days_practiced">%d Gün Pratik Yapıldı (Son 28)</string>
 
-    <!-- Lesson -->
+    
     <string name="lesson_check_button">Kontrol et</string>
     <string name="lesson_continue_button">Devam et</string>
     <string name="lesson_finish_button">Dersi bitir</string>
@@ -131,7 +132,7 @@
     <string name="word_order_build_area_label">Cevabınız</string>
     <string name="listen_and_type_hint">Duyduğunuzu yazın</string>
 
-    <!-- Lesson summary -->
+    
     <string name="lesson_summary_title_pass">Elhamdülillah! Aferin!</string>
     <string name="lesson_summary_title_retry">İnşaallah, bir dahaki sefere!</string>
     <string name="lesson_summary_title_complete">Elhamdülillah! Ders tamamlandı</string>
@@ -145,7 +146,7 @@
     <string name="lesson_summary_streak_restored">Seri Geri Yüklendi! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Seri kurtarılamadı — yeniden başlıyor</string>
 
-    <!-- Achievements -->
+    
     <string name="achievements_title">Başarılar</string>
     <string name="achievements_locked_hint">Bunu açmak için öğrenmeye devam edin</string>
     <string name="achievement_streak_bronze_name">7 Günlük Seri</string>
@@ -161,7 +162,7 @@
     <string name="achievement_first_exam_name">İlk Sınav Geçildi</string>
     <string name="achievement_first_exam_description">İlk bölüm veya kısım sınavınızı geçtiniz</string>
 
-    <!-- Settings -->
+    
     <string name="settings_title">Ayarlar</string>
     <string name="settings_section_appearance">Görünüm</string>
     <string name="settings_theme_label">Tema</string>
@@ -202,11 +203,11 @@
     <string name="settings_licenses_title">Lisanslar ve kaynaklar</string>
     <string name="settings_close">Kapat</string>
 
-    <!-- Common -->
+    
     <string name="action_back">Geri</string>
     <string name="action_confirm">Onayla</string>
 
-    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    
     <string name="settings_section_mode">Öğrenme Modu</string>
     <string name="settings_learning_path_label">Öğrenme Yolu</string>
     <string name="settings_learning_path_learn">Öğren</string>
@@ -221,8 +222,8 @@
     <string name="settings_reset_progress_confirm_button">Sıfırla</string>
     <string name="settings_reset_progress_done">İlerleme sıfırlandı.</string>
 
-    <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
+    
+    <string name="settings_motto">Dini Amacın Dijital Baytlarla Buluştuğu Yer.</string>
     <string name="settings_section_connect">Bağlan</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>

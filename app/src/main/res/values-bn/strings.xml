@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">QuranicWords</string>
     <string name="app_logo_content_description">QuranicWords লোগো</string>
@@ -15,7 +16,7 @@
     <string name="hadith_consistency_quote">নবী (ﷺ) কে জিজ্ঞাসা করা হল যে, আল্লাহ তা\'আলার কাছে সবচাইতে প্রিয় আমল কি? তিনি বললেনঃ যে আমল নিয়মিত করা হয়, যদিও তা অল্প হোক। তিনি আরও বললেন, তোমরা সাধ্যমত আমল করে যাও।</string>
     <string name="hadith_consistency_reference">আল জামিউস সহীহ - ইমাম বুখারী রহঃ, হাদীস নং ৬০২১, আন্তর্জাতিক নং ৬৪৬৫</string>
 
-    <!-- Opening invocation (splash, every launch) -->
+    
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
     <string name="splash_invocation_taawwudh_translation">আমি অভিশপ্ত শয়তান থেকে আল্লাহর কাছে আশ্রয় প্রার্থনা করছি</string>
     <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
@@ -25,24 +26,24 @@
     <string name="splash_invocation_rabbizidni_reference">কুরআন ২০:১১৪</string>
     <string name="splash_invocation_skip_hint">এড়িয়ে যেতে ট্যাপ করুন</string>
 
-    <!-- Language select -->
+    
     <string name="language_select_title">আপনার ভাষা বেছে নিন</string>
     <string name="language_select_subtitle">আপনি পরে সেটিংস থেকে এটি পরিবর্তন করতে পারবেন।</string>
 
-    <!-- Path select -->
+    
     <string name="onboarding_path_select_title">আপনি কীভাবে শুরু করতে চান?</string>
     <string name="onboarding_path_select_subtitle">আপনি পরে সেটিংসে এটি পরিবর্তন করতে পারবেন।</string>
-    <string name="path_learn_title">Learn &amp; Test</string>
+    <string name="path_learn_title">শিখুন ও পরীক্ষা দিন</string>
     <string name="path_learn_description">শুরু থেকে শুরু করুন এবং ধাপে ধাপে আপনার কুরআনের শব্দভাণ্ডার গড়ে তুলুন।</string>
-    <string name="path_test_only_title">Test Only</string>
+    <string name="path_test_only_title">শুধুমাত্র পরীক্ষা</string>
     <string name="path_test_only_description">পাঠ এড়িয়ে সরাসরি আপনার জানা শব্দগুলোর কুইজে চলে যান।</string>
 
-    <!-- Font select -->
+    
     <string name="font_select_title">আপনার কুরআনের লিপি শৈলী বেছে নিন</string>
     <string name="font_select_subtitle">এটি সবচেয়ে ছোট সূরা, সূরা আল-কাউসারের একটি প্রিভিউ, প্রতিটি শৈলীতে।</string>
     <string name="font_pending_note">এই শৈলীর লাইসেন্সকৃত ফন্ট ফাইল এখনো যুক্ত করা হয়নি, আপাতত ডিফল্ট লিপি দেখানো হচ্ছে।</string>
 
-    <!-- Daily goal select -->
+    
     <string name="onboarding_daily_goal_title">আপনার দৈনিক লক্ষ্য কী?</string>
     <string name="onboarding_daily_goal_subtitle">প্রতিদিন কুরআনের শব্দ শেখার জন্য আপনি কত সময় দিতে চান তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
     <string name="daily_goal_casual">নিয়মিত (১০ মিনিট)</string>
@@ -58,7 +59,7 @@
     <string name="test_only_start_quiz_title">কুইজ শুরু করুন</string>
     <string name="test_only_start_quiz_subtitle">আপনার জানা শব্দ থেকে র‍্যান্ডম প্রশ্ন</string>
 
-    <!-- Learning style select -->
+    
     <string name="onboarding_learning_style_title">প্রতিটি শব্দ কীভাবে অনুশীলন করতে চান?</string>
     <string name="onboarding_learning_style_subtitle">মুখস্থ করতে সুবিধার জন্য পাঠ চলাকালীন প্রতিটি শব্দ কতবার পুনরাবৃত্তি হবে তা বেছে নিন। এটি পরে সেটিংসে পরিবর্তন করা যাবে।</string>
     <string name="learning_style_sharp">১ বার অনুশীলন (দ্রুত)</string>
@@ -68,7 +69,7 @@
     <string name="learning_style_cozy">৫ বার অনুশীলন (গভীরভাবে মুখস্থ)</string>
     <string name="learning_style_cozy_description">প্রতিটি শব্দ ভালোভাবে মুখস্থ ও আয়ত্ত করতে ৫ বার পুনরাবৃত্তি করতে চাই।</string>
 
-    <!-- Chapter/section intro -->
+    
     <string name="intro_chapter_label">অধ্যায়</string>
     <string name="intro_section_label">বিভাগ</string>
     <string name="intro_word_count">ইনশাআল্লাহ, আমরা এখানে %1$d টি শব্দ শিখব।</string>
@@ -77,11 +78,11 @@
     <string name="intro_start_button">শুরু করুন</string>
     <string name="intro_skip_button">এড়িয়ে যান</string>
 
-    <!-- Word browse -->
+    
     <string name="word_browse_title">শব্দ দেখুন</string>
     <string name="word_browse_empty">এখনো দেখার মতো কোনো শব্দ নেই।</string>
 
-    <!-- Home -->
+    
     <string name="home_title">QuranicWords</string>
     <string name="home_review_title">ভুল শব্দগুলো পর্যালোচনা</string>
     <string name="home_review_subtitle">গত অনুশীলনে ভুল হওয়া শব্দগুলো চর্চা করুন।</string>
@@ -91,12 +92,12 @@
     <string name="home_module_locked">লক করা</string>
     <string name="home_open_settings">সেটিংস</string>
 
-    <!-- Bottom navigation -->
+    
     <string name="bottom_nav_home">হোম</string>
     <string name="bottom_nav_progress">অগ্রগতি</string>
     <string name="bottom_nav_about">সম্পর্কে</string>
 
-    <!-- Chapter/section coverage stat line -->
+    
     <string name="home_chapter_coverage_stat">কুরআনের %1$s%% · এখন পর্যন্ত মোট %2$s%% কভার হয়েছে</string>
     <string name="home_continue_learning">শেখা চালিয়ে যান</string>
     <string name="home_curriculum_complete_title">আপনি পুরো পাঠ্যক্রম সম্পন্ন করেছেন!</string>
@@ -108,7 +109,7 @@
     <string name="home_history_previous">আগের সম্পন্ন পাঠ</string>
     <string name="home_history_next">পরবর্তী সম্পন্ন পাঠ</string>
 
-    <!-- Progress tab -->
+    
     <string name="progress_title">অগ্রগতি</string>
     <string name="progress_current_streak">দিনের ধারাবাহিকতা</string>
     <string name="progress_total_points">মোট পয়েন্ট</string>
@@ -119,7 +120,7 @@
     <string name="progress_lessons_this_week">এই সপ্তাহের পাঠ</string>
     <string name="progress_days_practiced">%d দিন অনুশীলন করা হয়েছে (গত 28 দিনে)</string>
 
-    <!-- Lesson -->
+    
     <string name="lesson_check_button">যাচাই করুন</string>
     <string name="lesson_continue_button">চালিয়ে যান</string>
     <string name="lesson_try_again_button">আবার চেষ্টা করুন</string>
@@ -139,7 +140,7 @@
     <string name="word_order_build_area_label">আপনার উত্তর</string>
     <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>
 
-    <!-- Lesson summary -->
+    
     <string name="lesson_summary_title_pass">আলহামদুলিল্লাহ! চমৎকার হয়েছে!</string>
     <string name="lesson_summary_title_retry">ইনশাআল্লাহ, পরের বার হবে!</string>
     <string name="lesson_summary_title_complete">আলহামদুলিল্লাহ! পাঠ সম্পন্ন</string>
@@ -153,7 +154,7 @@
     <string name="lesson_summary_streak_restored">স্ট্রিক পুনরুদ্ধার হয়েছে! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">স্ট্রিক পুনরুদ্ধার হয়নি — নতুন করে শুরু হচ্ছে</string>
 
-    <!-- Achievements -->
+    
     <string name="achievements_title">অর্জনসমূহ</string>
     <string name="achievements_locked_hint">আনলক করতে শেখা চালিয়ে যান</string>
     <string name="achievement_streak_bronze_name">৭-দিনের স্ট্রিক</string>
@@ -169,7 +170,7 @@
     <string name="achievement_first_exam_name">প্রথম পরীক্ষায় উত্তীর্ণ</string>
     <string name="achievement_first_exam_description">আপনার প্রথম সেকশন বা অধ্যায় পরীক্ষায় উত্তীর্ণ হয়েছেন</string>
 
-    <!-- Settings -->
+    
     <string name="settings_title">সেটিংস</string>
     <string name="settings_section_appearance">অ্যাপিয়ারেন্স</string>
     <string name="settings_theme_label">থিম</string>
@@ -213,11 +214,11 @@
     <string name="settings_licenses_title">লাইসেন্স ও উৎস</string>
     <string name="settings_close">বন্ধ করুন</string>
 
-    <!-- Common -->
+    
     <string name="action_back">পেছনে</string>
     <string name="action_confirm">নিশ্চিত করুন</string>
 
-    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    
     <string name="settings_section_mode">শেখার মোড</string>
     <string name="settings_learning_path_label">শেখার পথ</string>
     <string name="settings_learning_path_learn">শেখা</string>
@@ -232,8 +233,8 @@
     <string name="settings_reset_progress_confirm_button">রিসেট করুন</string>
     <string name="settings_reset_progress_done">অগ্রগতি রিসেট করা হয়েছে।</string>
 
-    <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
+    
+    <string name="settings_motto">যেখানে দ্বীনি উদ্দেশ্য ও ডিজিটাল প্রযুক্তির মিলন ঘটে</string>
     <string name="settings_section_connect">যোগাযোগ</string>
     <string name="settings_connect_github">গিটহাব</string>
     <string name="settings_connect_youtube">ইউটিউব</string>

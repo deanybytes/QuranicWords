@@ -173,6 +173,17 @@ class MainActivity : AppCompatActivity() {
             val selectedLanguage = language ?: Language.ENGLISH
             val currentContext = LocalContext.current
 
+            LaunchedEffect(language) {
+                val currentLang = language
+                if (currentLang != null) {
+                    val targetTag = currentLang.tag
+                    val currentAppLocales = AppCompatDelegate.getApplicationLocales()
+                    if (currentAppLocales.toLanguageTags() != targetTag) {
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(targetTag))
+                    }
+                }
+            }
+
             val targetLocale = remember(selectedLanguage) {
                 Locale.forLanguageTag(selectedLanguage.tag)
             }

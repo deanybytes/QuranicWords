@@ -1,5 +1,6 @@
 package com.quranicwords.app.feature.lesson
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -74,6 +75,10 @@ fun LessonScreen(
     var showExitDialog by remember { mutableStateOf(false) }
     val language = rememberSelectedLanguage()
     val haptics = rememberQwHaptics()
+
+    BackHandler(enabled = !uiState.isLoading) {
+        showExitDialog = true
+    }
 
     LaunchedEffect(uiState.isChecked, uiState.lastAnswerCorrect) {
         if (uiState.isChecked) {
