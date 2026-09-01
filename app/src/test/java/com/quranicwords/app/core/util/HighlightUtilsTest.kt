@@ -70,6 +70,42 @@ class HighlightUtilsTest {
     }
 
     @Test
+    fun `findMeaningHighlightRange expands to full word when suffix or prefix is attached in Bengali`() {
+        val translation = "নিশ্চয় কাফেরদের জন্য রয়েছে কঠিন শাস্তি।"
+        val range = HighlightUtils.findMeaningHighlightRange(
+            verseTranslation = translation,
+            meaningHighlight = "কাফের",
+            meaning = "কাফের"
+        )
+        assertNotNull(range)
+        assertEquals("কাফেরদের", translation.substring(range!!.first, range.second))
+    }
+
+    @Test
+    fun `findMeaningHighlightRange expands to full word with suffix in English`() {
+        val translation = "Indeed, the believers are successful."
+        val range = HighlightUtils.findMeaningHighlightRange(
+            verseTranslation = translation,
+            meaningHighlight = "believer",
+            meaning = "believer"
+        )
+        assertNotNull(range)
+        assertEquals("believers", translation.substring(range!!.first, range.second))
+    }
+
+    @Test
+    fun `findMeaningHighlightRange does not expand past punctuation`() {
+        val translation = "বলো: তিনি আল্লাহ, এক।"
+        val range = HighlightUtils.findMeaningHighlightRange(
+            verseTranslation = translation,
+            meaningHighlight = "আল্লাহ",
+            meaning = "আল্লাহ"
+        )
+        assertNotNull(range)
+        assertEquals("আল্লাহ", translation.substring(range!!.first, range.second))
+    }
+
+    @Test
     fun `findMeaningHighlightRange returns null for blank or unmatched input`() {
         assertNull(HighlightUtils.findMeaningHighlightRange(null, null, null))
         assertNull(HighlightUtils.findMeaningHighlightRange("", "", ""))

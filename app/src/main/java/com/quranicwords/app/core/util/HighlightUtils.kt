@@ -12,12 +12,44 @@ object HighlightUtils {
     }
 
     /**
+     * Checks if a character is part of a word (excluding whitespace and sentence punctuation).
+     */
+    fun isWordChar(c: Char): Boolean {
+        if (c.isWhitespace()) return false
+        if (c in "।.,!?;:\"'()[]{}<>-—–/\\»«“”‘’`…") return false
+        return true
+    }
+
+    /**
+     * Expands a character range outwards to full whitespace / punctuation word boundaries
+     * to avoid breaking agglutinative words, grammatical suffixes, or complex Indic conjuncts.
+     */
+    fun expandToWordBoundaries(text: String, start: Int, end: Int): Pair<Int, Int> {
+        if (text.isEmpty() || start !in 0..text.length || end !in start..text.length) {
+            return Pair(start.coerceIn(0, text.length), end.coerceIn(start.coerceIn(0, text.length), text.length))
+        }
+
+        var s = start
+        while (s > 0 && isWordChar(text[s - 1])) {
+            s--
+        }
+
+        var e = end
+        while (e < text.length && isWordChar(text[e])) {
+            e++
+        }
+
+        return Pair(s, e)
+    }
+
+    /**
      * Finds the start and end (exclusive) character range in [verseTranslation] that corresponds
-     * to the taught meaning.
+     * to the taught meaning, expanding to full word boundaries to ensure complete unbroken words.
      *
-     * 1. If [meaningHighlight] is provided, tries case-insensitive substring match.
+     * 1. If [meaningHighlight] is provided, tries case-insensitive substring search.
      * 2. If not found, cleans [meaning] (removes parentheticals, splits comma/slash/semicolon alternatives)
-     *    and searches for phrases or key content words bounded by word boundaries.
+     *    and searches for phrases or key content words.
+     * 3. Expands the resolved range to full word boundaries.
      */
     fun findMeaningHighlightRange(
         verseTranslation: String?,
@@ -30,7 +62,7 @@ object HighlightUtils {
         if (!meaningHighlight.isNullOrBlank()) {
             val idx = verseTranslation.indexOf(meaningHighlight, ignoreCase = true)
             if (idx >= 0) {
-                return Pair(idx, idx + meaningHighlight.length)
+                return expandToWordBoundaries(verseTranslation, idx, idx + meaningHighlight.length)
             }
             // Try normalized search for meaningHighlight (e.g. macron characters)
             val normTrans = normalize(verseTranslation)
@@ -38,7 +70,7 @@ object HighlightUtils {
             val normIdx = normTrans.indexOf(normHl, ignoreCase = true)
             if (normIdx >= 0) {
                 val end = (normIdx + meaningHighlight.length).coerceAtMost(verseTranslation.length)
-                return Pair(normIdx, end)
+                return expandToWordBoundaries(verseTranslation, normIdx, end)
             }
         }
 
@@ -70,7 +102,13 @@ object HighlightUtils {
             if (match != null) {
                 val start = match.range.first.coerceIn(0, verseTranslation.length)
                 val end = (match.range.last + 1).coerceIn(start, verseTranslation.length)
-                return Pair(start, end)
+                return expandToWordBoundaries(verseTranslation, start, end)
+            }
+            // Fallback substring search within words if regex boundary fails for Indic/accented
+            val subIdx = normTrans.indexOf(normCand, ignoreCase = true)
+            if (subIdx >= 0) {
+                val end = (subIdx + normCand.length).coerceAtMost(verseTranslation.length)
+                return expandToWordBoundaries(verseTranslation, subIdx, end)
             }
         }
 
@@ -88,7 +126,12 @@ object HighlightUtils {
             if (match != null) {
                 val start = match.range.first.coerceIn(0, verseTranslation.length)
                 val end = (match.range.last + 1).coerceIn(start, verseTranslation.length)
-                return Pair(start, end)
+                return expandToWordBoundaries(verseTranslation, start, end)
+            }
+            val subIdx = normTrans.indexOf(normWord, ignoreCase = true)
+            if (subIdx >= 0) {
+                val end = (subIdx + normWord.length).coerceAtMost(verseTranslation.length)
+                return expandToWordBoundaries(verseTranslation, subIdx, end)
             }
         }
 

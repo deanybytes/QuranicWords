@@ -70,6 +70,7 @@ import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.domain.model.localizedRight
 import com.quranicwords.app.core.ui.components.GlassSurface
+import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
@@ -268,10 +269,6 @@ fun MatchingExerciseContent(
             exit = fadeOut(tween(200)) + slideOutVertically(tween(200)) { it / 2 }
         ) {
             if (selectedPair != null && exampleArabic != null && exampleRef != null) {
-                val highlightStyle = SpanStyle(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                )
                 GlassSurface(
                     modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
                     tint = MaterialTheme.colorScheme.surfaceVariant
@@ -292,24 +289,11 @@ fun MatchingExerciseContent(
                             ),
                             color = MaterialTheme.colorScheme.primary
                         )
-                        Text(
-                            text = buildAnnotatedString {
-                                append(exampleArabic)
-                                val start = selectedPair.arabicWordStart
-                                val end = selectedPair.arabicWordEnd
-                                if (start != null && end != null &&
-                                    start in 0..exampleArabic.length &&
-                                    end in start..exampleArabic.length
-                                ) {
-                                    addStyle(highlightStyle, start, end)
-                                }
-                            },
-                            fontFamily = LocalQuranFontFamily.current,
-                            fontSize = 19.sp,
-                            lineHeight = 32.sp,
-                            textAlign = TextAlign.End,
-                            modifier = Modifier.fillMaxWidth(),
-                            color = MaterialTheme.colorScheme.onSurface
+                        HighlightedGlassArabic(
+                            verseArabic = exampleArabic,
+                            start = selectedPair.arabicWordStart,
+                            end = selectedPair.arabicWordEnd,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
