@@ -186,20 +186,21 @@ fun ChapterIntroExerciseContent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             MetricCard(
-                icon = androidx.compose.material.icons.Icons.AutoMirrored.Filled.MenuBook,
+                icon = Icons.Filled.MenuBook,
                 title = stringResource(R.string.chapter_intro_words_count_label),
                 value = localizedWordCount,
                 accentColor = BrandGreen,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                icon = androidx.compose.material.icons.Icons.AutoMirrored.Filled.TrendingUp,
+                icon = Icons.Filled.TrendingUp,
                 title = stringResource(R.string.chapter_intro_occurrences_label),
                 value = localizedOccurrences,
                 accentColor = BrandGold,
                 modifier = Modifier.weight(1f)
             )
         }
+
 
 
         Row(

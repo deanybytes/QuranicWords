@@ -1714,7 +1714,7 @@
     },
     {
       "id": "wp_0108",
-      "arabicWord": "لا",
+      "arabicWord": "لَا",
       "frequencyRank": 108,
       "frequencyCount": 1738,
       "meaning": {
@@ -1730,7 +1730,7 @@
     },
     {
       "id": "wp_0109",
-      "arabicWord": "ذا",
+      "arabicWord": "ذَا",
       "frequencyRank": 109,
       "frequencyCount": 1058,
       "meaning": {
@@ -1746,7 +1746,7 @@
     },
     {
       "id": "wv_0001",
-      "arabicWord": "ما",
+      "arabicWord": "مَا",
       "frequencyRank": 110,
       "frequencyCount": 2559,
       "meaning": {
@@ -13746,7 +13746,7 @@
     },
     {
       "id": "wv_0751",
-      "arabicWord": "فا",
+      "arabicWord": "فَا",
       "frequencyRank": 860,
       "frequencyCount": 1,
       "meaning": {
@@ -14738,7 +14738,7 @@
     },
     {
       "id": "wv_0813",
-      "arabicWord": "باد",
+      "arabicWord": "بَادٍ",
       "frequencyRank": 922,
       "frequencyCount": 1,
       "meaning": {
@@ -16850,7 +16850,7 @@
     },
     {
       "id": "wv_0945",
-      "arabicWord": "قالي",
+      "arabicWord": "قَالٍ",
       "frequencyRank": 1054,
       "frequencyCount": 1,
       "meaning": {
@@ -18354,7 +18354,7 @@
     },
     {
       "id": "wv_1039",
-      "arabicWord": "جاز",
+      "arabicWord": "جَازٍ",
       "frequencyRank": 1148,
       "frequencyCount": 1,
       "meaning": {
@@ -18514,7 +18514,7 @@
     },
     {
       "id": "wv_1049",
-      "arabicWord": "بادي",
+      "arabicWord": "بَادٍ",
       "frequencyRank": 1158,
       "frequencyCount": 1,
       "meaning": {
@@ -20370,7 +20370,7 @@
     },
     {
       "id": "wv_1165",
-      "arabicWord": "صال",
+      "arabicWord": "صَالٍ",
       "frequencyRank": 1274,
       "frequencyCount": 1,
       "meaning": {
@@ -21074,7 +21074,7 @@
     },
     {
       "id": "wv_1209",
-      "arabicWord": "كاف",
+      "arabicWord": "كَافٍ",
       "frequencyRank": 1318,
       "frequencyCount": 1,
       "meaning": {
@@ -23810,7 +23810,7 @@
     },
     {
       "id": "wv_1380",
-      "arabicWord": "قاب",
+      "arabicWord": "قَابَ",
       "frequencyRank": 1489,
       "frequencyCount": 1,
       "meaning": {
@@ -24498,7 +24498,7 @@
     },
     {
       "id": "wv_1423",
-      "arabicWord": "فان",
+      "arabicWord": "فَانٍ",
       "frequencyRank": 1532,
       "frequencyCount": 1,
       "meaning": {
@@ -24626,7 +24626,7 @@
     },
     {
       "id": "wv_1431",
-      "arabicWord": "دان",
+      "arabicWord": "دَانٍ",
       "frequencyRank": 1540,
       "frequencyCount": 1,
       "meaning": {
@@ -24946,7 +24946,7 @@
     },
     {
       "id": "wn_0001",
-      "arabicWord": "مِن",
+      "arabicWord": "مِنْ",
       "frequencyRank": 1560,
       "frequencyCount": 3067,
       "meaning": {
@@ -24978,7 +24978,7 @@
     },
     {
       "id": "wn_0003",
-      "arabicWord": "إِنّ",
+      "arabicWord": "إِنَّ",
       "frequencyRank": 1562,
       "frequencyCount": 1536,
       "meaning": {
@@ -24994,7 +24994,7 @@
     },
     {
       "id": "wn_0004",
-      "arabicWord": "الَّذِي",
+      "arabicWord": "ٱلَّذِي",
       "frequencyRank": 1563,
       "frequencyCount": 1468,
       "meaning": {
@@ -25026,7 +25026,7 @@
     },
     {
       "id": "wn_0006",
-      "arabicWord": "مَن",
+      "arabicWord": "مَنْ",
       "frequencyRank": 1565,
       "frequencyCount": 871,
       "meaning": {
@@ -25042,7 +25042,7 @@
     },
     {
       "id": "wn_0007",
-      "arabicWord": "إِن",
+      "arabicWord": "إِنْ",
       "frequencyRank": 1566,
       "frequencyCount": 691,
       "meaning": {
@@ -25058,7 +25058,7 @@
     },
     {
       "id": "wn_0008",
-      "arabicWord": "إِلّا",
+      "arabicWord": "إِلَّا",
       "frequencyRank": 1567,
       "frequencyCount": 663,
       "meaning": {
@@ -25074,7 +25074,7 @@
     },
     {
       "id": "wn_0009",
-      "arabicWord": "أَن",
+      "arabicWord": "أَنْ",
       "frequencyRank": 1568,
       "frequencyCount": 568,
       "meaning": {
@@ -25106,7 +25106,7 @@
     },
     {
       "id": "wn_0011",
-      "arabicWord": "إِذا",
+      "arabicWord": "إِذَا",
       "frequencyRank": 1570,
       "frequencyCount": 423,
       "meaning": {
@@ -25122,7 +25122,7 @@
     },
     {
       "id": "wn_0012",
-      "arabicWord": "عَن",
+      "arabicWord": "عَنْ",
       "frequencyRank": 1571,
       "frequencyCount": 417,
       "meaning": {
@@ -25138,7 +25138,7 @@
     },
     {
       "id": "wn_0013",
-      "arabicWord": "قَد",
+      "arabicWord": "قَدْ",
       "frequencyRank": 1572,
       "frequencyCount": 406,
       "meaning": {
@@ -25218,7 +25218,7 @@
     },
     {
       "id": "wn_0018",
-      "arabicWord": "لَم",
+      "arabicWord": "لَمْ",
       "frequencyRank": 1577,
       "frequencyCount": 348,
       "meaning": {
@@ -25234,7 +25234,7 @@
     },
     {
       "id": "wn_0019",
-      "arabicWord": "أَنّ",
+      "arabicWord": "أَنَّ",
       "frequencyRank": 1578,
       "frequencyCount": 343,
       "meaning": {
@@ -25250,7 +25250,7 @@
     },
     {
       "id": "wn_0020",
-      "arabicWord": "ثُمّ",
+      "arabicWord": "ثُمَّ",
       "frequencyRank": 1579,
       "frequencyCount": 338,
       "meaning": {
@@ -25442,7 +25442,7 @@
     },
     {
       "id": "wn_0032",
-      "arabicWord": "ناس",
+      "arabicWord": "نَاسٌ",
       "frequencyRank": 1591,
       "frequencyCount": 241,
       "meaning": {
@@ -25810,7 +25810,7 @@
     },
     {
       "id": "wn_0055",
-      "arabicWord": "نار",
+      "arabicWord": "نَارٌ",
       "frequencyRank": 1614,
       "frequencyCount": 145,
       "meaning": {
@@ -26306,7 +26306,7 @@
     },
     {
       "id": "wn_0086",
-      "arabicWord": "مال",
+      "arabicWord": "مَالٌ",
       "frequencyRank": 1645,
       "frequencyCount": 86,
       "meaning": {
@@ -26962,7 +26962,7 @@
     },
     {
       "id": "wn_0127",
-      "arabicWord": "آباء",
+      "arabicWord": "ءَابَاءٌ",
       "frequencyRank": 1686,
       "frequencyCount": 64,
       "meaning": {
@@ -26994,7 +26994,7 @@
     },
     {
       "id": "wn_0129",
-      "arabicWord": "ماء",
+      "arabicWord": "مَاءٌ",
       "frequencyRank": 1688,
       "frequencyCount": 63,
       "meaning": {
@@ -27634,7 +27634,7 @@
     },
     {
       "id": "wn_0169",
-      "arabicWord": "دار",
+      "arabicWord": "دَارٌ",
       "frequencyRank": 1728,
       "frequencyCount": 48,
       "meaning": {
@@ -28674,7 +28674,7 @@
     },
     {
       "id": "wn_0234",
-      "arabicWord": "آلاء",
+      "arabicWord": "ءَالَاءٌ",
       "frequencyRank": 1793,
       "frequencyCount": 34,
       "meaning": {
@@ -29042,7 +29042,7 @@
     },
     {
       "id": "wn_0257",
-      "arabicWord": "عاد",
+      "arabicWord": "عَادٌ",
       "frequencyRank": 1816,
       "frequencyCount": 30,
       "meaning": {
@@ -29410,7 +29410,7 @@
     },
     {
       "id": "wn_0280",
-      "arabicWord": "باب",
+      "arabicWord": "بَابٌ",
       "frequencyRank": 1839,
       "frequencyCount": 27,
       "meaning": {
@@ -29522,7 +29522,7 @@
     },
     {
       "id": "wn_0287",
-      "arabicWord": "ماذا",
+      "arabicWord": "مَاذَا",
       "frequencyRank": 1846,
       "frequencyCount": 26,
       "meaning": {
@@ -29570,7 +29570,7 @@
     },
     {
       "id": "wn_0290",
-      "arabicWord": "آل",
+      "arabicWord": "ءَالٌ",
       "frequencyRank": 1849,
       "frequencyCount": 26,
       "meaning": {
@@ -34818,7 +34818,7 @@
     },
     {
       "id": "wn_0618",
-      "arabicWord": "آن",
+      "arabicWord": "ءَانَ",
       "frequencyRank": 2177,
       "frequencyCount": 9,
       "meaning": {
@@ -35138,7 +35138,7 @@
     },
     {
       "id": "wn_0638",
-      "arabicWord": "عام",
+      "arabicWord": "عَامٌ",
       "frequencyRank": 2197,
       "frequencyCount": 9,
       "meaning": {
@@ -37778,7 +37778,7 @@
     },
     {
       "id": "wn_0803",
-      "arabicWord": "هاد",
+      "arabicWord": "هَادٍ",
       "frequencyRank": 2362,
       "frequencyCount": 7,
       "meaning": {
@@ -37794,7 +37794,7 @@
     },
     {
       "id": "wn_0804",
-      "arabicWord": "واد",
+      "arabicWord": "وَادٍ",
       "frequencyRank": 2363,
       "frequencyCount": 7,
       "meaning": {
@@ -39154,7 +39154,7 @@
     },
     {
       "id": "wn_0889",
-      "arabicWord": "غاوي",
+      "arabicWord": "غَاوٍ",
       "frequencyRank": 2448,
       "frequencyCount": 6,
       "meaning": {
@@ -39666,7 +39666,7 @@
     },
     {
       "id": "wn_0921",
-      "arabicWord": "هامان",
+      "arabicWord": "هَٰمَانُ",
       "frequencyRank": 2480,
       "frequencyCount": 6,
       "meaning": {
@@ -39682,7 +39682,7 @@
     },
     {
       "id": "wn_0922",
-      "arabicWord": "طاغي",
+      "arabicWord": "طَاغٍ",
       "frequencyRank": 2481,
       "frequencyCount": 6,
       "meaning": {
@@ -44594,7 +44594,7 @@
     },
     {
       "id": "wn_1229",
-      "arabicWord": "بال",
+      "arabicWord": "بَالٌ",
       "frequencyRank": 2788,
       "frequencyCount": 4,
       "meaning": {
@@ -45314,7 +45314,7 @@
     },
     {
       "id": "wn_1274",
-      "arabicWord": "ساق",
+      "arabicWord": "سَاقٌ",
       "frequencyRank": 2833,
       "frequencyCount": 4,
       "meaning": {
@@ -46034,7 +46034,7 @@
     },
     {
       "id": "wn_1319",
-      "arabicWord": "باغ",
+      "arabicWord": "بَاغٍ",
       "frequencyRank": 2878,
       "frequencyCount": 3,
       "meaning": {
@@ -46082,7 +46082,7 @@
     },
     {
       "id": "wn_1322",
-      "arabicWord": "داع",
+      "arabicWord": "دَاعٍ",
       "frequencyRank": 2881,
       "frequencyCount": 3,
       "meaning": {
@@ -46818,7 +46818,7 @@
     },
     {
       "id": "wn_1368",
-      "arabicWord": "آناء",
+      "arabicWord": "ءَانَاءٌ",
       "frequencyRank": 2927,
       "frequencyCount": 3,
       "meaning": {
@@ -47234,7 +47234,7 @@
     },
     {
       "id": "wn_1394",
-      "arabicWord": "جار",
+      "arabicWord": "جَارٌ",
       "frequencyRank": 2953,
       "frequencyCount": 3,
       "meaning": {
@@ -49346,7 +49346,7 @@
     },
     {
       "id": "wn_1526",
-      "arabicWord": "واق",
+      "arabicWord": "وَاقٍ",
       "frequencyRank": 3085,
       "frequencyCount": 3,
       "meaning": {
@@ -50322,7 +50322,7 @@
     },
     {
       "id": "wn_1587",
-      "arabicWord": "زان",
+      "arabicWord": "زَانٍ",
       "frequencyRank": 3146,
       "frequencyCount": 3,
       "meaning": {
@@ -55842,7 +55842,7 @@
     },
     {
       "id": "wn_1932",
-      "arabicWord": "حاش",
+      "arabicWord": "حَاشَ",
       "frequencyRank": 3491,
       "frequencyCount": 2,
       "meaning": {
@@ -58178,7 +58178,7 @@
     },
     {
       "id": "wn_2078",
-      "arabicWord": "راعي",
+      "arabicWord": "رَاعٍ",
       "frequencyRank": 3637,
       "frequencyCount": 2,
       "meaning": {
@@ -58242,7 +58242,7 @@
     },
     {
       "id": "wn_2082",
-      "arabicWord": "عالي",
+      "arabicWord": "عَالٍ",
       "frequencyRank": 3641,
       "frequencyCount": 2,
       "meaning": {
@@ -58450,7 +58450,7 @@
     },
     {
       "id": "wn_2095",
-      "arabicWord": "خال",
+      "arabicWord": "خَالٌ",
       "frequencyRank": 3654,
       "frequencyCount": 2,
       "meaning": {
@@ -58834,7 +58834,7 @@
     },
     {
       "id": "wn_2119",
-      "arabicWord": "باقي",
+      "arabicWord": "بَاقٍ",
       "frequencyRank": 3678,
       "frequencyCount": 2,
       "meaning": {
@@ -60338,7 +60338,7 @@
     },
     {
       "id": "wn_2213",
-      "arabicWord": "ساهي",
+      "arabicWord": "سَاهٍ",
       "frequencyRank": 3772,
       "frequencyCount": 2,
       "meaning": {
@@ -62290,7 +62290,7 @@
     },
     {
       "id": "wn_2335",
-      "arabicWord": "زاد",
+      "arabicWord": "زَادٌ",
       "frequencyRank": 3894,
       "frequencyCount": 1,
       "meaning": {
@@ -63490,7 +63490,7 @@
     },
     {
       "id": "wn_2410",
-      "arabicWord": "عافي",
+      "arabicWord": "عَافٍ",
       "frequencyRank": 3969,
       "frequencyCount": 1,
       "meaning": {
@@ -65314,7 +65314,7 @@
     },
     {
       "id": "wn_2524",
-      "arabicWord": "حام",
+      "arabicWord": "حَامٍ",
       "frequencyRank": 4083,
       "frequencyCount": 1,
       "meaning": {
@@ -67426,7 +67426,7 @@
     },
     {
       "id": "wn_2656",
-      "arabicWord": "غار",
+      "arabicWord": "غَارٌ",
       "frequencyRank": 4215,
       "frequencyCount": 1,
       "meaning": {
@@ -67922,7 +67922,7 @@
     },
     {
       "id": "wn_2687",
-      "arabicWord": "هار",
+      "arabicWord": "هَارٍ",
       "frequencyRank": 4246,
       "frequencyCount": 1,
       "meaning": {
@@ -68018,7 +68018,7 @@
     },
     {
       "id": "wn_2693",
-      "arabicWord": "ناهي",
+      "arabicWord": "نَاهٍ",
       "frequencyRank": 4252,
       "frequencyCount": 1,
       "meaning": {
@@ -68370,7 +68370,7 @@
     },
     {
       "id": "wn_2715",
-      "arabicWord": "عال",
+      "arabicWord": "عَالٍ",
       "frequencyRank": 4274,
       "frequencyCount": 1,
       "meaning": {
@@ -69138,7 +69138,7 @@
     },
     {
       "id": "wn_2763",
-      "arabicWord": "ناج",
+      "arabicWord": "نَاجٍ",
       "frequencyRank": 4322,
       "frequencyCount": 1,
       "meaning": {
@@ -69522,7 +69522,7 @@
     },
     {
       "id": "wn_2787",
-      "arabicWord": "وال",
+      "arabicWord": "وَالٍ",
       "frequencyRank": 4346,
       "frequencyCount": 1,
       "meaning": {
@@ -70642,7 +70642,7 @@
     },
     {
       "id": "wn_2857",
-      "arabicWord": "باق",
+      "arabicWord": "بَاقٍ",
       "frequencyRank": 4416,
       "frequencyCount": 1,
       "meaning": {
@@ -72786,7 +72786,7 @@
     },
     {
       "id": "wn_2991",
-      "arabicWord": "طه",
+      "arabicWord": "طٰهٰ",
       "frequencyRank": 4550,
       "frequencyCount": 1,
       "meaning": {
@@ -73058,7 +73058,7 @@
     },
     {
       "id": "wn_3008",
-      "arabicWord": "قاض",
+      "arabicWord": "قَاضٍ",
       "frequencyRank": 4567,
       "frequencyCount": 1,
       "meaning": {
@@ -73186,7 +73186,7 @@
     },
     {
       "id": "wn_3016",
-      "arabicWord": "قاع",
+      "arabicWord": "قَاعٌ",
       "frequencyRank": 4575,
       "frequencyCount": 1,
       "meaning": {
