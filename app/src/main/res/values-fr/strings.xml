@@ -148,6 +148,17 @@
     <string name="lesson_summary_keep_practicing">Continuer à s\'entraîner</string>
     <string name="lesson_summary_streak_restored">Série restaurée ! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Série non récupérée — nouveau départ</string>
+    <string name="lesson_summary_alhamdulillah_title">Alhamdulillah ! Leçon terminée</string>
+    <string name="lesson_summary_words_covered">%d mots maîtrisés</string>
+    <string name="lesson_summary_flawless">Parfait ! 0 faute</string>
+    <string name="lesson_summary_mistakes_count">%d fautes</string>
+    <string name="lesson_summary_cumulative_title">Progression Coranique Cumulative</string>
+    <string name="lesson_summary_cumulative_desc">Vous avez maîtrisé %1$s mots du Saint Coran (%2$s du Coran).</string>
+    <string name="lesson_summary_next_lesson_title">Aperçu de la prochaine leçon</string>
+    <string name="lesson_summary_next_lesson_proceed">Passer à la leçon suivante</string>
+    <string name="lesson_summary_back_to_dashboard">Retour au tableau de bord</string>
+    <string name="lesson_summary_next_words_count">Comprend %d nouveaux mots</string>
+    <string name="lesson_summary_words_in_this_lesson">Mots de cette leçon</string>
 
     
     <string name="achievements_title">Succès</string>

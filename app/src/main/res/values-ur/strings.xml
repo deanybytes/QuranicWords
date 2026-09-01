@@ -148,6 +148,17 @@
     <string name="lesson_summary_keep_practicing">مشق جاری رکھیں</string>
     <string name="lesson_summary_streak_restored">تسلسل بحال ہو گیا! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">تسلسل بحال نہیں ہوا — نئے سرے سے شروع</string>
+    <string name="lesson_summary_alhamdulillah_title">الحمد لله! سبق مکمل ہو گیا</string>
+    <string name="lesson_summary_words_covered">%d الفاظ سیکھے گئے</string>
+    <string name="lesson_summary_flawless">بہترین! صفر غلطی</string>
+    <string name="lesson_summary_mistakes_count">%d غلطیاں ہوئیں</string>
+    <string name="lesson_summary_cumulative_title">مجموعی قرآنی پیش رفت</string>
+    <string name="lesson_summary_cumulative_desc">آپ نے قرآن مجید کے کل %1$s الفاظ مکمل یاد کر لیے ہیں (%2$s حصہ)۔</string>
+    <string name="lesson_summary_next_lesson_title">اگلے سبق کا تعارف</string>
+    <string name="lesson_summary_next_lesson_proceed">اگلا سبق شروع کریں</string>
+    <string name="lesson_summary_back_to_dashboard">ڈیش بورڈ پر واپس جائیں</string>
+    <string name="lesson_summary_next_words_count">%d نئے الفاظ پر مشتمل</string>
+    <string name="lesson_summary_words_in_this_lesson">اس سبق کے الفاظ</string>
 
     
     <string name="achievements_title">کامیابیاں</string>

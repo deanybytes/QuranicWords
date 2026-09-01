@@ -145,6 +145,17 @@
     <string name="lesson_summary_keep_practicing">Terus Berlatih</string>
     <string name="lesson_summary_streak_restored">Rentetan Dipulihkan! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Rentetan tidak pulih — memulai lagi</string>
+    <string name="lesson_summary_alhamdulillah_title">Alhamdulillah! Pelajaran Selesai</string>
+    <string name="lesson_summary_words_covered">%d Kata Dikuasai</string>
+    <string name="lesson_summary_flawless">Sempurna! 0 Kesalahan</string>
+    <string name="lesson_summary_mistakes_count">%d Kesalahan</string>
+    <string name="lesson_summary_cumulative_title">Kemajuan Al-Qur\'an Kumulatif</string>
+    <string name="lesson_summary_cumulative_desc">Anda telah menguasai %1$s kata dari total kosakata Al-Qur\'an (%2$s).</string>
+    <string name="lesson_summary_next_lesson_title">Pratinjau Pelajaran Berikutnya</string>
+    <string name="lesson_summary_next_lesson_proceed">Lanjut ke Pelajaran Berikutnya</string>
+    <string name="lesson_summary_back_to_dashboard">Kembali ke Beranda</string>
+    <string name="lesson_summary_next_words_count">Mencakup %d kata baru</string>
+    <string name="lesson_summary_words_in_this_lesson">Kata-kata dalam Pelajaran Ini</string>
 
     
     <string name="achievements_title">Pencapaian</string>
