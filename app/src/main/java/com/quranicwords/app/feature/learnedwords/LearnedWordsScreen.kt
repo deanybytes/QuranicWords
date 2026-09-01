@@ -76,6 +76,8 @@ import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
+import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
+import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -464,44 +466,23 @@ private fun WordQuranExamplesSheet(
                             ),
                             color = MaterialTheme.colorScheme.primary
                         )
-                        Text(
-                            text = buildAnnotatedString {
-                                append(verseArabic)
-                                val start = arabicWordStart
-                                val end = arabicWordEnd
-                                if (start != null && end != null &&
-                                    start in 0..verseArabic.length &&
-                                    end in start..verseArabic.length
-                                ) {
-                                    addStyle(highlightStyle, start, end)
-                                }
-                            },
-                            fontFamily = LocalQuranFontFamily.current,
-                            fontSize = 21.sp,
-                            lineHeight = 36.sp,
-                            textAlign = TextAlign.End,
-                            modifier = Modifier.fillMaxWidth(),
-                            color = MaterialTheme.colorScheme.onSurface
+                        HighlightedGlassArabic(
+                            verseArabic = verseArabic,
+                            start = arabicWordStart,
+                            end = arabicWordEnd,
+                            modifier = Modifier.fillMaxWidth()
                         )
                         if (!verseTranslation.isNullOrBlank()) {
                             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-                            Text(
-                                text = buildAnnotatedString {
-                                    append(verseTranslation)
-                                    val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
-                                        verseTranslation = verseTranslation,
-                                        meaningHighlight = meaningHighlight,
-                                        meaning = displayedMeaning
-                                    )
-                                    if (range != null) {
-                                        addStyle(highlightStyle, range.first, range.second)
-                                    }
-                                },
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontFamily = QuranCitationFontFamily,
-                                    fontStyle = FontStyle.Italic
-                                ),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                                verseTranslation = verseTranslation,
+                                meaningHighlight = meaningHighlight,
+                                meaning = displayedMeaning
+                            )
+                            HighlightedGlassTranslation(
+                                verseTranslation = verseTranslation,
+                                range = range,
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                     }

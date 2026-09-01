@@ -38,6 +38,7 @@ import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.ui.components.GlassSurface
+import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -92,24 +93,11 @@ fun MultipleChoiceExerciseContent(
                         ),
                         color = MaterialTheme.colorScheme.primary
                     )
-                    Text(
-                        text = buildAnnotatedString {
-                            append(content.exampleVerseArabic)
-                            val start = content.arabicWordStart
-                            val end = content.arabicWordEnd
-                            if (start != null && end != null &&
-                                start in 0..content.exampleVerseArabic.length &&
-                                end in start..content.exampleVerseArabic.length
-                            ) {
-                                addStyle(highlightStyle, start, end)
-                            }
-                        },
-                        fontFamily = LocalQuranFontFamily.current,
-                        fontSize = 19.sp,
-                        lineHeight = 32.sp,
-                        textAlign = TextAlign.End,
-                        modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onSurface
+                    HighlightedGlassArabic(
+                        verseArabic = content.exampleVerseArabic,
+                        start = content.arabicWordStart,
+                        end = content.arabicWordEnd,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
