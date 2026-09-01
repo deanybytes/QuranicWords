@@ -93,60 +93,23 @@ fun WordIntroExerciseContent(
     ) {
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
-        val particleAccent = Color(0xFF0288D1)
-        val particleContainer = Color(0xFFE1F5FE)
+        val category = content.lemmaCategory
+        val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
 
         GlassSurface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
-            tint = when (content.lemmaCategory) {
-                LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
-                LemmaCategory.PARTICLE -> particleContainer.copy(alpha = 0.85f)
-                else -> MaterialTheme.colorScheme.primaryContainer
-            }
+            tint = MaterialTheme.colorScheme.surfaceContainer,
+            accentBorderColor = categoryAccent,
+            accentBorderWidth = 1.5.dp
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                // Grammatical Category Tag (Noun vs Verb vs Particle)
-                val categoryIcon = when (content.lemmaCategory) {
-                    LemmaCategory.VERB -> Icons.Filled.FlashOn
-                    LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
-                    else -> Icons.Filled.AutoStories
-                }
-                val categoryLabel = when (content.lemmaCategory) {
-                    LemmaCategory.VERB -> stringResource(R.string.word_category_verb)
-                    LemmaCategory.PARTICLE -> stringResource(R.string.word_category_particle)
-                    else -> stringResource(R.string.word_category_noun)
-                }
-                val categoryTint = when (content.lemmaCategory) {
-                    LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiary
-                    LemmaCategory.PARTICLE -> particleAccent
-                    else -> MaterialTheme.colorScheme.primary
-                }
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(categoryTint.copy(alpha = 0.15f))
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
-                ) {
-                    Icon(
-                        imageVector = categoryIcon,
-                        contentDescription = null,
-                        tint = categoryTint,
-                        modifier = Modifier.size(14.dp)
-                    )
-                    Text(
-                        text = categoryLabel,
-                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                        color = categoryTint
-                    )
-                }
+                // Grammatical Category Tag (Noun vs Verb vs Particle) at the top
+                com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
 
                 Text(
                     text = content.arabicWord,
@@ -154,7 +117,7 @@ fun WordIntroExerciseContent(
                     fontSize = 54.sp,
                     lineHeight = 66.sp,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 AnimatedContent(
@@ -166,7 +129,7 @@ fun WordIntroExerciseContent(
                         text = targetMeaning,
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -283,7 +246,7 @@ fun WordIntroExerciseContent(
                         Text(
                             text = content.particleType ?: content.grammaticalCategory ?: "",
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                            color = particleAccent
+                            color = com.quranicwords.app.core.ui.components.categoryAccentColor(LemmaCategory.PARTICLE)
                         )
                     }
                     if (!content.grammaticalCategory.isNullOrBlank() && content.grammaticalCategory != content.particleType) {

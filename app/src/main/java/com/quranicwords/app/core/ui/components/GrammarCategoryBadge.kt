@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,38 @@ fun resolveCategoryFromWordId(wordId: String?): LemmaCategory? = when {
 }
 
 /**
+ * Returns a high-contrast accent color for the given grammar category that remains
+ * crystal clear and legible in both light and dark themes.
+ */
+@Composable
+fun categoryAccentColor(category: LemmaCategory?): Color {
+    val isDark = isSystemInDarkTheme()
+    return when (category) {
+        LemmaCategory.VERB -> if (isDark) Color(0xFFFFD54F) else Color(0xFFC59B27) // Warm Gold
+        LemmaCategory.PARTICLE -> if (isDark) Color(0xFF4FC3F7) else Color(0xFF0288D1) // Sky Blue (high contrast)
+        LemmaCategory.NOUN, LemmaCategory.MIXED, null -> if (isDark) Color(0xFF81C784) else Color(0xFF2E7D32) // Forest Green
+    }
+}
+
+/**
+ * Returns the distinctive icon for the given grammar category.
+ */
+fun categoryIcon(category: LemmaCategory?): ImageVector = when (category) {
+    LemmaCategory.VERB -> Icons.Filled.FlashOn
+    LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
+    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> Icons.Filled.AutoStories
+}
+
+/**
+ * Returns the string resource ID for the category label.
+ */
+fun categoryLabelRes(category: LemmaCategory?): Int = when (category) {
+    LemmaCategory.VERB -> R.string.word_category_verb
+    LemmaCategory.PARTICLE -> R.string.word_category_particle
+    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> R.string.word_category_noun
+}
+
+/**
  * Renders a distinctive visual badge indicating whether a word is an Ism (Noun),
  * Fi'l (Verb), or Ḥarf (Particle).
  */
@@ -49,27 +83,9 @@ fun GrammarCategoryBadge(
 ) {
     if (category == null || category == LemmaCategory.MIXED) return
 
-    val particleAccent = Color(0xFF0288D1)
-    val verbAccent = Color(0xFFD4AF37)
-    val nounAccent = Color(0xFF2E7D32)
-
-    val icon = when (category) {
-        LemmaCategory.VERB -> Icons.Filled.FlashOn
-        LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
-        LemmaCategory.NOUN, LemmaCategory.MIXED -> Icons.Filled.AutoStories
-    }
-
-    val labelResId = when (category) {
-        LemmaCategory.VERB -> R.string.word_category_verb
-        LemmaCategory.PARTICLE -> R.string.word_category_particle
-        LemmaCategory.NOUN, LemmaCategory.MIXED -> R.string.word_category_noun
-    }
-
-    val tint = when (category) {
-        LemmaCategory.VERB -> verbAccent
-        LemmaCategory.PARTICLE -> particleAccent
-        LemmaCategory.NOUN, LemmaCategory.MIXED -> nounAccent
-    }
+    val tint = categoryAccentColor(category)
+    val icon = categoryIcon(category)
+    val labelResId = categoryLabelRes(category)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -92,3 +108,4 @@ fun GrammarCategoryBadge(
         )
     }
 }
+

@@ -824,26 +824,17 @@ private fun LessonNode(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
-        val isVerb = category == LemmaCategory.VERB
-        val isParticle = category == LemmaCategory.PARTICLE
-        val particleAccent = Color(0xFF0288D1)
-        val particleContainer = Color(0xFFE1F5FE)
+        val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
 
         val containerColor = if (kindVisual.isQuizOrExam) {
             kindVisual.containerColor
-        } else if (isVerb && isUnlocked) {
-            MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
-        } else if (isParticle && isUnlocked) {
-            particleContainer.copy(alpha = 0.85f)
         } else {
             statusContainerColor(status)
         }
         val tint = if (kindVisual.isQuizOrExam) {
             kindVisual.accentColor
-        } else if (isVerb && isUnlocked) {
-            MaterialTheme.colorScheme.tertiary
-        } else if (isParticle && isUnlocked) {
-            particleAccent
+        } else if (isUnlocked) {
+            categoryAccent
         } else {
             defaultTint
         }
@@ -858,8 +849,7 @@ private fun LessonNode(
         val badgeAccentBorder = when {
             isCurrent -> MaterialTheme.colorScheme.tertiary
             kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.45f)
-            isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.6f)
-            isParticle && isUnlocked -> particleAccent.copy(alpha = 0.6f)
+            isUnlocked -> categoryAccent.copy(alpha = 0.7f)
             else -> null
         }
 
@@ -884,20 +874,14 @@ private fun LessonNode(
         GlassSurface(
             modifier = Modifier.width(170.dp),
             onClick = if (isUnlocked) onClick else null,
-            tint = when {
-                kindVisual.isQuizOrExam -> kindVisual.containerColor
-                isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.80f)
-                isParticle && isUnlocked -> particleContainer.copy(alpha = 0.80f)
-                isUnlocked -> MaterialTheme.colorScheme.primaryContainer
-                else -> MaterialTheme.colorScheme.surfaceVariant
-            },
+            tint = if (kindVisual.isQuizOrExam) kindVisual.containerColor else statusContainerColor(status),
             accentBorderColor = when {
                 isCurrent -> MaterialTheme.colorScheme.tertiary
                 kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.4f)
-                isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)
-                isParticle && isUnlocked -> particleAccent.copy(alpha = 0.5f)
+                isUnlocked -> categoryAccent
                 else -> null
-            }
+            },
+            accentBorderWidth = if (isCurrent) 2.dp else 1.5.dp
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 // Quiz / Exam or Noun / Verb / Particle Distinctive Tag
@@ -928,21 +912,8 @@ private fun LessonNode(
                     Spacer(modifier = Modifier.height(4.dp))
                 } else {
                     // Explicit Noun vs Verb vs Particle Badge
-                    val categoryIcon = when (category) {
-                        LemmaCategory.VERB -> Icons.Filled.FlashOn
-                        LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
-                        else -> Icons.Filled.AutoStories
-                    }
-                    val categoryLabelRes = when (category) {
-                        LemmaCategory.VERB -> R.string.lesson_category_verb
-                        LemmaCategory.PARTICLE -> R.string.lesson_category_particle
-                        else -> R.string.lesson_category_noun
-                    }
-                    val categoryAccent = when (category) {
-                        LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiary
-                        LemmaCategory.PARTICLE -> particleAccent
-                        else -> MaterialTheme.colorScheme.primary
-                    }
+                    val categoryIcon = com.quranicwords.app.core.ui.components.categoryIcon(category)
+                    val categoryLabelRes = com.quranicwords.app.core.ui.components.categoryLabelRes(category)
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -973,7 +944,7 @@ private fun LessonNode(
                 val labelColor = when {
                     kindVisual.isQuizOrExam && isUnlocked -> kindVisual.onContainerColor
                     kindVisual.isQuizOrExam && !isUnlocked -> kindVisual.accentColor.copy(alpha = 0.7f)
-                    isUnlocked -> MaterialTheme.colorScheme.onPrimaryContainer
+                    isUnlocked -> MaterialTheme.colorScheme.onSurface
                     else -> MaterialTheme.colorScheme.onSurfaceVariant
                 }
                 Text(
