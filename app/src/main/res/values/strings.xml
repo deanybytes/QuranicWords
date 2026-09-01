@@ -223,14 +223,20 @@
     <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
     <string name="settings_copyright">Copyright © DEANY BYTES 2026. Licensed under GPL-3.0.</string>
     <string name="settings_content_provenance_note">Vocabulary content is sourced from open Qur\'anic corpora and verified word-by-word reference translations.</string>
+    <string name="about_open_source_title">Open Source &amp; Contribution</string>
+    <string name="about_open_source_desc">QuranicWords is a 100% free and open-source project licensed under the GNU General Public License v3.0 (GPL-3.0). Anyone is warmly welcomed to contribute code, report bugs, suggest features, or help with translations via our GitHub repository.</string>
+    <string name="about_dawah_title">DEANY TALKS Dawah Network</string>
+    <string name="about_dawah_desc">Support and connect with our broader Islamic educational and Dawah initiatives under DEANY TALKS across YouTube, Telegram, and WhatsApp.</string>
+    <string name="about_contact_title">Contact &amp; Support</string>
+    <string name="about_contact_desc">Have feedback, suggestions, questions, or wish to collaborate? Reach out to us directly via email.</string>
     <string name="settings_licenses_button">Licenses &amp; sources</string>
     <string name="settings_licenses_title">Licenses &amp; sources</string>
-    <string name="settings_section_connect">Connect</string>
-    <string name="settings_connect_github">GitHub</string>
-    <string name="settings_connect_youtube">YouTube</string>
-    <string name="settings_connect_email">Email</string>
-    <string name="settings_connect_telegram">Telegram</string>
-    <string name="settings_connect_whatsapp">WhatsApp</string>
+    <string name="settings_section_connect">Connect &amp; Follow</string>
+    <string name="settings_connect_github">GitHub (Source Code &amp; Issues)</string>
+    <string name="settings_connect_youtube">YouTube (@deanytalks)</string>
+    <string name="settings_connect_email">Email (deanybytes@gmail.com)</string>
+    <string name="settings_connect_telegram">Telegram Channel</string>
+    <string name="settings_connect_whatsapp">WhatsApp Channel</string>
     <string name="settings_close">Close</string>
 
     <!-- Common -->

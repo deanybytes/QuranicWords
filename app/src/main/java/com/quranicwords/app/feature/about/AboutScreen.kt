@@ -79,23 +79,36 @@ fun AboutScreen() {
             } }
         }
 
+        // Open Source & GPL-3.0 Contribution Card
         item {
             StaggeredEntrance(index = 2) { SectionCard {
-                SectionTitle(stringResource(R.string.settings_section_connect))
+                SectionTitle(stringResource(R.string.about_open_source_title))
+                Text(
+                    stringResource(R.string.about_open_source_desc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
                 ConnectLinkRow(
                     icon = Icons.Filled.Code,
                     label = stringResource(R.string.settings_connect_github),
-                    onClick = { uriHandler.openUri("https://github.com/deanybytes/QuranicWords") }
+                    onClick = { uriHandler.openUri("https://github.com/rmrashahriar/QuranicWords") }
+                )
+            } }
+        }
+
+        // DEANY TALKS Dawah Network Card
+        item {
+            StaggeredEntrance(index = 3) { SectionCard {
+                SectionTitle(stringResource(R.string.about_dawah_title))
+                Text(
+                    stringResource(R.string.about_dawah_desc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 ConnectLinkRow(
                     icon = Icons.Filled.PlayCircle,
                     label = stringResource(R.string.settings_connect_youtube),
                     onClick = { uriHandler.openUri("https://youtube.com/@deanytalks") }
-                )
-                ConnectLinkRow(
-                    icon = Icons.Filled.Email,
-                    label = stringResource(R.string.settings_connect_email),
-                    onClick = { uriHandler.openUri("mailto:deanybytes@gmail.com") }
                 )
                 ConnectLinkRow(
                     icon = Icons.AutoMirrored.Filled.Send,
@@ -106,6 +119,23 @@ fun AboutScreen() {
                     icon = Icons.AutoMirrored.Filled.Chat,
                     label = stringResource(R.string.settings_connect_whatsapp),
                     onClick = { uriHandler.openUri("https://whatsapp.com/channel/0029VaLkfgUEwEk0cgLkcD3G") }
+                )
+            } }
+        }
+
+        // Contact & Support Card
+        item {
+            StaggeredEntrance(index = 4) { SectionCard {
+                SectionTitle(stringResource(R.string.about_contact_title))
+                Text(
+                    stringResource(R.string.about_contact_desc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                ConnectLinkRow(
+                    icon = Icons.Filled.Email,
+                    label = stringResource(R.string.settings_connect_email),
+                    onClick = { uriHandler.openUri("mailto:deanybytes@gmail.com") }
                 )
             } }
         }

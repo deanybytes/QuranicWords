@@ -196,9 +196,6 @@
     <string name="settings_backup_export_failed">Cadangan tidak dapat disimpan. Silakan coba lagi.</string>
     <string name="settings_backup_import_success">Cadangan dipulihkan.</string>
     <string name="settings_backup_import_failed">Berkas cadangan tersebut tidak dapat dipulihkan.</string>
-    <string name="settings_section_about">Tentang</string>
-    <string name="settings_copyright">Hak cipta © DEANY BYTES 2026. Dilisensikan di bawah GPL-3.0.</string>
-    <string name="settings_content_provenance_note">Konten kosakata bersumber dari korpus Al-Qur\'an terbuka dan terjemahan kata demi kata yang terverifikasi.</string>
     <string name="settings_licenses_button">Lisensi &amp; sumber</string>
     <string name="settings_licenses_title">Lisensi &amp; sumber</string>
     <string name="settings_close">Tutup</string>
@@ -222,14 +219,22 @@
     <string name="settings_reset_progress_confirm_button">Atur Ulang</string>
     <string name="settings_reset_progress_done">Progres telah diatur ulang.</string>
 
-    
+    <string name="settings_section_about">Tentang</string>
     <string name="settings_motto">Ketika Tujuan Dini Bertemu dengan Byte Digital.</string>
-    <string name="settings_section_connect">Terhubung</string>
-    <string name="settings_connect_github">GitHub</string>
-    <string name="settings_connect_youtube">YouTube</string>
-    <string name="settings_connect_email">Email</string>
-    <string name="settings_connect_telegram">Telegram</string>
-    <string name="settings_connect_whatsapp">WhatsApp</string>
+    <string name="settings_copyright">Hak Cipta © DEANY BYTES 2026. Berlisensi di bawah GPL-3.0.</string>
+    <string name="settings_content_provenance_note">Konten kosakata bersumber dari korpus Al-Qur\'an terbuka dan terjemahan rujukan kata demi kata yang terverifikasi.</string>
+    <string name="about_open_source_title">Sumber Terbuka &amp; Kontribusi</string>
+    <string name="about_open_source_desc">QuranicWords adalah proyek 100% gratis dan sumber terbuka (open source) di bawah lisensi GPL-3.0. Siapa pun dipersilakan untuk berkontribusi kode, melaporkan masalah, mengusulkan fitur baru, atau membantu terjemahan melalui repositori GitHub kami.</string>
+    <string name="about_dawah_title">Jaringan Dakwah DEANY TALKS</string>
+    <string name="about_dawah_desc">Dukung dan terhubung dengan berbagai inisiatif dakwah dan edukasi Islam kami di bawah DEANY TALKS melalui YouTube, Telegram, dan WhatsApp.</string>
+    <string name="about_contact_title">Kontak &amp; Bantuan</string>
+    <string name="about_contact_desc">Punya pertanyaan, saran, masukan, atau ingin berkolaborasi? Jangan ragu untuk menghubungi kami melalui email yang tersedia.</string>
+    <string name="settings_section_connect">Terhubung &amp; Ikuti</string>
+    <string name="settings_connect_github">GitHub (Kode Sumber &amp; Masalah)</string>
+    <string name="settings_connect_youtube">YouTube (@deanytalks)</string>
+    <string name="settings_connect_email">Email (deanybytes@gmail.com)</string>
+    <string name="settings_connect_telegram">Saluran Telegram</string>
+    <string name="settings_connect_whatsapp">Saluran WhatsApp</string>
 
     <string name="learned_words_title">Kata yang Dipelajari</string>
     <string name="learned_words_subtitle">%d kata dikuasai dari Al-Qur\'an</string>
