@@ -216,7 +216,7 @@ fun LessonSummaryScreen(
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         SummaryMetricCard(
-                            icon = Icons.AutoMirrored.Filled.MenuBook,
+                            icon = Icons.Filled.AutoStories,
                             title = stringResource(R.string.lesson_summary_words_covered, wordsCount),
                             value = localizedWordsCovered,
                             accentColor = BrandGreen,
