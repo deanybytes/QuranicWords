@@ -153,6 +153,17 @@
     <string name="lesson_summary_keep_practicing">চর্চা চালিয়ে যান</string>
     <string name="lesson_summary_streak_restored">স্ট্রিক পুনরুদ্ধার হয়েছে! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">স্ট্রিক পুনরুদ্ধার হয়নি — নতুন করে শুরু হচ্ছে</string>
+    <string name="lesson_summary_alhamdulillah_title">আলহামদুলিল্লাহ! পাঠ সম্পন্ন হয়েছে</string>
+    <string name="lesson_summary_words_covered">%dটি শব্দ আয়ত্ত হয়েছে</string>
+    <string name="lesson_summary_flawless">নিখুঁত! কোনো ভুল নেই</string>
+    <string name="lesson_summary_mistakes_count">%dটি ভুল হয়েছে</string>
+    <string name="lesson_summary_cumulative_title">মোট অর্জিত কুরআনিক অগ্রগতি</string>
+    <string name="lesson_summary_cumulative_desc">আপনি পবিত্র কুরআনের মোট %1$sটি শব্দ আয়ত্ত করেছেন (%2$s অংশ)।</string>
+    <string name="lesson_summary_next_lesson_title">পরবর্তী পাঠের পরিচিতি</string>
+    <string name="lesson_summary_next_lesson_proceed">পরবর্তী পাঠ শুরু করুন</string>
+    <string name="lesson_summary_back_to_dashboard">ড্যাশবোর্ডে ফিরে যান</string>
+    <string name="lesson_summary_next_words_count">%dটি নতুন শব্দ অন্তর্ভুক্ত</string>
+    <string name="lesson_summary_words_in_this_lesson">এই পাঠের শব্দসমূহ</string>
 
     
     <string name="achievements_title">অর্জনসমূহ</string>

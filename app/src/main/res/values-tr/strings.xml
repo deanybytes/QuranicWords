@@ -145,6 +145,17 @@
     <string name="lesson_summary_keep_practicing">Pratiğe Devam Et</string>
     <string name="lesson_summary_streak_restored">Seri Geri Yüklendi! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Seri kurtarılamadı — yeniden başlıyor</string>
+    <string name="lesson_summary_alhamdulillah_title">Elhamdülillah! Ders Tamamlandı</string>
+    <string name="lesson_summary_words_covered">%d Kelime Öğrenildi</string>
+    <string name="lesson_summary_flawless">Kusursuz! 0 Hata</string>
+    <string name="lesson_summary_mistakes_count">%d Hata Yapıldı</string>
+    <string name="lesson_summary_cumulative_title">Kümülatif Kur\'an İlerlemesi</string>
+    <string name="lesson_summary_cumulative_desc">Kur\'an-ı Kerim\'den toplam %1$s kelime öğrendiniz (Kur\'an\'ın %2$s\'i).</string>
+    <string name="lesson_summary_next_lesson_title">Sonraki Ders Önizlemesi</string>
+    <string name="lesson_summary_next_lesson_proceed">Sonraki Derse Geç</string>
+    <string name="lesson_summary_back_to_dashboard">Ana Sayfaya Dön</string>
+    <string name="lesson_summary_next_words_count">%d yeni kelime içeriyor</string>
+    <string name="lesson_summary_words_in_this_lesson">Bu Dersteki Kelimeler</string>
 
     
     <string name="achievements_title">Başarılar</string>

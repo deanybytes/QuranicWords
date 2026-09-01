@@ -308,18 +308,10 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onContinue = {
                     val nextLessonId = route.nextLessonId
                     if (route.sessionType == LessonSessionType.OPEN_PRACTICE) {
-                        // "Keep Practicing" - a fresh batch in the current mode instead of dropping back to
-                        // Home, same back-stack shape as the other branches (pop everything above
-                        // Home, then push) so this can loop indefinitely without piling up a
-                        // LessonSummary -> OpenPractice -> LessonSummary -> ... chain.
                         navController.navigate(Route.OpenPractice(mode = route.openPracticeMode ?: "RANDOM")) {
                             popUpTo(Route.Home)
                         }
                     } else if (nextLessonId != null) {
-                        // Flow straight into the next lesson instead of always dropping back to
-                        // Home - same "pop everything above Home, then push" shape as opening a
-                        // lesson normally from Home, so the back stack ends up identical either
-                        // way (Home -> Lesson), not accumulating a LessonSummary -> Lesson chain.
                         navController.navigate(Route.Lesson(nextLessonId)) {
                             popUpTo(Route.Home)
                         }
@@ -327,6 +319,11 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                         navController.navigate(Route.Home) {
                             popUpTo(Route.Home) { inclusive = true }
                         }
+                    }
+                },
+                onBackHome = {
+                    navController.navigate(Route.Home) {
+                        popUpTo(Route.Home) { inclusive = true }
                     }
                 }
             )

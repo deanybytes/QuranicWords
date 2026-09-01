@@ -152,6 +152,17 @@
     <string name="lesson_summary_keep_practicing">Keep Practicing</string>
     <string name="lesson_summary_streak_restored">Streak Restored! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Streak not recovered — starting fresh</string>
+    <string name="lesson_summary_alhamdulillah_title">Alhamdulillah! Lesson Completed</string>
+    <string name="lesson_summary_words_covered">%d Words Covered</string>
+    <string name="lesson_summary_flawless">Flawless! 0 Mistakes</string>
+    <string name="lesson_summary_mistakes_count">%d Mistakes</string>
+    <string name="lesson_summary_cumulative_title">Cumulative Qur\'an Progress</string>
+    <string name="lesson_summary_cumulative_desc">You have mastered %1$s words (%2$s of the Holy Qur\'an).</string>
+    <string name="lesson_summary_next_lesson_title">Next Lesson Preview</string>
+    <string name="lesson_summary_next_lesson_proceed">Proceed to Next Lesson</string>
+    <string name="lesson_summary_back_to_dashboard">Back to Dashboard</string>
+    <string name="lesson_summary_next_words_count">Covers %d new words</string>
+    <string name="lesson_summary_words_in_this_lesson">Words in this Lesson</string>
 
     <!-- Achievements -->
     <string name="achievements_title">Achievements</string>
