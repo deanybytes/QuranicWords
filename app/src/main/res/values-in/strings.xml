@@ -49,6 +49,8 @@
     <string name="daily_goal_steady">Steady</string>
     <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d menit per hari</string>
+    <string name="format_minutes_short">%1$d mnt</string>
+    <string name="format_repeat_count">%1$dx</string>
     <string name="home_daily_challenge_completed">Tantangan harian selesai</string>
     <string name="test_only_start_quiz_title">Mulai Kuis</string>
     <string name="test_only_start_quiz_subtitle">Pertanyaan acak dari kata-kata yang sudah Anda ketahui</string>

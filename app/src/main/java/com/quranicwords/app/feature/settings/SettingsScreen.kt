@@ -327,9 +327,9 @@ fun SettingsScreen(
                 Text(stringResource(R.string.settings_learning_style_label), style = MaterialTheme.typography.labelLarge)
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                     val options = listOf(
-                        LearningStyle.SHARP to "1x",
-                        LearningStyle.SLOW to "3x",
-                        LearningStyle.COZY to "5x"
+                        LearningStyle.SHARP to stringResource(R.string.format_repeat_count, LearningStyle.SHARP.repeatCount),
+                        LearningStyle.SLOW to stringResource(R.string.format_repeat_count, LearningStyle.SLOW.repeatCount),
+                        LearningStyle.COZY to stringResource(R.string.format_repeat_count, LearningStyle.COZY.repeatCount)
                     )
                     options.forEachIndexed { index, (style, label) ->
                         SegmentedButton(
@@ -354,9 +354,9 @@ fun SettingsScreen(
             Text(stringResource(R.string.settings_daily_goal_label), style = MaterialTheme.typography.labelLarge)
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                 val options = listOf(
-                    DailyGoalLevel.CASUAL to "${DailyGoalLevel.CASUAL.minutes} min",
-                    DailyGoalLevel.STEADY to "${DailyGoalLevel.STEADY.minutes} min",
-                    DailyGoalLevel.DEVOTED to "${DailyGoalLevel.DEVOTED.minutes} min"
+                    DailyGoalLevel.CASUAL to stringResource(R.string.format_minutes_short, DailyGoalLevel.CASUAL.minutes),
+                    DailyGoalLevel.STEADY to stringResource(R.string.format_minutes_short, DailyGoalLevel.STEADY.minutes),
+                    DailyGoalLevel.DEVOTED to stringResource(R.string.format_minutes_short, DailyGoalLevel.DEVOTED.minutes)
                 )
                 options.forEachIndexed { index, (level, label) ->
                     SegmentedButton(

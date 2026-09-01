@@ -23,7 +23,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import kotlin.math.min
 import kotlin.math.sin
+import android.content.ContextWrapper
+import android.content.res.AssetManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import java.util.Locale
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -181,11 +184,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            val localizedContext = remember(currentContext, configuration) {
+                val configContext = currentContext.createConfigurationContext(configuration)
+                object : ContextWrapper(currentContext) {
+                    override fun getResources(): Resources = configContext.resources
+                    override fun getAssets(): AssetManager = configContext.assets
+                }
+            }
+
             val scaledDensity = LocalDensity.current.let { base ->
                 Density(density = base.density, fontScale = base.fontScale * fontScale.multiplier)
             }
 
             CompositionLocalProvider(
+                LocalContext provides localizedContext,
                 LocalConfiguration provides configuration,
                 LocalAppLanguage provides selectedLanguage,
                 LocalReduceMotionPreference provides reduceMotion,

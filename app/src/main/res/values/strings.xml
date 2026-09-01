@@ -52,6 +52,8 @@
     <string name="daily_goal_devoted">Devoted (30 minutes)</string>
     <string name="daily_goal_devoted_description">An intensive 30-minute daily session for fast vocabulary mastery.</string>
     <string name="daily_goal_minutes_suffix">%d minutes a day</string>
+    <string name="format_minutes_short">%1$d min</string>
+    <string name="format_repeat_count">%1$dx</string>
     <string name="home_daily_challenge_completed">Daily challenge completed</string>
     <string name="test_only_start_quiz_title">Start a Quiz</string>
     <string name="test_only_start_quiz_subtitle">Random questions from words you already know</string>
