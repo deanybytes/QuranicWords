@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">QuranicWords</string>
     <string name="app_logo_content_description">QuranicWords کا لوگو</string>
@@ -15,7 +16,7 @@
     <string name="hadith_consistency_quote">نبی ﷺ نے فرمایا: \"اللہ کو سب سے پیارا عمل وہ ہے جو باقاعدگی سے کیا جائے، خواہ وہ کم ہی کیوں نہ ہو۔\"</string>
     <string name="hadith_consistency_reference">صحیح بخاری 6465</string>
 
-    <!-- Opening invocation (splash, every launch) -->
+    
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
     <string name="splash_invocation_taawwudh_translation">میں اللہ کی پناہ مانگتا ہوں مردود شیطان سے</string>
     <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
@@ -25,24 +26,24 @@
     <string name="splash_invocation_rabbizidni_reference">قرآن ۲۰:۱۱۴</string>
     <string name="splash_invocation_skip_hint">چھوڑنے کے لیے تھپتھپائیں</string>
 
-    <!-- Language select -->
+    
     <string name="language_select_title">اپنی زبان منتخب کریں</string>
     <string name="language_select_subtitle">آپ اسے بعد میں سیٹنگز میں تبدیل کر سکتے ہیں۔</string>
 
-    <!-- Path select -->
+    
     <string name="onboarding_path_select_title">آپ کیسے شروع کرنا چاہیں گے؟</string>
     <string name="onboarding_path_select_subtitle">آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
-    <string name="path_learn_title">Learn &amp; Test</string>
+    <string name="path_learn_title">سیکھیں اور آزمائیں</string>
     <string name="path_learn_description">شروع سے آغاز کریں اور آہستہ آہستہ اپنا قرآنی ذخیرہ الفاظ بنائیں۔</string>
-    <string name="path_test_only_title">Test Only</string>
+    <string name="path_test_only_title">صرف آزمائش</string>
     <string name="path_test_only_description">اسباق کو نظرانداز کریں اور براہ راست ان الفاظ کی آزمائش شروع کریں جو آپ پہلے سے جانتے ہیں۔</string>
 
-    <!-- Font select -->
+    
     <string name="font_select_title">اپنا قرآنی رسم الخط منتخب کریں</string>
     <string name="font_select_subtitle">یہ سب سے چھوٹی سورت، سورۃ الکوثر کا ہر انداز میں پیش نظارہ ہے۔</string>
     <string name="font_pending_note">اس انداز کی لائسنس یافتہ فونٹ فائل ابھی شامل نہیں ہے، فی الحال ڈیفالٹ رسم الخط دکھایا جا رہا ہے۔</string>
 
-    <!-- Daily goal select -->
+    
     <string name="onboarding_daily_goal_title">آپ کا روزانہ کا ہدف کیا ہے؟</string>
     <string name="onboarding_daily_goal_subtitle">منتخب کریں کہ آپ روزانہ قرآنی الفاظ سیکھنے میں کتنا وقت لگانا چاہتے ہیں۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
     <string name="daily_goal_casual">معمولی (10 منٹ)</string>
@@ -58,7 +59,7 @@
     <string name="test_only_start_quiz_title">کوئز شروع کریں</string>
     <string name="test_only_start_quiz_subtitle">ان الفاظ سے بے ترتیب سوالات جو آپ پہلے سے جانتے ہیں</string>
 
-    <!-- Learning style select -->
+    
     <string name="onboarding_learning_style_title">آپ ہر لفظ کی مشق کیسے کرنا چاہتے ہیں؟</string>
     <string name="onboarding_learning_style_subtitle">آسانی سے یاد کرنے کے لیے سبق کے دوران ہر لفظ اور سوال کتنی بار دہرایا جائے، یہ منتخب کریں۔</string>
     <string name="learning_style_sharp">1 بار مشق (تیز)</string>
@@ -68,7 +69,7 @@
     <string name="learning_style_cozy">5 بار مشق (گہری یاددہانی)</string>
     <string name="learning_style_cozy_description">مکمل طور پر یاد کرنے اور مہارت حاصل کرنے کے لیے میں ہر لفظ 5 بار دہرانا چاہتا ہوں۔</string>
 
-    <!-- Chapter/section intro -->
+    
     <string name="intro_chapter_label">باب</string>
     <string name="intro_section_label">حصہ</string>
     <string name="intro_word_count">ان‌شاءاللہ، ہم یہاں %1$d الفاظ سیکھیں گے۔</string>
@@ -77,22 +78,22 @@
     <string name="intro_start_button">شروع کریں</string>
     <string name="intro_skip_button">نظرانداز کریں</string>
 
-    <!-- Word browse -->
+    
     <string name="word_browse_title">الفاظ دیکھیں</string>
     <string name="word_browse_empty">ابھی دیکھنے کے لیے کوئی لفظ نہیں ہے۔</string>
 
-    <!-- Home -->
+    
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">مقفل</string>
     <string name="home_open_settings">سیٹنگز</string>
     <string name="home_review_title">چھوٹے ہوئے الفاظ کا اعادہ کریں</string>
     <string name="home_review_subtitle">جو پچھلی بار غلط ہوئے تھے ان کی مشق کریں۔</string>
 
-    <!-- Bottom navigation -->
+    
     <string name="bottom_nav_home">ہوم</string>
     <string name="bottom_nav_progress">پیش رفت</string>
 
-    <!-- Chapter/section coverage stat line -->
+    
     <string name="home_chapter_coverage_stat">قرآن کا %1$s%% · اب تک %2$s%% احاطہ کیا گیا</string>
     <string name="home_continue_learning">سیکھنا جاری رکھیں</string>
     <string name="home_curriculum_complete_title">آپ نے پورا نصاب مکمل کر لیا ہے!</string>
@@ -104,7 +105,7 @@
     <string name="home_history_previous">پچھلا مکمل شدہ سبق</string>
     <string name="home_history_next">اگلا مکمل شدہ سبق</string>
 
-    <!-- Progress tab -->
+    
     <string name="progress_title">پیش رفت</string>
     <string name="progress_current_streak">روزانہ تسلسل</string>
     <string name="progress_total_points">کل پوائنٹس</string>
@@ -115,7 +116,7 @@
     <string name="progress_lessons_this_week">اس ہفتے کے اسباق</string>
     <string name="progress_days_practiced">%d دن مشق کی گئی (آخری 28)</string>
 
-    <!-- Lesson -->
+    
     <string name="lesson_check_button">جانچیں</string>
     <string name="lesson_continue_button">جاری رکھیں</string>
     <string name="lesson_finish_button">سبق مکمل کریں</string>
@@ -134,7 +135,7 @@
     <string name="word_order_build_area_label">آپ کا جواب</string>
     <string name="listen_and_type_hint">جو سنیں وہ ٹائپ کریں</string>
 
-    <!-- Lesson summary -->
+    
     <string name="lesson_summary_title_pass">الحمدللہ! بہت خوب!</string>
     <string name="lesson_summary_title_retry">ان‌شاءاللہ، اگلی بار!</string>
     <string name="lesson_summary_title_complete">الحمدللہ! سبق مکمل ہوا</string>
@@ -148,7 +149,7 @@
     <string name="lesson_summary_streak_restored">تسلسل بحال ہو گیا! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">تسلسل بحال نہیں ہوا — نئے سرے سے شروع</string>
 
-    <!-- Achievements -->
+    
     <string name="achievements_title">کامیابیاں</string>
     <string name="achievements_locked_hint">اسے کھولنے کے لیے سیکھنا جاری رکھیں</string>
     <string name="achievement_streak_bronze_name">7 دن کا تسلسل</string>
@@ -164,7 +165,7 @@
     <string name="achievement_first_exam_name">پہلا امتحان پاس کیا</string>
     <string name="achievement_first_exam_description">اپنا پہلا سیکشن یا باب کا امتحان پاس کیا</string>
 
-    <!-- Settings -->
+    
     <string name="settings_title">سیٹنگز</string>
     <string name="settings_section_appearance">ظاہری شکل</string>
     <string name="settings_theme_label">تھیم</string>
@@ -205,11 +206,11 @@
     <string name="settings_licenses_title">لائسنس اور مصادر</string>
     <string name="settings_close">بند کریں</string>
 
-    <!-- Common -->
+    
     <string name="action_back">واپس</string>
     <string name="action_confirm">تصدیق کریں</string>
 
-    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    
     <string name="settings_section_mode">سیکھنے کا موڈ</string>
     <string name="settings_learning_path_label">سیکھنے کا راستہ</string>
     <string name="settings_learning_path_learn">سیکھیں</string>
@@ -224,8 +225,8 @@
     <string name="settings_reset_progress_confirm_button">ری سیٹ کریں</string>
     <string name="settings_reset_progress_done">پیش رفت ری سیٹ کر دی گئی ہے۔</string>
 
-    <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
+    
+    <string name="settings_motto">جہاں دینی مقصد ڈیجیٹل بائٹس سے ملتا ہے</string>
     <string name="settings_section_connect">رابطہ کریں</string>
     <string name="settings_connect_github">گٹ ہب</string>
     <string name="settings_connect_youtube">یوٹیوب</string>

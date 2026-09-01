@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">QuranicWords</string>
     <string name="app_logo_content_description">Logo QuranicWords</string>
@@ -15,7 +16,7 @@
     <string name="hadith_consistency_quote">Le Prophète ﷺ a dit : « Les actions les plus aimées d\'Allah sont celles faites régulièrement, même si elles sont petites. »</string>
     <string name="hadith_consistency_reference">Sahih al-Boukhari 6465</string>
 
-    <!-- Opening invocation (splash, every launch) -->
+    
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
     <string name="splash_invocation_taawwudh_translation">Je cherche refuge auprès d\'Allah contre Satan le maudit</string>
     <string name="splash_invocation_basmala_arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</string>
@@ -25,24 +26,24 @@
     <string name="splash_invocation_rabbizidni_reference">Coran 20:114</string>
     <string name="splash_invocation_skip_hint">Touchez pour passer</string>
 
-    <!-- Language select -->
+    
     <string name="language_select_title">Choisissez votre langue</string>
     <string name="language_select_subtitle">Vous pourrez la modifier plus tard dans les paramètres.</string>
 
-    <!-- Path select -->
+    
     <string name="onboarding_path_select_title">Comment souhaitez-vous commencer ?</string>
     <string name="onboarding_path_select_subtitle">Vous pourrez le modifier plus tard dans les paramètres.</string>
-    <string name="path_learn_title">Learn &amp; Test</string>
+    <string name="path_learn_title">Apprendre &amp; Tester</string>
     <string name="path_learn_description">Commencez depuis le début et construisez votre vocabulaire coranique, mot par mot.</string>
-    <string name="path_test_only_title">Test Only</string>
+    <string name="path_test_only_title">Test Uniquement</string>
     <string name="path_test_only_description">Passez les leçons et lancez-vous directement dans des quiz sur les mots que vous connaissez déjà.</string>
 
-    <!-- Font select -->
+    
     <string name="font_select_title">Choisissez votre style d\'écriture coranique</string>
     <string name="font_select_subtitle">Voici un aperçu de la sourate Al-Kawthar, la plus courte, dans chaque style.</string>
     <string name="font_pending_note">Le fichier de police sous licence de ce style n\'est pas encore inclus ; le style par défaut s\'affiche pour l\'instant.</string>
 
-    <!-- Daily goal select -->
+    
     <string name="onboarding_daily_goal_title">Quel est votre objectif quotidien ?</string>
     <string name="onboarding_daily_goal_subtitle">Choisissez combien de minutes vous voulez consacrer à l\'apprentissage des mots coraniques chaque jour. Vous pourrez le modifier plus tard dans les Paramètres.</string>
     <string name="daily_goal_casual">Tranquille (10 minutes)</string>
@@ -58,7 +59,7 @@
     <string name="test_only_start_quiz_title">Démarrer un quiz</string>
     <string name="test_only_start_quiz_subtitle">Questions aléatoires sur des mots que vous connaissez déjà</string>
 
-    <!-- Learning style select -->
+    
     <string name="onboarding_learning_style_title">Comment voulez-vous pratiquer chaque mot ?</string>
     <string name="onboarding_learning_style_subtitle">Choisissez combien de fois chaque mot doit se répéter pendant une leçon pour faciliter sa mémorisation.</string>
     <string name="learning_style_sharp">Pratiquer 1 fois (Rapide)</string>
@@ -68,7 +69,7 @@
     <string name="learning_style_cozy">Pratiquer 5 fois (Mémorisation profonde)</string>
     <string name="learning_style_cozy_description">Je souhaite répéter chaque mot 5 fois pour le maîtriser parfaitement.</string>
 
-    <!-- Chapter/section intro -->
+    
     <string name="intro_chapter_label">Chapitre</string>
     <string name="intro_section_label">Section</string>
     <string name="intro_word_count">In-Sha-Allah, nous apprendrons %1$d mots ici.</string>
@@ -77,22 +78,22 @@
     <string name="intro_start_button">Commencer</string>
     <string name="intro_skip_button">Passer</string>
 
-    <!-- Word browse -->
+    
     <string name="word_browse_title">Parcourir les mots</string>
     <string name="word_browse_empty">Aucun mot à parcourir pour l\'instant.</string>
 
-    <!-- Home -->
+    
     <string name="home_title">QuranicWords</string>
     <string name="home_module_locked">Verrouillé</string>
     <string name="home_open_settings">Paramètres</string>
     <string name="home_review_title">Réviser les mots manqués</string>
     <string name="home_review_subtitle">Entraînez-vous sur ceux que vous avez ratés la dernière fois.</string>
 
-    <!-- Bottom navigation -->
+    
     <string name="bottom_nav_home">Accueil</string>
     <string name="bottom_nav_progress">Progrès</string>
 
-    <!-- Chapter/section coverage stat line -->
+    
     <string name="home_chapter_coverage_stat">%1$s %% du Coran · %2$s %% couvert jusqu\'ici</string>
     <string name="home_continue_learning">Continuer l\'apprentissage</string>
     <string name="home_curriculum_complete_title">Vous avez terminé tout le programme !</string>
@@ -104,7 +105,7 @@
     <string name="home_history_previous">Leçon terminée précédente</string>
     <string name="home_history_next">Leçon terminée suivante</string>
 
-    <!-- Progress tab -->
+    
     <string name="progress_title">Progrès</string>
     <string name="progress_current_streak">Série de jours</string>
     <string name="progress_total_points">Points totaux</string>
@@ -115,7 +116,7 @@
     <string name="progress_lessons_this_week">Leçons cette semaine</string>
     <string name="progress_days_practiced">%d jours pratiqués (28 derniers)</string>
 
-    <!-- Lesson -->
+    
     <string name="lesson_check_button">Vérifier</string>
     <string name="lesson_continue_button">Continuer</string>
     <string name="lesson_finish_button">Terminer la leçon</string>
@@ -134,7 +135,7 @@
     <string name="word_order_build_area_label">Votre réponse</string>
     <string name="listen_and_type_hint">Écrivez ce que vous entendez</string>
 
-    <!-- Lesson summary -->
+    
     <string name="lesson_summary_title_pass">Alhamdulillah ! Bien joué !</string>
     <string name="lesson_summary_title_retry">In-Sha-Allah, la prochaine fois !</string>
     <string name="lesson_summary_title_complete">Alhamdulillah ! Leçon terminée</string>
@@ -148,7 +149,7 @@
     <string name="lesson_summary_streak_restored">Série restaurée ! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Série non récupérée — nouveau départ</string>
 
-    <!-- Achievements -->
+    
     <string name="achievements_title">Succès</string>
     <string name="achievements_locked_hint">Continuez à apprendre pour débloquer ceci</string>
     <string name="achievement_streak_bronze_name">Série de 7 jours</string>
@@ -164,7 +165,7 @@
     <string name="achievement_first_exam_name">Premier examen réussi</string>
     <string name="achievement_first_exam_description">Vous avez réussi votre premier examen de section ou de chapitre</string>
 
-    <!-- Settings -->
+    
     <string name="settings_title">Paramètres</string>
     <string name="settings_section_appearance">Apparence</string>
     <string name="settings_theme_label">Thème</string>
@@ -205,11 +206,11 @@
     <string name="settings_licenses_title">Licences &amp; sources</string>
     <string name="settings_close">Fermer</string>
 
-    <!-- Common -->
+    
     <string name="action_back">Retour</string>
     <string name="action_confirm">Confirmer</string>
 
-    <!-- Settings: Learning Mode + Reset Progress (Phase 7) -->
+    
     <string name="settings_section_mode">Mode d\'apprentissage</string>
     <string name="settings_learning_path_label">Parcours d\'apprentissage</string>
     <string name="settings_learning_path_learn">Apprendre</string>
@@ -224,8 +225,8 @@
     <string name="settings_reset_progress_confirm_button">Réinitialiser</string>
     <string name="settings_reset_progress_done">La progression a été réinitialisée.</string>
 
-    <!-- Settings: About motto + Connect links -->
-    <string name="settings_motto">Where DEANY Purpose Meets Digital BYTES.</string>
+    
+    <string name="settings_motto">Où l\'intention pieuse rencontre le numérique.</string>
     <string name="settings_section_connect">Nous suivre</string>
     <string name="settings_connect_github">GitHub</string>
     <string name="settings_connect_youtube">YouTube</string>
