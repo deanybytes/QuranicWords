@@ -81,7 +81,7 @@ private fun LearningStyleOptionCard(style: LearningStyle, onClick: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
-                IconLabelChip(icon = Icons.Filled.Repeat, label = "${style.repeatCount}x")
+                IconLabelChip(icon = Icons.Filled.Repeat, label = stringResource(R.string.format_repeat_count, style.repeatCount))
             }
             Text(
                 stringResource(descriptionRes),

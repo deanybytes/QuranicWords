@@ -81,7 +81,7 @@ private fun DailyGoalOptionCard(level: DailyGoalLevel, onClick: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
-                IconLabelChip(icon = Icons.Filled.Schedule, label = "${level.minutes} min")
+                IconLabelChip(icon = Icons.Filled.Schedule, label = stringResource(R.string.format_minutes_short, level.minutes))
             }
             Text(
                 stringResource(descriptionRes),

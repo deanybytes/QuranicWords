@@ -187,7 +187,7 @@ private fun FontOptionCard(style: QuranFontStyle, onClick: () -> Unit) {
                                 .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.7f))
                         )
                         Text(
-                            text = feature,
+                            text = feature.get(language),
                             style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f)
                         )
