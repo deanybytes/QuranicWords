@@ -308,4 +308,17 @@
     <string name="word_category_verb">فعل</string>
     <string name="polysemy_tab_format">معنی [%d]</string>
     <string name="polysemy_meanings_title">سیاقی معانی (وجوہ القرآن)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">باب %1$s کا تعارف</string>
+    <string name="chapter_intro_words_count_label">اس باب کے الفاظ</string>
+    <string name="chapter_intro_occurrences_label">قرآنی تکرار</string>
+    <string name="chapter_intro_chapter_coverage_label">اس باب کا حصہ</string>
+    <string name="chapter_intro_accumulated_coverage_label">مجموعی قرآنی احاطہ</string>
+    <string name="chapter_intro_accumulated_desc">یہ باب مکمل کرنے کے بعد آپ قرآن کے کل ذخیرہ الفاظ کا %1$s سمجھیں گے (کل %2$s الفاظ)۔</string>
+    <string name="chapter_intro_pos_title">اقسامِ کلمہ کی تفصیل (اسم و فعل)</string>
+    <string name="chapter_intro_ism_label">اسم (اسمائے کرام)</string>
+    <string name="chapter_intro_fil_label">فعل (افعال)</string>
+    <string name="chapter_intro_harf_label">حرف (حروف و کلمات)</string>
+    <string name="chapter_intro_begin_button">باب %1$s شروع کریں</string>
 </resources>

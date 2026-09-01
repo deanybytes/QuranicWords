@@ -95,6 +95,28 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
+     * A non-scored chapter overview shown as the first lesson of every chapter.
+     */
+    @Serializable
+    @SerialName("chapter_intro")
+    data class ChapterIntro(
+        override val prompt: LocalizedText = emptyMap(),
+        val chapterId: String,
+        val chapterNumber: Int,
+        val chapterTitle: LocalizedText = emptyMap(),
+        val chapterDescription: LocalizedText = emptyMap(),
+        val wordCount: Int = 0,
+        val quranOccurrenceCount: Int = 0,
+        val chapterCoveragePercent: Float = 0f,
+        val accumulatedCoveragePercent: Float = 0f,
+        val accumulatedWords: Int = 0,
+        val nounCount: Int = 0,
+        val verbCount: Int = 0,
+        val particleCount: Int = 0,
+        val learningObjectives: LocalizedText = emptyMap()
+    ) : ExerciseContent
+
+    /**
      * Blanks [wordId]'s own occurrence (at [blankStart]/[blankEnd]) out of [sentenceArabic] -
      * authored from the same source data as [WordIntro] (its example verse + highlight span),
      * just packaged as its own quiz type rather than reusing WordIntro's fields directly, since
@@ -128,14 +150,7 @@ sealed interface ExerciseContent {
 
     /**
      * Arrange [orderedChips] (shown shuffled by the UI) into their authored order to build a
-     * short phrase. Correctness is a chip-id sequence match, not an option pick - see
-     * `LessonViewModel.onCheckPressed`'s dedicated branch.
-     *
-     * Deliberately has no verse-reference field (unlike [FillInTheBlank.sentenceReference]):
-     * these phrases are pedagogically-constructed practice strings built around [wordId], not
-     * excerpts of a specific ayah, so a reference field would imply a citation this type doesn't
-     * make. If a future content pass wants real verse-excerpt phrases instead, add a reference
-     * field at that point rather than treating the current shape as citable.
+     * complete Quranic phrase.
      */
     @Serializable
     @SerialName("word_order")
@@ -147,13 +162,7 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * Plays [audioAssetPath], the learner types the transliteration. [acceptedAnswers] covers
-     * reasonable alternate spellings; comparison is trimmed + case-insensitive (see
-     * `LessonViewModel.onCheckPressed`). Ships fully wired but is filtered out of a lesson's
-     * exercise list entirely when the audio asset isn't bundled (see `LessonViewModel.init`) -
-     * no content is generated for this type yet (a pre-existing, acknowledged content gap), so
-     * this type is invisible until that changes, same pattern as the Lottie/Rive assets in the
-     * UI-motion pass.
+     * Plays [audioAssetPath], the learner types the transliteration.
      */
     @Serializable
     @SerialName("listen_and_type")
@@ -167,15 +176,10 @@ sealed interface ExerciseContent {
 
     /**
      * The "reverse direction" quiz: [meaning] is shown as the prompt (instead of the Arabic
-     * word), and the learner taps the matching word directly inside [verseArabic] - every
-     * whitespace-delimited word in the verse is one entry in [tappableSpans], so the UI can
-     * render each as its own tappable region rather than only the correct one (otherwise this
-     * isn't really a "find the word" interaction). [correctWordStart]/[correctWordEnd] identify
-     * which span is correct; one-shot like [MultipleChoice] (no retry within the same exercise
-     * instance) for consistent scoring semantics across types.
+     * word), and the learner taps the matching word directly inside [verseArabic].
      */
     @Serializable
-    @SerialName("word_in_verse_tap")
+    @SerialName("tap_word_in_verse")
     data class TapWordInVerse(
         override val prompt: LocalizedText,
         val wordId: String,
@@ -194,9 +198,10 @@ sealed interface ExerciseContent {
 @Serializable
 data class WordSpan(val start: Int, val end: Int)
 
-/** Shared shape for the three quiz types whose distractor options get regenerated at runtime
- * (see `LessonViewModel.regenerateDistractors`) - lets that call site handle all three with one
- * branch instead of one per concrete type, and keeps growing to a fourth options-bearing type a
+/** Common interface for exercises that bear an options list whose distractor candidates are
+ * regenerated at runtime via `LessonViewModel.rebuildOptions` - lets [OptionsBearing] be handled
+ * polymorphically in that pipeline rather than branching per concrete type; new options-bearing
+ * types (e.g. [ExerciseContent.FillInTheBlank] when added alongside [ExerciseContent.MultipleChoice]) are a
  * one-line addition instead of a new branch to remember everywhere. [withOptions] exists because
  * `copy()` isn't part of the interface contract - each implementer forwards to its own `copy`. */
 sealed interface OptionsBearing : ExerciseContent {
@@ -206,13 +211,13 @@ sealed interface OptionsBearing : ExerciseContent {
     fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent
 }
 
-/** Teach steps ([ExerciseContent.WordIntro]) are instructional, not quizzed - they must be
+/** Teach steps ([ExerciseContent.WordIntro], [ExerciseContent.ChapterIntro]) are instructional, not quizzed - they must be
  * excluded from a lesson's scored total or the perfect-lesson bonus becomes unreachable.
  * Exhaustive `when` (not a negative `!is` check) so adding a future teach type forces an explicit
  * scoring decision instead of silently defaulting to "scored". */
 val ExerciseContent.isScored: Boolean
     get() = when (this) {
-        is ExerciseContent.WordIntro -> false
+        is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> false
         is ExerciseContent.MultipleChoice, is ExerciseContent.TapWhatYouHear, is ExerciseContent.Matching,
         is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder, is ExerciseContent.ListenAndType,
         is ExerciseContent.TapWordInVerse -> true
@@ -234,7 +239,7 @@ fun ExerciseContent.practicedItemId(): String? = when (this) {
     is ExerciseContent.WordOrderBuilder -> wordId
     is ExerciseContent.ListenAndType -> wordId
     is ExerciseContent.TapWordInVerse -> wordId
-    is ExerciseContent.Matching, is ExerciseContent.WordIntro -> null
+    is ExerciseContent.Matching, is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> null
 }
 
 @Serializable

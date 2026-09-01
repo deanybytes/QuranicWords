@@ -308,4 +308,17 @@
     <string name="word_category_verb">Verba</string>
     <string name="polysemy_tab_format">Arti [%d]</string>
     <string name="polysemy_meanings_title">Arti Kontekstual (Wujuh Al-Qur\'an)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">Pengantar Bab %1$s</string>
+    <string name="chapter_intro_words_count_label">Jumlah Kata Bab</string>
+    <string name="chapter_intro_occurrences_label">Kemunculan Al-Qur\'an</string>
+    <string name="chapter_intro_chapter_coverage_label">Cakupan Bab</string>
+    <string name="chapter_intro_accumulated_coverage_label">Cakupan Kumulatif Al-Qur\'an</string>
+    <string name="chapter_intro_accumulated_desc">Setelah menyelesaikan bab ini, Anda akan memahami %1$s dari seluruh kosakata Al-Qur\'an (total %2$s kata).</string>
+    <string name="chapter_intro_pos_title">Rincian Tata Bahasa (Isim &amp; Fi\'il)</string>
+    <string name="chapter_intro_ism_label">Isim (Nomina)</string>
+    <string name="chapter_intro_fil_label">Fi\'il (Verba)</string>
+    <string name="chapter_intro_harf_label">Huruf (Partikel)</string>
+    <string name="chapter_intro_begin_button">Mulai Bab %1$s</string>
 </resources>

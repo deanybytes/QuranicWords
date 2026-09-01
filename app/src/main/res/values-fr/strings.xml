@@ -308,4 +308,17 @@
     <string name="word_category_verb">Verbe</string>
     <string name="polysemy_tab_format">Sens [%d]</string>
     <string name="polysemy_meanings_title">Significations Contextuelles (Woujoûh al-Qor\'an)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">Aperçu du Chapitre %1$s</string>
+    <string name="chapter_intro_words_count_label">Mots du Chapitre</string>
+    <string name="chapter_intro_occurrences_label">Occurrences Coraniques</string>
+    <string name="chapter_intro_chapter_coverage_label">Couverture du Chapitre</string>
+    <string name="chapter_intro_accumulated_coverage_label">Couverture Cumulative du Coran</string>
+    <string name="chapter_intro_accumulated_desc">Après avoir maîtrisé ce chapitre, vous comprendrez %1$s de tout le vocabulaire du Coran (%2$s mots au total).</string>
+    <string name="chapter_intro_pos_title">Répartition Grammaticale (Ism &amp; Fi\'l)</string>
+    <string name="chapter_intro_ism_label">Ism (Noms)</string>
+    <string name="chapter_intro_fil_label">Fi\'l (Verbes)</string>
+    <string name="chapter_intro_harf_label">Harf (Particules)</string>
+    <string name="chapter_intro_begin_button">Commencer le Chapitre %1$s</string>
 </resources>

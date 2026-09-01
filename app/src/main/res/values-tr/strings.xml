@@ -308,4 +308,17 @@
     <string name="word_category_verb">Fiil</string>
     <string name="polysemy_tab_format">Anlam [%d]</string>
     <string name="polysemy_meanings_title">Bağlamsal Anlamlar (Vücûhu\'l-Kur\'an)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">Bölüm %1$s Tanıtımı</string>
+    <string name="chapter_intro_words_count_label">Bölümdeki Kelimeler</string>
+    <string name="chapter_intro_occurrences_label">Kur\'an Tekrarı</string>
+    <string name="chapter_intro_chapter_coverage_label">Bölüm Kapsamı</string>
+    <string name="chapter_intro_accumulated_coverage_label">Kümülatif Kur\'an Kapsamı</string>
+    <string name="chapter_intro_accumulated_desc">Bu bölümü tamamladıktan sonra Kur\'an kelime hazinesinin %1$s\'ini anlayacaksınız (toplam %2$s kelime).</string>
+    <string name="chapter_intro_pos_title">Kelime Türleri Dağılımı (İsim &amp; Fiil)</string>
+    <string name="chapter_intro_ism_label">İsim (İsimler)</string>
+    <string name="chapter_intro_fil_label">Fiil (Fiiller)</string>
+    <string name="chapter_intro_harf_label">Harf (Edatlar)</string>
+    <string name="chapter_intro_begin_button">Bölüm %1$s\'i Başlat</string>
 </resources>

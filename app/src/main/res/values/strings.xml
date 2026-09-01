@@ -303,4 +303,17 @@
     <string name="word_category_verb">Verb</string>
     <string name="polysemy_tab_format">Meaning [%d]</string>
     <string name="polysemy_meanings_title">Contextual Meanings (Wujūh al-Qur\'an)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">Chapter %1$s Overview</string>
+    <string name="chapter_intro_words_count_label">Words in Chapter</string>
+    <string name="chapter_intro_occurrences_label">Qur\'an Occurrences</string>
+    <string name="chapter_intro_chapter_coverage_label">Chapter Coverage</string>
+    <string name="chapter_intro_accumulated_coverage_label">Cumulative Qur\'an Coverage</string>
+    <string name="chapter_intro_accumulated_desc">After mastering this chapter, you will understand %1$s of all Qur\'an vocabulary (%2$s total words).</string>
+    <string name="chapter_intro_pos_title">Parts of Speech Breakdown</string>
+    <string name="chapter_intro_ism_label">Ism (Nouns)</string>
+    <string name="chapter_intro_fil_label">Fi\'l (Verbs)</string>
+    <string name="chapter_intro_harf_label">Harf (Particles)</string>
+    <string name="chapter_intro_begin_button">Begin Chapter %1$s</string>
 </resources>

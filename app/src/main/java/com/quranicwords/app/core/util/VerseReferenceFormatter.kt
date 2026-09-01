@@ -27,10 +27,17 @@ object VerseReferenceFormatter {
             .replace("سورة", "")
             .trim()
 
+        return formatDigits(cleaned, language)
+    }
+
+    /**
+     * Converts any ASCII digits in [input] to Bangla or Urdu digits if [language] requires it.
+     */
+    fun formatDigits(input: String, language: Language): String {
         return when (language) {
-            Language.BANGLA -> convertDigits(cleaned, BANGLA_DIGITS)
-            Language.URDU -> convertDigits(cleaned, ARABIC_INDIC_DIGITS)
-            else -> cleaned
+            Language.BANGLA -> convertDigits(input, BANGLA_DIGITS)
+            Language.URDU -> convertDigits(input, ARABIC_INDIC_DIGITS)
+            else -> input
         }
     }
 

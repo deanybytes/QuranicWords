@@ -55,6 +55,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberQwHaptics
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.feature.lesson.exercise.ChapterIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.ListenAndTypeExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
@@ -187,6 +188,9 @@ fun LessonScreen(
                             content = content,
                             onPlay = viewModel::playAudio
                         )
+                        is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
+                            content = content
+                        )
                         is ExerciseContent.FillInTheBlank -> FillInTheBlankExerciseContent(
                             content = content,
                             selectedOptionId = uiState.attempt.selectedOptionId,
@@ -284,6 +288,17 @@ fun LessonScreen(
                         )
                         uiState.currentContent is ExerciseContent.WordIntro -> QwPrimaryButton(
                             text = stringResource(R.string.lesson_teach_continue_button),
+                            onClick = viewModel::onContinuePressed,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        uiState.currentContent is ExerciseContent.ChapterIntro -> QwPrimaryButton(
+                            text = stringResource(
+                                R.string.chapter_intro_begin_button,
+                                com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(
+                                    (uiState.currentContent as ExerciseContent.ChapterIntro).chapterNumber.toString(),
+                                    language
+                                )
+                            ),
                             onClick = viewModel::onContinuePressed,
                             modifier = Modifier.fillMaxWidth()
                         )
