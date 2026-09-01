@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
-import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
@@ -62,101 +61,87 @@ fun ProgressScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         item {
-            StaggeredEntrance(index = 0) {
-                Text(
-                    stringResource(R.string.progress_title),
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.semantics { heading() }
+            Text(
+                stringResource(R.string.progress_title),
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.semantics { heading() }
+            )
+        }
+
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                MetricTile(
+                    icon = Icons.Filled.LocalFireDepartment,
+                    value = uiState.currentStreak.toString(),
+                    label = stringResource(R.string.progress_current_streak),
+                    modifier = Modifier.weight(1f)
+                )
+                MetricTile(
+                    icon = Icons.Filled.Star,
+                    value = uiState.totalPoints.toString(),
+                    label = stringResource(R.string.progress_total_points),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                MetricTile(
+                    icon = Icons.AutoMirrored.Filled.MenuBook,
+                    value = uiState.wordsLearnedCount.toString(),
+                    label = stringResource(R.string.progress_words_learned),
+                    modifier = Modifier.weight(1f),
+                    onClick = onOpenLearnedWords
+                )
+                MetricTile(
+                    icon = Icons.Filled.CheckCircle,
+                    value = stringResource(R.string.progress_goal_days_value, uiState.goalMetDaysLast7),
+                    label = stringResource(R.string.progress_goal_days_label),
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
 
         item {
-            StaggeredEntrance(index = 1) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    MetricTile(
-                        icon = Icons.Filled.LocalFireDepartment,
-                        value = uiState.currentStreak.toString(),
-                        label = stringResource(R.string.progress_current_streak),
-                        modifier = Modifier.weight(1f)
-                    )
-                    MetricTile(
-                        icon = Icons.Filled.Star,
-                        value = uiState.totalPoints.toString(),
-                        label = stringResource(R.string.progress_total_points),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        }
-        item {
-            StaggeredEntrance(index = 2) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    MetricTile(
-                        icon = Icons.AutoMirrored.Filled.MenuBook,
-                        value = uiState.wordsLearnedCount.toString(),
-                        label = stringResource(R.string.progress_words_learned),
-                        modifier = Modifier.weight(1f),
-                        onClick = onOpenLearnedWords
-                    )
-                    MetricTile(
-                        icon = Icons.Filled.CheckCircle,
-                        value = stringResource(R.string.progress_goal_days_value, uiState.goalMetDaysLast7),
-                        label = stringResource(R.string.progress_goal_days_label),
-                        modifier = Modifier.weight(1f)
-                    )
-                }
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.progress_quran_coverage), style = MaterialTheme.typography.titleMedium)
+                DonutChart(
+                    percent = (uiState.quranCoveragePercent / 100.0).toFloat(),
+                    centerLabel = "${formatPercent(uiState.quranCoveragePercent)}%",
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
         }
 
         item {
-            StaggeredEntrance(index = 3) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.progress_quran_coverage), style = MaterialTheme.typography.titleMedium)
-                    DonutChart(
-                        percent = (uiState.quranCoveragePercent / 100.0).toFloat(),
-                        centerLabel = "${formatPercent(uiState.quranCoveragePercent)}%",
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                }
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(stringResource(R.string.progress_lessons_this_week), style = MaterialTheme.typography.titleMedium)
+                BarChart(
+                    values = uiState.lessonsCompletedLast7Days,
+                    labels = uiState.last7DayLabels,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
         }
 
         item {
-            StaggeredEntrance(index = 4) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.progress_lessons_this_week), style = MaterialTheme.typography.titleMedium)
-                    BarChart(
-                        values = uiState.lessonsCompletedLast7Days,
-                        labels = uiState.last7DayLabels,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                }
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    stringResource(R.string.progress_days_practiced, uiState.daysPracticedLast28Count),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                HeatmapChart(practicedDays = uiState.practiceDaysLast28, modifier = Modifier.padding(top = 8.dp))
             }
         }
 
         item {
-            StaggeredEntrance(index = 5) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        stringResource(R.string.progress_days_practiced, uiState.daysPracticedLast28Count),
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    HeatmapChart(practicedDays = uiState.practiceDaysLast28, modifier = Modifier.padding(top = 8.dp))
-                }
-            }
-        }
-
-        item {
-            StaggeredEntrance(index = 6) {
-                AchievementsSection()
-            }
+            AchievementsSection()
         }
     }
 }
