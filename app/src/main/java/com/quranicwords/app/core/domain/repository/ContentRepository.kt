@@ -5,6 +5,7 @@ import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.domain.model.ChapterWithSections
 import kotlinx.coroutines.flow.Flow
 
 interface ContentRepository {
@@ -21,10 +22,18 @@ interface ContentRepository {
     suspend fun getSection(sectionId: String): SectionEntity?
     suspend fun getExercisesForLesson(lessonId: String): List<ExerciseEntity>
 
+    /** High-performance bulk snapshot of the entire curriculum tree (10 chapters -> 100 sections -> 1,202 lessons),
+     * loaded via 3 batch queries and cached in memory. */
+    suspend fun getFullCurriculumTree(): List<ChapterWithSections>
+
     /** One-shot snapshot of the vocabulary corpus, ranked by frequency - the candidate pool
      * [com.quranicwords.app.core.domain.DistractorGenerator] picks siblings from. */
     suspend fun getWordCandidates(): List<WordFrequencyEntity>
 
+    /** Map of wordId -> WordIntro for specific items in the current lesson or session. */
+    suspend fun getWordIntrosForItems(itemIds: List<String>): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>
+
     /** Map of wordId -> WordIntro (containing Quran example verse and translation) across all vocabulary words. */
     suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>
 }
+

@@ -106,9 +106,11 @@ class CurriculumUnlockResolverTest {
     }
 
     @Test
-    fun `only REGULAR lessons skip the passing-score requirement`() {
+    fun `REGULAR and CHAPTER_INTRO lessons skip the passing-score requirement`() {
         LessonKind.entries.forEach { kind ->
-            assertEquals(kind != LessonKind.REGULAR, kind.requiresPassingScore())
+            val expectedRequiresScore = kind != LessonKind.REGULAR && kind != LessonKind.CHAPTER_INTRO
+            assertEquals(expectedRequiresScore, kind.requiresPassingScore())
         }
     }
 }
+

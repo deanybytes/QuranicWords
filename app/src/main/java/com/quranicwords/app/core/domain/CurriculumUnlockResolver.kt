@@ -5,11 +5,12 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 
-/** Every [LessonKind] except [LessonKind.REGULAR] must be passed at
+/** Every [LessonKind] except [LessonKind.REGULAR] and [LessonKind.CHAPTER_INTRO] must be passed at
  * [com.quranicwords.app.core.util.GamificationConfig.PASSING_SCORE_PERCENT] or better to unlock
  * what comes next - see [com.quranicwords.app.core.data.repository.ProgressRepositoryImpl
  * .completeLesson]. */
-fun LessonKind.requiresPassingScore(): Boolean = this != LessonKind.REGULAR
+fun LessonKind.requiresPassingScore(): Boolean = this != LessonKind.REGULAR && this != LessonKind.CHAPTER_INTRO
+
 
 /**
  * Pure "what unlocks next" resolver over the whole chapter -> section -> lesson tree - given

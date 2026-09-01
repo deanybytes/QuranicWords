@@ -63,7 +63,6 @@ fun ChapterIntroExerciseContent(
     modifier: Modifier = Modifier
 ) {
     val language = rememberSelectedLanguage()
-    val scrollState = rememberScrollState()
 
     var animatedProgress by remember { mutableStateOf(0f) }
     val animatedProgressValue by animateFloatAsState(
@@ -89,10 +88,10 @@ fun ChapterIntroExerciseContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .verticalScroll(scrollState)
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+
         // Hero Chapter Header Card
         GlassSurface(
             modifier = Modifier.fillMaxWidth(),
@@ -187,20 +186,21 @@ fun ChapterIntroExerciseContent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             MetricCard(
-                icon = Icons.Filled.MenuBook,
+                icon = androidx.compose.material.icons.Icons.AutoMirrored.Filled.MenuBook,
                 title = stringResource(R.string.chapter_intro_words_count_label),
                 value = localizedWordCount,
                 accentColor = BrandGreen,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                icon = Icons.Filled.TrendingUp,
+                icon = androidx.compose.material.icons.Icons.AutoMirrored.Filled.TrendingUp,
                 title = stringResource(R.string.chapter_intro_occurrences_label),
                 value = localizedOccurrences,
                 accentColor = BrandGold,
                 modifier = Modifier.weight(1f)
             )
         }
+
 
         Row(
             modifier = Modifier.fillMaxWidth(),
