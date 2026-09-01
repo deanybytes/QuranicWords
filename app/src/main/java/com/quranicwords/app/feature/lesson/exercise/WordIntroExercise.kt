@@ -17,20 +17,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.FlashOn
-import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -64,11 +60,9 @@ import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
  */
 @Composable
 fun WordIntroExerciseContent(
-    content: ExerciseContent.WordIntro,
-    onPlay: (String) -> Boolean
+    content: ExerciseContent.WordIntro
 ) {
     val language = rememberSelectedLanguage()
-    var audioUnavailable by remember(content) { mutableStateOf(false) }
     var selectedMeaningIndex by remember(content) { mutableIntStateOf(0) }
 
     val activePolysemyEntry = content.polysemyEntries.getOrNull(selectedMeaningIndex)
@@ -343,24 +337,6 @@ fun WordIntroExerciseContent(
                     }
                 }
             }
-        }
-
-        content.audioAssetPath?.let { assetPath ->
-            FilledIconButton(
-                onClick = { audioUnavailable = !onPlay(assetPath) },
-                colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
-            ) {
-                Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
-            }
-        }
-
-        if (audioUnavailable) {
-            Text(
-                text = stringResource(R.string.exercise_audio_unavailable),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center
-            )
         }
 
         if (!verseArabic.isNullOrBlank()) {

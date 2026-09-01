@@ -97,7 +97,6 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
-    val pronunciationAudioEnabled by viewModel.pronunciationAudioEnabled.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
@@ -292,14 +291,6 @@ fun SettingsScreen(
             ) {
                 Text(stringResource(R.string.settings_sound_effects_label), style = MaterialTheme.typography.labelLarge)
                 Switch(checked = soundEnabled, onCheckedChange = viewModel::setSoundEnabled)
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_pronunciation_audio_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = pronunciationAudioEnabled, onCheckedChange = viewModel::setPronunciationAudioEnabled)
             }
         } }
 

@@ -7,7 +7,6 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
-import com.quranicwords.app.core.util.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -46,8 +45,7 @@ data class LearnedWordsUiState(
 class LearnedWordsViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val contentRepository: ContentRepository,
-    private val userIdProvider: CurrentUserIdProvider,
-    private val audioPlayer: AudioPlayer
+    private val userIdProvider: CurrentUserIdProvider
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -121,6 +119,4 @@ class LearnedWordsViewModel @Inject constructor(
     fun onSelectWordForDetail(word: LearnedWordItem?) {
         _selectedWordForDetail.value = word
     }
-
-    fun playAudio(path: String): Boolean = audioPlayer.play(path)
 }

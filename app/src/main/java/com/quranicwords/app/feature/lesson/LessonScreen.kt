@@ -57,10 +57,8 @@ import com.quranicwords.app.core.ui.motion.rememberQwHaptics
 import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.feature.lesson.exercise.ChapterIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
-import com.quranicwords.app.feature.lesson.exercise.ListenAndTypeExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MultipleChoiceExerciseContent
-import com.quranicwords.app.feature.lesson.exercise.TapWhatYouHearExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.TapWordInVerseExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordOrderBuilderExerciseContent
@@ -169,13 +167,6 @@ fun LessonScreen(
                             isChecked = uiState.isChecked,
                             onSelect = viewModel::selectOption
                         )
-                        is ExerciseContent.TapWhatYouHear -> TapWhatYouHearExerciseContent(
-                            content = content,
-                            selectedOptionId = uiState.attempt.selectedOptionId,
-                            isChecked = uiState.isChecked,
-                            onPlay = viewModel::playAudio,
-                            onSelect = viewModel::selectOption
-                        )
                         is ExerciseContent.Matching -> MatchingExerciseContent(
                             content = content,
                             matchedPairIds = uiState.attempt.matchedPairIds,
@@ -185,8 +176,7 @@ fun LessonScreen(
                             onSelectRight = viewModel::selectMatchingRight
                         )
                         is ExerciseContent.WordIntro -> WordIntroExerciseContent(
-                            content = content,
-                            onPlay = viewModel::playAudio
+                            content = content
                         )
                         is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
                             content = content
@@ -204,19 +194,12 @@ fun LessonScreen(
                             onSelectChip = viewModel::selectWordOrderChip,
                             onDeselectChip = viewModel::deselectWordOrderChip
                         )
-                        is ExerciseContent.ListenAndType -> ListenAndTypeExerciseContent(
-                            content = content,
-                            typedAnswer = uiState.attempt.typedAnswer,
-                            isChecked = uiState.isChecked,
-                            onPlay = viewModel::playAudio,
-                            onTypedAnswerChange = viewModel::updateTypedAnswer
-                        )
                         is ExerciseContent.TapWordInVerse -> TapWordInVerseExerciseContent(
                             content = content,
                             selectedSpan = uiState.attempt.selectedSpan,
                             onSelectWord = viewModel::selectVerseWord
                         )
-                        null -> {}
+                        else -> {}
                     }
                 }
 
@@ -266,7 +249,6 @@ fun LessonScreen(
                             }
                         }
                         uiState.currentContent is ExerciseContent.MultipleChoice ||
-                            uiState.currentContent is ExerciseContent.TapWhatYouHear ||
                             uiState.currentContent is ExerciseContent.FillInTheBlank -> QwPrimaryButton(
                             text = stringResource(R.string.lesson_check_button),
                             enabled = uiState.attempt.selectedOptionId != null,
@@ -277,12 +259,6 @@ fun LessonScreen(
                             text = stringResource(R.string.lesson_check_button),
                             enabled = uiState.attempt.orderedChipIds.size ==
                                 (uiState.currentContent as ExerciseContent.WordOrderBuilder).orderedChips.size,
-                            onClick = viewModel::onCheckPressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        uiState.currentContent is ExerciseContent.ListenAndType -> QwPrimaryButton(
-                            text = stringResource(R.string.lesson_check_button),
-                            enabled = uiState.attempt.typedAnswer.isNotBlank(),
                             onClick = viewModel::onCheckPressed,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -339,13 +315,10 @@ fun LessonScreen(
 private fun correctAnswerLabel(content: ExerciseContent?, language: Language): String = when (content) {
     is ExerciseContent.MultipleChoice ->
         content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
-    is ExerciseContent.TapWhatYouHear ->
-        content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
     is ExerciseContent.FillInTheBlank ->
         content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
     is ExerciseContent.WordOrderBuilder ->
         content.orderedChips.joinToString(" ") { it.arabicText }
-    is ExerciseContent.ListenAndType -> content.correctAnswer
     is ExerciseContent.TapWordInVerse -> content.verseArabic.substring(content.correctWordStart, content.correctWordEnd)
     else -> ""
 }

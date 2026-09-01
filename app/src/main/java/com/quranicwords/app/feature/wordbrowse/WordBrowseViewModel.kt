@@ -7,7 +7,6 @@ import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.util.AppJson
-import com.quranicwords.app.core.util.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +31,6 @@ data class WordBrowseUiState(
 @HiltViewModel
 class WordBrowseViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
-    private val audioPlayer: AudioPlayer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -59,12 +57,5 @@ class WordBrowseViewModel @Inject constructor(
 
             _uiState.value = WordBrowseUiState(isLoading = false, words = words)
         }
-    }
-
-    /** Returns false (no throw) if the clip isn't bundled - mirrors `LessonViewModel.playAudio`. */
-    fun playAudio(assetPath: String): Boolean = audioPlayer.play(assetPath)
-
-    override fun onCleared() {
-        audioPlayer.release()
     }
 }

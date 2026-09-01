@@ -26,7 +26,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.MenuBook
@@ -35,7 +34,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -183,7 +181,6 @@ fun LearnedWordsScreen(
                             LearnedWordCard(
                                 word = word,
                                 language = language,
-                                onPlayAudio = { word.audioAssetPath?.let { viewModel.playAudio(it) } ?: false },
                                 onClick = { viewModel.onSelectWordForDetail(word) }
                             )
                         }
@@ -196,7 +193,6 @@ fun LearnedWordsScreen(
                 WordQuranExamplesSheet(
                     word = word,
                     language = language,
-                    onPlayAudio = { word.audioAssetPath?.let { viewModel.playAudio(it) } ?: false },
                     onDismiss = { viewModel.onSelectWordForDetail(null) }
                 )
             }
@@ -208,7 +204,6 @@ fun LearnedWordsScreen(
 private fun LearnedWordCard(
     word: LearnedWordItem,
     language: Language,
-    onPlayAudio: () -> Boolean,
     onClick: () -> Unit
 ) {
     GlassSurface(
@@ -230,30 +225,13 @@ private fun LearnedWordCard(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = word.arabicWord,
-                        fontFamily = LocalQuranFontFamily.current,
-                        fontSize = 28.sp,
-                        lineHeight = 36.sp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    word.audioAssetPath?.let {
-                        FilledIconButton(
-                            onClick = { onPlayAudio() },
-                            colors = IconButtonDefaults.filledIconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
-                                contentColor = MaterialTheme.colorScheme.primary
-                            ),
-                            modifier = Modifier.size(28.dp)
-                        ) {
-                            Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = null, modifier = Modifier.size(16.dp))
-                        }
-                    }
-                }
+                Text(
+                    text = word.arabicWord,
+                    fontFamily = LocalQuranFontFamily.current,
+                    fontSize = 28.sp,
+                    lineHeight = 36.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
 
                 Text(
                     text = word.meaning.get(language),
@@ -309,7 +287,6 @@ private fun LearnedWordCard(
 private fun WordQuranExamplesSheet(
     word: LearnedWordItem,
     language: Language,
-    onPlayAudio: () -> Boolean,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
