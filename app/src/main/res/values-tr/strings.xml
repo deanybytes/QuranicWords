@@ -196,9 +196,6 @@
     <string name="settings_backup_export_failed">Yedek kaydedilemedi. Lütfen tekrar deneyin.</string>
     <string name="settings_backup_import_success">Yedek geri yüklendi.</string>
     <string name="settings_backup_import_failed">Bu yedek dosyası geri yüklenemedi.</string>
-    <string name="settings_section_about">Hakkında</string>
-    <string name="settings_copyright">Telif hakkı © DEANY BYTES 2026. GPL-3.0 lisansı altındadır.</string>
-    <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an kaynaklarından ve doğrulanmış kelime kelime tercümelerden alınmıştır.</string>
     <string name="settings_licenses_button">Lisanslar ve kaynaklar</string>
     <string name="settings_licenses_title">Lisanslar ve kaynaklar</string>
     <string name="settings_close">Kapat</string>
@@ -222,14 +219,22 @@
     <string name="settings_reset_progress_confirm_button">Sıfırla</string>
     <string name="settings_reset_progress_done">İlerleme sıfırlandı.</string>
 
-    
+    <string name="settings_section_about">Hakkında</string>
     <string name="settings_motto">Dini Amacın Dijital Baytlarla Buluştuğu Yer.</string>
-    <string name="settings_section_connect">Bağlan</string>
-    <string name="settings_connect_github">GitHub</string>
-    <string name="settings_connect_youtube">YouTube</string>
-    <string name="settings_connect_email">E-posta</string>
-    <string name="settings_connect_telegram">Telegram</string>
-    <string name="settings_connect_whatsapp">WhatsApp</string>
+    <string name="settings_copyright">Telif Hakkı © DEANY BYTES 2026. GPL-3.0 lisansı altındadır.</string>
+    <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an korpuslarından ve doğrulanmış kelime kelime referans meallerinden derlenmiştir.</string>
+    <string name="about_open_source_title">Açık Kaynak ve Katkı</string>
+    <string name="about_open_source_desc">QuranicWords, GPL-3.0 lisansı altında %100 ücretsiz ve açık kaynaklı bir projedir. Herkes GitHub depomuz üzerinden kod katkısında bulunabilir, hata bildirebilir, özellik önerebilir veya çevirilere yardımcı olabilir.</string>
+    <string name="about_dawah_title">DEANY TALKS Davet Ağı</string>
+    <string name="about_dawah_desc">YouTube, Telegram ve WhatsApp üzerinden DEANY TALKS çatısı altındaki İslami eğitim ve davet çalışmalarımıza katılın ve destek olun.</string>
+    <string name="about_contact_title">İletişim ve Destek</string>
+    <string name="about_contact_desc">Sorularınız, önerileriniz veya iş birliği talepleriniz için belirtilen e-posta adresi üzerinden bizimle iletişime geçebilirsiniz.</string>
+    <string name="settings_section_connect">Bağlan ve Takip Et</string>
+    <string name="settings_connect_github">GitHub (Kaynak Kod ve Hata Bildirimi)</string>
+    <string name="settings_connect_youtube">YouTube (@deanytalks)</string>
+    <string name="settings_connect_email">E-posta (deanybytes@gmail.com)</string>
+    <string name="settings_connect_telegram">Telegram Kanalı</string>
+    <string name="settings_connect_whatsapp">WhatsApp Kanalı</string>
 
     <string name="learned_words_title">Öğrenilen Kelimeler</string>
     <string name="learned_words_subtitle">Kur\'an-ı Kerim\'den %d kelime öğrenildi</string>

@@ -207,9 +207,6 @@
     <string name="settings_backup_export_failed">ব্যাকআপ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।</string>
     <string name="settings_backup_import_success">ব্যাকআপ পুনরুদ্ধার করা হয়েছে।</string>
     <string name="settings_backup_import_failed">এই ব্যাকআপ ফাইলটি পুনরুদ্ধার করা যায়নি।</string>
-    <string name="settings_section_about">সম্পর্কে</string>
-    <string name="settings_copyright">কপিরাইট © DEANY BYTES ২০২৬। GPL-3.0 লাইসেন্সের অধীনে।</string>
-    <string name="settings_content_provenance_note">শব্দভাণ্ডারের বিষয়বস্তু উন্মুক্ত কুরআনিক তথ্যভাণ্ডার ও শব্দে শব্দে বিশুদ্ধ অনুবাদ থেকে সংগৃহীত ও পরীক্ষিত।</string>
     <string name="settings_licenses_button">লাইসেন্স ও উৎস</string>
     <string name="settings_licenses_title">লাইসেন্স ও উৎস</string>
     <string name="settings_close">বন্ধ করুন</string>
@@ -234,13 +231,22 @@
     <string name="settings_reset_progress_done">অগ্রগতি রিসেট করা হয়েছে।</string>
 
     
+    <string name="settings_section_about">পরিচিতি ও তথ্য</string>
     <string name="settings_motto">যেখানে দ্বীনি উদ্দেশ্য ও ডিজিটাল প্রযুক্তির মিলন ঘটে</string>
-    <string name="settings_section_connect">যোগাযোগ</string>
-    <string name="settings_connect_github">গিটহাব</string>
-    <string name="settings_connect_youtube">ইউটিউব</string>
-    <string name="settings_connect_email">ইমেইল</string>
-    <string name="settings_connect_telegram">টেলিগ্রাম</string>
-    <string name="settings_connect_whatsapp">হোয়াটসঅ্যাপ</string>
+    <string name="settings_copyright">কপিরাইট © DEANY BYTES ২০২৬। GPL-3.0 লাইসেন্সের আওতাভুক্ত।</string>
+    <string name="settings_content_provenance_note">কুরআনিক শব্দভাণ্ডার উন্মুক্ত কুরআনিক কর্পাস ও যাচাইকৃত শব্দানুযায়ী অনুবাদ থেকে সংগৃহীত।</string>
+    <string name="about_open_source_title">ওপেন সোর্স ও অবদান</string>
+    <string name="about_open_source_desc">কুরআনিক ওয়ার্ডস জিপিএল ৩.০ (GPL-3.0) লাইসেন্সের অধীনে একটি সম্পূর্ণ ফ্রি ও উন্মুক্ত (ওপেন সোর্স) প্রকল্প। যে কেউ আমাদের গিটহাব রিপোজিটরির মাধ্যমে কোড অবদান, ত্রুটি রিপোর্ট, নতুন ফিচার প্রস্তাব বা অনুবাদ উন্নত করতে আন্তরিকভাবে আমন্ত্রিত।</string>
+    <string name="about_dawah_title">দ্বীনি টকস (DEANY TALKS) দাওয়াহ নেটওয়ার্ক</string>
+    <string name="about_dawah_desc">ইউটিউব, টেলিগ্রাম এবং হোয়াটসঅ্যাপে দ্বীনি টকস (DEANY TALKS)-এর ব্যানারে আমাদের বিস্তৃত ইসলামিক শিক্ষা ও দাওয়াহ উদ্যোগসমূহের সাথে যুক্ত হোন।</string>
+    <string name="about_contact_title">যোগাযোগ ও সহায়তা</string>
+    <string name="about_contact_desc">কোনো মতামত, পরামর্শ, প্রশ্ন বা যৌথ কাজের আগ্রহ থাকলে প্রদত্ত ইমেইলে সরাসরি আমাদের সাথে যোগাযোগ করুন।</string>
+    <string name="settings_section_connect">যোগাযোগ ও যুক্ত থাকুন</string>
+    <string name="settings_connect_github">গিটহাব (সোর্স কোড ও ইস্যু)</string>
+    <string name="settings_connect_youtube">ইউটিউব (@deanytalks)</string>
+    <string name="settings_connect_email">ইমেইল (deanybytes@gmail.com)</string>
+    <string name="settings_connect_telegram">টেলিগ্রাম চ্যানেল</string>
+    <string name="settings_connect_whatsapp">হোয়াটসঅ্যাপ চ্যানেল</string>
 
     <string name="learned_words_title">অর্জিত শব্দসমূহ</string>
     <string name="learned_words_subtitle">পবিত্র কুরআন থেকে %d টি শব্দ আয়ত্ত হয়েছে</string>

@@ -199,9 +199,6 @@
     <string name="settings_backup_export_failed">بیک اپ محفوظ نہیں ہو سکا۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="settings_backup_import_success">بیک اپ بحال ہو گیا۔</string>
     <string name="settings_backup_import_failed">وہ بیک اپ فائل بحال نہیں ہو سکی۔</string>
-    <string name="settings_section_about">تعارف</string>
-    <string name="settings_copyright">جملہ حقوق © DEANY BYTES 2026۔ GPL-3.0 کے تحت لائسنس یافتہ۔</string>
-    <string name="settings_content_provenance_note">ذخیرہ الفاظ کا مواد کھلے قرآنی مصادر اور تصدیق شدہ لفظ بہ لفظ تراجم سے لیا گیا ہے۔</string>
     <string name="settings_licenses_button">لائسنس اور مصادر</string>
     <string name="settings_licenses_title">لائسنس اور مصادر</string>
     <string name="settings_close">بند کریں</string>
@@ -225,14 +222,22 @@
     <string name="settings_reset_progress_confirm_button">ری سیٹ کریں</string>
     <string name="settings_reset_progress_done">پیش رفت ری سیٹ کر دی گئی ہے۔</string>
 
-    
+    <string name="settings_section_about">تعارف اور معلومات</string>
     <string name="settings_motto">جہاں دینی مقصد ڈیجیٹل بائٹس سے ملتا ہے</string>
-    <string name="settings_section_connect">رابطہ کریں</string>
-    <string name="settings_connect_github">گٹ ہب</string>
-    <string name="settings_connect_youtube">یوٹیوب</string>
-    <string name="settings_connect_email">ای میل</string>
-    <string name="settings_connect_telegram">ٹیلیگرام</string>
-    <string name="settings_connect_whatsapp">واٹس ایپ</string>
+    <string name="settings_copyright">کاپی رائٹ © DEANY BYTES 2026۔ لائسنس یافتہ تحت GPL-3.0۔</string>
+    <string name="settings_content_provenance_note">قرآنی الفاظ کا ذخیرہ اوپن قرآنی ذخائر اور مستند لفظ بہ لفظ تراجم سے لیا گیا ہے۔</string>
+    <string name="about_open_source_title">اوپن سورس اور شراکت</string>
+    <string name="about_open_source_desc">قرآنک ورڈز GPL-3.0 لائسنس کے تحت ایک مکمل مفت اور اوپن سورس منصوبہ ہے۔ کوئی بھی ہمارے گٹ ہب ریپوزٹری کے ذریعے کوڈ میں شراکت، مسائل کی نشاندہی، نئی تجاویز یا ترجمے کی بہتری میں حصہ لے سکتا ہے۔</string>
+    <string name="about_dawah_title">دینی ٹاکس (DEANY TALKS) دعوتی نیٹ ورک</string>
+    <string name="about_dawah_desc">یوٹیوب، ٹیلیگرام اور واٹس ایپ پر دینی ٹاکس (DEANY TALKS) کے تحت ہمارے وسیع تر اسلامی تعلیمی اور دعوتی پلیٹ فارمز سے جڑیں۔</string>
+    <string name="about_contact_title">رابطہ اور تعاون</string>
+    <string name="about_contact_desc">کوئی سوال، تجویز، فیڈ بیک یا اشتراک کے لیے فراہم کردہ ای میل کے ذریعے ہم سے براہ راست رابطہ کریں۔</string>
+    <string name="settings_section_connect">رابطہ اور پیروی کریں</string>
+    <string name="settings_connect_github">گٹ ہب (سورس کوڈ اور ایشوز)</string>
+    <string name="settings_connect_youtube">یوٹیوب (@deanytalks)</string>
+    <string name="settings_connect_email">ای میل (deanybytes@gmail.com)</string>
+    <string name="settings_connect_telegram">ٹیلیگرام چینل</string>
+    <string name="settings_connect_whatsapp">واٹس ایپ چینل</string>
 
     <string name="learned_words_title">سیکھے گئے الفاظ</string>
     <string name="learned_words_subtitle">قرآن مجید سے %d الفاظ یاد ہو چکے ہیں</string>
