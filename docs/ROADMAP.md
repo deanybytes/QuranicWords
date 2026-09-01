@@ -1,58 +1,30 @@
 # 🗺️ Roadmap
 
-QuranicWords is a focused, single-curriculum app: **Quranic vocabulary, ordered by word frequency**. There's no alphabet stage and no grammar track — the app assumes a learner who can already read Arabic script and takes them straight into meaning.
+QuranicWords is a focused Quranic vocabulary app structured around the three traditional parts of speech: **Fi'l (Verbs)**, **Ḥarf (Particles)**, and **Ism (Nouns)**, ordered strictly by frequency of occurrence in the Qur'an.
 
 ## ✅ Built so far
 
-- [x] Jetpack Compose + Material 3, green brand theme (day/night, dynamic color disabled)
-- [x] MVVM + Hilt DI, feature-based package structure
-- [x] Room offline cache (curriculum content, lessons, exercises, word-frequency, progress, stats)
-- [x] DataStore for settings/onboarding state
-- [x] Local backup: JSON export/import of progress (`BackupRepository`, Settings screen) — the only way progress carries across devices; see [`docs/BACKUP_AND_SYNC.md`](BACKUP_AND_SYNC.md)
-- [x] Onboarding: language → **Qur'an font style picker** → home
-- [x] **Quranic Vocabulary curriculum — the full frequency curve**, not a sample: 3,680 words (every lemma in the Quranic Arabic Corpus's public frequency table), teach-then-quiz per word, real sourced meanings/roots/example verses — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the full ingestion methodology
-- [x] Points, streak (timezone-safe), lesson unlock progression
-- [x] Bangla + English UI, user-chosen at setup, applied both to static resources (`AppCompatDelegate` + explicit recreate on API < 33) and to JSON-sourced content — see [`docs/ARCHITECTURE.md`](ARCHITECTURE.md)
-- [x] Home skill path with motion (winding node layout, animated point/streak counters, lesson-complete celebration)
-- [x] **Highlighted verse words + meanings** — the word-intro teach step visually highlights the taught word within its example verse (Arabic) and, where a confident best-effort match exists, its gloss within the translation. See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for the real (partial) coverage numbers and a content-quality gap this surfaced.
-- [x] **R8/ProGuard enabled for release builds** — `optimization { enable = true }` + keep rules for the `ExerciseContent` polymorphic serialization hierarchy; verified via a successful `assembleRelease` and inspecting the R8 mapping file, though full on-device runtime verification still needs a signed build — see [`SECURITY.md`](../SECURITY.md)
-- [x] Unit tests for streak/scoring/teach-step-scoring logic + a content-parsing regression test that decodes the full generated vocabulary content through the real Kotlin serializers
-- [x] **Chapter → section → lesson restructuring**, with section/chapter exams gating progression — `LessonKind`/`CurriculumUnlockResolver`/`ProgressRepositoryImpl`'s 80% gate all shipping; 8 chapters/80 sections/887 lessons/19,122 exercises seeded, including real exam content
-- [x] **Achievements/badges system** — 17-entry catalog (streak/chapter/coverage/first-time milestones), custom-drawn medallion badges, dedicated Achievements screen, backed up like other progress
-- [x] **Illustrated motif vocabulary** — crescent/starfield/mosque/book, custom-drawn (zero external assets), applied to Splash/LessonSummary/Settings/Home + achievement badges
+- [x] **Parts of Speech Curriculum (4,616 words)**:
+  - ⚡ **Fi'l**: 1,450 verbs across 145 lessons in 15 sections
+  - ✨ **Ḥarf**: 109 particles across 11 lessons in 2 sections
+  - 📖 **Ism**: 3,057 nouns across 306 lessons in 31 sections
+- [x] **Wujūh al-Qur'an Polysemy**: Multi-sense contextual meanings and dedicated verse examples per word.
+- [x] **Preserved Tashkīl & Continuous Highlighting**: Zero diacritic loss and seamless inline verse spans without breaking 3D glass borders.
+- [x] **5-Mode Test Hub**: Dedicated practice for Ism, Fi'l, Ḥarf, Mix/Random (with live grammar badges), and adaptive Mistaken Words Review.
+- [x] **End-of-Lesson Performance Summary**: Words covered (*Alhamdulillah*), mistakes, accuracy percentage, time spent, and next lesson preview.
+- [x] **Streamlined Font Picker**: Clean typeface selection showing font name and live Surah Al-Kawthar preview (5 bundled OFL fonts).
+- [x] **Low-Latency System Audio**: Interactive sound effects (`SfxPlayer.kt`) via Android `SoundPool`.
+- [x] **Achievements System**: 17 unlockable milestone badges with custom-drawn medallions.
+- [x] **12-Language Support**: English, Bengali, Albanian, Chinese, Farsi, French, German, Hindi, Indonesian, Russian, Turkish, and Urdu.
+- [x] **100% Offline & Private**: Zero network dependencies, zero telemetry, local backup export/import via SAF.
+- [x] **Open Source & Ecosystem**: GPL-3.0 licensed on GitHub, part of the DEANY TALKS Dawah platform ecosystem.
 
-> 📖 **`meaning` translations across all supported languages are 100% verified against word-by-word reference databases** (`reference/word-by-word/`). See [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) for full sourcing details.
+## 🔜 Future Enhancements
 
-## 🔜 Explicitly deferred
-
-| Item | Why it's not built yet |
+| Item | Description |
 |---|---|
-| ~~**Exam engine (section/chapter exams)**~~ | ✅ Done (QW-10) — was already substantially built via the shared lesson pipeline; closed the real remaining gaps (summary-screen pass/fail messaging, dedicated test coverage) |
-| ~~**Re-verify root-matched example verses**~~ | ✅ Done (QW-18) — 100% of words now have confirmed literal-occurrence example verses; see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
-| **Real branching curriculum-tree graph** | `HomeScreen` ships a winding linear path (motion, staggered node layout), not a *branching* visual tree |
-| **Admin/content-authoring tooling** | A CMS so lessons can be added without an app release |
-| ~~**Push notifications / streak reminders**~~ | ✅ Done — opt-in, local-only (`StreakReminderWorker`/`StreakReminderScheduler`, WorkManager `PeriodicWorkRequest`, no `AlarmManager`/`BOOT_COMPLETED` receiver needed). Configurable in Settings → Notifications (time-of-day picker), only fires when there's an actual streak at risk of breaking. Respects the Android 13+ `POST_NOTIFICATIONS` runtime permission flow. |
-| ~~**Achievements/badges beyond raw points**~~ | ✅ Done (QW-25) — 17-entry catalog, custom-drawn badge medallions, dedicated Achievements screen, backed up like other progress |
-| **Word-pronunciation audio (TTS)** | `tools/ingestion/12_generate_word_audio.py` synthesizes one clip per word via Google Cloud Text-to-Speech (`ar-XA-Wavenet-B`, male), bundled directly in the APK at `app/src/main/assets/audio/words/` — see [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md) |
-| ~~**7 of 10 Qur'an font styles**~~ | ✅ Done — `QuranFontStyle` now offers 5 styles, all bundled under a real, verified open license (Amiri, Scheherazade New, Noto Naskh Arabic, plus IndoPak/IndoPak Nastaleeq via genuine open substitutes Lateef/Noto Nastaliq Urdu). The other 5 (Nurani, Taha, Al-Qalam, KFGQPC Uthmanic, Madani Simple) were removed from the picker entirely after a real license check found none clears this project's open-license bar — see `docs/CONTENT_SOURCES.md`. |
-| **Analytics/crash reporting** | Not integrated, by design — the app makes no network requests at all |
-| **Release signing keystore** | R8/ProGuard is enabled and verified via `assembleRelease` + mapping-file inspection (see [`SECURITY.md`](../SECURITY.md)), but there's still no signing config — a keystore is a secret only the developer should generate/hold |
-| ~~**CI/CD**~~ | ✅ Done — `.github/workflows/android-ci.yml` runs unit tests, lint (fails on errors), and `assembleDebug`/`assembleRelease` on every push/PR to `main` |
-| **Play Store listing / Data Safety form** | Business/account tasks outside repo scope — see [`SECURITY.md`](../SECURITY.md) |
+| **Curriculum Search** | Fast fuzzy search across all 4,616 words with root and meaning filtering |
+| **Spaced Repetition Flashcards** | Advanced SRS algorithm for customized daily word reviews |
+| **Tajweed Rules Visualizer** | Interactive color-coded Tajweed indicators for Quranic verse examples |
+| **Play Store Release** | Final preparation, release key signing, and store listing assets |
 
-## 📖 Content sources
-
-Real open-licensed sources are cataloged in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md):
-
-1. **The real Qur'an Arabic text + Bangla/English translations** — sourced and **ingested**: Quran-bil-Quran (MIT, Arabic + English) and risan/quran-json (CC BY-SA 4.0, Bangla) back every vocabulary example verse.
-2. **The real word-frequency table with meanings and example verses** — sourced and **ingested**: the full 3,680-lemma Quranic Arabic Corpus frequency table, cross-matched against Quran-bil-Quran's root data and word-by-word reference databases. Example verses are confirmed literal occurrences.
-3. **Word-pronunciation audio** — synthesized (not a licensed recitation corpus): Google Cloud Text-to-Speech clips bundled per word, see `docs/CONTENT_SOURCES.md`.
-4. **Quran script fonts** — resolved: 5 real, verified-open-license typefaces bundled (2 via genuine substitutes in the same script family, not the exact named commercial product); the other 5 specifically-named commercial/community typefaces were checked and removed rather than left unsourced indefinitely, see `docs/CONTENT_SOURCES.md`.
-
-## 🧭 Suggested next steps
-
-1. Real branching curriculum-tree visual on Home (collapse/expand by chapter/section, per QW-22)
-2. Admin/content-authoring CLI tooling, so content changes don't need touching raw JSON/Python directly (QW-27)
-3. Play Store readiness and a hosted privacy policy ahead of a real release
-
-~~Full illustrated UI redesign~~ — ✅ Done: custom-drawn crescent/starfield/mosque/book motif vocabulary (zero external assets) applied across Splash, Home, Settings, Lesson Summary, and the achievements system, plus a chrome refresh (elevation/press-depth/typography) on Home and Settings.

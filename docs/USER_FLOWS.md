@@ -1,115 +1,83 @@
 # 🧭 User Flows
 
-## 1️⃣ Onboarding — first launch
+## 1️⃣ Onboarding & Learning Path Setup
 
-Every step **persists to DataStore the moment it's chosen**, so a killed/restarted process resumes exactly where the learner left off (`SplashViewModel` re-derives the start destination from what's already saved — see the decision table below).
-
-> There's no sign-in step and no guest/account distinction — a single local user id (`UserPreferencesDataStore.getOrCreateLocalUserId()`) is generated on first launch and used for all Room progress/stats.
+Every step **persists to DataStore the moment it's chosen**, so a killed/restarted process resumes exactly where the learner left off (`SplashViewModel` re-derives the start destination from what's already saved).
 
 ```mermaid
 sequenceDiagram
     actor User
     participant Splash
     participant Lang as Language Select
+    participant Path as Learning Path
     participant Font as Font Select
+    participant Style as Learning Style
+    participant Goal as Daily Goal
     participant Home
 
     User->>Splash: Cold start
     Splash->>Splash: ContentSeeder.seedIfNeeded()
-    Splash->>Splash: Read language / fontChoiceMade
     alt language not set
         Splash->>Lang: navigate
-        User->>Lang: Tap English or বাংলা
-        Lang->>Lang: DataStore.setLanguage() [saved instantly]
-        Lang->>Font: navigate
+        User->>Lang: Select Language
+        Lang->>Path: navigate
     end
-    alt font not chosen
-        User->>Font: Preview Al-Kawthar in each style, tap one
-        Font->>Font: DataStore.setFontStyle() [saved instantly]
-        Font->>Home: navigate
+    alt path not chosen
+        User->>Path: Choose Learn & Test vs Test Only
+        alt Test Only
+            Path->>Font: navigate
+            Font->>Goal: navigate
+            Goal->>Home: Open Test-Only Hub (5 Modes)
+        else Learn & Test
+            Path->>Font: navigate
+            Font->>Style: Choose Reinforcement Level
+            Style->>Goal: Set Daily Words Target
+            Goal->>Home: Open Curriculum Map
+        end
     end
-    Home->>User: Curriculum path, ready to learn
 ```
 
-### Splash's resume decision table
+### Font Selection
+Learners preview **Surah Al-Kawthar** in a clean interface displaying the script name and live Arabic sample (Amiri, Scheherazade, Noto Naskh, Lateef IndoPak, Noto Nastaliq Urdu).
 
-| `language` | `fontChoiceMade` | → routes to |
-|---|---|---|
-| `null` | — | Language Select |
-| set | `false` | Font Select |
-| set | `true` | **Home** |
+## 2️⃣ 5-Mode Test-Only Flow
 
-## 2️⃣ Local backup export / import
-
-Progress carries across a reinstall or a new device via a JSON file the learner explicitly exports/imports from Settings — there's no account and no background sync:
-
+For test-focused learning:
 ```mermaid
-sequenceDiagram
-    actor User
-    participant Settings
-    participant SAF as Storage Access Framework
-    participant Backup as BackupRepository
-    participant Room
-
-    Note over User,Room: Export
-    User->>Settings: Tap "Export backup"
-    Settings->>SAF: ActivityResultContracts.CreateDocument
-    SAF-->>Settings: destination Uri
-    Settings->>Backup: exportBackup(outputStream)
-    Backup->>Room: read UserStats/UserProgress/ExerciseAttempt for local user id
-    Backup-->>Settings: BackupPayload JSON written to Uri
-
-    Note over User,Room: Import (fresh install or another device)
-    User->>Settings: Tap "Import backup"
-    Settings->>SAF: ActivityResultContracts.OpenDocument
-    SAF-->>Settings: source Uri
-    Settings->>Backup: importBackup(inputStream)
-    Backup->>Room: upsert UserStats/UserProgress/ExerciseAttempt from payload
-    Backup->>Settings: DataStore.setLocalUserId(payload.userId)
-    Note over Backup: Restored userId becomes this device's local user id,<br/>so every screen reads the restored progress immediately
+flowchart TD
+    TestHome[Test-Only Hub] --> Mode1[1. Ism Mode: 3,057 Nouns]
+    TestHome --> Mode2[2. Fi'l Mode: 1,450 Verbs]
+    TestHome --> Mode3[3. Ḥarf Mode: 109 Particles]
+    TestHome --> Mode4[4. Mix / Random Mode: All 4,616 Words with Grammar Badges]
+    TestHome --> Mode5[5. Mistaken Words Review: Adaptive Error Revision]
 ```
 
-## 3️⃣ Lesson gameplay loop
+## 3️⃣ Lesson Gameplay & Summary Loop
 
 ```mermaid
 flowchart TD
     Start([Open lesson]) --> Load[Load + decode exercises]
     Load --> Show[Show exercise N]
     Show --> Type{Exercise type}
-    Type -->|Teach step<br/>non-scored| Teach["Show word + meaning<br/>+ example verse"]
-    Teach --> Got["Tap 'Got it'"] --> More
-    Type -->|Multiple choice /<br/>Tap-what-you-hear /<br/>Fill in the blank| Select[User selects an option]
+    Type -->|Teach step<br/>non-scored| Teach["Word Intro:<br/>Multi-meaning tabs + example verses"]
+    Teach --> ContinueTeach["Tap Continue"] --> More
+    Type -->|Multiple choice /<br/>Fill in the blank| Select[User selects an option]
     Select --> Check[User taps Check]
     Check --> Feedback1[Feedback banner:<br/>correct ✅ / incorrect ❌ + answer]
     Type -->|Matching| Match[User pairs left ↔ right tiles]
     Match -->|all pairs matched| Feedback1
-    Type -->|Word order / Listen and type| Build[User builds or types the answer]
+    Type -->|Word order / Verse tap| Build[User builds sequence or taps verse word]
     Build --> Check
     Feedback1 --> More{More exercises?}
     More -->|yes| Continue[Tap Continue] --> Show
-    More -->|no| Finish[Tap Finish lesson]
-    Finish --> Complete["ProgressRepository.completeLesson<br/>(totalCount excludes the teach step)"]
-    Complete --> Summary([Lesson Summary:<br/>points, accuracy, streak - animated])
+    More -->|no| Summary[Lesson Summary Screen]
+    Summary --> Stats["Alhamdulillah!<br/>Words Covered · Mistakes · Accuracy %"]
+    Summary --> Preview["Next Lesson Preview:<br/>Upcoming words & context"]
+    Summary --> NextAction{Learner Choice}
+    NextAction -->|Proceed| NextLesson([Next Lesson in Curriculum])
+    NextAction -->|Back| HomeMap([Curriculum Map])
 ```
 
-A teach step never shows the Check button or the feedback banner - it self-advances via "Got it" straight back into the "more exercises?" branch, the same self-advance pattern `Matching` uses once solved (see [`docs/ALGORITHMS.md`](ALGORITHMS.md) for why it's also excluded from scoring).
+## 4️⃣ Local Backup Export & Import
 
-**Exit-mid-lesson**: tapping the close (✕) icon shows a confirm dialog — progress for the *in-progress* lesson isn't saved on exit, matching the "no partial credit for abandoned lessons" rule (points are only awarded on `completeLesson`).
-
-## 4️⃣ What `completeLesson` actually does
-
-```mermaid
-flowchart LR
-    A[correctCount, totalCount] --> B["GamificationConfig.pointsForLesson()"]
-    B --> C["StreakCalculator.recordActivity()"]
-    C --> D[(Room: UserStatsEntity upsert)]
-    C --> E[(Room: UserProgressEntity upsert<br/>status=COMPLETED)]
-    E --> F[Unlock the next lesson<br/>in the curriculum]
-    D & F --> G[Stays local-only —<br/>exportable via BackupRepository]
-```
-
-See [`docs/ALGORITHMS.md`](ALGORITHMS.md) for the exact scoring/streak formulas.
-
-## 5️⃣ Switching language after onboarding
-
-Picking a language (at onboarding, or later in Settings) writes to `UserPreferencesDataStore` immediately, same as every other onboarding choice - but unlike those, this one also has to change what's on screen *right now*, not just gate navigation. `MainActivity` observes the stored language and calls `AppCompatDelegate.setApplicationLocales()`, following with an explicit `recreate()` on API < 33 so the change actually applies (see [`docs/ARCHITECTURE.md`](ARCHITECTURE.md) for why that's needed at all). JSON-sourced content (lesson titles, exercise prompts) re-renders immediately via `rememberIsBanglaSelected()` without needing a recreate, since it reads the already-updated `Configuration` directly rather than going through resource-qualifier resolution.
+Progress is 100% on-device and offline. Learners can export a full JSON backup to their local storage via Android Storage Access Framework (SAF) and restore it at any time on another device.

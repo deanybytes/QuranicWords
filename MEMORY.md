@@ -23,17 +23,29 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
 
 - **Post-Phase-6 addition — local streak-reminder notifications.** Opt-in "streak at risk" reminder (Settings → new Notifications section): `StreakReminderWorker` (`HiltWorker`, same `CoroutineWorker` pattern as `AudioBulkDownloadWorker`) checks `ProgressRepository.observeStats` against today's date via the injected `Clock` and only notifies when `currentStreak > 0` **and** today's activity hasn't happened yet - never a generic re-engagement nag. `StreakReminderScheduler` uses a daily `PeriodicWorkRequest` (WorkManager persists across process death/reboot on its own) rather than `AlarmManager` + a `BOOT_COMPLETED` receiver - explicitly *not* wall-clock-exact (Doze/battery optimization can shift the fire time by minutes), a deliberate trade-off to avoid needing the `SCHEDULE_EXACT_ALARM` permission for a "reminder," stated plainly rather than silently overclaiming precision. `POST_NOTIFICATIONS` requested at runtime on API 33+ only when the user toggles the setting on, never at first launch; `NotificationManagerCompat.areNotificationsEnabled()` double-checked before every post. Time-of-day picker via Material3 `TimePickerDialog`. New Settings section follows QW-20's `SettingsSectionCard`/`StaggeredEntrance` pattern. `strings.xml`/`values-bn/strings.xml` parity re-verified (94/94). Tracked as QW-24 in Jira.
 
+- **v2.2.0 Major Architecture & Content Upgrade (2026-09-01)** — done:
+  - **3-Part Parts of Speech Curriculum**: Replaced legacy structure with 4,616 words partitioned into **Fi'l (Verbs)** (1,450 words, 15 sections, 145 lessons), **Ḥarf (Particles)** (109 words, 2 sections, 11 lessons), and **Ism (Nouns)** (3,057 words, 31 sections, 306 lessons).
+  - **Contextual Polysemy (Wujūh al-Qur'an)**: Integrated multi-sense tabs and dedicated verse examples per word with 100% verified meanings across 12 languages.
+  - **5-Mode Test Hub**: Built dedicated practice modes for Ism, Fi'l, Ḥarf, Mix/Random (with live grammar tags), and adaptive Mistaken Words Review.
+  - **Grammar Category Badging**: Created `GrammarCategoryBadge` in green (`#2E7D32` - Ism), gold (`#D4AF37` - Fi'l), and blue (`#0288D1` - Ḥarf) across quizzes, options, dictionary, and test hub.
+  - **Arabic Typography & Verse Continuity**: Retained 100% diacritics/tashkīl on target words; removed 3D glass borders around verse word spans to eliminate line breaking and ensure verse continuity.
+  - **End-of-Lesson Summary**: Added rich performance breakdown (words covered, mistakes, accuracy %, time spent) with next lesson preview and direct continuation action.
+  - **Streamlined Font Selection**: Simplified font selection cards to show only font name and live Surah Al-Kawthar preview.
+  - **System-Only Sound Effects**: Removed word pronunciation audio playback and listening exercises to focus on reading comprehension, while preserving low-latency `SoundPool` UI sound effects (`SfxPlayer.kt`).
+  - **GPL-3.0 Open Source & DEANY TALKS Ecosystem**: Added licensing notices, GitHub links, DEANY TALKS Dawah ecosystem platform links, and contact mail.
+
 Verified after every phase: `./gradlew :app:compileDebugKotlin`, `:app:testDebugUnitTest`, `:app:assembleDebug` all pass.
 
 ## Key decisions (see the plan file for the complete table and rationale)
 
-- Chapter/section split: 8 chapters × ~10 sections, contiguous frequency-rank slices, never reordered.
-- Exam pass threshold: 80%, at lesson/section/chapter flashback and exam levels alike.
-- Word audio: single-word clips segmented from EveryAyah.com (Alafasy) + quran-align timing, both CC BY 4.0; streamed on demand by default, with a Settings bulk-download-to-device option.
-- Content licensing: NOTICE file credits Quranic Arabic Corpus (GPL), Quran-bil-Quran (MIT), risan/quran-json (CC BY-SA 4.0); app's own code is proprietary/all-rights-reserved, `Copyright © rmrashahriar 2026`.
-- Mid-stream additions folded into the plan's addendum: reverse-direction (meaning-shown, Arabic-blanked) quiz variants, gradually increasing cloze difficulty, three-level flashback review exams (lesson/section/chapter, each scoped to earlier siblings under the same parent).
+- Curriculum: 3 Parts of Speech (Fi'l, Ḥarf, Ism), 4,616 words ordered strictly by Quranic frequency.
+- Testing: 5 dedicated test modes (3 PoS, 1 Mix, 1 Mistaken) with dynamic grammar badging.
+- Exam pass threshold: 80% on exams to gate subsequent units.
+- Audio: Low-latency system SFX (`SoundPool`) for correct/incorrect/lesson complete feedback; word pronunciation audio removed.
+- Content licensing: Sourced from Quranic Arabic Corpus (GPL-3.0), Quran-bil-Quran (MIT), risan/quran-json (CC BY-SA 4.0), and Greentech Apps Foundation (gtaf.org). App code licensed under GPL-3.0.
 
 ## Working agreements
 
 - Keep this file and `CLAUDE.md` tracked in git — never add either to `.gitignore`.
 - Commit and push work to `git@github.com:rmrashahriar/QuranicWords.git` regularly rather than letting it sit local-only; cut a GitHub release after each clean build milestone.
+

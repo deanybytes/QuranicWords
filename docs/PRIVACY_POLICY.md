@@ -1,62 +1,36 @@
 # QuranicWords Privacy Policy
 
-*Last updated: 2026-08-15*
+*Last updated: 2026-09-01*
 
 ## Summary
 
-QuranicWords does not require an account, does not collect personal information, and does not
-use analytics or advertising SDKs. Your learning progress stays on your device.
+QuranicWords is completely offline, does not require an account, does not collect personal information, and does not use analytics, crashlytics, or advertising SDKs. All learning progress and preferences remain strictly on your local device.
 
 ## What the app stores
 
-- **Learning progress** (points, streaks, lesson/exam completion, per-word attempt history) is
-  stored only in a local database on your device. It is never transmitted anywhere automatically.
-- **Settings** (language, theme, font size, sound preference) are stored locally on your device.
+- **Learning progress** (points, streaks, lesson/exam completion, per-word attempt history) is stored exclusively in a local Room database on your device.
+- **Settings & Preferences** (language, theme, font size, sound effect preferences, daily goal) are stored locally in Android DataStore.
 
-## Network access
+## Zero Network Access
 
-The app connects to the internet for exactly two purposes:
-
-1. **Word pronunciation audio** — when you tap to hear a word pronounced, the app streams a short
-   audio clip from a content server. If you use the "Download all pronunciation audio" option in
-   Settings, these clips are downloaded once and cached on your device so future playback works
-   offline. No personal information is sent with these requests beyond what's needed to fetch the
-   file (standard network request metadata, e.g. your IP address, is visible to the server as
-   with any internet request).
-2. **First-time content setup** — vocabulary content is bundled with the app itself, not
-   downloaded.
-
-The app does not otherwise send data to any server.
+The app is **100% offline** and makes **zero network requests**:
+- All curriculum data (4,616 words across Fi'l, Ḥarf, Ism), translations across 12 languages, and verse examples are bundled directly inside the application.
+- All typeface files and sound effects are bundled locally.
+- No personal data or telemetry is ever transmitted to any remote server.
 
 ## Data export (backup)
 
-The Settings screen offers an optional "Export backup" feature that saves your progress to a
-JSON file you choose the location for, using Android's standard file picker. This file is created
-only when you explicitly request it, and only you control where it's saved or shared. The app
-does not upload this file anywhere itself.
+The Settings screen offers an optional "Export backup" feature that saves your progress to a local JSON file of your choice via the Android Storage Access Framework (SAF). This file is created only when explicitly requested, and is managed entirely by you.
 
 ## No accounts, no third-party sharing
 
-QuranicWords has no sign-in, no user accounts, and does not share any data with third parties.
-There is nothing to delete on our end, since nothing is collected or stored outside your device.
-
-## Third-party content
-
-Vocabulary, translation, and audio content bundled with the app is sourced from open-licensed
-third-party corpora (Quranic Arabic Corpus, Quran-bil-Quran, risan/quran-json, EveryAyah.com,
-quran-align) - see the in-app Settings → About → "Licenses & sources" for full attribution. This
-is separate from your personal data; none of it involves data collection about you.
+QuranicWords has no accounts, no telemetry, and does not share any data with third parties.
 
 ## Children's privacy
 
-QuranicWords does not knowingly collect personal information from anyone, including children,
-because it does not collect personal information from any user.
-
-## Changes to this policy
-
-If this policy changes, the "Last updated" date above will change accordingly.
+QuranicWords does not collect personal information from anyone, including children.
 
 ## Contact
 
-Questions about this policy can be directed to the developer via the contact information on the
-app's Google Play Store listing.
+Questions regarding this privacy policy or the app can be directed to `contact.deanstalks@gmail.com` or via GitHub at [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords).
+

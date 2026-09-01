@@ -1,6 +1,21 @@
 # Changelog
 
-All notable changes to QuranicWords are documented here. This project does not yet follow strict semantic versioning (pre-1.0 tags mark development phases); from v1.1.0 onward, tags mark real GitHub releases.
+All notable changes to QuranicWords are documented here.
+
+## [2.2.0] - 2026-09-01
+
+### Added
+- **Parts of Speech Curriculum (4,616 words)**: Full architectural division into the 3 Quranic parts of speech (**Fi'l / Verbs**: 1,450 words, 145 lessons, 15 sections; **Ḥarf / Particles**: 109 words, 11 lessons, 2 sections; **Ism / Nouns**: 3,057 words, 306 lessons, 31 sections).
+- **Contextual Polysemy (Wujūh al-Qur'an)**: Multi-meaning tabs and dedicated verse examples per word with 100% verified glosses across 12 languages.
+- **5-Mode Test Hub**: Dedicated testing modes for Ism, Fi'l, Ḥarf, Mix/Random (with live grammar tags), and adaptive Mistaken Words Review.
+- **Grammar Category Badges**: Color-coded badges (`GrammarCategoryBadge`) in Forest Green (Ism `#2E7D32`), Warm Gold (Fi'l `#D4AF37`), and Sky Blue (Ḥarf `#0288D1`) across exercise headers, quiz options, test modes, and learned words dictionary.
+- **Post-Lesson Performance Summary**: Rich end-of-lesson stats displaying total words covered (*Alhamdulillah*), mistake count, accuracy percentage, time spent, and next lesson preview.
+- **Open Source & DEANY TALKS info**: GPL-3.0 licensing notices, GitHub repository links, DEANY TALKS Dawah ecosystem platform links, and contact email.
+
+### Changed
+- **Typography & Verse Highlighting**: Preserved 100% of Tashkīl, Ḥarakāt, Sukūn, Tashdīd, and Tanwīn. Replaced 3D glass box borders with clean inline text spans to eliminate line breaking and ensure verse continuity.
+- **Streamlined Font Selection**: Simplified font selection UI to show only font name and live Surah Al-Kawthar Arabic preview.
+- **Audio Architecture**: Removed word pronunciation audio playback and audio-dependent exercises (`TapWhatYouHear`, `ListenAndType`) to focus on reading comprehension and Qur'anic context, while retaining low-latency UI sound effects (`SfxPlayer.kt`) for correct/incorrect/lesson complete feedback.
 
 ## [1.2.0] - 2026-08-22
 

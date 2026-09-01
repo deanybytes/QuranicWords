@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-QuranicWords — a gamified, game-like Android app for learning Quranic vocabulary: Arabic words taught in the order they actually appear in the Qur'an, most frequent first. Single `:app` module, Kotlin + Jetpack Compose + Material 3, MVVM + Hilt, Room (offline-first local data). The curriculum is vocabulary-only — no alphabet stage, no grammar track. Content is organized as **chapter → section → lesson**, with section/chapter exams gating progression to the next unit; this hierarchy is being actively built out in code (entities, DAOs, seeding, and the unlock-gating rules can all be mid-change at any given moment), so treat `core/data/local/entity/` and `core/data/repository/ProgressRepositoryImpl` as the source of truth for the current shape rather than any specific schema described in `docs/` — see `MEMORY.md` for phase status. **Local-device-only**: there is no sign-in, no cloud backend, and no leaderboard in this codebase — that code was never carried over, not disabled or commented out. Progress carries across devices/reinstalls via `BackupRepository`'s JSON export/import (Settings screen), not cloud sync. See `README.md` for the product pitch and `docs/` for detailed docs (architecture, data model, algorithms, curriculum design, content sourcing, security, roadmap) — read the relevant one before making a non-trivial change in that area, and update it if the change makes it stale. `docs/` files describe the general shape and intent of the chapter/section restructuring, not an exact frozen schema, since that work is still landing.
+QuranicWords — a gamified Android app for learning Quranic vocabulary: Arabic words structured into the 3 primary Arabic parts of speech (**Fi'l / Verbs**: 1,450 words; **Ḥarf / Particles**: 109 words; **Ism / Nouns**: 3,057 words = 4,616 total words), taught in descending occurrence frequency. Single `:app` module, Kotlin + Jetpack Compose + Material 3, MVVM + Hilt, Room (offline-first local data). Content is organized as **parts of speech → sections → lessons**, with section exams gating progression. **Local-device-only**: no sign-in, no cloud backend, and zero network requests. Progress carries across devices/reinstalls via `BackupRepository`'s JSON export/import (Settings screen).
 
-Two hard product constraints baked into the codebase, not just documentation: **no human faces anywhere** in icons/illustrations (geometric/calligraphic/nature motifs only), and **no rendering of actual Ayat/Mushaf text as decoration** — scripture is never used as a loading-screen or gamification skin.
+Two hard product constraints baked into the codebase: **no human faces anywhere** in icons/illustrations (geometric/calligraphic/nature motifs only), and **no rendering of actual Ayat/Mushaf text as decoration** — scripture is never used as a loading-screen or gamification skin.
 
 ## Commands
 
@@ -14,20 +14,19 @@ Two hard product constraints baked into the codebase, not just documentation: **
 ./gradlew :app:assembleDebug          # build
 ./gradlew :app:testDebugUnitTest      # run all unit tests (JVM, app/src/test)
 ./gradlew test --tests "com.quranicwords.app.core.domain.DistractorGeneratorTest"                     # single test class
-./gradlew test --tests "com.quranicwords.app.core.domain.DistractorGeneratorTest.picks the closest*"  # single test method
 ./gradlew lint
 ./gradlew clean
 ```
 
-The app builds and runs fully offline with zero configuration (language + font onboarding, the whole lesson loop — scoring, streaks, points — all work without any account). There is no sign-in and no leaderboard to disable — neither exists in this codebase.
+The app builds and runs fully offline with zero configuration.
 
-Content-authoring pipeline (`tools/ingestion/*.py`, numbered stages `01_parse_lemmas.py` → `10_add_highlight_spans.py`, plus `root_bn_batch*.py` data files) is offline Python, not part of the Android build — it regenerates the JSON under `app/src/main/assets/content/` from external corpora (Quranic Arabic Corpus, Quran-bil-Quran). Not run as part of any Gradle task; see `docs/CONTENT_SOURCES.md`.
+Content-authoring pipeline (`tools/ingestion/*.py`) is offline Python, not part of the Android build — it regenerates the JSON under `app/src/main/assets/content/` (`curriculum_manifest.json`, `section_*.json`, `word_frequency.json`).
 
 ## Architecture
 
 ### Layers
 
-Feature packages (`feature/<screen>/`) on top of a shared `core/` layer. No explicit domain "use case" layer — ViewModels call repository interfaces directly. `core/domain/` holds both the repository interfaces/models (`domain/model/`, `domain/repository/`) *and* a few standalone pure-logic classes at its top level (`AdaptiveSequencer`, `DistractorGenerator`) that don't belong to a ViewModel or a repository. `core/data/repository/*Impl` are the only classes that touch `QwDatabase`/DAOs directly — ViewModels and pure-logic classes always go through a repository interface, never a DAO.
+Feature packages (`feature/<screen>/`) on top of a shared `core/` layer. ViewModels call repository interfaces directly. `core/data/repository/*Impl` are the only classes that touch `QwDatabase`/DAOs directly.
 
 ```
 core/
@@ -37,7 +36,7 @@ core/
 │   ├── datastore/ UserPreferencesDataStore — single source for onboarding + settings + reduce-motion + local user id
 │   ├── assets/    ContentSeeder + seed DTOs (ContentSeedDtos.kt)
 │   ├── repository/       *RepositoryImpl — the only classes touching QwDatabase directly (Content/Progress/BackupRepositoryImpl)
-│   └── CurrentUserIdProvider.kt   resolves the effective progress-tracking user id (purely local — see UserPreferencesDataStore.getOrCreateLocalUserId)
+│   └── CurrentUserIdProvider.kt   resolves the effective progress-tracking user id
 ├── domain/
 │   ├── model/           Language, ItemKind, ExerciseType, ExerciseContent (+ OptionsBearing), BackupPayload, QuranFontStyle, ThemeMode, LessonResult, ReviewSession
 │   ├── repository/       Content/Progress/BackupRepository interfaces
@@ -47,25 +46,33 @@ core/
 ├── ui/
 │   ├── theme/     Color, Theme, Type, Shape, QuranFont
 │   ├── motion/    Motion, ReducedMotion, Haptics — shared animation vocabulary
-│   └── components/  reusable Composables (QwButton, StatBadges, Qw3DFlipCard, CelebrationBurst, StreakFlame, GeometricPatternBackground, QwLogo, ...)
-└── util/          StreakCalculator, GamificationConfig, AudioPlayer, QuranPreviewText, AppJson
+│   └── components/  reusable Composables (GrammarCategoryBadge, QwButton, StatBadges, FeedbackBanner, StreakFlame, ...)
+└── util/          StreakCalculator, GamificationConfig, SfxPlayer, QuranPreviewText, AppJson
 
 feature/
-├── splash/, onboarding/{language,font}/, home/, settings/ (has the local backup export/import UI)
-├── lesson/ (+ exercise/: WordIntro, MultipleChoice, TapWhatYouHear, Matching, FillInTheBlank, WordOrderBuilder, ListenAndType, AudioPlayButton)
-└── lessonsummary/
+├── splash/, onboarding/{language,path,font,style,goal}/
+├── home/ (Curriculum map with Ism, Fi'l, Ḥarf chapters)
+├── testonlyhome/ (5-mode test hub: Ism, Fi'l, Ḥarf, Mix, Mistaken)
+├── lesson/ (+ exercise/: WordIntro, MultipleChoice, Matching, FillInTheBlank, WordOrderBuilder, TapWordInVerse)
+├── lessonsummary/ (End-of-lesson performance stats & next lesson preview)
+├── learnedwords/ (Dictionary with Wujūh al-Qur'an polysemy modals)
+├── wordbrowse/ (3D flip-card story-fold browser)
+├── intro/ (Statistical chapter/section intros)
+├── achievements/ (Medallions showcase)
+└── settings/ (Theme, language, font, daily goal, sound effects, local backup)
 ```
 
-There is no `leaderboard/` package. Onboarding today is Splash → Language → Path (Learn vs. Test/Quiz-only) → Font → Learning Style (Learn only) → Daily Goal → Home (see `core/navigation/Routes.kt`); `SplashViewModel` resumes mid-chain for a returning user by checking each step's own `*_choice_made` flag in that order, skipping the Learning Style check entirely for a Test/Quiz-only user since that route is unreachable for them.
+Onboarding is Splash → Language → Path (Learn & Test vs. Test-Only) → Font → Learning Style (Learn only) → Daily Goal → Home (or TestOnlyHome).
 
 ### `ExerciseContent` — the polymorphic exercise model
 
-`core/domain/model/ExerciseContent.kt` is a `kotlinx.serialization` sealed interface, one subtype per exercise shape, stored as a single JSON blob in `ExerciseEntity.contentJson` (shape genuinely varies by type — multiple choice needs options, matching needs pairs, the teach step needs a meaning/root/example verse — none of it overlaps cleanly into fixed columns). Two orthogonal groupings to know about:
+`core/domain/model/ExerciseContent.kt` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `TapWordInVerse`.
 
-- **`isScored`** (exhaustive `when`, not `!is`) — `false` only for `WordIntro` (the teach step); everything else (`MultipleChoice`, `TapWhatYouHear`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `ListenAndType`) is scored. Deliberately exhaustive so a new subtype forces an explicit scoring decision at compile time.
-- **`OptionsBearing`** — a sealed sub-interface implemented by `MultipleChoice`, `TapWhatYouHear`, `FillInTheBlank` (the three types whose `options`/`correctOptionId` get runtime-regenerated by `DistractorGenerator`, see below); all three also carry `OptionsBearing.wordId`, the word each exercise quizzes — `MultipleChoice`/`TapWhatYouHear`'s literal `promptArabic` text and per-exercise-local `correctOptionId` (e.g. `"o3"`) are not usable as a lookup key on their own. `Matching`, `WordOrderBuilder`, `ListenAndType`, and `WordIntro` are not options-bearing.
-- **`practicedItemId()`** — the single word id a scored exercise quizzes, used for per-item attempt logging. Returns `OptionsBearing.wordId` for `MultipleChoice`/`TapWhatYouHear`/`FillInTheBlank` (not `correctOptionId`, which is only a per-exercise-local option id and would fragment logging for the same word across differently-numbered exercises), `wordId` for `WordOrderBuilder`/`ListenAndType`, and `null` for `Matching` (which quizzes several pairs at once — logged per-pair at the call site, `LessonViewModel.selectMatchingRight`, using `MatchPair.wordId`, **not** `MatchPair.id` — that field is a lesson-scoped presentation id like `"p1"`/`"p2"`, not a global word id, and will collide across lessons if used for attempt logging).
-- **Meaning is resolved at read time, never trusted from the baked JSON as-is** — `LessonViewModel.resolveCanonicalMeaning`/`rebuildOptions` overwrite `WordIntro.meaning`/`TapWordInVerse.meaning`/`MatchPair.right`/the correct `ChoiceOption.label` with a fresh lookup against `WordFrequencyEntity` (via `WordCandidatePool`, keyed by each type's `wordId`) every time a lesson loads, falling back to the baked text only when the word isn't in the pool. This exists because the content pipeline independently copy-embeds a word's meaning into up to 5 places at authoring time (see `docs/CONTENT_SOURCES.md`'s "Fixing meaning-copy drift" section) and those copies can drift out of sync with each other; the app resolving from one canonical source at read time is what actually prevents the same word from showing different translations on different screens, regardless of what the shipped JSON currently says.
+- **`isScored`**: `false` only for `WordIntro` (teach step) and `ChapterIntro`.
+- **`OptionsBearing`**: `MultipleChoice`, `FillInTheBlank` (regenerated at runtime by `DistractorGenerator`).
+- **`practicedItemId()`**: The word ID quizzed by the scored exercise.
+- **Meaning resolved at read time**: `LessonViewModel.resolveCanonicalMeaning` overrides baked JSON fields with fresh lookups from `WordFrequencyEntity` across all 12 languages.
+
 
 Adding a new `ExerciseContent` subtype means touching, at minimum: `isScored`, `practicedItemId()`, `LessonScreen.kt`'s content-dispatch `when` and check-button-visibility `when`, `LessonScreen.kt`'s `correctAnswerLabel()`, and `LessonViewModel.onCheckPressed()`'s correctness `when` (plus `finalizeCheck`'s `ExerciseType` mapping). A new Composable under `feature/lesson/exercise/` renders it; reuse `OptionCard` (from `MultipleChoiceExercise.kt`) for options-bearing types and `AudioPlayButton` for anything that plays audio.
 

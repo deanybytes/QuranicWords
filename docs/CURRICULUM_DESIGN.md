@@ -1,33 +1,43 @@
 # 🎓 Curriculum Design
 
-## Why teach-then-quiz, not quiz-only
+## Three-Part Parts of Speech Architecture (Aqsam al-Kalimah)
 
-A quiz with no prior exposure to the word being asked about is a testing platform, not a teaching one. Every word gets a non-scored teach step (`ExerciseType.TEACH_WORD` / `ExerciseContent.WordIntro` — see [`docs/DATA_MODEL.md`](DATA_MODEL.md)) immediately before its own quiz, not a batch of teaching followed by a batch of quizzing. That ordering choice is deliberate **retrieval practice** — testing recall right after exposure is a substantially more effective pattern than testing after a long study block, and it's the design principle bite-sized, immediately-reinforced language lessons are generally built around: small units with immediate reinforcement rather than lecture-then-exam blocks.
-
-## The vocabulary curriculum
-
-QuranicWords assumes a learner who can already read Arabic script and takes them straight into meaning — the words that actually appear in the Qur'an, taught **most-frequent-word-first**. That ordering is a product requirement, not a suggestion: a learner's very first lessons cover the words they'll recognize most often when reciting or listening.
+Arabic grammar traditionally categorizes all vocabulary into three fundamental parts of speech: **Fi'l (Verbs)**, **Ḥarf (Particles)**, and **Ism (Nouns)**. The curriculum structures 4,616 Quranic vocabulary items across dedicated tracks:
 
 ```mermaid
 flowchart TD
-    subgraph V["Vocabulary — the whole curriculum"]
-        V1["Word 1..N, most-frequent-word-first<br/>✅ BUILT — all 3,680 words, full coverage curve<br/>teach-then-quiz per word - see CONTENT_SOURCES.md"]
-        V2["Chapter → section → lesson structure<br/>🔜 IN PROGRESS — restructuring from today's flat<br/>module → lesson list, with exam-gated progression"]
-        V1 --> V2
+    subgraph Curriculum["Curriculum — 4,616 Quranic Words (100% Coverage)"]
+        Fil["⚡ Fi'l (الفعل — Verbs)<br/>1,450 words · 145 lessons · 15 sections"]
+        Harf["✨ Ḥarf (الحرف — Particles)<br/>109 words · 11 lessons · 2 sections"]
+        Ism["📖 Ism (الاسم — Nouns)<br/>3,057 words · 306 lessons · 31 sections"]
     end
 ```
 
-Same shape throughout: teach step (word, meaning, an example verse it actually appears in) → quiz (recognition/recall) → periodic matching/review exercise. Ordered strictly by `WordFrequencyEntity.frequencyRank` (see [`docs/ALGORITHMS.md`](ALGORITHMS.md)).
+Every word within its part-of-speech category is taught **ordered strictly by its occurrence frequency in the Qur'an**, ensuring learners encounter the highest-impact vocabulary first.
 
-## Built to the full frequency curve, not a capped sample
+## Why teach-then-quiz, not quiz-only
 
-All 3,680 lemmas from the Quranic Arabic Corpus's public frequency table, grouped 10/lesson. Coverage bands (computed from real cumulative frequency, not assumed): the first **7 words reach 25%** of all lemma occurrences, 30 more reach 50%, 173 more reach 75%, and the remaining 3,470 make up the long tail to 100% — a genuine Zipfian curve. Full sourcing methodology and word-by-word reference verification are documented in [`docs/CONTENT_SOURCES.md`](CONTENT_SOURCES.md).
+A quiz with no prior exposure to the word is a testing platform, not a teaching one. Every word gets a non-scored teach step (`ExerciseContent.WordIntro` — see [`docs/DATA_MODEL.md`](DATA_MODEL.md)) immediately before its own quiz, not a batch of teaching followed by a batch of quizzing. That ordering choice is deliberate **retrieval practice** — testing recall right after exposure is a substantially more effective pattern than testing after a long study block.
 
-## Chapter → section → lesson restructuring (in progress)
+## Contextual Polysemy (Wujūh al-Qur'an)
 
-The content hierarchy is being restructured from today's flat module → lesson list into **chapters** (contiguous frequency-rank slices) split into **sections**, with a pass-threshold exam at the end of each section and each chapter gating progress into the next unit. This is being built directly in code rather than pre-specified in documentation — see `MEMORY.md` for current status and the key decisions already made (chapter/section counts, exam pass threshold) before assuming any particular schema exists yet.
+In the Qur'an, many words carry different contextual meanings depending on the surah and ayah. Every word in QuranicWords features:
+- **Polysemy Tabs**: Multiple distinct meanings categorized and tabbed.
+- **Contextual Verse Examples**: Real Quranic verses illustrating each specific contextual sense.
+- **Tashkīl & Ḥarakāt Preservation**: Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with seamless in-verse span highlighting.
 
-## Gamification stays consistent throughout
+## End of Lesson Summary & Next Lesson Preview
 
-- Points and streaks only ever attach to **scored** items (`ExerciseContent.isScored`) — the teach step is never worth points. This keeps "test is part of gamification, not gamification itself" true throughout: the game layer rewards demonstrated recall, not just exposure.
-- The visual pattern (teach card → quiz card → periodic matching/review) repeats across the whole curriculum, so a learner who's built the habit early recognizes the rhythm immediately later on — no new interaction language to learn mid-curriculum, only new content.
+At the end of every lesson:
+- **Performance Report**: Displays total words covered (*Alhamdulillah*), mistake count, accuracy percentage, and time spent.
+- **Next Lesson Introduction**: Previews the upcoming lesson's target words and grammatical context.
+- **Direct Navigation**: Option to immediately proceed to the next lesson or return to the curriculum map.
+
+## 5-Mode Test-Only System
+
+For learners seeking targeted revision and speed testing:
+1. **Ism Mode**: Quizzes from the 3,057 nouns.
+2. **Fi'l Mode**: Quizzes from the 1,450 verbs.
+3. **Ḥarf Mode**: Quizzes from the 109 particles.
+4. **Mix / Random Mode**: Dynamically samples from all 4,616 words with live grammar badging (`GrammarCategoryBadge`).
+5. **Mistaken Words Review**: Adaptively queries `ExerciseAttemptEntity` for words where the learner made errors.
