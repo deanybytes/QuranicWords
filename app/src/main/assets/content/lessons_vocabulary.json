@@ -1,6 +1,22 @@
 {
   "lessons": [
     {
+      "id": "les_ch01_intro",
+      "chapterId": "ch_01",
+      "sectionId": "sec_001",
+      "title": {
+        "en": "Chapter 1 Overview: Divine Foundations & Core Pillars",
+        "bn": "অধ্যায় 1 পরিচিতি: তাওহিদ, আল্লাহর পরিচয় ও মৌলিক স্তম্ভ",
+        "ur": "باب 1 کا تعارف: توحید اور بنیادی ارکان",
+        "in": "Pengantar Bab 1: Fondasi Ketauhidan & Rukun Utama",
+        "tr": "Bölüm 1 Tanıtımı: Tevhid ve Temel Esaslar",
+        "fr": "Aperçu du Chapitre 1: Fondements Divins & Piliers Majeurs"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
+    },
+    {
       "id": "les_0001",
       "chapterId": "ch_01",
       "sectionId": "sec_001",
@@ -1775,6 +1791,22 @@
       "sortOrder": 100,
       "kind": "CHAPTER_EXAM",
       "category": "MIXED"
+    },
+    {
+      "id": "les_ch02_intro",
+      "chapterId": "ch_02",
+      "sectionId": "sec_011",
+      "title": {
+        "en": "Chapter 2 Overview: Prophets, Nations & Moral Guidance",
+        "bn": "অধ্যায় 2 পরিচিতি: নবীগণ, ঐতিহাসিক জাতিসমূহ ও নৈতিক শিক্ষা",
+        "ur": "باب 2 کا تعارف: انبیاء، اقوام اور اخلاقی رہنمائی",
+        "in": "Pengantar Bab 2: Para Nabi, Kisah Kaum & Bimbingan Moral",
+        "tr": "Bölüm 2 Tanıtımı: Peygamberler, Kavimler ve Ahlak",
+        "fr": "Aperçu du Chapitre 2: Prophètes, Nations & Morales"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
     },
     {
       "id": "les_0112",
@@ -3553,6 +3585,22 @@
       "category": "MIXED"
     },
     {
+      "id": "les_ch03_intro",
+      "chapterId": "ch_03",
+      "sectionId": "sec_021",
+      "title": {
+        "en": "Chapter 3 Overview: Worship, Devotion & Righteous Deeds",
+        "bn": "অধ্যায় 3 পরিচিতি: ইবাদত, আত্মশুদ্ধি ও সৎকর্মের আহ্বান",
+        "ur": "باب 3 کا تعارف: عبادت، تقویٰ اور اعمالِ صالحہ",
+        "in": "Pengantar Bab 3: Ibadah, Pengabdian & Amal Saleh",
+        "tr": "Bölüm 3 Tanıtımı: İbadet, Takva ve Salih Ameller",
+        "fr": "Aperçu du Chapitre 3: Adoration, Dévotion & Bonnes Actions"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
+    },
+    {
       "id": "les_0223",
       "chapterId": "ch_03",
       "sectionId": "sec_021",
@@ -5327,6 +5375,22 @@
       "sortOrder": 100,
       "kind": "CHAPTER_EXAM",
       "category": "MIXED"
+    },
+    {
+      "id": "les_ch04_intro",
+      "chapterId": "ch_04",
+      "sectionId": "sec_031",
+      "title": {
+        "en": "Chapter 4 Overview: Faith, Belief & Spiritual Realities",
+        "bn": "অধ্যায় 4 পরিচিতি: ঈমান, অন্তরের বিশ্বাস ও আত্মিক উপলব্ধি",
+        "ur": "باب 4 کا تعارف: ایمان، یقین اور روحانی حقائق",
+        "in": "Pengantar Bab 4: Iman, Keyakinan & Realitas Spiritual",
+        "tr": "Bölüm 4 Tanıtımı: İman, İnanç ve Maneviyat",
+        "fr": "Aperçu du Chapitre 4: Foi, Croyance & Réalités Spirituelles"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
     },
     {
       "id": "les_0334",
@@ -7105,6 +7169,22 @@
       "category": "MIXED"
     },
     {
+      "id": "les_ch05_intro",
+      "chapterId": "ch_05",
+      "sectionId": "sec_041",
+      "title": {
+        "en": "Chapter 5 Overview: Creation, Heavens, Earth & Cosmos",
+        "bn": "অধ্যায় 5 পরিচিতি: সৃষ্টিজগৎ, আকাশমণ্ডল ও প্রকৃতির নিদর্শন",
+        "ur": "باب 5 کا تعارف: تخلیقِ کائنات، زمین و آسمان",
+        "in": "Pengantar Bab 5: Penciptaan Alam Semesta, Langit & Bumi",
+        "tr": "Bölüm 5 Tanıtımı: Yaratılış, Gökyüzü ve Yeryüzü",
+        "fr": "Aperçu du Chapitre 5: Création, Cieux & Signes de la Terre"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
+    },
+    {
       "id": "les_0445",
       "chapterId": "ch_05",
       "sectionId": "sec_041",
@@ -8879,6 +8959,22 @@
       "sortOrder": 100,
       "kind": "CHAPTER_EXAM",
       "category": "MIXED"
+    },
+    {
+      "id": "les_ch06_intro",
+      "chapterId": "ch_06",
+      "sectionId": "sec_051",
+      "title": {
+        "en": "Chapter 6 Overview: Humanity, Society & Sacred Law",
+        "bn": "অধ্যায় 6 পরিচিতি: মানবসমাজ, পরিবার ও শরিয়তের বিধান",
+        "ur": "باب 6 کا تعارف: انسانی معاشرہ، خاندان اور احکام",
+        "in": "Pengantar Bab 6: Kemanusiaan, Masyarakat & Hukum Syariat",
+        "tr": "Bölüm 6 Tanıtımı: İnsanlık, Toplum ve Hükümler",
+        "fr": "Aperçu du Chapitre 6: Humanité, Société & Lois Sacrées"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
     },
     {
       "id": "les_0556",
@@ -10657,6 +10753,22 @@
       "category": "MIXED"
     },
     {
+      "id": "les_ch07_intro",
+      "chapterId": "ch_07",
+      "sectionId": "sec_061",
+      "title": {
+        "en": "Chapter 7 Overview: The Hereafter, Resurrection & Eternity",
+        "bn": "অধ্যায় 7 পরিচিতি: আখিরাত, কিয়ামত, জান্নাত ও জাহান্নাম",
+        "ur": "باب 7 کا تعارف: آخرت، قیامت اور ابدی زندگی",
+        "in": "Pengantar Bab 7: Hari Kiamat, Kebangkitan & Keabadian",
+        "tr": "Bölüm 7 Tanıtımı: Ahiret, Kıyamet ve Ebediyet",
+        "fr": "Aperçu du Chapitre 7: L'Au-delà, Résurrection & Éternité"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
+    },
+    {
       "id": "les_0667",
       "chapterId": "ch_07",
       "sectionId": "sec_061",
@@ -12431,6 +12543,22 @@
       "sortOrder": 100,
       "kind": "CHAPTER_EXAM",
       "category": "MIXED"
+    },
+    {
+      "id": "les_ch08_intro",
+      "chapterId": "ch_08",
+      "sectionId": "sec_071",
+      "title": {
+        "en": "Chapter 8 Overview: Divine Wisdom, Parables & Signs",
+        "bn": "অধ্যায় 8 পরিচিতি: ঐশ্বরিক প্রজ্ঞা, উপদেশমূলক রূপক ও নিদর্শন",
+        "ur": "باب 8 کا تعارف: حکمتِ الٰہی، امثال اور عبرتیں",
+        "in": "Pengantar Bab 8: Hikmah Ilahi, Perumpamaan & Tanda Kekuasaan",
+        "tr": "Bölüm 8 Tanıtımı: İlahi Hikmet, Meseller ve Deliller",
+        "fr": "Aperçu du Chapitre 8: Sagesse Divine, Paraboles & Signes"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
     },
     {
       "id": "les_0778",
@@ -14209,6 +14337,22 @@
       "category": "MIXED"
     },
     {
+      "id": "les_ch09_intro",
+      "chapterId": "ch_09",
+      "sectionId": "sec_081",
+      "title": {
+        "en": "Chapter 9 Overview: Patience, Struggle & Divine Victory",
+        "bn": "অধ্যায় 9 পরিচিতি: ধৈর্য, অবিচল সাধনা ও আল্লাহর সাহায্য",
+        "ur": "باب 9 کا تعارف: صبر، استقامت اور نصرتِ الٰہی",
+        "in": "Pengantar Bab 9: Kesabaran, Perjuangan & Pertolongan Allah",
+        "tr": "Bölüm 9 Tanıtımı: Sabır, Mücadele ve İlahi Zafer",
+        "fr": "Aperçu du Chapitre 9: Patience, Épreuves & Victoire Divine"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
+    },
+    {
       "id": "les_0889",
       "chapterId": "ch_09",
       "sectionId": "sec_081",
@@ -15983,6 +16127,22 @@
       "sortOrder": 100,
       "kind": "CHAPTER_EXAM",
       "category": "MIXED"
+    },
+    {
+      "id": "les_ch10_intro",
+      "chapterId": "ch_10",
+      "sectionId": "sec_091",
+      "title": {
+        "en": "Chapter 10 Overview: Comprehensive Lexicon & Deep Eloquence",
+        "bn": "অধ্যায় 10 পরিচিতি: সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
+        "ur": "باب 10 کا تعارف: جامع قرآنی الفاظ اور بلاغت",
+        "in": "Pengantar Bab 10: Kosakata Lengkap & Keindahan Balaghah",
+        "tr": "Bölüm 10 Tanıtımı: Kapsamlı Sözlük ve Belagat",
+        "fr": "Aperçu du Chapitre 10: Lexique Intégral & Haute Éloquence"
+      },
+      "sortOrder": 0,
+      "kind": "CHAPTER_INTRO",
+      "category": "NOUN"
     },
     {
       "id": "les_1000",

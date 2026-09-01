@@ -40,9 +40,10 @@ class GeneratedContentParsesTest {
     @Test
     fun `vocabulary lessons decode with correct counts per kind and category`() {
         val lessons = AppJson.decodeFromString<LessonsFile>(readAsset("lessons_vocabulary.json")).lessons
-        assertEquals(1110, lessons.size)
+        assertEquals(1120, lessons.size)
 
         val byKind = lessons.groupingBy { it.kind }.eachCount()
+        assertEquals(10, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_INTRO])
         assertEquals(900, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR])
         assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_FLASHBACK])
         assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_EXAM])
@@ -61,15 +62,18 @@ class GeneratedContentParsesTest {
     }
 
     @Test
-    fun `vocabulary exercises decode and every teach step is a WordIntro`() {
+    fun `vocabulary exercises decode and every teach step is a WordIntro or ChapterIntro`() {
         val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        assertEquals(11926, exercises.exercises.size)
+        assertEquals(11936, exercises.exercises.size)
 
         val entities = exercises.exercises.map { it.toEntity() }
-        assertEquals(11926, entities.size)
+        assertEquals(11936, entities.size)
 
         val teachCount = exercises.exercises.count { it.content is ExerciseContent.WordIntro }
         assertEquals(4538, teachCount)
+
+        val chapterIntroCount = exercises.exercises.count { it.content is ExerciseContent.ChapterIntro }
+        assertEquals(10, chapterIntroCount)
 
         val quizCount = exercises.exercises.count { it.content is ExerciseContent.MultipleChoice }
         assertTrue(quizCount >= 4538)

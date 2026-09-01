@@ -307,4 +307,17 @@
     <string name="word_category_verb">ক্রিয়াপদ</string>
     <string name="polysemy_tab_format">অর্থ [%d]</string>
     <string name="polysemy_meanings_title">প্রাসঙ্গিক অর্থসমূহ (উজূহুল কুরআন)</string>
+
+    <!-- Chapter Introduction Strings -->
+    <string name="chapter_intro_label">অধ্যায় %1$s পরিচিতি</string>
+    <string name="chapter_intro_words_count_label">অধ্যায়ের শব্দ সংখ্যা</string>
+    <string name="chapter_intro_occurrences_label">কুরআনে পুনরাবৃত্তি</string>
+    <string name="chapter_intro_chapter_coverage_label">অধ্যায়ের অংশ</string>
+    <string name="chapter_intro_accumulated_coverage_label">মোট অর্জিত কুরআনিক আয়ত্ত</string>
+    <string name="chapter_intro_accumulated_desc">এই অধ্যায় সম্পন্ন করার পর আপনি পবিত্র কুরআনের মোট শব্দভাণ্ডারের %1$s আয়ত্ত করবেন (সর্বমোট %2$sটি শব্দ)।</string>
+    <string name="chapter_intro_pos_title">ব্যাকরণগত বিভাজন (ইসমে ও ফে\'ল)</string>
+    <string name="chapter_intro_ism_label">ইসম (বিশেষ্য ও সর্বনাম)</string>
+    <string name="chapter_intro_fil_label">ফে\'ল (ক্রিয়াপদ)</string>
+    <string name="chapter_intro_harf_label">হরফ (অব্যয় ও সংযোজক)</string>
+    <string name="chapter_intro_begin_button">অধ্যায় %1$s শুরু করুন</string>
 </resources>

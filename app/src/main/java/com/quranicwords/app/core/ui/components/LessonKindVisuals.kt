@@ -37,6 +37,23 @@ fun rememberLessonKindVisual(kind: LessonKind): LessonKindVisual {
     val isDark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
 
     return when (kind) {
+        LessonKind.CHAPTER_INTRO -> LessonKindVisual(
+            icon = Icons.AutoMirrored.Filled.MenuBook,
+            accentColor = Color(0xFFD4AF37),
+            containerColor = if (isDark) {
+                Color(0xFFD4AF37).copy(alpha = 0.18f)
+            } else {
+                Color(0xFFFFF8E7)
+            },
+            onContainerColor = if (isDark) {
+                Color(0xFFD4AF37)
+            } else {
+                Color(0xFF8C6D1F)
+            },
+            labelResId = R.string.lesson_kind_regular,
+            isQuizOrExam = false
+        )
+
         LessonKind.REGULAR -> LessonKindVisual(
             icon = Icons.AutoMirrored.Filled.MenuBook,
             accentColor = MaterialTheme.colorScheme.primary,
