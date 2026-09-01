@@ -229,8 +229,9 @@ class ProgressRepositoryImpl @Inject constructor(
         val allWords = database.wordFrequencyDao().observeAllByFrequency().first()
         if (allWords.isEmpty()) return@withContext emptyList()
 
-        val itemIds = when (mode.uppercase()) {
-            "ISM", "NOUN" -> {
+        val upMode = mode.uppercase()
+        val itemIds = when {
+            upMode == "ISM" || upMode == "NOUN" -> {
                 val ismWords = allWords.filter { it.id.startsWith("wn_") }
                 val allIsmIds = ismWords.map { it.id }
                 val covered = preferences.testIsmCoveredWordIdsFlow.first()
@@ -245,7 +246,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 preferences.addTestIsmCoveredWordIds(sampled)
                 sampled
             }
-            "FIL", "VERB" -> {
+            upMode == "FIL" || upMode == "VERB" -> {
                 val filWords = allWords.filter { it.id.startsWith("wv_") }
                 val allFilIds = filWords.map { it.id }
                 val covered = preferences.testFilCoveredWordIdsFlow.first()
@@ -260,7 +261,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 preferences.addTestFilCoveredWordIds(sampled)
                 sampled
             }
-            "HARF", "PARTICLE" -> {
+            upMode == "HARF" || upMode == "PARTICLE" -> {
                 val harfWords = allWords.filter { it.id.startsWith("wp_") }
                 val allHarfIds = harfWords.map { it.id }
                 val covered = preferences.testHarfCoveredWordIdsFlow.first()
@@ -275,17 +276,37 @@ class ProgressRepositoryImpl @Inject constructor(
                 preferences.addTestHarfCoveredWordIds(sampled)
                 sampled
             }
-            "MISTAKES" -> {
+            upMode == "MISTAKES" -> {
                 val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
                 if (missed.isEmpty()) return@withContext emptyList()
                 missed.shuffled().take(batchSize)
             }
-            "FREQUENCY" -> {
+            upMode == "FREQUENCY" -> {
                 val offset = preferences.testFrequencyOffsetFlow.first()
                 val safeOffset = if (offset >= allWords.size) 0 else offset
                 val slice = allWords.drop(safeOffset).take(batchSize).map { it.id }
                 preferences.setTestFrequencyOffset((safeOffset + slice.size) % allWords.size)
                 slice
+            }
+            upMode.startsWith("CHAPTER:") || upMode.startsWith("CHAPTER_") -> {
+                val rawChapter = if (upMode.startsWith("CHAPTER:")) mode.substring(8) else mode.substring(8)
+                val cleanChapterId = if (rawChapter.startsWith("ch_")) rawChapter else "ch_${rawChapter.padStart(2, '0')}"
+                val lessons = database.lessonDao().getForChapter(cleanChapterId)
+                val lessonIds = lessons.map { it.id }
+                val exercises = database.exerciseDao().getForLessons(lessonIds)
+                val chapterWordIds = exercises.mapNotNull { it.practicedItemId }.distinct()
+                if (chapterWordIds.isEmpty()) return@withContext emptyList()
+                val covered = preferences.testChapterCoveredWordIdsFlow(cleanChapterId).first()
+                val remaining = chapterWordIds.filter { it !in covered }
+                val pool = if (remaining.size < batchSize) {
+                    preferences.resetTestChapterCoveredWordIds(cleanChapterId)
+                    chapterWordIds
+                } else {
+                    remaining
+                }
+                val sampled = pool.shuffled().take(batchSize)
+                preferences.addTestChapterCoveredWordIds(cleanChapterId, sampled)
+                sampled
             }
             else -> { // "RANDOM", "MIX"
                 val allIds = allWords.map { it.id }

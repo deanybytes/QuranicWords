@@ -32,9 +32,13 @@ interface LessonDao {
     @Query("SELECT * FROM lessons WHERE chapterId = :chapterId AND sectionId IS NULL AND kind = :kind LIMIT 1")
     suspend fun getChapterLevelLesson(chapterId: String, kind: LessonKind): LessonEntity?
 
+    @Query("SELECT * FROM lessons WHERE chapterId = :chapterId ORDER BY sortOrder ASC")
+    suspend fun getForChapter(chapterId: String): List<LessonEntity>
+
     @Query("SELECT * FROM lessons WHERE id = :lessonId LIMIT 1")
     suspend fun getById(lessonId: String): LessonEntity?
 
     @Query("SELECT COUNT(*) FROM lessons")
     suspend fun count(): Int
 }
+

@@ -13,12 +13,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.LocalDate
 import javax.inject.Inject
 
+import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.domain.repository.AchievementRepository
+import com.quranicwords.app.core.domain.repository.ContentRepository
+
+data class ChapterTestItem(
+    val chapter: ChapterEntity,
+    val coveredCount: Int,
+    val totalCount: Int
+)
 
 data class TestOnlyHomeUiState(
     val totalPoints: Int = 0,
@@ -40,21 +49,24 @@ data class TestOnlyHomeUiState(
     val quranCoveragePercent: Double = 0.0,
     val last30DaysMinutes: List<Int> = emptyList(),
     val last30DaysActiveCount: Int = 0,
-    val last30DaysTotalMinutes: Int = 0
+    val last30DaysTotalMinutes: Int = 0,
+    val chapters: List<ChapterTestItem> = emptyList()
 )
 
 /**
- * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all 5
+ * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all
  * Test/Quiz-only modes:
  * 1. Ism (Nouns) Mode (3,057 Quranic nouns)
  * 2. Fi'l (Verbs) Mode (1,450 Quranic verbs)
  * 3. Ḥarf (Particles) Mode (109 Quranic particles)
  * 4. Mix / Random Mode (4,616 corpus mix)
  * 5. Mistaken Words Review (adaptive retry of missed vocabulary)
+ * 6. Chapterwise Test Mode (10 Quranic chapters)
  */
 @HiltViewModel
 class TestOnlyHomeViewModel @Inject constructor(
     progressRepository: ProgressRepository,
+    contentRepository: ContentRepository,
     achievementRepository: AchievementRepository,
     preferences: UserPreferencesDataStore,
     userIdProvider: CurrentUserIdProvider,
@@ -81,6 +93,7 @@ class TestOnlyHomeViewModel @Inject constructor(
             val randomCoveredFlow = preferences.testRandomCoveredWordIdsFlow
             val missedIdsFlow = progressRepository.observeMissedItemIds(userId)
             val practiceRangeFlow = progressRepository.observePracticeHistoryForRange(userId, startDate, today)
+            val chaptersFlow = contentRepository.observeChapters()
 
             combine(
                 combine(statsFlow, todayPracticeFlow, dailyGoalFlow) { stats, practice, goal ->
@@ -89,10 +102,10 @@ class TestOnlyHomeViewModel @Inject constructor(
                 combine(ismCoveredFlow, filCoveredFlow, harfCoveredFlow, randomCoveredFlow) { ism, fil, harf, random ->
                     TestPosCoveredState(ism, fil, harf, random)
                 },
-                combine(missedIdsFlow, practiceRangeFlow) { missed, range ->
-                    Pair(missed, range)
+                combine(missedIdsFlow, practiceRangeFlow, chaptersFlow) { missed, range, chapters ->
+                    Triple(missed, range, chapters)
                 }
-            ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory) ->
+            ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters) ->
                 val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
                 val last30DaysMinutes = (29 downTo 0).map { offset ->
                     val d = todayDate.minusDays(offset.toLong()).toString()
@@ -100,6 +113,15 @@ class TestOnlyHomeViewModel @Inject constructor(
                 }
                 val total30DaysMins = last30DaysMinutes.sum()
                 val active30DaysDays = last30DaysMinutes.count { it > 0 }
+
+                val chapterTestItems = chapters.map { ch ->
+                    val coveredIds = preferences.testChapterCoveredWordIdsFlow(ch.id).first()
+                    ChapterTestItem(
+                        chapter = ch,
+                        coveredCount = coveredIds.size.coerceAtMost(ch.wordCount),
+                        totalCount = ch.wordCount
+                    )
+                }
 
                 TestOnlyHomeUiState(
                     totalPoints = stats?.totalPoints ?: 0,
@@ -123,7 +145,8 @@ class TestOnlyHomeViewModel @Inject constructor(
                     quranCoveragePercent = coveragePercent,
                     last30DaysMinutes = last30DaysMinutes,
                     last30DaysActiveCount = active30DaysDays,
-                    last30DaysTotalMinutes = total30DaysMins
+                    last30DaysTotalMinutes = total30DaysMins,
+                    chapters = chapterTestItems
                 )
             }.collect { _uiState.value = it }
         }
@@ -136,3 +159,4 @@ private data class TestPosCoveredState(
     val harfCovered: Set<String>,
     val randomCovered: Set<String>
 )
+

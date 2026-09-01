@@ -286,6 +286,11 @@
     <string name="test_mode_mistakes_empty">No mistaken words! All caught up.</string>
     <string name="test_mode_start_btn">Start Test</string>
     <string name="test_mode_review_btn">Review Mistakes</string>
+    <string name="test_mode_chapterwise_title">Chapterwise Test Mode</string>
+    <string name="test_mode_chapterwise_subtitle">Test and master vocabulary chapter-by-chapter across the entire Qur\'an curriculum</string>
+    <string name="test_mode_chapter_coverage_badge">%1$s Words · Covers %2$s%% of Qur\'an</string>
+    <string name="test_mode_chapter_progress">%1$s of %2$s words tested</string>
+    <string name="test_mode_start_chapter_btn">Start Chapter Test</string>
 
     <string name="home_chart_30d_title">30-Day Activity &amp; Trend</string>
     <string name="home_chart_30d_summary">%1$d/30 active days · %2$d mins total</string>
