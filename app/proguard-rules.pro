@@ -32,3 +32,9 @@
 # Keep ViewModels and Application
 -keep class com.quranicwords.app.QwApplication { *; }
 -keep class com.quranicwords.app.MainActivity { *; }
+
+# Hilt, Workers, and Startup
+-keep class * extends androidx.hilt.work.HiltWorkerFactory { *; }
+-keep class * extends androidx.work.ListenableWorker { *; }
+-keep class androidx.work.** { *; }
+-keep class androidx.startup.** { *; }
