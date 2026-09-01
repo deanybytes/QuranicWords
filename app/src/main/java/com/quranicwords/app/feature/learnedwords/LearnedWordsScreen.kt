@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -50,6 +52,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -305,14 +310,28 @@ private fun WordQuranExamplesSheet(
     onPlayAudio: () -> Boolean,
     onDismiss: () -> Unit
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val sheetState = rememberModalBottomSheetState()
+    var selectedMeaningIndex by remember(word) { androidx.compose.runtime.mutableIntStateOf(0) }
+    val activePolysemyEntry = word.polysemyEntries.getOrNull(selectedMeaningIndex)
+
+    val displayedMeaning = if (activePolysemyEntry != null && activePolysemyEntry.contextualMeaning.isNotEmpty()) {
+        activePolysemyEntry.contextualMeaning.get(language)
+    } else {
+        word.meaning.get(language)
+    }
+
+    val verseArabic = activePolysemyEntry?.verseArabic ?: word.exampleVerseArabic
+    val verseReference = activePolysemyEntry?.verseReference ?: word.exampleVerseReference
+    val verseTranslation = activePolysemyEntry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
+    val arabicWordStart = activePolysemyEntry?.arabicWordStart ?: word.arabicWordStart
+    val arabicWordEnd = activePolysemyEntry?.arabicWordEnd ?: word.arabicWordEnd
+    val meaningHighlight = activePolysemyEntry?.translationHighlight?.getOrNull(language) ?: word.meaningHighlight.getOrNull(language)
+
     val highlightStyle = SpanStyle(
         color = MaterialTheme.colorScheme.primary,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        background = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
     )
-    val meaning = word.meaning.getOrNull(language)
-    val verseTranslation = word.exampleVerseTranslation.getOrNull(language)
-    val meaningHighlight = word.meaningHighlight.getOrNull(language)
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -349,7 +368,7 @@ private fun WordQuranExamplesSheet(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Text(
-                        text = word.meaning.get(language),
+                        text = displayedMeaning,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -371,6 +390,48 @@ private fun WordQuranExamplesSheet(
                 }
             }
 
+            // Multi-meaning Polysemy Selection Tabs
+            if (word.polysemyEntries.size > 1) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.polysemy_meanings_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        word.polysemyEntries.forEachIndexed { idx, _ ->
+                            val isSelected = selectedMeaningIndex == idx
+                            val tabBg = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
+                            val tabTextColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(tabBg)
+                                    .clickable { selectedMeaningIndex = idx }
+                                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.polysemy_tab_format, idx + 1),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                    color = tabTextColor
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
             Text(
                 text = stringResource(R.string.learned_words_quran_examples_title),
                 style = MaterialTheme.typography.titleMedium,
@@ -379,7 +440,7 @@ private fun WordQuranExamplesSheet(
             )
 
             // Example Verse Card
-            if (word.exampleVerseArabic != null && word.exampleVerseReference != null) {
+            if (!verseArabic.isNullOrBlank() && !verseReference.isNullOrBlank()) {
                 GlassSurface(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -394,7 +455,7 @@ private fun WordQuranExamplesSheet(
                         Text(
                             text = stringResource(
                                 R.string.lesson_word_example_verse_label,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(word.exampleVerseReference, language)
+                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(verseReference, language)
                             ),
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontFamily = QuranCitationFontFamily,
@@ -405,12 +466,12 @@ private fun WordQuranExamplesSheet(
                         )
                         Text(
                             text = buildAnnotatedString {
-                                append(word.exampleVerseArabic)
-                                val start = word.arabicWordStart
-                                val end = word.arabicWordEnd
+                                append(verseArabic)
+                                val start = arabicWordStart
+                                val end = arabicWordEnd
                                 if (start != null && end != null &&
-                                    start in 0..word.exampleVerseArabic.length &&
-                                    end in start..word.exampleVerseArabic.length
+                                    start in 0..verseArabic.length &&
+                                    end in start..verseArabic.length
                                 ) {
                                     addStyle(highlightStyle, start, end)
                                 }
@@ -430,7 +491,7 @@ private fun WordQuranExamplesSheet(
                                     val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
                                         verseTranslation = verseTranslation,
                                         meaningHighlight = meaningHighlight,
-                                        meaning = meaning
+                                        meaning = displayedMeaning
                                     )
                                     if (range != null) {
                                         addStyle(highlightStyle, range.first, range.second)
