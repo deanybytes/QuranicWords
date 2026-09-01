@@ -50,7 +50,3 @@ These are enforced by design, not just convention — PRs that violate them won'
 ## Reporting bugs / requesting features
 
 Use the issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/).
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the project's [GPL-3.0 license](LICENSE).
