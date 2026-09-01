@@ -81,7 +81,10 @@ fun MultipleChoiceExerciseContent(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.lesson_word_example_verse_label, content.exampleVerseReference),
+                        text = stringResource(
+                            R.string.lesson_word_example_verse_label,
+                            com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.exampleVerseReference, language)
+                        ),
                         style = MaterialTheme.typography.labelMedium.copy(
                             fontFamily = QuranCitationFontFamily,
                             fontWeight = FontWeight.Bold,

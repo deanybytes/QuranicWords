@@ -1,4 +1,4 @@
-﻿package com.quranicwords.app.feature.lesson.exercise
+package com.quranicwords.app.feature.lesson.exercise
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -79,7 +79,10 @@ fun TapWordInVerseExerciseContent(
         }
 
         Text(
-            text = stringResource(R.string.lesson_word_example_verse_label, content.verseReference),
+            text = stringResource(
+                R.string.lesson_word_example_verse_label,
+                com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.verseReference, language)
+            ),
             style = MaterialTheme.typography.labelLarge.copy(
                 fontFamily = QuranCitationFontFamily,
                 fontWeight = FontWeight.Bold,

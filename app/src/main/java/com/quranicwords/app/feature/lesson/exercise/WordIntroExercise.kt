@@ -230,7 +230,10 @@ fun WordIntroExerciseContent(
                 ) {
                     if (!verseReference.isNullOrBlank()) {
                         Text(
-                            text = stringResource(R.string.lesson_word_example_verse_label, verseReference),
+                            text = stringResource(
+                                R.string.lesson_word_example_verse_label,
+                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(verseReference, language)
+                            ),
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontFamily = QuranCitationFontFamily,
                                 fontWeight = FontWeight.Bold,
