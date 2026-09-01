@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
  * can round-trip through [com.quranicwords.app.core.domain.repository.BackupRepository]. */
 @Serializable
 enum class ExerciseType {
+    WORD_INTRO,
     MULTIPLE_CHOICE,
     TAP_WHAT_YOU_HEAR,
     MATCHING,

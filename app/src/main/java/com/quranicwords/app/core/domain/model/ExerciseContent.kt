@@ -246,18 +246,10 @@ data class ChoiceOption(
 
 @Serializable
 data class MatchPair(
-    /** Lesson-scoped presentation id ("p1", "p2", ...) - NOT globally unique, and NOT a
-     * [com.quranicwords.app.core.data.local.entity.WordFrequencyEntity] id. Every
-     * Matching exercise's pairs restart numbering from p1, so this must never be used as an
-     * attempt-log itemId (it would collide across lessons and never match any other exercise's
-     * `practicedItemId`) - see [wordId] for that. */
-    val id: String,
-    val leftArabic: String,
-    val right: LocalizedText,
-    /** The actual word this pair quizzes, for attempt logging - nullable/defaulted since existing
-     * authored content predates this field; a null here means the pair's match can't be
-     * attributed to a specific word yet (see `LessonViewModel.selectMatchingRight`, which skips
-     * logging rather than risk logging under the colliding [id] instead). */
+    val id: String = "",
+    val leftArabic: String = "",
+    val left: String? = null,
+    val right: LocalizedText = emptyMap(),
     val wordId: String? = null,
     val exampleVerseArabic: String? = null,
     val exampleVerseTranslation: LocalizedText = emptyMap(),
@@ -265,7 +257,10 @@ data class MatchPair(
     val arabicWordStart: Int? = null,
     val arabicWordEnd: Int? = null,
     val meaningHighlight: LocalizedText = emptyMap()
-)
+) {
+    val effectiveLeftArabic: String get() = leftArabic.ifBlank { left.orEmpty() }
+    val effectiveId: String get() = id.ifBlank { wordId.orEmpty() }
+}
 
 fun ExerciseContent.localizedPrompt(language: Language): String = prompt.get(language)
 fun ChoiceOption.localizedLabel(language: Language): String =

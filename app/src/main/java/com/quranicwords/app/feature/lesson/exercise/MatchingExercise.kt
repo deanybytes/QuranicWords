@@ -97,7 +97,7 @@ private sealed interface RightEntry {
 }
 
 private fun RightEntry.id(): String = when (this) {
-    is RightEntry.Pair -> pair.id
+    is RightEntry.Pair -> pair.effectiveId
     is RightEntry.Distractor -> DISTRACTOR_TILE_ID
 }
 
@@ -141,8 +141,8 @@ fun MatchingExerciseContent(
 
     val leftItems by remember(content) {
         derivedStateOf {
-            val matched = matchOrder.mapNotNull { id -> leftShuffled.find { it.id == id } }
-            matched + leftShuffled.filter { it.id !in matchOrder }
+            val matched = matchOrder.mapNotNull { id -> leftShuffled.find { it.effectiveId == id } }
+            matched + leftShuffled.filter { it.effectiveId !in matchOrder }
         }
     }
     val rightItems by remember(content) {
@@ -179,14 +179,17 @@ fun MatchingExerciseContent(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
         Text(
-            stringResource(R.string.lesson_matching_instruction),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = content.localizedPrompt(language),
+            style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         val maxCount = maxOf(leftItems.size, rightItems.size)
@@ -212,17 +215,17 @@ fun MatchingExerciseContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (left != null) {
-                            key(left.id) {
+                            key(left.effectiveId) {
                                 MatchTile(
-                                    text = left.leftArabic,
+                                    text = left.effectiveLeftArabic,
                                     isArabic = true,
-                                    isMatched = left.id in matchedPairIds,
-                                    isSelected = left.id == pendingLeftId,
-                                    isMismatch = mismatchState[left.id] == true,
-                                    shakeOffset = shakeOffsets[left.id],
+                                    isMatched = left.effectiveId in matchedPairIds,
+                                    isSelected = left.effectiveId == pendingLeftId,
+                                    isMismatch = mismatchState[left.effectiveId] == true,
+                                    shakeOffset = shakeOffsets[left.effectiveId],
                                     reducedMotion = reducedMotion,
                                     reducedGlass = reducedGlass,
-                                    onClick = { onSelectLeft(left.id) },
+                                    onClick = { onSelectLeft(left.effectiveId) },
                                     modifier = Modifier.fillMaxSize()
                                 )
                             }
@@ -255,7 +258,7 @@ fun MatchingExerciseContent(
             }
         }
 
-        val selectedPair = leftItems.find { it.id == pendingLeftId }
+        val selectedPair = leftItems.find { it.effectiveId == pendingLeftId }
         val exampleArabic = selectedPair?.exampleVerseArabic
         val exampleRef = selectedPair?.exampleVerseReference
 
