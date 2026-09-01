@@ -586,11 +586,18 @@ private fun HomeHeroHeader(
 
 private fun Set<String>.toggled(id: String): Set<String> = if (id in this) this - id else this + id
 
-private val historyDateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-
-private fun formatCompletedDate(epochMillis: Long): String {
+private fun formatCompletedDate(epochMillis: Long, language: com.quranicwords.app.core.domain.model.Language): String {
     val date = Instant.ofEpochMilli(epochMillis).atZone(ZoneId.systemDefault()).toLocalDate()
-    return historyDateFormatter.format(date)
+    val locale = when (language) {
+        com.quranicwords.app.core.domain.model.Language.BANGLA -> java.util.Locale.forLanguageTag("bn-BD")
+        com.quranicwords.app.core.domain.model.Language.URDU -> java.util.Locale.forLanguageTag("ur-PK")
+        com.quranicwords.app.core.domain.model.Language.INDONESIAN -> java.util.Locale.forLanguageTag("id-ID")
+        com.quranicwords.app.core.domain.model.Language.TURKISH -> java.util.Locale.forLanguageTag("tr-TR")
+        com.quranicwords.app.core.domain.model.Language.FRENCH -> java.util.Locale.FRENCH
+        com.quranicwords.app.core.domain.model.Language.ENGLISH -> java.util.Locale.ENGLISH
+    }
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
+    return com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatter.format(date), language)
 }
 
 /** Collapsed-by-default chapter row - tap the row to expand/collapse, tap the title specifically
@@ -615,6 +622,7 @@ private fun ChapterSummaryNode(
     onToggle: () -> Unit,
     onOpenIntro: () -> Unit
 ) {
+    val language = rememberSelectedLanguage()
     val (icon, iconTint) = statusDefaultIconAndTint(status)
     val shape = MaterialTheme.shapes.medium
     GlassSurface(
@@ -645,8 +653,8 @@ private fun ChapterSummaryNode(
                 Text(
                     stringResource(
                         R.string.home_chapter_coverage_stat,
-                        formatPercent(ownCoveragePercent),
-                        formatPercent(userCoveragePercent)
+                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(ownCoveragePercent), language),
+                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(userCoveragePercent), language)
                     ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -825,19 +833,10 @@ private fun LessonNode(
     ) {
         val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
         val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
+        val accentColor = if (kindVisual.isQuizOrExam) kindVisual.accentColor else categoryAccent
 
-        val containerColor = if (kindVisual.isQuizOrExam) {
-            kindVisual.containerColor
-        } else {
-            statusContainerColor(status)
-        }
-        val tint = if (kindVisual.isQuizOrExam) {
-            kindVisual.accentColor
-        } else if (isUnlocked) {
-            categoryAccent
-        } else {
-            defaultTint
-        }
+        val containerColor = statusContainerColor(status)
+        val tint = if (isUnlocked) accentColor else defaultTint
 
         val icon = when {
             status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
@@ -848,8 +847,7 @@ private fun LessonNode(
 
         val badgeAccentBorder = when {
             isCurrent -> MaterialTheme.colorScheme.tertiary
-            kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.45f)
-            isUnlocked -> categoryAccent.copy(alpha = 0.7f)
+            isUnlocked -> accentColor.copy(alpha = 0.7f)
             else -> null
         }
 
@@ -874,11 +872,10 @@ private fun LessonNode(
         GlassSurface(
             modifier = Modifier.width(170.dp),
             onClick = if (isUnlocked) onClick else null,
-            tint = if (kindVisual.isQuizOrExam) kindVisual.containerColor else statusContainerColor(status),
+            tint = statusContainerColor(status),
             accentBorderColor = when {
                 isCurrent -> MaterialTheme.colorScheme.tertiary
-                kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.4f)
-                isUnlocked -> categoryAccent
+                isUnlocked -> accentColor
                 else -> null
             },
             accentBorderWidth = if (isCurrent) 2.dp else 1.5.dp
@@ -891,7 +888,7 @@ private fun LessonNode(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                         modifier = Modifier
                             .clip(RoundedCornerShape(6.dp))
-                            .background(kindVisual.accentColor.copy(alpha = 0.20f))
+                            .background(kindVisual.accentColor.copy(alpha = 0.15f))
                             .padding(horizontal = 6.dp, vertical = 2.dp)
                     ) {
                         Icon(
@@ -941,12 +938,7 @@ private fun LessonNode(
                     Spacer(modifier = Modifier.height(4.dp))
                 }
 
-                val labelColor = when {
-                    kindVisual.isQuizOrExam && isUnlocked -> kindVisual.onContainerColor
-                    kindVisual.isQuizOrExam && !isUnlocked -> kindVisual.accentColor.copy(alpha = 0.7f)
-                    isUnlocked -> MaterialTheme.colorScheme.onSurface
-                    else -> MaterialTheme.colorScheme.onSurfaceVariant
-                }
+                val labelColor = if (isUnlocked) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
                 Text(
                     title,
                     style = MaterialTheme.typography.labelLarge,
@@ -1228,15 +1220,19 @@ private fun HistoryCard(
                 Text(
                     stringResource(
                         R.string.home_history_summary,
-                        formatCompletedDate(progress.completedAtEpochMillis!!),
-                        progress.bestScorePercent,
-                        formatDuration(progress.durationMillis)
+                        formatCompletedDate(progress.completedAtEpochMillis!!, language),
+                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits("${progress.bestScorePercent}", language),
+                        formatDuration(progress.durationMillis, language)
                     ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    stringResource(R.string.home_history_position, position + 1, total),
+                    stringResource(
+                        R.string.home_history_position,
+                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits("${position + 1}", language),
+                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits("$total", language)
+                    ),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

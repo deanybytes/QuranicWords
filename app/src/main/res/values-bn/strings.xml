@@ -255,7 +255,7 @@
     <string name="settings_section_connect">যোগাযোগ ও যুক্ত থাকুন</string>
     <string name="settings_connect_github">গিটহাব (সোর্স কোড ও ইস্যু)</string>
     <string name="settings_connect_youtube">ইউটিউব (@deanytalks)</string>
-    <string name="settings_connect_email">ইমেইল (deanybytes@gmail.com)</string>
+    <string name="settings_connect_email">ইমেইলের মাধ্যমে যোগাযোগ করুন</string>
     <string name="settings_connect_telegram">টেলিগ্রাম চ্যানেল</string>
     <string name="settings_connect_whatsapp">হোয়াটসঅ্যাপ চ্যানেল</string>
 

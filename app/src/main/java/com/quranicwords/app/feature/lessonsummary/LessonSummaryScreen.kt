@@ -152,7 +152,8 @@ fun LessonSummaryScreen(
             )
         }
 
-        if (visible && passed) {
+        val isInfoOnly = route.lessonKind == LessonKind.CHAPTER_INTRO || route.totalCount == 0
+        if (visible && passed && !isInfoOnly) {
             CelebrationBurst(intensity = celebrationIntensity, modifier = Modifier.fillMaxSize())
         }
 
@@ -169,8 +170,14 @@ fun LessonSummaryScreen(
             // 1. Hero Title & Gratitude Header
             StaggeredEntrance(index = 0) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    val heroTitle = when {
+                        !passed -> stringResource(R.string.lesson_summary_title_retry)
+                        isInfoOnly -> stringResource(R.string.intro_chapter_label)
+                        isExamPass -> stringResource(R.string.lesson_summary_alhamdulillah_title)
+                        else -> stringResource(R.string.lesson_summary_title_complete)
+                    }
                     Text(
-                        text = stringResource(R.string.lesson_summary_alhamdulillah_title),
+                        text = heroTitle,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontFamily = QuranCitationFontFamily,
                             fontWeight = FontWeight.Bold,

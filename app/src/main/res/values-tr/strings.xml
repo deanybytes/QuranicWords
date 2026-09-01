@@ -243,7 +243,7 @@
     <string name="settings_section_connect">Bağlan ve Takip Et</string>
     <string name="settings_connect_github">GitHub (Kaynak Kod ve Hata Bildirimi)</string>
     <string name="settings_connect_youtube">YouTube (@deanytalks)</string>
-    <string name="settings_connect_email">E-posta (deanybytes@gmail.com)</string>
+    <string name="settings_connect_email">E-posta ile Bize Ulaşın</string>
     <string name="settings_connect_telegram">Telegram Kanalı</string>
     <string name="settings_connect_whatsapp">WhatsApp Kanalı</string>
 

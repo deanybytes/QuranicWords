@@ -28,7 +28,8 @@ fun HighlightedGlassArabic(
     verseArabic: String,
     start: Int?,
     end: Int?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    arabicWord: String? = null
 ) {
     val quranFont = LocalQuranFontFamily.current
     val baseStyle = TextStyle(
@@ -39,7 +40,17 @@ fun HighlightedGlassArabic(
         textAlign = TextAlign.End
     )
 
-    if (start == null || end == null || start !in 0..verseArabic.length || end !in start..verseArabic.length || start == end) {
+    val resolvedRange = remember(verseArabic, start, end, arabicWord) {
+        if (start != null && end != null && start in 0..verseArabic.length && end in start..verseArabic.length && start != end) {
+            Pair(start, end)
+        } else if (!arabicWord.isNullOrBlank()) {
+            com.quranicwords.app.core.util.HighlightUtils.findArabicSpanInVerse(arabicWord, verseArabic)
+        } else {
+            null
+        }
+    }
+
+    if (resolvedRange == null) {
         Text(
             text = verseArabic,
             style = baseStyle,
@@ -49,10 +60,13 @@ fun HighlightedGlassArabic(
         return
     }
 
+    val rStart = resolvedRange.first
+    val rEnd = resolvedRange.second
+
     val primaryColor = MaterialTheme.colorScheme.primary
-    val annotated = remember(verseArabic, start, end, primaryColor) {
+    val annotated = remember(verseArabic, rStart, rEnd, primaryColor) {
         buildAnnotatedString {
-            append(verseArabic.substring(0, start))
+            append(verseArabic.substring(0, rStart))
             withStyle(
                 SpanStyle(
                     color = BrandGold,
@@ -60,9 +74,9 @@ fun HighlightedGlassArabic(
                     background = BrandGold.copy(alpha = 0.20f)
                 )
             ) {
-                append(verseArabic.substring(start, end))
+                append(verseArabic.substring(rStart, rEnd))
             }
-            append(verseArabic.substring(end))
+            append(verseArabic.substring(rEnd))
         }
     }
 

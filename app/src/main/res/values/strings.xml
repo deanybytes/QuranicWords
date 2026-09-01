@@ -245,7 +245,7 @@
     <string name="settings_section_connect">Connect &amp; Follow</string>
     <string name="settings_connect_github">GitHub (Source Code &amp; Issues)</string>
     <string name="settings_connect_youtube">YouTube (@deanytalks)</string>
-    <string name="settings_connect_email">Email (deanybytes@gmail.com)</string>
+    <string name="settings_connect_email">Contact us via Email</string>
     <string name="settings_connect_telegram">Telegram Channel</string>
     <string name="settings_connect_whatsapp">WhatsApp Channel</string>
     <string name="settings_close">Close</string>

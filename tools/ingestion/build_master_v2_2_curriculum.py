@@ -26,10 +26,89 @@ from collections import Counter
 def strip_tashkeel(text):
     if not text:
         return ''
-    t = re.sub(r'[\u064B-\u065F\u0670\u06D6-\u06ED]', '', text)
+    t = text.replace('\u0670', 'ا')
+    t = re.sub(r'[\u064B-\u065F\u06D6-\u06ED\uFEFF]', '', t)
     t = re.sub(r'[إأآٱ]', 'ا', t)
     t = t.replace('ة', 'ه').replace('ى', 'ي')
     return t.strip()
+
+def strip_prefixes(norm_w):
+    for p in ['وال', 'فال', 'بال', 'كال', 'لل', 'ال', 'و', 'ف', 'ب', 'ل', 'ك', 'س', 'ي', 'ت', 'ن', 'ا']:
+        if norm_w.startswith(p) and len(norm_w) - len(p) >= 2:
+            return norm_w[len(p):]
+    return norm_w
+
+def find_arabic_span_in_verse(arabic_word, verse_ar):
+    if not arabic_word or not verse_ar:
+        return (0, 0)
+    idx = verse_ar.find(arabic_word)
+    if idx >= 0:
+        return (idx, idx + len(arabic_word))
+        
+    norm_target = strip_tashkeel(arabic_word)
+    if not norm_target:
+        return (0, 0)
+        
+    token_spans = []
+    for match in re.finditer(r'\S+', verse_ar):
+        token_spans.append((match.start(), match.end(), match.group()))
+        
+    for s, e, tok in token_spans:
+        if strip_tashkeel(tok) == norm_target:
+            return (s, e)
+            
+    for s, e, tok in token_spans:
+        tok_norm = strip_tashkeel(tok)
+        if strip_prefixes(tok_norm) == norm_target or strip_prefixes(tok_norm) == strip_prefixes(norm_target):
+            return (s, e)
+            
+    for s, e, tok in token_spans:
+        tok_norm = strip_tashkeel(tok)
+        if norm_target in tok_norm:
+            return (s, e)
+            
+    return (0, min(len(arabic_word), len(verse_ar)))
+
+def find_translation_highlight(meaning_dict, trans_dict, occ=None):
+    highlights = {}
+    for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
+        trans = trans_dict.get(lang, '')
+        meaning = meaning_dict.get(lang, '')
+        if not trans:
+            highlights[lang] = meaning
+            continue
+        
+        candidates = []
+        if occ and occ.get(lang):
+            raw_occ = occ[lang]
+            cl = re.sub(r'\(.*?\)|\[.*?\]', '', raw_occ).strip()
+            candidates.extend([raw_occ, cl] + [p.strip() for p in re.split(r'[,;/|]|\bor\b|\batau\b|\bveya\b|\bou\b', cl, flags=re.IGNORECASE) if len(p.strip()) >= 2])
+        if meaning:
+            cl = re.sub(r'\(.*?\)|\[.*?\]', '', meaning).strip()
+            candidates.extend([meaning, cl] + [p.strip() for p in re.split(r'[,;/|]|\bor\b|\batau\b|\bveya\b|\bou\b', cl, flags=re.IGNORECASE) if len(p.strip()) >= 2])
+            
+        found_hl = ''
+        for cand in candidates:
+            if not cand or len(cand) < 2: continue
+            match = re.search(r'\b' + re.escape(cand) + r'\b', trans, re.IGNORECASE)
+            if match:
+                found_hl = match.group(0)
+                break
+            idx = trans.lower().find(cand.lower())
+            if idx >= 0:
+                found_hl = trans[idx:idx+len(cand)]
+                break
+                
+        if not found_hl:
+            words = [w for w in re.split(r'[^\w\']+', candidates[0] if candidates else meaning) if len(w) >= 3]
+            for w in sorted(words, key=lambda x: len(x), reverse=True):
+                match = re.search(r'\b' + re.escape(w) + r'\b', trans, re.IGNORECASE)
+                if match:
+                    found_hl = match.group(0)
+                    break
+                    
+        highlights[lang] = found_hl or (candidates[0] if candidates else meaning)
+    return highlights
 
 print("Step 1: Loading 6-language Qur'an editions and 77,429 word-by-word database...")
 
@@ -375,6 +454,22 @@ def extract_polysemy(lemma, primary_vkey):
         if not ar_v:
             continue
             
+        sp_start, sp_end = find_arabic_span_in_verse(lemma, ar_v)
+        if sp_start == 0 and sp_end == 0:
+            sp_start, sp_end = find_arabic_span_in_verse(occ['arabic'], ar_v)
+        if sp_start == 0 and sp_end == 0:
+            sp_start, sp_end = occ['start'], occ['end']
+            
+        trans_dict = {
+            'en': ed_en.get(vk, ''),
+            'bn': ed_bn.get(vk, ''),
+            'ur': ed_ur.get(vk, ''),
+            'in': ed_in.get(vk, ''),
+            'tr': ed_tr.get(vk, ''),
+            'fr': ed_fr.get(vk, '')
+        }
+        hl_dict = find_translation_highlight(occ, trans_dict, occ)
+        
         entries.append({
             'meaningIndex': len(entries) + 2,
             'contextualMeaning': {
@@ -387,24 +482,10 @@ def extract_polysemy(lemma, primary_vkey):
             },
             'verseReference': vk,
             'verseArabic': ar_v,
-            'verseTranslation': {
-                'en': ed_en.get(vk, ''),
-                'bn': ed_bn.get(vk, ''),
-                'ur': ed_ur.get(vk, ''),
-                'in': ed_in.get(vk, ''),
-                'tr': ed_tr.get(vk, ''),
-                'fr': ed_fr.get(vk, '')
-            },
-            'arabicWordStart': occ['start'],
-            'arabicWordEnd': occ['end'],
-            'translationHighlight': {
-                'en': occ['en'],
-                'bn': occ['bn'] or occ['en'],
-                'ur': occ['ur'] or occ['en'],
-                'in': occ['in'] or occ['en'],
-                'tr': occ['tr'] or occ['en'],
-                'fr': occ['fr'] or occ['en']
-            }
+            'verseTranslation': trans_dict,
+            'arabicWordStart': sp_start,
+            'arabicWordEnd': sp_end,
+            'translationHighlight': hl_dict
         })
     return entries
 
@@ -418,12 +499,13 @@ for idx, p in enumerate(p_unique[:109]):
     
     best_occ = next((o for o in occ_list if o['vkey'] == vkey), occ_list[0] if occ_list else None)
     if best_occ:
-        start = best_occ['start']
-        end = best_occ['end']
         actual_vkey = best_occ['vkey']
     else:
         actual_vkey = vkey
-        verse_ar = ed_ar.get(vkey, '')
+        
+    verse_ar = ed_ar.get(actual_vkey, '')
+    start, end = find_arabic_span_in_verse(ar, verse_ar)
+    if start == 0 and end == 0:
         start = 0
         end = min(len(ar), len(verse_ar))
         
@@ -468,6 +550,13 @@ for idx, (ar, occ_list) in enumerate(extracted_verbs[:1450]):
     }
     
     best_occ = occ_list[0]
+    verse_ar = ed_ar.get(best_occ['vkey'], '')
+    start, end = find_arabic_span_in_verse(ar, verse_ar)
+    if start == 0 and end == 0:
+        start, end = find_arabic_span_in_verse(best_occ['arabic'], verse_ar)
+    if start == 0 and end == 0:
+        start, end = best_occ['start'], best_occ['end']
+        
     poly_list = extract_polysemy(ar, best_occ['vkey'])
     
     all_curriculum_words.append({
@@ -478,8 +567,8 @@ for idx, (ar, occ_list) in enumerate(extracted_verbs[:1450]):
         'root': root,
         'meaning': meaning,
         'vkey': best_occ['vkey'],
-        'start': best_occ['start'],
-        'end': best_occ['end'],
+        'start': start,
+        'end': end,
         'polysemyEntries': poly_list,
         'verbForm': 'Form I',
         'pastArabic': ar,
@@ -510,6 +599,13 @@ for idx, (ar, occ_list) in enumerate(extracted_nouns[:3057]):
     }
     
     best_occ = occ_list[0]
+    verse_ar = ed_ar.get(best_occ['vkey'], '')
+    start, end = find_arabic_span_in_verse(ar, verse_ar)
+    if start == 0 and end == 0:
+        start, end = find_arabic_span_in_verse(best_occ['arabic'], verse_ar)
+    if start == 0 and end == 0:
+        start, end = best_occ['start'], best_occ['end']
+        
     poly_list = extract_polysemy(ar, best_occ['vkey'])
     
     all_curriculum_words.append({
@@ -520,8 +616,8 @@ for idx, (ar, occ_list) in enumerate(extracted_nouns[:3057]):
         'root': root,
         'meaning': meaning,
         'vkey': best_occ['vkey'],
-        'start': best_occ['start'],
-        'end': best_occ['end'],
+        'start': start,
+        'end': end,
         'polysemyEntries': poly_list
     })
 
@@ -986,14 +1082,14 @@ for ch_idx in range(10):
                         'audioAssetPath': None,
                         'arabicWordStart': w['start'],
                         'arabicWordEnd': w['end'],
-                        'meaningHighlight': {
-                            'en': w['meaning']['en'],
-                            'bn': w['meaning']['bn'],
-                            'ur': w['meaning']['ur'],
-                            'in': w['meaning']['in'],
-                            'tr': w['meaning']['tr'],
-                            'fr': w['meaning']['fr']
-                        },
+                        'meaningHighlight': find_translation_highlight(w['meaning'], {
+                            'en': en_ayah,
+                            'bn': bn_ayah,
+                            'ur': ur_ayah,
+                            'in': in_ayah,
+                            'tr': tr_ayah,
+                            'fr': fr_ayah
+                        }),
                         'verbForm': w.get('verbForm'),
                         'pastArabic': w.get('pastArabic'),
                         'presentArabic': w.get('presentArabic'),
