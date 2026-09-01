@@ -18,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material3.FilledIconButton
@@ -35,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -97,11 +99,15 @@ fun WordIntroExerciseContent(
     ) {
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
+        val particleAccent = Color(0xFF0288D1)
+        val particleContainer = Color(0xFFE1F5FE)
+
         GlassSurface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             tint = when (content.lemmaCategory) {
                 LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
+                LemmaCategory.PARTICLE -> particleContainer.copy(alpha = 0.85f)
                 else -> MaterialTheme.colorScheme.primaryContainer
             }
         ) {
@@ -110,11 +116,22 @@ fun WordIntroExerciseContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // Grammatical Category Tag (Noun vs Verb)
-                val isVerb = content.lemmaCategory == LemmaCategory.VERB
-                val categoryIcon = if (isVerb) Icons.Filled.FlashOn else Icons.Filled.AutoStories
-                val categoryLabel = if (isVerb) stringResource(R.string.word_category_verb) else stringResource(R.string.word_category_noun)
-                val categoryTint = if (isVerb) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                // Grammatical Category Tag (Noun vs Verb vs Particle)
+                val categoryIcon = when (content.lemmaCategory) {
+                    LemmaCategory.VERB -> Icons.Filled.FlashOn
+                    LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
+                    else -> Icons.Filled.AutoStories
+                }
+                val categoryLabel = when (content.lemmaCategory) {
+                    LemmaCategory.VERB -> stringResource(R.string.word_category_verb)
+                    LemmaCategory.PARTICLE -> stringResource(R.string.word_category_particle)
+                    else -> stringResource(R.string.word_category_noun)
+                }
+                val categoryTint = when (content.lemmaCategory) {
+                    LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiary
+                    LemmaCategory.PARTICLE -> particleAccent
+                    else -> MaterialTheme.colorScheme.primary
+                }
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -157,6 +174,131 @@ fun WordIntroExerciseContent(
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
+                }
+            }
+        }
+
+        // Verb Conjugation Infobox (Forms I-X, Past, Present, Masdar)
+        if (content.lemmaCategory == LemmaCategory.VERB && (!content.pastArabic.isNullOrBlank() || !content.verbForm.isNullOrBlank())) {
+            GlassSurface(
+                modifier = Modifier.fillMaxWidth(),
+                tint = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.verb_conjugation_title),
+                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                        if (!content.verbForm.isNullOrBlank()) {
+                            Text(
+                                text = content.verbForm,
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.15f))
+                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (!content.pastArabic.isNullOrBlank()) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = stringResource(R.string.past_tense_label),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = content.pastArabic,
+                                    fontFamily = LocalQuranFontFamily.current,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                        if (!content.presentArabic.isNullOrBlank()) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = stringResource(R.string.present_tense_label),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = content.presentArabic,
+                                    fontFamily = LocalQuranFontFamily.current,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                        if (!content.masdarArabic.isNullOrBlank()) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = stringResource(R.string.masdar_label),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = content.masdarArabic,
+                                    fontFamily = LocalQuranFontFamily.current,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Particle Syntactic / Functional Category Infobox
+        if (content.lemmaCategory == LemmaCategory.PARTICLE && (!content.particleType.isNullOrBlank() || !content.grammaticalCategory.isNullOrBlank())) {
+            GlassSurface(
+                modifier = Modifier.fillMaxWidth(),
+                tint = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(
+                            text = stringResource(R.string.particle_type_label),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = content.particleType ?: content.grammaticalCategory ?: "",
+                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                            color = particleAccent
+                        )
+                    }
+                    if (!content.grammaticalCategory.isNullOrBlank() && content.grammaticalCategory != content.particleType) {
+                        Text(
+                            text = content.grammaticalCategory,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
         }

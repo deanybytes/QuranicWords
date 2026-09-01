@@ -299,8 +299,15 @@
 
     <string name="lesson_category_noun">Noun Lesson</string>
     <string name="lesson_category_verb">Verb Lesson</string>
-    <string name="word_category_noun">Noun</string>
-    <string name="word_category_verb">Verb</string>
+    <string name="lesson_category_particle">Particle Lesson</string>
+    <string name="word_category_noun">Noun (Ism)</string>
+    <string name="word_category_verb">Verb (Fi\'l)</string>
+    <string name="word_category_particle">Particle (Ḥarf)</string>
+    <string name="verb_conjugation_title">Verb Forms &amp; Conjugation (الصرف)</string>
+    <string name="past_tense_label">Past (الماضي)</string>
+    <string name="present_tense_label">Present (المضارع)</string>
+    <string name="masdar_label">Verbal Noun (المصدر)</string>
+    <string name="particle_type_label">Particle Type (نوع الحرف)</string>
     <string name="polysemy_tab_format">Meaning [%d]</string>
     <string name="polysemy_meanings_title">Contextual Meanings (Wujūh al-Qur\'an)</string>
 

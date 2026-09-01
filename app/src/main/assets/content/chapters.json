@@ -3,25 +3,25 @@
     {
       "id": "ch_01",
       "title": {
-        "en": "Divine Foundations & Core Pillars",
-        "bn": "তাওহিদ, আল্লাহর পরিচয় ও মৌলিক স্তম্ভ",
-        "ur": "توحید اور بنیادی ارکان",
-        "in": "Fondasi Ketauhidan & Rukun Utama",
-        "tr": "Tevhid ve Temel Esaslar",
-        "fr": "Fondements Divins & Piliers Majeurs"
+        "en": "Divine Foundations, Core Particles & Essential Lemmas",
+        "bn": "তাওহিদ, মৌলিক হরফ ও প্রাথমিক শব্দসম্ভার",
+        "ur": "توحید، بنیادی حروف اور بنیادی الفاظ",
+        "in": "Fondasi Ketauhidan, Partikel Utama & Kosakata Dasar",
+        "tr": "Tevhid, Temel Harfler ve Temel Kelimeler",
+        "fr": "Fondements Divins, Particules Clés & Lemmes Majeurs"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Covers high-frequency particles (حروف), core nouns (أسماء), and foundational verbs (أفعال) forming over 80% of Qur'anic text.",
+        "bn": "সর্বাধিক ব্যবহৃত হরফ (حروف), মৌলিক বিশেষ্য (أسماء) ও ক্রিয়াপদ (أفعال) যা কুরআনের ৮০% এরও বেশি অংশ জুড়ে বিদ্যমান।",
+        "ur": "سب سے زیادہ استعمال ہونے والے حروف، اسم اور افعال جو قرآن کے 80 فیصد سے زیادہ متن کا احاطہ کرتے ہیں۔",
+        "in": "Mencakup partikel frekuensi tinggi (harf), nomina utama (ism), dan verba dasar (fi'l) yang mencakup lebih dari 80% teks Al-Qur'an.",
+        "tr": "Kur'an metninin %80'inden fazlasını oluşturan en sık geçen harfler, isimler ve temel fiilleri kapsar.",
+        "fr": "Couvre les particules fondamentales (harf), noms essentiels (ism) et verbes de base (fi'l) constituant plus de 80% du texte coranique."
       },
       "sortOrder": 1,
-      "wordCount": 454,
-      "quranOccurrenceCount": 28500,
-      "quranOccurrencePercent": 80.88
+      "wordCount": 462,
+      "quranOccurrenceCount": 84015,
+      "quranOccurrencePercent": 38.1
     },
     {
       "id": "ch_02",
@@ -34,201 +34,201 @@
         "fr": "Prophètes, Nations & Morales"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Narratives of the messengers, prophetic dialogue verbs, and historical societal terms.",
+        "bn": "নবী-রাসূলগণের ঘটনাপঞ্জি, কথোপকথনের ক্রিয়াপদ এবং ঐতিহাসিক জাতিসমূহের শব্দভাণ্ডার।",
+        "ur": "انبیاء کرام کے واقعات، مکالماتی افعال اور تاریخی قوموں سے متعلق الفاظ۔",
+        "in": "Kisah para nabi, kata kerja dialog kenabian, dan istilah umat terdahulu.",
+        "tr": "Peygamberlerin kıssaları, diyalog fiilleri ve geçmiş kavimlere ait terimler.",
+        "fr": "Récits des prophètes, verbes de dialogue prophétique et lemmes historiques."
       },
       "sortOrder": 2,
-      "wordCount": 454,
-      "quranOccurrenceCount": 2121,
-      "quranOccurrencePercent": 6.02
+      "wordCount": 462,
+      "quranOccurrenceCount": 27040,
+      "quranOccurrencePercent": 12.26
     },
     {
       "id": "ch_03",
       "title": {
         "en": "Worship, Devotion & Righteous Deeds",
-        "bn": "ইবাদত, আত্মশুদ্ধি ও সৎকর্মের আহ্বান",
-        "ur": "عبادت، تقویٰ اور اعمالِ صالحہ",
+        "bn": "ইবাদত, আত্মশুদ্ধি ও পুণ্যময় কর্ম",
+        "ur": "عبادت، تقویٰ اور اعمال صالحہ",
         "in": "Ibadah, Pengabdian & Amal Saleh",
         "tr": "İbadet, Takva ve Salih Ameller",
         "fr": "Adoration, Dévotion & Bonnes Actions"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Prayers, fasting, charity, purification verbs, and terminology of inner devotion.",
+        "bn": "নামাজ, রোজা, জাকাত, আত্মশুদ্ধির ক্রিয়া এবং আধ্যাত্মিক একাগ্রতার শব্দাবলি।",
+        "ur": "نماز، روزہ، زکوٰۃ، تزکیہ نفس کے افعال اور تقویٰ و پرہیزگاری کے الفاظ۔",
+        "in": "Salat, puasa, zakat, verba penyucian jiwa, dan istilah ketakwaan.",
+        "tr": "Namaz, oruç, zekat, arınma fiilleri ve içsel takva terminolojisi.",
+        "fr": "Prières, jeûne, aumône, verbes de purification et termes de piété."
       },
       "sortOrder": 3,
-      "wordCount": 454,
-      "quranOccurrenceCount": 1072,
-      "quranOccurrencePercent": 3.04
+      "wordCount": 462,
+      "quranOccurrenceCount": 23237,
+      "quranOccurrencePercent": 10.54
     },
     {
       "id": "ch_04",
       "title": {
         "en": "Faith, Belief & Spiritual Realities",
-        "bn": "ঈমান, অন্তরের বিশ্বাস ও আত্মিক উপলব্ধি",
-        "ur": "ایمان، یقین اور روحانی حقائق",
-        "in": "Iman, Keyakinan & Realitas Spiritual",
-        "tr": "İman, İnanç ve Maneviyat",
+        "bn": "ঈমান, অন্তরের বিশ্বাস ও আধ্যাত্মিক বাস্তবতা",
+        "ur": "ایمان، قلبی یقین اور روحانی حقائق",
+        "in": "Keimanan, Keyakinan & Realitas Spiritual",
+        "tr": "İman, Kalbi Yakîn ve Manevi Hakikatler",
         "fr": "Foi, Croyance & Réalités Spirituelles"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Attributes of certainty, cognitive verbs of perception, and spiritual consciousness.",
+        "bn": "দৃঢ় বিশ্বাসের বৈশিষ্ট্য, উপলব্ধিমূলক ক্রিয়া এবং আধ্যাত্মিক সচেতনতা।",
+        "ur": "یقین کے اوصاف، فہم و ادراک کے افعال اور قلبی بیداری۔",
+        "in": "Sifat-sifat keyakinan, verba persepsi kognitif, dan kesadaran spiritual.",
+        "tr": "Yakîn sıfatları, idrak fiilleri ve manevi bilinç terimleri.",
+        "fr": "Attributs de certitude, verbes de perception et conscience spirituelle."
       },
       "sortOrder": 4,
-      "wordCount": 454,
-      "quranOccurrenceCount": 782,
-      "quranOccurrencePercent": 2.22
+      "wordCount": 462,
+      "quranOccurrenceCount": 20375,
+      "quranOccurrencePercent": 9.24
     },
     {
       "id": "ch_05",
       "title": {
-        "en": "Creation, Heavens, Earth & Cosmos",
-        "bn": "সৃষ্টিজগৎ, আকাশমণ্ডল ও প্রকৃতির নিদর্শন",
-        "ur": "تخلیقِ کائنات، زمین و آسمان",
-        "in": "Penciptaan Alam Semesta, Langit & Bumi",
-        "tr": "Yaratılış, Gökyüzü ve Yeryüzü",
-        "fr": "Création, Cieux & Signes de la Terre"
+        "en": "Creation, Heavens, Earth & Natural Signs",
+        "bn": "সৃষ্টিজগৎ, আকাশমণ্ডলী, পৃথিবী ও মহাজাগতিক নিদর্শন",
+        "ur": "تخلیق، آسمان و زمین اور کائناتی نشانیاں",
+        "in": "Penciptaan, Langit, Bumi & Tanda Alamiah",
+        "tr": "Yaratılış, Gökler, Yer ve Kevnî Ayetler",
+        "fr": "Création, Cieux, Terre & Signes Naturels"
       },
       "description": {
-        "en": "Covers 453 core Qur'anic lemmas (305 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "453টি মূল কুরআনিক শব্দ (305টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 453 اہم الفاظ (305 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 453 kata inti Al-Qur'an (305 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "453 temel Kur'an kelimesini (305 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 453 lemmes coraniques majeurs (305 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Cosmic phenomena, meteorological terms, natural elements, and verbs of origination.",
+        "bn": "মহাজাগতিক নিদর্শন, আবহাওয়া, প্রাকৃতিক উপাদান এবং সৃষ্টির আদি ক্রিয়াপদ।",
+        "ur": "کائناتی مظاہر، موسمی کیفیات، قدرتی عناصر اور تخلیق کے افعال۔",
+        "in": "Fenomena kosmis, istilah meteorologis, elemen alam, dan verba penciptaan.",
+        "tr": "Kozmik olaylar, doğa unsurları ve yaratma fiilleri.",
+        "fr": "Phénomènes cosmiques, termes météorologiques et verbes de création."
       },
       "sortOrder": 5,
-      "wordCount": 453,
-      "quranOccurrenceCount": 495,
-      "quranOccurrencePercent": 1.4
+      "wordCount": 462,
+      "quranOccurrenceCount": 17545,
+      "quranOccurrencePercent": 7.96
     },
     {
       "id": "ch_06",
       "title": {
         "en": "Humanity, Society & Sacred Law",
-        "bn": "মানবসমাজ, পরিবার ও শরিয়তের বিধান",
-        "ur": "انسانی معاشرہ، خاندان اور احکام",
+        "bn": "মানবজাতি, সমাজ ব্যবস্থা ও শরীয়তের বিধান",
+        "ur": "انسانیت، معاشرت اور احکام شریعت",
         "in": "Kemanusiaan, Masyarakat & Hukum Syariat",
-        "tr": "İnsanlık, Toplum ve Hükümler",
+        "tr": "İnsanlık, Toplum ve Şeriat Hükümleri",
         "fr": "Humanité, Société & Lois Sacrées"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Family law, commercial ethics, justice, interpersonal rights, and legal obligations.",
+        "bn": "পারিবারিক বিধান, বাণিজ্যিক সততা, ন্যায়বিচার ও পারস্পরিক সামাজিক অধিকার।",
+        "ur": "خاندانی احکام، تجارتی اخلاقیات، عدل و انصاف اور باہمی حقوق۔",
+        "in": "Hukum keluarga, etika muamalah, keadilan, dan hak-hak sosial.",
+        "tr": "Aile hukuku, ticaret ahlakı, adalet ve sosyal haklar.",
+        "fr": "Droit familial, éthique commerciale, justice et obligations mutuelles."
       },
       "sortOrder": 6,
-      "wordCount": 454,
-      "quranOccurrenceCount": 454,
-      "quranOccurrencePercent": 1.29
+      "wordCount": 462,
+      "quranOccurrenceCount": 14917,
+      "quranOccurrencePercent": 6.76
     },
     {
       "id": "ch_07",
       "title": {
         "en": "The Hereafter, Resurrection & Eternity",
-        "bn": "আখিরাত, কিয়ামত, জান্নাত ও জাহান্নাম",
+        "bn": "আখিরাত, পুনরুত্থান ও অনন্ত পরকাল",
         "ur": "آخرت، قیامت اور ابدی زندگی",
-        "in": "Hari Kiamat, Kebangkitan & Keabadian",
+        "in": "Hari Akhir, Kebangkitan & Keabadian",
         "tr": "Ahiret, Kıyamet ve Ebediyet",
-        "fr": "L'Au-delà, Résurrection & Éternité"
+        "fr": "Au-delà, Résurrection & Éternité"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Eschatological events, Paradise delights, Hellfire warnings, and eternal destinations.",
+        "bn": "কেয়ামতের ঘটনাবলি, জান্নাতের নেয়ামত, জাহান্নামের সতর্কবার্তা ও অনন্ত গন্তব্য।",
+        "ur": "قیامت کے مناظر، جنت کی نعمتیں، جہنم کا عذاب اور ابدی ٹھکانے۔",
+        "in": "Peristiwa eskatologis, kenikmatan surga, peringatan neraka, dan akhirat.",
+        "tr": "Kıyamet ahvali, cennet nimetleri, cehennem azabı ve ebedi yurt.",
+        "fr": "Événements eschatologiques, délices du Paradis et avertissements de l'Enfer."
       },
       "sortOrder": 7,
-      "wordCount": 454,
-      "quranOccurrenceCount": 454,
-      "quranOccurrencePercent": 1.29
+      "wordCount": 461,
+      "quranOccurrenceCount": 12288,
+      "quranOccurrencePercent": 5.57
     },
     {
       "id": "ch_08",
       "title": {
-        "en": "Divine Wisdom, Parables & Signs",
-        "bn": "ঐশ্বরিক প্রজ্ঞা, উপদেশমূলক রূপক ও নিদর্শন",
-        "ur": "حکمتِ الٰہی، امثال اور عبرتیں",
-        "in": "Hikmah Ilahi, Perumpamaan & Tanda Kekuasaan",
-        "tr": "İlahi Hikmet, Meseller ve Deliller",
-        "fr": "Sagesse Divine, Paraboles & Signes"
+        "en": "Divine Wisdom, Parables & Exhortations",
+        "bn": "ঐশী প্রজ্ঞা, দৃষ্টান্ত ও উপদেশাবলি",
+        "ur": "حکمت الٰہی، امثال اور نصائح",
+        "in": "Hikmah Ilahi, Perumpamaan & Nasihat",
+        "tr": "İlahi Hikmet, Meseller ve Öğütler",
+        "fr": "Sagesse Divine, Paraboles & Exhortations"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Quranic allegories, moral parables, wisdom dictums, and contemplative expressions.",
+        "bn": "কুরআনিক উপমা, নৈতিক রূপকগাথা, প্রজ্ঞাপূর্ণ বাণী ও চিন্তাশীল অভিব্যক্তি।",
+        "ur": "قرآنی تمثیلات، اخلاقی امثال، دانائی کے کلمات اور فکری بیانات۔",
+        "in": "Alegori Qur'ani, perumpamaan moral, mutiara hikmah, dan refleksi.",
+        "tr": "Kur'an meselleri, ahlaki öğütler ve tefekkür ifadeleri.",
+        "fr": "Allégories coraniques, paraboles morales et maximes de sagesse."
       },
       "sortOrder": 8,
-      "wordCount": 454,
-      "quranOccurrenceCount": 454,
-      "quranOccurrencePercent": 1.29
+      "wordCount": 461,
+      "quranOccurrenceCount": 9659,
+      "quranOccurrencePercent": 4.38
     },
     {
       "id": "ch_09",
       "title": {
         "en": "Patience, Struggle & Divine Victory",
-        "bn": "ধৈর্য, অবিচল সাধনা ও আল্লাহর সাহায্য",
-        "ur": "صبر، استقامت اور نصرتِ الٰہی",
-        "in": "Kesabaran, Perjuangan & Pertolongan Allah",
+        "bn": "ধৈর্য, অবিচল সংগ্রাম ও ঐশী বিজয়",
+        "ur": "صبر، استقامت اور نصرت الٰہی",
+        "in": "Kesabaran, Perjuangan & Kemenangan Ilahi",
         "tr": "Sabır, Mücadele ve İlahi Zafer",
-        "fr": "Patience, Épreuves & Victoire Divine"
+        "fr": "Patience, Lutte & Victoire Divine"
       },
       "description": {
-        "en": "Covers 454 core Qur'anic lemmas (306 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "454টি মূল কুরআনিক শব্দ (306টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 454 اہم الفاظ (306 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 454 kata inti Al-Qur'an (306 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "454 temel Kur'an kelimesini (306 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 454 lemmes coraniques majeurs (306 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Steadfastness under trial, spiritual warfare verbs, triumph of truth, and divine aid.",
+        "bn": "বিপদে ধৈর্যধারণ, সত্যের সংগ্রাম, বিজয়ের প্রতিশ্রুতি এবং আল্লাহর বিশেষ সাহায্য।",
+        "ur": "آزمائشوں میں ثابت قدمی، جہد و استقامت، فتح کی بشارت اور نصرت خداوندی۔",
+        "in": "Keteguhan dalam ujian, verba perjuangan, kemenangan hakiki, dan pertolongan Allah.",
+        "tr": "Zorluklarda sabır, hak mücadele fiilleri ve ilahi yardım vaadi.",
+        "fr": "Persévérance dans l'épreuve, verbes de lutte spirituelle et secours divin."
       },
       "sortOrder": 9,
-      "wordCount": 454,
-      "quranOccurrenceCount": 454,
-      "quranOccurrencePercent": 1.29
+      "wordCount": 461,
+      "quranOccurrenceCount": 7031,
+      "quranOccurrencePercent": 3.19
     },
     {
       "id": "ch_10",
       "title": {
         "en": "Comprehensive Lexicon & Deep Eloquence",
-        "bn": "সার্বজনীন কুরআনিক শব্দভাণ্ডার ও গভীর বাগ্মিতা",
-        "ur": "جامع قرآنی الفاظ اور بلاغت",
-        "in": "Kosakata Lengkap & Keindahan Balaghah",
-        "tr": "Kapsamlı Sözlük ve Belagat",
-        "fr": "Lexique Intégral & Haute Éloquence"
+        "bn": "সার্বজনীন অভিধান ও গভীর কুরআনীয় অলঙ্কারশাস্ত্র",
+        "ur": "جامع لغت اور گہری قرآنی بلاغت",
+        "in": "Leksikon Komprehensif & Retorika Mendalam",
+        "tr": "Kapsamlı Sözlük ve Derin Belagat",
+        "fr": "Lexique Exhaustif & Éloquence Profonde"
       },
       "description": {
-        "en": "Covers 453 core Qur'anic lemmas (305 Nouns & 148 Verbs) with contextual polysemy examples.",
-        "bn": "453টি মূল কুরআনিক শব্দ (305টি বিশেষ্য ও 148টি ক্রিয়া) এবং আয়াতভিত্তিক অর্থ ধারণ করে।",
-        "ur": "قرآن کے 453 اہم الفاظ (305 اسم اور 148 فعل) اور ان کے معانی کا احاطہ کرتا ہے۔",
-        "in": "Mencakup 453 kata inti Al-Qur'an (305 Nomina & 148 Verba) beserta contoh ayat.",
-        "tr": "453 temel Kur'an kelimesini (305 İsim ve 148 Fiil) ve ayet örneklerini kapsar.",
-        "fr": "Couvre 453 lemmes coraniques majeurs (305 Noms & 148 Verbes) avec exemples de versets."
+        "en": "Rare rhetorical gems, hapax legomena, expressive nuance words, and mastery lexicon completing 100% of the Quran.",
+        "bn": "কুরআনের অনুপম অলঙ্কারপূর্ণ শব্দ, বিরল প্রয়োগ এবং শতভাগ কুরআন বোঝার পূর্ণাঙ্গ শব্দসম্ভার।",
+        "ur": "قرآن کے نایاب اور فصیح الفاظ، گہرے معنوی لطائف اور 100 فیصد قرآن کی مکمل لغت۔",
+        "in": "Kata-kata retoris istimewa, nuansa ekspresif mendalam, dan penguasaan 100% kosakata Al-Qur'an.",
+        "tr": "Nadir belagat incileri, derin manalı kelimeler ve %100 Kur'an hakimiyetini tamamlayan sözlük.",
+        "fr": "Joyaux rhétoriques rares, nuances expressives et maîtrise achevant 100% du Coran."
       },
       "sortOrder": 10,
-      "wordCount": 453,
-      "quranOccurrenceCount": 451,
-      "quranOccurrencePercent": 1.28
+      "wordCount": 461,
+      "quranOccurrenceCount": 4403,
+      "quranOccurrencePercent": 2.0
     }
   ]
 }

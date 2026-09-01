@@ -91,7 +91,14 @@ sealed interface ExerciseContent {
         val audioAssetPath: String? = null,
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
-        val meaningHighlight: LocalizedText = emptyMap()
+        val meaningHighlight: LocalizedText = emptyMap(),
+        val verbForm: String? = null,
+        val pastArabic: String? = null,
+        val presentArabic: String? = null,
+        val masdarArabic: String? = null,
+        val particleType: String? = null,
+        val grammaticalCategory: String? = null,
+        val partOfSpeechDetail: String? = null
     ) : ExerciseContent
 
     /**

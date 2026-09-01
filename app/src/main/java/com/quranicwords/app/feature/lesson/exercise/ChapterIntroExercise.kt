@@ -84,6 +84,7 @@ fun ChapterIntroExerciseContent(
     val localizedAccumulatedWords = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.accumulatedWords.toString(), language)
     val localizedNouns = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.nounCount.toString(), language)
     val localizedVerbs = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.verbCount.toString(), language)
+    val localizedParticles = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.particleCount.toString(), language)
 
     Column(
         modifier = modifier
@@ -316,6 +317,8 @@ fun ChapterIntroExerciseContent(
                 val totalWords = (content.nounCount + content.verbCount + content.particleCount).coerceAtLeast(1)
                 val nounPct = (content.nounCount.toFloat() / totalWords.toFloat()) * 100f
                 val verbPct = (content.verbCount.toFloat() / totalWords.toFloat()) * 100f
+                val particlePct = (content.particleCount.toFloat() / totalWords.toFloat()) * 100f
+                val particleColor = Color(0xFF0288D1)
 
                 // Proportional Multi-Color Bar
                 Row(
@@ -324,21 +327,33 @@ fun ChapterIntroExerciseContent(
                         .height(8.dp)
                         .clip(RoundedCornerShape(4.dp))
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(nounPct / 100f)
-                            .height(8.dp)
-                            .background(BrandGreen)
-                    )
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(8.dp)
-                            .background(BrandGold)
-                    )
+                    if (content.nounCount > 0) {
+                        Box(
+                            modifier = Modifier
+                                .weight(nounPct.coerceAtLeast(0.1f))
+                                .height(8.dp)
+                                .background(BrandGreen)
+                        )
+                    }
+                    if (content.verbCount > 0) {
+                        Box(
+                            modifier = Modifier
+                                .weight(verbPct.coerceAtLeast(0.1f))
+                                .height(8.dp)
+                                .background(BrandGold)
+                        )
+                    }
+                    if (content.particleCount > 0) {
+                        Box(
+                            modifier = Modifier
+                                .weight(particlePct.coerceAtLeast(0.1f))
+                                .height(8.dp)
+                                .background(particleColor)
+                        )
+                    }
                 }
 
-                // POS Items
+                // POS Items (Ism, Fi'l, Harf)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -355,6 +370,12 @@ fun ChapterIntroExerciseContent(
                         label = stringResource(R.string.chapter_intro_fil_label),
                         count = localizedVerbs,
                         percentage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", verbPct), language)
+                    )
+                    PosItem(
+                        dotColor = particleColor,
+                        label = stringResource(R.string.chapter_intro_harf_label),
+                        count = localizedParticles,
+                        percentage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", particlePct), language)
                     )
                 }
             }

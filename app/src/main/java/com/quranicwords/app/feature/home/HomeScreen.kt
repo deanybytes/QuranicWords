@@ -31,6 +31,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronLeft
@@ -824,10 +825,16 @@ private fun LessonNode(
     ) {
         val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
         val isVerb = category == LemmaCategory.VERB
+        val isParticle = category == LemmaCategory.PARTICLE
+        val particleAccent = Color(0xFF0288D1)
+        val particleContainer = Color(0xFFE1F5FE)
+
         val containerColor = if (kindVisual.isQuizOrExam) {
             kindVisual.containerColor
         } else if (isVerb && isUnlocked) {
             MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.85f)
+        } else if (isParticle && isUnlocked) {
+            particleContainer.copy(alpha = 0.85f)
         } else {
             statusContainerColor(status)
         }
@@ -835,6 +842,8 @@ private fun LessonNode(
             kindVisual.accentColor
         } else if (isVerb && isUnlocked) {
             MaterialTheme.colorScheme.tertiary
+        } else if (isParticle && isUnlocked) {
+            particleAccent
         } else {
             defaultTint
         }
@@ -850,6 +859,7 @@ private fun LessonNode(
             isCurrent -> MaterialTheme.colorScheme.tertiary
             kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.45f)
             isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.6f)
+            isParticle && isUnlocked -> particleAccent.copy(alpha = 0.6f)
             else -> null
         }
 
@@ -877,6 +887,7 @@ private fun LessonNode(
             tint = when {
                 kindVisual.isQuizOrExam -> kindVisual.containerColor
                 isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.80f)
+                isParticle && isUnlocked -> particleContainer.copy(alpha = 0.80f)
                 isUnlocked -> MaterialTheme.colorScheme.primaryContainer
                 else -> MaterialTheme.colorScheme.surfaceVariant
             },
@@ -884,11 +895,12 @@ private fun LessonNode(
                 isCurrent -> MaterialTheme.colorScheme.tertiary
                 kindVisual.isQuizOrExam -> kindVisual.accentColor.copy(alpha = if (isUnlocked) 0.8f else 0.4f)
                 isVerb && isUnlocked -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)
+                isParticle && isUnlocked -> particleAccent.copy(alpha = 0.5f)
                 else -> null
             }
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
-                // Quiz / Exam or Noun / Verb Distinctive Tag
+                // Quiz / Exam or Noun / Verb / Particle Distinctive Tag
                 if (kindVisual.isQuizOrExam) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -915,10 +927,22 @@ private fun LessonNode(
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                 } else {
-                    // Explicit Noun vs Verb Badge
-                    val categoryIcon = if (isVerb) Icons.Filled.FlashOn else Icons.Filled.AutoStories
-                    val categoryLabelRes = if (isVerb) R.string.lesson_category_verb else R.string.lesson_category_noun
-                    val categoryAccent = if (isVerb) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                    // Explicit Noun vs Verb vs Particle Badge
+                    val categoryIcon = when (category) {
+                        LemmaCategory.VERB -> Icons.Filled.FlashOn
+                        LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
+                        else -> Icons.Filled.AutoStories
+                    }
+                    val categoryLabelRes = when (category) {
+                        LemmaCategory.VERB -> R.string.lesson_category_verb
+                        LemmaCategory.PARTICLE -> R.string.lesson_category_particle
+                        else -> R.string.lesson_category_noun
+                    }
+                    val categoryAccent = when (category) {
+                        LemmaCategory.VERB -> MaterialTheme.colorScheme.tertiary
+                        LemmaCategory.PARTICLE -> particleAccent
+                        else -> MaterialTheme.colorScheme.primary
+                    }
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
