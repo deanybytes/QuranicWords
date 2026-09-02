@@ -12,7 +12,8 @@ directly from the official v7 Excel catalogs in assets/Words & Meanings/:
 Total: 4,709 unique Quranic lemmas across 6 languages (en, bn, ur, in, tr, fr)
 with 100% authentic Quranic Ayahs, Harakat/Tashkeel, precomputed spans, and
 dynamic multi-meaning (polysemy / Wujuh al-Quran) structures taken directly
-from the master Excel assets, guaranteeing 100% language purity in each language.
+from the master Excel assets, guaranteeing 100% language purity and single clean
+meanings for quiz options.
 """
 
 import os
@@ -355,11 +356,21 @@ def main():
     for w in all_words:
         words_by_cat[w['lemmaCategory']].append(w)
 
+    def extract_single_option_meaning(w_item):
+        single_m = {}
+        for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
+            val = w_item['meaning'].get(lang, '')
+            # Split by /, \, ;, |
+            parts = re.split(r'\s*[/\\;|,]\s*', str(val).strip())
+            parts = [p.strip() for p in parts if p.strip()]
+            single_m[lang] = parts[0] if parts else val
+        return single_m
+
     def generate_options(correct_w, pool):
         correct_opt = {
             'id': f"opt_{correct_w['id']}",
             'labelArabic': correct_w['wordArabic'],
-            'label': correct_w['meaning']
+            'label': extract_single_option_meaning(correct_w)
         }
         cand_distractors = [w for w in pool if w['id'] != correct_w['id']]
         step = max(1, len(cand_distractors) // 10)
@@ -370,7 +381,7 @@ def main():
             distractors.append({
                 'id': f"opt_{d_w['id']}",
                 'labelArabic': d_w['wordArabic'],
-                'label': d_w['meaning']
+                'label': extract_single_option_meaning(d_w)
             })
         
         slot = correct_w['rank'] % 4
