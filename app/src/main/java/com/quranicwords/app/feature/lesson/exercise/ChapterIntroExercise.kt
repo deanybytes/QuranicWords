@@ -139,8 +139,16 @@ fun ChapterIntroExerciseContent(
                             tint = BrandGold,
                             modifier = Modifier.size(16.dp)
                         )
+                        val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
+                        val urOrdinals = arrayOf("", "پہلا", "دوسرا", "تیسرا", "چوتھا", "پانچواں", "چھٹا", "ساتواں", "آٹھواں", "نواں", "دسواں")
+                        val badgeText = when (language) {
+                            com.quranicwords.app.core.domain.model.Language.BANGLA -> if (content.chapterNumber in 1..10) "${bnOrdinals[content.chapterNumber]} অধ্যায় পরিচিতি" else "অধ্যায় $localizedChapterNumber পরিচিতি"
+                            com.quranicwords.app.core.domain.model.Language.URDU -> if (content.chapterNumber in 1..10) "${urOrdinals[content.chapterNumber]} باب کا تعارف" else "باب $localizedChapterNumber کا تعارف"
+                            else -> stringResource(R.string.chapter_intro_label, localizedChapterNumber)
+                        }
+
                         Text(
-                            text = stringResource(R.string.chapter_intro_label, localizedChapterNumber),
+                            text = badgeText,
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontFamily = QuranCitationFontFamily,
                                 fontWeight = FontWeight.Bold,
