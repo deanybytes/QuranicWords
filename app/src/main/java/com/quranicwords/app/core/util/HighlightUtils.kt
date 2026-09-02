@@ -46,10 +46,9 @@ object HighlightUtils {
      * Finds the start and end (exclusive) character range in [verseTranslation] that corresponds
      * to the taught meaning, expanding to full word boundaries to ensure complete unbroken words.
      *
-     * 1. If [meaningHighlight] is provided, tries case-insensitive substring search.
-     * 2. If not found, cleans [meaning] (removes parentheticals, splits comma/slash/semicolon alternatives)
-     *    and searches for phrases or key content words.
-     * 3. Expands the resolved range to full word boundaries.
+     * 1. If [meaningHighlight] is provided, matches against full words or token boundaries.
+     * 2. If not found, splits [meaning] alternatives and matches against exact tokens or stem matches.
+     * 3. Prevents matching short syllables inside unrelated adjacent words.
      */
     fun findMeaningHighlightRange(
         verseTranslation: String?,
@@ -58,31 +57,48 @@ object HighlightUtils {
     ): Pair<Int, Int>? {
         if (verseTranslation.isNullOrBlank()) return null
 
-        // Pass 1: Direct meaningHighlight substring search (case-insensitive)
+        val tokenRegex = Regex("[^\\s,.;:!?।()\\[\\]{}\"'`«»„“”/\\\\-]+")
+        val tokens = tokenRegex.findAll(verseTranslation).map { match ->
+            Triple(match.range.first, match.range.last + 1, match.value)
+        }.toList()
+
+        // Pass 1: Direct meaningHighlight matching
         if (!meaningHighlight.isNullOrBlank()) {
-            val idx = verseTranslation.indexOf(meaningHighlight, ignoreCase = true)
-            if (idx >= 0) {
-                return expandToWordBoundaries(verseTranslation, idx, idx + meaningHighlight.length)
+            val hl = meaningHighlight.trim()
+            val normHl = normalize(hl)
+            // Exact token match
+            for ((start, end, tok) in tokens) {
+                if (tok.equals(hl, ignoreCase = true) || normalize(tok).equals(normHl, ignoreCase = true)) {
+                    return Pair(start, end)
+                }
             }
-            // Try normalized search for meaningHighlight (e.g. macron characters)
-            val normTrans = normalize(verseTranslation)
-            val normHl = normalize(meaningHighlight)
-            val normIdx = normTrans.indexOf(normHl, ignoreCase = true)
-            if (normIdx >= 0) {
-                val end = (normIdx + meaningHighlight.length).coerceAtMost(verseTranslation.length)
-                return expandToWordBoundaries(verseTranslation, normIdx, end)
+            // Multi-word phrase search with word boundaries
+            val idx = verseTranslation.indexOf(hl, ignoreCase = true)
+            if (idx >= 0) {
+                val beforeOk = idx == 0 || !isWordChar(verseTranslation[idx - 1])
+                val afterOk = (idx + hl.length == verseTranslation.length) || !isWordChar(verseTranslation[idx + hl.length])
+                if (beforeOk && afterOk) {
+                    return expandToWordBoundaries(verseTranslation, idx, idx + hl.length)
+                }
+            }
+            // Token stem / prefix match
+            if (hl.length >= 3) {
+                for ((start, end, tok) in tokens) {
+                    val normTok = normalize(tok)
+                    if (tok.length >= 3 && (normTok.startsWith(normHl, ignoreCase = true) || normHl.startsWith(normTok, ignoreCase = true))) {
+                        return Pair(start, end)
+                    }
+                }
             }
         }
 
         if (meaning.isNullOrBlank()) return null
 
-        // Pass 2: Clean meaning, extract candidate phrases and words
+        // Pass 2: Clean meaning, extract candidate alternatives
         val cleaned = meaning
             .replace(Regex("\\(.*?\\)|\\[.*?\\]"), "")
             .trim()
         if (cleaned.isEmpty()) return null
-
-        val normTrans = normalize(verseTranslation)
 
         // Split alternatives: "sign, verse" -> ["sign", "verse"], "Allah / God" -> ["Allah", "God"]
         val rawParts = cleaned.split(Regex("[,;/|]|\\bor\\b", RegexOption.IGNORE_CASE))
@@ -93,45 +109,59 @@ object HighlightUtils {
             .distinct()
             .sortedByDescending { it.length }
 
-        // Try candidate phrases
+        // Match exact token
         for (cand in candidates) {
             val normCand = normalize(cand)
-            if (normCand.isBlank()) continue
-            val regex = Regex("\\b${Regex.escape(normCand)}\\b", RegexOption.IGNORE_CASE)
-            val match = regex.find(normTrans)
-            if (match != null) {
-                val start = match.range.first.coerceIn(0, verseTranslation.length)
-                val end = (match.range.last + 1).coerceIn(start, verseTranslation.length)
-                return expandToWordBoundaries(verseTranslation, start, end)
-            }
-            // Fallback substring search within words if regex boundary fails for Indic/accented
-            val subIdx = normTrans.indexOf(normCand, ignoreCase = true)
-            if (subIdx >= 0) {
-                val end = (subIdx + normCand.length).coerceAtMost(verseTranslation.length)
-                return expandToWordBoundaries(verseTranslation, subIdx, end)
+            for ((start, end, tok) in tokens) {
+                if (tok.equals(cand, ignoreCase = true) || normalize(tok).equals(normCand, ignoreCase = true)) {
+                    return Pair(start, end)
+                }
             }
         }
 
-        // Try individual words from candidates
-        val words = candidates.flatMap { cand ->
+        // Match multi-word candidate phrase
+        for (cand in candidates) {
+            if (" " in cand) {
+                val idx = verseTranslation.indexOf(cand, ignoreCase = true)
+                if (idx >= 0) {
+                    val beforeOk = idx == 0 || !isWordChar(verseTranslation[idx - 1])
+                    val afterOk = (idx + cand.length == verseTranslation.length) || !isWordChar(verseTranslation[idx + cand.length])
+                    if (beforeOk && afterOk) {
+                        return expandToWordBoundaries(verseTranslation, idx, idx + cand.length)
+                    }
+                }
+            }
+        }
+
+        // Match token stem / prefix (min length 3 to prevent false positive short matches)
+        for (cand in candidates) {
+            val normCand = normalize(cand)
+            if (normCand.length >= 3) {
+                for ((start, end, tok) in tokens) {
+                    val normTok = normalize(tok)
+                    if (normTok.length >= 3 && (normTok.startsWith(normCand, ignoreCase = true) || normCand.startsWith(normTok, ignoreCase = true))) {
+                        return Pair(start, end)
+                    }
+                }
+            }
+        }
+
+        // Match individual words from multi-word candidates
+        val subWords = candidates.flatMap { cand ->
             cand.split(Regex("[^\\p{L}\\p{N}']+"))
-                .filter { it.length >= 2 }
+                .filter { it.length >= 3 }
         }.distinct().sortedByDescending { it.length }
 
-        for (word in words) {
+        for (word in subWords) {
             val normWord = normalize(word)
-            if (normWord.isBlank()) continue
-            val regex = Regex("\\b${Regex.escape(normWord)}\\b", RegexOption.IGNORE_CASE)
-            val match = regex.find(normTrans)
-            if (match != null) {
-                val start = match.range.first.coerceIn(0, verseTranslation.length)
-                val end = (match.range.last + 1).coerceIn(start, verseTranslation.length)
-                return expandToWordBoundaries(verseTranslation, start, end)
-            }
-            val subIdx = normTrans.indexOf(normWord, ignoreCase = true)
-            if (subIdx >= 0) {
-                val end = (subIdx + normWord.length).coerceAtMost(verseTranslation.length)
-                return expandToWordBoundaries(verseTranslation, subIdx, end)
+            for ((start, end, tok) in tokens) {
+                val normTok = normalize(tok)
+                if (normTok.equals(normWord, ignoreCase = true)) {
+                    return Pair(start, end)
+                }
+                if (normTok.length >= 3 && (normTok.startsWith(normWord, ignoreCase = true) || normWord.startsWith(normTok, ignoreCase = true))) {
+                    return Pair(start, end)
+                }
             }
         }
 
