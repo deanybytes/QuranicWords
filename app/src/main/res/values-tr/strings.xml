@@ -258,17 +258,17 @@
     <string name="learned_words_rank">Sıralama #%d</string>
     <string name="learned_words_occurrences_total">Kur\'an\'daki Toplam Sayı: %d</string>
 
-    <string name="test_mode_ism_title">İsim Modu</string>
+    <string name="test_mode_ism_title">İsim (اسم) Modu</string>
     <string name="test_mode_ism_desc">3.057 Kur\'an ismini, zamirleri ve esma-i hüsnayı test edin.</string>
     <string name="test_mode_ism_progress">Bu döngüde %2$d isimden %1$d tanesi tamamlandı</string>
-    <string name="test_mode_fil_title">Fiil Modu</string>
+    <string name="test_mode_fil_title">Fiil (فعل) Modu</string>
     <string name="test_mode_fil_desc">Geçmiş, şimdiki zaman ve mastar kalıplarıyla 1.450 Kur\'an fiilini uygulayın.</string>
     <string name="test_mode_fil_progress">Bu döngüde %2$d fiilden %1$d tanesi tamamlandı</string>
-    <string name="test_mode_harf_title">Harf Modu</string>
+    <string name="test_mode_harf_title">Harf (حرف) Modu</string>
     <string name="test_mode_harf_desc">109 temel Kur\'an harfini, edatları ve bağlaçları pekiştirin.</string>
     <string name="test_mode_harf_progress">Bu döngüde %2$d harften %1$d tanesi tamamlandı</string>
     <string name="test_mode_random_title">Karışık / Rastgele Mod</string>
-    <string name="test_mode_random_desc">Tüm 4.616 Kur\'an kelimesinden (İsim, Fiil, Harf) dinamik karışık test.</string>
+    <string name="test_mode_random_desc">Tüm 4.616 Kur\'an kelimesinden (اسم, فعل, حرف) dinamik karışık test.</string>
     <string name="test_mode_random_progress">Bu döngüde %2$d kelimeden %1$d tamamlandı</string>
     <string name="test_mode_frequency_title">Sıklık Sırasına Göre Mod</string>
     <string name="test_mode_frequency_desc">Kur\'an\'da geçiş sıklığına göre kelime pratiği yapın (1\'den 4.616\'ya kadar).</string>
@@ -332,12 +332,12 @@
     <string name="widget_rank_format">Sıra #%d</string>
     <string name="widget_quran_pct_format">Kur\'an\'ın %.2f%%\'si</string>
 
-    <string name="lesson_category_noun">İsim (İsm) Dersi</string>
-    <string name="lesson_category_verb">Fiil (Fi\'l) Dersi</string>
-    <string name="lesson_category_particle">Harf / Edat Dersi</string>
-    <string name="word_category_noun">İsim</string>
-    <string name="word_category_verb">Fiil</string>
-    <string name="word_category_particle">Harf / Edat</string>
+    <string name="lesson_category_noun">İsim (اسم) Dersi</string>
+    <string name="lesson_category_verb">Fiil (فعل) Dersi</string>
+    <string name="lesson_category_particle">Harf (حرف) Dersi</string>
+    <string name="word_category_noun">İsim (اسم)</string>
+    <string name="word_category_verb">Fiil (فعل)</string>
+    <string name="word_category_particle">Harf (حرف)</string>
     <string name="verb_conjugation_title">Fiil Çekimi ve Sarf (الصرف)</string>
     <string name="past_tense_label">Geçmiş (الماضي)</string>
     <string name="present_tense_label">Şimdiki/Geniş (المضارع)</string>

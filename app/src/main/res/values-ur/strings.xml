@@ -261,13 +261,13 @@
     <string name="learned_words_rank">درجہ #%d</string>
     <string name="learned_words_occurrences_total">قرآن میں کل تعداد: %d</string>
 
-    <string name="test_mode_ism_title">اسم (اسماء) موڈ</string>
+    <string name="test_mode_ism_title">اسم (اسم) موڈ</string>
     <string name="test_mode_ism_desc">قرآن کے 3,057 اسماء، ضمائر اور صفاتِ الٰہیہ کا خصوصی ٹیسٹ۔</string>
     <string name="test_mode_ism_progress">اس چکر میں %2$d اسماء میں سے %1$d مکمل</string>
-    <string name="test_mode_fil_title">فعل (افعال) موڈ</string>
+    <string name="test_mode_fil_title">فعل (فعل) موڈ</string>
     <string name="test_mode_fil_desc">قرآن کے تمام 1,450 افعال (ماضی، مضارع اور مصادر) کی مخصوص پریکٹس۔</string>
     <string name="test_mode_fil_progress">اس چکر میں %2$d افعال میں سے %1$d مکمل</string>
-    <string name="test_mode_harf_title">حرف (حروف) موڈ</string>
+    <string name="test_mode_harf_title">حرف (حرف) موڈ</string>
     <string name="test_mode_harf_desc">قرآن کے تمام 109 بنیادی حروف، حروفِ جار اور حروفِ عطف کی پریکٹس۔</string>
     <string name="test_mode_harf_progress">اس چکر میں %2$d حروف میں سے %1$d مکمل</string>
     <string name="test_mode_random_title">مکس / رینڈم موڈ</string>
@@ -332,12 +332,12 @@
     <string name="widget_rank_format">درجہ #%d</string>
     <string name="widget_quran_pct_format">قرآن کا %.2f%%</string>
 
-    <string name="lesson_category_noun">اسم کا سبق</string>
-    <string name="lesson_category_verb">فعل کا سبق</string>
-    <string name="lesson_category_particle">حرف کا سبق</string>
-    <string name="word_category_noun">اسم</string>
-    <string name="word_category_verb">فعل</string>
-    <string name="word_category_particle">حرف</string>
+    <string name="lesson_category_noun">اسم (اسم) کا سبق</string>
+    <string name="lesson_category_verb">فعل (فعل) کا سبق</string>
+    <string name="lesson_category_particle">حرف (حرف) کا سبق</string>
+    <string name="word_category_noun">اسم (اسم)</string>
+    <string name="word_category_verb">فعل (فعل)</string>
+    <string name="word_category_particle">حرف (حرف)</string>
     <string name="verb_conjugation_title">صرف و گردان (الصرف)</string>
     <string name="past_tense_label">ماضی (الماضي)</string>
     <string name="present_tense_label">مضارع (المضارع)</string>

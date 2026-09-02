@@ -261,17 +261,17 @@
     <string name="learned_words_rank">Rang #%d</string>
     <string name="learned_words_occurrences_total">Nombre total dans le Coran: %d</string>
 
-    <string name="test_mode_ism_title">Mode Ism (Noms)</string>
+    <string name="test_mode_ism_title">Mode Nom (اسم)</string>
     <string name="test_mode_ism_desc">Testez votre maîtrise des 3 057 noms coraniques, pronoms et attributs divins.</string>
     <string name="test_mode_ism_progress">%1$d sur %2$d noms complétés dans ce cycle</string>
-    <string name="test_mode_fil_title">Mode Fi\'l (Verbes)</string>
+    <string name="test_mode_fil_title">Mode Verbe (فعل)</string>
     <string name="test_mode_fil_desc">Pratiquez les 1 450 verbes coraniques (Formes I–X, passé, présent et masdar).</string>
     <string name="test_mode_fil_progress">%1$d sur %2$d verbes complétés dans ce cycle</string>
-    <string name="test_mode_harf_title">Mode Harf (Particules)</string>
+    <string name="test_mode_harf_title">Mode Particule (حرف)</string>
     <string name="test_mode_harf_desc">Maîtrisez les 109 particules fondamentales du Coran, prépositions et conjonctions.</string>
     <string name="test_mode_harf_progress">%1$d sur %2$d particules complétées dans ce cycle</string>
     <string name="test_mode_random_title">Mode Aléatoire / Mixte</string>
-    <string name="test_mode_random_desc">Quiz mixte dynamique sur les 4 616 mots du Coran (Ism, Fi\'l, Harf).</string>
+    <string name="test_mode_random_desc">Quiz mixte dynamique sur les 4 616 mots du Coran (اسم, فعل, حرف).</string>
     <string name="test_mode_random_progress">%1$d sur %2$d mots complétés dans ce cycle</string>
     <string name="test_mode_frequency_title">Mode Ordre de Fréquence</string>
     <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 4 616).</string>
@@ -332,12 +332,12 @@
     <string name="widget_rank_format">Rang #%d</string>
     <string name="widget_quran_pct_format">%.2f%% du Coran</string>
 
-    <string name="lesson_category_noun">Leçon de Nom (Ism)</string>
-    <string name="lesson_category_verb">Leçon de Verbe (Fi\'l)</string>
-    <string name="lesson_category_particle">Leçon de Particule (Harf)</string>
-    <string name="word_category_noun">Nom (Ism)</string>
-    <string name="word_category_verb">Verbe (Fi\'l)</string>
-    <string name="word_category_particle">Particule (Harf)</string>
+    <string name="lesson_category_noun">Leçon de Nom (اسم)</string>
+    <string name="lesson_category_verb">Leçon de Verbe (فعل)</string>
+    <string name="lesson_category_particle">Leçon de Particule (حرف)</string>
+    <string name="word_category_noun">Nom (اسم)</string>
+    <string name="word_category_verb">Verbe (فعل)</string>
+    <string name="word_category_particle">Particule (حرف)</string>
     <string name="verb_conjugation_title">Conjugaison et Sarf (الصرف)</string>
     <string name="past_tense_label">Passé (الماضي)</string>
     <string name="present_tense_label">Présent (المضارع)</string>
