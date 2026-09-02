@@ -4,332 +4,172 @@
       "id": "sec_001",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Grammatical Particles",
+        "bn": "পর্ব 1: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 1: حروف اور قواعد",
+        "in": "Bagian 1: Partikel Tata Bahasa",
+        "tr": "Bölüm 1: Gramer Edatları",
+        "fr": "Section 1: Particules Grammaticales"
       },
       "sortOrder": 1,
-      "wordCount": 9,
-      "quranOccurrenceCount": 13474,
-      "quranOccurrencePercent": 23.76
+      "wordCount": 18,
+      "quranOccurrenceCount": 17632,
+      "quranOccurrencePercent": 31.1
     },
     {
       "id": "sec_002",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Grammatical Particles",
+        "bn": "পর্ব 2: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 2: حروف اور قواعد",
+        "in": "Bagian 2: Partikel Tata Bahasa",
+        "tr": "Bölüm 2: Gramer Edatları",
+        "fr": "Section 2: Particules Grammaticales"
       },
       "sortOrder": 2,
-      "wordCount": 9,
-      "quranOccurrenceCount": 4158,
-      "quranOccurrencePercent": 7.33
+      "wordCount": 18,
+      "quranOccurrenceCount": 3045,
+      "quranOccurrencePercent": 5.37
     },
     {
       "id": "sec_003",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Grammatical Particles",
+        "bn": "পর্ব 3: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 3: حروف اور قواعد",
+        "in": "Bagian 3: Partikel Tata Bahasa",
+        "tr": "Bölüm 3: Gramer Edatları",
+        "fr": "Section 3: Particules Grammaticales"
       },
       "sortOrder": 3,
-      "wordCount": 9,
-      "quranOccurrenceCount": 2883,
-      "quranOccurrencePercent": 5.08
+      "wordCount": 18,
+      "quranOccurrenceCount": 254,
+      "quranOccurrencePercent": 0.45
     },
     {
       "id": "sec_004",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Grammatical Particles",
+        "bn": "পর্ব 4: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 4: حروف اور قواعد",
+        "in": "Bagian 4: Partikel Tata Bahasa",
+        "tr": "Bölüm 4: Gramer Edatları",
+        "fr": "Section 4: Particules Grammaticales"
       },
       "sortOrder": 4,
-      "wordCount": 9,
-      "quranOccurrenceCount": 162,
-      "quranOccurrencePercent": 0.29
+      "wordCount": 17,
+      "quranOccurrenceCount": 136,
+      "quranOccurrencePercent": 0.24
     },
     {
       "id": "sec_005",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Grammatical Particles",
+        "bn": "পর্ব 5: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 5: حروف اور قواعد",
+        "in": "Bagian 5: Partikel Tata Bahasa",
+        "tr": "Bölüm 5: Gramer Edatları",
+        "fr": "Section 5: Particules Grammaticales"
       },
       "sortOrder": 5,
-      "wordCount": 9,
-      "quranOccurrenceCount": 162,
-      "quranOccurrencePercent": 0.29
+      "wordCount": 17,
+      "quranOccurrenceCount": 112,
+      "quranOccurrencePercent": 0.2
     },
     {
       "id": "sec_006",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Grammatical Particles",
+        "bn": "পর্ব 6: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 6: حروف اور قواعد",
+        "in": "Bagian 6: Partikel Tata Bahasa",
+        "tr": "Bölüm 6: Gramer Edatları",
+        "fr": "Section 6: Particules Grammaticales"
       },
       "sortOrder": 6,
-      "wordCount": 9,
-      "quranOccurrenceCount": 92,
-      "quranOccurrencePercent": 0.16
+      "wordCount": 17,
+      "quranOccurrenceCount": 68,
+      "quranOccurrencePercent": 0.12
     },
     {
       "id": "sec_007",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Grammatical Particles",
+        "bn": "পর্ব 7: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 7: حروف اور قواعد",
+        "in": "Bagian 7: Partikel Tata Bahasa",
+        "tr": "Bölüm 7: Gramer Edatları",
+        "fr": "Section 7: Particules Grammaticales"
       },
       "sortOrder": 7,
-      "wordCount": 9,
-      "quranOccurrenceCount": 72,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 17,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_008",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Grammatical Particles",
+        "bn": "পর্ব 8: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 8: حروف اور قواعد",
+        "in": "Bagian 8: Partikel Tata Bahasa",
+        "tr": "Bölüm 8: Gramer Edatları",
+        "fr": "Section 8: Particules Grammaticales"
       },
       "sortOrder": 8,
-      "wordCount": 9,
-      "quranOccurrenceCount": 72,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 17,
+      "quranOccurrenceCount": 27,
+      "quranOccurrencePercent": 0.05
     },
     {
       "id": "sec_009",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Grammatical Particles",
+        "bn": "পর্ব 9: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 9: حروف اور قواعد",
+        "in": "Bagian 9: Partikel Tata Bahasa",
+        "tr": "Bölüm 9: Gramer Edatları",
+        "fr": "Section 9: Particules Grammaticales"
       },
       "sortOrder": 9,
-      "wordCount": 9,
-      "quranOccurrenceCount": 72,
-      "quranOccurrencePercent": 0.13
+      "wordCount": 17,
+      "quranOccurrenceCount": 17,
+      "quranOccurrencePercent": 0.03
     },
     {
       "id": "sec_010",
       "chapterId": "ch_01",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Grammatical Particles",
+        "bn": "পর্ব 10: ব্যাকরণিক অব্যয়",
+        "ur": "حصہ 10: حروف اور قواعد",
+        "in": "Bagian 10: Partikel Tata Bahasa",
+        "tr": "Bölüm 10: Gramer Edatları",
+        "fr": "Section 10: Particules Grammaticales"
       },
       "sortOrder": 10,
-      "wordCount": 4,
-      "quranOccurrenceCount": 20,
-      "quranOccurrencePercent": 0.04
+      "wordCount": 17,
+      "quranOccurrenceCount": 123,
+      "quranOccurrencePercent": 0.22
     },
     {
       "id": "sec_011",
       "chapterId": "ch_02",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
-      },
-      "sortOrder": 1,
-      "wordCount": 9,
-      "quranOccurrenceCount": 36,
-      "quranOccurrencePercent": 0.06
-    },
-    {
-      "id": "sec_012",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
-      },
-      "sortOrder": 2,
-      "wordCount": 9,
-      "quranOccurrenceCount": 36,
-      "quranOccurrencePercent": 0.06
-    },
-    {
-      "id": "sec_013",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
-      },
-      "sortOrder": 3,
-      "wordCount": 9,
-      "quranOccurrenceCount": 36,
-      "quranOccurrencePercent": 0.06
-    },
-    {
-      "id": "sec_014",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
-      },
-      "sortOrder": 4,
-      "wordCount": 9,
-      "quranOccurrenceCount": 18,
-      "quranOccurrencePercent": 0.03
-    },
-    {
-      "id": "sec_015",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
-      },
-      "sortOrder": 5,
-      "wordCount": 9,
-      "quranOccurrenceCount": 18,
-      "quranOccurrencePercent": 0.03
-    },
-    {
-      "id": "sec_016",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
-      },
-      "sortOrder": 6,
-      "wordCount": 9,
-      "quranOccurrenceCount": 11,
-      "quranOccurrencePercent": 0.02
-    },
-    {
-      "id": "sec_017",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
-      },
-      "sortOrder": 7,
-      "wordCount": 9,
-      "quranOccurrenceCount": 9,
-      "quranOccurrencePercent": 0.02
-    },
-    {
-      "id": "sec_018",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
-      },
-      "sortOrder": 8,
-      "wordCount": 9,
-      "quranOccurrenceCount": 9,
-      "quranOccurrencePercent": 0.02
-    },
-    {
-      "id": "sec_019",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
-      },
-      "sortOrder": 9,
-      "wordCount": 9,
-      "quranOccurrenceCount": 9,
-      "quranOccurrencePercent": 0.02
-    },
-    {
-      "id": "sec_020",
-      "chapterId": "ch_02",
-      "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
-      },
-      "sortOrder": 10,
-      "wordCount": 7,
-      "quranOccurrenceCount": 113,
-      "quranOccurrencePercent": 0.2
-    },
-    {
-      "id": "sec_021",
-      "chapterId": "ch_03",
-      "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: High-Frequency Verbs",
+        "bn": "পর্ব 1: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 1: کثیر الاستعمال افعال",
+        "in": "Bagian 1: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 1: Yüksek Frekanslı Fiiller",
+        "fr": "Section 1: Verbes à Haute Fréquence"
       },
       "sortOrder": 1,
       "wordCount": 50,
@@ -337,15 +177,15 @@
       "quranOccurrencePercent": 17.44
     },
     {
-      "id": "sec_022",
-      "chapterId": "ch_03",
+      "id": "sec_012",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: High-Frequency Verbs",
+        "bn": "পর্ব 2: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 2: کثیر الاستعمال افعال",
+        "in": "Bagian 2: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 2: Yüksek Frekanslı Fiiller",
+        "fr": "Section 2: Verbes à Haute Fréquence"
       },
       "sortOrder": 2,
       "wordCount": 50,
@@ -353,15 +193,15 @@
       "quranOccurrencePercent": 1.83
     },
     {
-      "id": "sec_023",
-      "chapterId": "ch_03",
+      "id": "sec_013",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: High-Frequency Verbs",
+        "bn": "পর্ব 3: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 3: کثیر الاستعمال افعال",
+        "in": "Bagian 3: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 3: Yüksek Frekanslı Fiiller",
+        "fr": "Section 3: Verbes à Haute Fréquence"
       },
       "sortOrder": 3,
       "wordCount": 50,
@@ -369,15 +209,15 @@
       "quranOccurrencePercent": 0.64
     },
     {
-      "id": "sec_024",
-      "chapterId": "ch_03",
+      "id": "sec_014",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: High-Frequency Verbs",
+        "bn": "পর্ব 4: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 4: کثیر الاستعمال افعال",
+        "in": "Bagian 4: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 4: Yüksek Frekanslı Fiiller",
+        "fr": "Section 4: Verbes à Haute Fréquence"
       },
       "sortOrder": 4,
       "wordCount": 50,
@@ -385,15 +225,15 @@
       "quranOccurrencePercent": 0.46
     },
     {
-      "id": "sec_025",
-      "chapterId": "ch_03",
+      "id": "sec_015",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: High-Frequency Verbs",
+        "bn": "পর্ব 5: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 5: کثیر الاستعمال افعال",
+        "in": "Bagian 5: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 5: Yüksek Frekanslı Fiiller",
+        "fr": "Section 5: Verbes à Haute Fréquence"
       },
       "sortOrder": 5,
       "wordCount": 50,
@@ -401,15 +241,15 @@
       "quranOccurrencePercent": 0.35
     },
     {
-      "id": "sec_026",
-      "chapterId": "ch_03",
+      "id": "sec_016",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: High-Frequency Verbs",
+        "bn": "পর্ব 6: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 6: کثیر الاستعمال افعال",
+        "in": "Bagian 6: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 6: Yüksek Frekanslı Fiiller",
+        "fr": "Section 6: Verbes à Haute Fréquence"
       },
       "sortOrder": 6,
       "wordCount": 50,
@@ -417,15 +257,15 @@
       "quranOccurrencePercent": 0.26
     },
     {
-      "id": "sec_027",
-      "chapterId": "ch_03",
+      "id": "sec_017",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: High-Frequency Verbs",
+        "bn": "পর্ব 7: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 7: کثیر الاستعمال افعال",
+        "in": "Bagian 7: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 7: Yüksek Frekanslı Fiiller",
+        "fr": "Section 7: Verbes à Haute Fréquence"
       },
       "sortOrder": 7,
       "wordCount": 50,
@@ -433,15 +273,15 @@
       "quranOccurrencePercent": 0.26
     },
     {
-      "id": "sec_028",
-      "chapterId": "ch_03",
+      "id": "sec_018",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: High-Frequency Verbs",
+        "bn": "পর্ব 8: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 8: کثیر الاستعمال افعال",
+        "in": "Bagian 8: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 8: Yüksek Frekanslı Fiiller",
+        "fr": "Section 8: Verbes à Haute Fréquence"
       },
       "sortOrder": 8,
       "wordCount": 50,
@@ -449,15 +289,15 @@
       "quranOccurrencePercent": 0.22
     },
     {
-      "id": "sec_029",
-      "chapterId": "ch_03",
+      "id": "sec_019",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: High-Frequency Verbs",
+        "bn": "পর্ব 9: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 9: کثیر الاستعمال افعال",
+        "in": "Bagian 9: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 9: Yüksek Frekanslı Fiiller",
+        "fr": "Section 9: Verbes à Haute Fréquence"
       },
       "sortOrder": 9,
       "wordCount": 50,
@@ -465,31 +305,31 @@
       "quranOccurrencePercent": 0.18
     },
     {
-      "id": "sec_030",
-      "chapterId": "ch_03",
+      "id": "sec_020",
+      "chapterId": "ch_02",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: High-Frequency Verbs",
+        "bn": "পর্ব 10: উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "حصہ 10: کثیر الاستعمال افعال",
+        "in": "Bagian 10: Kata Kerja Frekuensi Tinggi",
+        "tr": "Bölüm 10: Yüksek Frekanslı Fiiller",
+        "fr": "Section 10: Verbes à Haute Fréquence"
       },
       "sortOrder": 10,
-      "wordCount": 43,
-      "quranOccurrenceCount": 86,
-      "quranOccurrencePercent": 0.15
+      "wordCount": 50,
+      "quranOccurrenceCount": 100,
+      "quranOccurrencePercent": 0.18
     },
     {
-      "id": "sec_031",
-      "chapterId": "ch_04",
+      "id": "sec_021",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Essential Verbal Forms",
+        "bn": "পর্ব 1: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 1: اہم افعال کے ابواب",
+        "in": "Bagian 1: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 1: Temel Fiil Kalıpları",
+        "fr": "Section 1: Formes Verbales Essentielles"
       },
       "sortOrder": 1,
       "wordCount": 50,
@@ -497,15 +337,15 @@
       "quranOccurrencePercent": 0.18
     },
     {
-      "id": "sec_032",
-      "chapterId": "ch_04",
+      "id": "sec_022",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Essential Verbal Forms",
+        "bn": "পর্ব 2: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 2: اہم افعال کے ابواب",
+        "in": "Bagian 2: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 2: Temel Fiil Kalıpları",
+        "fr": "Section 2: Formes Verbales Essentielles"
       },
       "sortOrder": 2,
       "wordCount": 50,
@@ -513,31 +353,31 @@
       "quranOccurrencePercent": 0.18
     },
     {
-      "id": "sec_033",
-      "chapterId": "ch_04",
+      "id": "sec_023",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Essential Verbal Forms",
+        "bn": "পর্ব 3: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 3: اہم افعال کے ابواب",
+        "in": "Bagian 3: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 3: Temel Fiil Kalıpları",
+        "fr": "Section 3: Formes Verbales Essentielles"
       },
       "sortOrder": 3,
       "wordCount": 50,
-      "quranOccurrenceCount": 91,
-      "quranOccurrencePercent": 0.16
+      "quranOccurrenceCount": 84,
+      "quranOccurrencePercent": 0.15
     },
     {
-      "id": "sec_034",
-      "chapterId": "ch_04",
+      "id": "sec_024",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Essential Verbal Forms",
+        "bn": "পর্ব 4: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 4: اہم افعال کے ابواب",
+        "in": "Bagian 4: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 4: Temel Fiil Kalıpları",
+        "fr": "Section 4: Formes Verbales Essentielles"
       },
       "sortOrder": 4,
       "wordCount": 50,
@@ -545,15 +385,15 @@
       "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_035",
-      "chapterId": "ch_04",
+      "id": "sec_025",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Essential Verbal Forms",
+        "bn": "পর্ব 5: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 5: اہم افعال کے ابواب",
+        "in": "Bagian 5: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 5: Temel Fiil Kalıpları",
+        "fr": "Section 5: Formes Verbales Essentielles"
       },
       "sortOrder": 5,
       "wordCount": 50,
@@ -561,15 +401,15 @@
       "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_036",
-      "chapterId": "ch_04",
+      "id": "sec_026",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Essential Verbal Forms",
+        "bn": "পর্ব 6: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 6: اہم افعال کے ابواب",
+        "in": "Bagian 6: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 6: Temel Fiil Kalıpları",
+        "fr": "Section 6: Formes Verbales Essentielles"
       },
       "sortOrder": 6,
       "wordCount": 50,
@@ -577,15 +417,15 @@
       "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_037",
-      "chapterId": "ch_04",
+      "id": "sec_027",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Essential Verbal Forms",
+        "bn": "পর্ব 7: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 7: اہم افعال کے ابواب",
+        "in": "Bagian 7: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 7: Temel Fiil Kalıpları",
+        "fr": "Section 7: Formes Verbales Essentielles"
       },
       "sortOrder": 7,
       "wordCount": 50,
@@ -593,15 +433,15 @@
       "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_038",
-      "chapterId": "ch_04",
+      "id": "sec_028",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Essential Verbal Forms",
+        "bn": "পর্ব 8: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 8: اہم افعال کے ابواب",
+        "in": "Bagian 8: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 8: Temel Fiil Kalıpları",
+        "fr": "Section 8: Formes Verbales Essentielles"
       },
       "sortOrder": 8,
       "wordCount": 50,
@@ -609,15 +449,15 @@
       "quranOccurrencePercent": 0.09
     },
     {
-      "id": "sec_039",
-      "chapterId": "ch_04",
+      "id": "sec_029",
+      "chapterId": "ch_03",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Essential Verbal Forms",
+        "bn": "পর্ব 9: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 9: اہم افعال کے ابواب",
+        "in": "Bagian 9: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 9: Temel Fiil Kalıpları",
+        "fr": "Section 9: Formes Verbales Essentielles"
       },
       "sortOrder": 9,
       "wordCount": 50,
@@ -625,979 +465,1139 @@
       "quranOccurrencePercent": 0.09
     },
     {
+      "id": "sec_030",
+      "chapterId": "ch_03",
+      "title": {
+        "en": "Section 10: Essential Verbal Forms",
+        "bn": "পর্ব 10: প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "حصہ 10: اہم افعال کے ابواب",
+        "in": "Bagian 10: Bentuk Kata Kerja Esensial",
+        "tr": "Bölüm 10: Temel Fiil Kalıpları",
+        "fr": "Section 10: Formes Verbales Essentielles"
+      },
+      "sortOrder": 10,
+      "wordCount": 50,
+      "quranOccurrenceCount": 50,
+      "quranOccurrencePercent": 0.09
+    },
+    {
+      "id": "sec_031",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 1: Specialized Verbs",
+        "bn": "পর্ব 1: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 1: خصوصی افعال",
+        "in": "Bagian 1: Kata Kerja Khusus",
+        "tr": "Bölüm 1: Özel Fiiller",
+        "fr": "Section 1: Verbes Spécialisés"
+      },
+      "sortOrder": 1,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_032",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 2: Specialized Verbs",
+        "bn": "পর্ব 2: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 2: خصوصی افعال",
+        "in": "Bagian 2: Kata Kerja Khusus",
+        "tr": "Bölüm 2: Özel Fiiller",
+        "fr": "Section 2: Verbes Spécialisés"
+      },
+      "sortOrder": 2,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_033",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 3: Specialized Verbs",
+        "bn": "পর্ব 3: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 3: خصوصی افعال",
+        "in": "Bagian 3: Kata Kerja Khusus",
+        "tr": "Bölüm 3: Özel Fiiller",
+        "fr": "Section 3: Verbes Spécialisés"
+      },
+      "sortOrder": 3,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_034",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 4: Specialized Verbs",
+        "bn": "পর্ব 4: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 4: خصوصی افعال",
+        "in": "Bagian 4: Kata Kerja Khusus",
+        "tr": "Bölüm 4: Özel Fiiller",
+        "fr": "Section 4: Verbes Spécialisés"
+      },
+      "sortOrder": 4,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_035",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 5: Specialized Verbs",
+        "bn": "পর্ব 5: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 5: خصوصی افعال",
+        "in": "Bagian 5: Kata Kerja Khusus",
+        "tr": "Bölüm 5: Özel Fiiller",
+        "fr": "Section 5: Verbes Spécialisés"
+      },
+      "sortOrder": 5,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_036",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 6: Specialized Verbs",
+        "bn": "পর্ব 6: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 6: خصوصی افعال",
+        "in": "Bagian 6: Kata Kerja Khusus",
+        "tr": "Bölüm 6: Özel Fiiller",
+        "fr": "Section 6: Verbes Spécialisés"
+      },
+      "sortOrder": 6,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_037",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 7: Specialized Verbs",
+        "bn": "পর্ব 7: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 7: خصوصی افعال",
+        "in": "Bagian 7: Kata Kerja Khusus",
+        "tr": "Bölüm 7: Özel Fiiller",
+        "fr": "Section 7: Verbes Spécialisés"
+      },
+      "sortOrder": 7,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_038",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 8: Specialized Verbs",
+        "bn": "পর্ব 8: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 8: خصوصی افعال",
+        "in": "Bagian 8: Kata Kerja Khusus",
+        "tr": "Bölüm 8: Özel Fiiller",
+        "fr": "Section 8: Verbes Spécialisés"
+      },
+      "sortOrder": 8,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
+      "id": "sec_039",
+      "chapterId": "ch_04",
+      "title": {
+        "en": "Section 9: Specialized Verbs",
+        "bn": "পর্ব 9: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 9: خصوصی افعال",
+        "in": "Bagian 9: Kata Kerja Khusus",
+        "tr": "Bölüm 9: Özel Fiiller",
+        "fr": "Section 9: Verbes Spécialisés"
+      },
+      "sortOrder": 9,
+      "wordCount": 48,
+      "quranOccurrenceCount": 48,
+      "quranOccurrencePercent": 0.08
+    },
+    {
       "id": "sec_040",
       "chapterId": "ch_04",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Specialized Verbs",
+        "bn": "পর্ব 10: বিশেষায়িত ক্রিয়াপদ",
+        "ur": "حصہ 10: خصوصی افعال",
+        "in": "Bagian 10: Kata Kerja Khusus",
+        "tr": "Bölüm 10: Özel Fiiller",
+        "fr": "Section 10: Verbes Spécialisés"
       },
       "sortOrder": 10,
-      "wordCount": 43,
-      "quranOccurrenceCount": 43,
+      "wordCount": 47,
+      "quranOccurrenceCount": 47,
       "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_041",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Divine Names & Core Nominals",
+        "bn": "পর্ব 1: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 1: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 1: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 1: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 1: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 1,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 11731,
+      "quranOccurrencePercent": 20.69
     },
     {
       "id": "sec_042",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Divine Names & Core Nominals",
+        "bn": "পর্ব 2: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 2: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 2: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 2: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 2: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 2,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 1975,
+      "quranOccurrencePercent": 3.48
     },
     {
       "id": "sec_043",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Divine Names & Core Nominals",
+        "bn": "পর্ব 3: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 3: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 3: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 3: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 3: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 3,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 1973,
+      "quranOccurrencePercent": 3.48
     },
     {
       "id": "sec_044",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Divine Names & Core Nominals",
+        "bn": "পর্ব 4: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 4: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 4: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 4: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 4: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 4,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 646,
+      "quranOccurrencePercent": 1.14
     },
     {
       "id": "sec_045",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Divine Names & Core Nominals",
+        "bn": "পর্ব 5: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 5: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 5: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 5: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 5: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 5,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 454,
+      "quranOccurrencePercent": 0.8
     },
     {
       "id": "sec_046",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Divine Names & Core Nominals",
+        "bn": "পর্ব 6: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 6: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 6: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 6: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 6: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 6,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 402,
+      "quranOccurrencePercent": 0.71
     },
     {
       "id": "sec_047",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Divine Names & Core Nominals",
+        "bn": "পর্ব 7: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 7: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 7: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 7: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 7: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 7,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 350,
+      "quranOccurrencePercent": 0.62
     },
     {
       "id": "sec_048",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Divine Names & Core Nominals",
+        "bn": "পর্ব 8: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 8: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 8: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 8: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 8: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 8,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 298,
+      "quranOccurrencePercent": 0.53
     },
     {
       "id": "sec_049",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Divine Names & Core Nominals",
+        "bn": "পর্ব 9: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 9: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 9: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 9: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 9: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 9,
-      "wordCount": 50,
-      "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "wordCount": 51,
+      "quranOccurrenceCount": 255,
+      "quranOccurrencePercent": 0.45
     },
     {
       "id": "sec_050",
       "chapterId": "ch_05",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Divine Names & Core Nominals",
+        "bn": "পর্ব 10: আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "حصہ 10: اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Bagian 10: Asmaul Husna & Nomina Inti",
+        "tr": "Bölüm 10: Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Section 10: Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 10,
-      "wordCount": 43,
-      "quranOccurrenceCount": 43,
-      "quranOccurrencePercent": 0.08
+      "wordCount": 51,
+      "quranOccurrenceCount": 245,
+      "quranOccurrencePercent": 0.43
     },
     {
       "id": "sec_051",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Essential Quranic Nominals",
+        "bn": "পর্ব 1: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 1: اہم قرআনি اسماء",
+        "in": "Bagian 1: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 1: Temel Kur'an İsimleri",
+        "fr": "Section 1: Noms Coraniques Essentiels"
       },
       "sortOrder": 1,
-      "wordCount": 62,
-      "quranOccurrenceCount": 12141,
-      "quranOccurrencePercent": 21.41
+      "wordCount": 51,
+      "quranOccurrenceCount": 204,
+      "quranOccurrencePercent": 0.36
     },
     {
       "id": "sec_052",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Essential Quranic Nominals",
+        "bn": "পর্ব 2: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 2: اہم قرআনি اسماء",
+        "in": "Bagian 2: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 2: Temel Kur'an İsimleri",
+        "fr": "Section 2: Noms Coraniques Essentiels"
       },
       "sortOrder": 2,
-      "wordCount": 62,
-      "quranOccurrenceCount": 2577,
-      "quranOccurrencePercent": 4.55
+      "wordCount": 51,
+      "quranOccurrenceCount": 192,
+      "quranOccurrencePercent": 0.34
     },
     {
       "id": "sec_053",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Essential Quranic Nominals",
+        "bn": "পর্ব 3: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 3: اہم قرআনি اسماء",
+        "in": "Bagian 3: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 3: Temel Kur'an İsimleri",
+        "fr": "Section 3: Noms Coraniques Essentiels"
       },
       "sortOrder": 3,
-      "wordCount": 62,
-      "quranOccurrenceCount": 1424,
-      "quranOccurrencePercent": 2.51
+      "wordCount": 51,
+      "quranOccurrenceCount": 153,
+      "quranOccurrencePercent": 0.27
     },
     {
       "id": "sec_054",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Essential Quranic Nominals",
+        "bn": "পর্ব 4: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 4: اہم قرআনি اسماء",
+        "in": "Bagian 4: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 4: Temel Kur'an İsimleri",
+        "fr": "Section 4: Noms Coraniques Essentiels"
       },
       "sortOrder": 4,
-      "wordCount": 62,
-      "quranOccurrenceCount": 579,
-      "quranOccurrencePercent": 1.02
+      "wordCount": 51,
+      "quranOccurrenceCount": 139,
+      "quranOccurrencePercent": 0.25
     },
     {
       "id": "sec_055",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Essential Quranic Nominals",
+        "bn": "পর্ব 5: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 5: اہم قرআনি اسماء",
+        "in": "Bagian 5: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 5: Temel Kur'an İsimleri",
+        "fr": "Section 5: Noms Coraniques Essentiels"
       },
       "sortOrder": 5,
-      "wordCount": 62,
-      "quranOccurrenceCount": 488,
-      "quranOccurrencePercent": 0.86
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_056",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Essential Quranic Nominals",
+        "bn": "পর্ব 6: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 6: اہم قرআনি اسماء",
+        "in": "Bagian 6: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 6: Temel Kur'an İsimleri",
+        "fr": "Section 6: Noms Coraniques Essentiels"
       },
       "sortOrder": 6,
-      "wordCount": 62,
-      "quranOccurrenceCount": 412,
-      "quranOccurrencePercent": 0.73
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_057",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Essential Quranic Nominals",
+        "bn": "পর্ব 7: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 7: اہم قرআনি اسماء",
+        "in": "Bagian 7: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 7: Temel Kur'an İsimleri",
+        "fr": "Section 7: Noms Coraniques Essentiels"
       },
       "sortOrder": 7,
-      "wordCount": 62,
-      "quranOccurrenceCount": 338,
-      "quranOccurrencePercent": 0.6
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_058",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Essential Quranic Nominals",
+        "bn": "পর্ব 8: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 8: اہم قرআনি اسماء",
+        "in": "Bagian 8: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 8: Temel Kur'an İsimleri",
+        "fr": "Section 8: Noms Coraniques Essentiels"
       },
       "sortOrder": 8,
-      "wordCount": 62,
-      "quranOccurrenceCount": 310,
-      "quranOccurrencePercent": 0.55
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_059",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Essential Quranic Nominals",
+        "bn": "পর্ব 9: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 9: اہم قرআনি اسماء",
+        "in": "Bagian 9: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 9: Temel Kur'an İsimleri",
+        "fr": "Section 9: Noms Coraniques Essentiels"
       },
       "sortOrder": 9,
-      "wordCount": 62,
-      "quranOccurrenceCount": 252,
-      "quranOccurrencePercent": 0.44
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_060",
       "chapterId": "ch_06",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Essential Quranic Nominals",
+        "bn": "পর্ব 10: প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "حصہ 10: اہم قرআনি اسماء",
+        "in": "Bagian 10: Nomina Al-Qur'an Esensial",
+        "tr": "Bölüm 10: Temel Kur'an İsimleri",
+        "fr": "Section 10: Noms Coraniques Essentiels"
       },
       "sortOrder": 10,
-      "wordCount": 54,
-      "quranOccurrenceCount": 204,
-      "quranOccurrencePercent": 0.36
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_061",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Devotional & Faith Nominals",
+        "bn": "পর্ব 1: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 1: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 1: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 1: İbadet ve İman İsimleri",
+        "fr": "Section 1: Noms de Dévotion et de Foi"
       },
       "sortOrder": 1,
-      "wordCount": 62,
-      "quranOccurrenceCount": 186,
-      "quranOccurrencePercent": 0.33
+      "wordCount": 51,
+      "quranOccurrenceCount": 102,
+      "quranOccurrencePercent": 0.18
     },
     {
       "id": "sec_062",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Devotional & Faith Nominals",
+        "bn": "পর্ব 2: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 2: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 2: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 2: İbadet ve İman İsimleri",
+        "fr": "Section 2: Noms de Dévotion et de Foi"
       },
       "sortOrder": 2,
-      "wordCount": 62,
-      "quranOccurrenceCount": 150,
-      "quranOccurrencePercent": 0.26
+      "wordCount": 51,
+      "quranOccurrenceCount": 80,
+      "quranOccurrencePercent": 0.14
     },
     {
       "id": "sec_063",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Devotional & Faith Nominals",
+        "bn": "পর্ব 3: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 3: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 3: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 3: İbadet ve İman İsimleri",
+        "fr": "Section 3: Noms de Dévotion et de Foi"
       },
       "sortOrder": 3,
-      "wordCount": 62,
-      "quranOccurrenceCount": 124,
-      "quranOccurrencePercent": 0.22
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_064",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Devotional & Faith Nominals",
+        "bn": "পর্ব 4: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 4: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 4: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 4: İbadet ve İman İsimleri",
+        "fr": "Section 4: Noms de Dévotion et de Foi"
       },
       "sortOrder": 4,
-      "wordCount": 62,
-      "quranOccurrenceCount": 124,
-      "quranOccurrencePercent": 0.22
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_065",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Devotional & Faith Nominals",
+        "bn": "পর্ব 5: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 5: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 5: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 5: İbadet ve İman İsimleri",
+        "fr": "Section 5: Noms de Dévotion et de Foi"
       },
       "sortOrder": 5,
-      "wordCount": 62,
-      "quranOccurrenceCount": 124,
-      "quranOccurrencePercent": 0.22
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_066",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Devotional & Faith Nominals",
+        "bn": "পর্ব 6: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 6: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 6: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 6: İbadet ve İman İsimleri",
+        "fr": "Section 6: Noms de Dévotion et de Foi"
       },
       "sortOrder": 6,
-      "wordCount": 62,
-      "quranOccurrenceCount": 124,
-      "quranOccurrencePercent": 0.22
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_067",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Devotional & Faith Nominals",
+        "bn": "পর্ব 7: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 7: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 7: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 7: İbadet ve İman İsimleri",
+        "fr": "Section 7: Noms de Dévotion et de Foi"
       },
       "sortOrder": 7,
-      "wordCount": 62,
-      "quranOccurrenceCount": 124,
-      "quranOccurrencePercent": 0.22
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_068",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Devotional & Faith Nominals",
+        "bn": "পর্ব 8: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 8: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 8: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 8: İbadet ve İman İsimleri",
+        "fr": "Section 8: Noms de Dévotion et de Foi"
       },
       "sortOrder": 8,
-      "wordCount": 62,
-      "quranOccurrenceCount": 116,
-      "quranOccurrencePercent": 0.2
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_069",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Devotional & Faith Nominals",
+        "bn": "পর্ব 9: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 9: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 9: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 9: İbadet ve İman İsimleri",
+        "fr": "Section 9: Noms de Dévotion et de Foi"
       },
       "sortOrder": 9,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_070",
       "chapterId": "ch_07",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Devotional & Faith Nominals",
+        "bn": "পর্ব 10: ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "حصہ 10: ایمان اور عبادات کے اسماء",
+        "in": "Bagian 10: Nomina Ibadah & Keimanan",
+        "tr": "Bölüm 10: İbadet ve İman İsimleri",
+        "fr": "Section 10: Noms de Dévotion et de Foi"
       },
       "sortOrder": 10,
-      "wordCount": 54,
-      "quranOccurrenceCount": 54,
-      "quranOccurrencePercent": 0.1
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_071",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 1: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 1: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 1: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 1: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 1: Noms Prophétiques et Récits"
       },
       "sortOrder": 1,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_072",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 2: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 2: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 2: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 2: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 2: Noms Prophétiques et Récits"
       },
       "sortOrder": 2,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_073",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 3: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 3: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 3: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 3: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 3: Noms Prophétiques et Récits"
       },
       "sortOrder": 3,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_074",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 4: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 4: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 4: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 4: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 4: Noms Prophétiques et Récits"
       },
       "sortOrder": 4,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_075",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 5: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 5: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 5: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 5: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 5: Noms Prophétiques et Récits"
       },
       "sortOrder": 5,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_076",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 6: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 6: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 6: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 6: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 6: Noms Prophétiques et Récits"
       },
       "sortOrder": 6,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_077",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 7: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 7: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 7: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 7: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 7: Noms Prophétiques et Récits"
       },
       "sortOrder": 7,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_078",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 8: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 8: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 8: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 8: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 8: Noms Prophétiques et Récits"
       },
       "sortOrder": 8,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_079",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 9: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 9: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 9: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 9: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 9: Noms Prophétiques et Récits"
       },
       "sortOrder": 9,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_080",
       "chapterId": "ch_08",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Prophetic & Narrative Nominals",
+        "bn": "পর্ব 10: নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "حصہ 10: انبیاء اور قصص کے اسماء",
+        "in": "Bagian 10: Nomina Kisah & Kenabian",
+        "tr": "Bölüm 10: Peygamber ve Kıssa İsimleri",
+        "fr": "Section 10: Noms Prophétiques et Récits"
       },
       "sortOrder": 10,
-      "wordCount": 53,
-      "quranOccurrenceCount": 53,
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
       "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_081",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Moral & Social Nominals",
+        "bn": "পর্ব 1: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 1: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 1: Nomina Moral & Sosial",
+        "tr": "Bölüm 1: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 1: Noms Moraux et Sociaux"
       },
       "sortOrder": 1,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_082",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Moral & Social Nominals",
+        "bn": "পর্ব 2: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 2: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 2: Nomina Moral & Sosial",
+        "tr": "Bölüm 2: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 2: Noms Moraux et Sociaux"
       },
       "sortOrder": 2,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_083",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Moral & Social Nominals",
+        "bn": "পর্ব 3: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 3: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 3: Nomina Moral & Sosial",
+        "tr": "Bölüm 3: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 3: Noms Moraux et Sociaux"
       },
       "sortOrder": 3,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_084",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Moral & Social Nominals",
+        "bn": "পর্ব 4: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 4: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 4: Nomina Moral & Sosial",
+        "tr": "Bölüm 4: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 4: Noms Moraux et Sociaux"
       },
       "sortOrder": 4,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_085",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Moral & Social Nominals",
+        "bn": "পর্ব 5: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 5: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 5: Nomina Moral & Sosial",
+        "tr": "Bölüm 5: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 5: Noms Moraux et Sociaux"
       },
       "sortOrder": 5,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_086",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Moral & Social Nominals",
+        "bn": "পর্ব 6: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 6: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 6: Nomina Moral & Sosial",
+        "tr": "Bölüm 6: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 6: Noms Moraux et Sociaux"
       },
       "sortOrder": 6,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_087",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Moral & Social Nominals",
+        "bn": "পর্ব 7: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 7: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 7: Nomina Moral & Sosial",
+        "tr": "Bölüm 7: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 7: Noms Moraux et Sociaux"
       },
       "sortOrder": 7,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_088",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Moral & Social Nominals",
+        "bn": "পর্ব 8: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 8: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 8: Nomina Moral & Sosial",
+        "tr": "Bölüm 8: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 8: Noms Moraux et Sociaux"
       },
       "sortOrder": 8,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_089",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Moral & Social Nominals",
+        "bn": "পর্ব 9: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 9: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 9: Nomina Moral & Sosial",
+        "tr": "Bölüm 9: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 9: Noms Moraux et Sociaux"
       },
       "sortOrder": 9,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_090",
       "chapterId": "ch_09",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Moral & Social Nominals",
+        "bn": "পর্ব 10: নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "حصہ 10: اخلاقی اور معاشرتی اسماء",
+        "in": "Bagian 10: Nomina Moral & Sosial",
+        "tr": "Bölüm 10: Ahlaki ve Sosyal İsimler",
+        "fr": "Section 10: Noms Moraux et Sociaux"
       },
       "sortOrder": 10,
-      "wordCount": 53,
-      "quranOccurrenceCount": 53,
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
       "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_091",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 1",
-        "bn": "অনুচ্ছেদ 1",
-        "ur": "سیکشن 1",
-        "in": "Bagian 1",
-        "tr": "Bölüm 1",
-        "fr": "Section 1"
+        "en": "Section 1: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 1: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 1: কائناتی اور لغوی اسماء",
+        "in": "Bagian 1: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 1: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 1: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 1,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_092",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 2",
-        "bn": "অনুচ্ছেদ 2",
-        "ur": "سیکشن 2",
-        "in": "Bagian 2",
-        "tr": "Bölüm 2",
-        "fr": "Section 2"
+        "en": "Section 2: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 2: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 2: কائناتی اور لغوی اسماء",
+        "in": "Bagian 2: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 2: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 2: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 2,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_093",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 3",
-        "bn": "অনুচ্ছেদ 3",
-        "ur": "سیکشن 3",
-        "in": "Bagian 3",
-        "tr": "Bölüm 3",
-        "fr": "Section 3"
+        "en": "Section 3: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 3: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 3: কائناتی اور لغوی اسماء",
+        "in": "Bagian 3: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 3: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 3: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 3,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_094",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 4",
-        "bn": "অনুচ্ছেদ 4",
-        "ur": "سیکشن 4",
-        "in": "Bagian 4",
-        "tr": "Bölüm 4",
-        "fr": "Section 4"
+        "en": "Section 4: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 4: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 4: কائناتی اور لغوی اسماء",
+        "in": "Bagian 4: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 4: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 4: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 4,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_095",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 5",
-        "bn": "অনুচ্ছেদ 5",
-        "ur": "سیکشن 5",
-        "in": "Bagian 5",
-        "tr": "Bölüm 5",
-        "fr": "Section 5"
+        "en": "Section 5: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 5: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 5: কائناتی اور لغوی اسماء",
+        "in": "Bagian 5: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 5: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 5: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 5,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_096",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 6",
-        "bn": "অনুচ্ছেদ 6",
-        "ur": "سیکشن 6",
-        "in": "Bagian 6",
-        "tr": "Bölüm 6",
-        "fr": "Section 6"
+        "en": "Section 6: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 6: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 6: কائناتی اور لغوی اسماء",
+        "in": "Bagian 6: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 6: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 6: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 6,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_097",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 7",
-        "bn": "অনুচ্ছেদ 7",
-        "ur": "سیکشن 7",
-        "in": "Bagian 7",
-        "tr": "Bölüm 7",
-        "fr": "Section 7"
+        "en": "Section 7: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 7: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 7: কائناتی اور لغوی اسماء",
+        "in": "Bagian 7: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 7: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 7: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 7,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 51,
+      "quranOccurrenceCount": 51,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_098",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 8",
-        "bn": "অনুচ্ছেদ 8",
-        "ur": "سیکشن 8",
-        "in": "Bagian 8",
-        "tr": "Bölüm 8",
-        "fr": "Section 8"
+        "en": "Section 8: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 8: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 8: কائناتی اور لغوی اسماء",
+        "in": "Bagian 8: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 8: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 8: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 8,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 50,
+      "quranOccurrenceCount": 50,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_099",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 9",
-        "bn": "অনুচ্ছেদ 9",
-        "ur": "سیکشن 9",
-        "in": "Bagian 9",
-        "tr": "Bölüm 9",
-        "fr": "Section 9"
+        "en": "Section 9: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 9: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 9: কائناتی اور لغوی اسماء",
+        "in": "Bagian 9: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 9: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 9: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 9,
-      "wordCount": 62,
-      "quranOccurrenceCount": 62,
-      "quranOccurrencePercent": 0.11
+      "wordCount": 50,
+      "quranOccurrenceCount": 50,
+      "quranOccurrencePercent": 0.09
     },
     {
       "id": "sec_100",
       "chapterId": "ch_10",
       "title": {
-        "en": "Section 10",
-        "bn": "অনুচ্ছেদ 10",
-        "ur": "سیکشن 10",
-        "in": "Bagian 10",
-        "tr": "Bölüm 10",
-        "fr": "Section 10"
+        "en": "Section 10: Cosmic & Lexical Nominals",
+        "bn": "পর্ব 10: মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "حصہ 10: কائناتی اور لغوی اسماء",
+        "in": "Bagian 10: Nomina Kosmis & Leksikal",
+        "tr": "Bölüm 10: Kozmik ve Sözlük İsimleri",
+        "fr": "Section 10: Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 10,
-      "wordCount": 53,
-      "quranOccurrenceCount": 53,
+      "wordCount": 50,
+      "quranOccurrenceCount": 50,
       "quranOccurrencePercent": 0.09
     }
   ]
