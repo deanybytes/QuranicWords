@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-QuranicWords Interactive HTML Dictionary Generator (Optimized & Comprehensive)
+QuranicWords Interactive HTML Dictionary Generator (100% Precision Grounded)
 =============================================================================
 Generates a standalone, beautiful, interactive single-file HTML dictionary:
 `QuranicWords_Dictionary.html`
@@ -13,7 +13,6 @@ Features:
 - Real-time search across Arabic (with/without tashkeel), Transliteration, Root, English, Bengali, Urdu, and Surah references.
 - Multi-category filtering (Particles, Verbs, Nouns, Polysemy), chapter selector, and language visibility toggles.
 - Multiple view modes: Curriculum Tree View, Compact Dictionary Table.
-- Fast, smooth 60fps rendering with lazy DOM and clean collapse/expand controls.
 - 100% self-contained, offline-ready with embedded data and styling.
 """
 
@@ -39,12 +38,12 @@ def strip_tashkeel(text):
 def highlight_arabic(verse, start, end, fallback_word=''):
     if not verse:
         return ''
-    v_escaped = html.escape(verse)
     if start is not None and end is not None and 0 <= start < end <= len(verse):
         before = html.escape(verse[:start])
         target = html.escape(verse[start:end])
         after = html.escape(verse[end:])
         return f'{before}<mark class="ar-hl">{target}</mark>{after}'
+    v_escaped = html.escape(verse)
     if fallback_word:
         w_esc = html.escape(fallback_word)
         if w_esc in v_escaped:
@@ -63,6 +62,18 @@ def highlight_translation(trans, hl_word):
         actual = html.escape(trans[idx:idx+len(hw)])
         after = html.escape(trans[idx+len(hw):])
         return f'{before}<mark class="tr-hl">{actual}</mark>{after}'
+    # Sub-phrase fallback
+    words = hw.split()
+    if len(words) > 1:
+        for w in words:
+            w = w.strip('.,;:!?()[]{}')
+            if len(w) >= 2:
+                w_idx = trans.lower().find(w.lower())
+                if w_idx >= 0:
+                    before = html.escape(trans[:w_idx])
+                    actual = html.escape(trans[w_idx:w_idx+len(w)])
+                    after = html.escape(trans[w_idx+len(w):])
+                    return f'{before}<mark class="tr-hl">{actual}</mark>{after}'
     return html.escape(trans)
 
 def main():
@@ -1023,6 +1034,40 @@ def main():
         let visibleLangs = {{ en: true, bn: true, ur: true, in: true, tr: true, fr: true }};
         let currentView = 'tree';
 
+        function escapeHtml(str) {{
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&#039;');
+        }}
+
+        function highlightTranslationClient(trans, hlWord) {{
+            if (!trans) return '';
+            if (!hlWord || hlWord.trim().length < 2) return escapeHtml(trans);
+            const hw = hlWord.trim();
+            const idx = trans.toLowerCase().indexOf(hw.toLowerCase());
+            if (idx >= 0) {{
+                const before = escapeHtml(trans.substring(0, idx));
+                const actual = escapeHtml(trans.substring(idx, idx + hw.length));
+                const after = escapeHtml(trans.substring(idx + hw.length));
+                return `${{before}}<mark class="tr-hl">${{actual}}</mark>${{after}}`;
+            }}
+            // Sub-phrase word match
+            const subWords = hw.split(/\\s+/).filter(w => w.length >= 2);
+            for (const sw of subWords) {{
+                const sIdx = trans.toLowerCase().indexOf(sw.toLowerCase());
+                if (sIdx >= 0) {{
+                    const before = escapeHtml(trans.substring(0, sIdx));
+                    const actual = escapeHtml(trans.substring(sIdx, sIdx + sw.length));
+                    const after = escapeHtml(trans.substring(sIdx + sw.length));
+                    return `${{before}}<mark class="tr-hl">${{actual}}</mark>${{after}}`;
+                }}
+            }}
+            return escapeHtml(trans);
+        }}
+
         // Render Sidebar Directory
         function renderSidebar() {{
             const listEl = document.getElementById('sidebar-chapters-list');
@@ -1053,7 +1098,7 @@ def main():
         // Helper to strip tashkeel in client JS
         function stripTashkeelJs(text) {{
             if (!text) return '';
-            return text.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\uFEFF]/g, '')
+            return text.replace(/[\\u064B-\\u065F\\u0670\\u06D6-\\u06ED\\uFEFF]/g, '')
                        .replace(/[إأآٱ]/g, 'ا')
                        .replace(/ة/g, 'ه')
                        .replace(/ى/g, 'ي')
@@ -1249,7 +1294,7 @@ def main():
                             ${{w.exampleVerseArabicHl}}
                         </div>
                         <div class="verse-translations-list" id="verse-trans-${{w.wordId}}">
-                            ${{renderVerseTranslationsHtml(w.exampleVerseTranslationHl)}}
+                            ${{renderVerseTranslationsHtml(w.exampleVerseTranslation, w.meaningHighlight)}}
                         </div>
                     </div>
 
@@ -1273,16 +1318,18 @@ def main():
             `;
         }}
 
-        function renderVerseTranslationsHtml(transHlDict) {{
+        function renderVerseTranslationsHtml(transDict, hlDict) {{
             const flags = {{ en: '🇬🇧', bn: '🇧🇩', ur: '🇵🇰', in: '🇮🇩', tr: '🇹🇷', fr: '🇫🇷' }};
             let out = '';
-            for (const [lang, text] of Object.entries(transHlDict)) {{
+            for (const [lang, text] of Object.entries(transDict || {{}})) {{
                 if (!visibleLangs[lang]) continue;
                 const fontClass = lang === 'bn' ? 'font-bn' : (lang === 'ur' ? 'font-ur' : '');
+                const hlWord = (hlDict && hlDict[lang]) ? hlDict[lang] : '';
+                const renderedText = highlightTranslationClient(text, hlWord);
                 out += `
                     <div class="v-trans-item ${{fontClass}}">
                         <span class="v-trans-tag">${{flags[lang] || lang.toUpperCase()}}:</span>
-                        <span>${{text || '—'}}</span>
+                        <span>${{renderedText || '—'}}</span>
                     </div>
                 `;
             }}
@@ -1304,7 +1351,7 @@ def main():
             // Update Verse Reference, Arabic Verse, and Translations
             document.getElementById(`ref-${{wordId}}`).innerText = se.verseReference;
             document.getElementById(`verse-ar-${{wordId}}`).innerHTML = se.verseArabicHl;
-            document.getElementById(`verse-trans-${{wordId}}`).innerHTML = renderVerseTranslationsHtml(se.verseTranslationHl);
+            document.getElementById(`verse-trans-${{wordId}}`).innerHTML = renderVerseTranslationsHtml(se.verseTranslation, se.translationHighlight);
         }}
 
         // Render Compact Table View
