@@ -19,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
@@ -246,8 +247,21 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             LessonScreen(
                 onExit = { navController.popBackStack() },
                 onFinished = { summary ->
-                    navController.navigate(summary) {
-                        popUpTo(Route.Home)
+                    if (summary.lessonKind == LessonKind.CHAPTER_INTRO) {
+                        val nextLessonId = summary.nextLessonId
+                        if (nextLessonId != null) {
+                            navController.navigate(Route.Lesson(nextLessonId)) {
+                                popUpTo(Route.Home)
+                            }
+                        } else {
+                            navController.navigate(Route.Home) {
+                                popUpTo(Route.Home) { inclusive = true }
+                            }
+                        }
+                    } else {
+                        navController.navigate(summary) {
+                            popUpTo(Route.Home)
+                        }
                     }
                 }
             )
