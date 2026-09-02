@@ -270,17 +270,17 @@
     <string name="learned_words_rank">স্থান #%d</string>
     <string name="learned_words_occurrences_total">কুরআনে মোট আগমন: %d বার</string>
 
-    <string name="test_mode_ism_title">বিশেষ্য (Ism) মোড</string>
+    <string name="test_mode_ism_title">বিশেষ্য (اسم) মোড</string>
     <string name="test_mode_ism_desc">কুরআনের ৩,০৫৭টি বিশেষ্য, সর্বনাম ও আল্লাহর গুণবাচক নাম নিয়ে বিশেষ টেস্ট।</string>
     <string name="test_mode_ism_progress">এই চক্রে %2$d টি বিশেষ্যের মধ্যে %1$d টি সম্পন্ন</string>
-    <string name="test_mode_fil_title">ক্রিয়াপদ (Fi\'l) মোড</string>
+    <string name="test_mode_fil_title">ক্রিয়া (فعل) মোড</string>
     <string name="test_mode_fil_desc">কুরআনের ১,৪৫০টি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
     <string name="test_mode_fil_progress">এই চক্রে %2$d টি ক্রিয়ার মধ্যে %1$d টি সম্পন্ন</string>
-    <string name="test_mode_harf_title">হরফ (Ḥarf) মোড</string>
+    <string name="test_mode_harf_title">হরফ (حرف) মোড</string>
     <string name="test_mode_harf_desc">কুরআনের ১০৯টি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
     <string name="test_mode_harf_progress">এই চক্রে %2$d টি হরফের মধ্যে %1$d টি সম্পন্ন</string>
     <string name="test_mode_random_title">মিশ্র / র‍্যান্ডম মোড</string>
-    <string name="test_mode_random_desc">কুরআনের সকল ৪,৬১৬টি শব্দের (হরফ, ক্রিয়া, বিশেষ্য) মিশ্র কুইজ।</string>
+    <string name="test_mode_random_desc">কুরআনের সকল ৪,৬১৬টি শব্দের (اسم, فعل, حرف) মিশ্র কুইজ।</string>
     <string name="test_mode_random_progress">এই চক্রে %2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
     <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
     <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৪,৬১৬ নং ক্রম পর্যন্ত)।</string>
@@ -332,12 +332,12 @@
     <string name="widget_rank_format">র‍্যাংক #%d</string>
     <string name="widget_quran_pct_format">কুরআনের %.2f%%</string>
 
-    <string name="lesson_category_noun">ইসম (বিশেষ্য) পাঠ</string>
-    <string name="lesson_category_verb">ফে\'ল (ক্রিয়া) পাঠ</string>
-    <string name="lesson_category_particle">হরফ (অব্যয়) পাঠ</string>
-    <string name="word_category_noun">ইসম (বিশেষ্য)</string>
-    <string name="word_category_verb">ফে\'ল (ক্রিয়া)</string>
-    <string name="word_category_particle">হরফ (অব্যয়)</string>
+    <string name="lesson_category_noun">বিশেষ্য (اسم) পাঠ</string>
+    <string name="lesson_category_verb">ক্রিয়া (فعل) পাঠ</string>
+    <string name="lesson_category_particle">হরফ (حرف) পাঠ</string>
+    <string name="word_category_noun">বিশেষ্য (اسم)</string>
+    <string name="word_category_verb">ক্রিয়া (فعل)</string>
+    <string name="word_category_particle">হরফ (حرف)</string>
     <string name="verb_conjugation_title">ক্রিয়ার রূপান্তর ও সারফ (الصرف)</string>
     <string name="past_tense_label">অতীতকাল (الماضي)</string>
     <string name="present_tense_label">বর্তমান/ভবিষ্যৎ (المضارع)</string>

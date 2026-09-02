@@ -302,10 +302,12 @@
     <string name="widget_rank_format">Peringkat #%d</string>
     <string name="widget_quran_pct_format">%.2f%% dari Al-Qur\'an</string>
 
-    <string name="lesson_category_noun">Pelajaran Nomina</string>
-    <string name="lesson_category_verb">Pelajaran Verba</string>
-    <string name="word_category_noun">Nomina</string>
-    <string name="word_category_verb">Verba</string>
+    <string name="lesson_category_noun">Pelajaran Nomina (اسم)</string>
+    <string name="lesson_category_verb">Pelajaran Verba (فعل)</string>
+    <string name="lesson_category_particle">Pelajaran Partikel (حرف)</string>
+    <string name="word_category_noun">Nomina (اسم)</string>
+    <string name="word_category_verb">Verba (فعل)</string>
+    <string name="word_category_particle">Partikel (حرف)</string>
     <string name="polysemy_tab_format">Arti [%d]</string>
     <string name="polysemy_meanings_title">Arti Kontekstual (Wujuh Al-Qur\'an)</string>
 </resources>

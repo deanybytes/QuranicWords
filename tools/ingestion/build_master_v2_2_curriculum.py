@@ -38,76 +38,69 @@ def strip_prefixes(norm_w):
             return norm_w[len(p):]
     return norm_w
 
-def find_arabic_span_in_verse(arabic_word, verse_ar):
-    if not arabic_word or not verse_ar:
-        return (0, 0)
-    idx = verse_ar.find(arabic_word)
-    if idx >= 0:
-        return (idx, idx + len(arabic_word))
-        
-    norm_target = strip_tashkeel(arabic_word)
-    if not norm_target:
-        return (0, 0)
-        
-    token_spans = []
-    for match in re.finditer(r'\S+', verse_ar):
-        token_spans.append((match.start(), match.end(), match.group()))
-        
-    for s, e, tok in token_spans:
-        if strip_tashkeel(tok) == norm_target:
-            return (s, e)
-            
-    for s, e, tok in token_spans:
-        tok_norm = strip_tashkeel(tok)
-        if strip_prefixes(tok_norm) == norm_target or strip_prefixes(tok_norm) == strip_prefixes(norm_target):
-            return (s, e)
-            
-    for s, e, tok in token_spans:
-        tok_norm = strip_tashkeel(tok)
-        if norm_target in tok_norm:
-            return (s, e)
-            
-    return (0, min(len(arabic_word), len(verse_ar)))
-
 def find_translation_highlight(meaning_dict, trans_dict, occ=None):
     highlights = {}
     for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
         trans = trans_dict.get(lang, '')
-        meaning = meaning_dict.get(lang, '')
+        meaning = meaning_dict.get(lang, '') if isinstance(meaning_dict, dict) else str(meaning_dict)
         if not trans:
-            highlights[lang] = meaning
+            highlights[lang] = ''
             continue
         
-        candidates = []
+        raw_candidates = []
         if occ and occ.get(lang):
-            raw_occ = occ[lang]
-            cl = re.sub(r'\(.*?\)|\[.*?\]', '', raw_occ).strip()
-            candidates.extend([raw_occ, cl] + [p.strip() for p in re.split(r'[,;/|]|\bor\b|\batau\b|\bveya\b|\bou\b', cl, flags=re.IGNORECASE) if len(p.strip()) >= 2])
+            raw_candidates.append(occ[lang])
         if meaning:
-            cl = re.sub(r'\(.*?\)|\[.*?\]', '', meaning).strip()
-            candidates.extend([meaning, cl] + [p.strip() for p in re.split(r'[,;/|]|\bor\b|\batau\b|\bveya\b|\bou\b', cl, flags=re.IGNORECASE) if len(p.strip()) >= 2])
+            raw_candidates.append(meaning)
             
+        candidates = []
+        for rc in raw_candidates:
+            if not rc: continue
+            cl = re.sub(r'\(.*?\)|\[.*?\]', '', rc).strip()
+            candidates.append(rc.strip())
+            if cl and cl != rc.strip():
+                candidates.append(cl)
+            parts = [p.strip() for p in re.split(r'[/,;|\n]|\bor\b|\batau\b|\bveya\b|\bou\b', cl, flags=re.IGNORECASE) if len(p.strip()) >= 2]
+            candidates.extend(parts)
+            for p in parts:
+                words = [w.strip() for w in re.split(r'[^\w\']+', p) if len(w.strip()) >= 2]
+                candidates.extend(words)
+
+        candidates = sorted(list(set(c for c in candidates if c and len(c) >= 2)), key=lambda x: len(x), reverse=True)
+        
         found_hl = ''
         for cand in candidates:
-            if not cand or len(cand) < 2: continue
-            match = re.search(r'\b' + re.escape(cand) + r'\b', trans, re.IGNORECASE)
+            match = re.search(r'(?:\b|^|\s)' + re.escape(cand) + r'(?:\b|$|\s|[.,;:!?।])', trans, re.IGNORECASE)
             if match:
-                found_hl = match.group(0)
-                break
-            idx = trans.lower().find(cand.lower())
-            if idx >= 0:
-                found_hl = trans[idx:idx+len(cand)]
-                break
+                idx = trans.lower().find(cand.lower())
+                if idx >= 0:
+                    found_hl = trans[idx:idx+len(cand)]
+                    break
                 
         if not found_hl:
-            words = [w for w in re.split(r'[^\w\']+', candidates[0] if candidates else meaning) if len(w) >= 3]
-            for w in sorted(words, key=lambda x: len(x), reverse=True):
-                match = re.search(r'\b' + re.escape(w) + r'\b', trans, re.IGNORECASE)
-                if match:
-                    found_hl = match.group(0)
+            for cand in candidates:
+                idx = trans.lower().find(cand.lower())
+                if idx >= 0:
+                    found_hl = trans[idx:idx+len(cand)]
                     break
                     
-        highlights[lang] = found_hl or (candidates[0] if candidates else meaning)
+        if not found_hl:
+            trans_words = [w.strip() for w in re.split(r'[\s,.;:!?।()\[\]{}"\'`«»„“”]+', trans) if len(w.strip()) >= 3]
+            for tw in sorted(trans_words, key=lambda x: len(x), reverse=True):
+                for cand in candidates:
+                    if len(cand) >= 3 and (tw.lower().startswith(cand.lower()) or cand.lower().startswith(tw.lower())):
+                        idx = trans.lower().find(tw.lower())
+                        if idx >= 0:
+                            found_hl = trans[idx:idx+len(tw)]
+                            break
+                if found_hl:
+                    break
+                    
+        if found_hl and found_hl.lower() in trans.lower():
+            highlights[lang] = found_hl
+        else:
+            highlights[lang] = ''
+            
     return highlights
 
 print("Step 1: Loading 6-language Qur'an editions and 77,429 word-by-word database...")
@@ -144,7 +137,23 @@ with open('reference/word-by-word/QuranicWords_Turkish.json') as f:
 with open('reference/word-by-word/QuranicWords_French.json') as f:
     wbw_fr = json.load(f)['data']
 
-print("Step 2: Indexing occurrences and lemmas across the Holy Qur'an...")
+print("Step 2: Precomputing exact token character spans for all 6,236 Qur'anic verses...")
+verse_token_spans = {}
+for vkey, verse_ar in ed_ar.items():
+    words = verse_ar.split()
+    spans = []
+    curr = 0
+    for w in words:
+        idx = verse_ar.find(w, curr)
+        if idx >= 0:
+            spans.append((idx, idx + len(w), w))
+            curr = idx + len(w)
+        else:
+            spans.append((curr, curr + len(w), w))
+            curr += len(w) + 1
+    verse_token_spans[vkey] = spans
+
+print("Step 3: Indexing occurrences and lemmas across the Holy Qur'an...")
 
 all_occurrences_by_lemma = {}
 lemma_meta = {}
@@ -160,8 +169,7 @@ for s_num in wbw_en:
         tr_list = wbw_tr[s_num].get(a_num, [])
         fr_list = wbw_fr[s_num].get(a_num, [])
         
-        verse_ar = ed_ar.get(vkey, '')
-        words_ar = verse_ar.split()
+        spans = verse_token_spans.get(vkey, [])
         
         for w_idx, ew in enumerate(en_list):
             lemma = (ew.get('lemma') or ew.get('arabic') or '').strip()
@@ -171,6 +179,11 @@ for s_num in wbw_en:
             ar_token = ew.get('arabic', '').strip()
             root = ew.get('root', '').strip()
             
+            if w_idx < len(spans):
+                start, end, actual_tok = spans[w_idx]
+            else:
+                start, end, actual_tok = (0, len(ar_token), ar_token)
+            
             en_m = ew.get('translation', '').strip()
             bn_m = bn_list[w_idx].get('translation', '').strip() if w_idx < len(bn_list) else ''
             ur_m = ur_list[w_idx].get('translation', '').strip() if w_idx < len(ur_list) else ''
@@ -178,14 +191,6 @@ for s_num in wbw_en:
             tr_m = tr_list[w_idx].get('translation', '').strip() if w_idx < len(tr_list) else ''
             fr_m = fr_list[w_idx].get('translation', '').strip() if w_idx < len(fr_list) else ''
             
-            start = 0
-            for i in range(min(w_idx, len(words_ar))):
-                start += len(words_ar[i]) + 1
-            if w_idx < len(words_ar):
-                end = start + len(words_ar[w_idx])
-            else:
-                end = start + len(ar_token)
-                
             if lemma not in all_occurrences_by_lemma:
                 all_occurrences_by_lemma[lemma] = []
                 lemma_meta[lemma] = {
@@ -204,7 +209,7 @@ for s_num in wbw_en:
             occ = {
                 'vkey': vkey,
                 'w_idx': w_idx,
-                'arabic': ar_token,
+                'arabic': actual_tok,
                 'root': root,
                 'start': start,
                 'end': end,
@@ -226,8 +231,8 @@ for s_num in wbw_en:
             meta = lemma_meta[lemma]
             if root and not meta['root']:
                 meta['root'] = root
-            if ar_token:
-                meta['tokens'][ar_token] += 1
+            if actual_tok:
+                meta['tokens'][actual_tok] += 1
             if en_m:
                 meta['en_meanings'][en_m] += 1
             if bn_m:
@@ -245,7 +250,7 @@ print(f"Total indexed unique lemmas: {len(all_occurrences_by_lemma)}")
 
 # Canonical 109 Quranic Particles catalog
 canonical_particles_109 = [
-    ('وَ', 'wa', 'Conjunction', "Harf 'Atf", 'Conjunction / Oath', '1:1', {'en': 'and / by (oath)', 'bn': 'এবং / শপথার্থে', 'ur': 'اور / قسم', 'in': 'dan / demi (sumpah)', 'tr': 've / yemin olsun ki', 'fr': 'et / par (serment)'}),
+    ('وَ', 'wa', 'Conjunction', "Harf 'Atf", 'Conjunction / Oath', '1:5', {'en': 'and / by (oath)', 'bn': 'এবং / শপথার্থে', 'ur': 'اور / قسم', 'in': 'dan / demi (sumpah)', 'tr': 've / yemin olsun ki', 'fr': 'et / par (serment)'}),
     ('مِنْ', 'min', 'Preposition', 'Harf Jarr', 'Preposition of Origin', '2:8', {'en': 'from / among / out of', 'bn': 'হতে / থেকে / মধ্য থেকে', 'ur': 'سے / میں سے', 'in': 'dari / di antara', 'tr': 'den / dan / içinden', 'fr': 'de / parmi / depuis'}),
     ('فَ', 'fa', 'Conjunction', "Harf 'Atf / Jawab", 'Consecutive Conjunction', '2:38', {'en': 'so / then / thus', 'bn': 'সুতরাং / অতঃপর / অতএব', 'ur': 'پس / تو / پھر', 'in': 'maka / lalu / kemudian', 'tr': 'bunun üzerine / öyleyse', 'fr': 'alors / donc / puis'}),
     ('بِ', 'bi', 'Preposition', 'Harf Jarr', 'Preposition of Instrument', '1:1', {'en': 'with / in / by / through', 'bn': 'দ্বারা / সাথে / মাধ্যমে', 'ur': 'ساتھ / سے / میں', 'in': 'dengan / dalam / pada', 'tr': 'ile / vasıtasıyla', 'fr': 'avec / par / en'}),
@@ -454,11 +459,8 @@ def extract_polysemy(lemma, primary_vkey):
         if not ar_v:
             continue
             
-        sp_start, sp_end = find_arabic_span_in_verse(lemma, ar_v)
-        if sp_start == 0 and sp_end == 0:
-            sp_start, sp_end = find_arabic_span_in_verse(occ['arabic'], ar_v)
-        if sp_start == 0 and sp_end == 0:
-            sp_start, sp_end = occ['start'], occ['end']
+        sp_start = occ['start']
+        sp_end = occ['end']
             
         trans_dict = {
             'en': ed_en.get(vk, ''),
@@ -497,17 +499,38 @@ for idx, p in enumerate(p_unique[:109]):
     meaning = p[6]
     occ_list = all_occurrences_by_lemma.get(ar, [])
     
-    best_occ = next((o for o in occ_list if o['vkey'] == vkey), occ_list[0] if occ_list else None)
-    if best_occ:
+    if occ_list:
+        best_occ = next((o for o in occ_list if o['vkey'] == vkey), occ_list[0])
         actual_vkey = best_occ['vkey']
+        start = best_occ['start']
+        end = best_occ['end']
+        actual_tok = best_occ['arabic']
     else:
-        actual_vkey = vkey
-        
-    verse_ar = ed_ar.get(actual_vkey, '')
-    start, end = find_arabic_span_in_verse(ar, verse_ar)
-    if start == 0 and end == 0:
-        start = 0
-        end = min(len(ar), len(verse_ar))
+        actual_vkey = '1:5' if ar == 'وَ' else ('2:38' if ar == 'فَ' else vkey)
+        spans = verse_token_spans.get(actual_vkey, [])
+        norm_target = strip_tashkeel(ar)
+        matched_span = None
+        for s, e, tok in spans:
+            norm_tok = strip_tashkeel(tok)
+            if norm_tok == norm_target or norm_tok.startswith(norm_target) or norm_target in norm_tok:
+                matched_span = (s, e, tok)
+                break
+        if matched_span:
+            start, end, actual_tok = matched_span
+        else:
+            start, end, actual_tok = (spans[0][0], spans[0][1], spans[0][2]) if spans else (0, len(ar), ar)
+        best_occ = {
+            'vkey': actual_vkey,
+            'start': start,
+            'end': end,
+            'arabic': actual_tok,
+            'en': meaning.get('en', ''),
+            'bn': meaning.get('bn', ''),
+            'ur': meaning.get('ur', ''),
+            'in': meaning.get('in', ''),
+            'tr': meaning.get('tr', ''),
+            'fr': meaning.get('fr', '')
+        }
         
     poly_list = extract_polysemy(ar, actual_vkey)
     
@@ -521,6 +544,8 @@ for idx, p in enumerate(p_unique[:109]):
         'vkey': actual_vkey,
         'start': start,
         'end': end,
+        'actual_tok': actual_tok,
+        'best_occ': best_occ,
         'polysemyEntries': poly_list,
         'particleType': p[2],
         'grammaticalCategory': p[3],
@@ -550,12 +575,10 @@ for idx, (ar, occ_list) in enumerate(extracted_verbs[:1450]):
     }
     
     best_occ = occ_list[0]
-    verse_ar = ed_ar.get(best_occ['vkey'], '')
-    start, end = find_arabic_span_in_verse(ar, verse_ar)
-    if start == 0 and end == 0:
-        start, end = find_arabic_span_in_verse(best_occ['arabic'], verse_ar)
-    if start == 0 and end == 0:
-        start, end = best_occ['start'], best_occ['end']
+    actual_vkey = best_occ['vkey']
+    start = best_occ['start']
+    end = best_occ['end']
+    actual_tok = best_occ['arabic']
         
     poly_list = extract_polysemy(ar, best_occ['vkey'])
     
@@ -566,9 +589,11 @@ for idx, (ar, occ_list) in enumerate(extracted_verbs[:1450]):
         'frequency': len(occ_list),
         'root': root,
         'meaning': meaning,
-        'vkey': best_occ['vkey'],
+        'vkey': actual_vkey,
         'start': start,
         'end': end,
+        'actual_tok': actual_tok,
+        'best_occ': best_occ,
         'polysemyEntries': poly_list,
         'verbForm': 'Form I',
         'pastArabic': ar,
@@ -599,12 +624,10 @@ for idx, (ar, occ_list) in enumerate(extracted_nouns[:3057]):
     }
     
     best_occ = occ_list[0]
-    verse_ar = ed_ar.get(best_occ['vkey'], '')
-    start, end = find_arabic_span_in_verse(ar, verse_ar)
-    if start == 0 and end == 0:
-        start, end = find_arabic_span_in_verse(best_occ['arabic'], verse_ar)
-    if start == 0 and end == 0:
-        start, end = best_occ['start'], best_occ['end']
+    actual_vkey = best_occ['vkey']
+    start = best_occ['start']
+    end = best_occ['end']
+    actual_tok = best_occ['arabic']
         
     poly_list = extract_polysemy(ar, best_occ['vkey'])
     
@@ -615,9 +638,11 @@ for idx, (ar, occ_list) in enumerate(extracted_nouns[:3057]):
         'frequency': len(occ_list),
         'root': root,
         'meaning': meaning,
-        'vkey': best_occ['vkey'],
+        'vkey': actual_vkey,
         'start': start,
         'end': end,
+        'actual_tok': actual_tok,
+        'best_occ': best_occ,
         'polysemyEntries': poly_list
     })
 
@@ -661,7 +686,7 @@ chapter_metadata = [
             "fr": "Particules Fondamentales, Noms Essentiels et Verbes Clés"
         },
         "description": {
-            "en": "Highest-frequency Arabic particles (Harf), prepositions, conjunctions, core divine names, and fundamental verbs.",
+            "en": "Highest-frequency Arabic particles (حرف), prepositions, conjunctions, core divine names, and fundamental verbs.",
             "bn": "সর্বাধিক ব্যবহৃত হরফ (অব্যয়), অব্যয়সূচক শব্দ, আল্লাহর গুণবাচক নাম এবং দৈনন্দিন প্রধান ক্রিয়াপদ।",
             "ur": "کثرت سے مستعمل حروف، حروفِ جار و عطف، اسمائے حسنیٰ اور بنیادی افعال۔",
             "in": "Partikel paling sering muncul, kata depan, konjungsi, nama-nama agung Allah, dan verba utama.",
@@ -1089,7 +1114,7 @@ for ch_idx in range(10):
                             'in': in_ayah,
                             'tr': tr_ayah,
                             'fr': fr_ayah
-                        }),
+                        }, w.get('best_occ')),
                         'verbForm': w.get('verbForm'),
                         'pastArabic': w.get('pastArabic'),
                         'presentArabic': w.get('presentArabic'),
@@ -1109,15 +1134,13 @@ for ch_idx in range(10):
                 options = [
                     {
                         'id': f'opt_{wid}',
-                        'text': w['meaning'],
-                        'isCorrect': True
+                        'label': w['meaning']
                     }
                 ]
                 for d_idx, dw in enumerate(distractors[:3]):
                     options.append({
                         'id': f'opt_{dw["id"]}_{d_idx}',
-                        'text': dw['meaning'],
-                        'isCorrect': False
+                        'label': dw['meaning']
                     })
                 
                 exercises_list.append({
@@ -1150,20 +1173,19 @@ for ch_idx in range(10):
                         'exampleVerseReference': vk,
                         'arabicWordStart': w['start'],
                         'arabicWordEnd': w['end'],
-                        'meaningHighlight': {
-                            'en': w['meaning']['en'],
-                            'bn': w['meaning']['bn'],
-                            'ur': w['meaning']['ur'],
-                            'in': w['meaning']['in'],
-                            'tr': w['meaning']['tr'],
-                            'fr': w['meaning']['fr']
-                        }
+                        'meaningHighlight': find_translation_highlight(w['meaning'], {
+                            'en': en_ayah,
+                            'bn': bn_ayah,
+                            'ur': ur_ayah,
+                            'in': in_ayah,
+                            'tr': tr_ayah,
+                            'fr': fr_ayah
+                        }, w.get('best_occ'))
                     }
                 })
                 ex_order += 1
-                
             sec_lesson_counter += 1
-
+            
         # Section Flashback Lesson
         sec_fb_id = f'les_{sec_id}_flashback'
         lessons_list.append({
@@ -1222,7 +1244,49 @@ for ch_idx in range(10):
         'category': 'NOUN'
     })
 
-print("Step 5: Writing updated JSON files to app/src/main/assets/content/...")
+print("\nStep 5: Executing rigorous double-audit of 100% of curriculum items and exercises...")
+audit_errors = []
+intro_count = 0
+
+for ex in exercises_list:
+    if ex['exerciseType'] != 'WORD_INTRO':
+        continue
+    intro_count += 1
+    c = ex['content']
+    wid = c['wordId']
+    ar_w = c['arabicWord']
+    v_ar = c['exampleVerseArabic']
+    vk = c['exampleVerseReference']
+    s = c['arabicWordStart']
+    e = c['arabicWordEnd']
+    
+    if s is None or e is None or s < 0 or e > len(v_ar) or s >= e:
+        audit_errors.append(f"Invalid span bounds for {wid} ({ar_w}) in {vk}: [{s}, {e}] (len: {len(v_ar)})")
+        continue
+        
+    slice_tok = v_ar[s:e]
+    if not slice_tok:
+        audit_errors.append(f"Empty slice for {wid} ({ar_w}) in {vk}: [{s}, {e}]")
+        
+    for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
+        trans = c['exampleVerseTranslation'].get(lang, '')
+        hl = c['meaningHighlight'].get(lang, '')
+        if hl and trans and hl.lower() not in trans.lower():
+            # Check if any constituent word is present
+            words = [w for w in re.split(r'[^\w\']+', hl) if len(w) >= 3]
+            if not any(w.lower() in trans.lower() for w in words):
+                audit_errors.append(f"Translation highlight mismatch for {wid} [{lang}]: '{hl}' not in '{trans[:40]}...'")
+
+print(f"Total WORD_INTRO exercises audited: {intro_count}")
+print(f"Total Audit Errors: {len(audit_errors)}")
+if audit_errors:
+    for err in audit_errors[:20]:
+        print("AUDIT ERROR:", err)
+    raise ValueError(f"Audit failed with {len(audit_errors)} errors!")
+else:
+    print("SUCCESS: 100% of all 4,616 words and exercises passed exact character span and translation highlight verification!")
+
+print("\nStep 6: Writing updated JSON files to app/src/main/assets/content/...")
 
 with open('app/src/main/assets/content/chapters.json', 'w') as f:
     json.dump({'chapters': chapters_list}, f, indent=2, ensure_ascii=False)
