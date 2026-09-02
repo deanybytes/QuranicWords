@@ -13,7 +13,7 @@ Guarantees:
 1. 100% Authentic Qur'anic Ayahs and 6-language translations for every single word (0 placeholders).
 2. Pure language isolation with zero cross-contamination.
 3. Clean single primary meaning per multiple choice option.
-4. Precomputed character spans and translation highlights.
+4. Precision word-level translation highlights with pronoun and conjunction filtering (no jumping to adjacent words).
 5. Rich dynamic polysemy entries for multi-meaning words.
 """
 
@@ -28,6 +28,33 @@ EXCEL_DIR = os.path.join(BASE_DIR, 'assets', 'Words & Meanings')
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 
 bengali_regex = re.compile(r'[\u0980-\u09FF]')
+
+PRONOUN_STOPWORDS = {
+    'bn': {'তাদের', 'তাদেরকে', 'তাকে', 'তোমাদের', 'তোমাকে', 'আমাদের', 'আমাকে', 'তিনি', 'সে', 'তারা', 'তা', 'এরা', 'এর'},
+    'ur': {'ان', 'انہیں', 'اس', 'اسے', 'تم', 'تمہیں', 'ہم', 'ہمیں', 'وہ'},
+    'en': {'them', 'their', 'theirs', 'they', 'him', 'his', 'her', 'hers', 'you', 'your', 'yours', 'us', 'our', 'ours', 'it', 'its'},
+    'in': {'mereka', 'dia', 'kamu', 'kalian', 'kami', 'kita'},
+    'tr': {'onlar', 'onların', 'ona', 'onları', 'sen', 'senin', 'biz', 'bizim'},
+    'fr': {'eux', 'leur', 'leurs', 'lui', 'vous', 'votre', 'nous', 'notre'}
+}
+
+CONJUNCTION_STOPWORDS = {
+    'bn': {'এবং', 'আর', 'ও', 'অতঃপর', 'সুতরাং', 'তবে', 'পক্ষান্তরে'},
+    'en': {'and', 'so', 'then', 'thus', 'or', 'but'},
+    'ur': {'اور', 'پس', 'پھر', 'تو', 'یا', 'لیکن'},
+    'in': {'dan', 'maka', 'lalu', 'kemudian', 'atau'},
+    'tr': {'ve', 'veya', 'ise', 'sonra', 'bunun'},
+    'fr': {'et', 'ou', 'alors', 'donc', 'puis', 'mais'}
+}
+
+PRONOUN_LEMMAS = {'هُوَ', 'هِيَ', 'هُمْ', 'هُنَّ', 'أَنْتَ', 'أَنْتِ', 'أَنْتُمْ', 'أَنْتُنَّ', 'أَنَا', 'نَحْنُ'}
+CONJUNCTION_LEMMAS = {'وَ', 'فَ', 'فَـ', 'ثُمَّ', 'أَوْ', 'أَمْ'}
+
+def clean_text(text):
+    if not text:
+        return ''
+    t = re.sub(r'\(.*?\)|\[.*?\]', '', str(text)).strip()
+    return t
 
 def strip_tashkeel(text):
     if not text:
@@ -50,7 +77,6 @@ def fix_arabic_text(text):
     if not text:
         return ''
     s = str(text)
-    # Fix stray Bengali 'জ' in Arabic text
     s = s.replace('\u099C', '\u062C')
     return s
 
@@ -74,43 +100,43 @@ def clean_arabic_verse(raw_ar, word_lemma=''):
     m = re.search(r'【(.*?)】', s)
     if m:
         target = m.group(1)
-        clean_text = s[:m.start()] + target + s[m.end():]
+        clean_v = s[:m.start()] + target + s[m.end():]
         start = m.start()
         end = start + len(target)
-        return clean_text.strip(), start, end
+        return clean_v.strip(), start, end
         
     # 2. Secondary: Match [ ... ]
     m2 = re.search(r'\[(.*?)\]', s)
     if m2:
         target = m2.group(1)
-        clean_text = s[:m2.start()] + target + s[m2.end():]
+        clean_v = s[:m2.start()] + target + s[m2.end():]
         start = m2.start()
         end = start + len(target)
-        return clean_text.strip(), start, end
+        return clean_v.strip(), start, end
 
     # 3. Fallback: Search for word_lemma in clean string
-    clean_text = s.strip()
+    clean_v = s.strip()
     if word_lemma:
         w_clean = re.sub(r'\s*\([0-9]+\)\s*$', '', word_lemma).strip()
-        idx = clean_text.find(w_clean)
+        idx = clean_v.find(w_clean)
         if idx != -1:
-            return clean_text, idx, idx + len(w_clean)
-        s_v = strip_tashkeel(clean_text)
+            return clean_v, idx, idx + len(w_clean)
+        s_v = strip_tashkeel(clean_v)
         s_w = strip_tashkeel(w_clean)
         s_idx = s_v.find(s_w)
         if s_idx != -1:
             orig_indices = []
-            for i, ch in enumerate(clean_text):
+            for i, ch in enumerate(clean_v):
                 if not re.match(r'[\u064B-\u065F\u0670\u06D6-\u06ED]', ch):
                     orig_indices.append(i)
             if s_idx < len(orig_indices) and (s_idx + len(s_w) - 1) < len(orig_indices):
                 start = orig_indices[s_idx]
                 end = orig_indices[s_idx + len(s_w) - 1] + 1
-                while end < len(clean_text) and re.match(r'[\u064B-\u065F\u0670\u06D6-\u06ED]', clean_text[end]):
+                while end < len(clean_v) and re.match(r'[\u064B-\u065F\u0670\u06D6-\u06ED]', clean_v[end]):
                     end += 1
-                return clean_text, start, end
+                return clean_v, start, end
 
-    return clean_text, None, None
+    return clean_v, None, None
 
 def clean_translation(raw_trans, lang='en'):
     if not raw_trans:
@@ -124,8 +150,8 @@ def clean_translation(raw_trans, lang='en'):
     m = re.search(r'\[(.*?)\]', s)
     if m:
         hl = m.group(1).strip()
-        clean_text = s[:m.start()] + hl + s[m.end():]
-        return clean_text.strip(), hl
+        clean_v = s[:m.start()] + hl + s[m.end():]
+        return clean_v.strip(), hl
     return s.strip(), ''
 
 def parse_references(ref_str, num_senses):
@@ -205,6 +231,90 @@ def parse_poly_desc(poly_text, num_senses, core_meanings, particle_bn_senses=Non
             senses_meanings[i][lang] = clean_poly_sense_for_lang(senses_meanings[i][lang], lang)
             
     return senses_meanings
+
+def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en', lemma_ar=''):
+    if not trans_str:
+        return ''
+    
+    # 1. Meaning candidates (SPLIT FIRST by /, ;, ,, |, \)
+    m_candidates = []
+    if meaning_str:
+        m_cleaned = clean_text(meaning_str)
+        parts = re.split(r'\s*[/\\;,|]\s*', m_cleaned)
+        for p in parts:
+            p = p.strip()
+            if len(p) >= 2:
+                m_candidates.append(p)
+                if ' ' in p:
+                    for sub in p.split():
+                        if len(sub.strip()) >= 3:
+                            m_candidates.append(sub.strip())
+    m_candidates.sort(key=lambda x: len(x), reverse=True)
+                
+    # 2. WBW candidates
+    c_wbw = clean_text(wbw_str)
+    raw_wbw_words = [p.strip() for p in re.split(r'[\s/\\;,|]+', c_wbw) if len(p.strip()) >= 2]
+    
+    is_conj = lemma_ar in CONJUNCTION_LEMMAS
+    is_pron = lemma_ar in PRONOUN_LEMMAS
+    conj_stops = CONJUNCTION_STOPWORDS.get(lang, set())
+    pron_stops = PRONOUN_STOPWORDS.get(lang, set())
+    
+    wbw_words = []
+    for w in raw_wbw_words:
+        if not is_conj and w.lower() in conj_stops:
+            continue
+        if not is_pron and w.lower() in pron_stops:
+            continue
+        wbw_words.append(w)
+    
+    tokens = []
+    for m in re.finditer(r'[^\s,.;:!?।()\[\]{}\"\'«»„“”/\\-]+', trans_str):
+        tokens.append((m.start(), m.end(), m.group(0)))
+        
+    # Pass 1: Meaning candidates exact token match in translation
+    for cand in m_candidates:
+        for t_start, t_end, tok in tokens:
+            if tok.lower() == cand.lower():
+                return tok
+
+    # Pass 2: Meaning candidate phrase match with word boundary
+    for cand in m_candidates:
+        if ' ' in cand:
+            idx = trans_str.lower().find(cand.lower())
+            if idx >= 0:
+                before_ok = (idx == 0 or not trans_str[idx-1].isalnum())
+                after_ok = (idx + len(cand) == len(trans_str) or not trans_str[idx + len(cand)].isalnum())
+                if before_ok and after_ok:
+                    return trans_str[idx:idx+len(cand)]
+
+    # Pass 3: Full WBW phrase match (if full phrase exists and not stopword)
+    if c_wbw and len(c_wbw) >= 3 and not (not is_pron and c_wbw.lower() in pron_stops) and not (not is_conj and c_wbw.lower() in conj_stops):
+        idx = trans_str.lower().find(c_wbw.lower())
+        if idx >= 0:
+            before_ok = (idx == 0 or not trans_str[idx-1].isalnum())
+            after_ok = (idx + len(c_wbw) == len(trans_str) or not trans_str[idx + len(c_wbw)].isalnum())
+            if before_ok and after_ok:
+                return trans_str[idx:idx+len(c_wbw)]
+
+    # Pass 4: Meaning word stem / prefix match
+    for cand in m_candidates:
+        if len(cand) >= 3:
+            for t_start, t_end, tok in tokens:
+                if len(tok) >= 3:
+                    if tok.lower().startswith(cand.lower()) or cand.lower().startswith(tok.lower()):
+                        return tok
+
+    # Pass 5: Individual WBW words match
+    for cand in wbw_words:
+        for t_start, t_end, tok in tokens:
+            if tok.lower() == cand.lower():
+                return tok
+            if len(cand) >= 3 and len(tok) >= 3:
+                if tok.lower().startswith(cand.lower()) or cand.lower().startswith(tok.lower()):
+                    return tok
+
+    return ''
 
 def main():
     print('=' * 70)
@@ -310,7 +420,6 @@ def main():
                     occs = root_to_occs.get(alt, [])
                     if occs: break
         if not occs:
-            # Substring search in Quran verses
             s_skel = strip_tashkeel(ar)
             if len(s_skel) >= 2:
                 for vkey, v_text in ed_ar.items():
@@ -319,34 +428,6 @@ def main():
             return {'vkey': '2:255', 'arabic': 'اللَّهُ', 'start': 0, 'end': 6, 'en': 'Allah', 'bn': 'আল্লাহ', 'ur': 'اللہ', 'in': 'Allah', 'tr': 'Allah', 'fr': 'Allah'}
         with_spans = [o for o in occs if o['start'] is not None and o['end'] is not None]
         return with_spans[0] if with_spans else occs[0]
-
-    def find_translation_highlight(meaning_dict, trans_dict, occ=None):
-        highlights = {}
-        for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
-            trans = trans_dict.get(lang, '')
-            meaning = meaning_dict.get(lang, '') if isinstance(meaning_dict, dict) else str(meaning_dict)
-            if not trans:
-                highlights[lang] = ''
-                continue
-            
-            raw_candidates = []
-            if occ and occ.get(lang):
-                raw_candidates.append(occ[lang])
-            if meaning:
-                for p in re.split(r'[/\\;|,]', meaning):
-                    if p.strip():
-                        raw_candidates.append(p.strip())
-                
-            found_hl = ''
-            for cand in raw_candidates:
-                if not cand or len(cand) < 2: continue
-                idx = trans.lower().find(cand.lower())
-                if idx >= 0:
-                    found_hl = trans[idx:idx+len(cand)]
-                    break
-                    
-            highlights[lang] = found_hl
-        return highlights
 
     # Load Harf polysemy Bangla mappings from sheet 'Polysemous Particles (Wujūh)'
     wb_harf = openpyxl.load_workbook(os.path.join(EXCEL_DIR, 'quranic_harf_lemmas_173-v7.xlsx'), data_only=True)
@@ -434,6 +515,8 @@ def main():
                         raw_s = s_list[i] if i < len(s_list) else (s_list[0] if s_list else fallback)
                         c_t, hl = clean_translation(raw_s, lang=lang)
                         v_trans[lang] = c_t
+                        if not hl:
+                            hl = find_best_translation_highlight(poly_meanings[i].get(lang, ''), c_t, lang=lang, lemma_ar=ar)
                         hl_trans[lang] = hl
                         
                     senses_data.append({
@@ -450,7 +533,6 @@ def main():
                 primary = senses_data[0]
                 poly_entries = senses_data if num_senses > 1 else []
             else:
-                # 100% Authentic Qur'anic Verse Resolution from Quran Database
                 occ = find_best_occ(ar, root_str or '')
                 vkey = occ['vkey']
                 v_ar = ed_ar.get(vkey, '')
@@ -462,12 +544,14 @@ def main():
                     'tr': ed_tr.get(vkey, ''),
                     'fr': ed_fr.get(vkey, '')
                 }
-                hl_trans = find_translation_highlight(core_m, v_trans, occ)
+                hl_trans = {}
+                for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
+                    wbw_val = occ.get(lang, '')
+                    meaning_val = core_m.get(lang, '')
+                    hl_trans[lang] = find_best_translation_highlight(meaning_val, v_trans[lang], wbw_val, lang=lang, lemma_ar=ar)
                 
-                # Check character span
                 s_ar, e_ar = occ.get('start'), occ.get('end')
                 if s_ar is None or e_ar is None or e_ar > len(v_ar):
-                    # compute character span from verse text
                     c_ar, s_ar, e_ar = clean_arabic_verse(v_ar, ar)
                 else:
                     c_ar = v_ar
@@ -802,7 +886,6 @@ def main():
             print(f"Error: Missing Arabic word for {w['id']}")
             audit_errors += 1
             
-        # Check example verse
         v_ar = w.get('exampleVerseArabic', '')
         ref = w.get('exampleVerseReference', '')
         if not v_ar or len(v_ar.strip()) < 5 or 'Surah Ref' in ref or v_ar.strip() == f"【{w['wordArabic']}】":
@@ -816,7 +899,6 @@ def main():
                 print(f"Error: Word {w['id']} ({w['wordArabic']}) has invalid/missing {lang} translation: {repr(v_tr)}")
                 audit_errors += 1
 
-        # Check language cross-contamination
         for lang in ['en', 'ur', 'in', 'tr', 'fr']:
             val = w['meaning'].get(lang, '')
             if bengali_regex.search(val):
