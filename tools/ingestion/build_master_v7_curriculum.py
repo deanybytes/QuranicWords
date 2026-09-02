@@ -145,75 +145,75 @@ def clean_ayah_text(s_num, a_num, text):
                 return t[len(b):].strip()
     return t
 
-def find_exact_highlight(wbw_word, core_meaning, contextual_meaning, full_trans, lang='en'):
+def get_candidates(wbw_word, core_meaning, contextual_meaning):
+    candidates = []
+    def add_p(phrase):
+        if not phrase: return
+        clean = re.sub(r'\(.*?\)|\[.*?\]', '', str(phrase)).strip()
+        for p in re.split(r'[/\\;,|]', clean):
+            p = p.strip().lstrip('-')
+            if len(p) >= 2 and p not in candidates:
+                candidates.append(p)
+            words = p.split()
+            # Multi-word sub-phrases first
+            for length in range(len(words)-1, 1, -1):
+                for st in range(len(words) - length + 1):
+                    sub_p = ' '.join(words[st:st+length]).strip('.,;:!?()[]{}')
+                    if len(sub_p) >= 2 and sub_p not in candidates:
+                        candidates.append(sub_p)
+            if len(words) >= 2:
+                for st in range(len(words) - 1):
+                    sub_p = ' '.join(words[st:st+2]).strip('.,;:!?()[]{}')
+                    if len(sub_p) >= 2 and sub_p not in candidates:
+                        candidates.append(sub_p)
+            # Single words
+            for w in words:
+                w = w.strip('.,;:!?()[]{}')
+                if len(w) >= 2 and w not in candidates:
+                    candidates.append(w)
+                    
+    add_p(wbw_word)
+    add_p(contextual_meaning)
+    add_p(core_meaning)
+    
+    # Sort candidates by word count descending, then string length descending
+    candidates.sort(key=lambda x: (len(x.split()), len(x)), reverse=True)
+    return candidates
+
+def find_exact_highlight_in_text(candidates, full_trans, w_idx, total_wbw_tokens):
     if not full_trans:
         return ''
-    
-    # Tier 1: True lemma core meanings & WBW translations
-    tier1 = []
-    if wbw_word:
-        w_c = re.sub(r'\(.*?\)|\[.*?\]', '', str(wbw_word)).strip()
-        for p in re.split(r'[/\\;,|]', w_c):
-            p = p.strip().lstrip('-')
-            if len(p) >= 2 and p not in tier1:
-                tier1.append(p)
-                
-    if core_meaning:
-        m_c = re.sub(r'\(.*?\)|\[.*?\]', '', str(core_meaning)).strip()
-        for p in re.split(r'[/\\;,|]', m_c):
-            p = p.strip().lstrip('-')
-            if 2 <= len(p) <= 25 and p not in tier1:
-                tier1.append(p)
-
-    tier1.sort(key=lambda x: len(x), reverse=True)
-
-    # Tier 2: Contextual sense meaning
-    tier2 = []
-    if contextual_meaning:
-        c_m = re.sub(r'\(.*?\)|\[.*?\]', '', str(contextual_meaning)).strip()
-        for p in re.split(r'[/\\;,|]', c_m):
-            p = p.strip().lstrip('-')
-            if 2 <= len(p) <= 25 and p not in tier1 and p not in tier2:
-                tier2.append(p)
-            for w in p.split():
-                w = w.strip('.,;:!?()[]{}')
-                if len(w) >= 2 and w not in tier1 and w not in tier2:
-                    tier2.append(w)
-    tier2.sort(key=lambda x: len(x), reverse=True)
-
     tokens = []
     for m in re.finditer(r'[^\s,.;:!?।()\[\]{}\"\'«»„“”/\\-]+', full_trans):
         tokens.append((m.start(), m.end(), m.group(0)))
-        
-    # Check Tier 1 first
-    for cand in tier1:
-        for t_start, t_end, tok in tokens:
-            if tok.lower() == cand.lower():
-                return tok
+
+    # Pass 1: Multi-word phrase exact match in full_trans
+    for cand in candidates:
         if ' ' in cand:
             idx = full_trans.lower().find(cand.lower())
             if idx >= 0:
                 return full_trans[idx:idx+len(cand)]
-        if len(cand) >= 3:
-            for t_start, t_end, tok in tokens:
-                if cand.lower() in tok.lower():
-                    return tok
 
-    # Check Tier 2
-    for cand in tier2:
+    # Pass 2: Whole word exact match in full_trans
+    for cand in candidates:
         for t_start, t_end, tok in tokens:
             if tok.lower() == cand.lower():
                 return tok
-        if ' ' in cand:
-            idx = full_trans.lower().find(cand.lower())
-            if idx >= 0:
-                return full_trans[idx:idx+len(cand)]
+
+    # Pass 3: Substring / Stem match
+    for cand in candidates:
         if len(cand) >= 3:
             for t_start, t_end, tok in tokens:
-                if cand.lower() in tok.lower():
+                if cand.lower() in tok.lower() or tok.lower() in cand.lower():
                     return tok
 
-    return tier1[0] if tier1 else (tier2[0] if tier2 else '')
+    # Pass 4: Fallback to token at relative position in verse
+    if tokens:
+        rel_pos = w_idx / max(1, total_wbw_tokens)
+        tok_idx = min(len(tokens) - 1, max(0, int(rel_pos * len(tokens))))
+        return tokens[tok_idx][2]
+
+    return ''
 
 def main():
     print('=' * 70)
@@ -463,13 +463,15 @@ def main():
                     'fr': ed_fr.get(vkey, '')
                 }
                 
+                total_tokens = len(wbw['en'].get(s_num, {}).get(a_num, []))
                 hl_trans = {}
                 for lang in ['en', 'bn', 'ur', 'in', 'tr', 'fr']:
                     wbw_list = wbw[lang].get(s_num, {}).get(a_num, [])
                     wbw_word = wbw_list[w_idx]['translation'] if w_idx < len(wbw_list) else ''
                     m_core = core_m.get(lang, '')
                     m_ctx = poly_meanings[i].get(lang, '')
-                    hl_trans[lang] = find_exact_highlight(wbw_word, m_core, m_ctx, v_trans[lang], lang=lang)
+                    cands = get_candidates(wbw_word, m_core, m_ctx)
+                    hl_trans[lang] = find_exact_highlight_in_text(cands, v_trans[lang], w_idx, total_tokens)
                     
                 senses_data.append({
                     'meaningIndex': i + 1,
