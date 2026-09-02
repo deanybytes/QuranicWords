@@ -264,14 +264,25 @@ fun WordIntroExerciseContent(
         if (content.polysemyEntries.size > 1) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = stringResource(R.string.polysemy_meanings_title),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.polysemy_meanings_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${selectedMeaningIndex + 1} / ${content.polysemyEntries.size}",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
 
                 Row(
                     modifier = Modifier
@@ -281,71 +292,117 @@ fun WordIntroExerciseContent(
                 ) {
                     content.polysemyEntries.forEachIndexed { idx, entry ->
                         val isSelected = selectedMeaningIndex == idx
-                        val tabBg = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
-                        val tabTextColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                        val tabBg by androidx.compose.animation.animateColorAsState(
+                            targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                            label = "tabBg"
+                        )
+                        val tabTextColor by androidx.compose.animation.animateColorAsState(
+                            targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            label = "tabText"
+                        )
+                        val senseMeaning = entry.contextualMeaning.get(language).ifBlank { content.meaning.get(language) }
 
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(12.dp))
                                 .background(tabBg)
                                 .clickable { selectedMeaningIndex = idx }
-                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                                .padding(horizontal = 14.dp, vertical = 8.dp)
                         ) {
-                            Text(
-                                text = stringResource(R.string.polysemy_tab_format, idx + 1),
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                color = tabTextColor
-                            )
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "[${idx + 1}]",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = tabTextColor
+                                )
+                                if (senseMeaning.isNotBlank()) {
+                                    Text(
+                                        text = senseMeaning.take(24) + if (senseMeaning.length > 24) "…" else "",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = tabTextColor.copy(alpha = 0.9f)
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-        if (!verseArabic.isNullOrBlank()) {
-            GlassSurface(
-                modifier = Modifier.fillMaxWidth(),
-                tint = MaterialTheme.colorScheme.surfaceVariant
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+        AnimatedContent(
+            targetState = selectedMeaningIndex,
+            transitionSpec = {
+                if (targetState > initialState) {
+                    (androidx.compose.animation.slideInHorizontally { width -> width / 4 } + fadeIn(androidx.compose.animation.core.tween(250)))
+                        .togetherWith(androidx.compose.animation.slideOutHorizontally { width -> -width / 4 } + fadeOut(androidx.compose.animation.core.tween(200)))
+                } else {
+                    (androidx.compose.animation.slideInHorizontally { width -> -width / 4 } + fadeIn(androidx.compose.animation.core.tween(250)))
+                        .togetherWith(androidx.compose.animation.slideOutHorizontally { width -> width / 4 } + fadeOut(androidx.compose.animation.core.tween(200)))
+                }.using(androidx.compose.animation.SizeTransform(clip = false))
+            },
+            label = "PolysemyVerseTransition"
+        ) { targetIdx ->
+            val entry = content.polysemyEntries.getOrNull(targetIdx)
+            val activeVerseArabic = entry?.verseArabic ?: content.exampleVerseArabic
+            val activeVerseReference = entry?.verseReference ?: content.exampleVerseReference
+            val activeVerseTranslation = entry?.verseTranslation?.get(language) ?: content.exampleVerseTranslation.get(language)
+            val activeArabicWordStart = entry?.arabicWordStart ?: content.arabicWordStart
+            val activeArabicWordEnd = entry?.arabicWordEnd ?: content.arabicWordEnd
+            val activeMeaningHighlight = entry?.translationHighlight?.getOrNull(language) ?: content.meaningHighlight.getOrNull(language)
+            val activeMeaningText = if (entry != null && entry.contextualMeaning.isNotEmpty()) {
+                entry.contextualMeaning.get(language)
+            } else {
+                content.meaning.get(language)
+            }
+
+            if (!activeVerseArabic.isNullOrBlank()) {
+                GlassSurface(
+                    modifier = Modifier.fillMaxWidth(),
+                    tint = MaterialTheme.colorScheme.surfaceVariant
                 ) {
-                    if (!verseReference.isNullOrBlank()) {
-                        Text(
-                            text = stringResource(
-                                R.string.lesson_word_example_verse_label,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(verseReference, language)
-                            ),
-                            style = MaterialTheme.typography.labelLarge.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.5.sp
-                            ),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        if (!activeVerseReference.isNullOrBlank()) {
+                            Text(
+                                text = stringResource(
+                                    R.string.lesson_word_example_verse_label,
+                                    com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language)
+                                ),
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    fontFamily = QuranCitationFontFamily,
+                                    fontWeight = FontWeight.Bold,
+                                    letterSpacing = 0.5.sp
+                                ),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
 
-                    HighlightedGlassArabic(
-                        verseArabic = verseArabic,
-                        start = arabicWordStart,
-                        end = arabicWordEnd,
-                        modifier = Modifier.fillMaxWidth(),
-                        arabicWord = content.arabicWord
-                    )
+                        HighlightedGlassArabic(
+                            verseArabic = activeVerseArabic,
+                            start = activeArabicWordStart,
+                            end = activeArabicWordEnd,
+                            modifier = Modifier.fillMaxWidth(),
+                            arabicWord = content.arabicWord
+                        )
 
-                    if (verseTranslation.isNotBlank()) {
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                        val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
-                            verseTranslation = verseTranslation,
-                            meaningHighlight = meaningHighlight,
-                            meaning = displayedMeaning
-                        )
-                        HighlightedGlassTranslation(
-                            verseTranslation = verseTranslation,
-                            range = range,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                        if (activeVerseTranslation.isNotBlank()) {
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                                verseTranslation = activeVerseTranslation,
+                                meaningHighlight = activeMeaningHighlight,
+                                meaning = activeMeaningText
+                            )
+                            HighlightedGlassTranslation(
+                                verseTranslation = activeVerseTranslation,
+                                range = range,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
                 }
             }

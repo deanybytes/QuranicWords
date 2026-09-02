@@ -3,232 +3,232 @@
     {
       "id": "ch_01",
       "title": {
-        "en": "Foundational Qur'anic Particles, Essential Nouns & Core Verbs",
-        "bn": "কুরআনিক মৌলিক হরফ, অত্যাবশ্যকীয় বিশেষ্য ও প্রধান ক্রিয়াসমূহ",
-        "ur": "بنیادی قرآنی حروف، اہم اسماء اور بنیادی افعال",
-        "in": "Partikel Fondasi Al-Qur'an, Nomina Penting & Verba Inti",
-        "tr": "Temel Kur'an Harfleri, Önemli İsimler ve Ana Fiiller",
-        "fr": "Particules Fondamentales, Noms Essentiels et Verbes Clés"
+        "en": "Part 1: Common Particles (حرف) I",
+        "bn": "অধ্যায় ১: মৌলিক অব্যয় (حرف) - ১ম খণ্ড",
+        "ur": "باب 1: بنیادی حروف (حرف) - اول",
+        "in": "Bab 1: Partikel Dasar (حرف) I",
+        "tr": "Bölüm 1: Temel Edatlar (حرف) I",
+        "fr": "Chapitre 1: Particules Essentielles (حرف) I"
       },
       "description": {
-        "en": "Highest-frequency Arabic particles (حرف), prepositions, conjunctions, core divine names, and fundamental verbs.",
-        "bn": "সর্বাধিক ব্যবহৃত হরফ (অব্যয়), অব্যয়সূচক শব্দ, আল্লাহর গুণবাচক নাম এবং দৈনন্দিন প্রধান ক্রিয়াপদ।",
-        "ur": "کثرت سے مستعمل حروف، حروفِ جار و عطف، اسمائے حسنیٰ اور بنیادی افعال۔",
-        "in": "Partikel paling sering muncul, kata depan, konjungsi, nama-nama agung Allah, dan verba utama.",
-        "tr": "En sık geçen harfler, edatlar, bağlaçlar, esma-i hüsna ve temel fiiller.",
-        "fr": "Particules les plus fréquentes, prépositions, conjonctions, noms divins et verbes fondamentaux."
+        "en": "Part 1: Common Particles (حرف) I",
+        "bn": "অধ্যায় ১: মৌলিক অব্যয় (حرف) - ১ম খণ্ড",
+        "ur": "باب 1: بنیادی حروف (حرف) - اول",
+        "in": "Bab 1: Partikel Dasar (حرف) I",
+        "tr": "Bölüm 1: Temel Edatlar (حرف) I",
+        "fr": "Chapitre 1: Particules Essentielles (حرف) I"
       },
       "sortOrder": 1,
-      "wordCount": 462,
-      "quranOccurrenceCount": 59995,
-      "quranOccurrencePercent": 69.63
+      "wordCount": 85,
+      "quranOccurrenceCount": 21167,
+      "quranOccurrencePercent": 37.33
     },
     {
       "id": "ch_02",
       "title": {
-        "en": "Tawheed, Divine Attributes & Sacred Prophethood",
-        "bn": "তাওহিদ, আল্লাহর ঐশী গুণাবলি ও নবুয়তের মূল পরিভাষা",
-        "ur": "توحید، صفاتِ الٰہیہ اور نبوت کے بنیادی الفاظ",
-        "in": "Tauhid, Sifat-sifat Ilahi & Kenabian Mulia",
-        "tr": "Tevhid, İlahi Sıfatlar ve Peygamberlik Terimleri",
-        "fr": "Tawhid, Attributs Divins & Prophétie Sacrée"
+        "en": "Part 1: Extended Particles (حرف) II",
+        "bn": "অধ্যায় ২: সম্প্রসারিত অব্যয় (حرف) - ২য় খণ্ড",
+        "ur": "باب 2: اضافی حروف (حرف) - دوم",
+        "in": "Bab 2: Partikel Lanjutan (حرف) II",
+        "tr": "Bölüm 2: İleri Edatlar (حرف) II",
+        "fr": "Chapitre 2: Particules Avancées (حرف) II"
       },
       "description": {
-        "en": "Oneness of Allah, sublime divine attributes, revelation terminology, and prophet narratives.",
-        "bn": "আল্লাহর একত্ববাদ, অনুপম গুণবাচক বিশেষণ, ওহী সংক্রান্ত পরিভাষা এবং নবীগণের ইতিহাস সংশ্লিষ্ট শব্দ।",
-        "ur": "اللہ کی وحدانیت، صفاتِ باری تعالیٰ، وحی کے اصطلاحات اور انبیاء کے واقعات۔",
-        "in": "Keesaan Allah, sifat-sifat mulia, istilah wahyu, dan kisah-kisah para nabi.",
-        "tr": "Allah'ın birliği, yüce sıfatlar, vahiy terimleri ve peygamber kıssaları.",
-        "fr": "Unicité d'Allah, attributs sublimes, termes de la révélation et récits prophétiques."
+        "en": "Part 1: Extended Particles (حرف) II",
+        "bn": "অধ্যায় ২: সম্প্রসারিত অব্যয় (حرف) - ২য় খণ্ড",
+        "ur": "باب 2: اضافی حروف (حرف) - دوم",
+        "in": "Bab 2: Partikel Lanjutan (حرف) II",
+        "tr": "Bölüm 2: İleri Edatlar (حرف) II",
+        "fr": "Chapitre 2: Particules Avancées (حرف) II"
       },
       "sortOrder": 2,
-      "wordCount": 462,
-      "quranOccurrenceCount": 8274,
-      "quranOccurrencePercent": 9.6
+      "wordCount": 88,
+      "quranOccurrenceCount": 295,
+      "quranOccurrencePercent": 0.52
     },
     {
       "id": "ch_03",
       "title": {
-        "en": "Creation of the Cosmos, Nature & Humanity",
-        "bn": "মহাবিশ্বের সৃষ্টি, প্রাকৃতিক নিদর্শন ও মানবজাতি",
-        "ur": "تخلیقِ کائنات، فطری نشانیاں اور انسان",
-        "in": "Penciptaan Alam Semesta, Tanda Alam & Manusia",
-        "tr": "Kainatın Yaratılışı, Tabiat ve İnsan",
-        "fr": "Création du Cosmos, Nature & Humanité"
+        "en": "Part 2: High-Frequency Verbs (فعل) I",
+        "bn": "অধ্যায় ৩: অতি-ব্যবহৃত ক্রিয়াপদ (فعل) - ১ম খণ্ড",
+        "ur": "باب 3: کثیر الاستعمال افعال (فعل) - اول",
+        "in": "Bab 3: Verba Frekuensi Tinggi (فعل) I",
+        "tr": "Bölüm 3: Yüksek Frekanslı Fiiller (فعل) I",
+        "fr": "Chapitre 3: Verbes Fréquents (فعل) I"
       },
       "description": {
-        "en": "Heavens, earth, cosmic signs, atmospheric phenomena, and human biological creation.",
-        "bn": "আকাশমন্ডলী, পৃথিবী, প্রাকৃতিক নিদর্শনসমূহ, বৃষ্টি-বাতাস ও মানুষের সৃষ্টিতত্ত্ব সম্পর্কিত শব্দ।",
-        "ur": "آسمان و زمین، کائناتی نشانیاں، موسمی مظاہر اور تخلیقِ انسانی کے مراحل۔",
-        "in": "Langit, bumi, tanda-tanda kosmik, fenomena alam, dan tahapan penciptaan manusia.",
-        "tr": "Gökler, yer, kozmik işaretler, tabiat olayları ve insanın yaratılışı.",
-        "fr": "Cieux, terre, merveilles cosmiques, météores et genèse de l'humanité."
+        "en": "Part 2: High-Frequency Verbs (فعل) I",
+        "bn": "অধ্যায় ৩: অতি-ব্যবহৃত ক্রিয়াপদ (فعل) - ১ম খণ্ড",
+        "ur": "باب 3: کثیر الاستعمال افعال (فعل) - اول",
+        "in": "Bab 3: Verba Frekuensi Tinggi (فعل) I",
+        "tr": "Bölüm 3: Yüksek Frekanslı Fiiller (فعل) I",
+        "fr": "Chapitre 3: Verbes Fréquents (فعل) I"
       },
       "sortOrder": 3,
-      "wordCount": 462,
-      "quranOccurrenceCount": 4111,
-      "quranOccurrencePercent": 4.77
+      "wordCount": 493,
+      "quranOccurrenceCount": 12364,
+      "quranOccurrencePercent": 21.81
     },
     {
       "id": "ch_04",
       "title": {
-        "en": "Acts of Devotion, Sacred Worship & Righteous Deeds",
-        "bn": "ইবাদত, আত্মশুদ্ধি ও সৎকর্মের শব্দভাণ্ডার",
-        "ur": "عبادات، بندگی اور اعمالِ صالحہ",
-        "in": "Ibadah, Penyucian Jiwa & Amal Saleh",
-        "tr": "İbadetler, Kulluk ve Salih Ameller",
-        "fr": "Actes d'Adoration, Dévotion & Bonnes Actions"
+        "en": "Part 2: Derived Verbal Patterns (فعل) II",
+        "bn": "অধ্যায় ৪: রূপান্তরিত ক্রিয়ারীতি (فعل) - ২য় খণ্ড",
+        "ur": "باب 4: ابواب اور مشتق افعال (فعل) - دوم",
+        "in": "Bab 4: Pola Verba Turunan (فعل) II",
+        "tr": "Bölüm 4: Türemiş Fiil Kalıpları (فعل) II",
+        "fr": "Chapitre 4: Formes Verbales Dérivées (فعل) II"
       },
       "description": {
-        "en": "Prayer (Salah), fasting, remembrance (Dhikr), charity (Zakah), repentance, and ethical piety.",
-        "bn": "নামাজ, রোজা, আল্লাহর স্মরণ (জিকির), দান-সদকা, তওবা এবং নৈতিক সততা ও তাকওয়া সম্পর্কিত শব্দ।",
-        "ur": "نماز، روزہ، ذکرِ الٰہی، زکوٰۃ و صدقات، توبہ اور اخلاقی تقویٰ کے الفاظ۔",
-        "in": "Salat, puasa, zikir, sedekah, tobat, dan ketakwaan berakhlak mulia.",
-        "tr": "Namaz, oruç, zikir, zekat, tövbe ve ahlaki takva kavramları.",
-        "fr": "Prière (Salat), jeûne, évocation (Dhikr), aumône, repentir et piété."
+        "en": "Part 2: Derived Verbal Patterns (فعل) II",
+        "bn": "অধ্যায় ৪: রূপান্তরিত ক্রিয়ারীতি (فعل) - ২য় খণ্ড",
+        "ur": "باب 4: ابواب اور مشتق افعال (فعل) - دوم",
+        "in": "Bab 4: Pola Verba Turunan (فعل) II",
+        "tr": "Bölüm 4: Türemiş Fiil Kalıpları (فعل) II",
+        "fr": "Chapitre 4: Formes Verbales Dérivées (فعل) II"
       },
       "sortOrder": 4,
-      "wordCount": 462,
-      "quranOccurrenceCount": 2696,
-      "quranOccurrencePercent": 3.13
+      "wordCount": 493,
+      "quranOccurrenceCount": 634,
+      "quranOccurrencePercent": 1.12
     },
     {
       "id": "ch_05",
       "title": {
-        "en": "Guidance, Heavenly Books & Unseen Realm",
-        "bn": "হিদায়াত, আসমানী কিতাব ও অদৃশ্যের জগত (গায়েব)",
-        "ur": "ہدایت، آسمانی کتب اور عالمِ غیب",
-        "in": "Petunjuk, Kitab Suci & Alam Gaib",
-        "tr": "Hidayet, İlahi Kitaplar ve Gayb Âlemi",
-        "fr": "Guidance, Livres Sacrés & Monde de l'Invisible"
+        "en": "Part 2: Narrative & Specialized Verbs (فعل) III",
+        "bn": "অধ্যায় ৫: বর্ণনামূলক ও বিশেষ ক্রিয়াপদ (فعل) - ৩য় খণ্ড",
+        "ur": "باب 5: خصوصی اور بیانیہ افعال (فعل) - سوم",
+        "in": "Bab 5: Verba Khusus & Naratif (فعل) III",
+        "tr": "Bölüm 5: Anlatı ve Özel Fiiller (فعل) III",
+        "fr": "Chapitre 5: Verbes Narratifs & Spécifiques (فعل) III"
       },
       "description": {
-        "en": "True guidance, Torah, Gospel, Quran, angels, Jinn, and belief in the unseen realm.",
-        "bn": "সঠিক পথের দিশা (হিদায়াত), তাওরাত, ইনজিল, কুরআন, ফেরেশতা ও গায়েবের প্রতি ঈমান।",
-        "ur": "صراطِ مستقیم، تورات، انجیل، قرآن، فرشتے اور امورِ غیبیہ پر ایمان۔",
-        "in": "Hidayah, Taurat, Injil, Al-Qur'an, malaikat, dan keimanan pada perkara gaib.",
-        "tr": "Hidayet, Tevrat, İncil, Kur'an, melekler ve gayba iman.",
-        "fr": "Guidance, Torah, Évangile, Coran, anges et foi en l'Invisible."
+        "en": "Part 2: Narrative & Specialized Verbs (فعل) III",
+        "bn": "অধ্যায় ৫: বর্ণনামূলক ও বিশেষ ক্রিয়াপদ (فعل) - ৩য় খণ্ড",
+        "ur": "باب 5: خصوصی اور بیانیہ افعال (فعل) - سوم",
+        "in": "Bab 5: Verba Khusus & Naratif (فعل) III",
+        "tr": "Bölüm 5: Anlatı ve Özel Fiiller (فعل) III",
+        "fr": "Chapitre 5: Verbes Narratifs & Spécifiques (فعل) III"
       },
       "sortOrder": 5,
-      "wordCount": 462,
-      "quranOccurrenceCount": 1998,
-      "quranOccurrencePercent": 2.32
+      "wordCount": 493,
+      "quranOccurrenceCount": 493,
+      "quranOccurrencePercent": 0.87
     },
     {
       "id": "ch_06",
       "title": {
-        "en": "Sacred Law, Ethics, Family & Social Justice",
-        "bn": "শরীয়তের বিধান, নৈতিকতা, পরিবার ও সামাজিক ন্যায়বিচার",
-        "ur": "احکامِ شریعت، اخلاقیات، خاندان اور عدل و انصاف",
-        "in": "Hukum Syariat, Akhlak, Keluarga & Keadilan Sosial",
-        "tr": "Şeriat Hükümleri, Ahlak, Aile ve Sosyal Adalet",
-        "fr": "Loi Sacrée, Éthique, Famille & Justice Sociale"
+        "en": "Part 3: Essential Divine & Core Nouns (اسم) I",
+        "bn": "অধ্যায় ৬: রব্বানী ও কেন্দ্রীয় বিশেষ্য (اسم) - ১ম খণ্ড",
+        "ur": "باب 6: اسماء حسنیٰ و بنیادی اسماء (اسم) - اول",
+        "in": "Bab 6: Nomina Ilahi & Inti (اسم) I",
+        "tr": "Bölüm 6: Temel İlahi İsimler (اسم) I",
+        "fr": "Chapitre 6: Noms Divins & Essentiels (اسم) I"
       },
       "description": {
-        "en": "Halal, Haram, covenant obligations, family welfare, commerce morality, and communal equity.",
-        "bn": "হালাল, হারাম, অঙ্গীকার রক্ষা, পারিবারিক মর্যাদা, বাণিজ্যিক সততা ও সমাজ সংস্কার।",
-        "ur": "حلال و حرام، عہد و پیمان، عائلی قوانین، دیانت دارانہ تجارت اور عدل۔",
-        "in": "Halal, haram, pemenuhan janji, hukum keluarga, kejujuran niaga, dan keadilan.",
-        "tr": "Helal, haram, ahitler, aile hukuku, ticari ahlak ve adalet ilkeleri.",
-        "fr": "Licite, illicite, pactes, famille, éthique commerciale et équité sociale."
+        "en": "Part 3: Essential Divine & Core Nouns (اسم) I",
+        "bn": "অধ্যায় ৬: রব্বানী ও কেন্দ্রীয় বিশেষ্য (اسم) - ১ম খণ্ড",
+        "ur": "باب 6: اسماء حسنیٰ و بنیادی اسماء (اسم) - اول",
+        "in": "Bab 6: Nomina Ilahi & Inti (اسم) I",
+        "tr": "Bölüm 6: Temel İlahi İsimler (اسم) I",
+        "fr": "Chapitre 6: Noms Divins & Essentiels (اسم) I"
       },
       "sortOrder": 6,
-      "wordCount": 462,
-      "quranOccurrenceCount": 1790,
-      "quranOccurrencePercent": 2.08
+      "wordCount": 612,
+      "quranOccurrenceCount": 18725,
+      "quranOccurrencePercent": 33.03
     },
     {
       "id": "ch_07",
       "title": {
-        "en": "Eschatology, Resurrection & Hereafter Realities",
-        "bn": "আখিরাত, কেয়ামত, জান্নাত ও জাহান্নামের স্বরূপ",
-        "ur": "آخرت، قیامت، جنت اور جہنم کی حقیقتیں",
-        "in": "Eskatologi, Hari Kebangkitan, Surga & Neraka",
-        "tr": "Ahiret, Kıyamet, Cennet ve Cehennem Hakikatleri",
-        "fr": "Eschatologie, Résurrection & Réalités de l'Au-delà"
+        "en": "Part 3: Prophetic & Moral Nouns (اسم) II",
+        "bn": "অধ্যায় ৭: নবুওয়াত ও নৈতিক বিশেষ্য (اسم) - ২য় খণ্ড",
+        "ur": "باب 7: نبوی و اخلاقی اسماء (اسم) - دوم",
+        "in": "Bab 7: Nomina Kenabian & Moral (اسم) II",
+        "tr": "Bölüm 7: Ahlaki ve Peygamberi İsimler (اسم) II",
+        "fr": "Chapitre 7: Noms Prophétiques & Moraux (اسم) II"
       },
       "description": {
-        "en": "Day of Judgement, paradise pleasures, hellfire warnings, and eternal destinations.",
-        "bn": "কেয়ামতের ঘটনাবলি, জান্নাতের নেয়ামত, জাহান্নামের সতর্কবার্তা ও অনন্ত গন্তব্য।",
-        "ur": "قیامت کے مناظر، جنت کی نعمتیں، جہنم کا عذاب اور ابدی ٹھکانے।",
-        "in": "Peristiwa eskatologis, kenikmatan surga, peringatan neraka, dan akhirat.",
-        "tr": "Kıyamet ahvali, cennet nimetleri, cehennem azabı ve ebedi yurt.",
-        "fr": "Événements eschatologiques, délices du Paradis et avertissements de l'Enfer."
+        "en": "Part 3: Prophetic & Moral Nouns (اسم) II",
+        "bn": "অধ্যায় ৭: নবুওয়াত ও নৈতিক বিশেষ্য (اسم) - ২য় খণ্ড",
+        "ur": "باب 7: نبوی و اخلاقی اسماء (اسم) - دوم",
+        "in": "Bab 7: Nomina Kenabian & Moral (اسم) II",
+        "tr": "Bölüm 7: Ahlaki ve Peygamberi İsimler (اسم) II",
+        "fr": "Chapitre 7: Noms Prophétiques & Moraux (اسم) II"
       },
       "sortOrder": 7,
-      "wordCount": 461,
-      "quranOccurrenceCount": 1561,
-      "quranOccurrencePercent": 1.81
+      "wordCount": 612,
+      "quranOccurrenceCount": 1188,
+      "quranOccurrencePercent": 2.1
     },
     {
       "id": "ch_08",
       "title": {
-        "en": "Divine Wisdom, Parables & Exhortations",
-        "bn": "ঐশী প্রজ্ঞা, দৃষ্টান্ত ও উপদেশাবলি",
-        "ur": "حکمت الٰہی، امثال اور نصائح",
-        "in": "Hikmah Ilahi, Perumpamaan & Nasihat",
-        "tr": "İlahi Hikmet, Meseller ve Öğütler",
-        "fr": "Sagesse Divine, Paraboles & Exhortations"
+        "en": "Part 3: Cosmic & Nature Nouns (اسم) III",
+        "bn": "অধ্যায় ৮: মহাজাগতিক ও প্রাকৃতিক বিশেষ্য (اسم) - ৩য় খণ্ড",
+        "ur": "باب 8: کائناتی و قدرتی اسماء (اسم) - سوم",
+        "in": "Bab 8: Nomina Kosmik & Alam (اسم) III",
+        "tr": "Bölüm 8: Kozmik ve Doğa İsimleri (اسم) III",
+        "fr": "Chapitre 8: Noms Cosmiques & Naturels (اسم) III"
       },
       "description": {
-        "en": "Quranic allegories, moral parables, wisdom dictums, and contemplative expressions.",
-        "bn": "কুরআনিক উপমা, নৈতিক রূপকগাথা, প্রজ্ঞাপূর্ণ বাণী ও চিন্তাশীল অভিব্যক্তি।",
-        "ur": "قرآنی تمثیلات، اخلاقی امثال، دانائی کے کلمات اور فکری بیانات।",
-        "in": "Alegori Qur'ani, perumpamaan moral, mutiara hikmah, dan refleksi.",
-        "tr": "Kur'an meselleri, ahlaki öğütler ve tefekkür ifadeleri.",
-        "fr": "Allégories coraniques, paraboles morales et maximes de sagesse."
+        "en": "Part 3: Cosmic & Nature Nouns (اسم) III",
+        "bn": "অধ্যায় ৮: মহাজাগতিক ও প্রাকৃতিক বিশেষ্য (اسم) - ৩য় খণ্ড",
+        "ur": "باب 8: کائناتی و قدرتی اسماء (اسم) - سوم",
+        "in": "Bab 8: Nomina Kosmik & Alam (اسم) III",
+        "tr": "Bölüm 8: Kozmik ve Doğa İsimleri (اسم) III",
+        "fr": "Chapitre 8: Noms Cosmiques & Naturels (اسم) III"
       },
       "sortOrder": 8,
-      "wordCount": 461,
-      "quranOccurrenceCount": 1210,
-      "quranOccurrencePercent": 1.4
+      "wordCount": 611,
+      "quranOccurrenceCount": 611,
+      "quranOccurrencePercent": 1.08
     },
     {
       "id": "ch_09",
       "title": {
-        "en": "Patience, Struggle & Divine Victory",
-        "bn": "ধৈর্য, অবিচল সংগ্রাম ও ঐশী বিজয়",
-        "ur": "صبر، استقامت اور نصرت الٰہی",
-        "in": "Kesabaran, Perjuangan & Kemenangan Ilahi",
-        "tr": "Sabır, Mücadele ve İlahi Zafer",
-        "fr": "Patience, Lutte & Victoire Divine"
+        "en": "Part 3: Societal & Human Nouns (اسم) IV",
+        "bn": "অধ্যায় ৯: সামাজিক ও মানবিক বিশেষ্য (اسم) - ৪র্থ খণ্ড",
+        "ur": "باب 9: سماجی و انسانی اسماء (اسم) - چہارم",
+        "in": "Bab 9: Nomina Sosial & Manusia (اسم) IV",
+        "tr": "Bölüm 9: Toplumsal ve İnsani İsimler (اسم) IV",
+        "fr": "Chapitre 9: Noms Sociaux & Humains (اسم) IV"
       },
       "description": {
-        "en": "Steadfastness under trial, spiritual warfare verbs, triumph of truth, and divine aid.",
-        "bn": "বিপদে ধৈর্যধারণ, সত্যের সংগ্রাম, বিজয়ের প্রতিশ্রুতি এবং আল্লাহর বিশেষ সাহায্য।",
-        "ur": "آزمائشوں میں ثابت قدمی، جہد و استقامت، فتح کی بشارت اور نصرت خداوندی।",
-        "in": "Keteguhan dalam ujian, verba perjuangan, kemenangan hakiki, dan pertolongan Allah.",
-        "tr": "Zorluklarda sabır, hak mücadele fiilleri ve ilahi yardım vaadi.",
-        "fr": "Persévérance dans l'épreuve, verbes de lutte spirituelle et secours divin."
+        "en": "Part 3: Societal & Human Nouns (اسم) IV",
+        "bn": "অধ্যায় ৯: সামাজিক ও মানবিক বিশেষ্য (اسم) - ৪র্থ খণ্ড",
+        "ur": "باب 9: سماجی و انسانی اسماء (اسم) - چہارم",
+        "in": "Bab 9: Nomina Sosial & Manusia (اسم) IV",
+        "tr": "Bölüm 9: Toplumsal ve İnsani İsimler (اسم) IV",
+        "fr": "Chapitre 9: Noms Sociaux & Humains (اسم) IV"
       },
       "sortOrder": 9,
-      "wordCount": 461,
-      "quranOccurrenceCount": 1055,
-      "quranOccurrencePercent": 1.22
+      "wordCount": 611,
+      "quranOccurrenceCount": 611,
+      "quranOccurrencePercent": 1.08
     },
     {
       "id": "ch_10",
       "title": {
-        "en": "Comprehensive Lexicon & Deep Eloquence",
-        "bn": "সার্বজনীন অভিধান ও গভীর কুরআনীয় অলঙ্কারশাস্ত্র",
-        "ur": "جامع لغت اور گہری قرآنی بلاغت",
-        "in": "Leksikon Komprehensif & Retorika Mendalam",
-        "tr": "Kapsamlı Sözlük ve Derin Belagat",
-        "fr": "Lexique Exhaustif & Éloquence Profonde"
+        "en": "Part 3: Comprehensive Lexical Mastery Nouns (اسم) V",
+        "bn": "অধ্যায় ১০: পূর্ণাঙ্গ শব্দভাণ্ডার বিশেষ্য (اسم) - ৫ম খণ্ড",
+        "ur": "باب 10: مکمل قرآنی اسماء (اسم) - پنجم",
+        "in": "Bab 10: Penguasaan Nomina Lengkap (اسم) V",
+        "tr": "Bölüm 10: Kapsamlı Kelime Bilgisi İsimleri (اسم) V",
+        "fr": "Chapitre 10: Maîtrise Lexicale Complète (اسم) V"
       },
       "description": {
-        "en": "Rare rhetorical gems, hapax legomena, expressive nuance words, and mastery lexicon completing 100% of the Quran.",
-        "bn": "কুরআনের অনুপম অলঙ্কারপূর্ণ শব্দ, বিরল প্রয়োগ এবং শতভাগ কুরআন বোঝার পূর্ণাঙ্গ শব্দসম্ভার।",
-        "ur": "قرآن کے نایاب اور فصیح الفاظ، گہرے معنوی لطائف اور 100 فیصد قرآن کی مکمل لغت।",
-        "in": "Kata-kata retoris istimewa, nuansa ekspresif mendalam, dan penguasaan 100% kosakata Al-Qur'an.",
-        "tr": "Nadir belagat incileri, derin manalı kelimeler ve %100 Kur'an hakimiyetini tamamlayan sözlük.",
-        "fr": "Joyaux rhétoriques rares, nuances expressives et maîtrise achevant 100% du Coran."
+        "en": "Part 3: Comprehensive Lexical Mastery Nouns (اسم) V",
+        "bn": "অধ্যায় ১০: পূর্ণাঙ্গ শব্দভাণ্ডার বিশেষ্য (اسم) - ৫ম খণ্ড",
+        "ur": "باب 10: مکمل قرآنی اسماء (اسم) - پنجم",
+        "in": "Bab 10: Penguasaan Nomina Lengkap (اسم) V",
+        "tr": "Bölüm 10: Kapsamlı Kelime Bilgisi İsimleri (اسم) V",
+        "fr": "Chapitre 10: Maîtrise Lexicale Complète (اسم) V"
       },
       "sortOrder": 10,
-      "wordCount": 461,
-      "quranOccurrenceCount": 3478,
-      "quranOccurrencePercent": 4.04
+      "wordCount": 611,
+      "quranOccurrenceCount": 611,
+      "quranOccurrencePercent": 1.08
     }
   ]
 }
