@@ -3,232 +3,232 @@
     {
       "id": "ch_01",
       "title": {
-        "en": "Part 1: Common Particles (حرف) I",
-        "bn": "অধ্যায় ১: মৌলিক অব্যয় (حرف) - ১ম খণ্ড",
-        "ur": "باب 1: بنیادی حروف (حرف) - اول",
-        "in": "Bab 1: Partikel Dasar (حرف) I",
-        "tr": "Bölüm 1: Temel Edatlar (حرف) I",
-        "fr": "Chapitre 1: Particules Essentielles (حرف) I"
+        "en": "Grammatical Particles",
+        "bn": "ব্যাকরণিক অব্যয়",
+        "ur": "حروف اور قواعد",
+        "in": "Partikel Tata Bahasa",
+        "tr": "Gramer Edatları",
+        "fr": "Particules Grammaticales"
       },
       "description": {
-        "en": "Part 1: Common Particles (حرف) I",
-        "bn": "অধ্যায় ১: মৌলিক অব্যয় (حرف) - ১ম খণ্ড",
-        "ur": "باب 1: بنیادی حروف (حرف) - اول",
-        "in": "Bab 1: Partikel Dasar (حرف) I",
-        "tr": "Bölüm 1: Temel Edatlar (حرف) I",
-        "fr": "Chapitre 1: Particules Essentielles (حرف) I"
+        "en": "Grammatical Particles",
+        "bn": "ব্যাকরণিক অব্যয়",
+        "ur": "حروف اور قواعد",
+        "in": "Partikel Tata Bahasa",
+        "tr": "Gramer Edatları",
+        "fr": "Particules Grammaticales"
       },
       "sortOrder": 1,
-      "wordCount": 85,
-      "quranOccurrenceCount": 21167,
-      "quranOccurrencePercent": 37.33
+      "wordCount": 173,
+      "quranOccurrenceCount": 21462,
+      "quranOccurrencePercent": 37.85
     },
     {
       "id": "ch_02",
       "title": {
-        "en": "Part 1: Extended Particles (حرف) II",
-        "bn": "অধ্যায় ২: সম্প্রসারিত অব্যয় (حرف) - ২য় খণ্ড",
-        "ur": "باب 2: اضافی حروف (حرف) - دوم",
-        "in": "Bab 2: Partikel Lanjutan (حرف) II",
-        "tr": "Bölüm 2: İleri Edatlar (حرف) II",
-        "fr": "Chapitre 2: Particules Avancées (حرف) II"
+        "en": "High-Frequency Verbs",
+        "bn": "উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "کثیر الاستعمال افعال",
+        "in": "Kata Kerja Frekuensi Tinggi",
+        "tr": "Yüksek Frekanslı Fiiller",
+        "fr": "Verbes à Haute Fréquence"
       },
       "description": {
-        "en": "Part 1: Extended Particles (حرف) II",
-        "bn": "অধ্যায় ২: সম্প্রসারিত অব্যয় (حرف) - ২য় খণ্ড",
-        "ur": "باب 2: اضافی حروف (حرف) - دوم",
-        "in": "Bab 2: Partikel Lanjutan (حرف) II",
-        "tr": "Bölüm 2: İleri Edatlar (حرف) II",
-        "fr": "Chapitre 2: Particules Avancées (حرف) II"
+        "en": "High-Frequency Verbs",
+        "bn": "উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
+        "ur": "کثیر الاستعمال افعال",
+        "in": "Kata Kerja Frekuensi Tinggi",
+        "tr": "Yüksek Frekanslı Fiiller",
+        "fr": "Verbes à Haute Fréquence"
       },
       "sortOrder": 2,
-      "wordCount": 88,
-      "quranOccurrenceCount": 295,
-      "quranOccurrencePercent": 0.52
+      "wordCount": 500,
+      "quranOccurrenceCount": 12378,
+      "quranOccurrencePercent": 21.83
     },
     {
       "id": "ch_03",
       "title": {
-        "en": "Part 2: High-Frequency Verbs (فعل) I",
-        "bn": "অধ্যায় ৩: অতি-ব্যবহৃত ক্রিয়াপদ (فعل) - ১ম খণ্ড",
-        "ur": "باب 3: کثیر الاستعمال افعال (فعل) - اول",
-        "in": "Bab 3: Verba Frekuensi Tinggi (فعل) I",
-        "tr": "Bölüm 3: Yüksek Frekanslı Fiiller (فعل) I",
-        "fr": "Chapitre 3: Verbes Fréquents (فعل) I"
+        "en": "Essential Verbal Forms",
+        "bn": "প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "اہم افعال کے ابواب",
+        "in": "Bentuk Kata Kerja Esensial",
+        "tr": "Temel Fiil Kalıpları",
+        "fr": "Formes Verbales Essentielles"
       },
       "description": {
-        "en": "Part 2: High-Frequency Verbs (فعل) I",
-        "bn": "অধ্যায় ৩: অতি-ব্যবহৃত ক্রিয়াপদ (فعل) - ১ম খণ্ড",
-        "ur": "باب 3: کثیر الاستعمال افعال (فعل) - اول",
-        "in": "Bab 3: Verba Frekuensi Tinggi (فعل) I",
-        "tr": "Bölüm 3: Yüksek Frekanslı Fiiller (فعل) I",
-        "fr": "Chapitre 3: Verbes Fréquents (فعل) I"
+        "en": "Essential Verbal Forms",
+        "bn": "প্রয়োজনীয় ক্রিয়াপদের রূপ",
+        "ur": "اہم افعال کے ابواب",
+        "in": "Bentuk Kata Kerja Esensial",
+        "tr": "Temel Fiil Kalıpları",
+        "fr": "Formes Verbales Essentielles"
       },
       "sortOrder": 3,
-      "wordCount": 493,
-      "quranOccurrenceCount": 12364,
-      "quranOccurrencePercent": 21.81
-    },
-    {
-      "id": "ch_04",
-      "title": {
-        "en": "Part 2: Derived Verbal Patterns (فعل) II",
-        "bn": "অধ্যায় ৪: রূপান্তরিত ক্রিয়ারীতি (فعل) - ২য় খণ্ড",
-        "ur": "باب 4: ابواب اور مشتق افعال (فعل) - دوم",
-        "in": "Bab 4: Pola Verba Turunan (فعل) II",
-        "tr": "Bölüm 4: Türemiş Fiil Kalıpları (فعل) II",
-        "fr": "Chapitre 4: Formes Verbales Dérivées (فعل) II"
-      },
-      "description": {
-        "en": "Part 2: Derived Verbal Patterns (فعل) II",
-        "bn": "অধ্যায় ৪: রূপান্তরিত ক্রিয়ারীতি (فعل) - ২য় খণ্ড",
-        "ur": "باب 4: ابواب اور مشتق افعال (فعل) - دوم",
-        "in": "Bab 4: Pola Verba Turunan (فعل) II",
-        "tr": "Bölüm 4: Türemiş Fiil Kalıpları (فعل) II",
-        "fr": "Chapitre 4: Formes Verbales Dérivées (فعل) II"
-      },
-      "sortOrder": 4,
-      "wordCount": 493,
+      "wordCount": 500,
       "quranOccurrenceCount": 634,
       "quranOccurrencePercent": 1.12
     },
     {
-      "id": "ch_05",
+      "id": "ch_04",
       "title": {
-        "en": "Part 2: Narrative & Specialized Verbs (فعل) III",
-        "bn": "অধ্যায় ৫: বর্ণনামূলক ও বিশেষ ক্রিয়াপদ (فعل) - ৩য় খণ্ড",
-        "ur": "باب 5: خصوصی اور بیانیہ افعال (فعل) - سوم",
-        "in": "Bab 5: Verba Khusus & Naratif (فعل) III",
-        "tr": "Bölüm 5: Anlatı ve Özel Fiiller (فعل) III",
-        "fr": "Chapitre 5: Verbes Narratifs & Spécifiques (فعل) III"
+        "en": "Specialized Verbs",
+        "bn": "বিশেষায়িত ক্রিয়াপদ",
+        "ur": "خصوصی افعال",
+        "in": "Kata Kerja Khusus",
+        "tr": "Özel Fiiller",
+        "fr": "Verbes Spécialisés"
       },
       "description": {
-        "en": "Part 2: Narrative & Specialized Verbs (فعل) III",
-        "bn": "অধ্যায় ৫: বর্ণনামূলক ও বিশেষ ক্রিয়াপদ (فعل) - ৩য় খণ্ড",
-        "ur": "باب 5: خصوصی اور بیانیہ افعال (فعل) - سوم",
-        "in": "Bab 5: Verba Khusus & Naratif (فعل) III",
-        "tr": "Bölüm 5: Anlatı ve Özel Fiiller (فعل) III",
-        "fr": "Chapitre 5: Verbes Narratifs & Spécifiques (فعل) III"
+        "en": "Specialized Verbs",
+        "bn": "বিশেষায়িত ক্রিয়াপদ",
+        "ur": "خصوصی افعال",
+        "in": "Kata Kerja Khusus",
+        "tr": "Özel Fiiller",
+        "fr": "Verbes Spécialisés"
+      },
+      "sortOrder": 4,
+      "wordCount": 479,
+      "quranOccurrenceCount": 479,
+      "quranOccurrencePercent": 0.84
+    },
+    {
+      "id": "ch_05",
+      "title": {
+        "en": "Divine Names & Core Nominals",
+        "bn": "আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Asmaul Husna & Nomina Inti",
+        "tr": "Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Noms Divins et Noms Fondamentaux"
+      },
+      "description": {
+        "en": "Divine Names & Core Nominals",
+        "bn": "আসমাউল হুসনা ও মৌলিক বিশেষ্য",
+        "ur": "اسمائے حسنیٰ اور بنیادی اسماء",
+        "in": "Asmaul Husna & Nomina Inti",
+        "tr": "Esmâ-i Hüsnâ ve Temel İsimler",
+        "fr": "Noms Divins et Noms Fondamentaux"
       },
       "sortOrder": 5,
-      "wordCount": 493,
-      "quranOccurrenceCount": 493,
-      "quranOccurrencePercent": 0.87
+      "wordCount": 510,
+      "quranOccurrenceCount": 18329,
+      "quranOccurrencePercent": 32.33
     },
     {
       "id": "ch_06",
       "title": {
-        "en": "Part 3: Essential Divine & Core Nouns (اسم) I",
-        "bn": "অধ্যায় ৬: রব্বানী ও কেন্দ্রীয় বিশেষ্য (اسم) - ১ম খণ্ড",
-        "ur": "باب 6: اسماء حسنیٰ و بنیادی اسماء (اسم) - اول",
-        "in": "Bab 6: Nomina Ilahi & Inti (اسم) I",
-        "tr": "Bölüm 6: Temel İlahi İsimler (اسم) I",
-        "fr": "Chapitre 6: Noms Divins & Essentiels (اسم) I"
+        "en": "Essential Quranic Nominals",
+        "bn": "প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "اہم قرআনি اسماء",
+        "in": "Nomina Al-Qur'an Esensial",
+        "tr": "Temel Kur'an İsimleri",
+        "fr": "Noms Coraniques Essentiels"
       },
       "description": {
-        "en": "Part 3: Essential Divine & Core Nouns (اسم) I",
-        "bn": "অধ্যায় ৬: রব্বানী ও কেন্দ্রীয় বিশেষ্য (اسم) - ১ম খণ্ড",
-        "ur": "باب 6: اسماء حسنیٰ و بنیادی اسماء (اسم) - اول",
-        "in": "Bab 6: Nomina Ilahi & Inti (اسم) I",
-        "tr": "Bölüm 6: Temel İlahi İsimler (اسم) I",
-        "fr": "Chapitre 6: Noms Divins & Essentiels (اسم) I"
+        "en": "Essential Quranic Nominals",
+        "bn": "প্রয়োজনীয় কুরআনিক বিশেষ্য",
+        "ur": "اہم قرআনি اسماء",
+        "in": "Nomina Al-Qur'an Esensial",
+        "tr": "Temel Kur'an İsimleri",
+        "fr": "Noms Coraniques Essentiels"
       },
       "sortOrder": 6,
-      "wordCount": 612,
-      "quranOccurrenceCount": 18725,
-      "quranOccurrencePercent": 33.03
+      "wordCount": 510,
+      "quranOccurrenceCount": 1300,
+      "quranOccurrencePercent": 2.29
     },
     {
       "id": "ch_07",
       "title": {
-        "en": "Part 3: Prophetic & Moral Nouns (اسم) II",
-        "bn": "অধ্যায় ৭: নবুওয়াত ও নৈতিক বিশেষ্য (اسم) - ২য় খণ্ড",
-        "ur": "باب 7: نبوی و اخلاقی اسماء (اسم) - دوم",
-        "in": "Bab 7: Nomina Kenabian & Moral (اسم) II",
-        "tr": "Bölüm 7: Ahlaki ve Peygamberi İsimler (اسم) II",
-        "fr": "Chapitre 7: Noms Prophétiques & Moraux (اسم) II"
+        "en": "Devotional & Faith Nominals",
+        "bn": "ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "ایمان اور عبادات کے اسماء",
+        "in": "Nomina Ibadah & Keimanan",
+        "tr": "İbadet ve İman İsimleri",
+        "fr": "Noms de Dévotion et de Foi"
       },
       "description": {
-        "en": "Part 3: Prophetic & Moral Nouns (اسم) II",
-        "bn": "অধ্যায় ৭: নবুওয়াত ও নৈতিক বিশেষ্য (اسم) - ২য় খণ্ড",
-        "ur": "باب 7: نبوی و اخلاقی اسماء (اسم) - دوم",
-        "in": "Bab 7: Nomina Kenabian & Moral (اسم) II",
-        "tr": "Bölüm 7: Ahlaki ve Peygamberi İsimler (اسم) II",
-        "fr": "Chapitre 7: Noms Prophétiques & Moraux (اسم) II"
+        "en": "Devotional & Faith Nominals",
+        "bn": "ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
+        "ur": "ایمان اور عبادات کے اسماء",
+        "in": "Nomina Ibadah & Keimanan",
+        "tr": "İbadet ve İman İsimleri",
+        "fr": "Noms de Dévotion et de Foi"
       },
       "sortOrder": 7,
-      "wordCount": 612,
-      "quranOccurrenceCount": 1188,
-      "quranOccurrencePercent": 2.1
+      "wordCount": 510,
+      "quranOccurrenceCount": 590,
+      "quranOccurrencePercent": 1.04
     },
     {
       "id": "ch_08",
       "title": {
-        "en": "Part 3: Cosmic & Nature Nouns (اسم) III",
-        "bn": "অধ্যায় ৮: মহাজাগতিক ও প্রাকৃতিক বিশেষ্য (اسم) - ৩য় খণ্ড",
-        "ur": "باب 8: کائناتی و قدرتی اسماء (اسم) - سوم",
-        "in": "Bab 8: Nomina Kosmik & Alam (اسم) III",
-        "tr": "Bölüm 8: Kozmik ve Doğa İsimleri (اسم) III",
-        "fr": "Chapitre 8: Noms Cosmiques & Naturels (اسم) III"
+        "en": "Prophetic & Narrative Nominals",
+        "bn": "নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "انبیاء اور قصص کے اسماء",
+        "in": "Nomina Kisah & Kenabian",
+        "tr": "Peygamber ve Kıssa İsimleri",
+        "fr": "Noms Prophétiques et Récits"
       },
       "description": {
-        "en": "Part 3: Cosmic & Nature Nouns (اسم) III",
-        "bn": "অধ্যায় ৮: মহাজাগতিক ও প্রাকৃতিক বিশেষ্য (اسم) - ৩য় খণ্ড",
-        "ur": "باب 8: کائناتی و قدرتی اسماء (اسم) - سوم",
-        "in": "Bab 8: Nomina Kosmik & Alam (اسم) III",
-        "tr": "Bölüm 8: Kozmik ve Doğa İsimleri (اسم) III",
-        "fr": "Chapitre 8: Noms Cosmiques & Naturels (اسم) III"
+        "en": "Prophetic & Narrative Nominals",
+        "bn": "নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
+        "ur": "انبیاء اور قصص کے اسماء",
+        "in": "Nomina Kisah & Kenabian",
+        "tr": "Peygamber ve Kıssa İsimleri",
+        "fr": "Noms Prophétiques et Récits"
       },
       "sortOrder": 8,
-      "wordCount": 611,
-      "quranOccurrenceCount": 611,
-      "quranOccurrencePercent": 1.08
+      "wordCount": 510,
+      "quranOccurrenceCount": 510,
+      "quranOccurrencePercent": 0.9
     },
     {
       "id": "ch_09",
       "title": {
-        "en": "Part 3: Societal & Human Nouns (اسم) IV",
-        "bn": "অধ্যায় ৯: সামাজিক ও মানবিক বিশেষ্য (اسم) - ৪র্থ খণ্ড",
-        "ur": "باب 9: سماجی و انسانی اسماء (اسم) - چہارم",
-        "in": "Bab 9: Nomina Sosial & Manusia (اسم) IV",
-        "tr": "Bölüm 9: Toplumsal ve İnsani İsimler (اسم) IV",
-        "fr": "Chapitre 9: Noms Sociaux & Humains (اسم) IV"
+        "en": "Moral & Social Nominals",
+        "bn": "নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "اخلاقی اور معاشرتی اسماء",
+        "in": "Nomina Moral & Sosial",
+        "tr": "Ahlaki ve Sosyal İsimler",
+        "fr": "Noms Moraux et Sociaux"
       },
       "description": {
-        "en": "Part 3: Societal & Human Nouns (اسم) IV",
-        "bn": "অধ্যায় ৯: সামাজিক ও মানবিক বিশেষ্য (اسم) - ৪র্থ খণ্ড",
-        "ur": "باب 9: سماجی و انسانی اسماء (اسم) - چہارم",
-        "in": "Bab 9: Nomina Sosial & Manusia (اسم) IV",
-        "tr": "Bölüm 9: Toplumsal ve İnsani İsimler (اسم) IV",
-        "fr": "Chapitre 9: Noms Sociaux & Humains (اسم) IV"
+        "en": "Moral & Social Nominals",
+        "bn": "নৈতিক ও সামাজিক বিশেষ্য",
+        "ur": "اخلاقی اور معاشرتی اسماء",
+        "in": "Nomina Moral & Sosial",
+        "tr": "Ahlaki ve Sosyal İsimler",
+        "fr": "Noms Moraux et Sociaux"
       },
       "sortOrder": 9,
-      "wordCount": 611,
-      "quranOccurrenceCount": 611,
-      "quranOccurrencePercent": 1.08
+      "wordCount": 510,
+      "quranOccurrenceCount": 510,
+      "quranOccurrencePercent": 0.9
     },
     {
       "id": "ch_10",
       "title": {
-        "en": "Part 3: Comprehensive Lexical Mastery Nouns (اسم) V",
-        "bn": "অধ্যায় ১০: পূর্ণাঙ্গ শব্দভাণ্ডার বিশেষ্য (اسم) - ৫ম খণ্ড",
-        "ur": "باب 10: مکمل قرآنی اسماء (اسم) - پنجم",
-        "in": "Bab 10: Penguasaan Nomina Lengkap (اسم) V",
-        "tr": "Bölüm 10: Kapsamlı Kelime Bilgisi İsimleri (اسم) V",
-        "fr": "Chapitre 10: Maîtrise Lexicale Complète (اسم) V"
+        "en": "Cosmic & Lexical Nominals",
+        "bn": "মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "কائناتی اور لغوی اسماء",
+        "in": "Nomina Kosmis & Leksikal",
+        "tr": "Kozmik ve Sözlük İsimleri",
+        "fr": "Noms Cosmiques et Lexicaux"
       },
       "description": {
-        "en": "Part 3: Comprehensive Lexical Mastery Nouns (اسم) V",
-        "bn": "অধ্যায় ১০: পূর্ণাঙ্গ শব্দভাণ্ডার বিশেষ্য (اسم) - ৫ম খণ্ড",
-        "ur": "باب 10: مکمل قرآنی اسماء (اسم) - پنجم",
-        "in": "Bab 10: Penguasaan Nomina Lengkap (اسم) V",
-        "tr": "Bölüm 10: Kapsamlı Kelime Bilgisi İsimleri (اسم) V",
-        "fr": "Chapitre 10: Maîtrise Lexicale Complète (اسم) V"
+        "en": "Cosmic & Lexical Nominals",
+        "bn": "মহাজাগতিক ও আভিধানিক বিশেষ্য",
+        "ur": "কائناتی اور لغوی اسماء",
+        "in": "Nomina Kosmis & Leksikal",
+        "tr": "Kozmik ve Sözlük İsimleri",
+        "fr": "Noms Cosmiques et Lexicaux"
       },
       "sortOrder": 10,
-      "wordCount": 611,
-      "quranOccurrenceCount": 611,
-      "quranOccurrencePercent": 1.08
+      "wordCount": 507,
+      "quranOccurrenceCount": 507,
+      "quranOccurrencePercent": 0.89
     }
   ]
 }

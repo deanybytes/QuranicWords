@@ -40,11 +40,11 @@ class GeneratedContentParsesTest {
     @Test
     fun `vocabulary lessons decode with correct counts per kind and category`() {
         val lessons = AppJson.decodeFromString<LessonsFile>(readAsset("lessons_vocabulary.json")).lessons
-        assertEquals(1214, lessons.size)
+        assertEquals(1217, lessons.size)
 
         val byKind = lessons.groupingBy { it.kind }.eachCount()
         assertEquals(10, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_INTRO])
-        assertEquals(994, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR])
+        assertEquals(997, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR])
         assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_FLASHBACK])
         assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_EXAM])
         assertEquals(10, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_EXAM])
