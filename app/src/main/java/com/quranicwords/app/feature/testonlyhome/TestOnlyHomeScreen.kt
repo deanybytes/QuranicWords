@@ -807,9 +807,12 @@ private fun GlossyChapterTestCard(
     val localizedOccPercent = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(ch.quranOccurrencePercent), language)
     val localizedCoveredCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chapterItem.coveredCount.toString(), language)
 
+    val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
+    val urOrdinals = arrayOf("", "پہلا", "دوسرا", "تیسرا", "چوتھا", "پانچواں", "چھٹا", "ساتواں", "آٹھواں", "نواں", "دسواں")
+
     val chapterOrdinalLabel = when (language) {
-        com.quranicwords.app.core.domain.model.Language.BANGLA -> "${localizedChapterNum}ম অধ্যায়"
-        com.quranicwords.app.core.domain.model.Language.URDU -> "باب نمبر $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.BANGLA -> if (ch.sortOrder in 1..10) "${bnOrdinals[ch.sortOrder]} অধ্যায়" else "অধ্যায় $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.URDU -> if (ch.sortOrder in 1..10) "${urOrdinals[ch.sortOrder]} باب" else "باب نمبر $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.INDONESIAN -> "Bab $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.TURKISH -> "$localizedChapterNum. Bölüm"
         com.quranicwords.app.core.domain.model.Language.FRENCH -> "Chapitre $localizedChapterNum"

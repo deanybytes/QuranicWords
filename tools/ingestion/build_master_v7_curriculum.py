@@ -11,7 +11,7 @@ directly from the official v7 Excel catalogs in assets/Words & Meanings/:
 Total: 4,709 unique Quranic lemmas across 6 languages (en, bn, ur, in, tr, fr).
 Guarantees:
 1. 100% Authentic Qur'anic Ayahs and 6-language translations for every single word (0 placeholders).
-2. Pure language isolation with zero cross-contamination.
+2. Pure language isolation with zero cross-contamination and pure localized ordinals (১ম, ২য়, ৩য়... / پہلا, دوسرا...).
 3. Clean single primary meaning per multiple choice option.
 4. Precision word-level translation highlights with pronoun and conjunction filtering (no jumping to adjacent words).
 5. Rich dynamic polysemy entries for multi-meaning words.
@@ -28,6 +28,29 @@ EXCEL_DIR = os.path.join(BASE_DIR, 'assets', 'Words & Meanings')
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 
 bengali_regex = re.compile(r'[\u0980-\u09FF]')
+
+BN_DIGITS = {'0':'০', '1':'১', '2':'২', '3':'৩', '4':'৪', '5':'৫', '6':'৬', '7':'৭', '8':'৮', '9':'৯'}
+UR_DIGITS = {'0':'۰', '1':'۱', '2':'۲', '3':'۳', '4':'۴', '5':'۵', '6':'۶', '7':'۷', '8':'۸', '9':'۹'}
+
+def to_bn_digits(num):
+    return ''.join(BN_DIGITS.get(d, d) for d in str(num))
+
+def to_ur_digits(num):
+    return ''.join(UR_DIGITS.get(d, d) for d in str(num))
+
+def get_bn_ordinal(n):
+    if n == 1: return '১ম'
+    if n in (2, 3): return f'{to_bn_digits(n)}য়'
+    if n == 4: return '৪র্থ'
+    if n in (5, 7, 8, 9, 10): return f'{to_bn_digits(n)}ম'
+    if n == 6: return '৬ষ্ঠ'
+    return f'{to_bn_digits(n)}তম'
+
+def get_ur_ordinal(n):
+    ordinals = ['', 'پہلا', 'دوسرا', 'تیسرا', 'چوتھا', 'پانچواں', 'چھٹا', 'ساتواں', 'آٹھواں', 'نواں', 'دسواں']
+    if 1 <= n < len(ordinals):
+        return ordinals[n]
+    return f'نمبر {to_ur_digits(n)}'
 
 PRONOUN_STOPWORDS = {
     'bn': {'তাদের', 'তাদেরকে', 'তাকে', 'তোমাদের', 'তোমাকে', 'আমাদের', 'আমাকে', 'তিনি', 'সে', 'তারা', 'তা', 'এরা', 'এর'},
@@ -236,7 +259,6 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
     if not trans_str:
         return ''
     
-    # 1. Meaning candidates (SPLIT FIRST by /, ;, ,, |, \)
     m_candidates = []
     if meaning_str:
         m_cleaned = clean_text(meaning_str)
@@ -251,7 +273,6 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
                             m_candidates.append(sub.strip())
     m_candidates.sort(key=lambda x: len(x), reverse=True)
                 
-    # 2. WBW candidates
     c_wbw = clean_text(wbw_str)
     raw_wbw_words = [p.strip() for p in re.split(r'[\s/\\;,|]+', c_wbw) if len(p.strip()) >= 2]
     
@@ -272,13 +293,11 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
     for m in re.finditer(r'[^\s,.;:!?।()\[\]{}\"\'«»„“”/\\-]+', trans_str):
         tokens.append((m.start(), m.end(), m.group(0)))
         
-    # Pass 1: Meaning candidates exact token match in translation
     for cand in m_candidates:
         for t_start, t_end, tok in tokens:
             if tok.lower() == cand.lower():
                 return tok
 
-    # Pass 2: Meaning candidate phrase match with word boundary
     for cand in m_candidates:
         if ' ' in cand:
             idx = trans_str.lower().find(cand.lower())
@@ -288,7 +307,6 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
                 if before_ok and after_ok:
                     return trans_str[idx:idx+len(cand)]
 
-    # Pass 3: Full WBW phrase match (if full phrase exists and not stopword)
     if c_wbw and len(c_wbw) >= 3 and not (not is_pron and c_wbw.lower() in pron_stops) and not (not is_conj and c_wbw.lower() in conj_stops):
         idx = trans_str.lower().find(c_wbw.lower())
         if idx >= 0:
@@ -297,7 +315,6 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
             if before_ok and after_ok:
                 return trans_str[idx:idx+len(c_wbw)]
 
-    # Pass 4: Meaning word stem / prefix match
     for cand in m_candidates:
         if len(cand) >= 3:
             for t_start, t_end, tok in tokens:
@@ -305,7 +322,6 @@ def find_best_translation_highlight(meaning_str, trans_str, wbw_str='', lang='en
                     if tok.lower().startswith(cand.lower()) or cand.lower().startswith(tok.lower()):
                         return tok
 
-    # Pass 5: Individual WBW words match
     for cand in wbw_words:
         for t_start, t_end, tok in tokens:
             if tok.lower() == cand.lower():
@@ -353,7 +369,6 @@ def main():
     with open(os.path.join(BASE_DIR, 'reference', 'word-by-word', 'QuranicWords_French.json'), encoding='utf-8') as f:
         wbw_fr = json.load(f)['data']
 
-    # Precompute token spans for all 6,236 verses
     verse_token_spans = {}
     for vkey, verse_ar in ed_ar.items():
         words = verse_ar.split()
@@ -429,7 +444,6 @@ def main():
         with_spans = [o for o in occs if o['start'] is not None and o['end'] is not None]
         return with_spans[0] if with_spans else occs[0]
 
-    # Load Harf polysemy Bangla mappings from sheet 'Polysemous Particles (Wujūh)'
     wb_harf = openpyxl.load_workbook(os.path.join(EXCEL_DIR, 'quranic_harf_lemmas_173-v7.xlsx'), data_only=True)
     sheet_poly_harf = wb_harf['Polysemous Particles (Wujūh)']
     harf_poly_bn = {}
@@ -688,8 +702,8 @@ def main():
             sec_id = f"sec_{sec_global_num:03d}"
             sec_title = {
                 'en': f"Section {s_idx}: {ch_title['en']}",
-                'bn': f"পর্ব {s_idx}: {ch_title['bn']}",
-                'ur': f"حصہ {s_idx}: {ch_title['ur']}",
+                'bn': f"{get_bn_ordinal(s_idx)} পর্ব: {ch_title['bn']}",
+                'ur': f"{get_ur_ordinal(s_idx)} حصہ: {ch_title['ur']}",
                 'in': f"Bagian {s_idx}: {ch_title['in']}",
                 'tr': f"Bölüm {s_idx}: {ch_title['tr']}",
                 'fr': f"Section {s_idx}: {ch_title['fr']}"
@@ -717,7 +731,14 @@ def main():
                     'id': ch_intro_les_id,
                     'chapterId': ch_id,
                     'sectionId': sec_id,
-                    'title': {'en': f'Chapter {ch_idx} Overview', 'bn': f'অধ্যায় {ch_idx} পরিচিতি', 'ur': f'باب {ch_idx} کا تعارف', 'in': f'Ikhtisar Bab {ch_idx}', 'tr': f'Bölüm {ch_idx} Genel Bakış', 'fr': f'Aperçu du Chapitre {ch_idx}'},
+                    'title': {
+                        'en': f'Chapter {ch_idx} Overview',
+                        'bn': f'{get_bn_ordinal(ch_idx)} অধ্যায় পরিচিতি',
+                        'ur': f'{get_ur_ordinal(ch_idx)} باب کا تعارف',
+                        'in': f'Ikhtisar Bab {ch_idx}',
+                        'tr': f'Bölüm {ch_idx} Genel Bakış',
+                        'fr': f'Aperçu du Chapitre {ch_idx}'
+                    },
                     'sortOrder': sec_sort_order,
                     'kind': 'CHAPTER_INTRO',
                     'category': ch_cat
@@ -754,8 +775,8 @@ def main():
                 les_id = f"les_{les_global_num:04d}"
                 les_title = {
                     'en': f"Lesson {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
-                    'bn': f"পাঠ {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
-                    'ur': f"سبق {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
+                    'bn': f"পাঠ {to_bn_digits(chunk_idx)}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
+                    'ur': f"سبق {to_ur_digits(chunk_idx)}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
                     'in': f"Pelajaran {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
                     'tr': f"Ders {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}",
                     'fr': f"Leçon {chunk_idx}: {w_chunk[0]['wordArabic']} – {w_chunk[-1]['wordArabic']}"
@@ -839,7 +860,14 @@ def main():
                 'id': flash_les_id,
                 'chapterId': ch_id,
                 'sectionId': sec_id,
-                'title': {'en': f'Section {s_idx} Flashback', 'bn': f'পর্ব {s_idx} পুনরাবৃত্তি', 'ur': f'حصہ {s_idx} کا اعادہ', 'in': f'Ulasan Bagian {s_idx}', 'tr': f'Bölüm {s_idx} Tekrarı', 'fr': f'Révision Section {s_idx}'},
+                'title': {
+                    'en': f'Section {s_idx} Flashback',
+                    'bn': f'{get_bn_ordinal(s_idx)} পর্ব পুনরাবৃত্তি',
+                    'ur': f'{get_ur_ordinal(s_idx)} حصہ کا اعادہ',
+                    'in': f'Ulasan Bagian {s_idx}',
+                    'tr': f'Bölüm {s_idx} Tekrarı',
+                    'fr': f'Révision Section {s_idx}'
+                },
                 'sortOrder': sec_sort_order,
                 'kind': 'SECTION_FLASHBACK',
                 'category': ch_cat
@@ -853,7 +881,14 @@ def main():
                 'id': exam_les_id,
                 'chapterId': ch_id,
                 'sectionId': sec_id,
-                'title': {'en': f'Section {s_idx} Exam', 'bn': f'পর্ব {s_idx} পরীক্ষা', 'ur': f'حصہ {s_idx} کا امتحان', 'in': f'Ujian Bagian {s_idx}', 'tr': f'Bölüm {s_idx} Sınavı', 'fr': f'Examen Section {s_idx}'},
+                'title': {
+                    'en': f'Section {s_idx} Exam',
+                    'bn': f'{get_bn_ordinal(s_idx)} পর্ব পরীক্ষা',
+                    'ur': f'{get_ur_ordinal(s_idx)} حصہ کا امتحان',
+                    'in': f'Ujian Bagian {s_idx}',
+                    'tr': f'Bölüm {s_idx} Sınavı',
+                    'fr': f'Examen Section {s_idx}'
+                },
                 'sortOrder': sec_sort_order,
                 'kind': 'SECTION_EXAM',
                 'category': ch_cat
@@ -869,7 +904,14 @@ def main():
             'id': ch_exam_les_id,
             'chapterId': ch_id,
             'sectionId': None,
-            'title': {'en': f'Chapter {ch_idx} Final Exam', 'bn': f'অধ্যায় {ch_idx} চূড়ান্ত পরীক্ষা', 'ur': f'باب {ch_idx} کا فائنل امتحان', 'in': f'Ujian Akhir Bab {ch_idx}', 'tr': f'Bölüm {ch_idx} Final Sınavı', 'fr': f'Examen Final Chapitre {ch_idx}'},
+            'title': {
+                'en': f'Chapter {ch_idx} Final Exam',
+                'bn': f'{get_bn_ordinal(ch_idx)} অধ্যায় চূড়ান্ত পরীক্ষা',
+                'ur': f'{get_ur_ordinal(ch_idx)} باب کا فائنل امتحان',
+                'in': f'Ujian Akhir Bab {ch_idx}',
+                'tr': f'Bölüm {ch_idx} Final Sınavı',
+                'fr': f'Examen Final Chapitre {ch_idx}'
+            },
             'sortOrder': sec_sort_order,
             'kind': 'CHAPTER_EXAM',
             'category': ch_cat

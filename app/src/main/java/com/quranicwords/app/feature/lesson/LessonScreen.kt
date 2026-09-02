@@ -267,17 +267,24 @@ fun LessonScreen(
                             onClick = viewModel::onContinuePressed,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        uiState.currentContent is ExerciseContent.ChapterIntro -> QwPrimaryButton(
-                            text = stringResource(
-                                R.string.chapter_intro_begin_button,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(
-                                    (uiState.currentContent as ExerciseContent.ChapterIntro).chapterNumber.toString(),
-                                    language
+                        uiState.currentContent is ExerciseContent.ChapterIntro -> {
+                            val chNum = (uiState.currentContent as ExerciseContent.ChapterIntro).chapterNumber
+                            val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
+                            val urOrdinals = arrayOf("", "پہلا", "دوسرا", "تیسرا", "چوتھا", "پانچواں", "چھٹا", "ساتواں", "آٹھواں", "نواں", "دسواں")
+                            val btnText = when (language) {
+                                Language.BANGLA -> if (chNum in 1..10) "${bnOrdinals[chNum]} অধ্যায় শুরু করুন" else "অধ্যায় ${com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chNum.toString(), language)} শুরু করুন"
+                                Language.URDU -> if (chNum in 1..10) "${urOrdinals[chNum]} باب شروع کریں" else "باب ${com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chNum.toString(), language)} شروع کریں"
+                                else -> stringResource(
+                                    R.string.chapter_intro_begin_button,
+                                    com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chNum.toString(), language)
                                 )
-                            ),
-                            onClick = viewModel::onContinuePressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                            }
+                            QwPrimaryButton(
+                                text = btnText,
+                                onClick = viewModel::onContinuePressed,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                         else -> Unit // matching self-advances once solved
                     }
                 }
