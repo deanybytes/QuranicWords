@@ -1,5 +1,10 @@
 package com.quranicwords.app.feature.wordbrowse
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -200,8 +205,14 @@ private fun WordCardBack(
                 ) {
                     word.polysemyEntries.forEachIndexed { idx, _ ->
                         val isSelected = selectedMeaningIndex == idx
-                        val tabBg = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
-                        val tabTextColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
+                        val tabBg by androidx.compose.animation.animateColorAsState(
+                            targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                            label = "tabBg"
+                        )
+                        val tabTextColor by androidx.compose.animation.animateColorAsState(
+                            targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+                            label = "tabText"
+                        )
 
                         Box(
                             modifier = Modifier
@@ -212,7 +223,7 @@ private fun WordCardBack(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = stringResource(R.string.polysemy_tab_format, idx + 1),
+                                text = "[${idx + 1}]",
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                                 color = tabTextColor
                             )
@@ -221,46 +232,65 @@ private fun WordCardBack(
                 }
             }
 
-            if (!arabicVerse.isNullOrBlank()) {
-                Text(
-                    text = arabicVerse,
-                    fontFamily = LocalQuranFontFamily.current,
-                    fontSize = 20.sp,
-                    lineHeight = 34.sp,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            MaterialTheme.colorScheme.surface,
-                            RoundedCornerShape(12.dp)
+            AnimatedContent(
+                targetState = selectedMeaningIndex,
+                transitionSpec = {
+                    (fadeIn(androidx.compose.animation.core.tween(200))).togetherWith(fadeOut(androidx.compose.animation.core.tween(150)))
+                },
+                label = "BrowseCardVerseTransition"
+            ) { targetIdx ->
+                val entry = word.polysemyEntries.getOrNull(targetIdx)
+                val activeArabicVerse = entry?.verseArabic ?: word.exampleVerseArabic
+                val activeVerseTranslation = entry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
+                val activeVerseRef = entry?.verseReference ?: word.exampleVerseReference
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (!activeArabicVerse.isNullOrBlank()) {
+                        Text(
+                            text = activeArabicVerse,
+                            fontFamily = LocalQuranFontFamily.current,
+                            fontSize = 20.sp,
+                            lineHeight = 34.sp,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    MaterialTheme.colorScheme.surface,
+                                    RoundedCornerShape(12.dp)
+                                )
+                                .padding(12.dp)
                         )
-                        .padding(12.dp)
-                )
-            }
-            if (verseTranslation.isNotBlank()) {
-                Text(
-                    text = verseTranslation,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = QuranCitationFontFamily,
-                        fontStyle = FontStyle.Italic
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
-            }
-            if (!verseRef.isNullOrBlank()) {
-                Text(
-                    text = stringResource(
-                        R.string.lesson_word_example_verse_label,
-                        com.quranicwords.app.core.util.VerseReferenceFormatter.format(verseRef, language)
-                    ),
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = QuranCitationFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 0.5.sp
-                    ),
-                    color = MaterialTheme.colorScheme.primary
-                )
+                    }
+                    if (activeVerseTranslation.isNotBlank()) {
+                        Text(
+                            text = activeVerseTranslation,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontFamily = QuranCitationFontFamily,
+                                fontStyle = FontStyle.Italic
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    if (!activeVerseRef.isNullOrBlank()) {
+                        Text(
+                            text = stringResource(
+                                R.string.lesson_word_example_verse_label,
+                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseRef, language)
+                            ),
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontFamily = QuranCitationFontFamily,
+                                fontWeight = FontWeight.Bold,
+                                letterSpacing = 0.5.sp
+                            ),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
             }
         }
     }

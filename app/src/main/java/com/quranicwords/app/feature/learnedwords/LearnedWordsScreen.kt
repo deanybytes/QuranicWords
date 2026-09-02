@@ -1,8 +1,14 @@
 package com.quranicwords.app.feature.learnedwords
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -388,23 +394,42 @@ private fun WordQuranExamplesSheet(
                             .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        word.polysemyEntries.forEachIndexed { idx, _ ->
+                        word.polysemyEntries.forEachIndexed { idx, entry ->
                             val isSelected = selectedMeaningIndex == idx
-                            val tabBg = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
-                            val tabTextColor = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                            val tabBg by androidx.compose.animation.animateColorAsState(
+                                targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                label = "tabBg"
+                            )
+                            val tabTextColor by androidx.compose.animation.animateColorAsState(
+                                targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                label = "tabText"
+                            )
+                            val senseMeaning = entry.contextualMeaning.get(language).ifBlank { word.meaning.get(language) }
 
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(tabBg)
                                     .clickable { selectedMeaningIndex = idx }
-                                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                                    .padding(horizontal = 14.dp, vertical = 8.dp)
                             ) {
-                                Text(
-                                    text = stringResource(R.string.polysemy_tab_format, idx + 1),
-                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                    color = tabTextColor
-                                )
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "[${idx + 1}]",
+                                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = tabTextColor
+                                    )
+                                    if (senseMeaning.isNotBlank()) {
+                                        Text(
+                                            text = senseMeaning.take(24) + if (senseMeaning.length > 24) "…" else "",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = tabTextColor.copy(alpha = 0.9f)
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
@@ -418,50 +443,77 @@ private fun WordQuranExamplesSheet(
                 color = MaterialTheme.colorScheme.onSurface
             )
 
-            // Example Verse Card
-            if (!verseArabic.isNullOrBlank() && !verseReference.isNullOrBlank()) {
-                GlassSurface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    tint = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
+            // Example Verse Card with animated sense transition
+            AnimatedContent(
+                targetState = selectedMeaningIndex,
+                transitionSpec = {
+                    if (targetState > initialState) {
+                        (androidx.compose.animation.slideInHorizontally { width -> width / 4 } + androidx.compose.animation.fadeIn(androidx.compose.animation.core.tween(250)))
+                            .togetherWith(androidx.compose.animation.slideOutHorizontally { width -> -width / 4 } + androidx.compose.animation.fadeOut(androidx.compose.animation.core.tween(200)))
+                    } else {
+                        (androidx.compose.animation.slideInHorizontally { width -> -width / 4 } + androidx.compose.animation.fadeIn(androidx.compose.animation.core.tween(250)))
+                            .togetherWith(androidx.compose.animation.slideOutHorizontally { width -> width / 4 } + androidx.compose.animation.fadeOut(androidx.compose.animation.core.tween(200)))
+                    }.using(androidx.compose.animation.SizeTransform(clip = false))
+                },
+                label = "LearnedWordVerseTransition"
+            ) { targetIdx ->
+                val entry = word.polysemyEntries.getOrNull(targetIdx)
+                val activeVerseArabic = entry?.verseArabic ?: word.exampleVerseArabic
+                val activeVerseReference = entry?.verseReference ?: word.exampleVerseReference
+                val activeVerseTranslation = entry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
+                val activeArabicWordStart = entry?.arabicWordStart ?: word.arabicWordStart
+                val activeArabicWordEnd = entry?.arabicWordEnd ?: word.arabicWordEnd
+                val activeMeaningHighlight = entry?.translationHighlight?.getOrNull(language) ?: word.meaningHighlight.getOrNull(language)
+                val activeMeaningText = if (entry != null && entry.contextualMeaning.isNotEmpty()) {
+                    entry.contextualMeaning.get(language)
+                } else {
+                    word.meaning.get(language)
+                }
+
+                if (!activeVerseArabic.isNullOrBlank() && !activeVerseReference.isNullOrBlank()) {
+                    GlassSurface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        tint = MaterialTheme.colorScheme.surfaceVariant
                     ) {
-                        Text(
-                            text = stringResource(
-                                R.string.lesson_word_example_verse_label,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(verseReference, language)
-                            ),
-                            style = MaterialTheme.typography.labelLarge.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.5.sp
-                            ),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        HighlightedGlassArabic(
-                            verseArabic = verseArabic,
-                            start = arabicWordStart,
-                            end = arabicWordEnd,
-                            modifier = Modifier.fillMaxWidth(),
-                            arabicWord = word.arabicWord
-                        )
-                        if (!verseTranslation.isNullOrBlank()) {
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-                            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
-                                verseTranslation = verseTranslation,
-                                meaningHighlight = meaningHighlight,
-                                meaning = displayedMeaning
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    R.string.lesson_word_example_verse_label,
+                                    com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language)
+                                ),
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    fontFamily = QuranCitationFontFamily,
+                                    fontWeight = FontWeight.Bold,
+                                    letterSpacing = 0.5.sp
+                                ),
+                                color = MaterialTheme.colorScheme.primary
                             )
-                            HighlightedGlassTranslation(
-                                verseTranslation = verseTranslation,
-                                range = range,
-                                modifier = Modifier.fillMaxWidth()
+                            HighlightedGlassArabic(
+                                verseArabic = activeVerseArabic,
+                                start = activeArabicWordStart,
+                                end = activeArabicWordEnd,
+                                modifier = Modifier.fillMaxWidth(),
+                                arabicWord = word.arabicWord
                             )
+                            if (!activeVerseTranslation.isNullOrBlank()) {
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                                val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                                    verseTranslation = activeVerseTranslation,
+                                    meaningHighlight = activeMeaningHighlight,
+                                    meaning = activeMeaningText
+                                )
+                                HighlightedGlassTranslation(
+                                    verseTranslation = activeVerseTranslation,
+                                    range = range,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
                         }
                     }
                 }
