@@ -813,8 +813,13 @@ private fun GlossyChapterTestCard(
     val chapterOrdinalLabel = when (language) {
         com.quranicwords.app.core.domain.model.Language.BANGLA -> if (ch.sortOrder in 1..10) "${bnOrdinals[ch.sortOrder]} অধ্যায়" else "অধ্যায় $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.URDU -> if (ch.sortOrder in 1..10) "${urOrdinals[ch.sortOrder]} باب" else "باب نمبر $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.PERSIAN -> if (ch.sortOrder in 1..10) "${urOrdinals[ch.sortOrder]} فصل" else "فصل $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.HINDI -> "अध्याय $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.INDONESIAN -> "Bab $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.MALAY -> "Bab $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.TURKISH -> "$localizedChapterNum. Bölüm"
+        com.quranicwords.app.core.domain.model.Language.HAUSA -> "Babi na $localizedChapterNum"
+        com.quranicwords.app.core.domain.model.Language.SWAHILI -> "Sura ya $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.FRENCH -> "Chapitre $localizedChapterNum"
         com.quranicwords.app.core.domain.model.Language.ENGLISH -> "Chapter $localizedChapterNum"
     }

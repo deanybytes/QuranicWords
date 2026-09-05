@@ -34,8 +34,8 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 35
-        versionCode = 15
-        versionName = "2.5.0"
+        versionCode = 16
+        versionName = "3.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,6 +47,8 @@ android {
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
                 keyPassword = keystoreProperties.getProperty("keyPassword")
+                enableV1Signing = true
+                enableV2Signing = true
             }
         }
     }

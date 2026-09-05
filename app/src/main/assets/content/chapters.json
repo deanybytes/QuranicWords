@@ -6,17 +6,25 @@
         "en": "Grammatical Particles",
         "bn": "ব্যাকরণিক অব্যয়",
         "ur": "حروف اور قواعد",
+        "hi": "व्याकरणिक अव्यय",
         "in": "Partikel Tata Bahasa",
+        "ms": "Zarah Tatabahasa",
         "tr": "Gramer Edatları",
-        "fr": "Particules Grammaticales"
+        "fa": "حروف و قواعد دستوری",
+        "ha": "Haruffan Nahawu",
+        "sw": "Vihusishi vya Sarufi"
       },
       "description": {
         "en": "Grammatical Particles",
         "bn": "ব্যাকরণিক অব্যয়",
         "ur": "حروف اور قواعد",
+        "hi": "व्याकरणिक अव्यय",
         "in": "Partikel Tata Bahasa",
+        "ms": "Zarah Tatabahasa",
         "tr": "Gramer Edatları",
-        "fr": "Particules Grammaticales"
+        "fa": "حروف و قواعد دستوری",
+        "ha": "Haruffan Nahawu",
+        "sw": "Vihusishi vya Sarufi"
       },
       "sortOrder": 1,
       "wordCount": 173,
@@ -29,17 +37,25 @@
         "en": "High-Frequency Verbs",
         "bn": "উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
         "ur": "کثیر الاستعمال افعال",
+        "hi": "उच्च-आवृत्ति क्रियाएँ",
         "in": "Kata Kerja Frekuensi Tinggi",
+        "ms": "Kata Kerja Kekerapan Tinggi",
         "tr": "Yüksek Frekanslı Fiiller",
-        "fr": "Verbes à Haute Fréquence"
+        "fa": "افعال پرکاربرد",
+        "ha": "Fi'ilai Masu Yawan Aukuwa",
+        "sw": "Vitenzi vya Marudio ya Juu"
       },
       "description": {
         "en": "High-Frequency Verbs",
         "bn": "উচ্চ-ফ্রিকোয়েন্সি ক্রিয়াপদ",
         "ur": "کثیر الاستعمال افعال",
+        "hi": "उच्च-आवृत्ति क्रियाएँ",
         "in": "Kata Kerja Frekuensi Tinggi",
+        "ms": "Kata Kerja Kekerapan Tinggi",
         "tr": "Yüksek Frekanslı Fiiller",
-        "fr": "Verbes à Haute Fréquence"
+        "fa": "افعال پرکاربرد",
+        "ha": "Fi'ilai Masu Yawan Aukuwa",
+        "sw": "Vitenzi vya Marudio ya Juu"
       },
       "sortOrder": 2,
       "wordCount": 500,
@@ -52,17 +68,25 @@
         "en": "Essential Verbal Forms",
         "bn": "প্রয়োজনীয় ক্রিয়াপদের রূপ",
         "ur": "اہم افعال کے ابواب",
+        "hi": "आवश्यक क्रिया रूप",
         "in": "Bentuk Kata Kerja Esensial",
+        "ms": "Bentuk Kata Kerja Asas",
         "tr": "Temel Fiil Kalıpları",
-        "fr": "Formes Verbales Essentielles"
+        "fa": "باب‌های اساسی افعال",
+        "ha": "Sifofin Fi'ili Masu Muhimmanci",
+        "sw": "Miundo Muhimu ya Vitenzi"
       },
       "description": {
         "en": "Essential Verbal Forms",
         "bn": "প্রয়োজনীয় ক্রিয়াপদের রূপ",
         "ur": "اہم افعال کے ابواب",
+        "hi": "आवश्यक क्रिया रूप",
         "in": "Bentuk Kata Kerja Esensial",
+        "ms": "Bentuk Kata Kerja Asas",
         "tr": "Temel Fiil Kalıpları",
-        "fr": "Formes Verbales Essentielles"
+        "fa": "باب‌های اساسی افعال",
+        "ha": "Sifofin Fi'ili Masu Muhimmanci",
+        "sw": "Miundo Muhimu ya Vitenzi"
       },
       "sortOrder": 3,
       "wordCount": 500,
@@ -75,17 +99,25 @@
         "en": "Specialized Verbs",
         "bn": "বিশেষায়িত ক্রিয়াপদ",
         "ur": "خصوصی افعال",
+        "hi": "विशिष्ट क्रियाएँ",
         "in": "Kata Kerja Khusus",
+        "ms": "Kata Kerja Khusus",
         "tr": "Özel Fiiller",
-        "fr": "Verbes Spécialisés"
+        "fa": "افعال تخصصی",
+        "ha": "Fi'ilai na Musamman",
+        "sw": "Vitenzi Maalum"
       },
       "description": {
         "en": "Specialized Verbs",
         "bn": "বিশেষায়িত ক্রিয়াপদ",
         "ur": "خصوصی افعال",
+        "hi": "विशिष्ट क्रियाएँ",
         "in": "Kata Kerja Khusus",
+        "ms": "Kata Kerja Khusus",
         "tr": "Özel Fiiller",
-        "fr": "Verbes Spécialisés"
+        "fa": "افعال تخصصی",
+        "ha": "Fi'ilai na Musamman",
+        "sw": "Vitenzi Maalum"
       },
       "sortOrder": 4,
       "wordCount": 479,
@@ -98,17 +130,25 @@
         "en": "Divine Names & Core Nominals",
         "bn": "আসমাউল হুসনা ও মৌলিক বিশেষ্য",
         "ur": "اسمائے حسنیٰ اور بنیادی اسماء",
+        "hi": "अस्माउल हुस्ना और मूल संज्ञाएँ",
         "in": "Asmaul Husna & Nomina Inti",
+        "ms": "Asmaul Husna & Kata Nama Teras",
         "tr": "Esmâ-i Hüsnâ ve Temel İsimler",
-        "fr": "Noms Divins et Noms Fondamentaux"
+        "fa": "نام‌های نیکوی خداوند و اسم‌های بنیادین",
+        "ha": "Sunayen Allah da Asalin Sunaye",
+        "sw": "Majina ya Mwenyezi Mungu na Majina ya Msingi"
       },
       "description": {
         "en": "Divine Names & Core Nominals",
         "bn": "আসমাউল হুসনা ও মৌলিক বিশেষ্য",
         "ur": "اسمائے حسنیٰ اور بنیادی اسماء",
+        "hi": "अस्माउल हुस्ना और मूल संज्ञाएँ",
         "in": "Asmaul Husna & Nomina Inti",
+        "ms": "Asmaul Husna & Kata Nama Teras",
         "tr": "Esmâ-i Hüsnâ ve Temel İsimler",
-        "fr": "Noms Divins et Noms Fondamentaux"
+        "fa": "نام‌های نیکوی خداوند و اسم‌های بنیادین",
+        "ha": "Sunayen Allah da Asalin Sunaye",
+        "sw": "Majina ya Mwenyezi Mungu na Majina ya Msingi"
       },
       "sortOrder": 5,
       "wordCount": 510,
@@ -121,17 +161,25 @@
         "en": "Essential Quranic Nominals",
         "bn": "প্রয়োজনীয় কুরআনিক বিশেষ্য",
         "ur": "اہم قرآنی اسماء",
+        "hi": "आवश्यक क़ुरआनी संज्ञाएँ",
         "in": "Nomina Al-Qur'an Esensial",
+        "ms": "Kata Nama Al-Quran Asas",
         "tr": "Temel Kur'an İsimleri",
-        "fr": "Noms Coraniques Essentiels"
+        "fa": "اسم‌های اساسی قرآنی",
+        "ha": "Sunayen Alkur'ani Masu Muhimmanci",
+        "sw": "Majina Muhimu ya Qur'ani"
       },
       "description": {
         "en": "Essential Quranic Nominals",
         "bn": "প্রয়োজনীয় কুরআনিক বিশেষ্য",
         "ur": "اہم قرآنی اسماء",
+        "hi": "आवश्यक क़ुरआनी संज्ञाएँ",
         "in": "Nomina Al-Qur'an Esensial",
+        "ms": "Kata Nama Al-Quran Asas",
         "tr": "Temel Kur'an İsimleri",
-        "fr": "Noms Coraniques Essentiels"
+        "fa": "اسم‌های اساسی قرآنی",
+        "ha": "Sunayen Alkur'ani Masu Muhimmanci",
+        "sw": "Majina Muhimu ya Qur'ani"
       },
       "sortOrder": 6,
       "wordCount": 510,
@@ -144,17 +192,25 @@
         "en": "Devotional & Faith Nominals",
         "bn": "ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
         "ur": "ایمان اور عبادات کے اسماء",
+        "hi": "इबादत और ईमान संबंधी संज्ञाएँ",
         "in": "Nomina Ibadah & Keimanan",
+        "ms": "Kata Nama Ibadah & Keimanan",
         "tr": "İbadet ve İman İsimleri",
-        "fr": "Noms de Dévotion et de Foi"
+        "fa": "اسم‌های ایمان و عبادات",
+        "ha": "Sunayen Ibada da Imani",
+        "sw": "Majina ya Ibada na Imani"
       },
       "description": {
         "en": "Devotional & Faith Nominals",
         "bn": "ইবাদত ও ঈমান সংক্রান্ত বিশেষ্য",
         "ur": "ایمان اور عبادات کے اسماء",
+        "hi": "इबादत और ईमान संबंधी संज्ञाएँ",
         "in": "Nomina Ibadah & Keimanan",
+        "ms": "Kata Nama Ibadah & Keimanan",
         "tr": "İbadet ve İman İsimleri",
-        "fr": "Noms de Dévotion et de Foi"
+        "fa": "اسم‌های ایمان و عبادات",
+        "ha": "Sunayen Ibada da Imani",
+        "sw": "Majina ya Ibada na Imani"
       },
       "sortOrder": 7,
       "wordCount": 510,
@@ -167,17 +223,25 @@
         "en": "Prophetic & Narrative Nominals",
         "bn": "নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
         "ur": "انبیاء اور قصص کے اسماء",
+        "hi": "नबियों और ऐतिहासिक घटनाओं की संज्ञाएँ",
         "in": "Nomina Kisah & Kenabian",
+        "ms": "Kata Nama Kisah & Kenabian",
         "tr": "Peygamber ve Kıssa İsimleri",
-        "fr": "Noms Prophétiques et Récits"
+        "fa": "اسم‌های پیامبران و قصص",
+        "ha": "Sunayen Annabawa da Labarai",
+        "sw": "Majina ya Mitume na Visa"
       },
       "description": {
         "en": "Prophetic & Narrative Nominals",
         "bn": "নবী ও ঐতিহাসিক ঘটনার বিশেষ্য",
         "ur": "انبیاء اور قصص کے اسماء",
+        "hi": "नबियों और ऐतिहासिक घटनाओं की संज्ञाएँ",
         "in": "Nomina Kisah & Kenabian",
+        "ms": "Kata Nama Kisah & Kenabian",
         "tr": "Peygamber ve Kıssa İsimleri",
-        "fr": "Noms Prophétiques et Récits"
+        "fa": "اسم‌های پیامبران و قصص",
+        "ha": "Sunayen Annabawa da Labarai",
+        "sw": "Majina ya Mitume na Visa"
       },
       "sortOrder": 8,
       "wordCount": 510,
@@ -190,17 +254,25 @@
         "en": "Moral & Social Nominals",
         "bn": "নৈতিক ও সামাজিক বিশেষ্য",
         "ur": "اخلاقی اور معاشرتی اسماء",
+        "hi": "नैतिक और सामाजिक संज्ञाएँ",
         "in": "Nomina Moral & Sosial",
+        "ms": "Kata Nama Akhlak & Kemasyarakatan",
         "tr": "Ahlaki ve Sosyal İsimler",
-        "fr": "Noms Moraux et Sociaux"
+        "fa": "اسم‌های اخلاقی و اجتماعی",
+        "ha": "Sunayen Dabi'u da Zaman Jama'a",
+        "sw": "Majina ya Maadili na Jamii"
       },
       "description": {
         "en": "Moral & Social Nominals",
         "bn": "নৈতিক ও সামাজিক বিশেষ্য",
         "ur": "اخلاقی اور معاشرتی اسماء",
+        "hi": "नैतिक और सामाजिक संज्ञाएँ",
         "in": "Nomina Moral & Sosial",
+        "ms": "Kata Nama Akhlak & Kemasyarakatan",
         "tr": "Ahlaki ve Sosyal İsimler",
-        "fr": "Noms Moraux et Sociaux"
+        "fa": "اسم‌های اخلاقی و اجتماعی",
+        "ha": "Sunayen Dabi'u da Zaman Jama'a",
+        "sw": "Majina ya Maadili na Jamii"
       },
       "sortOrder": 9,
       "wordCount": 510,
@@ -213,17 +285,25 @@
         "en": "Cosmic & Lexical Nominals",
         "bn": "মহাজাগতিক ও আভিধানিক বিশেষ্য",
         "ur": "کائناتی اور لغوی اسماء",
+        "hi": "ब्रह्मांडीय और शाब्दिक संज्ञाएँ",
         "in": "Nomina Kosmis & Leksikal",
+        "ms": "Kata Nama Kosmik & Leksikal",
         "tr": "Kozmik ve Sözlük İsimleri",
-        "fr": "Noms Cosmiques et Lexicaux"
+        "fa": "اسم‌های کیهانی و واژگانی",
+        "ha": "Sunayen Halittu da Kalmomi",
+        "sw": "Majina ya Ulimwengu na Maneno"
       },
       "description": {
         "en": "Cosmic & Lexical Nominals",
         "bn": "মহাজাগতিক ও আভিধানিক বিশেষ্য",
         "ur": "کائناتی اور لغوی اسماء",
+        "hi": "ब्रह्मांडीय और शाब्दिक संज्ञाएँ",
         "in": "Nomina Kosmis & Leksikal",
+        "ms": "Kata Nama Kosmik & Leksikal",
         "tr": "Kozmik ve Sözlük İsimleri",
-        "fr": "Noms Cosmiques et Lexicaux"
+        "fa": "اسم‌های کیهانی و واژگانی",
+        "ha": "Sunayen Halittu da Kalmomi",
+        "sw": "Majina ya Ulimwengu na Maneno"
       },
       "sortOrder": 10,
       "wordCount": 507,

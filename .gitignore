@@ -34,3 +34,4 @@ tools/ingestion/__pycache__/
 .tmp_gtaf_collection/
 scratch/
 *.pem
+db/corpus_data/

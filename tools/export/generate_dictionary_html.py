@@ -895,7 +895,7 @@ def main():
             </div>
             <div style="margin-top:14px; font-size:12px; color:#cbd5e1; display:flex; justify-content:space-between;">
                 <span>10 Chapters · 4,709 Lemmas</span>
-                <span class="count-pill">v7 Master</span>
+                <span class="count-pill">Master</span>
             </div>
         </div>
 

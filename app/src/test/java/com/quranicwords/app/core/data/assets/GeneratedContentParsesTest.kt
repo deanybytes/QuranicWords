@@ -88,10 +88,10 @@ class GeneratedContentParsesTest {
         assertEquals(4709, ranks.size)
     }
 
-    private val allLanguageTags = setOf("en", "bn", "ur", "in", "tr", "fr")
+    private val allLanguageTags = setOf("en", "bn", "ur", "hi", "in", "ms", "tr", "fa", "ha", "sw")
 
     @Test
-    fun `every word_intro prompt covers all 6 master languages`() {
+    fun `every word_intro prompt covers all 10 master languages`() {
         val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
         val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
         assertEquals(4709, wordIntros.size)
@@ -99,7 +99,7 @@ class GeneratedContentParsesTest {
     }
 
     @Test
-    fun `word_intro meaning covers all 6 master languages`() {
+    fun `word_intro meaning covers all 10 master languages`() {
         val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
         val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
         wordIntros.forEach {
