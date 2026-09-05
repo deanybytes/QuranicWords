@@ -18,7 +18,7 @@
       "sortOrder": 1,
       "wordCount": 18,
       "quranOccurrenceCount": 17632,
-      "quranOccurrencePercent": 31.1
+      "quranOccurrencePercent": 29.44
     },
     {
       "id": "sec_002",
@@ -38,7 +38,7 @@
       "sortOrder": 2,
       "wordCount": 18,
       "quranOccurrenceCount": 3045,
-      "quranOccurrencePercent": 5.37
+      "quranOccurrencePercent": 5.08
     },
     {
       "id": "sec_003",
@@ -58,7 +58,7 @@
       "sortOrder": 3,
       "wordCount": 18,
       "quranOccurrenceCount": 254,
-      "quranOccurrencePercent": 0.45
+      "quranOccurrencePercent": 0.42
     },
     {
       "id": "sec_004",
@@ -78,7 +78,7 @@
       "sortOrder": 4,
       "wordCount": 17,
       "quranOccurrenceCount": 136,
-      "quranOccurrencePercent": 0.24
+      "quranOccurrencePercent": 0.23
     },
     {
       "id": "sec_005",
@@ -97,8 +97,8 @@
       },
       "sortOrder": 5,
       "wordCount": 17,
-      "quranOccurrenceCount": 112,
-      "quranOccurrencePercent": 0.2
+      "quranOccurrenceCount": 820,
+      "quranOccurrencePercent": 1.37
     },
     {
       "id": "sec_006",
@@ -117,8 +117,8 @@
       },
       "sortOrder": 6,
       "wordCount": 17,
-      "quranOccurrenceCount": 68,
-      "quranOccurrencePercent": 0.12
+      "quranOccurrenceCount": 673,
+      "quranOccurrencePercent": 1.12
     },
     {
       "id": "sec_007",
@@ -137,8 +137,8 @@
       },
       "sortOrder": 7,
       "wordCount": 17,
-      "quranOccurrenceCount": 48,
-      "quranOccurrencePercent": 0.08
+      "quranOccurrenceCount": 369,
+      "quranOccurrencePercent": 0.62
     },
     {
       "id": "sec_008",
@@ -157,8 +157,8 @@
       },
       "sortOrder": 8,
       "wordCount": 17,
-      "quranOccurrenceCount": 27,
-      "quranOccurrencePercent": 0.05
+      "quranOccurrenceCount": 618,
+      "quranOccurrencePercent": 1.03
     },
     {
       "id": "sec_009",
@@ -177,8 +177,8 @@
       },
       "sortOrder": 9,
       "wordCount": 17,
-      "quranOccurrenceCount": 17,
-      "quranOccurrencePercent": 0.03
+      "quranOccurrenceCount": 383,
+      "quranOccurrencePercent": 0.64
     },
     {
       "id": "sec_010",
@@ -197,8 +197,8 @@
       },
       "sortOrder": 10,
       "wordCount": 17,
-      "quranOccurrenceCount": 123,
-      "quranOccurrencePercent": 0.22
+      "quranOccurrenceCount": 721,
+      "quranOccurrencePercent": 1.2
     },
     {
       "id": "sec_011",
@@ -218,7 +218,7 @@
       "sortOrder": 1,
       "wordCount": 50,
       "quranOccurrenceCount": 9890,
-      "quranOccurrencePercent": 17.44
+      "quranOccurrencePercent": 16.51
     },
     {
       "id": "sec_012",
@@ -238,7 +238,7 @@
       "sortOrder": 2,
       "wordCount": 50,
       "quranOccurrenceCount": 1036,
-      "quranOccurrencePercent": 1.83
+      "quranOccurrencePercent": 1.73
     },
     {
       "id": "sec_013",
@@ -258,7 +258,7 @@
       "sortOrder": 3,
       "wordCount": 50,
       "quranOccurrenceCount": 364,
-      "quranOccurrencePercent": 0.64
+      "quranOccurrencePercent": 0.61
     },
     {
       "id": "sec_014",
@@ -278,7 +278,7 @@
       "sortOrder": 4,
       "wordCount": 50,
       "quranOccurrenceCount": 263,
-      "quranOccurrencePercent": 0.46
+      "quranOccurrencePercent": 0.44
     },
     {
       "id": "sec_015",
@@ -298,7 +298,7 @@
       "sortOrder": 5,
       "wordCount": 50,
       "quranOccurrenceCount": 200,
-      "quranOccurrencePercent": 0.35
+      "quranOccurrencePercent": 0.33
     },
     {
       "id": "sec_016",
@@ -318,7 +318,7 @@
       "sortOrder": 6,
       "wordCount": 50,
       "quranOccurrenceCount": 150,
-      "quranOccurrencePercent": 0.26
+      "quranOccurrencePercent": 0.25
     },
     {
       "id": "sec_017",
@@ -338,7 +338,7 @@
       "sortOrder": 7,
       "wordCount": 50,
       "quranOccurrenceCount": 150,
-      "quranOccurrencePercent": 0.26
+      "quranOccurrencePercent": 0.25
     },
     {
       "id": "sec_018",
@@ -358,7 +358,7 @@
       "sortOrder": 8,
       "wordCount": 50,
       "quranOccurrenceCount": 125,
-      "quranOccurrencePercent": 0.22
+      "quranOccurrencePercent": 0.21
     },
     {
       "id": "sec_019",
@@ -378,7 +378,7 @@
       "sortOrder": 9,
       "wordCount": 50,
       "quranOccurrenceCount": 100,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_020",
@@ -398,7 +398,7 @@
       "sortOrder": 10,
       "wordCount": 50,
       "quranOccurrenceCount": 100,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_021",
@@ -418,7 +418,7 @@
       "sortOrder": 1,
       "wordCount": 50,
       "quranOccurrenceCount": 100,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_022",
@@ -438,7 +438,7 @@
       "sortOrder": 2,
       "wordCount": 50,
       "quranOccurrenceCount": 100,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_023",
@@ -458,7 +458,7 @@
       "sortOrder": 3,
       "wordCount": 50,
       "quranOccurrenceCount": 84,
-      "quranOccurrencePercent": 0.15
+      "quranOccurrencePercent": 0.14
     },
     {
       "id": "sec_024",
@@ -478,7 +478,7 @@
       "sortOrder": 4,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_025",
@@ -498,7 +498,7 @@
       "sortOrder": 5,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_026",
@@ -518,7 +518,7 @@
       "sortOrder": 6,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_027",
@@ -538,7 +538,7 @@
       "sortOrder": 7,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_028",
@@ -558,7 +558,7 @@
       "sortOrder": 8,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_029",
@@ -578,7 +578,7 @@
       "sortOrder": 9,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_030",
@@ -598,7 +598,7 @@
       "sortOrder": 10,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_031",
@@ -818,7 +818,7 @@
       "sortOrder": 1,
       "wordCount": 51,
       "quranOccurrenceCount": 11731,
-      "quranOccurrencePercent": 20.69
+      "quranOccurrencePercent": 19.59
     },
     {
       "id": "sec_042",
@@ -838,7 +838,7 @@
       "sortOrder": 2,
       "wordCount": 51,
       "quranOccurrenceCount": 1975,
-      "quranOccurrencePercent": 3.48
+      "quranOccurrencePercent": 3.3
     },
     {
       "id": "sec_043",
@@ -858,7 +858,7 @@
       "sortOrder": 3,
       "wordCount": 51,
       "quranOccurrenceCount": 1973,
-      "quranOccurrencePercent": 3.48
+      "quranOccurrencePercent": 3.29
     },
     {
       "id": "sec_044",
@@ -878,7 +878,7 @@
       "sortOrder": 4,
       "wordCount": 51,
       "quranOccurrenceCount": 646,
-      "quranOccurrencePercent": 1.14
+      "quranOccurrencePercent": 1.08
     },
     {
       "id": "sec_045",
@@ -898,7 +898,7 @@
       "sortOrder": 5,
       "wordCount": 51,
       "quranOccurrenceCount": 454,
-      "quranOccurrencePercent": 0.8
+      "quranOccurrencePercent": 0.76
     },
     {
       "id": "sec_046",
@@ -918,7 +918,7 @@
       "sortOrder": 6,
       "wordCount": 51,
       "quranOccurrenceCount": 402,
-      "quranOccurrencePercent": 0.71
+      "quranOccurrencePercent": 0.67
     },
     {
       "id": "sec_047",
@@ -938,7 +938,7 @@
       "sortOrder": 7,
       "wordCount": 51,
       "quranOccurrenceCount": 350,
-      "quranOccurrencePercent": 0.62
+      "quranOccurrencePercent": 0.58
     },
     {
       "id": "sec_048",
@@ -958,7 +958,7 @@
       "sortOrder": 8,
       "wordCount": 51,
       "quranOccurrenceCount": 298,
-      "quranOccurrencePercent": 0.53
+      "quranOccurrencePercent": 0.5
     },
     {
       "id": "sec_049",
@@ -978,7 +978,7 @@
       "sortOrder": 9,
       "wordCount": 51,
       "quranOccurrenceCount": 255,
-      "quranOccurrencePercent": 0.45
+      "quranOccurrencePercent": 0.43
     },
     {
       "id": "sec_050",
@@ -998,7 +998,7 @@
       "sortOrder": 10,
       "wordCount": 51,
       "quranOccurrenceCount": 245,
-      "quranOccurrencePercent": 0.43
+      "quranOccurrencePercent": 0.41
     },
     {
       "id": "sec_051",
@@ -1018,7 +1018,7 @@
       "sortOrder": 1,
       "wordCount": 51,
       "quranOccurrenceCount": 204,
-      "quranOccurrencePercent": 0.36
+      "quranOccurrencePercent": 0.34
     },
     {
       "id": "sec_052",
@@ -1038,7 +1038,7 @@
       "sortOrder": 2,
       "wordCount": 51,
       "quranOccurrenceCount": 192,
-      "quranOccurrencePercent": 0.34
+      "quranOccurrencePercent": 0.32
     },
     {
       "id": "sec_053",
@@ -1058,7 +1058,7 @@
       "sortOrder": 3,
       "wordCount": 51,
       "quranOccurrenceCount": 153,
-      "quranOccurrencePercent": 0.27
+      "quranOccurrencePercent": 0.26
     },
     {
       "id": "sec_054",
@@ -1078,7 +1078,7 @@
       "sortOrder": 4,
       "wordCount": 51,
       "quranOccurrenceCount": 139,
-      "quranOccurrencePercent": 0.25
+      "quranOccurrencePercent": 0.23
     },
     {
       "id": "sec_055",
@@ -1098,7 +1098,7 @@
       "sortOrder": 5,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_056",
@@ -1118,7 +1118,7 @@
       "sortOrder": 6,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_057",
@@ -1138,7 +1138,7 @@
       "sortOrder": 7,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_058",
@@ -1158,7 +1158,7 @@
       "sortOrder": 8,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_059",
@@ -1178,7 +1178,7 @@
       "sortOrder": 9,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_060",
@@ -1198,7 +1198,7 @@
       "sortOrder": 10,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_061",
@@ -1218,7 +1218,7 @@
       "sortOrder": 1,
       "wordCount": 51,
       "quranOccurrenceCount": 102,
-      "quranOccurrencePercent": 0.18
+      "quranOccurrencePercent": 0.17
     },
     {
       "id": "sec_062",
@@ -1238,7 +1238,7 @@
       "sortOrder": 2,
       "wordCount": 51,
       "quranOccurrenceCount": 80,
-      "quranOccurrencePercent": 0.14
+      "quranOccurrencePercent": 0.13
     },
     {
       "id": "sec_063",
@@ -1958,7 +1958,7 @@
       "sortOrder": 8,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_099",
@@ -1978,7 +1978,7 @@
       "sortOrder": 9,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     },
     {
       "id": "sec_100",
@@ -1998,7 +1998,7 @@
       "sortOrder": 10,
       "wordCount": 50,
       "quranOccurrenceCount": 50,
-      "quranOccurrencePercent": 0.09
+      "quranOccurrencePercent": 0.08
     }
   ]
 }

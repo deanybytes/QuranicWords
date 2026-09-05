@@ -47,21 +47,11 @@ def strip_tashkeel(text):
     t = t.replace('ة', 'ه').replace('ى', 'ي')
     return t.strip()
 
-def clean_prepended_hack(hl_text):
-    """If text starts with ([...]) [n] and rest has the translation, remove the prefix."""
-    s = str(hl_text).strip()
-    m = re.match(r'^\(\[([^\]]+)\]\)\s*(?:\[\d+\])?\s+(.+)$', s)
-    if m:
-        word = m.group(1).strip()
-        rest = m.group(2).strip()
-        if '([' in rest:
-            return rest
-        idx = rest.lower().find(word.lower())
-        if idx >= 0:
-            matched = rest[idx:idx+len(word)]
-            return rest[:idx] + f"([{matched}])" + rest[idx+len(word):]
-        return rest
-    return s
+def clean_verse_text(text):
+    if not text: return ''
+    s = re.sub(r'\(\[([^\]]+)\]\)', r'\1', text)
+    s = re.sub(r'\s*\[\d+\]\s*', ' ', s)
+    return re.sub(r'\s+', ' ', s).strip()
 
 def format_arabic_html(full_ar, target_word):
     if not full_ar:
@@ -84,8 +74,7 @@ def format_arabic_html(full_ar, target_word):
 def format_translation_html(full_tr, target_m):
     if not full_tr:
         return ''
-    clean_tr = clean_prepended_hack(full_tr)
-    clean_tr = re.sub(r'\s*\[\d+\]\s*', ' ', clean_tr).strip()
+    clean_tr = re.sub(r'\s*\[\d+\]\s*', ' ', full_tr).strip()
     
     if '([' in clean_tr and '])' in clean_tr:
         parts = re.split(r'\(\[([^\]]+)\]\)', clean_tr)
@@ -245,7 +234,7 @@ def main():
 
                     meanings[code] = mean_clean
                     target_meanings[code] = tar_m_clean
-                    full_translations[code] = clean_prepended_hack(full_tr_val)
+                    full_translations[code] = clean_verse_text(full_tr_val)
                     full_translations_hl[code] = format_translation_html(full_tr_val, tar_m_clean)
 
                 sense_obj = {
