@@ -15,11 +15,11 @@ object VerseReferenceFormatter {
 
     private val BANGLA_DIGITS = charArrayOf('০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯')
     private val ARABIC_INDIC_DIGITS = charArrayOf('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹')
+    private val DEVANAGARI_DIGITS = charArrayOf('०', '१', '२', '३', '४', '५', '६', '७', '८', '९')
 
     fun format(reference: String?, language: Language): String {
         if (reference.isNullOrBlank()) return ""
 
-        // Strip "Surah", "surah", "সূরা", "سورۃ", etc.
         val cleaned = reference
             .replace("(?i)surah".toRegex(), "")
             .replace("সূরা", "")
@@ -31,12 +31,13 @@ object VerseReferenceFormatter {
     }
 
     /**
-     * Converts any ASCII digits in [input] to Bangla or Urdu digits if [language] requires it.
+     * Converts any ASCII digits in [input] to localized digits if [language] requires it.
      */
     fun formatDigits(input: String, language: Language): String {
         return when (language) {
             Language.BANGLA -> convertDigits(input, BANGLA_DIGITS)
-            Language.URDU -> convertDigits(input, ARABIC_INDIC_DIGITS)
+            Language.URDU, Language.PERSIAN -> convertDigits(input, ARABIC_INDIC_DIGITS)
+            Language.HINDI -> convertDigits(input, DEVANAGARI_DIGITS)
             else -> input
         }
     }
