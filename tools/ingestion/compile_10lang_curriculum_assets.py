@@ -420,9 +420,16 @@ def main():
                 verse_cit = str(sr_en[9]).strip() if sr_en[9] else ''
                 tar_ar = str(sr_en[10]).strip() if sr_en[10] else ''
                 full_ar_hl = str(sr_en[11]).strip() if sr_en[11] else ''
-                clean_ar_verse = clean_verse_text(full_ar_hl)
-                
-                spans = calculate_token_spans(clean_ar_verse, tar_ar)
+                m_ar = re.search(r'\(\[([^\]]+)\]\)', full_ar_hl)
+                if m_ar:
+                    tok_ar = m_ar.group(1)
+                    clean_ar_verse = full_ar_hl.replace('([', '').replace('])', '')
+                    start_ar = m_ar.start()
+                    end_ar = start_ar + len(tok_ar)
+                    spans = (start_ar, end_ar)
+                else:
+                    clean_ar_verse = clean_verse_text(full_ar_hl)
+                    spans = calculate_token_spans(clean_ar_verse, tar_ar)
 
                 meanings = {}
                 verse_translations = {}
@@ -448,12 +455,18 @@ def main():
                             mean_val = str(sr_en[8]).strip() if sr_en and sr_en[8] != 'NULL' else translit.split('_')[0]
                             tar_m_val = mean_val
 
-                    tar_m_clean = re.sub(r'[\(\)\[\],;\.!\?।\'\":؛؟]', '', tar_m_val).strip()
                     mean_clean = re.sub(r'[\(\)\[\],;\.!\?।\'\":؛؟]', '', mean_val).strip()
-                    clean_tr_verse = clean_verse_text(clean_prepended_hack(full_tr_val)).replace('NULL', tar_m_clean)
+                    clean_tr_verse = clean_verse_text(full_tr_val)
                     hl_phrase = extract_highlight_phrase(full_tr_val)
-                    if not hl_phrase or hl_phrase.upper() in ('NULL', 'NONE'):
-                        hl_phrase = tar_m_clean
+                    if not hl_phrase or hl_phrase not in clean_tr_verse:
+                        cand_col12 = str(sr_l[12] or '').strip() if sr_l and sr_l[12] is not None else ''
+                        if cand_col12 and cand_col12 in clean_tr_verse:
+                            hl_phrase = cand_col12
+                        elif mean_val and mean_val in clean_tr_verse:
+                            hl_phrase = mean_val
+                        else:
+                            words = [w.strip('\"\'()[]{}.,;:!?/\\-— ') for w in clean_tr_verse.split() if len(w.strip('\"\'()[]{}.,;:!?/\\-— ')) >= 3]
+                            hl_phrase = words[0] if words else (clean_tr_verse.split()[0] if clean_tr_verse else '')
 
                     meanings[code] = mean_clean
                     verse_translations[code] = clean_tr_verse

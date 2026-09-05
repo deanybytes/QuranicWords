@@ -28,8 +28,8 @@
       },
       "sortOrder": 1,
       "wordCount": 173,
-      "quranOccurrenceCount": 21462,
-      "quranOccurrencePercent": 37.85
+      "quranOccurrenceCount": 24651,
+      "quranOccurrencePercent": 41.16
     },
     {
       "id": "ch_02",
@@ -60,7 +60,7 @@
       "sortOrder": 2,
       "wordCount": 500,
       "quranOccurrenceCount": 12378,
-      "quranOccurrencePercent": 21.83
+      "quranOccurrencePercent": 20.67
     },
     {
       "id": "ch_03",
@@ -91,7 +91,7 @@
       "sortOrder": 3,
       "wordCount": 500,
       "quranOccurrenceCount": 634,
-      "quranOccurrencePercent": 1.12
+      "quranOccurrencePercent": 1.06
     },
     {
       "id": "ch_04",
@@ -122,7 +122,7 @@
       "sortOrder": 4,
       "wordCount": 479,
       "quranOccurrenceCount": 479,
-      "quranOccurrencePercent": 0.84
+      "quranOccurrencePercent": 0.8
     },
     {
       "id": "ch_05",
@@ -153,7 +153,7 @@
       "sortOrder": 5,
       "wordCount": 510,
       "quranOccurrenceCount": 18329,
-      "quranOccurrencePercent": 32.33
+      "quranOccurrencePercent": 30.61
     },
     {
       "id": "ch_06",
@@ -184,7 +184,7 @@
       "sortOrder": 6,
       "wordCount": 510,
       "quranOccurrenceCount": 1300,
-      "quranOccurrencePercent": 2.29
+      "quranOccurrencePercent": 2.17
     },
     {
       "id": "ch_07",
@@ -215,7 +215,7 @@
       "sortOrder": 7,
       "wordCount": 510,
       "quranOccurrenceCount": 590,
-      "quranOccurrencePercent": 1.04
+      "quranOccurrencePercent": 0.99
     },
     {
       "id": "ch_08",
@@ -246,7 +246,7 @@
       "sortOrder": 8,
       "wordCount": 510,
       "quranOccurrenceCount": 510,
-      "quranOccurrencePercent": 0.9
+      "quranOccurrencePercent": 0.85
     },
     {
       "id": "ch_09",
@@ -277,7 +277,7 @@
       "sortOrder": 9,
       "wordCount": 510,
       "quranOccurrenceCount": 510,
-      "quranOccurrencePercent": 0.9
+      "quranOccurrencePercent": 0.85
     },
     {
       "id": "ch_10",
@@ -308,7 +308,7 @@
       "sortOrder": 10,
       "wordCount": 507,
       "quranOccurrenceCount": 507,
-      "quranOccurrencePercent": 0.89
+      "quranOccurrencePercent": 0.85
     }
   ]
 }

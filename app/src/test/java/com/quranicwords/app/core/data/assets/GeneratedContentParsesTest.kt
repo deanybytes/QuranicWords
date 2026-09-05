@@ -120,5 +120,90 @@ class GeneratedContentParsesTest {
             assertEquals("meaning diverged for ${word.id}", expected, word.meaning)
         }
     }
+
+    @Test
+    fun `every word_intro has zero programmatic placeholders and zero null meanings`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+
+        wordIntros.forEach { intro ->
+            val word = intro.arabicWord
+            assertTrue("Word contains programmatic placeholder: $word", 
+                !word.contains("Programmatic") && !word.contains("Form ") && !word.contains("فِعْل_") && !word.contains("حَرْف_"))
+
+            allLanguageTags.forEach { lang ->
+                val m = intro.meaning[lang]
+                assertNotNull("Missing meaning for $lang in ${intro.wordId}", m)
+                assertTrue("Meaning is NULL or empty for $lang in ${intro.wordId}", !m.isNullOrBlank() && !m.equals("NULL", ignoreCase = true))
+            }
+        }
+    }
+
+    @Test
+    fun `every word_intro has valid non-empty arabic word spans matching the verse`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+
+        wordIntros.forEach { intro ->
+            val verse = intro.exampleVerseArabic
+            assertNotNull("Verse is null for ${intro.wordId}", verse)
+            val start = intro.arabicWordStart
+            val end = intro.arabicWordEnd
+            assertNotNull("Start span is null for ${intro.wordId}", start)
+            assertNotNull("End span is null for ${intro.wordId}", end)
+            assertTrue("Invalid spans ($start, $end) for verse length ${verse!!.length} in ${intro.wordId}",
+                start!! >= 0 && end!! <= verse.length && start < end)
+            val token = verse.substring(start!!, end!!)
+            assertTrue("Extracted token is blank in ${intro.wordId}", token.isNotBlank())
+        }
+    }
+
+    @Test
+    fun `every word_intro meaningHighlight exists verbatim in verseTranslation across all 10 languages`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+
+        wordIntros.forEach { intro ->
+            allLanguageTags.forEach { lang ->
+                val verseTr = intro.exampleVerseTranslation[lang]
+                assertNotNull("Missing verse translation for $lang in ${intro.wordId}", verseTr)
+                assertTrue("Verse translation is blank for $lang in ${intro.wordId}", verseTr!!.isNotBlank())
+
+                val hl = intro.meaningHighlight[lang]
+                assertNotNull("Missing translation highlight for $lang in ${intro.wordId}", hl)
+                assertTrue("Translation highlight is blank for $lang in ${intro.wordId}", hl!!.isNotBlank())
+                assertTrue("Highlight '$hl' not found verbatim in verse translation '$verseTr' for $lang in ${intro.wordId}",
+                    verseTr.contains(hl))
+            }
+        }
+    }
+
+    @Test
+    fun `every polysemy entry has valid arabic spans and verbatim translation highlights across all 10 languages`() {
+        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
+        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
+
+        wordIntros.forEach { intro ->
+            intro.polysemyEntries.forEach { pe ->
+                val verse = pe.verseArabic
+                assertNotNull("Polysemy verse is null for sense ${pe.meaningIndex} in ${intro.wordId}", verse)
+                val start = pe.arabicWordStart
+                val end = pe.arabicWordEnd
+                assertNotNull("Polysemy start is null for sense ${pe.meaningIndex} in ${intro.wordId}", start)
+                assertNotNull("Polysemy end is null for sense ${pe.meaningIndex} in ${intro.wordId}", end)
+                assertTrue("Invalid polysemy spans ($start, $end) in ${intro.wordId}",
+                    start!! >= 0 && end!! <= verse!!.length && start < end)
+
+                allLanguageTags.forEach { lang ->
+                    val verseTr = pe.verseTranslation[lang]
+                    assertNotNull("Missing polysemy verse translation for $lang in ${intro.wordId}", verseTr)
+                    val hl = pe.translationHighlight?.get(lang)
+                    assertNotNull("Missing polysemy translation highlight for $lang in ${intro.wordId}", hl)
+                    assertTrue("Polysemy highlight '$hl' not found in '$verseTr' for $lang in ${intro.wordId}",
+                        verseTr!!.contains(hl!!))
+                }
+            }
+        }
+    }
 }
 
