@@ -35,3 +35,4 @@ tools/ingestion/__pycache__/
 scratch/
 *.pem
 db/corpus_data/
+release_v3.0.0/
