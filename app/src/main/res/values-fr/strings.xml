@@ -238,7 +238,7 @@
     <string name="settings_copyright">Copyright © DEANY BYTES 2026. Sous licence GPL-3.0.</string>
     <string name="settings_content_provenance_note">Le contenu du vocabulaire provient de corpus coraniques ouverts et de traductions de référence vérifiées mot à mot.</string>
     <string name="about_open_source_title">Open Source et Contribution</string>
-    <string name="about_open_source_desc">QuranicWords est un projet 100% gratuit et open source sous licence GPL-3.0. Tout le monde est chaleureusement invité à contribuer au code, signaler des anomalies, suggérer des améliorations ou enrichir les traductions sur notre dépôt GitHub.</string>
+    <string name="about_open_source_desc" formatted="false">QuranicWords est un projet 100% gratuit et open source sous licence GPL-3.0. Tout le monde est chaleureusement invité à contribuer au code, signaler des anomalies, suggérer des améliorations ou enrichir les traductions sur notre dépôt GitHub.</string>
     <string name="about_dawah_title">Réseau Dawah DEANY TALKS</string>
     <string name="about_dawah_desc">Rejoignez et soutenez nos initiatives éducatives et de dawah islamiques sous DEANY TALKS sur YouTube, Telegram et WhatsApp.</string>
     <string name="about_contact_title">Contact et Support</string>

@@ -235,7 +235,7 @@
     <string name="settings_copyright">Copyright © DEANY BYTES 2026. Licensed under GPL-3.0.</string>
     <string name="settings_content_provenance_note">Vocabulary content is sourced from open Qur\'anic corpora and verified word-by-word reference translations.</string>
     <string name="about_open_source_title">Open Source &amp; Contribution</string>
-    <string name="about_open_source_desc">QuranicWords is a 100% free and open-source project licensed under the GNU General Public License v3.0 (GPL-3.0). Anyone is warmly welcomed to contribute code, report bugs, suggest features, or help with translations via our GitHub repository.</string>
+    <string name="about_open_source_desc" formatted="false">QuranicWords is a 100% free and open-source project licensed under the GNU General Public License v3.0 (GPL-3.0). Anyone is warmly welcomed to contribute code, report bugs, suggest features, or help with translations via our GitHub repository.</string>
     <string name="about_dawah_title">DEANY TALKS Dawah Network</string>
     <string name="about_dawah_desc">Support and connect with our broader Islamic educational and Dawah initiatives under DEANY TALKS across YouTube, Telegram, and WhatsApp.</string>
     <string name="about_contact_title">Contact &amp; Support</string>

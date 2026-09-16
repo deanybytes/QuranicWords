@@ -65,6 +65,7 @@ REQUIRED_PACKAGES=(
     "platform-tools"
     "platforms;android-${COMPILE_SDK}"
     "build-tools;${BUILD_TOOLS}"
+    "ndk;28.2.13676358"
 )
 MISSING=()
 for pkg in "${REQUIRED_PACKAGES[@]}"; do
