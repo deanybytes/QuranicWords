@@ -815,11 +815,11 @@ private fun LessonPathNode(
 private fun LessonNode(
     title: String,
     kind: LessonKind,
-    category: LemmaCategory = LemmaCategory.NOUN,
     progress: UserProgressEntity?,
-    isCurrent: Boolean = false,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    category: LemmaCategory = LemmaCategory.NOUN,
+    isCurrent: Boolean = false
 ) {
     val status = progress?.status ?: LessonStatus.LOCKED
     val isUnlocked = status != LessonStatus.LOCKED

@@ -23,6 +23,7 @@ signing.properties
 .env.*
 *.apk
 *.aab
+*-native-debug-symbols.zip
 
 # Ingestion pipeline scratch data (scraped HTML, intermediate JSON) - reproducible by re-running
 # tools/ingestion/*.py; the actual deliverable is app/src/main/assets/content/*.json, which is

@@ -73,8 +73,9 @@ class MainActivity : AppCompatActivity() {
                 Locale.forLanguageTag(selectedLanguage.tag)
             }
 
-            val configuration = remember(targetLocale) {
-                Configuration(currentContext.resources.configuration).apply {
+            val currentConfiguration = LocalConfiguration.current
+            val configuration = remember(targetLocale, currentConfiguration) {
+                Configuration(currentConfiguration).apply {
                     setLocale(targetLocale)
                     setLayoutDirection(targetLocale)
                 }

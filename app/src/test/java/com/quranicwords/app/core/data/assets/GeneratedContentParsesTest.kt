@@ -153,7 +153,7 @@ class GeneratedContentParsesTest {
             assertNotNull("End span is null for ${intro.wordId}", end)
             assertTrue("Invalid spans ($start, $end) for verse length ${verse!!.length} in ${intro.wordId}",
                 start!! >= 0 && end!! <= verse.length && start < end)
-            val token = verse.substring(start!!, end!!)
+            val token = verse.substring(start, end!!)
             assertTrue("Extracted token is blank in ${intro.wordId}", token.isNotBlank())
         }
     }

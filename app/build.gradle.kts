@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
+import java.io.File
 
 plugins {
     alias(libs.plugins.android.application)
@@ -29,13 +30,14 @@ val hasReleaseSigningConfig = keystorePropertiesFile.exists()
 android {
     namespace = "com.quranicwords.app"
     compileSdk = 36
+    ndkVersion = "28.2.13676358"
 
     defaultConfig {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 17
-        versionName = "3.1.0"
+        targetSdk = 36
+        versionCode = 18
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -91,6 +93,14 @@ android {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
         }
+    }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+    lint {
+        disable += "MissingTranslation"
     }
 
 }
@@ -162,3 +172,78 @@ ksp {
     // exportSchema flag.
     arg("room.schemaLocation", "$projectDir/schemas")
 }
+
+tasks.matching { it.name == "extractReleaseNativeDebugMetadata" }.configureEach {
+    val mergedLibs = layout.buildDirectory.dir("intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib")
+    val outDir = layout.buildDirectory.dir("intermediates/native_debug_metadata/release/extractReleaseNativeDebugMetadata/out")
+    doLast {
+        val src = mergedLibs.get().asFile
+        val dst = outDir.get().asFile
+        if (src.exists()) {
+            val localProps = rootProject.file("local.properties")
+            val sdkPath = if (localProps.exists()) {
+                val props = Properties()
+                localProps.inputStream().use { props.load(it) }
+                props.getProperty("sdk.dir")
+            } else {
+                System.getenv("ANDROID_HOME")
+            }
+            val ndkDir = sdkPath?.let { File(it, "ndk/28.2.13676358") }
+            val objcopyExecutable = if (ndkDir != null && ndkDir.exists()) {
+                ndkDir.walkTopDown().firstOrNull { it.name == "llvm-objcopy" && it.canExecute() }
+            } else null
+
+            src.walkTopDown().filter { it.isFile && it.extension == "so" }.forEach { soFile ->
+                val relPath = soFile.relativeTo(src)
+                val destDbg = File(dst, "${relPath.path}.dbg")
+                destDbg.parentFile.mkdirs()
+                if (objcopyExecutable != null) {
+                    val process = ProcessBuilder(objcopyExecutable.absolutePath, "--only-keep-debug", soFile.absolutePath, destDbg.absolutePath).start()
+                    process.waitFor()
+                } else {
+                    soFile.copyTo(destDbg, overwrite = true)
+                }
+            }
+        }
+    }
+}
+
+tasks.matching { it.name == "signReleaseBundle" }.configureEach {
+    finalizedBy("mergeReleaseNativeDebugMetadata")
+}
+
+val copyReleaseArtifactsToRoot = tasks.register("copyReleaseArtifactsToRoot") {
+    mustRunAfter("signReleaseBundle", "mergeReleaseNativeDebugMetadata")
+    doLast {
+        val ver = android.defaultConfig.versionName ?: "1.0.0"
+        val bundleSrc = layout.buildDirectory.file("outputs/bundle/release/app-release.aab").get().asFile
+        val bundleDest = rootProject.file("QuranicWords-v${ver}.aab")
+        if (bundleSrc.exists()) {
+            bundleSrc.copyTo(bundleDest, overwrite = true)
+            logger.lifecycle("Copied signed release bundle to ${bundleDest.name} (${bundleDest.length()} bytes)")
+        }
+        val symbolsSrc = layout.buildDirectory.file("outputs/native-debug-symbols/release/native-debug-symbols.zip").get().asFile
+        val symbolsDest = rootProject.file("QuranicWords-v${ver}-native-debug-symbols.zip")
+        if (symbolsSrc.exists()) {
+            symbolsSrc.copyTo(symbolsDest, overwrite = true)
+            logger.lifecycle("Copied native debug symbols to ${symbolsDest.name} (${symbolsDest.length()} bytes)")
+        }
+        val apkSrc = layout.buildDirectory.file("outputs/apk/release/app-release.apk").get().asFile
+        val apkDest = rootProject.file("QuranicWords-v${ver}.apk")
+        if (apkSrc.exists()) {
+            apkSrc.copyTo(apkDest, overwrite = true)
+            logger.lifecycle("Copied release APK to ${apkDest.name} (${apkDest.length()} bytes)")
+        }
+    }
+}
+
+tasks.matching { it.name == "bundleRelease" }.configureEach {
+    finalizedBy(copyReleaseArtifactsToRoot)
+}
+
+tasks.matching { it.name == "assembleRelease" }.configureEach {
+    finalizedBy(copyReleaseArtifactsToRoot)
+}
+
+
+

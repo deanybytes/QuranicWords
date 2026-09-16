@@ -235,7 +235,7 @@
     <string name="settings_copyright">Telif Hakkı © DEANY BYTES 2026. GPL-3.0 lisansı altındadır.</string>
     <string name="settings_content_provenance_note">Kelime içeriği açık Kur\'an korpuslarından ve doğrulanmış kelime kelime referans meallerinden derlenmiştir.</string>
     <string name="about_open_source_title">Açık Kaynak ve Katkı</string>
-    <string name="about_open_source_desc">QuranicWords, GPL-3.0 lisansı altında %100 ücretsiz ve açık kaynaklı bir projedir. Herkes GitHub depomuz üzerinden kod katkısında bulunabilir, hata bildirebilir, özellik önerebilir veya çevirilere yardımcı olabilir.</string>
+    <string name="about_open_source_desc" formatted="false">QuranicWords, GPL-3.0 lisansı altında %100 ücretsiz ve açık kaynaklı bir projedir. Herkes GitHub depomuz üzerinden kod katkısında bulunabilir, hata bildirebilir, özellik önerebilir veya çevirilere yardımcı olabilir.</string>
     <string name="about_dawah_title">DEANY TALKS Davet Ağı</string>
     <string name="about_dawah_desc">YouTube, Telegram ve WhatsApp üzerinden DEANY TALKS çatısı altındaki İslami eğitim ve davet çalışmalarımıza katılın ve destek olun.</string>
     <string name="about_contact_title">İletişim ve Destek</string>

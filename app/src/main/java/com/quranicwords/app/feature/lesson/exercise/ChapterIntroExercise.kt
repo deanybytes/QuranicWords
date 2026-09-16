@@ -18,13 +18,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Layers
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.PieChart
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -64,7 +65,7 @@ fun ChapterIntroExerciseContent(
 ) {
     val language = rememberSelectedLanguage()
 
-    var animatedProgress by remember { mutableStateOf(0f) }
+    var animatedProgress by remember { mutableFloatStateOf(0f) }
     val animatedProgressValue by animateFloatAsState(
         targetValue = animatedProgress,
         animationSpec = tween(durationMillis = 1000),
@@ -194,14 +195,14 @@ fun ChapterIntroExerciseContent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             MetricCard(
-                icon = Icons.Filled.MenuBook,
+                icon = Icons.AutoMirrored.Filled.MenuBook,
                 title = stringResource(R.string.chapter_intro_words_count_label),
                 value = localizedWordCount,
                 accentColor = BrandGreen,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                icon = Icons.Filled.TrendingUp,
+                icon = Icons.AutoMirrored.Filled.TrendingUp,
                 title = stringResource(R.string.chapter_intro_occurrences_label),
                 value = localizedOccurrences,
                 accentColor = BrandGold,
