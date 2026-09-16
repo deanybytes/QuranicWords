@@ -1,6 +1,6 @@
 # 📚 Content Sources
 
-This repo's discipline is to **flag unsourced content rather than fabricate it**. This doc catalogs the real, open-licensed sources used for the 4,616-word vocabulary curriculum across the three primary parts of speech (**Fi'l**, **Ḥarf**, **Ism**), along with contextual polysemy (**Wujūh al-Qur'an**) and verse alignment data.
+This repo's discipline is to **flag unsourced content rather than fabricate it**. This doc catalogs the real, open-licensed sources used for the 4,709-word vocabulary curriculum across the three primary parts of speech (**Ḥarf**, **Fi'l**, **Ism**), along with contextual polysemy (**Wujūh al-Qur'an**) and verse alignment data across 11 languages.
 
 ## Sourced Corpora
 
@@ -9,21 +9,21 @@ This repo's discipline is to **flag unsourced content rather than fabricate it**
 | [Quranic Arabic Corpus](https://corpus.quran.com) (corpus.quran.com) | GPL, with explicit attribution/link-back requirement | Lemmatized Quranic vocabulary frequency & morphological part-of-speech categorization (verbs, particles, nouns) | Complete frequency rankings and POS classification |
 | [Quran-bil-Quran](https://github.com/R3GENESI5/quran-bil-quran) | MIT | `roots_index.json` (triliteral root index, meanings, occurrences) and `verses_text.json` (6,236 Uthmani Arabic verses) | Root classification, verse citations, and Arabic text |
 | [risan/quran-json](https://github.com/risan/quran-json) | CC BY-SA 4.0 | Full Bangla verse translations for all 114 surahs | Bengali contextual verse translations |
-| [quran.gtaf.org](https://quran.gtaf.org) (Greentech Apps Foundation) | Public Dawah API | Comprehensive word-by-word Arabic glosses across 12 languages | Multi-language vocabulary meanings and polysemic verification |
+| [quran.gtaf.org](https://quran.gtaf.org) (Greentech Apps Foundation) | Public Dawah API | Comprehensive word-by-word Arabic glosses across multiple global languages | Multi-language vocabulary meanings and polysemic verification |
 | [Amiri](https://github.com/aliftype/amiri), [Scheherazade New](https://github.com/silnrsi/font-scheherazade), [Noto Naskh Arabic](https://github.com/notofonts/arabic), [Lateef](https://github.com/silnrsi/font-lateef), [Noto Nastaliq Urdu](https://github.com/notofonts/nastaliq) | SIL OFL 1.1 | 5 bundled open-license Quranic script typefaces | In-app Quran typography and font selection |
 
-## Curriculum Ingestion & POS Builder
+## Curriculum Ingestion & Asset Compilation
 
-`tools/ingestion/01_build_pos_curriculum.py` builds the modularized v2.2.0 curriculum:
-1. **Fi'l (Verbs)**: 1,450 verbs partitioned into 15 sections (`section_fil_01.json` to `section_fil_15.json`), 145 lessons.
-2. **Ḥarf (Particles)**: 109 particles partitioned into 2 sections (`section_harf_01.json` to `section_harf_02.json`), 11 lessons.
-3. **Ism (Nouns)**: 3,057 nouns partitioned into 31 sections (`section_ism_01.json` to `section_ism_31.json`), 306 lessons.
-4. **Manifest & Frequency Table**: Emits `curriculum_manifest.json` and `word_frequency.json` containing all 4,616 words.
+`tools/ingestion/compile_10lang_curriculum_assets.py` and `tools/ingestion/audit_and_align_10lang_corpus.py` compile the production curriculum:
+1. **Ḥarf (Particles)**: 173 particles partitioned into 10 sections in Chapter 1.
+2. **Fi'l (Verbs)**: 1,479 verbs partitioned into 30 sections across Chapters 2 to 4.
+3. **Ism (Nouns)**: 3,057 nouns partitioned into 60 sections across Chapters 5 to 10.
+4. **Compiled JSON Assets**: Emits `chapters.json`, `sections.json`, `lessons_vocabulary.json`, `exercises_vocabulary.json`, and `word_frequency.json` containing all 4,709 lemmas across 11 languages.
 
 ## Contextual Polysemy (Wujūh al-Qur'an) & Full Tashkīl
 
 - **Multi-sense tabs**: Words with distinct Quranic connotations carry structured `polysemyEntries` with dedicated contextual verse occurrences and translations.
-- **Tashkīl & Ḥarakāt Preservation**: Character spans (`arabicWordStart`/`arabicWordEnd`) preserve diacritical markings across all verses.
+- **Tashkīl & Ḥarakāt Preservation**: Character spans (`arabicWordStart`/`arabicWordEnd`) preserve diacritical markings across all verses. Complete vocalization curated via `tools/fixes/curate_vocalization_and_diacritics.py` ensuring 100% presence of sukūn, fatḥah, kasrah, ḍammah, shaddah, and tanwīn.
 
 ## Audio Architecture
 

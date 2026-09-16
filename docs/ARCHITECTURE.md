@@ -68,8 +68,8 @@ com.quranicwords.app/
 └── feature/
     ├── splash/
     ├── onboarding/{language,path,font,style,goal}/
-    ├── home/                  (Curriculum path with Ism, Fi'l, Ḥarf sections)
-    ├── testonlyhome/          (Dedicated 5-mode test hub: Ism, Fi'l, Ḥarf, Mix, Mistaken)
+    ├── home/                  (Curriculum path with 10 Chapters across Ḥarf, Fi'l, and Ism)
+    ├── testonlyhome/          (Dedicated 6-mode test hub: Ism, Fi'l, Ḥarf, Mix, Mistaken, Chapterwise)
     ├── lesson/ (+ exercise/: WordIntro, MultipleChoice, Matching, FillInTheBlank, WordOrderBuilder, TapWordInVerse)
     ├── lessonsummary/         (Words covered stats, mistake review, next lesson preview)
     ├── learnedwords/          (Vocabulary dictionary with Wujūh al-Qur'an modal sheets)
@@ -80,7 +80,7 @@ com.quranicwords.app/
     └── settings/              (Theme, language, font, daily goal, sound effects, local backup)
 ```
 
-> The content hierarchy is organized as **Part of Speech (Fi'l, Ḥarf, Ism) → Section → Lesson**, with exam-gated progression between units. 4,616 vocabulary items are structured across 48 sections and 462 lessons.
+> The content hierarchy is organized as **Chapter (10 Chapters) → Section (100 Sections) → Lesson (1,217 Lessons)** across the three classical parts of speech (**Ḥarf**: 173 words; **Fi'l**: 1,479 words; **Ism**: 3,057 words = 4,709 total Quranic lemmas and 9,428 exercises), with exam-gated progression between units.
 
 ## 🧷 Dependency injection graph
 
@@ -125,7 +125,7 @@ Each onboarding step persists its choice to DataStore **immediately** on selecti
 
 `MainActivity` extends `AppCompatActivity` (not plain `ComponentActivity`) specifically because `AppCompatDelegate.setApplicationLocales()`'s pre-API-33 compat path needs an `AppCompatActivity`-registered delegate to actually mutate `Configuration.locales` — without it, the call silently no-ops on API 24-32 and `values-bn/` resources never get selected. On a language change, `MainActivity` compares the target locale against `AppCompatDelegate.getApplicationLocales()` and, only when they differ, calls `setApplicationLocales()` followed by `recreate()` on API < 33 (API 33+'s native `LocaleManager` path needs no manual recreate). `MainViewModel` additionally syncs a system-level language change (Android 13+ Settings → App languages) back into `UserPreferencesDataStore` on startup, so the two sources of truth don't fight each other. See [`docs/USER_FLOWS.md`](USER_FLOWS.md).
 
-Screens localize both static UI strings (`stringResource`, resource-qualifier driven — automatic once the `Configuration` is correct) **and** JSON-sourced content fields (`LocalizedText` maps like `title`/`meaning`/`prompt` on entities and `ExerciseContent`, keyed by `Language.tag`) explicitly via `rememberSelectedLanguage()`. `LocalizedText.get(language)` falls back to English, then to any entry present, so a not-yet-translated language degrades gracefully rather than showing blank text.
+Screens localize both static UI strings (`stringResource`, resource-qualifier driven — automatic once the `Configuration` is correct) **and** JSON-sourced content fields (`LocalizedText` maps like `title`/`meaning`/`prompt` on entities and `ExerciseContent`, keyed by `Language.tag`) explicitly via `rememberSelectedLanguage()`. All 11 supported languages (English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, French) feature 100% verified translations, contextual polysemic senses, and exact in-verse span highlights with complete Tashkīl.
 
 ## 🧵 Threading & reactivity
 

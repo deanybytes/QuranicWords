@@ -66,15 +66,18 @@ erDiagram
     }
 ```
 
-> 💡 **`LocalizedText` is a `Map<String, String>` typealias** (`core/domain/model/LocalizedText.kt`), keyed by `Language.tag` (`"en"`, `"bn"`, `"sq"`, `"zh"`, `"fa"`, `"fr"`, `"de"`, `"hi"`, `"in"`, `"ru"`, `"tr"`, `"ur"`). `LocalizedText.get(language, fallback = ENGLISH)` looks up the requested tag, falling back to English then to any entry present rather than throwing. Room persists it via a `Converters.kt` TypeConverter (JSON-encoded string column); kotlinx.serialization handles `Map<String, String>` natively for the bundled JSON content.
+> 💡 **`LocalizedText` is a `Map<String, String>` typealias** (`core/domain/model/LocalizedText.kt`), keyed by `Language.tag` (`"en"`, `"bn"`, `"ur"`, `"hi"`, `"in"`, `"ms"`, `"tr"`, `"fa"`, `"ha"`, `"sw"`, `"fr"`). `LocalizedText.get(language, fallback = ENGLISH)` looks up the requested tag, falling back to English then to any entry present rather than throwing. Room persists it via a `Converters.kt` TypeConverter (JSON-encoded string column); kotlinx.serialization handles `Map<String, String>` natively for the bundled JSON content.
 
 > 💡 **`EXERCISE.contentJson` Polymorphism:** `ExerciseContent` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `TapWordInVerse`. `ExerciseContent.isScored` is `false` only for `WordIntro` and `ChapterIntro`.
 
 ## 📄 Bundled JSON content shape
 
-The curriculum dataset is modularized under `app/src/main/assets/content/`:
-- `curriculum_manifest.json`: Defines the 3 Parts of Speech (**Fi'l**, **Ḥarf**, **Ism**), chapters, sections, and lesson counts.
-- `section_fil_*.json`, `section_harf_*.json`, `section_ism_*.json`: Self-contained JSON packages per section containing lessons, exercises, and word metadata.
+The curriculum dataset is compiled under `app/src/main/assets/content/` (`ContentSeeder.CONTENT_VERSION = 32`):
+- `chapters.json`: 10 Chapters with localized titles, descriptions, lemma counts, and Quranic coverage percentages.
+- `sections.json`: 100 Sections with chapter references, sort orders, and localized titles.
+- `lessons_vocabulary.json`: 1,217 Lessons partitioned by `LessonKind` (Regular, Section Exam, Chapter Exam, Flashback).
+- `exercises_vocabulary.json`: 9,428 polymorphic exercises with fully vocalized Arabic and token-aligned verse spans.
+- `word_frequency.json`: 4,709 Quranic vocabulary items ordered by frequency with grammatical classification and localized meanings.
 
 Example `WordIntro` content payload with Wujūh al-Qur'an polysemy and Tashkīl:
 

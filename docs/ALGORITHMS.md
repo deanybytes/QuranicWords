@@ -50,17 +50,17 @@ Every word is shown via a non-scored `WordIntro` step immediately before its own
 
 ## 📊 Word-frequency-driven curriculum ordering & POS Categorization
 
-The curriculum covers all **4,616 Quranic vocabulary items** divided by Part of Speech (**Fi'l**, **Ḥarf**, **Ism**), with each part of speech ordered strictly by descending occurrence frequency in the Qur'an.
+The curriculum covers all **4,709 Quranic vocabulary items** divided by Part of Speech (**Ḥarf**, **Fi'l**, **Ism**), with each part of speech ordered strictly by descending occurrence frequency in the Qur'an:
 
-- **Fi'l (Verbs)**: 1,450 verbs (`wv_1` to `wv_1450`), from high-frequency verbs like قَالَ, كَانَ down to hapax legomena.
-- **Ḥarf (Particles)**: 109 particles (`wp_1` to `wp_109`), such as فِي, مِنْ, عَلَى.
-- **Ism (Nouns)**: 3,057 nouns (`wn_1` to `wn_3057`), including names, descriptors, and divine attributes.
+- **Ḥarf (Particles)**: 173 particles (`wp_1` to `wp_173`), such as فِي, مِنْ, عَلَى, covering 24,651 occurrences (41.16% of Quranic text).
+- **Fi'l (Verbs)**: 1,479 verbs (`wv_1` to `wv_1479`), from high-frequency verbs like قَالَ, كَانَ down to specialized verbal roots (13,491 occurrences).
+- **Ism (Nouns)**: 3,057 nouns (`wn_1` to `wn_3057`), including names, descriptors, and divine attributes (21,746 occurrences).
 
 ## 🎯 Distractor Generation & Meaning Resolution
 
 `DistractorGenerator` (`core/domain/DistractorGenerator.kt`):
 - Uses `WordCandidatePool` to select plausibly similar distractors matching the grammatical category and approximate frequency range of the target word.
-- Dynamically resolves canonical meanings at runtime from `WordFrequencyEntity` across all 12 supported languages to guarantee 100% semantic consistency between teach cards, multiple-choice options, matching pairs, and verse taps.
+- Dynamically resolves canonical meanings at runtime from `WordFrequencyEntity` across all 11 supported languages to guarantee 100% semantic consistency between teach cards, multiple-choice options, matching pairs, and verse taps.
 
 ## 🔄 Adaptive Mistaken Words Tracking
 
