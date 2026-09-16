@@ -34,8 +34,8 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 35
-        versionCode = 16
-        versionName = "3.0.0"
+        versionCode = 17
+        versionName = "3.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
