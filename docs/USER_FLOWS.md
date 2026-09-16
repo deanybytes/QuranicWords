@@ -27,12 +27,12 @@ sequenceDiagram
         alt Test Only
             Path->>Font: navigate
             Font->>Goal: navigate
-            Goal->>Home: Open Test-Only Hub (5 Modes)
+            Goal->>Home: Open Test-Only Hub (6 Modes)
         else Learn & Test
             Path->>Font: navigate
             Font->>Style: Choose Reinforcement Level
             Style->>Goal: Set Daily Words Target
-            Goal->>Home: Open Curriculum Map
+            Goal->>Home: Open Curriculum Map (10 Chapters)
         end
     end
 ```
@@ -40,16 +40,17 @@ sequenceDiagram
 ### Font Selection
 Learners preview **Surah Al-Kawthar** in a clean interface displaying the script name and live Arabic sample (Amiri, Scheherazade, Noto Naskh, Lateef IndoPak, Noto Nastaliq Urdu).
 
-## 2️⃣ 5-Mode Test-Only Flow
+## 2️⃣ 6-Mode Test-Only Flow
 
 For test-focused learning:
 ```mermaid
 flowchart TD
     TestHome[Test-Only Hub] --> Mode1[1. Ism Mode: 3,057 Nouns]
-    TestHome --> Mode2[2. Fi'l Mode: 1,450 Verbs]
-    TestHome --> Mode3[3. Ḥarf Mode: 109 Particles]
-    TestHome --> Mode4[4. Mix / Random Mode: All 4,616 Words with Grammar Badges]
+    TestHome --> Mode2[2. Fi'l Mode: 1,479 Verbs]
+    TestHome --> Mode3[3. Ḥarf Mode: 173 Particles]
+    TestHome --> Mode4[4. Mix / Random Mode: All 4,709 Words with Grammar Badges]
     TestHome --> Mode5[5. Mistaken Words Review: Adaptive Error Revision]
+    TestHome --> Mode6[6. Chapterwise Practice & Test Mode: 10 Quranic Chapters]
 ```
 
 ## 3️⃣ Lesson Gameplay & Summary Loop

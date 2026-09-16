@@ -10,11 +10,12 @@
 
 <p align="center">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Android-3DDC84?logo=android&logoColor=white" />
-  <img alt="Language" src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" />
+  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/targetSdk-36-blue" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
-  <img alt="Status" src="https://img.shields.io/badge/status-in%20development-orange" />
-  <img alt="Release" src="https://img.shields.io/github/v/release/rmrashahriar/QuranicWords" />
+  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
+  <img alt="Release" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" />
 </p>
 
 ---
@@ -25,7 +26,7 @@
 
 > 🕋 **No human faces, anywhere.** Icons, illustrations, and avatars use geometric, calligraphic, and nature motifs only.
 > 📖 **No scripture as decoration.** Ayat/Mushaf text is never used as a loading-screen skin or gamification flourish — it only ever appears as real lesson content.
-> 🌙 **12-language architecture** (English, Bangla, Albanian, Chinese, Farsi, French, German, Hindi, Indonesian, Russian, Turkish, Urdu), chosen by the learner at setup — not inferred from device locale. Only English and Bangla have real translated content/UI strings so far; the rest are wired and fall back to English until translated (see [Roadmap](docs/ROADMAP.md)).
+> 🌙 **11-language architecture** (English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی, Hausa, Kiswahili, Français), chosen by the learner at setup — not inferred from device locale. Features 100% verified word meanings, contextual polysemic senses (*Wujūh al-Qur'an*), and exact in-verse span highlights with complete Tashkīl and zero mismatches.
 > 🟢 **One green identity**, day and night — Material You dynamic color is deliberately disabled.
 
 ---
@@ -40,36 +41,38 @@
 | [🗄️ Data model](docs/DATA_MODEL.md) | Room schema (ER diagram), bundled JSON content shape |
 | [🧮 Algorithms](docs/ALGORITHMS.md) | Streak calculation, gamification scoring, curriculum ordering |
 | [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | The pedagogical shape of the vocabulary curriculum, and why it's teach-then-quiz |
-| [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora/audio, with licenses |
+| [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora, with licenses |
 | [🔐 Security](SECURITY.md) | Secrets handling and what's not yet hardened |
 | [🗄️ Local-only design](docs/BACKUP_AND_SYNC.md) | Why there's no cloud sync, and how backup/restore works instead |
 | [🗺️ Roadmap](docs/ROADMAP.md) | Built vs. deferred |
 | [🤝 Contributing](CONTRIBUTING.md) | Build/test commands, ingestion pipeline, PR expectations |
 | [📜 Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
+| [📱 Play Store Listing](PLAY_STORE_DESCRIPTION.md) | Complete store metadata, character limits, keywords, and localizations |
 
 ---
 
 ## 🎯 The curriculum
 
-QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**):
+QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **9,428 Exercises**:
 
-1. **Fi'l (الفعل — Verbs)**: 1,450 Quranic verbs structured across 145 lessons in 15 sections.
-2. **Ḥarf (الحرف — Particles)**: 109 Quranic particles structured across 11 lessons in 2 sections.
-3. **Ism (الاسم — Nouns)**: 3,057 Quranic nouns structured across 306 lessons in 31 sections.
+1. **Ḥarf (الحرف — Particles)**: 173 Quranic particles (24,651 occurrences, 41.16% of Quranic text) structured across 10 sections in Chapter 1.
+2. **Fi'l (الفعل — Verbs)**: 1,479 Quranic verbs (13,491 occurrences) structured across 30 sections in Chapters 2 to 4.
+3. **Ism (الاسم — Nouns)**: 3,057 Quranic nouns (21,746 occurrences) structured across 60 sections in Chapters 5 to 10.
 
-In total, **4,616 vocabulary items** covering 100% of the Quranic vocabulary curve are taught **ordered by their real occurrence frequency in the Qur'an**. Every word features full grammatical categorization, root details, contextual polysemy (**Wujūh al-Qur'an**), and interactive verse examples with complete Tashkīl/Ḥarakāt.
+In total, **4,709 vocabulary lemmas** covering **~80%+ of total Quranic word occurrences (59,888 occurrences)** are taught **ordered by their real occurrence frequency in the Qur'an**. Every word features full grammatical categorization, root details, contextual polysemy (**Wujūh al-Qur'an**), and interactive verse examples with complete Tashkīl/Ḥarakāt (sukūn, fatḥah, kasrah, ḍammah, shaddah, tanwīn).
 
-Content is organized as **parts of speech → sections → lessons**, with section exams gating progress into subsequent units.
+Content is organized as **chapters → sections → lessons**, with section and chapter exams gating progress into subsequent units.
 
 ## 🧪 Test-Only & Practice Modes
 
-For learners who want focused recall testing without linear lesson progression, the dedicated **Test-Only Mode** offers 5 specialized practice modes:
+For learners who want focused recall testing without linear lesson progression, the dedicated **Test-Only Mode** offers 6 specialized practice modes:
 
 1. 📖 **Ism Mode (الاسم — Nouns)**: 3,057 nouns.
-2. ⚡ **Fi'l Mode (الفعل — Verbs)**: 1,450 verbs.
-3. ✨ **Ḥarf Mode (الحرف — Particles)**: 109 particles.
-4. 🔀 **Mix / Random Mode**: Dynamic shuffle across all 4,616 words with live grammar category tags.
+2. ⚡ **Fi'l Mode (الفعل — Verbs)**: 1,479 verbs.
+3. ✨ **Ḥarf Mode (الحرف — Particles)**: 173 particles.
+4. 🔀 **Mix / Random Mode**: Dynamic shuffle across all 4,709 words with live grammar category tags.
 5. 🔄 **Mistaken Words Review**: Adaptive spaced review of previously missed words with grammar category tags.
+6. 📚 **Chapterwise Practice & Test Mode**: Targeted unit testing across all 10 Quranic chapters.
 
 ## 🎮 Gamification
 

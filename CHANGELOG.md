@@ -2,6 +2,34 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.0] - 2026-09-16 (Google Play Store Official Release)
+
+### Changed
+- **Target SDK 36 Upgrade**: Updated targetSdk and compileSdk to 36 (Android 16 compatibility) fulfilling Google Play Console publishing guidelines.
+- **Native Debug Symbols Generation**: Automated `extractReleaseNativeDebugMetadata` and `mergeReleaseNativeDebugMetadata` tasks extracting unstripped native symbols into `QuranicWords-v1.0.0-native-debug-symbols.zip`.
+- **Language Split Bundle Optimization**: Disabled Dynamic Feature language splits (`bundle.language.enableSplit = false`) to guarantee instant in-app language switching offline across all 11 supported languages without requiring Play Store feature downloads.
+- **Version Number Alignment**: Realigned public production versioning to `v1.0.0` (internal `versionCode 18`) for Google Play Store launch.
+
+## [3.1.0] - 2026-09-16
+
+### Added
+- **Complete Arabic Vocalization (Tashkīl) Overhaul**: Restored 100% of missing Jajam (sukūn), Jabar (fatḥah), Jer (kasrah), Pesh (ḍammah), and Tasdid (shaddah) on standalone particles, prefixes, and suffixes in TargetArabicWord and in-verse highlights across all 4,709 lemmas.
+- **Canonical Dataset Synchronization**: Synchronized `harf_canonical_192.json`, `harf_rows.json`, `ism_canonical_3091.json`, and `fil_canonical_1505.json`.
+- **Clean Database Reseeding Pipeline**: Added `deleteAll()` methods across `SectionDao`, `LessonDao`, and `ExerciseDao` in Room; updated `ContentSeeder.kt` to clean and reseed all 5 content tables, bumping `CONTENT_VERSION` to 32.
+- **Interactive HTML Dictionary Typography**: Refactored `mark.ar-hl` inline styling in `QuranicWords_Dictionary.html`, expanded Arabic font stack, increased verse line-height to 2.2, and enlarged target word badges.
+
+### Fixed
+- Fixed target word mismatches: Rank 93 مِيكَال -> وَمِيكَىٰلَ, Rank 122 صَالِح -> ٱلصَّـٰلِحَـٰتِ, and 28 خ-ض-ع nominal entries -> خَـٰضِعِينَ.
+
+## [3.0.0] - 2026-09-05
+
+### Added
+- **10-Language Master Curriculum (4,709 Quranic Lemmas)**: Expanded vocabulary to 4,709 lemmas across 10 Chapters, 100 Sections, 1,217 Lessons, and 9,428 Exercises, covering 59,888 total Quranic occurrences (~80%+ of the Qur'an).
+- **11 Aligned Global Languages**: Complete translation and in-verse span alignment for English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
+- **Exact In-Verse Highlights (0 Mismatches)**: Deep semantic audit ensuring zero truncated highlights, zero stop-word false positives, and 100% token-grounded sequential spans in example verses.
+- **Chapterwise Practice & Test Mode**: Added dedicated 6th test mode in Test-Only Hub allowing learners to test recall chapter-by-chapter across all 10 Quranic chapters.
+- **Interactive Offline HTML Dictionary**: Shipped `QuranicWords_Dictionary.html` with instant search, multi-language toggles, and audio-visual root mapping.
+
 ## [2.2.0] - 2026-09-01
 
 ### Added

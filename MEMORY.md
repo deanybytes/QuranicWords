@@ -23,23 +23,32 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
 
 - **Post-Phase-6 addition — local streak-reminder notifications.** Opt-in "streak at risk" reminder (Settings → new Notifications section): `StreakReminderWorker` (`HiltWorker`, same `CoroutineWorker` pattern as `AudioBulkDownloadWorker`) checks `ProgressRepository.observeStats` against today's date via the injected `Clock` and only notifies when `currentStreak > 0` **and** today's activity hasn't happened yet - never a generic re-engagement nag. `StreakReminderScheduler` uses a daily `PeriodicWorkRequest` (WorkManager persists across process death/reboot on its own) rather than `AlarmManager` + a `BOOT_COMPLETED` receiver - explicitly *not* wall-clock-exact (Doze/battery optimization can shift the fire time by minutes), a deliberate trade-off to avoid needing the `SCHEDULE_EXACT_ALARM` permission for a "reminder," stated plainly rather than silently overclaiming precision. `POST_NOTIFICATIONS` requested at runtime on API 33+ only when the user toggles the setting on, never at first launch; `NotificationManagerCompat.areNotificationsEnabled()` double-checked before every post. Time-of-day picker via Material3 `TimePickerDialog`. New Settings section follows QW-20's `SettingsSectionCard`/`StaggeredEntrance` pattern. `strings.xml`/`values-bn/strings.xml` parity re-verified (94/94). Tracked as QW-24 in Jira.
 
-- **v2.2.0 Major Architecture & Content Upgrade (2026-09-01)** — done:
-  - **3-Part Parts of Speech Curriculum**: Replaced legacy structure with 4,616 words partitioned into **Fi'l (Verbs)** (1,450 words, 15 sections, 145 lessons), **Ḥarf (Particles)** (109 words, 2 sections, 11 lessons), and **Ism (Nouns)** (3,057 words, 31 sections, 306 lessons).
-  - **Contextual Polysemy (Wujūh al-Qur'an)**: Integrated multi-sense tabs and dedicated verse examples per word with 100% verified meanings across 12 languages.
-  - **5-Mode Test Hub**: Built dedicated practice modes for Ism, Fi'l, Ḥarf, Mix/Random (with live grammar tags), and adaptive Mistaken Words Review.
-  - **Grammar Category Badging**: Created `GrammarCategoryBadge` in green (`#2E7D32` - Ism), gold (`#D4AF37` - Fi'l), and blue (`#0288D1` - Ḥarf) across quizzes, options, dictionary, and test hub.
-  - **Arabic Typography & Verse Continuity**: Retained 100% diacritics/tashkīl on target words; removed 3D glass borders around verse word spans to eliminate line breaking and ensure verse continuity.
-  - **End-of-Lesson Summary**: Added rich performance breakdown (words covered, mistakes, accuracy %, time spent) with next lesson preview and direct continuation action.
-  - **Streamlined Font Selection**: Simplified font selection cards to show only font name and live Surah Al-Kawthar preview.
-  - **System-Only Sound Effects**: Removed word pronunciation audio playback and listening exercises to focus on reading comprehension, while preserving low-latency `SoundPool` UI sound effects (`SfxPlayer.kt`).
-  - **GPL-3.0 Open Source & DEANY TALKS Ecosystem**: Added licensing notices, GitHub links, DEANY TALKS Dawah ecosystem platform links, and contact mail.
+- **v2.2.0 Major Architecture & Content Upgrade (2026-09-01)** — done. 3-Part Parts of Speech Curriculum (4,616 words), Wujūh al-Qur'an multi-sense tabs, 5-mode test hub, grammar category badging, preserved Tashkīl, GPL-3.0 open source.
+
+- **v3.0.0 Master Curriculum & 10-Language Expansion (2026-09-05)** — done:
+  - **4,709 Quranic Lemmas**: Re-partitioned corpus into 10 Chapters, 100 Sections, 1,217 Lessons, 9,428 Exercises, covering 59,888 total occurrences (~80%+ of the Qur'an).
+  - **11 Global Languages**: Complete translation and in-verse span alignment for English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
+  - **Exact Highlights Audit**: Deep semantic pass eliminating all stop-word mismatches, unbracketed spans, and truncated highlight phrases.
+  - **Chapterwise Test Mode**: Added 6th testing mode for chapter-by-chapter mastery.
+  - **Interactive Offline HTML Dictionary**: Shipped `QuranicWords_Dictionary.html` for desktop/web browsing and offline verification.
+
+- **v3.1.0 Complete Tashkīl Overhaul & Reseeding Pipeline (2026-09-16)** — done:
+  - **100% Arabic Vocalization**: Restored all missing diacritics (sukūn, fatḥah, kasrah, ḍammah, shaddah, tanwīn) on standalone particles, prefixes, and target word spans across all 4,709 lemmas.
+  - **Content Table Reseeding**: Added `deleteAll()` to `SectionDao`, `LessonDao`, `ExerciseDao`, ensuring clean reseed with `ContentSeeder.CONTENT_VERSION = 32`.
+
+- **v1.0.0 Google Play Store Official Release (2026-09-16)** — done:
+  - **Target SDK 36 Upgrade**: Upgraded to `targetSdk 36` (Android 16 compatibility) and `compileSdk 36`.
+  - **Native Debug Symbols**: Configured `extractReleaseNativeDebugMetadata` producing `QuranicWords-v1.0.0-native-debug-symbols.zip`.
+  - **Language Bundle Optimization**: Disabled language splits (`bundle.language.enableSplit = false`) to ensure all 11 languages are bundled locally and switchable offline.
+  - **Signed Release Bundle**: Automated `bundleRelease` copying signed `.aab` and `.apk` to repo root.
 
 Verified after every phase: `./gradlew :app:compileDebugKotlin`, `:app:testDebugUnitTest`, `:app:assembleDebug` all pass.
 
 ## Key decisions (see the plan file for the complete table and rationale)
 
-- Curriculum: 3 Parts of Speech (Fi'l, Ḥarf, Ism), 4,616 words ordered strictly by Quranic frequency.
-- Testing: 5 dedicated test modes (3 PoS, 1 Mix, 1 Mistaken) with dynamic grammar badging.
+- Curriculum: 10 Chapters, 100 Sections, 1,217 Lessons, 4,709 words ordered strictly by Quranic frequency across 3 Parts of Speech (Ḥarf: 173, Fi'l: 1,479, Ism: 3,057).
+- Testing: 6 dedicated test modes (3 PoS, 1 Mix, 1 Mistaken, 1 Chapterwise) with dynamic grammar badging.
+- Languages: 11 fully aligned languages with 100% verified glosses and exact in-verse highlights.
 - Exam pass threshold: 80% on exams to gate subsequent units.
 - Audio: Low-latency system SFX (`SoundPool`) for correct/incorrect/lesson complete feedback; word pronunciation audio removed.
 - Content licensing: Sourced from Quranic Arabic Corpus (GPL-3.0), Quran-bil-Quran (MIT), risan/quran-json (CC BY-SA 4.0), and Greentech Apps Foundation (gtaf.org). App code licensed under GPL-3.0.
