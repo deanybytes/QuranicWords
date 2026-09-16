@@ -41,11 +41,11 @@
     "Coverage %": 0.02196851308941095,
     "Sense Index": "[1]",
     "English Meaning": "in",
-    "Verse Citation": "Al-Baqarah 2:176",
+    "Verse Citation": "Ali 'Imran 3:190",
     "Target Arabic Word": "فِى",
-    "Full Arabic Verse": "ذَٰلِكَ بِأَنَّ ٱللَّهَ نَزَّلَ ٱلْكِتَـٰبَ بِٱلْحَقِّ ۗ وَإِنَّ ٱلَّذِينَ ٱخْتَلَفُوا۟ ([فِى]) ٱلْكِتَـٰبِ لَفِى شِقَاقٍۭ بَعِيدٍ",
+    "Full Arabic Verse": "إِنَّ ([فِى]) خَلْقِ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ وَٱخْتِلَـٰفِ ٱلَّيْلِ وَٱلنَّهَارِ لَـَٔايَـٰتٍ لِّأُو۟لِى ٱلْأَلْبَـٰبِ",
     "Target Meaning English": "in",
-    "Full English Verse": "That is [deserved by them] because Allāh has sent down the Book ([in]) truth. And indeed, those who differ over the Book are in extreme dissension."
+    "Full English Verse": "Indeed, ([in]) the creation of the heavens and the earth and the alternation of the night and the day are signs for those of understanding -"
   },
   {
     "Rank": 2,
@@ -217,11 +217,11 @@
     "Coverage %": 0.01635046300481732,
     "Sense Index": "[2]",
     "English Meaning": "not",
-    "Verse Citation": "Ad-Duhaa 93:3",
-    "Target Arabic Word": "مَا",
-    "Full Arabic Verse": "([مَا]) وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",
+    "Verse Citation": "Al-Baqarah 2:9",
+    "Target Arabic Word": "وَمَا",
+    "Full Arabic Verse": "يُخَـٰدِعُونَ ٱللَّهَ وَٱلَّذِينَ ءَامَنُوا۟ ([وَمَا]) يَخْدَعُونَ إِلَّآ أَنفُسَهُمْ وَمَا يَشْعُرُونَ",
     "Target Meaning English": "not",
-    "Full English Verse": "Your Lord has ([not]) taken leave of you, [O Muḥammad], nor has He detested [you]."
+    "Full English Verse": "They [think to] deceive Allāh and those who believe, but they deceive ([not]) except themselves and perceive [it] not."
   },
   {
     "Rank": 8,
@@ -472,12 +472,12 @@
     "Occurrences": 353,
     "Coverage %": 0.004559015356003565,
     "Sense Index": "[1]",
-    "English Meaning": "did not / not",
-    "Verse Citation": "Al-Ikhlas 112:3",
+    "English Meaning": "not",
+    "Verse Citation": "Al-Baqarah 2:6",
     "Target Arabic Word": "لَمْ",
-    "Full Arabic Verse": "([لَمْ]) يَلِدْ وَلَمْ يُولَدْ",
-    "Target Meaning English": "neither",
-    "Full English Verse": "He ([neither]) begets nor is born,"
+    "Full Arabic Verse": "إِنَّ ٱلَّذِينَ كَفَرُوا۟ سَوَآءٌ عَلَيْهِمْ ءَأَنذَرْتَهُمْ أَمْ ([لَمْ]) تُنذِرْهُمْ لَا يُؤْمِنُونَ",
+    "Target Meaning English": "not",
+    "Full English Verse": "Indeed, those who disbelieve - it is all the same for them whether you warn them or do ([not]) warn them - they will not believe."
   },
   {
     "Rank": 17,

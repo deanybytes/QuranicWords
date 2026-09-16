@@ -37,7 +37,7 @@
     "cov": 0.02196851308941095,
     "sense_idx": "[1]",
     "sense_m": "in",
-    "cit": "Al-Baqarah 2:176",
+    "cit": "Ali 'Imran 3:190",
     "tar_ar": "فِى",
     "tar_m": "in"
   },
@@ -193,7 +193,7 @@
     "sense_m": "not",
     "cit": "Al-Baqarah 2:9",
     "tar_ar": "وَمَا",
-    "tar_m": "and"
+    "tar_m": "not"
   },
   {
     "rank": 8,
@@ -414,10 +414,10 @@
     "occ": 353,
     "cov": 0.004559015356003565,
     "sense_idx": "[1]",
-    "sense_m": "of the universe",
-    "cit": "Surah 112:3",
+    "sense_m": "not",
+    "cit": "Al-Baqarah 2:6",
     "tar_ar": "لَمْ",
-    "tar_m": "He"
+    "tar_m": "not"
   },
   {
     "rank": 17,

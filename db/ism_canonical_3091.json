@@ -264,12 +264,12 @@
     "Occurrences": 310,
     "Coverage %": 0.004003667876377068,
     "Sense Index": "[1]",
-    "English Meaning": "In  name",
-    "Verse Citation": "Al-Fatihah 1:1",
-    "Target Arabic Word": "بِسْمِ",
-    "Full Arabic Verse": "([بِسْمِ]) ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ",
-    "Target Meaning English": "In the name",
-    "Full English Verse": "([In the name]) of Allāh, the Entirely Merciful, the Especially Merciful."
+    "English Meaning": "the sky",
+    "Verse Citation": "Al-Baqarah 2:22",
+    "Target Arabic Word": "وَٱلسَّمَآءَ",
+    "Full Arabic Verse": "ٱلَّذِى جَعَلَ لَكُمُ ٱلْأَرْضَ فِرَٰشًا ([وَٱلسَّمَآءَ]) بِنَآءً وَأَنزَلَ مِنَ ٱلسَّمَآءِ مَآءً فَأَخْرَجَ بِهِۦ مِنَ ٱلثَّمَرَٰتِ رِزْقًا لَّكُمْ ۖ فَلَا تَجْعَلُوا۟ لِلَّهِ أَندَادًا وَأَنتُمْ تَعْلَمُونَ",
+    "Target Meaning English": "the sky",
+    "Full English Verse": "[He] who made for you the earth a bed [spread out] and ([the sky]) a ceiling and sent down from the sky, rain and brought forth thereby fruits as provision for you. So do not attribute to Allāh equals while you know [that there is nothing similar to Him]."
   },
   {
     "Rank": 10,
@@ -344,12 +344,12 @@
     "Occurrences": 283,
     "Coverage %": 0.003654961319402291,
     "Sense Index": "[2]",
-    "English Meaning": "And if",
-    "Verse Citation": "Al-Isra 17:86",
-    "Target Arabic Word": "شِئْنَا",
-    "Full Arabic Verse": "وَلَئِن ([شِئْنَا]) لَنَذْهَبَنَّ بِٱلَّذِىٓ أَوْحَيْنَآ إِلَيْكَ ثُمَّ لَا تَجِدُ لَكَ بِهِۦ عَلَيْنَا وَكِيلًا",
-    "Target Meaning English": "We willed",
-    "Full English Verse": "And if ([We willed]), We could surely do away with that which We revealed to you. Then you would not find for yourself concerning it an advocate against Us."
+    "English Meaning": "thing",
+    "Verse Citation": "Al-Baqarah 2:106",
+    "Target Arabic Word": "شَىْءٍ",
+    "Full Arabic Verse": "۞ مَا نَنسَخْ مِنْ ءَايَةٍ أَوْ نُنسِهَا نَأْتِ بِخَيْرٍ مِّنْهَآ أَوْ مِثْلِهَآ ۗ أَلَمْ تَعْلَمْ أَنَّ ٱللَّهَ عَلَىٰ كُلِّ ([شَىْءٍ]) قَدِيرٌ",
+    "Target Meaning English": "things",
+    "Full English Verse": "We do not abrogate a verse or cause it to be forgotten except that We bring forth [one] better than it or similar to it. Do you not know that Allāh is over all ([things]) competent?"
   },
   {
     "Rank": 13,
@@ -504,12 +504,12 @@
     "Occurrences": 195,
     "Coverage %": 0.002518436244817833,
     "Sense Index": "[2]",
-    "English Meaning": "I entrust you",
-    "Verse Citation": "Yusuf 12:64",
-    "Target Arabic Word": "ءَامَنُكُمْ",
-    "Full Arabic Verse": "قَالَ هَلْ ([ءَامَنُكُمْ]) عَلَيْهِ إِلَّا كَمَآ أَمِنتُكُمْ عَلَىٰٓ أَخِيهِ مِن قَبْلُ ۖ فَٱللَّهُ خَيْرٌ حَـٰفِظًا ۖ وَهُوَ أَرْحَمُ ٱلرَّٰحِمِينَ",
-    "Target Meaning English": "I entrust you",
-    "Full English Verse": "He said, \"Should ([I entrust you]) with him except [under coercion] as I entrusted you with his brother before? But Allāh is the best guardian, and He is the most merciful of the merciful.\""
+    "English Meaning": "believer",
+    "Verse Citation": "Ali 'Imran 3:139",
+    "Target Arabic Word": "مُّؤْمِنِينَ",
+    "Full Arabic Verse": "وَلَا تَهِنُوا۟ وَلَا تَحْزَنُوا۟ وَأَنتُمُ ٱلْأَعْلَوْنَ إِن كُنتُم ([مُّؤْمِنِينَ])",
+    "Target Meaning English": "believers",
+    "Full English Verse": "So do not weaken and do not grieve, and you will be superior if you are [true] ([believers])."
   },
   {
     "Rank": 18,
@@ -584,12 +584,12 @@
     "Occurrences": 160,
     "Coverage %": 0.002066409226517196,
     "Sense Index": "[2]",
-    "English Meaning": "know",
-    "Verse Citation": "An-Nahl 16:95",
-    "Target Arabic Word": "تَعْلَمُونَ",
-    "Full Arabic Verse": "وَلَا تَشْتَرُوا۟ بِعَهْدِ ٱللَّهِ ثَمَنًا قَلِيلًا ۚ إِنَّمَا عِندَ ٱللَّهِ هُوَ خَيْرٌ لَّكُمْ إِن كُنتُمْ ([تَعْلَمُونَ])",
-    "Target Meaning English": "know",
-    "Full English Verse": "And do not exchange the covenant of Allāh for a small price. Indeed, what is with Allāh is best for you, if only you could ([know])."
+    "English Meaning": "the worlds",
+    "Verse Citation": "Al-Baqarah 2:47",
+    "Target Arabic Word": "ٱلْعَـٰلَمِينَ",
+    "Full Arabic Verse": "يَـٰبَنِىٓ إِسْرَٰٓءِيلَ ٱذْكُرُوا۟ نِعْمَتِىَ ٱلَّتِىٓ أَنْعَمْتُ عَلَيْكُمْ وَأَنِّى فَضَّلْتُكُمْ عَلَى ([ٱلْعَـٰلَمِينَ])",
+    "Target Meaning English": "the worlds",
+    "Full English Verse": "O Children of Israel, remember My favor that I have bestowed upon you and that I preferred you over ([the worlds])."
   },
   {
     "Rank": 21,
@@ -600,12 +600,12 @@
     "Occurrences": 157,
     "Coverage %": 0.002027664053519999,
     "Sense Index": "[1]",
-    "English Meaning": "a mosquito",
-    "Verse Citation": "Al-Baqarah 2:26",
-    "Target Arabic Word": "بَعُوضَةً",
-    "Full Arabic Verse": "۞ إِنَّ ٱللَّهَ لَا يَسْتَحْىِۦٓ أَن يَضْرِبَ مَثَلًا مَّا ([بَعُوضَةً]) فَمَا فَوْقَهَا ۚ فَأَمَّا ٱلَّذِينَ ءَامَنُوا۟ فَيَعْلَمُونَ أَنَّهُ ٱلْحَقُّ مِن رَّبِّهِمْ ۖ وَأَمَّا ٱلَّذِينَ كَفَرُوا۟ فَيَقُولُونَ مَاذَآ أَرَادَ ٱللَّهُ بِهَـٰذَا مَثَلًا ۘ يُضِلُّ بِهِۦ كَثِيرًا وَيَهْدِى بِهِۦ كَثِيرًا ۚ وَمَا يُضِلُّ بِهِۦٓ إِلَّا ٱلْفَـٰسِقِينَ",
-    "Target Meaning English": "of a mosquito",
-    "Full English Verse": "Indeed, Allāh is not timid to present an example - that ([of a mosquito]) or what is smaller than it. And those who have believed know that it is the truth from their Lord. But as for those who disbelieve, they say, \"What did Allāh intend by this as an example?\" He misleads many thereby and guides many thereby. And He misleads not except the defiantly disobedient,"
+    "English Meaning": "part of",
+    "Verse Citation": "Al-Baqarah 2:85",
+    "Target Arabic Word": "بِبَعْضِ",
+    "Full Arabic Verse": "أَفَتُؤْمِنُونَ ([بِبَعْضِ]) ٱلْكِتَـٰبِ وَتَكْفُرُونَ بِبَعْضٍ",
+    "Target Meaning English": "part of",
+    "Full English Verse": "So do you believe in ([part of]) the Scripture and disbelieve in part?"
   },
   {
     "Rank": 21,
@@ -632,12 +632,12 @@
     "Occurrences": 150,
     "Coverage %": 0.001937258649859872,
     "Sense Index": "[1]",
-    "English Meaning": "darkness",
-    "Verse Citation": "Al-Baqarah 2:17",
-    "Target Arabic Word": "ظُلُمَـٰتٍ",
-    "Full Arabic Verse": "مَثَلُهُمْ كَمَثَلِ ٱلَّذِى ٱسْتَوْقَدَ نَارًا فَلَمَّآ أَضَآءَتْ مَا حَوْلَهُۥ ذَهَبَ ٱللَّهُ بِنُورِهِمْ وَتَرَكَهُمْ فِى ([ظُلُمَـٰتٍ]) لَّا يُبْصِرُونَ",
-    "Target Meaning English": "darkness",
-    "Full English Verse": "Their example is that of one who kindled a fire, but when it illuminated what was around him, Allāh took away their light and left them in ([darkness]) [so] they could not see."
+    "English Meaning": "wrongdoer",
+    "Verse Citation": "Al-Baqarah 2:35",
+    "Target Arabic Word": "ٱلظَّـٰلِمِينَ",
+    "Full Arabic Verse": "وَلَا تَقْرَبَا هَـٰذِهِ ٱلشَّجَرَةَ فَتَكُونَا مِنَ ([ٱلظَّـٰلِمِينَ])",
+    "Target Meaning English": "the wrongdoers",
+    "Full English Verse": "And do not approach this tree, lest you be among ([the wrongdoers])."
   },
   {
     "Rank": 22,
@@ -648,12 +648,12 @@
     "Occurrences": 150,
     "Coverage %": 0.001937258649859872,
     "Sense Index": "[2]",
-    "English Meaning": "did wrong",
-    "Verse Citation": "Ibrahim 14:44",
-    "Target Arabic Word": "ظَلَمُوا۟",
-    "Full Arabic Verse": "وَأَنذِرِ ٱلنَّاسَ يَوْمَ يَأْتِيهِمُ ٱلْعَذَابُ فَيَقُولُ ٱلَّذِينَ ([ظَلَمُوا۟]) رَبَّنَآ أَخِّرْنَآ إِلَىٰٓ أَجَلٍ قَرِيبٍ نُّجِبْ دَعْوَتَكَ وَنَتَّبِعِ ٱلرُّسُلَ ۗ أَوَلَمْ تَكُونُوٓا۟ أَقْسَمْتُم مِّن قَبْلُ مَا لَكُم مِّن زَوَالٍ",
-    "Target Meaning English": "did wrong",
-    "Full English Verse": "And, [O Muḥammad], warn the people of a Day when the punishment will come to them and those who ([did wrong]) will say, \"Our Lord, delay us for a short term; we will answer Your call and follow the messengers.\" [But it will be said], \"Had you not sworn, before, that for you there would be no cessation?"
+    "English Meaning": "oppressor",
+    "Verse Citation": "Al-Baqarah 2:193",
+    "Target Arabic Word": "ٱلظَّـٰلِمِينَ",
+    "Full Arabic Verse": "فَإِنِ ٱنتَهَوْا۟ فَلَا عُدْوَٰنَ إِلَّا عَلَى ([ٱلظَّـٰلِمِينَ])",
+    "Target Meaning English": "the oppressors",
+    "Full English Verse": "And fight them until there is no fitnah and [until] the religion, [all and every aspect of it], is for Allāh. But if they cease, then there is to be no aggression except against ([the oppressors])."
   },
   {
     "Rank": 23,
@@ -776,12 +776,12 @@
     "Occurrences": 120,
     "Coverage %": 0.001549806919887897,
     "Sense Index": "[1]",
-    "English Meaning": "we worship",
-    "Verse Citation": "Al-Fatihah 1:5",
-    "Target Arabic Word": "نَعْبُدُ",
-    "Full Arabic Verse": "إِيَّاكَ ([نَعْبُدُ]) وَإِيَّاكَ نَسْتَعِينُ",
-    "Target Meaning English": "we worship",
-    "Full English Verse": "It is You ([we worship]) and You we ask for help."
+    "English Meaning": "servant",
+    "Verse Citation": "Al-Baqarah 2:23",
+    "Target Arabic Word": "عَبْدِنَا",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍۢ مِّمَّا نَزَّلْنَا عَلَىٰ ([عَبْدِنَا]) فَأْتُوا۟ بِسُورَةٍۢ مِّن مِّثْلِهِۦ",
+    "Target Meaning English": "Our servant",
+    "Full English Verse": "And if you are in doubt about what We have sent down upon ([Our Servant] [i.e., Prophet Muḥammad]), then produce a surah the like thereof."
   },
   {
     "Rank": 28,
@@ -4184,12 +4184,12 @@
     "Occurrences": 9,
     "Coverage %": 0.0001162355189915923,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 236,
@@ -5816,12 +5816,12 @@
     "Occurrences": 7,
     "Coverage %": 9.040540366012734e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 338,
@@ -7448,12 +7448,12 @@
     "Occurrences": 5,
     "Coverage %": 6.457528832866239e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 440,
@@ -9080,12 +9080,12 @@
     "Occurrences": 4,
     "Coverage %": 5.166023066292991e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 542,
@@ -10712,12 +10712,12 @@
     "Occurrences": 3,
     "Coverage %": 3.874517299719743e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 644,
@@ -12344,12 +12344,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 746,
@@ -13976,12 +13976,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 848,
@@ -15608,12 +15608,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 950,
@@ -17240,12 +17240,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1052,
@@ -18872,12 +18872,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1154,
@@ -20504,12 +20504,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1256,
@@ -22136,12 +22136,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1358,
@@ -23768,12 +23768,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1460,
@@ -25400,12 +25400,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1562,
@@ -27032,12 +27032,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1664,
@@ -28664,12 +28664,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1766,
@@ -30296,12 +30296,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1868,
@@ -31928,12 +31928,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 1970,
@@ -33560,12 +33560,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2072,
@@ -35192,12 +35192,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2174,
@@ -36824,12 +36824,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2276,
@@ -38456,12 +38456,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2378,
@@ -40088,12 +40088,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2480,
@@ -41720,12 +41720,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2582,
@@ -43352,12 +43352,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2684,
@@ -44984,12 +44984,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2786,
@@ -46616,12 +46616,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2888,
@@ -48248,12 +48248,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "the book",
+    "English Meaning": "Book",
     "Verse Citation": "Al-Baqarah 2:2",
-    "Target Arabic Word": "ذَٰلِكَ",
-    "Full Arabic Verse": "([ذَٰلِكَ]) ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
-    "Target Meaning English": "the Book",
-    "Full English Verse": "This is ([the Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
+    "Target Arabic Word": "ٱلْكِتَـٰبُ",
+    "Full Arabic Verse": "ذَٰلِكَ ([ٱلْكِتَـٰبُ]) لَا رَيْبَ ۛ فِيهِ ۛ هُدًۭى لِّلْمُتَّقِينَ",
+    "Target Meaning English": "Book",
+    "Full English Verse": "This is the ([Book]) about which there is no doubt, a guidance for those conscious of Allāh -"
   },
   {
     "Rank": 2990,
