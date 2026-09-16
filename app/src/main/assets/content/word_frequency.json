@@ -162,7 +162,7 @@
     },
     {
       "id": "w_0009",
-      "arabicWord": "مَن",
+      "arabicWord": "مَنْ",
       "frequencyRank": 9,
       "frequencyCount": 606,
       "meaning": {
@@ -182,7 +182,7 @@
     },
     {
       "id": "w_0010",
-      "arabicWord": "إِن",
+      "arabicWord": "إِنْ",
       "frequencyRank": 10,
       "frequencyCount": 578,
       "meaning": {
@@ -242,7 +242,7 @@
     },
     {
       "id": "w_0013",
-      "arabicWord": "ذَٰلِك",
+      "arabicWord": "ذَٰلِكَ",
       "frequencyRank": 13,
       "frequencyCount": 520,
       "meaning": {
@@ -282,7 +282,7 @@
     },
     {
       "id": "w_0015",
-      "arabicWord": "قَد",
+      "arabicWord": "قَدْ",
       "frequencyRank": 15,
       "frequencyCount": 406,
       "meaning": {
@@ -1382,7 +1382,7 @@
     },
     {
       "id": "w_0070",
-      "arabicWord": "الآنَ",
+      "arabicWord": "ٱلْـَٔـٰنَ",
       "frequencyRank": 70,
       "frequencyCount": 8,
       "meaning": {
@@ -2142,7 +2142,7 @@
     },
     {
       "id": "w_0108",
-      "arabicWord": "هَاتُوا",
+      "arabicWord": "هَاتُوا۟",
       "frequencyRank": 108,
       "frequencyCount": 4,
       "meaning": {
@@ -33042,7 +33042,7 @@
     },
     {
       "id": "w_1653",
-      "arabicWord": "اللَّه",
+      "arabicWord": "ٱللَّهُ",
       "frequencyRank": 1653,
       "frequencyCount": 2699,
       "meaning": {
@@ -33062,7 +33062,7 @@
     },
     {
       "id": "w_1654",
-      "arabicWord": "رَبّ",
+      "arabicWord": "رَبٌّ",
       "frequencyRank": 1654,
       "frequencyCount": 975,
       "meaning": {
@@ -33082,7 +33082,7 @@
     },
     {
       "id": "w_1655",
-      "arabicWord": "أَرْض",
+      "arabicWord": "أَرْضٌ",
       "frequencyRank": 1655,
       "frequencyCount": 461,
       "meaning": {
@@ -33102,7 +33102,7 @@
     },
     {
       "id": "w_1656",
-      "arabicWord": "قَوْم",
+      "arabicWord": "قَوْمٌ",
       "frequencyRank": 1656,
       "frequencyCount": 383,
       "meaning": {
@@ -33122,7 +33122,7 @@
     },
     {
       "id": "w_1657",
-      "arabicWord": "آيَة",
+      "arabicWord": "ءَايَةٌ",
       "frequencyRank": 1657,
       "frequencyCount": 382,
       "meaning": {
@@ -33142,7 +33142,7 @@
     },
     {
       "id": "w_1658",
-      "arabicWord": "كُلّ",
+      "arabicWord": "كُلٌّ",
       "frequencyRank": 1658,
       "frequencyCount": 358,
       "meaning": {
@@ -33162,7 +33162,7 @@
     },
     {
       "id": "w_1659",
-      "arabicWord": "رَسُول",
+      "arabicWord": "رَسُولٌ",
       "frequencyRank": 1659,
       "frequencyCount": 332,
       "meaning": {
@@ -33182,7 +33182,7 @@
     },
     {
       "id": "w_1660",
-      "arabicWord": "يَوْم",
+      "arabicWord": "يَوْمٌ",
       "frequencyRank": 1660,
       "frequencyCount": 325,
       "meaning": {
@@ -33202,7 +33202,7 @@
     },
     {
       "id": "w_1661",
-      "arabicWord": "عَذَاب",
+      "arabicWord": "عَذَابٌ",
       "frequencyRank": 1661,
       "frequencyCount": 322,
       "meaning": {
@@ -33222,7 +33222,7 @@
     },
     {
       "id": "w_1662",
-      "arabicWord": "سَمَاء",
+      "arabicWord": "سَمَآءٌ",
       "frequencyRank": 1662,
       "frequencyCount": 310,
       "meaning": {
@@ -33242,7 +33242,7 @@
     },
     {
       "id": "w_1663",
-      "arabicWord": "نَفْس",
+      "arabicWord": "نَفْسٌ",
       "frequencyRank": 1663,
       "frequencyCount": 295,
       "meaning": {
@@ -33262,7 +33262,7 @@
     },
     {
       "id": "w_1664",
-      "arabicWord": "شَيْء",
+      "arabicWord": "شَىْءٌ",
       "frequencyRank": 1664,
       "frequencyCount": 283,
       "meaning": {
@@ -33282,7 +33282,7 @@
     },
     {
       "id": "w_1665",
-      "arabicWord": "كِتَاب",
+      "arabicWord": "كِتَـٰبٌ",
       "frequencyRank": 1665,
       "frequencyCount": 260,
       "meaning": {
@@ -33302,7 +33302,7 @@
     },
     {
       "id": "w_1666",
-      "arabicWord": "حَقّ",
+      "arabicWord": "حَقٌّ",
       "frequencyRank": 1666,
       "frequencyCount": 242,
       "meaning": {
@@ -33322,7 +33322,7 @@
     },
     {
       "id": "w_1667",
-      "arabicWord": "نَاس",
+      "arabicWord": "نَاسٌ",
       "frequencyRank": 1667,
       "frequencyCount": 241,
       "meaning": {
@@ -33342,7 +33342,7 @@
     },
     {
       "id": "w_1668",
-      "arabicWord": "قَبْل",
+      "arabicWord": "قَبْلُ",
       "frequencyRank": 1668,
       "frequencyCount": 197,
       "meaning": {
@@ -33362,7 +33362,7 @@
     },
     {
       "id": "w_1669",
-      "arabicWord": "مُؤْمِن",
+      "arabicWord": "مُؤْمِنٌ",
       "frequencyRank": 1669,
       "frequencyCount": 195,
       "meaning": {
@@ -33382,7 +33382,7 @@
     },
     {
       "id": "w_1670",
-      "arabicWord": "سَبِيل",
+      "arabicWord": "سَبِيلٌ",
       "frequencyRank": 1670,
       "frequencyCount": 176,
       "meaning": {
@@ -33402,7 +33402,7 @@
     },
     {
       "id": "w_1671",
-      "arabicWord": "أَمْر",
+      "arabicWord": "أَمْرٌ",
       "frequencyRank": 1671,
       "frequencyCount": 166,
       "meaning": {
@@ -33422,7 +33422,7 @@
     },
     {
       "id": "w_1672",
-      "arabicWord": "عَالَم",
+      "arabicWord": "عَالَمٌ",
       "frequencyRank": 1672,
       "frequencyCount": 160,
       "meaning": {
@@ -33442,7 +33442,7 @@
     },
     {
       "id": "w_1673",
-      "arabicWord": "بَعْض",
+      "arabicWord": "بَعْضٌ",
       "frequencyRank": 1673,
       "frequencyCount": 157,
       "meaning": {
@@ -33462,7 +33462,7 @@
     },
     {
       "id": "w_1674",
-      "arabicWord": "ظَالِم",
+      "arabicWord": "ظَالِمٌ",
       "frequencyRank": 1674,
       "frequencyCount": 150,
       "meaning": {
@@ -33482,7 +33482,7 @@
     },
     {
       "id": "w_1675",
-      "arabicWord": "نَار",
+      "arabicWord": "نَارٌ",
       "frequencyRank": 1675,
       "frequencyCount": 145,
       "meaning": {
@@ -33502,7 +33502,7 @@
     },
     {
       "id": "w_1676",
-      "arabicWord": "جَنَّة",
+      "arabicWord": "جَنَّةٌ",
       "frequencyRank": 1676,
       "frequencyCount": 140,
       "meaning": {
@@ -33522,7 +33522,7 @@
     },
     {
       "id": "w_1677",
-      "arabicWord": "قَلْب",
+      "arabicWord": "قَلْبٌ",
       "frequencyRank": 1677,
       "frequencyCount": 132,
       "meaning": {
@@ -33542,7 +33542,7 @@
     },
     {
       "id": "w_1678",
-      "arabicWord": "أَهْل",
+      "arabicWord": "أَهْلٌ",
       "frequencyRank": 1678,
       "frequencyCount": 127,
       "meaning": {
@@ -33562,7 +33562,7 @@
     },
     {
       "id": "w_1679",
-      "arabicWord": "عَبْد",
+      "arabicWord": "عَبْدٌ",
       "frequencyRank": 1679,
       "frequencyCount": 120,
       "meaning": {
@@ -33582,7 +33582,7 @@
     },
     {
       "id": "w_1680",
-      "arabicWord": "خَيْر",
+      "arabicWord": "خَيْرٌ",
       "frequencyRank": 1680,
       "frequencyCount": 118,
       "meaning": {
@@ -34886,8 +34886,8 @@
       "frequencyRank": 1745,
       "frequencyCount": 1,
       "meaning": {
-        "en": "Whoever",
-        "bn": "শত্রু",
+        "en": "and Michael",
+        "bn": "মীকাঈলের",
         "ur": "جبرئیل کا",
         "hi": "और हामान को",
         "in": "Maha Perkasa",
@@ -37586,8 +37586,8 @@
       "frequencyRank": 1880,
       "frequencyCount": 9,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -39626,8 +39626,8 @@
       "frequencyRank": 1982,
       "frequencyCount": 7,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -41666,8 +41666,8 @@
       "frequencyRank": 2084,
       "frequencyCount": 5,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -43706,8 +43706,8 @@
       "frequencyRank": 2186,
       "frequencyCount": 4,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -45746,8 +45746,8 @@
       "frequencyRank": 2288,
       "frequencyCount": 3,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -47786,8 +47786,8 @@
       "frequencyRank": 2390,
       "frequencyCount": 2,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -49826,8 +49826,8 @@
       "frequencyRank": 2492,
       "frequencyCount": 2,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -51866,8 +51866,8 @@
       "frequencyRank": 2594,
       "frequencyCount": 2,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -53906,8 +53906,8 @@
       "frequencyRank": 2696,
       "frequencyCount": 2,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Bijaksana",
@@ -55946,8 +55946,8 @@
       "frequencyRank": 2798,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -57986,8 +57986,8 @@
       "frequencyRank": 2900,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -60026,8 +60026,8 @@
       "frequencyRank": 3002,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -62066,8 +62066,8 @@
       "frequencyRank": 3104,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -64106,8 +64106,8 @@
       "frequencyRank": 3206,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -66146,8 +66146,8 @@
       "frequencyRank": 3308,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -68186,8 +68186,8 @@
       "frequencyRank": 3410,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -70226,8 +70226,8 @@
       "frequencyRank": 3512,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -72266,8 +72266,8 @@
       "frequencyRank": 3614,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -74306,8 +74306,8 @@
       "frequencyRank": 3716,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -76346,8 +76346,8 @@
       "frequencyRank": 3818,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -78386,8 +78386,8 @@
       "frequencyRank": 3920,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -80426,8 +80426,8 @@
       "frequencyRank": 4022,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -82466,8 +82466,8 @@
       "frequencyRank": 4124,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -84506,8 +84506,8 @@
       "frequencyRank": 4226,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -86546,8 +86546,8 @@
       "frequencyRank": 4328,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -88586,8 +88586,8 @@
       "frequencyRank": 4430,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -90626,8 +90626,8 @@
       "frequencyRank": 4532,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",
@@ -92666,8 +92666,8 @@
       "frequencyRank": 4634,
       "frequencyCount": 1,
       "meaning": {
-        "en": "humility",
-        "bn": "ইচ্ছে",
+        "en": "submissive",
+        "bn": "নত হয়ে",
         "ur": "جو خشوع کرنے والے ہیں",
         "hi": "बेशक",
         "in": "Maha Suci Engkau",

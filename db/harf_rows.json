@@ -23,9 +23,9 @@
     "cov": 0.04166397602965297,
     "sense_idx": "[2]",
     "sense_m": "of",
-    "cit": "Al-Baqarah 2:8",
-    "tar_ar": "وَمِنَ",
-    "tar_m": "And of"
+    "cit": "Al-Baqarah 2:25",
+    "tar_ar": "مِنْ",
+    "tar_m": "of"
   },
   {
     "rank": 2,
@@ -51,9 +51,9 @@
     "cov": 0.02196851308941095,
     "sense_idx": "[2]",
     "sense_m": "concerning",
-    "cit": "Al-Baqarah 2:2",
-    "tar_ar": "فِيهِ",
-    "tar_m": "Book"
+    "cit": "Al-Baqarah 2:65",
+    "tar_ar": "فِى",
+    "tar_m": "concerning"
   },
   {
     "rank": 3,
@@ -67,7 +67,7 @@
     "sense_m": "indeed",
     "cit": "Al-Baqarah 2:6",
     "tar_ar": "إِنَّ",
-    "tar_m": "who"
+    "tar_m": "Indeed"
   },
   {
     "rank": 3,
@@ -78,10 +78,10 @@
     "occ": 1682,
     "cov": 0.02172312699376203,
     "sense_idx": "[2]",
-    "sense_m": "verily",
-    "cit": "Al-Baqarah 2:6",
+    "sense_m": "truly / indeed",
+    "cit": "Al-Baqarah 2:143",
     "tar_ar": "إِنَّ",
-    "tar_m": "who"
+    "tar_m": "Indeed"
   },
   {
     "rank": 4,
@@ -95,7 +95,7 @@
     "sense_m": "upon",
     "cit": "Al-Baqarah 2:5",
     "tar_ar": "عَلَىٰ",
-    "tar_m": "are"
+    "tar_m": "upon"
   },
   {
     "rank": 4,
@@ -107,9 +107,9 @@
     "cov": 0.01866225832698343,
     "sense_idx": "[2]",
     "sense_m": "against",
-    "cit": "Al-Baqarah 2:5",
-    "tar_ar": "عَلَىٰ",
-    "tar_m": "are"
+    "cit": "Al-Baqarah 2:89",
+    "tar_ar": "عَلَى",
+    "tar_m": "against"
   },
   {
     "rank": 5,
@@ -123,7 +123,7 @@
     "sense_m": "who",
     "cit": "Al-Baqarah 2:17",
     "tar_ar": "ٱلَّذِى",
-    "tar_m": "of"
+    "tar_m": "who"
   },
   {
     "rank": 5,
@@ -135,9 +135,9 @@
     "cov": 0.01862351315398623,
     "sense_idx": "[2]",
     "sense_m": "which",
-    "cit": "Al-Baqarah 2:17",
+    "cit": "Al-Baqarah 2:25",
     "tar_ar": "ٱلَّذِى",
-    "tar_m": "of"
+    "tar_m": "which"
   },
   {
     "rank": 6,
@@ -177,9 +177,9 @@
     "cov": 0.01635046300481732,
     "sense_idx": "[1]",
     "sense_m": "what",
-    "cit": "Al-Baqarah 2:4",
-    "tar_ar": "بِمَآ",
-    "tar_m": "in what"
+    "cit": "An-Nahl 16:96",
+    "tar_ar": "مَا",
+    "tar_m": "Whatever"
   },
   {
     "rank": 7,
@@ -204,7 +204,7 @@
     "occ": 742,
     "cov": 0.009582972787973498,
     "sense_idx": "[1]",
-    "sense_m": "to",
+    "sense_m": "to / until",
     "cit": "Al-Baqarah 2:187",
     "tar_ar": "إِلَىٰ",
     "tar_m": "to"
@@ -218,14 +218,14 @@
     "occ": 742,
     "cov": 0.009582972787973498,
     "sense_idx": "[2]",
-    "sense_m": "towards",
-    "cit": "Al-Baqarah 2:14",
-    "tar_ar": "إِلَىٰ",
-    "tar_m": "with"
+    "sense_m": "into / towards",
+    "cit": "Al-Baqarah 2:257",
+    "tar_ar": "إِلَى",
+    "tar_m": "into"
   },
   {
     "rank": 9,
-    "lemma": "مَن",
+    "lemma": "مَنْ",
     "translit": "man",
     "root": "—",
     "pos": "Relative Pronoun / Interrogative",
@@ -234,12 +234,12 @@
     "sense_idx": "[1]",
     "sense_m": "who",
     "cit": "Al-Baqarah 2:8",
-    "tar_ar": "وَمِنَ",
-    "tar_m": "And of"
+    "tar_ar": "مَنْ",
+    "tar_m": "who"
   },
   {
     "rank": 9,
-    "lemma": "مَن",
+    "lemma": "مَنْ",
     "translit": "man",
     "root": "—",
     "pos": "Relative Pronoun / Interrogative",
@@ -253,7 +253,7 @@
   },
   {
     "rank": 10,
-    "lemma": "إِن",
+    "lemma": "إِنْ",
     "translit": "in",
     "root": "—",
     "pos": "Conditional Particle (Ḥarf Sharṭ)",
@@ -261,13 +261,13 @@
     "cov": 0.007464903330793372,
     "sense_idx": "[1]",
     "sense_m": "if",
-    "cit": "Al-Baqarah 2:23",
-    "tar_ar": "وَإِن",
-    "tar_m": "And if"
+    "cit": "Al-Baqarah 2:278",
+    "tar_ar": "إِنْ",
+    "tar_m": "if"
   },
   {
     "rank": 10,
-    "lemma": "إِن",
+    "lemma": "إِنْ",
     "translit": "in",
     "root": "—",
     "pos": "Conditional Particle (Ḥarf Sharṭ)",
@@ -276,8 +276,8 @@
     "sense_idx": "[2]",
     "sense_m": "not",
     "cit": "Al-An'am 6:25",
-    "tar_ar": "أَن",
-    "tar_m": "lest"
+    "tar_ar": "إِنْ",
+    "tar_m": "not"
   },
   {
     "rank": 11,
@@ -288,10 +288,10 @@
     "occ": 578,
     "cov": 0.007464903330793372,
     "sense_idx": "[1]",
-    "sense_m": "Indeed",
+    "sense_m": "to / that",
     "cit": "Al-Baqarah 2:26",
-    "tar_ar": "إِنَّ",
-    "tar_m": "Allāh"
+    "tar_ar": "أَنْ",
+    "tar_m": "to"
   },
   {
     "rank": 12,
@@ -323,17 +323,17 @@
   },
   {
     "rank": 13,
-    "lemma": "ذَٰلِك",
+    "lemma": "ذَٰلِكَ",
     "translit": "dhālik",
     "root": "—",
     "pos": "Demonstrative Pronoun (Masc. Sg.)",
     "occ": 520,
     "cov": 0.006715829986180888,
     "sense_idx": "[1]",
-    "sense_m": "That",
+    "sense_m": "that",
     "cit": "Al-Baqarah 2:2",
     "tar_ar": "ذَٰلِكَ",
-    "tar_m": "Book"
+    "tar_m": "This"
   },
   {
     "rank": 14,
@@ -344,9 +344,9 @@
     "occ": 465,
     "cov": 0.006005501814565602,
     "sense_idx": "[1]",
-    "sense_m": "from it",
+    "sense_m": "for / from",
     "cit": "Al-Baqarah 2:48",
-    "tar_ar": "عَن",
+    "tar_ar": "عَنْ",
     "tar_m": "for"
   },
   {
@@ -358,38 +358,38 @@
     "occ": 465,
     "cov": 0.006005501814565602,
     "sense_idx": "[2]",
-    "sense_m": "follows me",
-    "cit": "Ibrahim 14:36",
-    "tar_ar": "تَبِعَنِى",
-    "tar_m": "follows me"
+    "sense_m": "from / away from",
+    "cit": "Al-Baqarah 2:142",
+    "tar_ar": "عَنْ",
+    "tar_m": "from"
   },
   {
     "rank": 15,
-    "lemma": "قَد",
+    "lemma": "قَدْ",
     "translit": "qad",
     "root": "—",
     "pos": "Particle of Certainty (Ḥarf Taḥqīq)",
     "occ": 406,
     "cov": 0.005243513412287386,
     "sense_idx": "[1]",
-    "sense_m": "kindled",
-    "cit": "Al-Baqarah 2:17",
-    "tar_ar": "ٱسْتَوْقَدَ",
-    "tar_m": "kindled"
+    "sense_m": "certainly / indeed",
+    "cit": "Al-Baqarah 2:144",
+    "tar_ar": "قَدْ",
+    "tar_m": "certainly"
   },
   {
     "rank": 15,
-    "lemma": "قَد",
+    "lemma": "قَدْ",
     "translit": "qad",
     "root": "—",
     "pos": "Particle of Certainty (Ḥarf Taḥqīq)",
     "occ": 406,
     "cov": 0.005243513412287386,
     "sense_idx": "[2]",
-    "sense_m": "and indeed",
-    "cit": "Taha 20:90",
-    "tar_ar": "وَلَقَدْ",
-    "tar_m": "and indeed"
+    "sense_m": "has / indeed",
+    "cit": "Al-Baqarah 2:256",
+    "tar_ar": "قَدْ",
+    "tar_m": "has"
   },
   {
     "rank": 16,
@@ -428,10 +428,10 @@
     "occ": 353,
     "cov": 0.004559015356003565,
     "sense_idx": "[2]",
-    "sense_m": "for the wrongdoers",
-    "cit": "Surah 112:3",
+    "sense_m": "not",
+    "cit": "Al-Baqarah 2:6",
     "tar_ar": "لَمْ",
-    "tar_m": "He"
+    "tar_m": "not"
   },
   {
     "rank": 18,
@@ -456,10 +456,10 @@
     "occ": 317,
     "cov": 0.004094073280037195,
     "sense_idx": "[1]",
-    "sense_m": "\\\"This",
+    "sense_m": "this",
     "cit": "Al-Baqarah 2:25",
     "tar_ar": "هَـٰذَا",
-    "tar_m": "This is"
+    "tar_m": "This"
   },
   {
     "rank": 20,
@@ -470,8 +470,8 @@
     "occ": 280,
     "cov": 0.003616216146405094,
     "sense_idx": "[1]",
-    "sense_m": "Those",
-    "cit": "Surah 76:24",
+    "sense_m": "or",
+    "cit": "Al-Insan 76:24",
     "tar_ar": "أَوْ",
     "tar_m": "or"
   },
@@ -484,10 +484,10 @@
     "occ": 239,
     "cov": 0.003086698782110062,
     "sense_idx": "[1]",
-    "sense_m": "And when",
-    "cit": "Al-Baqarah 2:11",
-    "tar_ar": "وَإِذَا",
-    "tar_m": "And when"
+    "sense_m": "when",
+    "cit": "Al-Baqarah 2:133",
+    "tar_ar": "إِذْ",
+    "tar_m": "when"
   },
   {
     "rank": 21,
@@ -498,10 +498,10 @@
     "occ": 239,
     "cov": 0.003086698782110062,
     "sense_idx": "[2]",
-    "sense_m": "Go",
-    "cit": "Taha 20:42",
-    "tar_ar": "ٱذْهَبْ",
-    "tar_m": "Go"
+    "sense_m": "when",
+    "cit": "Al-Baqarah 2:133",
+    "tar_ar": "إِذْ",
+    "tar_m": "when"
   },
   {
     "rank": 22,
@@ -512,7 +512,7 @@
     "occ": 204,
     "cov": 0.002634671763809425,
     "sense_idx": "[1]",
-    "sense_m": "Those",
+    "sense_m": "those",
     "cit": "Al-Baqarah 2:5",
     "tar_ar": "أُو۟لَـٰٓئِكَ",
     "tar_m": "Those"
@@ -527,9 +527,9 @@
     "cov": 0.002376370610494776,
     "sense_idx": "[1]",
     "sense_m": "if",
-    "cit": "Al-Baqarah 2:96",
+    "cit": "Al-Baqarah 2:102",
     "tar_ar": "لَوْ",
-    "tar_m": "the"
+    "tar_m": "if"
   },
   {
     "rank": 24,
@@ -554,7 +554,7 @@
     "occ": 160,
     "cov": 0.002066409226517196,
     "sense_idx": "[2]",
-    "sense_m": "has",
+    "sense_m": "has / with him",
     "cit": "Ar-Ra'd 13:43",
     "tar_ar": "عِندَهُۥ",
     "tar_m": "has"
@@ -568,10 +568,10 @@
     "occ": 159,
     "cov": 0.002053494168851464,
     "sense_idx": "[1]",
-    "sense_m": "their hearing",
-    "cit": "Surah 2:14",
+    "sense_m": "with",
+    "cit": "Al-Baqarah 2:14",
     "tar_ar": "مَعَكُمْ",
-    "tar_m": "are with you"
+    "tar_m": "with"
   },
   {
     "rank": 25,
@@ -582,10 +582,10 @@
     "occ": 159,
     "cov": 0.002053494168851464,
     "sense_idx": "[2]",
-    "sense_m": "hears",
-    "cit": "Surah 2:14",
+    "sense_m": "with",
+    "cit": "Al-Baqarah 2:14",
     "tar_ar": "مَعَكُمْ",
-    "tar_m": "are with you"
+    "tar_m": "with"
   },
   {
     "rank": 26,
@@ -596,10 +596,10 @@
     "occ": 890,
     "cov": 0.0114944013225019,
     "sense_idx": "[1]",
-    "sense_m": "they wander blindly",
-    "cit": "Al-Baqarah 2:15",
-    "tar_ar": "يَعْمَهُونَ",
-    "tar_m": "they wander blindly"
+    "sense_m": "He",
+    "cit": "Al-Baqarah 2:29",
+    "tar_ar": "هُوَ",
+    "tar_m": "He"
   },
   {
     "rank": 26,
@@ -611,7 +611,7 @@
     "cov": 0.0114944013225019,
     "sense_idx": "[2]",
     "sense_m": "He",
-    "cit": "Taha 20:98",
+    "cit": "Al-Ikhlas 112:1",
     "tar_ar": "هُوَ",
     "tar_m": "He"
   },
@@ -624,10 +624,10 @@
     "occ": 450,
     "cov": 0.005811775949579615,
     "sense_idx": "[1]",
-    "sense_m": "on them",
-    "cit": "Surah 3:122",
-    "tar_ar": "هَمَّت",
-    "tar_m": "the"
+    "sense_m": "they",
+    "cit": "Al-Baqarah 2:38",
+    "tar_ar": "هُمْ",
+    "tar_m": "they"
   },
   {
     "rank": 27,
@@ -638,10 +638,10 @@
     "occ": 450,
     "cov": 0.005811775949579615,
     "sense_idx": "[2]",
-    "sense_m": "And you  think them",
-    "cit": "Surah 3:122",
-    "tar_ar": "هَمَّت",
-    "tar_m": "and"
+    "sense_m": "they",
+    "cit": "Al-Baqarah 2:38",
+    "tar_ar": "هُمْ",
+    "tar_m": "they"
   },
   {
     "rank": 28,
@@ -652,10 +652,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "You Alone",
-    "cit": "Al-Fatihah 1:5",
-    "tar_ar": "إِيَّاكَ",
-    "tar_m": "You"
+    "sense_m": "O",
+    "cit": "Al-Baqarah 2:21",
+    "tar_ar": "يَـٰٓأَيُّهَا",
+    "tar_m": "O"
   },
   {
     "rank": 29,
@@ -666,10 +666,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "surely you would have been",
-    "cit": "Al-Baqarah 2:64",
-    "tar_ar": "لَكُنتُم",
-    "tar_m": "you"
+    "sense_m": "but / however",
+    "cit": "Ali 'Imran 3:198",
+    "tar_ar": "لَـٰكِنِ",
+    "tar_m": "But"
   },
   {
     "rank": 30,
@@ -683,7 +683,7 @@
     "sense_m": "so that you may",
     "cit": "Al-Baqarah 2:21",
     "tar_ar": "لَعَلَّكُمْ",
-    "tar_m": "that"
+    "tar_m": "that you may"
   },
   {
     "rank": 31,
@@ -694,10 +694,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "they used to",
-    "cit": "Al-Baqarah 2:89",
-    "tar_ar": "وَكَانُوا۟",
-    "tar_m": "they"
+    "sense_m": "as if",
+    "cit": "Luqman 31:7",
+    "tar_ar": "كَأَنْ",
+    "tar_m": "as if"
   },
   {
     "rank": 32,
@@ -708,10 +708,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "you turned away",
-    "cit": "Al-Baqarah 2:64",
-    "tar_ar": "تَوَلَّيْتُم",
-    "tar_m": "you turned away"
+    "sense_m": "if only / I wish",
+    "cit": "Maryam 19:23",
+    "tar_ar": "يَـٰلَيْتَنِى",
+    "tar_m": "I wish"
   },
   {
     "rank": 33,
@@ -722,10 +722,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "the people",
-    "cit": "Al-Baqarah 2:8",
-    "tar_ar": "ٱلنَّاسِ",
-    "tar_m": "the people"
+    "sense_m": "never / will not",
+    "cit": "Al-Baqarah 2:55",
+    "tar_ar": "لَنْ",
+    "tar_m": "never"
   },
   {
     "rank": 34,
@@ -736,10 +736,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "then soon",
-    "cit": "An-Nisa 4:30",
-    "tar_ar": "فَسَوْفَ",
-    "tar_m": "then"
+    "sense_m": "soon / going to",
+    "cit": "At-Takathur 102:3",
+    "tar_ar": "سَوْفَ",
+    "tar_m": "going to"
   },
   {
     "rank": 35,
@@ -750,10 +750,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "Nay",
+    "sense_m": "no / nay",
     "cit": "At-Takathur 102:3",
     "tar_ar": "كَلَّا",
-    "tar_m": "You"
+    "tar_m": "No"
   },
   {
     "rank": 36,
@@ -764,10 +764,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "the ignorant\\\"",
-    "cit": "Al-Baqarah 2:210",
+    "sense_m": "has / is",
+    "cit": "Al-Ghashiyah 88:1",
     "tar_ar": "هَلْ",
-    "tar_m": "are"
+    "tar_m": "Has"
   },
   {
     "rank": 37,
@@ -778,7 +778,7 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "Yes",
+    "sense_m": "yes / nay but",
     "cit": "Al-Baqarah 2:81",
     "tar_ar": "بَلَىٰ",
     "tar_m": "Yes"
@@ -792,7 +792,7 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "You have bestowed  Favors",
+    "sense_m": "yes",
     "cit": "Al-A'raf 7:44",
     "tar_ar": "نَعَمْ",
     "tar_m": "Yes"
@@ -806,10 +806,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "Nay",
-    "cit": "Al-Baqarah 2:88",
-    "tar_ar": "بَل",
-    "tar_m": "they"
+    "sense_m": "rather / nay",
+    "cit": "Al-Baqarah 2:135",
+    "tar_ar": "بَلْ",
+    "tar_m": "Rather"
   },
   {
     "rank": 40,
@@ -848,10 +848,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "except",
-    "cit": "Al-Baqarah 2:9",
-    "tar_ar": "إِلَّآ",
-    "tar_m": "except"
+    "sense_m": "unquestionably / beware",
+    "cit": "Al-Baqarah 2:12",
+    "tar_ar": "أَلَآ",
+    "tar_m": "Unquestionably"
   },
   {
     "rank": 43,
@@ -862,10 +862,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "front",
-    "cit": "Al-Baqarah 2:66",
+    "sense_m": "between",
+    "cit": "Al-Baqarah 2:213",
     "tar_ar": "بَيْنَ",
-    "tar_m": "made"
+    "tar_m": "between"
   },
   {
     "rank": 44,
@@ -876,7 +876,7 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "\\\"By Allah",
+    "sense_m": "by Allah",
     "cit": "Yusuf 12:73",
     "tar_ar": "تَٱللَّهِ",
     "tar_m": "By Allāh"
@@ -890,10 +890,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "like  example",
-    "cit": "Al-Baqarah 2:17",
+    "sense_m": "like / as",
+    "cit": "Al-Baqarah 2:261",
     "tar_ar": "كَمَثَلِ",
-    "tar_m": "is"
+    "tar_m": "like"
   },
   {
     "rank": 46,
@@ -904,10 +904,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "All praises and thanks",
+    "sense_m": "for / to / of",
     "cit": "Al-Fatihah 1:2",
-    "tar_ar": "ٱلْحَمْدُ",
-    "tar_m": "All"
+    "tar_ar": "لِلَّهِ",
+    "tar_m": "to"
   },
   {
     "rank": 47,
@@ -918,10 +918,10 @@
     "occ": 18,
     "cov": 0.0002324710379831846,
     "sense_idx": "[1]",
-    "sense_m": "In  name",
+    "sense_m": "in / with",
     "cit": "Al-Fatihah 1:1",
     "tar_ar": "بِسْمِ",
-    "tar_m": "In the name"
+    "tar_m": "In"
   },
   {
     "rank": 48,
@@ -932,10 +932,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "All praises and thanks",
-    "cit": "Al-Fatihah 1:2",
-    "tar_ar": "ٱلْحَمْدُ",
-    "tar_m": "All"
+    "sense_m": "and",
+    "cit": "Al-Baqarah 2:4",
+    "tar_ar": "وَٱلَّذِينَ",
+    "tar_m": "and"
   },
   {
     "rank": 49,
@@ -946,10 +946,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "And when",
-    "cit": "Al-Baqarah 2:14",
-    "tar_ar": "وَإِذَا",
-    "tar_m": "And when"
+    "sense_m": "then / so",
+    "cit": "Al-Baqarah 2:36",
+    "tar_ar": "فَأَزَلَّهُمَا",
+    "tar_m": "But"
   },
   {
     "rank": 50,
@@ -960,10 +960,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "Will say",
+    "sense_m": "will / shall",
     "cit": "Al-Baqarah 2:142",
     "tar_ar": "سَيَقُولُ",
-    "tar_m": "will say"
+    "tar_m": "will"
   },
   {
     "rank": 51,
@@ -974,8 +974,8 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "therewith",
-    "cit": "Surah 20:18",
+    "sense_m": "it / she",
+    "cit": "Taha 20:18",
     "tar_ar": "هِىَ",
     "tar_m": "It"
   },
@@ -988,10 +988,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "and fashioned them",
-    "cit": "Al-Baqarah 2:29",
-    "tar_ar": "فَسَوَّىٰهُنَّ",
-    "tar_m": "and"
+    "sense_m": "they (fem.)",
+    "cit": "Al-Baqarah 2:187",
+    "tar_ar": "هُنَّ",
+    "tar_m": "they"
   },
   {
     "rank": 53,
@@ -1002,10 +1002,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "Then made  them slip",
-    "cit": "Al-Baqarah 2:36",
-    "tar_ar": "فَأَزَلَّهُمَا",
-    "tar_m": "of"
+    "sense_m": "they both",
+    "cit": "At-Tawbah 9:40",
+    "tar_ar": "هُمَا",
+    "tar_m": "they"
   },
   {
     "rank": 54,
@@ -1016,10 +1016,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "while you",
-    "cit": "Al-Baqarah 2:22",
-    "tar_ar": "وَأَنتُمْ",
-    "tar_m": "while you"
+    "sense_m": "You",
+    "cit": "Al-Baqarah 2:32",
+    "tar_ar": "أَنتَ",
+    "tar_m": "You"
   },
   {
     "rank": 55,
@@ -1030,10 +1030,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "while you",
-    "cit": "Al-Baqarah 2:22",
-    "tar_ar": "وَأَنتُمْ",
-    "tar_m": "while you"
+    "sense_m": "you all",
+    "cit": "Al-Baqarah 2:85",
+    "tar_ar": "أَنتُمْ",
+    "tar_m": "you"
   },
   {
     "rank": 56,
@@ -1044,10 +1044,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "Permitted",
-    "cit": "Al-Baqarah 2:187",
-    "tar_ar": "أُحِلَّ",
-    "tar_m": "permissible"
+    "sense_m": "you (fem. pl.)",
+    "cit": "Al-Ahzab 33:28",
+    "tar_ar": "كُنتُنَّ",
+    "tar_m": "you"
   },
   {
     "rank": 57,
@@ -1058,10 +1058,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "\\\"Indeed we",
-    "cit": "Al-Baqarah 2:160",
-    "tar_ar": "وَأَنَا",
-    "tar_m": "and I am"
+    "sense_m": "I",
+    "cit": "Taha 20:14",
+    "tar_ar": "أَنَا",
+    "tar_m": "I"
   },
   {
     "rank": 58,
@@ -1086,10 +1086,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "this",
+    "sense_m": "this (fem.)",
     "cit": "Al-Baqarah 2:35",
-    "tar_ar": "وَقُلْنَا",
-    "tar_m": "And We said"
+    "tar_ar": "هَـٰذِهِ",
+    "tar_m": "this"
   },
   {
     "rank": 60,
@@ -1100,10 +1100,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "And He taught",
+    "sense_m": "these",
     "cit": "Al-Baqarah 2:31",
-    "tar_ar": "وَعَلَّمَ",
-    "tar_m": "And He taught"
+    "tar_ar": "هَـٰٓؤُلَآءِ",
+    "tar_m": "these"
   },
   {
     "rank": 61,
@@ -1114,10 +1114,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "This",
+    "sense_m": "that (fem.)",
     "cit": "Al-Baqarah 2:134",
     "tar_ar": "تِلْكَ",
-    "tar_m": "was"
+    "tar_m": "That"
   },
   {
     "rank": 62,
@@ -1130,7 +1130,7 @@
     "sense_idx": "[1]",
     "sense_m": "that",
     "cit": "Al-Baqarah 2:49",
-    "tar_ar": "ذَٰلِكُم",
+    "tar_ar": "ذَٰلِكُمْ",
     "tar_m": "that"
   },
   {
@@ -1142,10 +1142,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "those",
+    "sense_m": "those who",
     "cit": "Al-Fatihah 1:7",
     "tar_ar": "ٱلَّذِينَ",
-    "tar_m": "of those"
+    "tar_m": "those who"
   },
   {
     "rank": 64,
@@ -1156,7 +1156,7 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "whose",
+    "sense_m": "which / that",
     "cit": "Al-Baqarah 2:24",
     "tar_ar": "ٱلَّتِى",
     "tar_m": "whose"
@@ -1170,7 +1170,7 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "\\\"When",
+    "sense_m": "when",
     "cit": "Al-Baqarah 2:214",
     "tar_ar": "مَتَىٰ",
     "tar_m": "When"
@@ -1184,10 +1184,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "when will be",
-    "cit": "Yunus 10:28",
-    "tar_ar": "إِيَّانَا",
-    "tar_m": "worship us"
+    "sense_m": "when",
+    "cit": "Al-A'raf 7:187",
+    "tar_ar": "أَيَّانَ",
+    "tar_m": "when"
   },
   {
     "rank": 67,
@@ -1198,10 +1198,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "so wherever",
-    "cit": "Al-Baqarah 2:115",
-    "tar_ar": "فَأَيْنَمَا",
-    "tar_m": "So wherever"
+    "sense_m": "where",
+    "cit": "Al-Qiyamah 75:10",
+    "tar_ar": "أَيْنَ",
+    "tar_m": "Where"
   },
   {
     "rank": 68,
@@ -1212,7 +1212,7 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "when",
+    "sense_m": "how / when",
     "cit": "Ali 'Imran 3:40",
     "tar_ar": "أَنَّىٰ",
     "tar_m": "how"
@@ -1233,15 +1233,15 @@
   },
   {
     "rank": 70,
-    "lemma": "الآنَ",
+    "lemma": "ٱلْـَٔـٰنَ",
     "translit": "al-āna",
     "root": "—",
     "pos": "Time Adverb",
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "the rivers",
-    "cit": "Surah 2:71",
+    "sense_m": "now",
+    "cit": "Al-Baqarah 2:71",
     "tar_ar": "ٱلْـَٔـٰنَ",
     "tar_m": "Now"
   },
@@ -1254,10 +1254,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "the world",
-    "cit": "Al-Baqarah 2:86",
-    "tar_ar": "ٱلدُّنْيَا",
-    "tar_m": "of"
+    "sense_m": "from Yourself",
+    "cit": "Ali 'Imran 3:38",
+    "tar_ar": "لَّدُنكَ",
+    "tar_m": "from Yourself"
   },
   {
     "rank": 72,
@@ -1268,10 +1268,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "But perhaps",
-    "cit": "Al-Baqarah 2:216",
-    "tar_ar": "وَعَسَىٰٓ",
-    "tar_m": "But perhaps"
+    "sense_m": "perhaps / may be",
+    "cit": "Al-Isra 17:79",
+    "tar_ar": "عَسَىٰٓ",
+    "tar_m": "expected"
   },
   {
     "rank": 73,
@@ -1282,10 +1282,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "And that I complete",
-    "cit": "Surah 38:3",
-    "tar_ar": "وَّلَاتَ",
-    "tar_m": "was"
+    "sense_m": "not",
+    "cit": "Sad 38:3",
+    "tar_ar": "لَاتَ",
+    "tar_m": "not"
   },
   {
     "rank": 74,
@@ -1296,10 +1296,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "then when",
-    "cit": "Al-Baqarah 2:249",
-    "tar_ar": "فَلَمَّا",
-    "tar_m": "Then when"
+    "sense_m": "not yet",
+    "cit": "'Abasa 80:23",
+    "tar_ar": "لَمَّا",
+    "tar_m": "not yet"
   },
   {
     "rank": 75,
@@ -1310,7 +1310,7 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "meet in",
+    "sense_m": "are alone / meet",
     "cit": "Al-Baqarah 2:76",
     "tar_ar": "خَلَا",
     "tar_m": "meet"
@@ -1324,10 +1324,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "enemies",
-    "cit": "An-Nisa 4:45",
-    "tar_ar": "بِأَعْدَآئِكُمْ",
-    "tar_m": "your"
+    "sense_m": "transgress / exceed",
+    "cit": "Al-Baqarah 2:190",
+    "tar_ar": "تَعْتَدُوٓا۟",
+    "tar_m": "transgress"
   },
   {
     "rank": 77,
@@ -1338,10 +1338,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "So when",
+    "sense_m": "God forbid / perfect is Allah",
     "cit": "Yusuf 12:31",
-    "tar_ar": "فَلَمَّا",
-    "tar_m": "So when"
+    "tar_ar": "حَـٰشَ",
+    "tar_m": "Perfect is Allāh"
   },
   {
     "rank": 78,
@@ -1352,10 +1352,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "And how many",
+    "sense_m": "how many",
     "cit": "Ali 'Imran 3:146",
-    "tar_ar": "وَكَأَيِّن",
-    "tar_m": "And how many"
+    "tar_ar": "كَأَيِّن",
+    "tar_m": "how many"
   },
   {
     "rank": 79,
@@ -1366,10 +1366,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "Like this",
+    "sense_m": "thus / like this",
     "cit": "Al-Baqarah 2:73",
     "tar_ar": "كَذَٰلِكَ",
-    "tar_m": "said"
+    "tar_m": "Thus"
   },
   {
     "rank": 80,
@@ -1380,10 +1380,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "There only",
+    "sense_m": "at that time / there",
     "cit": "Ali 'Imran 3:38",
     "tar_ar": "هُنَالِكَ",
-    "tar_m": "Zechariah"
+    "tar_m": "At that"
   },
   {
     "rank": 81,
@@ -1394,10 +1394,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "the fruits",
-    "cit": "Al-Baqarah 2:22",
-    "tar_ar": "ٱلثَّمَرَٰتِ",
-    "tar_m": "the"
+    "sense_m": "there",
+    "cit": "Al-Insan 76:20",
+    "tar_ar": "ثَمَّ",
+    "tar_m": "there"
   },
   {
     "rank": 82,
@@ -1408,10 +1408,10 @@
     "occ": 8,
     "cov": 0.0001033204613258598,
     "sense_idx": "[1]",
-    "sense_m": "You have bestowed  Favors",
-    "cit": "Surah 3:173",
-    "tar_ar": "وَنِعْمَ",
-    "tar_m": "and"
+    "sense_m": "excellent / best",
+    "cit": "Sad 38:30",
+    "tar_ar": "نِعْمَ",
+    "tar_m": "excellent"
   },
   {
     "rank": 83,
@@ -1422,10 +1422,10 @@
     "occ": 4,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "Evil  that",
+    "sense_m": "evil is that",
     "cit": "Al-Baqarah 2:90",
     "tar_ar": "بِئْسَمَا",
-    "tar_m": "is"
+    "tar_m": "How wretched is that"
   },
   {
     "rank": 84,
@@ -1436,10 +1436,10 @@
     "occ": 4,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "So woe",
-    "cit": "Al-Baqarah 2:79",
-    "tar_ar": "فَوَيْلٌ",
-    "tar_m": "So woe"
+    "sense_m": "woe",
+    "cit": "Al-Mutaffifin 83:1",
+    "tar_ar": "وَيْلٌ",
+    "tar_m": "Woe"
   },
   {
     "rank": 85,
@@ -1450,8 +1450,8 @@
     "occ": 409,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "when / if",
-    "cit": "Surah 110:1",
+    "sense_m": "when",
+    "cit": "An-Nasr 110:1",
     "tar_ar": "إِذَا",
     "tar_m": "When"
   },
@@ -1465,7 +1465,7 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "how",
-    "cit": "Surah 2:28",
+    "cit": "Al-Baqarah 2:28",
     "tar_ar": "كَيْفَ",
     "tar_m": "How"
   },
@@ -1479,9 +1479,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "as for",
-    "cit": "Surah 2:26",
-    "tar_ar": "فَأَمَّا",
-    "tar_m": "as"
+    "cit": "Al-Kahf 18:79",
+    "tar_ar": "أَمَّا",
+    "tar_m": "As for"
   },
   {
     "rank": 88,
@@ -1493,9 +1493,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "either / whether",
-    "cit": "Surah 76:3",
+    "cit": "Al-Insan 76:3",
     "tar_ar": "إِمَّا",
-    "tar_m": "he"
+    "tar_m": "be he"
   },
   {
     "rank": 89,
@@ -1506,10 +1506,10 @@
     "occ": 75,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "why not / had it not been",
-    "cit": "Surah 2:64",
-    "tar_ar": "فَلَوْلَا",
-    "tar_m": "if"
+    "sense_m": "why not",
+    "cit": "Al-Qalam 68:28",
+    "tar_ar": "لَوْلَا",
+    "tar_m": "Why"
   },
   {
     "rank": 90,
@@ -1521,9 +1521,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "then / in that case",
-    "cit": "Surah 17:73",
-    "tar_ar": "وَإِذًا",
-    "tar_m": "and then"
+    "cit": "Al-Isra 17:75",
+    "tar_ar": "إِذًا",
+    "tar_m": "Then"
   },
   {
     "rank": 91,
@@ -1535,9 +1535,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "what",
-    "cit": "Surah 2:26",
+    "cit": "Al-Baqarah 2:26",
     "tar_ar": "مَاذَآ",
-    "tar_m": "what"
+    "tar_m": "What"
   },
   {
     "rank": 92,
@@ -1549,9 +1549,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "whatever",
-    "cit": "Surah 7:132",
+    "cit": "Al-A'raf 7:132",
     "tar_ar": "مَهْمَا",
-    "tar_m": "they"
+    "tar_m": "No matter what"
   },
   {
     "rank": 93,
@@ -1563,9 +1563,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "wherever",
-    "cit": "Surah 2:144",
-    "tar_ar": "وَحَيْثُ",
-    "tar_m": "And wherever"
+    "cit": "Al-Baqarah 2:144",
+    "tar_ar": "حَيْثُ مَا",
+    "tar_m": "wherever"
   },
   {
     "rank": 94,
@@ -1577,9 +1577,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "wherever",
-    "cit": "Surah 2:115",
-    "tar_ar": "فَأَيْنَمَا",
-    "tar_m": "So wherever"
+    "cit": "An-Nisa 4:78",
+    "tar_ar": "أَيْنَمَا",
+    "tar_m": "Wherever"
   },
   {
     "rank": 95,
@@ -1590,10 +1590,10 @@
     "occ": 34,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "that only / that indeed",
-    "cit": "Surah 21:108",
-    "tar_ar": "إِنَّمَا",
-    "tar_m": "only"
+    "sense_m": "that only",
+    "cit": "Al-Anbya 21:108",
+    "tar_ar": "أَنَّمَآ",
+    "tar_m": "that"
   },
   {
     "rank": 96,
@@ -1604,8 +1604,8 @@
     "occ": 149,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "only / indeed",
-    "cit": "Surah 9:60",
+    "sense_m": "only",
+    "cit": "At-Tawbah 9:60",
     "tar_ar": "إِنَّمَا",
     "tar_m": "only"
   },
@@ -1618,10 +1618,10 @@
     "occ": 16,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "whenever / every time",
-    "cit": "Surah 2:20",
+    "sense_m": "every time / whenever",
+    "cit": "Al-Baqarah 2:20",
     "tar_ar": "كُلَّمَآ",
-    "tar_m": "Every"
+    "tar_m": "Every time"
   },
   {
     "rank": 98,
@@ -1632,8 +1632,8 @@
     "occ": 6,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "so that / in order that",
-    "cit": "Surah 20:40",
+    "sense_m": "so that",
+    "cit": "Taha 20:40",
     "tar_ar": "كَىْ",
     "tar_m": "that"
   },
@@ -1646,8 +1646,8 @@
     "occ": 1,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "neglected / without purpose",
-    "cit": "Surah 75:36",
+    "sense_m": "neglected / purposeless",
+    "cit": "Al-Qiyamah 75:36",
     "tar_ar": "سُدًى",
     "tar_m": "neglected"
   },
@@ -1661,9 +1661,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "so that not",
-    "cit": "Surah 3:153",
+    "cit": "Ali 'Imran 3:153",
     "tar_ar": "لِّكَيْلَا",
-    "tar_m": "So"
+    "tar_m": "so you would not"
   },
   {
     "rank": 101,
@@ -1674,10 +1674,10 @@
     "occ": 14,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "so that there not be / lest",
-    "cit": "Surah 2:150",
+    "sense_m": "in order that not",
+    "cit": "Al-Baqarah 2:150",
     "tar_ar": "لِئَلَّا",
-    "tar_m": "so"
+    "tar_m": "in order that"
   },
   {
     "rank": 102,
@@ -1688,10 +1688,10 @@
     "occ": 143,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "that not",
-    "cit": "Surah 3:64",
-    "tar_ar": "إِلَّا",
-    "tar_m": "except"
+    "sense_m": "that we not",
+    "cit": "Ali 'Imran 3:64",
+    "tar_ar": "أَلَّا",
+    "tar_m": "that we will not"
   },
   {
     "rank": 103,
@@ -1702,10 +1702,10 @@
     "occ": 85,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "do you not then",
-    "cit": "Surah 2:44",
+    "sense_m": "will you not then",
+    "cit": "Al-Baqarah 2:44",
     "tar_ar": "أَفَلَا",
-    "tar_m": "Then"
+    "tar_m": "will you not"
   },
   {
     "rank": 104,
@@ -1717,9 +1717,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "have they not then",
-    "cit": "Surah 12:109",
+    "cit": "Yusuf 12:109",
     "tar_ar": "أَفَلَمْ",
-    "tar_m": "So"
+    "tar_m": "have they not"
   },
   {
     "rank": 105,
@@ -1730,10 +1730,10 @@
     "occ": 56,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "have you not",
-    "cit": "Surah 2:260",
-    "tar_ar": "أَوَلَمْ",
-    "tar_m": "Have"
+    "sense_m": "do they not know",
+    "cit": "Al-Baqarah 2:77",
+    "tar_ar": "أَوَلَا",
+    "tar_m": "do they not know"
   },
   {
     "rank": 106,
@@ -1745,9 +1745,9 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "do they not know",
-    "cit": "Surah 2:77",
+    "cit": "Al-Baqarah 2:77",
     "tar_ar": "أَوَلَا",
-    "tar_m": "do"
+    "tar_m": "do they not know"
   },
   {
     "rank": 107,
@@ -1758,22 +1758,22 @@
     "occ": 2,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "bring forward / come",
-    "cit": "Surah 6:150",
+    "sense_m": "bring forward",
+    "cit": "Al-An'am 6:150",
     "tar_ar": "هَلُمَّ",
     "tar_m": "Bring forward"
   },
   {
     "rank": 108,
-    "lemma": "هَاتُوا",
+    "lemma": "هَاتُوا۟",
     "translit": "hātū",
     "root": "—",
     "pos": "Verbal Noun / Imperative",
     "occ": 4,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "produce / bring",
-    "cit": "Surah 2:111",
+    "sense_m": "bring / produce",
+    "cit": "Al-Baqarah 2:111",
     "tar_ar": "هَاتُوا۟",
     "tar_m": "Produce"
   },
@@ -1786,8 +1786,8 @@
     "occ": 1,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "here, take / read",
-    "cit": "Surah 69:19",
+    "sense_m": "here / take",
+    "cit": "Al-Haqqah 69:19",
     "tar_ar": "هَآؤُمُ",
     "tar_m": "Here"
   },
@@ -1800,8 +1800,8 @@
     "occ": 2,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "far, how far / impossible",
-    "cit": "Surah 23:36",
+    "sense_m": "far / how far",
+    "cit": "Al-Mu'minun 23:36",
     "tar_ar": "هَيْهَاتَ",
     "tar_m": "far"
   },
@@ -1814,10 +1814,10 @@
     "occ": 3,
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
-    "sense_m": "fie / ugh",
-    "cit": "Surah 17:23",
+    "sense_m": "fie / uff",
+    "cit": "Al-Isra 17:23",
     "tar_ar": "أُفٍّ",
-    "tar_m": "word"
+    "tar_m": "uff"
   },
   {
     "rank": 112,
@@ -1829,7 +1829,7 @@
     "cov": 5.166023066292991e-05,
     "sense_idx": "[1]",
     "sense_m": "yes, indeed",
-    "cit": "Surah 10:53",
+    "cit": "Yunus 10:53",
     "tar_ar": "إِى",
     "tar_m": "Yes"
   },
@@ -1842,8 +1842,8 @@
     "occ": 36,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "which / what",
-    "cit": "Surah 6:19",
+    "sense_m": "what / which",
+    "cit": "Al-An'am 6:19",
     "tar_ar": "أَىُّ",
     "tar_m": "What"
   },
@@ -1857,9 +1857,9 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "O",
-    "cit": "Surah 2:21",
+    "cit": "Al-Baqarah 2:21",
     "tar_ar": "يَـٰٓأَيُّهَا",
-    "tar_m": "mankind"
+    "tar_m": "O"
   },
   {
     "rank": 115,
@@ -1870,10 +1870,10 @@
     "occ": 5,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "O (feminine)",
-    "cit": "Surah 89:27",
+    "sense_m": "O (fem.)",
+    "cit": "Al-Fajr 89:27",
     "tar_ar": "يَـٰٓأَيَّتُهَا",
-    "tar_m": "it"
+    "tar_m": "O"
   },
   {
     "rank": 116,
@@ -1884,8 +1884,8 @@
     "occ": 8,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "at / near / with",
-    "cit": "Surah 12:25",
+    "sense_m": "at / near",
+    "cit": "Yusuf 12:25",
     "tar_ar": "لَدَا",
     "tar_m": "at"
   },
@@ -1898,10 +1898,10 @@
     "occ": 25,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "behind / beyond",
-    "cit": "Surah 2:91",
-    "tar_ar": "وَرَآءَهُۥ",
-    "tar_m": "is"
+    "sense_m": "after / behind them",
+    "cit": "Al-Kahf 18:79",
+    "tar_ar": "وَرَآءَهُم",
+    "tar_m": "after them"
   },
   {
     "rank": 118,
@@ -1912,10 +1912,10 @@
     "occ": 1,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "ahead / before him",
-    "cit": "Surah 75:5",
+    "sense_m": "ahead / in sin",
+    "cit": "Al-Qiyamah 75:5",
     "tar_ar": "أَمَامَهُۥ",
-    "tar_m": "to"
+    "tar_m": "to continue in sin"
   },
   {
     "rank": 119,
@@ -1926,10 +1926,10 @@
     "occ": 19,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "behind",
-    "cit": "Surah 2:255",
+    "sense_m": "after / behind them",
+    "cit": "Al-Baqarah 2:255",
     "tar_ar": "خَلْفَهُمْ",
-    "tar_m": "is"
+    "tar_m": "after them"
   },
   {
     "rank": 120,
@@ -1940,10 +1940,10 @@
     "occ": 34,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "above / over",
-    "cit": "Surah 2:63",
+    "sense_m": "over / above",
+    "cit": "Al-Baqarah 2:63",
     "tar_ar": "فَوْقَكُمُ",
-    "tar_m": "over you"
+    "tar_m": "over"
   },
   {
     "rank": 121,
@@ -1954,10 +1954,10 @@
     "occ": 51,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "under / beneath",
-    "cit": "Surah 2:25",
+    "sense_m": "beneath / under",
+    "cit": "Al-Baqarah 2:25",
     "tar_ar": "تَحْتِهَا",
-    "tar_m": "them"
+    "tar_m": "beneath"
   },
   {
     "rank": 122,
@@ -1968,8 +1968,8 @@
     "occ": 20,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "right / right hand",
-    "cit": "Surah 7:17",
+    "sense_m": "their right",
+    "cit": "Al-A'raf 7:17",
     "tar_ar": "أَيْمَـٰنِهِمْ",
     "tar_m": "their right"
   },
@@ -1982,8 +1982,8 @@
     "occ": 6,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "left / left side",
-    "cit": "Surah 18:17",
+    "sense_m": "the left",
+    "cit": "Al-Kahf 18:17",
     "tar_ar": "ٱلشِّمَالِ",
     "tar_m": "the left"
   },
@@ -1996,8 +1996,8 @@
     "occ": 7,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "direction / towards",
-    "cit": "Surah 7:47",
+    "sense_m": "toward / direction of",
+    "cit": "Al-A'raf 7:47",
     "tar_ar": "تِلْقَآءَ",
     "tar_m": "toward"
   },
@@ -2011,9 +2011,9 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "around",
-    "cit": "Surah 2:17",
+    "cit": "Al-Baqarah 2:17",
     "tar_ar": "حَوْلَهُۥ",
-    "tar_m": "was around him"
+    "tar_m": "around"
   },
   {
     "rank": 126,
@@ -2025,9 +2025,9 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "before",
-    "cit": "Surah 2:4",
+    "cit": "Al-Baqarah 2:4",
     "tar_ar": "قَبْلِكَ",
-    "tar_m": "before you"
+    "tar_m": "before"
   },
   {
     "rank": 127,
@@ -2039,7 +2039,7 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "after",
-    "cit": "Surah 2:27",
+    "cit": "Al-Baqarah 2:27",
     "tar_ar": "بَعْدِ",
     "tar_m": "after"
   },
@@ -2053,7 +2053,7 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "about what",
-    "cit": "Surah 78:1",
+    "cit": "An-Naba 78:1",
     "tar_ar": "عَمَّ",
     "tar_m": "About what"
   },
@@ -2066,8 +2066,8 @@
     "occ": 5,
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
-    "sense_m": "concerning what",
-    "cit": "Surah 79:43",
+    "sense_m": "in what / concerning what",
+    "cit": "An-Nazi'at 79:43",
     "tar_ar": "فِيمَ",
     "tar_m": "In what"
   },
@@ -2081,7 +2081,7 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "with what",
-    "cit": "Surah 27:35",
+    "cit": "An-Naml 27:35",
     "tar_ar": "بِمَ",
     "tar_m": "with what"
   },
@@ -2095,7 +2095,7 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "from what",
-    "cit": "Surah 86:5",
+    "cit": "At-Tariq 86:5",
     "tar_ar": "مِمَّ",
     "tar_m": "from what"
   },
@@ -2109,7 +2109,7 @@
     "cov": 2.583011533146495e-05,
     "sense_idx": "[1]",
     "sense_m": "why",
-    "cit": "Surah 3:65",
+    "cit": "Ali 'Imran 3:65",
     "tar_ar": "لِمَ",
     "tar_m": "why"
   },
@@ -2122,8 +2122,8 @@
     "occ": 21,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "how much / how long",
-    "cit": "Surah 2:259",
+    "sense_m": "how long",
+    "cit": "Al-Baqarah 2:259",
     "tar_ar": "كَمْ",
     "tar_m": "How long"
   },
@@ -2136,10 +2136,10 @@
     "occ": 1,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "the two who",
-    "cit": "Surah 4:16",
-    "tar_ar": "وَٱلَّذَانِ",
-    "tar_m": "And the two who"
+    "sense_m": "the two who (masc.)",
+    "cit": "An-Nisa 4:16",
+    "tar_ar": "ٱلَّذَانِ",
+    "tar_m": "the two who"
   },
   {
     "rank": 135,
@@ -2151,9 +2151,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "the two who",
-    "cit": "Surah 4:16",
-    "tar_ar": "وَٱلَّذَانِ",
-    "tar_m": "And the two who"
+    "cit": "Fussilat 41:29",
+    "tar_ar": "ٱلَّذَيْنِ",
+    "tar_m": "those who"
   },
   {
     "rank": 136,
@@ -2165,9 +2165,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "those women who",
-    "cit": "Surah 4:15",
-    "tar_ar": "وَٱلَّـٰتِى",
-    "tar_m": "And"
+    "cit": "An-Nur 24:60",
+    "tar_ar": "ٱلَّـٰتِى",
+    "tar_m": "who"
   },
   {
     "rank": 137,
@@ -2179,9 +2179,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "those women who",
-    "cit": "Surah 65:4",
-    "tar_ar": "وَٱلَّـٰٓـِٔى",
-    "tar_m": "And those who"
+    "cit": "Al-Ahzab 33:4",
+    "tar_ar": "ٱلَّـٰٓـِٔى",
+    "tar_m": "whom"
   },
   {
     "rank": 138,
@@ -2193,8 +2193,8 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "those two",
-    "cit": "Surah 28:32",
-    "tar_ar": "فَذَٰنِكَ",
+    "cit": "Al-Qasas 28:32",
+    "tar_ar": "ذَٰنِكَ",
     "tar_m": "those"
   },
   {
@@ -2206,10 +2206,10 @@
     "occ": 2,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "these / they",
-    "cit": "Surah 20:84",
+    "sense_m": "these",
+    "cit": "Taha 20:84",
     "tar_ar": "أُو۟لَآءِ",
-    "tar_m": "are close"
+    "tar_m": "close"
   },
   {
     "rank": 140,
@@ -2221,9 +2221,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "here",
-    "cit": "Surah 2:71",
-    "tar_ar": "ٱلْـَٔـٰنَ",
-    "tar_m": "Now"
+    "cit": "Al-Ma'idah 5:24",
+    "tar_ar": "هَـٰهُنَا",
+    "tar_m": "here"
   },
   {
     "rank": 141,
@@ -2235,9 +2235,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "you two",
-    "cit": "Surah 28:35",
+    "cit": "Al-Qasas 28:35",
     "tar_ar": "أَنتُمَا",
-    "tar_m": "you"
+    "tar_m": "you both"
   },
   {
     "rank": 142,
@@ -2248,10 +2248,10 @@
     "occ": 1,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "your (feminine)",
-    "cit": "Surah 19:28",
-    "tar_ar": "أَبُوكِ",
-    "tar_m": "your father"
+    "sense_m": "you (fem.)",
+    "cit": "Yusuf 12:29",
+    "tar_ar": "إِنَّكِ",
+    "tar_m": "you"
   },
   {
     "rank": 143,
@@ -2263,7 +2263,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "You alone",
-    "cit": "Surah 1:5",
+    "cit": "Al-Fatihah 1:5",
     "tar_ar": "إِيَّاكَ",
     "tar_m": "You"
   },
@@ -2277,7 +2277,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "Him alone",
-    "cit": "Surah 17:23",
+    "cit": "Al-Isra 17:23",
     "tar_ar": "إِيَّاهُ",
     "tar_m": "Him"
   },
@@ -2291,9 +2291,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "Me alone",
-    "cit": "Surah 2:40",
-    "tar_ar": "وَإِيَّـٰىَ",
-    "tar_m": "and"
+    "cit": "Al-Baqarah 2:40",
+    "tar_ar": "إِيَّـٰىَ",
+    "tar_m": "Me"
   },
   {
     "rank": 146,
@@ -2305,9 +2305,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "us alone",
-    "cit": "Surah 28:63",
+    "cit": "Al-Qasas 28:63",
     "tar_ar": "إِيَّانَا",
-    "tar_m": "worship"
+    "tar_m": "us"
   },
   {
     "rank": 147,
@@ -2319,9 +2319,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "you all",
-    "cit": "Surah 6:151",
-    "tar_ar": "نَرْزُقُكُمْ",
-    "tar_m": "provide for you"
+    "cit": "Saba 34:24",
+    "tar_ar": "إِيَّاكُمْ",
+    "tar_m": "you"
   },
   {
     "rank": 148,
@@ -2333,9 +2333,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "them all",
-    "cit": "Surah 17:31",
-    "tar_ar": "وَإِيَّاكُمْ",
-    "tar_m": "and for you"
+    "cit": "Al-An'am 6:151",
+    "tar_ar": "إِيَّاهُمْ",
+    "tar_m": "them"
   },
   {
     "rank": 149,
@@ -2346,10 +2346,10 @@
     "occ": 1,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "why not / if only",
-    "cit": "Surah 15:7",
-    "tar_ar": "لَّوْ",
-    "tar_m": "Why"
+    "sense_m": "why not",
+    "cit": "Al-Hijr 15:7",
+    "tar_ar": "لَّوْ مَا",
+    "tar_m": "Why do you not"
   },
   {
     "rank": 150,
@@ -2360,9 +2360,9 @@
     "occ": 5,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "certainly / no doubt",
-    "cit": "Surah 11:22",
-    "tar_ar": "لَا",
+    "sense_m": "certainly / assuredly",
+    "cit": "Hud 11:22",
+    "tar_ar": "لَا جَرَمَ",
     "tar_m": "Assuredly"
   },
   {
@@ -2375,9 +2375,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "they both began",
-    "cit": "Surah 7:22",
-    "tar_ar": "وَطَفِقَا",
-    "tar_m": "and they began"
+    "cit": "Al-A'raf 7:22",
+    "tar_ar": "طَفِقَا",
+    "tar_m": "began"
   },
   {
     "rank": 152,
@@ -2388,8 +2388,8 @@
     "occ": 24,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "almost / nearly",
-    "cit": "Surah 2:20",
+    "sense_m": "almost",
+    "cit": "Al-Baqarah 2:20",
     "tar_ar": "يَكَادُ",
     "tar_m": "almost"
   },
@@ -2403,9 +2403,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "whichever",
-    "cit": "Surah 17:110",
-    "tar_ar": "أَيًّا",
-    "tar_m": "name"
+    "cit": "Al-Isra 17:110",
+    "tar_ar": "أَيًّا مَّا",
+    "tar_m": "Whichever"
   },
   {
     "rank": 154,
@@ -2417,9 +2417,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "if you do not",
-    "cit": "Surah 2:24",
-    "tar_ar": "فَإِن",
-    "tar_m": "But if"
+    "cit": "Al-Kahf 18:6",
+    "tar_ar": "إِن لَّمْ",
+    "tar_m": "if"
   },
   {
     "rank": 155,
@@ -2431,8 +2431,8 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "unless / except that",
-    "cit": "Surah 2:229",
-    "tar_ar": "إِلَّآ",
+    "cit": "Al-Baqarah 2:229",
+    "tar_ar": "إِلَّآ أَن",
     "tar_m": "unless"
   },
   {
@@ -2444,10 +2444,10 @@
     "occ": 244,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "surely / verily",
-    "cit": "Surah 2:96",
-    "tar_ar": "وَلَتَجِدَنَّهُمْ",
-    "tar_m": "surely"
+    "sense_m": "surely / indeed",
+    "cit": "Al-Baqarah 2:143",
+    "tar_ar": "لَرَءُوفٌ",
+    "tar_m": "Kind"
   },
   {
     "rank": 157,
@@ -2459,7 +2459,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "ever / forever",
-    "cit": "Surah 2:95",
+    "cit": "Al-Baqarah 2:95",
     "tar_ar": "أَبَدًۢا",
     "tar_m": "ever"
   },
@@ -2473,7 +2473,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "yesterday",
-    "cit": "Surah 10:24",
+    "cit": "Yunus 10:24",
     "tar_ar": "بِٱلْأَمْسِ",
     "tar_m": "yesterday"
   },
@@ -2487,7 +2487,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "tomorrow",
-    "cit": "Surah 18:23",
+    "cit": "Al-Kahf 18:23",
     "tar_ar": "غَدًا",
     "tar_m": "tomorrow"
   },
@@ -2501,7 +2501,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "morning",
-    "cit": "Surah 37:177",
+    "cit": "As-Saffat 37:177",
     "tar_ar": "صَبَاحُ",
     "tar_m": "the morning"
   },
@@ -2514,10 +2514,10 @@
     "occ": 3,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "an evening",
-    "cit": "Surah 79:46",
+    "sense_m": "an afternoon / evening",
+    "cit": "An-Nazi'at 79:46",
     "tar_ar": "عَشِيَّةً",
-    "tar_m": "an"
+    "tar_m": "afternoon"
   },
   {
     "rank": 162,
@@ -2528,10 +2528,10 @@
     "occ": 6,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "the morning brightness",
-    "cit": "Surah 93:1",
-    "tar_ar": "وَٱلضُّحَىٰ",
-    "tar_m": "By the morning brightness"
+    "sense_m": "mid-morning / daylight",
+    "cit": "Taha 20:59",
+    "tar_ar": "ضُحًى",
+    "tar_m": "mid-morning"
   },
   {
     "rank": 163,
@@ -2542,10 +2542,10 @@
     "occ": 3,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "at dawn",
-    "cit": "Surah 54:34",
+    "sense_m": "before dawn",
+    "cit": "Al-Qamar 54:34",
     "tar_ar": "بِسَحَرٍ",
-    "tar_m": "dawn"
+    "tar_m": "before dawn"
   },
   {
     "rank": 164,
@@ -2557,7 +2557,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "by night",
-    "cit": "Surah 17:1",
+    "cit": "Al-Isra 17:1",
     "tar_ar": "لَيْلًا",
     "tar_m": "by night"
   },
@@ -2570,10 +2570,10 @@
     "occ": 37,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "in time of",
-    "cit": "Surah 2:177",
-    "tar_ar": "وَحِينَ",
-    "tar_m": "and"
+    "sense_m": "a period of time",
+    "cit": "Al-Insan 76:1",
+    "tar_ar": "حِينٌ",
+    "tar_m": "a period of time"
   },
   {
     "rank": 166,
@@ -2585,7 +2585,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "in stages",
-    "cit": "Surah 71:14",
+    "cit": "Nuh 71:14",
     "tar_ar": "أَطْوَارًا",
     "tar_m": "in stages"
   },
@@ -2598,8 +2598,8 @@
     "occ": 53,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "together / all at once",
-    "cit": "Surah 4:71",
+    "sense_m": "all together",
+    "cit": "An-Nisa 4:71",
     "tar_ar": "جَمِيعًا",
     "tar_m": "all together"
   },
@@ -2612,10 +2612,10 @@
     "occ": 27,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "equal / the same",
-    "cit": "Surah 2:6",
+    "sense_m": "all the same / equal",
+    "cit": "Al-Baqarah 2:6",
     "tar_ar": "سَوَآءٌ",
-    "tar_m": "it"
+    "tar_m": "the same"
   },
   {
     "rank": 169,
@@ -2627,9 +2627,9 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "not / other than",
-    "cit": "Surah 1:7",
+    "cit": "Al-Fatihah 1:7",
     "tar_ar": "غَيْرِ",
-    "tar_m": "not of"
+    "tar_m": "not"
   },
   {
     "rank": 170,
@@ -2641,7 +2641,7 @@
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
     "sense_m": "besides / other than",
-    "cit": "Surah 2:23",
+    "cit": "Al-Baqarah 2:23",
     "tar_ar": "دُونِ",
     "tar_m": "other than"
   },
@@ -2654,10 +2654,10 @@
     "occ": 1,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "equidistant / neutral",
-    "cit": "Surah 20:58",
+    "sense_m": "open / assigned",
+    "cit": "Taha 20:58",
     "tar_ar": "سُوًى",
-    "tar_m": "Then"
+    "tar_m": "assigned"
   },
   {
     "rank": 172,
@@ -2668,10 +2668,10 @@
     "occ": 167,
     "cov": 1.291505766573248e-05,
     "sense_idx": "[1]",
-    "sense_m": "the like of",
-    "cit": "Surah 2:137",
+    "sense_m": "the same as",
+    "cit": "Al-Baqarah 2:137",
     "tar_ar": "بِمِثْلِ",
-    "tar_m": "in"
+    "tar_m": "the same as"
   },
   {
     "rank": 173,
@@ -2683,7 +2683,7 @@
     "cov": 0.001381911170233375,
     "sense_idx": "[1]",
     "sense_m": "both of them",
-    "cit": "Surah 17:23",
+    "cit": "Al-Isra 17:23",
     "tar_ar": "كِلَاهُمَا",
     "tar_m": "both of them"
   }

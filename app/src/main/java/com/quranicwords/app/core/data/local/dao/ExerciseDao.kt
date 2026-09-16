@@ -33,6 +33,9 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercises WHERE type = 'TEACH_WORD' OR type = 'WORD_INTRO'")
     suspend fun getAllTeachWords(): List<ExerciseEntity>
+
+    @Query("DELETE FROM exercises")
+    suspend fun deleteAll()
 }
 
 

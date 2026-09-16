@@ -372,7 +372,7 @@ def main():
 
         /* Typography */
         .font-arabic {{
-            font-family: 'Scheherazade New', 'Amiri', 'Noto Naskh Arabic', serif;
+            font-family: 'KFGQPC Uthman Taha Naskh', 'Amiri Quran', 'Scheherazade New', 'Amiri', 'Traditional Arabic', 'Arabic Typesetting', 'Noto Naskh Arabic', serif;
             direction: rtl;
         }}
         .font-bn {{
@@ -393,13 +393,15 @@ def main():
 
         /* Highlights */
         mark.ar-hl {{
-            background: linear-gradient(135deg, #d97706, #b45309);
-            color: #ffffff;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.35);
-            display: inline-block;
+            background: rgba(217, 119, 6, 0.32);
+            color: #fef08a;
+            font-weight: inherit;
+            padding: 0 4px;
+            border-radius: 4px;
+            border-bottom: 2px solid #f59e0b;
+            display: inline;
+            text-decoration: none;
+            box-shadow: none;
         }}
 
         mark.tr-hl {{
@@ -408,8 +410,8 @@ def main():
             font-weight: 700;
             padding: 1px 8px;
             border-radius: 4px;
-            border: 1px solid rgba(16, 185, 129, 0.5);
-            display: inline-block;
+            border-bottom: 2px solid rgba(16, 185, 129, 0.6);
+            display: inline;
         }}
 
         /* Sidebar Navigation */
@@ -841,10 +843,24 @@ def main():
         }}
 
         .verse-ar {{
-            font-size: 1.35rem;
-            line-height: 1.9;
+            font-size: 1.45rem;
+            line-height: 2.2;
             color: #f1f5f9;
             text-align: right;
+            direction: rtl;
+            overflow: visible;
+        }}
+
+        .target-badge {{
+            font-size: 1.2rem;
+            color: var(--gold);
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 6px;
+            padding: 2px 10px;
+            line-height: 1.6;
+            direction: rtl;
+            display: inline-block;
         }}
 
         .verse-tr {{
@@ -1213,7 +1229,7 @@ def main():
                         <div class="verse-box">
                             <div class="verse-citation">
                                 <span>📖 ${{activeSense.verseCitation}}</span>
-                                <span style="font-size: 0.7rem; color: var(--text-dim);">${{activeSense.targetArabicWord}}</span>
+                                <span class="font-arabic target-badge" dir="rtl">${{activeSense.targetArabicWord}}</span>
                             </div>
                             <div class="verse-ar font-arabic">${{activeSense.fullArabicVerseHl}}</div>
                             <div class="verse-tr font-${{currentLang}}">${{curVerseHl}}</div>
@@ -1250,9 +1266,12 @@ def main():
                 <div class="verse-box" style="margin-bottom: 20px;">
                     <div class="verse-citation">
                         <span>Example Verse: ${{s.verseCitation}}</span>
-                        <span class="stamp-badge">✓ Triple Checked</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="font-arabic target-badge" dir="rtl">${{s.targetArabicWord}}</span>
+                            <span class="stamp-badge">✓ Triple Checked</span>
+                        </div>
                     </div>
-                    <div class="verse-ar font-arabic" style="font-size: 1.5rem;">${{s.fullArabicVerseHl}}</div>
+                    <div class="verse-ar font-arabic" style="font-size: 1.55rem; line-height: 2.2;">${{s.fullArabicVerseHl}}</div>
                 </div>
 
                 <div class="modal-langs-grid">

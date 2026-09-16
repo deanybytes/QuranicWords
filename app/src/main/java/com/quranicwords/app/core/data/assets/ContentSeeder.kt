@@ -22,6 +22,9 @@ class ContentSeeder @Inject constructor(
         if (preferences.isContentSeeded(CONTENT_VERSION)) return
         withContext(Dispatchers.IO) {
             database.chapterDao().deleteAll()
+            database.sectionDao().deleteAll()
+            database.lessonDao().deleteAll()
+            database.exerciseDao().deleteAll()
             database.wordFrequencyDao().deleteAll()
 
             // 1. Chapters
@@ -57,7 +60,7 @@ class ContentSeeder @Inject constructor(
     }
 
     companion object {
-        const val CONTENT_VERSION = 31
+        const val CONTENT_VERSION = 32
     }
 }
 

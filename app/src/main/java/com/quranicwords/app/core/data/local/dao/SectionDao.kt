@@ -28,4 +28,7 @@ interface SectionDao {
 
     @Query("SELECT COUNT(*) FROM sections")
     suspend fun count(): Int
+
+    @Query("DELETE FROM sections")
+    suspend fun deleteAll()
 }

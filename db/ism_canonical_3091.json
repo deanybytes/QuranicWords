@@ -1,7 +1,7 @@
 [
   {
     "Rank": 1,
-    "Arabic Lemma": "اللَّه",
+    "Arabic Lemma": "ٱللَّهُ",
     "Transliteration": "Allāh",
     "Root": "—",
     "POS": "Proper Noun",
@@ -17,7 +17,7 @@
   },
   {
     "Rank": 2,
-    "Arabic Lemma": "رَبّ",
+    "Arabic Lemma": "رَبٌّ",
     "Transliteration": "rabb",
     "Root": "ر-ب-ب",
     "POS": "Noun",
@@ -33,7 +33,7 @@
   },
   {
     "Rank": 2,
-    "Arabic Lemma": "رَبّ",
+    "Arabic Lemma": "رَبٌّ",
     "Transliteration": "rabb",
     "Root": "ر-ب-ب",
     "POS": "Noun",
@@ -49,7 +49,7 @@
   },
   {
     "Rank": 3,
-    "Arabic Lemma": "أَرْض",
+    "Arabic Lemma": "أَرْضٌ",
     "Transliteration": "arḍ",
     "Root": "أ-ر-ض",
     "POS": "Noun",
@@ -65,7 +65,7 @@
   },
   {
     "Rank": 3,
-    "Arabic Lemma": "أَرْض",
+    "Arabic Lemma": "أَرْضٌ",
     "Transliteration": "arḍ",
     "Root": "أ-ر-ض",
     "POS": "Noun",
@@ -81,7 +81,7 @@
   },
   {
     "Rank": 4,
-    "Arabic Lemma": "قَوْم",
+    "Arabic Lemma": "قَوْمٌ",
     "Transliteration": "qawm",
     "Root": "ق-و-م",
     "POS": "Noun",
@@ -97,7 +97,7 @@
   },
   {
     "Rank": 4,
-    "Arabic Lemma": "قَوْم",
+    "Arabic Lemma": "قَوْمٌ",
     "Transliteration": "qawm",
     "Root": "ق-و-م",
     "POS": "Noun",
@@ -113,7 +113,7 @@
   },
   {
     "Rank": 5,
-    "Arabic Lemma": "آيَة",
+    "Arabic Lemma": "ءَايَةٌ",
     "Transliteration": "āyah",
     "Root": "أ-ي-ي",
     "POS": "Noun",
@@ -129,7 +129,7 @@
   },
   {
     "Rank": 5,
-    "Arabic Lemma": "آيَة",
+    "Arabic Lemma": "ءَايَةٌ",
     "Transliteration": "āyah",
     "Root": "أ-ي-ي",
     "POS": "Noun",
@@ -145,7 +145,7 @@
   },
   {
     "Rank": 6,
-    "Arabic Lemma": "كُلّ",
+    "Arabic Lemma": "كُلٌّ",
     "Transliteration": "kull",
     "Root": "ك-ل-ل",
     "POS": "Noun",
@@ -161,7 +161,7 @@
   },
   {
     "Rank": 7,
-    "Arabic Lemma": "رَسُول",
+    "Arabic Lemma": "رَسُولٌ",
     "Transliteration": "rasūl",
     "Root": "ر-س-ل",
     "POS": "Noun",
@@ -177,7 +177,7 @@
   },
   {
     "Rank": 7,
-    "Arabic Lemma": "رَسُول",
+    "Arabic Lemma": "رَسُولٌ",
     "Transliteration": "rasūl",
     "Root": "ر-س-ل",
     "POS": "Noun",
@@ -193,7 +193,7 @@
   },
   {
     "Rank": 8,
-    "Arabic Lemma": "يَوْم",
+    "Arabic Lemma": "يَوْمٌ",
     "Transliteration": "yawm",
     "Root": "ي-و-م",
     "POS": "Time Adverb",
@@ -209,7 +209,7 @@
   },
   {
     "Rank": 8,
-    "Arabic Lemma": "يَوْم",
+    "Arabic Lemma": "يَوْمٌ",
     "Transliteration": "yawm",
     "Root": "ي-و-م",
     "POS": "Time Adverb",
@@ -225,7 +225,7 @@
   },
   {
     "Rank": 9,
-    "Arabic Lemma": "عَذَاب",
+    "Arabic Lemma": "عَذَابٌ",
     "Transliteration": "ʿadhāb",
     "Root": "ع-ذ-ب",
     "POS": "Noun",
@@ -241,7 +241,7 @@
   },
   {
     "Rank": 9,
-    "Arabic Lemma": "عَذَاب",
+    "Arabic Lemma": "عَذَابٌ",
     "Transliteration": "ʿadhāb",
     "Root": "ع-ذ-ب",
     "POS": "Noun",
@@ -257,7 +257,7 @@
   },
   {
     "Rank": 10,
-    "Arabic Lemma": "سَمَاء",
+    "Arabic Lemma": "سَمَآءٌ",
     "Transliteration": "samāʾ",
     "Root": "س-م-و",
     "POS": "Noun",
@@ -273,7 +273,7 @@
   },
   {
     "Rank": 10,
-    "Arabic Lemma": "سَمَاء",
+    "Arabic Lemma": "سَمَآءٌ",
     "Transliteration": "samāʾ",
     "Root": "س-م-و",
     "POS": "Noun",
@@ -289,7 +289,7 @@
   },
   {
     "Rank": 11,
-    "Arabic Lemma": "نَفْس",
+    "Arabic Lemma": "نَفْسٌ",
     "Transliteration": "nafs",
     "Root": "ن-ف-س",
     "POS": "Noun",
@@ -305,7 +305,7 @@
   },
   {
     "Rank": 11,
-    "Arabic Lemma": "نَفْس",
+    "Arabic Lemma": "نَفْسٌ",
     "Transliteration": "nafs",
     "Root": "ن-ف-س",
     "POS": "Noun",
@@ -321,7 +321,7 @@
   },
   {
     "Rank": 12,
-    "Arabic Lemma": "شَيْء",
+    "Arabic Lemma": "شَىْءٌ",
     "Transliteration": "shayʾ",
     "Root": "ش-ي-أ",
     "POS": "Noun",
@@ -337,7 +337,7 @@
   },
   {
     "Rank": 12,
-    "Arabic Lemma": "شَيْء",
+    "Arabic Lemma": "شَىْءٌ",
     "Transliteration": "shayʾ",
     "Root": "ش-ي-أ",
     "POS": "Noun",
@@ -353,7 +353,7 @@
   },
   {
     "Rank": 13,
-    "Arabic Lemma": "كِتَاب",
+    "Arabic Lemma": "كِتَـٰبٌ",
     "Transliteration": "kitāb",
     "Root": "ك-ت-ب",
     "POS": "Noun",
@@ -369,7 +369,7 @@
   },
   {
     "Rank": 13,
-    "Arabic Lemma": "كِتَاب",
+    "Arabic Lemma": "كِتَـٰبٌ",
     "Transliteration": "kitāb",
     "Root": "ك-ت-ب",
     "POS": "Noun",
@@ -385,7 +385,7 @@
   },
   {
     "Rank": 14,
-    "Arabic Lemma": "حَقّ",
+    "Arabic Lemma": "حَقٌّ",
     "Transliteration": "ḥaqq",
     "Root": "ح-ق-ق",
     "POS": "Noun",
@@ -401,7 +401,7 @@
   },
   {
     "Rank": 14,
-    "Arabic Lemma": "حَقّ",
+    "Arabic Lemma": "حَقٌّ",
     "Transliteration": "ḥaqq",
     "Root": "ح-ق-ق",
     "POS": "Noun",
@@ -417,7 +417,7 @@
   },
   {
     "Rank": 15,
-    "Arabic Lemma": "نَاس",
+    "Arabic Lemma": "نَاسٌ",
     "Transliteration": "nās",
     "Root": "ن-و-س",
     "POS": "Noun",
@@ -433,7 +433,7 @@
   },
   {
     "Rank": 15,
-    "Arabic Lemma": "نَاس",
+    "Arabic Lemma": "نَاسٌ",
     "Transliteration": "nās",
     "Root": "ن-و-س",
     "POS": "Noun",
@@ -449,7 +449,7 @@
   },
   {
     "Rank": 16,
-    "Arabic Lemma": "قَبْل",
+    "Arabic Lemma": "قَبْلُ",
     "Transliteration": "qabl",
     "Root": "ق-ب-ل",
     "POS": "Time Adverb",
@@ -465,7 +465,7 @@
   },
   {
     "Rank": 16,
-    "Arabic Lemma": "قَبْل",
+    "Arabic Lemma": "قَبْلُ",
     "Transliteration": "qabl",
     "Root": "ق-ب-ل",
     "POS": "Time Adverb",
@@ -474,14 +474,14 @@
     "Sense Index": "[2]",
     "English Meaning": "before them",
     "Verse Citation": "Maryam 19:74",
-    "Target Arabic Word": "قَبْلَهُم",
-    "Full Arabic Verse": "وَكَمْ أَهْلَكْنَا ([قَبْلَهُم]) مِّن قَرْنٍ هُمْ أَحْسَنُ أَثَـٰثًا وَرِءْيًا",
+    "Target Arabic Word": "قَبْلَهُمْ",
+    "Full Arabic Verse": "وَكَمْ أَهْلَكْنَا ([قَبْلَهُمْ]) مِّن قَرْنٍ هُمْ أَحْسَنُ أَثَـٰثًا وَرِءْيًا",
     "Target Meaning English": "before them",
     "Full English Verse": "And how many a generation have We destroyed ([before them]) who were better in possessions and [outward] appearance?"
   },
   {
     "Rank": 17,
-    "Arabic Lemma": "مُؤْمِن",
+    "Arabic Lemma": "مُؤْمِنٌ",
     "Transliteration": "muʾmin",
     "Root": "أ-م-ن",
     "POS": "Adjective/Noun",
@@ -497,7 +497,7 @@
   },
   {
     "Rank": 17,
-    "Arabic Lemma": "مُؤْمِن",
+    "Arabic Lemma": "مُؤْمِنٌ",
     "Transliteration": "muʾmin",
     "Root": "أ-م-ن",
     "POS": "Adjective/Noun",
@@ -513,7 +513,7 @@
   },
   {
     "Rank": 18,
-    "Arabic Lemma": "سَبِيل",
+    "Arabic Lemma": "سَبِيلٌ",
     "Transliteration": "sabīl",
     "Root": "س-ب-ل",
     "POS": "Noun",
@@ -529,7 +529,7 @@
   },
   {
     "Rank": 19,
-    "Arabic Lemma": "أَمْر",
+    "Arabic Lemma": "أَمْرٌ",
     "Transliteration": "amr",
     "Root": "أ-م-ر",
     "POS": "Noun",
@@ -545,7 +545,7 @@
   },
   {
     "Rank": 19,
-    "Arabic Lemma": "أَمْر",
+    "Arabic Lemma": "أَمْرٌ",
     "Transliteration": "amr",
     "Root": "أ-م-ر",
     "POS": "Noun",
@@ -561,7 +561,7 @@
   },
   {
     "Rank": 20,
-    "Arabic Lemma": "عَالَم",
+    "Arabic Lemma": "عَالَمٌ",
     "Transliteration": "ʿālam",
     "Root": "ع-ل-م",
     "POS": "Noun",
@@ -577,7 +577,7 @@
   },
   {
     "Rank": 20,
-    "Arabic Lemma": "عَالَم",
+    "Arabic Lemma": "عَالَمٌ",
     "Transliteration": "ʿālam",
     "Root": "ع-ل-م",
     "POS": "Noun",
@@ -593,7 +593,7 @@
   },
   {
     "Rank": 21,
-    "Arabic Lemma": "بَعْض",
+    "Arabic Lemma": "بَعْضٌ",
     "Transliteration": "baʿḍ",
     "Root": "ب-ع-ض",
     "POS": "Noun",
@@ -609,7 +609,7 @@
   },
   {
     "Rank": 21,
-    "Arabic Lemma": "بَعْض",
+    "Arabic Lemma": "بَعْضٌ",
     "Transliteration": "baʿḍ",
     "Root": "ب-ع-ض",
     "POS": "Noun",
@@ -625,7 +625,7 @@
   },
   {
     "Rank": 22,
-    "Arabic Lemma": "ظَالِم",
+    "Arabic Lemma": "ظَالِمٌ",
     "Transliteration": "ẓālim",
     "Root": "ظ-ل-م",
     "POS": "Adjective/Noun",
@@ -641,7 +641,7 @@
   },
   {
     "Rank": 22,
-    "Arabic Lemma": "ظَالِم",
+    "Arabic Lemma": "ظَالِمٌ",
     "Transliteration": "ẓālim",
     "Root": "ظ-ل-م",
     "POS": "Adjective/Noun",
@@ -657,7 +657,7 @@
   },
   {
     "Rank": 23,
-    "Arabic Lemma": "نَار",
+    "Arabic Lemma": "نَارٌ",
     "Transliteration": "nār",
     "Root": "ن-و-ر",
     "POS": "Noun",
@@ -673,7 +673,7 @@
   },
   {
     "Rank": 23,
-    "Arabic Lemma": "نَار",
+    "Arabic Lemma": "نَارٌ",
     "Transliteration": "nār",
     "Root": "ن-و-ر",
     "POS": "Noun",
@@ -689,7 +689,7 @@
   },
   {
     "Rank": 24,
-    "Arabic Lemma": "جَنَّة",
+    "Arabic Lemma": "جَنَّةٌ",
     "Transliteration": "jannah",
     "Root": "ج-ن-ن",
     "POS": "Noun",
@@ -705,7 +705,7 @@
   },
   {
     "Rank": 24,
-    "Arabic Lemma": "جَنَّة",
+    "Arabic Lemma": "جَنَّةٌ",
     "Transliteration": "jannah",
     "Root": "ج-ن-ن",
     "POS": "Noun",
@@ -721,7 +721,7 @@
   },
   {
     "Rank": 25,
-    "Arabic Lemma": "قَلْب",
+    "Arabic Lemma": "قَلْبٌ",
     "Transliteration": "qalb",
     "Root": "ق-ل-ب",
     "POS": "Noun",
@@ -737,7 +737,7 @@
   },
   {
     "Rank": 25,
-    "Arabic Lemma": "قَلْب",
+    "Arabic Lemma": "قَلْبٌ",
     "Transliteration": "qalb",
     "Root": "ق-ل-ب",
     "POS": "Noun",
@@ -753,7 +753,7 @@
   },
   {
     "Rank": 26,
-    "Arabic Lemma": "أَهْل",
+    "Arabic Lemma": "أَهْلٌ",
     "Transliteration": "ahl",
     "Root": "أ-ه-ل",
     "POS": "Noun",
@@ -769,7 +769,7 @@
   },
   {
     "Rank": 27,
-    "Arabic Lemma": "عَبْد",
+    "Arabic Lemma": "عَبْدٌ",
     "Transliteration": "ʿabd",
     "Root": "ع-ب-د",
     "POS": "Noun",
@@ -785,7 +785,7 @@
   },
   {
     "Rank": 28,
-    "Arabic Lemma": "خَيْر",
+    "Arabic Lemma": "خَيْرٌ",
     "Transliteration": "khayr",
     "Root": "خ-ي-ر",
     "POS": "Noun/Adjective",
@@ -938,8 +938,8 @@
     "Sense Index": "[1]",
     "English Meaning": "Judgment",
     "Verse Citation": "Ali 'Imran 3:24",
-    "Target Arabic Word": "دِينِهِم",
-    "Full Arabic Verse": "ذَٰلِكَ بِأَنَّهُمْ قَالُوا۟ لَن تَمَسَّنَا ٱلنَّارُ إِلَّآ أَيَّامًا مَّعْدُودَٰتٍ ۖ وَغَرَّهُمْ فِى ([دِينِهِم]) مَّا كَانُوا۟ يَفْتَرُونَ",
+    "Target Arabic Word": "دِينِهِمْ",
+    "Full Arabic Verse": "ذَٰلِكَ بِأَنَّهُمْ قَالُوا۟ لَن تَمَسَّنَا ٱلنَّارُ إِلَّآ أَيَّامًا مَّعْدُودَٰتٍ ۖ وَغَرَّهُمْ فِى ([دِينِهِمْ]) مَّا كَانُوا۟ يَفْتَرُونَ",
     "Target Meaning English": "their religion",
     "Full English Verse": "That is because they say, \"Never will the Fire touch us except for [a few] numbered days,\" and [because] they were deluded in ([their religion]) by what they were inventing."
   },
@@ -1848,12 +1848,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "Whoever",
+    "English Meaning": "and Michael",
     "Verse Citation": "Al-Baqarah 2:98",
-    "Target Arabic Word": "مَن",
-    "Full Arabic Verse": "([مَن]) كَانَ عَدُوًّا لِّلَّهِ وَمَلَـٰٓئِكَتِهِۦ وَرُسُلِهِۦ وَجِبْرِيلَ وَمِيكَىٰلَ فَإِنَّ ٱللَّهَ عَدُوٌّ لِّلْكَـٰفِرِينَ",
-    "Target Meaning English": "Whoever",
-    "Full English Verse": "([Whoever]) is an enemy to Allāh and His angels and His messengers and Gabriel and Michael - then indeed, Allāh is an enemy to the disbelievers."
+    "Target Arabic Word": "وَمِيكَىٰلَ",
+    "Full Arabic Verse": "مَن كَانَ عَدُوًّا لِّلَّهِ وَمَلَـٰٓئِكَتِهِۦ وَرُسُلِهِۦ وَجِبْرِيلَ ([وَمِيكَىٰلَ]) فَإِنَّ ٱللَّهَ عَدُوٌّ لِّلْكَـٰفِرِينَ",
+    "Target Meaning English": "and Michael",
+    "Full English Verse": "Whoever is an enemy to Allāh and His angels and His messengers and Gabriel ([and Michael]) - then indeed, Allāh is an enemy to the disbelievers."
   },
   {
     "Rank": 94,
@@ -2186,8 +2186,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -2360,12 +2360,12 @@
     "Occurrences": 138,
     "Coverage %": 0.001782277957871082,
     "Sense Index": "[2]",
-    "English Meaning": "righteous",
+    "English Meaning": "good deeds",
     "Verse Citation": "Taha 20:112",
-    "Target Arabic Word": "مَن",
-    "Full Arabic Verse": "وَ([مَن]) يَعْمَلْ مِنَ ٱلصَّـٰلِحَـٰتِ وَهُوَ مُؤْمِنٌ فَلَا يَخَافُ ظُلْمًا وَلَا هَضْمًا",
-    "Target Meaning English": "But he who",
-    "Full English Verse": "([But he who]) does of righteous deeds while he is a believer - he will neither fear injustice nor deprivation."
+    "Target Arabic Word": "ٱلصَّـٰلِحَـٰتِ",
+    "Full Arabic Verse": "وَمَن يَعْمَلْ مِنَ ([ٱلصَّـٰلِحَـٰتِ]) وَهُوَ مُؤْمِنٌ فَلَا يَخَافُ ظُلْمًا وَلَا هَضْمًا",
+    "Target Meaning English": "good deeds",
+    "Full English Verse": "And whoever does of ([good deeds]) while he is a believer - he will neither fear injustice nor deprivation."
   },
   {
     "Rank": 123,
@@ -2826,8 +2826,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -3594,8 +3594,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -4072,12 +4072,12 @@
     "Occurrences": 9,
     "Coverage %": 0.0001162355189915923,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 229,
@@ -4458,8 +4458,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -5226,8 +5226,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -5704,12 +5704,12 @@
     "Occurrences": 7,
     "Coverage %": 9.040540366012734e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 331,
@@ -6090,8 +6090,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -6858,8 +6858,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -7336,12 +7336,12 @@
     "Occurrences": 5,
     "Coverage %": 6.457528832866239e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 433,
@@ -7722,8 +7722,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -8490,8 +8490,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -8968,12 +8968,12 @@
     "Occurrences": 4,
     "Coverage %": 5.166023066292991e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 535,
@@ -9354,8 +9354,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -10122,8 +10122,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -10600,12 +10600,12 @@
     "Occurrences": 3,
     "Coverage %": 3.874517299719743e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 637,
@@ -10986,8 +10986,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -11754,8 +11754,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -12232,12 +12232,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 739,
@@ -12618,8 +12618,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -13386,8 +13386,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -13864,12 +13864,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 841,
@@ -14250,8 +14250,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -15018,8 +15018,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -15496,12 +15496,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 943,
@@ -15882,8 +15882,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -16650,8 +16650,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -17128,12 +17128,12 @@
     "Occurrences": 2,
     "Coverage %": 2.583011533146495e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1045,
@@ -17514,8 +17514,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -18282,8 +18282,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -18760,12 +18760,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1147,
@@ -19146,8 +19146,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -19914,8 +19914,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -20392,12 +20392,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1249,
@@ -20778,8 +20778,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -21546,8 +21546,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -22024,12 +22024,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1351,
@@ -22410,8 +22410,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -23178,8 +23178,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -23656,12 +23656,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1453,
@@ -24042,8 +24042,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -24810,8 +24810,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -25288,12 +25288,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1555,
@@ -25674,8 +25674,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -26442,8 +26442,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -26920,12 +26920,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1657,
@@ -27306,8 +27306,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -28074,8 +28074,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -28552,12 +28552,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1759,
@@ -28938,8 +28938,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -29706,8 +29706,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -30184,12 +30184,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1861,
@@ -30570,8 +30570,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -31338,8 +31338,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -31816,12 +31816,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 1963,
@@ -32202,8 +32202,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -32970,8 +32970,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -33448,12 +33448,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2065,
@@ -33834,8 +33834,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -34602,8 +34602,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -35080,12 +35080,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2167,
@@ -35466,8 +35466,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -36234,8 +36234,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -36712,12 +36712,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2269,
@@ -37098,8 +37098,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -37866,8 +37866,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -38344,12 +38344,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2371,
@@ -38730,8 +38730,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -39498,8 +39498,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -39976,12 +39976,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2473,
@@ -40362,8 +40362,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -41130,8 +41130,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -41608,12 +41608,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2575,
@@ -41994,8 +41994,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -42762,8 +42762,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -43240,12 +43240,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2677,
@@ -43626,8 +43626,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -44394,8 +44394,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -44872,12 +44872,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2779,
@@ -45258,8 +45258,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -46026,8 +46026,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -46504,12 +46504,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2881,
@@ -46890,8 +46890,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -47658,8 +47658,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -48136,12 +48136,12 @@
     "Occurrences": 1,
     "Coverage %": 1.291505766573248e-05,
     "Sense Index": "[1]",
-    "English Meaning": "humility",
+    "English Meaning": "submissive",
     "Verse Citation": "Ash-Shu'ara 26:4",
-    "Target Arabic Word": "إِن",
-    "Full Arabic Verse": "([إِن]) نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا خَـٰضِعِينَ",
-    "Target Meaning English": "If",
-    "Full English Verse": "([If]) We willed, We could send down to them from the sky a sign for which their necks would remain humbled."
+    "Target Arabic Word": "خَـٰضِعِينَ",
+    "Full Arabic Verse": "إِن نَّشَأْ نُنَزِّلْ عَلَيْهِم مِّنَ ٱلسَّمَآءِ ءَايَةً فَظَلَّتْ أَعْنَـٰقُهُمْ لَهَا ([خَـٰضِعِينَ])",
+    "Target Meaning English": "submissive",
+    "Full English Verse": "If We will, We can send down to them from the sky a sign for which their necks would remain ([submissive])."
   },
   {
     "Rank": 2983,
@@ -48522,8 +48522,8 @@
     "Sense Index": "[1]",
     "English Meaning": "your witnesses",
     "Verse Citation": "Al-Baqarah 2:23",
-    "Target Arabic Word": "شُهَدَآءَكُم",
-    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُم]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
+    "Target Arabic Word": "شُهَدَآءَكُمْ",
+    "Full Arabic Verse": "وَإِن كُنتُمْ فِى رَيْبٍ مِّمَّا نَزَّلْنَا عَلَىٰ عَبْدِنَا فَأْتُوا۟ بِسُورَةٍ مِّن مِّثْلِهِۦ وَٱدْعُوا۟ ([شُهَدَآءَكُمْ]) مِّن دُونِ ٱللَّهِ إِن كُنتُمْ صَـٰدِقِينَ",
     "Target Meaning English": "your witnesses",
     "Full English Verse": "And if you are in doubt about what We have sent down [i.e., the Qur’ān] upon Our Servant [i.e., Prophet Muḥammad (ﷺ)], then produce a sūrah the like thereof and call upon ([your witnesses]) [i.e., supporters] other than Allāh, if you should be truthful."
   },
@@ -49290,8 +49290,8 @@
     "Sense Index": "[1]",
     "English Meaning": "you turned away",
     "Verse Citation": "Al-Baqarah 2:64",
-    "Target Arabic Word": "تَوَلَّيْتُم",
-    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُم]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
+    "Target Arabic Word": "تَوَلَّيْتُمْ",
+    "Full Arabic Verse": "ثُمَّ ([تَوَلَّيْتُمْ]) مِّنۢ بَعْدِ ذَٰلِكَ ۖ فَلَوْلَا فَضْلُ ٱللَّهِ عَلَيْكُمْ وَرَحْمَتُهُۥ لَكُنتُم مِّنَ ٱلْخَـٰسِرِينَ",
     "Target Meaning English": "you turned away",
     "Full English Verse": "Then ([you turned away]) after that. And if not for the favor of Allāh upon you and His mercy, you would have been among the losers."
   },
@@ -49345,7 +49345,7 @@
   },
   {
     "Rank": 13,
-    "Arabic Lemma": "كِتَاب",
+    "Arabic Lemma": "كِتَـٰبٌ",
     "Transliteration": "kitāb",
     "Root": "ك-ت-ب",
     "POS": "Noun",
@@ -49361,7 +49361,7 @@
   },
   {
     "Rank": 18,
-    "Arabic Lemma": "سَبِيل",
+    "Arabic Lemma": "سَبِيلٌ",
     "Transliteration": "sabīl",
     "Root": "س-ب-ل",
     "POS": "Noun",

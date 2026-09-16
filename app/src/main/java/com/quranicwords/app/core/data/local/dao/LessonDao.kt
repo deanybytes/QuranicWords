@@ -40,5 +40,8 @@ interface LessonDao {
 
     @Query("SELECT COUNT(*) FROM lessons")
     suspend fun count(): Int
+
+    @Query("DELETE FROM lessons")
+    suspend fun deleteAll()
 }
 
