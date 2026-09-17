@@ -61,6 +61,7 @@ The curriculum covers all **4,709 Quranic vocabulary items** divided by Part of 
 `DistractorGenerator` (`core/domain/DistractorGenerator.kt`):
 - Uses `WordCandidatePool` to select plausibly similar distractors matching the grammatical category and approximate frequency range of the target word.
 - Dynamically resolves canonical meanings at runtime from `WordFrequencyEntity` across all 11 supported languages to guarantee 100% semantic consistency between teach cards, multiple-choice options, matching pairs, and verse taps.
+- Detects multi-sense token collisions (`hasSenseOverlap`) across slash-separated (` / `) and comma-separated (`, `) tokens, completely eliminating ambiguous distractor overlaps where a candidate option shares a sense with the target word.
 
 ## 🔄 Adaptive Mistaken Words Tracking
 

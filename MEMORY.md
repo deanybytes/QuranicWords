@@ -42,6 +42,13 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
   - **Language Bundle Optimization**: Disabled language splits (`bundle.language.enableSplit = false`) to ensure all 11 languages are bundled locally and switchable offline.
   - **Signed Release Bundle**: Automated `bundleRelease` copying signed `.aab` and `.apk` to repo root.
 
+- **v1.0.1 Unified Multi-Sense Meanings & Zero-Collision Distractor Engine (2026-09-17)** — done:
+  - **Multi-Sense Meaning Unification**: Harmonized all 73 polysemous words across Harf (19), Fil (24), and Ism (30) to combine senses via ' / ' (e.g. `A, B / X, Y`) across all 10 languages in `word_frequency.json` and all 4,709 `WORD_INTRO` and `MULTIPLE_CHOICE` exercises in `exercises_vocabulary.json`.
+  - **Zero Collision Distractors**: Upgraded `DistractorGenerator.kt` and `LessonViewModel.kt` to detect sense token collisions on slash-separated meanings (`hasSenseOverlap`). Resolved all 779 colliding distractors across all 4,709 MC exercises for 100% collision-free quiz options.
+  - **Unit Testing**: Added unit tests in `DistractorGeneratorTest.kt` verifying collision detection on multi-sense words with overlapping tokens.
+  - **Content Reseed**: Bumped `ContentSeeder.CONTENT_VERSION` to 33 for clean Room reseed.
+  - **Signed Release Bundle**: Built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 19`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`. Regenerated `QuranicWords_Dictionary.html`.
+
 Verified after every phase: `./gradlew :app:compileDebugKotlin`, `:app:testDebugUnitTest`, `:app:assembleDebug` all pass.
 
 ## Key decisions (see the plan file for the complete table and rationale)

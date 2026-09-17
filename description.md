@@ -215,16 +215,16 @@ Download QuranicWords today and start understanding the language of the Noble Qu
 ## 📢 4. What's New / Release Notes (Character Limit: Max 500)
 
 ```text
-Welcome to the official launch of QuranicWords v1.0.0!
-• Complete curriculum of 4,709 Quranic words covering ~80%+ of the Quran
-• 10 Chapters, 100 Sections, and 1,217 Lessons ordered strictly by frequency
-• 3 Parts of Speech: Harf (Particles), Fil (Verbs), and Ism (Nouns)
+QuranicWords v1.0.1:
+• Harmonized multi-sense word meanings (Wujūh al-Qur'an) across all 10 languages
+• Upgraded distractor engine: 100% collision-free quiz options
+• Complete curriculum: 4,709 Quranic words covering ~80%+ of the Quran
+• 10 Chapters, 100 Sections, 1,217 Lessons ordered by frequency
+• 3 Parts of Speech: Harf (Particles), Fil (Verbs), Ism (Nouns)
 • 6 Practice & Test Modes including Chapterwise and Mistaken Review
-• 11 Languages supported with exact in-verse contextual highlights
-• 5 Bundled Arabic script typefaces
-• 100% Offline, ad-free, private, and free forever
+• 100% Offline, ad-free, and private
 ```
-*(Length: 494 / 500 characters)*
+*(Length: 468 / 500 characters)*
 
 ---
 

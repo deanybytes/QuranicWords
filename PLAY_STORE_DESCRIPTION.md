@@ -224,19 +224,19 @@ Download QuranicWords today and start understanding the language of the Noble Qu
 
 ## 📢 4. What's New / Release Notes (Max 500 characters)
 
-For Google Play Console release notes under `versionCode 18` / `versionName 1.0.0`:
+For Google Play Console release notes under `versionCode 19` / `versionName 1.0.1`:
 
 ```text
-Welcome to the official launch of QuranicWords v1.0.0!
-• Complete curriculum of 4,709 Quranic words covering ~80%+ of the Quran
-• 10 Chapters, 100 Sections, and 1,217 Lessons ordered strictly by frequency
-• 3 Parts of Speech: Harf (Particles), Fil (Verbs), and Ism (Nouns)
+QuranicWords v1.0.1:
+• Harmonized multi-sense word meanings (Wujūh al-Qur'an) across all 10 languages
+• Upgraded distractor engine: 100% collision-free quiz options
+• Complete curriculum: 4,709 Quranic words covering ~80%+ of the Quran
+• 10 Chapters, 100 Sections, 1,217 Lessons ordered by frequency
+• 3 Parts of Speech: Harf (Particles), Fil (Verbs), Ism (Nouns)
 • 6 Practice & Test Modes including Chapterwise and Mistaken Review
-• 11 Languages supported with exact in-verse contextual highlights
-• 5 Bundled Arabic script typefaces
-• 100% Offline, ad-free, private, and free forever
+• 100% Offline, ad-free, and private
 ```
-*(Length: 494 / 500 characters)*
+*(Length: 468 / 500 characters)*
 
 ---
 
@@ -403,10 +403,10 @@ Téléchargez QuranicWords dès aujourd'hui et progressez dans votre compréhens
 ## 🚀 8. Publishing Checklist for Google Play Console
 
 1. [x] Application ID: `com.deanybytes.quranicwords`
-2. [x] Production Release Version: `versionName = "1.0.0"`, `versionCode = 18`
+2. [x] Production Release Version: `versionName = "1.0.1"`, `versionCode = 19`
 3. [x] Target SDK: `36` (Android 16 compatibility)
-4. [x] Signed App Bundle: `QuranicWords-v1.0.0.aab` generated and signed
-5. [x] Native Debug Symbols: `QuranicWords-v1.0.0-native-debug-symbols.zip` extracted
+4. [x] Signed App Bundle: `QuranicWords-v1.0.1.aab` generated and signed
+5. [x] Native Debug Symbols: `QuranicWords-v1.0.1-native-debug-symbols.zip` extracted
 6. [x] App Title, Short Description, and Full Description character limits verified
 7. [x] Privacy Policy hosted and linked to `docs/PRIVACY_POLICY.md`
 8. [x] Data Safety questionnaire answers mapped (Zero collection, zero sharing)
