@@ -2,6 +2,18 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.1] - 2026-09-17
+
+### Added
+- **Unified Multi-Sense Word Meanings**: Harmonized all 73 polysemous words across Harf (19), Fil (24), and Ism (30) to combine senses via ' / ' separator (e.g. `A, B / X, Y`) across all 10 languages (English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, French).
+- **Collision-Free Distractor Engine**: Upgraded `DistractorGenerator.kt` and `LessonViewModel.kt` with multi-sense token collision detection (`hasSenseOverlap`) across slash-separated and comma-separated tokens, completely eliminating ambiguous distractor collisions across all 4,709 multiple-choice exercises.
+- **Unit Test Coverage**: Added unit tests in `DistractorGeneratorTest.kt` verifying collision detection on multi-sense words with overlapping tokens.
+
+### Changed
+- **Curriculum & Exercise Synchronization**: Updated `word_frequency.json` and all 4,709 `WORD_INTRO` and `MULTIPLE_CHOICE` exercises in `exercises_vocabulary.json` with unified multi-sense glosses and clean distractors.
+- **Clean Database Reseeding Pipeline**: Bumped `ContentSeeder.CONTENT_VERSION` to 33 to trigger an automated wipe-and-reseed of Room content tables on existing and new installs without affecting user progress.
+- **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` with unified multi-sense meanings; built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 19`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+
 ## [1.0.0] - 2026-09-16 (Google Play Store Official Release)
 
 ### Changed

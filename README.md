@@ -15,7 +15,7 @@
   <img alt="Target SDK" src="https://img.shields.io/badge/targetSdk-36-blue" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
   <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
-  <img alt="Release" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" />
+  <img alt="Release" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" />
 </p>
 
 ---
@@ -26,7 +26,7 @@
 
 > 🕋 **No human faces, anywhere.** Icons, illustrations, and avatars use geometric, calligraphic, and nature motifs only.
 > 📖 **No scripture as decoration.** Ayat/Mushaf text is never used as a loading-screen skin or gamification flourish — it only ever appears as real lesson content.
-> 🌙 **11-language architecture** (English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی, Hausa, Kiswahili, Français), chosen by the learner at setup — not inferred from device locale. Features 100% verified word meanings, contextual polysemic senses (*Wujūh al-Qur'an*), and exact in-verse span highlights with complete Tashkīl and zero mismatches.
+> 🌙 **11-language architecture** (English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی, Hausa, Kiswahili, Français), chosen by the learner at setup — not inferred from device locale. Features 100% verified word meanings, unified contextual polysemic senses (*Wujūh al-Qur'an*), collision-free quiz distractors, and exact in-verse span highlights with complete Tashkīl and zero mismatches.
 > 🟢 **One green identity**, day and night — Material You dynamic color is deliberately disabled.
 
 ---

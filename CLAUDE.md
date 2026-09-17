@@ -71,7 +71,7 @@ Onboarding is Splash → Language → Path (Learn & Test vs. Test-Only) → Font
 - **`isScored`**: `false` only for `WordIntro` (teach step) and `ChapterIntro`.
 - **`OptionsBearing`**: `MultipleChoice`, `FillInTheBlank` (regenerated at runtime by `DistractorGenerator`).
 - **`practicedItemId()`**: The word ID quizzed by the scored exercise.
-- **Meaning resolved at read time**: `LessonViewModel.resolveCanonicalMeaning` overrides baked JSON fields with fresh lookups from `WordFrequencyEntity` across all 11 supported languages.
+- **Meaning resolved at read time**: `LessonViewModel.resolveCanonicalMeaning` overrides baked JSON fields with fresh lookups from `WordFrequencyEntity` across all 11 supported languages. Multi-sense meanings combine senses via `' / '`, and distractor generation detects sense-token overlaps to guarantee 100% collision-free quiz options.
 
 
 Adding a new `ExerciseContent` subtype means touching, at minimum: `isScored`, `practicedItemId()`, `LessonScreen.kt`'s content-dispatch `when` and check-button-visibility `when`, `LessonScreen.kt`'s `correctAnswerLabel()`, and `LessonViewModel.onCheckPressed()`'s correctness `when` (plus `finalizeCheck`'s `ExerciseType` mapping). A new Composable under `feature/lesson/exercise/` renders it; reuse `OptionCard` (from `MultipleChoiceExercise.kt`) for options-bearing types and `AudioPlayButton` for anything that plays audio.
@@ -80,7 +80,7 @@ Adding a new `ExerciseContent` subtype means touching, at minimum: `isScored`, `
 
 `QwDatabase` has no `Migration` objects yet (check `QwDatabase.version` for the current number, not this doc — it bumps freely pre-launch) — `core/di/DatabaseModule.kt` builds it with `.fallbackToDestructiveMigration(dropAllTables = true)`, a deliberate pre-launch choice (no installed base to preserve, so there's nothing to migrate). Once this schema needs to survive a real release, that call should be replaced with real hand-written `Migration(n, n+1)` objects whose raw SQL matches what Room would generate for each `@Entity` change — bump `QwDatabase.version`, write the migration, and register it via `.addMigrations(...)` in `DatabaseModule`. Until then, any schema change is a free version bump; don't add migration scaffolding preemptively for changes made before the first real release.
 
-`ContentSeeder.CONTENT_VERSION = 32` is a **separate** version counter (check `ContentSeeder.kt` for the current number; tracked in `UserPreferencesDataStore`, not Room) gating `ContentSeeder.seedIfNeeded()`'s full wipe-and-reseed of the 5 content tables (`chapters`, `sections`, `lessons`, `exercises`, `word_frequency`) from `app/src/main/assets/content/*.json`. It never touches `user_progress`/`user_stats`/`exercise_attempts` — those are real user data. Bump `CONTENT_VERSION` whenever bundled content JSON changes shape *or values* in a way that needs a full reseed.
+`ContentSeeder.CONTENT_VERSION = 33` is a **separate** version counter (check `ContentSeeder.kt` for the current number; tracked in `UserPreferencesDataStore`, not Room) gating `ContentSeeder.seedIfNeeded()`'s full wipe-and-reseed of the 5 content tables (`chapters`, `sections`, `lessons`, `exercises`, `word_frequency`) from `app/src/main/assets/content/*.json`. It never touches `user_progress`/`user_stats`/`exercise_attempts` — those are real user data. Bump `CONTENT_VERSION` whenever bundled content JSON changes shape *or values* in a way that needs a full reseed.
 
 ### Per-item progress tracking (`ExerciseAttemptEntity`) and the Review session
 

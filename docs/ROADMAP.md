@@ -18,7 +18,8 @@ QuranicWords is a focused Quranic vocabulary app structured around the three tra
 - [x] **Achievements System**: 17 unlockable milestone badges with custom-drawn medallions.
 - [x] **11-Language Architecture**: English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی, Hausa, Kiswahili, Français. 100% verified glosses and in-verse highlights.
 - [x] **100% Offline & Private**: Zero network dependencies, zero telemetry, local backup export/import via SAF.
-- [x] **Play Store v1.0.0 Production Release**: targetSdk 36 (Android 16), unstripped native debug symbols, language split disabled for offline multi-language use.
+- [x] **Play Store v1.0.0 & v1.0.1 Production Releases**: targetSdk 36 (Android 16), unstripped native debug symbols, language split disabled for offline multi-language use.
+- [x] **Unified Multi-Sense & Zero-Collision Distractors (v1.0.1)**: Harmonized all 73 polysemous words with slash-separated senses across 10 languages and eliminated all distractor collisions across 4,709 exercises.
 - [x] **Open Source & Ecosystem**: GPL-3.0 licensed on GitHub, part of the DEANY TALKS Dawah platform ecosystem.
 
 ## 🔜 Future Enhancements

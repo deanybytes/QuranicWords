@@ -38,6 +38,7 @@ A quiz with no prior exposure to the word is a testing platform, not a teaching 
 
 In the Qur'an, many words carry different contextual meanings depending on the surah and ayah. Every word in QuranicWords features:
 - **Polysemy Tabs**: Multiple distinct meanings categorized and tabbed.
+- **Unified Multi-Sense Meanings**: Words with polysemous senses combine meanings via slash `' / '` separators (e.g., `A, B / X, Y`) across all 10 languages, tested thoroughly without ambiguous quiz option overlap.
 - **Contextual Verse Examples**: Real Quranic verses illustrating each specific contextual sense.
 - **Tashkīl & Ḥarakāt Preservation**: Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with seamless in-verse span highlighting across all 11 languages.
 

@@ -22,7 +22,7 @@ This repo's discipline is to **flag unsourced content rather than fabricate it**
 
 ## Contextual Polysemy (Wujūh al-Qur'an) & Full Tashkīl
 
-- **Multi-sense tabs**: Words with distinct Quranic connotations carry structured `polysemyEntries` with dedicated contextual verse occurrences and translations.
+- **Multi-sense tabs & Unified Meanings**: Words with distinct Quranic connotations carry structured `polysemyEntries` with dedicated contextual verse occurrences and translations. All 73 polysemous lemmas across Harf, Fil, and Ism combine senses via `' / '` separators across 10 languages (curated via `tools/fixes/unify_multisense_and_clean_quizzes.py`).
 - **Tashkīl & Ḥarakāt Preservation**: Character spans (`arabicWordStart`/`arabicWordEnd`) preserve diacritical markings across all verses. Complete vocalization curated via `tools/fixes/curate_vocalization_and_diacritics.py` ensuring 100% presence of sukūn, fatḥah, kasrah, ḍammah, shaddah, and tanwīn.
 
 ## Audio Architecture
