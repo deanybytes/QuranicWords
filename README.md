@@ -53,7 +53,7 @@
 
 ## 🎯 The curriculum
 
-QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **9,428 Exercises**:
+QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **14,358 Exercises**:
 
 1. **Ḥarf (الحرف — Particles)**: 173 Quranic particles (24,651 occurrences, 41.16% of Quranic text) structured across 10 sections in Chapter 1.
 2. **Fi'l (الفعل — Verbs)**: 1,479 Quranic verbs (13,491 occurrences) structured across 30 sections in Chapters 2 to 4.

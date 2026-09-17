@@ -4,6 +4,80 @@
 
 ---
 
+## 🚀 v1.0.1 (versionCode 20)
+
+```xml
+<en-US>
+QuranicWords v1.0.1:
+• 14,358 exercises across 1,217 lessons (0 empty lessons)
+• Added matching quizzes to end of all 997 regular lessons
+• Fully populated all section exams, chapter exams & flashbacks
+• Auto-healing curriculum unlock progression & smooth transitions
+• Harmonized multi-sense meanings (Wujūh al-Qur'an)
+• 100% collision-free quiz options
+• 100% offline, private, and ad-free
+</en-US>
+
+<bn-BD>
+QuranicWords v1.0.1:
+• ১,২১৭টি পাঠে মোট ১৪,৩৫৮টি ইন্টারঅ্যাক্টিভ অনুশীলন
+• সব ৯৯৭টি সাধারণ পাঠের শেষে নতুন ম্যাচিং কুইজ যুক্ত
+• সব সেকশন ও চ্যাপ্টার পরীক্ষা এবং ফ্ল্যাশব্যাক পাঠ সম্পূর্ণ
+• স্বয়ংক্রিয় লেসন আনলক ও নিরবচ্ছিন্ন অগ্রগতি নিশ্চিত
+• কুরআনিক ওয়াজহ (বহু-অর্থ) সমন্বয় ও পরিমার্জন
+• কুইজের অপশনে ১০০% নিখুঁত ও সংঘাতহীন উত্তর
+• ১০০% অফলাইন, নিরাপদ ও বিজ্ঞাপনমুক্ত
+</bn-BD>
+
+<ur>
+QuranicWords v1.0.1:
+• ۱،۲۱۷ اسباق میں ۱۴،۳۵۸ مشقیں مکمل
+• تمام ۹۹۷ اسباق کے اختتام پر میچنگ کوئز کا اضافہ
+• تمام سیکشن و باب امتحانات اور فلیش بیک اسباق مکمل
+• اسباق کے خودکار انلاک اور ہموار پیش رفت کا نظام
+• وجوہ القرآن (کثیر المعانی الفاظ) کی ہم آہنگی
+• کوئز میں ۱۰۰٪ درست اور تصادم سے پاک اختیارات
+• ۱۰۰٪ آف لائن، محفوظ اور اشتہارات سے پاک
+</ur>
+
+<id>
+QuranicWords v1.0.1:
+• 14.358 latihan interaktif di seluruh 1.217 pelajaran
+• Kuis mencocokkan di akhir semua 997 pelajaran reguler
+• Ujian bagian, ujian bab, & kilas balik terisi lengkap
+• Perbaikan sistem buka kunci pelajaran otomatis
+• Penyelarasan makna ganda Al-Qur'an (Wujuh al-Qur'an)
+• Opsi kuis 100% bebas tabrakan makna
+• 100% offline, bebas iklan, & privat selamanya
+</id>
+
+<tr-TR>
+QuranicWords v1.0.1:
+• 1.217 derste toplam 14.358 etkileşimli alıştırma
+• 997 normal dersin sonuna eşleştirme testleri eklendi
+• Tüm ünite/bölüm sınavları ve tekrar dersleri tamamlandı
+• Otomatik ders kilidi açma ve sorunsuz ilerleme sistemi
+• Kur'an'daki çok anlamlı kelimelerin (Vücûh) uyumu
+• %100 çakışmasız ve doğru test seçenekleri
+• %100 çevrimdışı, reklamsız ve gizlilik odaklı
+</tr-TR>
+
+<fr-FR>
+QuranicWords v1.0.1 :
+• 14 358 exercices interactifs à travers 1 217 leçons
+• Quiz d'association ajoutés à la fin des 997 leçons
+• Examens de section, de chapitre et révisions complétés
+• Déblocage automatique des leçons et progression fluide
+• Harmonisation des sens multiples (Wujūh al-Qur'an)
+• Options de quiz 100% sans collision
+• 100% hors ligne, privé et sans publicité
+</fr-FR>
+```
+
+---
+
+## 📦 v1.0.0 (versionCode 18) - Official Launch
+
 ```xml
 <en-US>
 Welcome to the official launch of QuranicWords!
@@ -70,3 +144,4 @@ Bienvenue pour le lancement officiel de QuranicWords !
 • 5 polices arabes intégrées
 • 100% hors ligne, sans pub, privé et gratuit pour toujours
 </fr-FR>
+```

@@ -79,7 +79,7 @@ Covering 4,709 authentic Quranic lemmas across 59,888 occurrences (~80%+ of the 
 2. ⚡ FI'L (الفعل — Verbs): 1,479 words covering 13,491 occurrences across Chapters 2 to 4.
 3. 📖 ISM (الاسم — Nouns): 3,057 words covering 21,746 occurrences across Chapters 5 to 10.
 
-Structured across 10 Curated Chapters, 100 Sections, 1,217 Bite-Sized Lessons, and 9,428 Interactive Exercises!
+Structured across 10 Curated Chapters, 100 Sections, 1,217 Bite-Sized Lessons, and 14,358 Interactive Exercises!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🧠 6 DEDICATED TESTING & PRACTICE MODES
@@ -129,7 +129,7 @@ QuranicWords is a 100% offline, privacy-first Android app designed to help you u
   - Ḥarf (Particles): 173 words (41.16% frequency)
   - Fi'l (Verbs): 1,479 words
   - Ism (Nouns): 3,057 words
-• 10 Chapters & 100 Sections: 1,217 short lessons and 9,428 interactive exercises.
+• 10 Chapters & 100 Sections: 1,217 short lessons and 14,358 interactive exercises.
 • 6 Practice & Test Modes: Noun Mode, Verb Mode, Particle Mode, Mix Random Mode, Mistaken Words Review, and Chapterwise Tests.
 • Contextual Meanings (Wujūh al-Qur'an): Learn polysemic senses with authentic Quranic verse examples and in-verse highlighting.
 • Complete Vocalization (Tashkīl): Full diacritics on every word and verse for effortless readability.
@@ -228,15 +228,15 @@ For Google Play Console release notes under `versionCode 20` / `versionName 1.0.
 
 ```text
 QuranicWords v1.0.1:
-• Harmonized multi-sense word meanings (Wujūh al-Qur'an) across all 10 languages
-• Upgraded distractor engine: 100% collision-free quiz options
-• Complete curriculum: 4,709 Quranic words covering ~80%+ of the Quran
-• 10 Chapters, 100 Sections, 1,217 Lessons ordered by frequency
-• 3 Parts of Speech: Harf (Particles), Fil (Verbs), Ism (Nouns)
-• 6 Practice & Test Modes including Chapterwise and Mistaken Review
-• 100% Offline, ad-free, and private
+• 14,358 exercises across 1,217 lessons (0 empty lessons)
+• Added matching quizzes to end of all 997 regular lessons
+• Fully populated all section exams, chapter exams & flashbacks
+• Auto-healing curriculum unlock progression & smooth transitions
+• Harmonized multi-sense meanings (Wujūh al-Qur'an)
+• 100% collision-free quiz options
+• 100% offline, private, and ad-free
 ```
-*(Length: 468 / 500 characters)*
+*(Length: 391 / 500 characters)*
 
 ---
 
@@ -346,7 +346,7 @@ QuranicWords est une application ludique, interactive et 100% hors ligne conçue
 
 Fonctionnalités principales :
 • 4 709 lemmes coraniques : 173 Harf (Particules), 1 479 Fi'l (Verbes) et 3 057 Ism (Noms).
-• 10 chapitres et 100 sections : 1 217 leçons courtes et 9 428 exercices interactifs.
+• 10 chapitres et 100 sections : 1 217 leçons courtes et 14 358 exercices interactifs.
 • 6 modes de révision et de test : Mode Noms, Verbes, Particules, Quiz Aléatoire, Révision des erreurs et Tests par chapitre.
 • Wujūh al-Qur'an (Polysémie) : Exemples réels de versets et mise en évidence précise des termes.
 • Vocalisation complète (Tashkīl) : Toutes les voyelles et diacritiques préservés.
