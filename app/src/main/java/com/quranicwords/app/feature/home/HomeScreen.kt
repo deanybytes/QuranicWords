@@ -191,13 +191,24 @@ fun HomeScreen(
         )
     }
 
-    // Seeds the expand state from the learner's real current position exactly once, the first
-    // time it becomes available - never re-forces expansion afterward, so a manual collapse by
-    // the learner sticks even as progress keeps changing underneath.
-    LaunchedEffect(uiState.initiallyExpandedChapterId) {
-        if (expandedChapterIds == null && uiState.initiallyExpandedChapterId != null) {
-            onExpandedChapterIdsChange(setOfNotNull(uiState.initiallyExpandedChapterId))
-            onExpandedSectionIdsChange(setOfNotNull(uiState.initiallyExpandedSectionId))
+    // Seeds and maintains the expand state for the learner's current position so that when
+    // they advance to a new section or chapter, the newly unlocked lessons are immediately visible.
+    LaunchedEffect(uiState.initiallyExpandedChapterId, uiState.initiallyExpandedSectionId) {
+        val chapterId = uiState.initiallyExpandedChapterId
+        val sectionId = uiState.initiallyExpandedSectionId
+        if (chapterId != null) {
+            if (expandedChapterIds == null) {
+                onExpandedChapterIdsChange(setOf(chapterId))
+            } else if (!expandedChapterIds.contains(chapterId)) {
+                onExpandedChapterIdsChange(expandedChapterIds + chapterId)
+            }
+        }
+        if (sectionId != null) {
+            if (expandedSectionIds == null) {
+                onExpandedSectionIdsChange(setOf(sectionId))
+            } else if (!expandedSectionIds.contains(sectionId)) {
+                onExpandedSectionIdsChange(expandedSectionIds + sectionId)
+            }
         }
     }
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()

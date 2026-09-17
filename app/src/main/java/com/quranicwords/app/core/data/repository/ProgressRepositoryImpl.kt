@@ -53,12 +53,42 @@ class ProgressRepositoryImpl @Inject constructor(
         database.userProgressDao().observeForUser(userId)
 
     override suspend fun ensureCurriculumStarted(userId: String) = withContext(Dispatchers.IO) {
-        val firstChapter = database.chapterDao().getAll().minByOrNull { it.sortOrder } ?: return@withContext
-        val firstSection = database.sectionDao().getForChapter(firstChapter.id).minByOrNull { it.sortOrder }
+        val allLessons = database.lessonDao().getAll()
+        val allSections = database.sectionDao().getAll()
+        val allChapters = database.chapterDao().getAll()
+
+        val firstChapter = allChapters.minByOrNull { it.sortOrder } ?: return@withContext
+        val firstSection = allSections.filter { it.chapterId == firstChapter.id }.minByOrNull { it.sortOrder }
             ?: return@withContext
-        val firstLesson = database.lessonDao().getForSection(firstSection.id).minByOrNull { it.sortOrder }
-            ?: return@withContext
+        val sectionLessons = allLessons.filter { it.sectionId == firstSection.id }.sortedBy { it.sortOrder }
+        val firstLesson = sectionLessons.firstOrNull() ?: return@withContext
         unlockIfNeeded(userId, firstLesson.id)
+
+        // If the first lesson is CHAPTER_INTRO, ensure the first playable content lesson is also unlocked
+        if (firstLesson.kind == com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_INTRO && sectionLessons.size > 1) {
+            unlockIfNeeded(userId, sectionLessons[1].id)
+        }
+
+        // Auto-heal / repair unlock chain:
+        // Any completed lesson that was passed should have its next lesson unlocked.
+        val completedProgress = database.userProgressDao().getAllForUserOnce(userId)
+            .filter { it.status == LessonStatus.COMPLETED }
+        val lessonsById = allLessons.associateBy { it.id }
+        for (prog in completedProgress) {
+            val les = lessonsById[prog.lessonId] ?: continue
+            val passed = !les.kind.requiresPassingScore() || prog.bestScorePercent >= GamificationConfig.PASSING_SCORE_PERCENT
+            if (passed) {
+                val nextId = CurriculumUnlockResolver.resolveNextLessonId(
+                    completedLessonId = les.id,
+                    lessons = allLessons,
+                    sections = allSections,
+                    chapters = allChapters
+                )
+                if (nextId != null) {
+                    unlockIfNeeded(userId, nextId)
+                }
+            }
+        }
     }
 
     override suspend fun completeLesson(

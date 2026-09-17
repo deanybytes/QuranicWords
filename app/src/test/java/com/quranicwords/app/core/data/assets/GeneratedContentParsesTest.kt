@@ -65,10 +65,10 @@ class GeneratedContentParsesTest {
     @Test
     fun `vocabulary exercises decode and every teach step is a WordIntro or ChapterIntro`() {
         val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        assertEquals(9428, exercises.exercises.size)
+        assertEquals(14358, exercises.exercises.size)
 
         val entities = exercises.exercises.map { it.toEntity() }
-        assertEquals(9428, entities.size)
+        assertEquals(14358, entities.size)
 
         val teachCount = exercises.exercises.count { it.content is ExerciseContent.WordIntro }
         assertEquals(4709, teachCount)
@@ -77,7 +77,10 @@ class GeneratedContentParsesTest {
         assertEquals(10, chapterIntroCount)
 
         val quizCount = exercises.exercises.count { it.content is ExerciseContent.MultipleChoice }
-        assertEquals(4709, quizCount)
+        assertEquals(8432, quizCount)
+
+        val matchingCount = exercises.exercises.count { it.content is ExerciseContent.Matching }
+        assertEquals(1207, matchingCount)
     }
 
     @Test
