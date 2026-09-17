@@ -8,7 +8,7 @@ QuranicWords is a focused Quranic vocabulary app structured around the three tra
   - ✨ **Ḥarf (Particles)**: 173 words across 10 sections in Chapter 1 (24,651 occurrences, 41.16% of Qur'an).
   - ⚡ **Fi'l (Verbs)**: 1,479 verbs across 30 sections in Chapters 2 to 4 (13,491 occurrences).
   - 📖 **Ism (Nouns)**: 3,057 nouns across 60 sections in Chapters 5 to 10 (21,746 occurrences).
-  - Total: 10 Chapters, 100 Sections, 1,217 Lessons, 9,428 Exercises (~80%+ Quranic coverage).
+  - Total: 10 Chapters, 100 Sections, 1,217 Lessons, 14,358 Exercises (~80%+ Quranic coverage).
 - [x] **Complete Arabic Vocalization (Tashkīl Overhaul)**: 100% diacritical preservation (sukūn, fatḥah, kasrah, ḍammah, shaddah, tanwīn) on target words and in-verse highlights.
 - [x] **Contextual Polysemy (Wujūh al-Qur'an)**: Multi-sense contextual meanings and authentic verse examples per word.
 - [x] **6-Mode Test Hub**: Dedicated testing for Ism, Fi'l, Ḥarf, Mix/Random (with live grammar tags), adaptive Mistaken Words Review, and Chapterwise Practice.
@@ -20,6 +20,7 @@ QuranicWords is a focused Quranic vocabulary app structured around the three tra
 - [x] **100% Offline & Private**: Zero network dependencies, zero telemetry, local backup export/import via SAF.
 - [x] **Play Store v1.0.0 & v1.0.1 Production Releases**: targetSdk 36 (Android 16), unstripped native debug symbols, language split disabled for offline multi-language use.
 - [x] **Unified Multi-Sense & Zero-Collision Distractors (v1.0.1)**: Harmonized all 73 polysemous words with slash-separated senses across 10 languages and eliminated all distractor collisions across 4,709 exercises.
+- [x] **Complete Curriculum Synthesis & Auto-Healing Progression (v1.0.1, versionCode 20)**: Synthesized closing matching quizzes for all 997 regular lessons (1,207 matching exercises total), populated all 210 exam and flashback lessons (14,358 exercises total across 1,217 lessons; 0 empty lessons), implemented auto-healing curriculum unlock progression and auto-expand active units, and reseeded database with `ContentSeeder.CONTENT_VERSION = 34`.
 - [x] **Open Source & Ecosystem**: GPL-3.0 licensed on GitHub, part of the DEANY TALKS Dawah platform ecosystem.
 
 ## 🔜 Future Enhancements

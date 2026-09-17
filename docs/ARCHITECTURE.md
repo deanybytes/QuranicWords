@@ -80,7 +80,7 @@ com.quranicwords.app/
     └── settings/              (Theme, language, font, daily goal, sound effects, local backup)
 ```
 
-> The content hierarchy is organized as **Chapter (10 Chapters) → Section (100 Sections) → Lesson (1,217 Lessons)** across the three classical parts of speech (**Ḥarf**: 173 words; **Fi'l**: 1,479 words; **Ism**: 3,057 words = 4,709 total Quranic lemmas and 9,428 exercises), with exam-gated progression between units.
+> The content hierarchy is organized as **Chapter (10 Chapters) → Section (100 Sections) → Lesson (1,217 Lessons)** across the three classical parts of speech (**Ḥarf**: 173 words; **Fi'l**: 1,479 words; **Ism**: 3,057 words = 4,709 total Quranic lemmas and 14,358 exercises), with exam-gated progression between units.
 
 ## 🧷 Dependency injection graph
 

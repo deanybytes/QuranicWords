@@ -2,7 +2,7 @@
 
 ## Three-Part Parts of Speech Architecture (Aqsam al-Kalimah)
 
-Arabic grammar traditionally categorizes all vocabulary into three fundamental parts of speech: **Ḥarf (Particles)**, **Fi'l (Verbs)**, and **Ism (Nouns)**. The curriculum structures **4,709 Quranic vocabulary lemmas** covering **59,888 occurrences** (~80%+ of the Qur'an) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **9,428 Exercises**:
+Arabic grammar traditionally categorizes all vocabulary into three fundamental parts of speech: **Ḥarf (Particles)**, **Fi'l (Verbs)**, and **Ism (Nouns)**. The curriculum structures **4,709 Quranic vocabulary lemmas** covering **59,888 occurrences** (~80%+ of the Qur'an) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **14,358 Exercises**:
 
 ```mermaid
 flowchart TD
@@ -41,6 +41,11 @@ In the Qur'an, many words carry different contextual meanings depending on the s
 - **Unified Multi-Sense Meanings**: Words with polysemous senses combine meanings via slash `' / '` separators (e.g., `A, B / X, Y`) across all 10 languages, tested thoroughly without ambiguous quiz option overlap.
 - **Contextual Verse Examples**: Real Quranic verses illustrating each specific contextual sense.
 - **Tashkīl & Ḥarakāt Preservation**: Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with seamless in-verse span highlighting across all 11 languages.
+
+## Closing Matching Quizzes & Lesson Flow
+
+- **Closing Matching Quizzes**: Every one of the 997 regular lessons concludes with an interactive 4–5 pair `MATCHING` exercise (1,207 matching exercises total across the curriculum), providing rapid-fire reinforcement of all taught words before completing the lesson.
+- **Section & Chapter Exam Suites**: All 210 checkpoint lessons (`SECTION_FLASHBACK`, `SECTION_EXAM`, `CHAPTER_EXAM`) are fully populated with comprehensive review exercises (14,358 total exercises; zero empty lessons).
 
 ## End of Lesson Summary & Next Lesson Preview
 

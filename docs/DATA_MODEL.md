@@ -72,11 +72,11 @@ erDiagram
 
 ## 📄 Bundled JSON content shape
 
-The curriculum dataset is compiled under `app/src/main/assets/content/` (`ContentSeeder.CONTENT_VERSION = 33`):
+The curriculum dataset is compiled under `app/src/main/assets/content/` (`ContentSeeder.CONTENT_VERSION = 34`):
 - `chapters.json`: 10 Chapters with localized titles, descriptions, lemma counts, and Quranic coverage percentages.
 - `sections.json`: 100 Sections with chapter references, sort orders, and localized titles.
 - `lessons_vocabulary.json`: 1,217 Lessons partitioned by `LessonKind` (Regular, Section Exam, Chapter Exam, Flashback).
-- `exercises_vocabulary.json`: 9,428 polymorphic exercises with fully vocalized Arabic and token-aligned verse spans.
+- `exercises_vocabulary.json`: 14,358 polymorphic exercises with fully vocalized Arabic and token-aligned verse spans (including 1,207 closing matching quizzes and populated section/chapter exams).
 - `word_frequency.json`: 4,709 Quranic vocabulary items ordered by frequency with grammatical classification and localized meanings (unified multi-sense senses combined via `' / '`).
 
 Example `WordIntro` content payload with Wujūh al-Qur'an polysemy and Tashkīl:
