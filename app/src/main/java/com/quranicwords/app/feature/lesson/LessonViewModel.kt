@@ -332,12 +332,22 @@ class LessonViewModel @Inject constructor(
         for (k in commonKeys) {
             val valA = a.label[k]?.trim()?.lowercase().orEmpty()
             val valB = b.label[k]?.trim()?.lowercase().orEmpty()
-            if (valA.isNotEmpty() && valB.isNotEmpty() && valA == valB) return true
+            if (valA.isNotEmpty() && valB.isNotEmpty()) {
+                if (valA == valB) return true
+                val tokensA = valA.split('/').map { it.trim() }.filter { it.isNotEmpty() }
+                val tokensB = valB.split('/').map { it.trim() }.filter { it.isNotEmpty() }
+                if (tokensA.any { it in tokensB }) return true
+            }
         }
 
         val enA = (a.label["en"] ?: a.label.values.firstOrNull())?.trim()?.lowercase().orEmpty()
         val enB = (b.label["en"] ?: b.label.values.firstOrNull())?.trim()?.lowercase().orEmpty()
-        if (enA.isNotEmpty() && enB.isNotEmpty() && enA == enB) return true
+        if (enA.isNotEmpty() && enB.isNotEmpty()) {
+            if (enA == enB) return true
+            val tokensA = enA.split('/').map { it.trim() }.filter { it.isNotEmpty() }
+            val tokensB = enB.split('/').map { it.trim() }.filter { it.isNotEmpty() }
+            if (tokensA.any { it in tokensB }) return true
+        }
 
         return false
     }

@@ -60,7 +60,7 @@ class ContentSeeder @Inject constructor(
     }
 
     companion object {
-        const val CONTENT_VERSION = 32
+        const val CONTENT_VERSION = 33
     }
 }
 
