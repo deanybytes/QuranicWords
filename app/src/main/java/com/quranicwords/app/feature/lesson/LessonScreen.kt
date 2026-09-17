@@ -158,6 +158,37 @@ fun LessonScreen(
                 return@Scaffold
             }
 
+            if (uiState.contents.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .padding(padding)
+                        .fillMaxSize()
+                        .padding(24.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.lesson_empty_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(R.string.lesson_empty_desc),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        QwPrimaryButton(
+                            text = stringResource(R.string.lesson_summary_back_to_dashboard),
+                            onClick = onExit
+                        )
+                    }
+                }
+                return@Scaffold
+            }
+
             Column(modifier = Modifier.padding(padding).fillMaxSize()) {
                 Box(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
                     when (val content = uiState.currentContent) {

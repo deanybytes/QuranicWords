@@ -53,6 +53,6 @@ class FullDatabaseSeedingTest {
         assertEquals(100, sections.size)
         assertEquals(1217, lessons.size)
         assertEquals(4709, wordsCount)
-        assertEquals(9428, exercisesCount)
+        assertEquals(14358, exercisesCount)
     }
 }

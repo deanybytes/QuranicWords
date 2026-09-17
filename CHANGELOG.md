@@ -2,17 +2,18 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.1] - 2026-09-17
+## [1.0.1] - 2026-09-17 (versionCode 20)
 
-### Added
-- **Unified Multi-Sense Word Meanings**: Harmonized all 73 polysemous words across Harf (19), Fil (24), and Ism (30) to combine senses via ' / ' separator (e.g. `A, B / X, Y`) across all 10 languages (English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, French).
-- **Collision-Free Distractor Engine**: Upgraded `DistractorGenerator.kt` and `LessonViewModel.kt` with multi-sense token collision detection (`hasSenseOverlap`) across slash-separated and comma-separated tokens, completely eliminating ambiguous distractor collisions across all 4,709 multiple-choice exercises.
-- **Unit Test Coverage**: Added unit tests in `DistractorGeneratorTest.kt` verifying collision detection on multi-sense words with overlapping tokens.
+### Fixed
+- **End-of-Lesson Matching Quizzes**: Synthesized and restored interactive 4–5 pair `MATCHING` exercises at the end of all 997 regular lessons (plus all 100 flashbacks, 100 section exams, and 10 chapter exams), totaling 1,207 matching exercises.
+- **Curriculum Progression & Lesson Gating**: Populated all 210 previously empty `SECTION_FLASHBACK`, `SECTION_EXAM`, and `CHAPTER_EXAM` lessons with complete question suites (14,358 exercises total across 1,217 lessons, with 0 empty lessons).
+- **Auto-Healing & Home Unlocking**: Implemented automated progress repair in `ProgressRepositoryImpl.ensureCurriculumStarted` to immediately unlock next lessons for any completed lessons and ensure `les_0002` unlocks for the first section; updated `HomeScreen.kt` to auto-expand newly active sections upon progression.
+- **Polysemy Sense Clean-up**: Audited all polysemy words. Collapsed duplicate/redundant senses into clean single canonical definitions for pseudo-polysemous words, eliminating redundant tabs and slash-repetitions (`not / not`), while rigorously preserving distinct classical senses for the 19 authentic *Wujūh al-Qur'an* lemmas.
+- **Empty Lesson Fallback UI**: Added graceful fallback UI card in `LessonScreen.kt` with a return button in case any empty lesson state is ever encountered.
 
 ### Changed
-- **Curriculum & Exercise Synchronization**: Updated `word_frequency.json` and all 4,709 `WORD_INTRO` and `MULTIPLE_CHOICE` exercises in `exercises_vocabulary.json` with unified multi-sense glosses and clean distractors.
-- **Clean Database Reseeding Pipeline**: Bumped `ContentSeeder.CONTENT_VERSION` to 33 to trigger an automated wipe-and-reseed of Room content tables on existing and new installs without affecting user progress.
-- **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` with unified multi-sense meanings; built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 19`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+- **Database Content Reseeding**: Bumped `ContentSeeder.CONTENT_VERSION` from 33 to 34 to cleanly reseed Room content tables on app update without disturbing user progress or statistics.
+- **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` (57.3 MB) reflecting 100% verified senses; built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 20`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
 
 ## [1.0.0] - 2026-09-16 (Google Play Store Official Release)
 

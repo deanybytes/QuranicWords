@@ -138,6 +138,8 @@
     <string name="exercise_audio_unavailable">Audio for this item isn\'t available yet.</string>
     <string name="word_order_build_area_label">Your answer</string>
     <string name="listen_and_type_hint">Type what you hear</string>
+    <string name="lesson_empty_title">Lesson Content Unavailable</string>
+    <string name="lesson_empty_desc">No exercises found for this lesson. Please return to the dashboard.</string>
 
     <!-- Lesson summary -->
     <string name="lesson_summary_title_pass">Alhamdulillah! Well done!</string>
