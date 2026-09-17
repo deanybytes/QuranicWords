@@ -152,4 +152,34 @@ class DistractorGeneratorTest {
         )
         assertEquals("validExtra", distractor)
     }
+
+    @Test
+    fun `excludes distractors that share any sense with a multi-sense correct answer`() {
+        val candidates = pool(
+            word("w1", rank = 1).copy(meaning = mapOf("en" to "what / not")),
+            word("w2", rank = 2).copy(meaning = mapOf("en" to "not")), // Shares sense 'not'
+            word("w3", rank = 3).copy(meaning = mapOf("en" to "Day")),
+            word("w4", rank = 4).copy(meaning = mapOf("en" to "Night"))
+        )
+        val distractors = DistractorGenerator.pickDistractors("w1", candidates, emptySet(), count = 2)
+        assertFalse("w2 should be excluded because it shares sense 'not'", "w2" in distractors)
+        assertEquals(listOf("w3", "w4"), distractors)
+    }
+
+    @Test
+    fun `excludes distractors that share any sense with another multi-sense distractor`() {
+        val candidates = pool(
+            word("w1", rank = 1).copy(meaning = mapOf("en" to "Creator")),
+            word("w2", rank = 2).copy(meaning = mapOf("en" to "from / of")),
+            word("w3", rank = 3).copy(meaning = mapOf("en" to "of")), // Shares sense 'of' with w2
+            word("w4", rank = 4).copy(meaning = mapOf("en" to "Pen")),
+            word("w5", rank = 5).copy(meaning = mapOf("en" to "Light"))
+        )
+        val distractors = DistractorGenerator.pickDistractors("w1", candidates, emptySet(), count = 3)
+        assertEquals(3, distractors.size)
+        assertTrue("w2" in distractors)
+        assertFalse("w3 should be excluded because w2 already uses sense 'of'", "w3" in distractors)
+        assertEquals(listOf("w2", "w4", "w5"), distractors)
+    }
 }
+
