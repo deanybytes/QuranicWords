@@ -194,10 +194,10 @@ def audit_codebase_config():
     gradle_path = os.path.join(BASE_DIR, 'app', 'build.gradle.kts')
     with open(gradle_path, encoding='utf-8') as f:
         gradle_content = f.read()
-    if 'versionCode = 20' not in gradle_content:
-        errors.append("build.gradle.kts does not have versionCode = 20")
+    if 'versionCode = 21' not in gradle_content:
+        errors.append("build.gradle.kts does not have versionCode = 21")
     else:
-        print("  build.gradle.kts: versionCode = 20 [OK]")
+        print("  build.gradle.kts: versionCode = 21 [OK]")
     if 'versionName = "1.0.1"' not in gradle_content:
         errors.append("build.gradle.kts does not have versionName = \"1.0.1\"")
     else:

@@ -2,6 +2,21 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.1] - 2026-09-18 (versionCode 21)
+
+### Fixed
+- **Matching Exercise Shuffling & Derangement**: Implemented a derangement algorithm (`derangeRightEntries`) ensuring that right tiles are strictly non-aligned with left tiles on the initial row layout, and randomized input pair ordering on distractor regeneration.
+- **Home & Roadmap Lesson Status Icons**: Aligned lesson node icons across `HomeScreen.kt`, `RoadmapScreen.kt`, and `LessonStatusStyle.kt` so that completed lessons unconditionally display `Icons.Filled.CheckCircle` (tick button), only the active current lesson displays `Icons.Filled.PlayArrow`, and unlocked non-current lessons display their specific category/kind icon (never `PlayArrow`).
+- **Stability & Crash Fixes on Consecutive Lessons**:
+  - Added `@Volatile private var isFinishing` re-entrancy protection and `try-catch` exception handling in `LessonViewModel.finishLesson()`.
+  - Moved `LessonSummaryViewModel.loadSummaryDetails()` database and JSON computations to `Dispatchers.IO` with `try-catch` safety.
+  - Added click debouncing (`continueClicked` state) on `QwPrimaryButton` and `QwSecondaryButton` in `LessonSummaryScreen.kt` to prevent concurrent `NavController.navigate()` invocations from crashing Navigation Compose.
+  - Removed per-correct-answer `CelebrationBurst` from `AnswerFeedbackOverlay.kt` to prevent animator accumulation and memory exhaustion during extended lesson runs.
+
+### Changed
+- **Release Version Bump**: Bumped `versionCode` to `21` (`versionName = "1.0.1"`).
+- **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.1.aab`, release APK `QuranicWords-v1.0.1.apk`, and native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+
 ## [1.0.1] - 2026-09-17 (versionCode 20)
 
 ### Fixed

@@ -104,9 +104,6 @@ fun AnswerFeedbackOverlay(type: FeedbackType?, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize().background(scrimColor),
             contentAlignment = Alignment.TopCenter
         ) {
-            if (isCorrect) {
-                CelebrationBurst(intensity = CelebrationIntensity.PASSED)
-            }
             Surface(
                 modifier = Modifier
                     .windowInsetsPadding(WindowInsets.statusBars)

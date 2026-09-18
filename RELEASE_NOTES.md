@@ -4,6 +4,84 @@
 
 ---
 
+## 🚀 v1.0.1 (versionCode 21)
+
+```xml
+<en-US>
+QuranicWords v1.0.1:
+• 14,358 exercises across 1,217 lessons (0 empty lessons)
+• Matching exercise randomization with strict derangement guarantee
+• Fixed lesson icons: completed lessons show checkmark tick, current shows play
+• Stability fixes: multi-tap debouncing & memory optimization
+• Auto-healing curriculum unlock progression & smooth transitions
+• Harmonized multi-sense meanings (Wujūh al-Qur'an)
+• 100% collision-free quiz options
+• 100% offline, private, and ad-free
+</en-US>
+
+<bn-BD>
+QuranicWords v1.0.1:
+• ১,২১৭টি পাঠে মোট ১৪,৩৫৮টি ইন্টারঅ্যাক্টিভ অনুশীলন
+• ম্যাচিং অনুশীলনে নিখুঁত র‍্যান্ডমাইজেশন ও বিন্যাস
+• সমাপ্ত পাঠে টিকচিহ্ন এবং চলমান পাঠে প্লে আইকন প্রদর্শন
+• ক্র্যাশ প্রতিরোধে স্থায়িত্ব ও মেমরি অপ্টিমাইজেশন
+• স্বয়ংক্রিয় লেসন আনলক ও নিরবচ্ছিন্ন অগ্রগতি নিশ্চিত
+• কুরআনিক ওয়াজহ (বহু-অর্থ) সমন্বয় ও পরিমার্জন
+• কুইজের অপশনে ১০০% নিখুঁত ও সংঘাতহীন উত্তর
+• ১০০% অফলাইন, নিরাপদ ও বিজ্ঞাপনমুক্ত
+</bn-BD>
+
+<ur>
+QuranicWords v1.0.1:
+• ۱،۲۱۷ اسباق میں ۱۴،۳۵۸ مشقیں مکمل
+• میچنگ مشقوں میں درست اور بے ترتیب جوڑے
+• مکمل شدہ اسباق پر درست نشان اور جاری پر پلے آئیکن
+• مسلسل اسباق کے بعد کریش سے بچاؤ اور پائیداری
+• اسباق کے خودکار انلاک اور ہموار پیش رفت کا نظام
+• وجوہ القرآن (کثیر المعانی الفاظ) کی ہم آہنگی
+• کوئز میں ۱۰۰٪ درست اور تصادم سے پاک اختیارات
+• ۱۰۰٪ آف لائن، محفوظ اور اشتہارات سے پاک
+</ur>
+
+<id>
+QuranicWords v1.0.1:
+• 14.358 latihan interaktif di seluruh 1.217 pelajaran
+• Pengacakan latihan mencocokkan dengan derangement baris terjamin
+• Ikon pelajaran diperbaiki: centang selesai, putar untuk pelajaran aktif
+• Peningkatan stabilitas navigasi & cegah crash beruntun
+• Perbaikan sistem buka kunci pelajaran otomatis
+• Penyelarasan makna ganda Al-Qur'an (Wujuh al-Qur'an)
+• Opsi kuis 100% bebas tabrakan makna
+• 100% offline, bebas iklan, & privat selamanya
+</id>
+
+<tr-TR>
+QuranicWords v1.0.1:
+• 1.217 derste toplam 14.358 etkileşimli alıştırma
+• Eşleştirme alıştırmalarında gelişmiş rastgele sıralama
+• Tamamlanan derslerde onay işareti, aktif derste oynat simgesi
+• Çoklu ders geçişlerinde çökme önleme ve kararlılık iyileştirmeleri
+• Otomatik ders kilidi açma ve sorunsuz ilerleme sistemi
+• Kur'an'daki çok anlamlı kelimelerin (Vücûh) uyumu
+• %100 çakışmasız ve doğru test seçenekleri
+• %100 çevrimdışı, reklamsız ve gizlilik odaklı
+</tr-TR>
+
+<fr-FR>
+QuranicWords v1.0.1 :
+• 14 358 exercices interactifs à travers 1 217 leçons
+• Randomisation des exercices d'association avec dérangement strict
+• Icônes corrigées: coche pour leçons terminées, lecture pour la leçon active
+• Stabilité renforcée empêchant les plantages après plusieurs leçons
+• Déblocage automatique des leçons et progression fluide
+• Harmonisation des sens multiples (Wujūh al-Qur'an)
+• Options de quiz 100% sans collision
+• 100% hors ligne, privé et sans publicité
+</fr-FR>
+```
+
+---
+
 ## 🚀 v1.0.1 (versionCode 20)
 
 ```xml
@@ -32,7 +110,7 @@ QuranicWords v1.0.1:
 <ur>
 QuranicWords v1.0.1:
 • ۱،۲۱۷ اسباق میں ۱۴،۳۵۸ مشقیں مکمل
-• تمام ۹۹۷ اسباق کے اختتام پر میچنگ کوئز کا اضافہ
+• تمام ۹۹৭ اسباق کے اختتام پر میچنگ کوئز کا اضافہ
 • تمام سیکشن و باب امتحانات اور فلیش بیک اسباق مکمل
 • اسباق کے خودکار انلاک اور ہموار پیش رفت کا نظام
 • وجوہ القرآن (کثیر المعانی الفاظ) کی ہم آہنگی

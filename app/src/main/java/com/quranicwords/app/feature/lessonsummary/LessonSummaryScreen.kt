@@ -105,6 +105,7 @@ fun LessonSummaryScreen(
 
     var visible by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { visible = true }
+    var continueClicked by remember { mutableStateOf(false) }
 
     val animatedPointsEarned by animateIntAsState(
         targetValue = if (visible) route.pointsAwarded else 0,
@@ -547,14 +548,26 @@ fun LessonSummaryScreen(
                                 else -> R.string.lesson_summary_back_to_dashboard
                             }
                         ),
-                        onClick = onContinue,
+                        enabled = !continueClicked,
+                        onClick = {
+                            if (!continueClicked) {
+                                continueClicked = true
+                                onContinue()
+                            }
+                        },
                         modifier = Modifier.fillMaxWidth()
                     )
 
                     if (route.nextLessonId != null) {
                         QwSecondaryButton(
                             text = stringResource(R.string.lesson_summary_back_to_dashboard),
-                            onClick = onBackHome,
+                            enabled = !continueClicked,
+                            onClick = {
+                                if (!continueClicked) {
+                                    continueClicked = true
+                                    onBackHome()
+                                }
+                            },
                             modifier = Modifier.fillMaxWidth()
                         )
                     }

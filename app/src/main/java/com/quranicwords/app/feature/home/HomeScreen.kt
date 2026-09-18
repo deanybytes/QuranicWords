@@ -38,6 +38,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.FlashOn
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.ExpandLess
@@ -639,7 +640,7 @@ private fun ChapterSummaryNode(
     onOpenIntro: () -> Unit
 ) {
     val language = rememberSelectedLanguage()
-    val (icon, iconTint) = statusDefaultIconAndTint(status)
+    val (icon, iconTint) = statusDefaultIconAndTint(status, isCurrent = isCurrent)
     val shape = MaterialTheme.shapes.medium
     GlassSurface(
         modifier = Modifier.fillMaxWidth(),
@@ -710,7 +711,7 @@ private fun SectionSummaryNode(
     onOpenIntro: () -> Unit,
     onOpenWordBrowse: () -> Unit
 ) {
-    val (icon, iconTint) = statusDefaultIconAndTint(status)
+    val (icon, iconTint) = statusDefaultIconAndTint(status, isCurrent = isCurrent)
     val sectionShape = RoundedCornerShape(12.dp)
     GlassSurface(
         modifier = Modifier.fillMaxWidth(),
@@ -847,18 +848,24 @@ private fun LessonNode(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
+        val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status, isCurrent = isCurrent)
         val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
         val accentColor = if (kindVisual.isQuizOrExam) kindVisual.accentColor else categoryAccent
 
         val containerColor = statusContainerColor(status)
-        val tint = if (isUnlocked) accentColor else defaultTint
+        val tint = if (status == LessonStatus.COMPLETED) {
+            MaterialTheme.colorScheme.onPrimary
+        } else if (isUnlocked) {
+            accentColor
+        } else {
+            defaultTint
+        }
 
         val icon = when {
-            status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
-            isCurrent && status == LessonStatus.UNLOCKED && !kindVisual.isQuizOrExam -> Icons.Filled.PlayArrow
-            status == LessonStatus.COMPLETED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.CheckCircle
-            else -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
+            status == LessonStatus.COMPLETED -> Icons.Filled.CheckCircle
+            isCurrent -> Icons.Filled.PlayArrow
+            status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.Lock
+            else -> kindVisual.icon
         }
 
         val badgeAccentBorder = when {

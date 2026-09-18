@@ -42,6 +42,12 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
   - **Language Bundle Optimization**: Disabled language splits (`bundle.language.enableSplit = false`) to ensure all 11 languages are bundled locally and switchable offline.
   - **Signed Release Bundle**: Automated `bundleRelease` copying signed `.aab` and `.apk` to repo root.
 
+- **v1.0.1 Randomization, Lesson Node Icons, Stability & versionCode 21 (2026-09-18)** — done:
+  - **Matching Exercise Derangement**: Implemented `derangeRightEntries` ensuring zero row collisions on initial match tile layout, plus shuffled input pairs on regeneration.
+  - **Lesson Node Icons**: Aligned `LessonStatusStyle.kt`, `HomeScreen.kt`, and `RoadmapScreen.kt` so completed lessons unconditionally show `CheckCircle`, only active current lesson shows `PlayArrow`, and unlocked non-current lessons show their category/kind icon.
+  - **Consecutive Lesson Stability**: Added re-entrancy protection in `LessonViewModel.finishLesson()`, moved `LessonSummaryViewModel` calculations to `Dispatchers.IO`, added navigation debouncing on summary action buttons, and eliminated per-question confetti allocations in `AnswerFeedbackOverlay.kt`.
+  - **Release Artifacts**: Bumped `versionCode` to `21` (`versionName = "1.0.1"`). Built signed `QuranicWords-v1.0.1.aab`, `QuranicWords-v1.0.1.apk`, and `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+
 - **v1.0.1 Complete Curriculum Synthesis, Progression Fix & versionCode 20 (2026-09-17)** — done:
   - **Closing Matching Quizzes**: Synthesized 4-5 pair MATCHING exercises at the end of all 997 regular lessons (1,207 matching exercises total).
   - **Zero Blank Lessons**: Populated all 210 SECTION_FLASHBACK, SECTION_EXAM, and CHAPTER_EXAM lessons (14,358 exercises total across 1,217 lessons; 0 empty lessons).
