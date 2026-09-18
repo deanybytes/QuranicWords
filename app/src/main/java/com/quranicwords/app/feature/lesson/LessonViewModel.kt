@@ -26,6 +26,7 @@ import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.util.AppJson
+import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.SfxEffect
 import com.quranicwords.app.core.util.SfxPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -113,6 +114,9 @@ class LessonViewModel @Inject constructor(
      * shares `completeReviewSession`'s semantics - all three differ in exercise-sourcing ([init])
      * and in what [finishLesson] reports back as the result's `sessionType`. */
     private val isReviewSession: Boolean = lessonId == null && !isOpenPractice && !isStreakRecovery
+
+    @Volatile
+    private var isFinishing = false
 
     // Single-value today (vocabulary words only) - see ItemKind's doc comment.
     private val itemKind: ItemKind = ItemKind.WORD
@@ -241,8 +245,11 @@ class LessonViewModel @Inject constructor(
             content.withOptions(
                 rebuildOptions(content.options, content.wordId, content.correctOptionId, candidatePool, missedItemIds)
             )
-        is ExerciseContent.Matching ->
-            content.copy(distractorRight = pickMatchingDistractor(content, candidatePool, missedItemIds))
+        is ExerciseContent.Matching -> {
+            val shuffledPairs = content.pairs.shuffled()
+            val withShuffled = content.copy(pairs = shuffledPairs)
+            withShuffled.copy(distractorRight = pickMatchingDistractor(withShuffled, candidatePool, missedItemIds))
+        }
         else -> content
     }
 
@@ -502,53 +509,62 @@ class LessonViewModel @Inject constructor(
     }
 
     private fun finishLesson() {
+        if (isFinishing) return
+        isFinishing = true
         viewModelScope.launch {
-            val state = _uiState.value
-            val userId = userIdProvider.get()
-            val totalCount = state.contents.count { it.isScored }
-            val durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
-            val result = if (isStreakRecovery) {
-                // Deliberately not completeLesson/completeReviewSession - see
-                // attemptStreakRecovery's doc comment for why. No points awarded either: this is
-                // a "prove you know it" gate, not practice, so it shouldn't double as a way to
-                // farm bonus points on top of getting the streak back.
-                val passed = progressRepository.attemptStreakRecovery(userId, state.correctCount, totalCount)
-                val stats = progressRepository.observeStats(userId).first()
-                LessonResult(
-                    lessonId = REVIEW_SESSION_LESSON_ID,
+            try {
+                val state = _uiState.value
+                val userId = userIdProvider.get()
+                val totalCount = state.contents.count { it.isScored }
+                val durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
+                val result = if (isStreakRecovery) {
+                    val passed = progressRepository.attemptStreakRecovery(userId, state.correctCount, totalCount)
+                    val stats = progressRepository.observeStats(userId).first()
+                    LessonResult(
+                        lessonId = REVIEW_SESSION_LESSON_ID,
+                        correctCount = state.correctCount,
+                        totalCount = totalCount,
+                        pointsAwarded = 0,
+                        newTotalPoints = stats?.totalPoints ?: 0,
+                        currentStreak = stats?.currentStreak ?: 0,
+                        streakIncreased = passed,
+                        durationMillis = durationMillis,
+                        sessionType = LessonSessionType.STREAK_RECOVERY
+                    )
+                } else if (isReviewSession || isOpenPractice) {
+                    progressRepository.completeReviewSession(
+                        userId = userId,
+                        correctCount = state.correctCount,
+                        totalCount = totalCount,
+                        durationMillis = durationMillis,
+                        sessionType = if (isOpenPractice) LessonSessionType.OPEN_PRACTICE else LessonSessionType.REVIEW
+                    )
+                } else {
+                    progressRepository.completeLesson(
+                        userId = userId,
+                        lessonId = checkNotNull(lessonId),
+                        correctCount = state.correctCount,
+                        totalCount = totalCount,
+                        durationMillis = durationMillis
+                    )
+                }
+                val newlyUnlocked = runCatching { achievementRepository.checkAndUnlock(userId) }.getOrDefault(emptyList())
+                _uiState.update { it.copy(isFinished = true, result = result, newlyUnlockedAchievements = newlyUnlocked) }
+            } catch (e: Throwable) {
+                android.util.Log.e("LessonViewModel", "Error finishing lesson", e)
+                val state = _uiState.value
+                val fallbackResult = LessonResult(
+                    lessonId = lessonId ?: REVIEW_SESSION_LESSON_ID,
                     correctCount = state.correctCount,
-                    totalCount = totalCount,
-                    pointsAwarded = 0,
-                    newTotalPoints = stats?.totalPoints ?: 0,
-                    currentStreak = stats?.currentStreak ?: 0,
-                    // Reused for this session type only to mean "recovery succeeded" - see
-                    // LessonSummaryScreen's streakIncreased handling under STREAK_RECOVERY.
-                    streakIncreased = passed,
-                    durationMillis = durationMillis,
-                    sessionType = LessonSessionType.STREAK_RECOVERY
+                    totalCount = state.contents.count { it.isScored },
+                    pointsAwarded = GamificationConfig.pointsForLesson(state.correctCount, state.contents.count { it.isScored }),
+                    newTotalPoints = 0,
+                    currentStreak = 0,
+                    streakIncreased = false,
+                    durationMillis = (clock.millis() - sessionStartMillis).coerceAtLeast(0L)
                 )
-            } else if (isReviewSession || isOpenPractice) {
-                progressRepository.completeReviewSession(
-                    userId = userId,
-                    correctCount = state.correctCount,
-                    totalCount = totalCount,
-                    durationMillis = durationMillis,
-                    sessionType = if (isOpenPractice) LessonSessionType.OPEN_PRACTICE else LessonSessionType.REVIEW
-                )
-            } else {
-                progressRepository.completeLesson(
-                    userId = userId,
-                    lessonId = checkNotNull(lessonId),
-                    correctCount = state.correctCount,
-                    totalCount = totalCount,
-                    durationMillis = durationMillis
-                )
+                _uiState.update { it.copy(isFinished = true, result = fallbackResult, newlyUnlockedAchievements = emptyList()) }
             }
-            // Checked after both completion paths (a Review session can cross a word-mastery-style
-            // milestone too, not just a real lesson/exam) - never blocks showing the result itself,
-            // an empty list here just means nothing newly unlocked this time.
-            val newlyUnlocked = achievementRepository.checkAndUnlock(userId)
-            _uiState.update { it.copy(isFinished = true, result = result, newlyUnlockedAchievements = newlyUnlocked) }
         }
     }
 }

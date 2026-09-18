@@ -19,6 +19,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -157,9 +159,9 @@ private fun RoadmapLessonRow(
     val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
 
     val icon = when {
-        status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
-        status == LessonStatus.COMPLETED -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
-        else -> if (kindVisual.isQuizOrExam) kindVisual.icon else defaultIcon
+        status == LessonStatus.COMPLETED -> Icons.Filled.CheckCircle
+        status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.Lock
+        else -> kindVisual.icon
     }
 
     val iconTint = if (kindVisual.isQuizOrExam) {

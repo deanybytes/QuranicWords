@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
@@ -21,8 +22,12 @@ fun statusContainerColor(status: LessonStatus): Color = when (status) {
 }
 
 @Composable
-fun statusDefaultIconAndTint(status: LessonStatus): Pair<ImageVector, Color> = when (status) {
+fun statusDefaultIconAndTint(status: LessonStatus, isCurrent: Boolean = false): Pair<ImageVector, Color> = when (status) {
     LessonStatus.COMPLETED -> Icons.Filled.CheckCircle to MaterialTheme.colorScheme.onPrimary
-    LessonStatus.UNLOCKED -> Icons.Filled.PlayArrow to MaterialTheme.colorScheme.onPrimaryContainer
+    LessonStatus.UNLOCKED -> if (isCurrent) {
+        Icons.Filled.PlayArrow to MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        Icons.AutoMirrored.Filled.MenuBook to MaterialTheme.colorScheme.onPrimaryContainer
+    }
     LessonStatus.LOCKED -> Icons.Filled.Lock to MaterialTheme.colorScheme.onSurfaceVariant
 }

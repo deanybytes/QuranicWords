@@ -108,6 +108,42 @@ private fun RightEntry.text(language: Language): String = when (this) {
 }
 
 /**
+ * Ensures [entries] (the right-side meaning tiles) are strictly deranged relative to [left] (the left-side Arabic tiles).
+ * This guarantees that when the matching exercise first appears, no pair is placed directly opposite its match
+ * on the same row (i.e. `right[i]` never matches `left[i]`).
+ */
+private fun derangeRightEntries(
+    left: List<MatchPair>,
+    entries: List<RightEntry>
+): List<RightEntry> {
+    if (entries.size <= 1) return entries
+    val minCount = minOf(left.size, entries.size)
+    var candidate = entries.shuffled()
+    for (attempt in 0 until 50) {
+        val hasSameRowMatch = (0 until minCount).any { i ->
+            candidate[i].id() == left[i].effectiveId
+        }
+        if (!hasSameRowMatch) return candidate
+        candidate = entries.shuffled()
+    }
+    // Fallback: guaranteed swap to eliminate any same-row match
+    val mutable = candidate.toMutableList()
+    for (i in 0 until minCount) {
+        if (mutable[i].id() == left[i].effectiveId) {
+            val partner = (0 until mutable.size).firstOrNull { j ->
+                j != i &&
+                mutable[j].id() != left[i].effectiveId &&
+                (j >= left.size || mutable[i].id() != left[j].effectiveId)
+            } ?: ((i + 1) % mutable.size)
+            val tmp = mutable[i]
+            mutable[i] = mutable[partner]
+            mutable[partner] = tmp
+        }
+    }
+    return mutable
+}
+
+/**
  * Matching exercise with aligned row grid, golden border on selection, glass reflect animation
  * on correct match, and red glow + vibration shake on mismatch.
  */
@@ -126,10 +162,10 @@ fun MatchingExerciseContent(
     val haptics = rememberQwHaptics()
 
     val leftShuffled = remember(content) { content.pairs.shuffled() }
-    val rightShuffled = remember(content) {
+    val rightShuffled = remember(content, leftShuffled) {
         val entries: List<RightEntry> = content.pairs.map { RightEntry.Pair(it) }
         val withDistractor = content.distractorRight?.let { entries + RightEntry.Distractor(it) } ?: entries
-        withDistractor.shuffled()
+        derangeRightEntries(leftShuffled, withDistractor)
     }
 
     // Grows in match order - both columns retire matched tiles to the top in this same shared

@@ -224,19 +224,20 @@ Download QuranicWords today and start understanding the language of the Noble Qu
 
 ## 📢 4. What's New / Release Notes (Max 500 characters)
 
-For Google Play Console release notes under `versionCode 20` / `versionName 1.0.1`:
+For Google Play Console release notes under `versionCode 21` / `versionName 1.0.1`:
 
 ```text
 QuranicWords v1.0.1:
 • 14,358 exercises across 1,217 lessons (0 empty lessons)
-• Added matching quizzes to end of all 997 regular lessons
-• Fully populated all section exams, chapter exams & flashbacks
+• Matching exercise randomization with strict derangement guarantee
+• Fixed lesson icons: completed lessons show checkmark tick, current shows play
+• Stability fixes: multi-tap debouncing & memory optimization
 • Auto-healing curriculum unlock progression & smooth transitions
 • Harmonized multi-sense meanings (Wujūh al-Qur'an)
 • 100% collision-free quiz options
 • 100% offline, private, and ad-free
 ```
-*(Length: 391 / 500 characters)*
+*(Length: 461 / 500 characters)*
 
 ---
 
@@ -403,7 +404,7 @@ Téléchargez QuranicWords dès aujourd'hui et progressez dans votre compréhens
 ## 🚀 8. Publishing Checklist for Google Play Console
 
 1. [x] Application ID: `com.deanybytes.quranicwords`
-2. [x] Production Release Version: `versionName = "1.0.1"`, `versionCode = 20`
+2. [x] Production Release Version: `versionName = "1.0.1"`, `versionCode = 21`
 3. [x] Target SDK: `36` (Android 16 compatibility)
 4. [x] Signed App Bundle: `QuranicWords-v1.0.1.aab` generated and signed
 5. [x] Native Debug Symbols: `QuranicWords-v1.0.1-native-debug-symbols.zip` extracted

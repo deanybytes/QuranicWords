@@ -67,98 +67,105 @@ class LessonSummaryViewModel @Inject constructor(
 
     private fun loadSummaryDetails() {
         viewModelScope.launch {
-            val userId = userIdProvider.get()
+            try {
+                val userId = userIdProvider.get()
 
-            // 1. Current lesson words & info
-            var lessonTitle: LocalizedText? = null
-            var lessonCategory: LemmaCategory? = null
-            var lessonKind: LessonKind? = null
-            val wordsList = mutableListOf<WordSummaryItem>()
+                val stateUpdate = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    // 1. Current lesson words & info
+                    var lessonTitle: LocalizedText? = null
+                    var lessonCategory: LemmaCategory? = null
+                    var lessonKind: LessonKind? = null
+                    val wordsList = mutableListOf<WordSummaryItem>()
 
-            if (!lessonId.isNullOrBlank() && lessonId != "review_session") {
-                val currentLesson = contentRepository.getLesson(lessonId)
-                if (currentLesson != null) {
-                    lessonTitle = currentLesson.title
-                    lessonCategory = currentLesson.category
-                    lessonKind = currentLesson.kind
-                }
+                    if (!lessonId.isNullOrBlank() && lessonId != "review_session") {
+                        val currentLesson = contentRepository.getLesson(lessonId)
+                        if (currentLesson != null) {
+                            lessonTitle = currentLesson.title
+                            lessonCategory = currentLesson.category
+                            lessonKind = currentLesson.kind
+                        }
 
-                val exercises = contentRepository.getExercisesForLesson(lessonId)
-                val wordCandidates = contentRepository.getWordCandidates().associateBy { it.id }
+                        val exercises = contentRepository.getExercisesForLesson(lessonId)
+                        val wordCandidates = contentRepository.getWordCandidates().associateBy { it.id }
 
-                exercises.forEach { ex ->
-                    runCatching {
-                        val content = AppJson.decodeFromString(ExerciseContent.serializer(), ex.contentJson)
-                        if (content is ExerciseContent.WordIntro) {
-                            val candidate = wordCandidates[content.wordId]
-                            val meaning = candidate?.meaning ?: content.meaning
-                            wordsList.add(
-                                WordSummaryItem(
-                                    wordId = content.wordId,
-                                    arabicWord = content.arabicWord,
-                                    meaning = meaning,
-                                    category = content.lemmaCategory
-                                )
-                            )
+                        exercises.forEach { ex ->
+                            runCatching {
+                                val content = AppJson.decodeFromString(ExerciseContent.serializer(), ex.contentJson)
+                                if (content is ExerciseContent.WordIntro) {
+                                    val candidate = wordCandidates[content.wordId]
+                                    val meaning = candidate?.meaning ?: content.meaning
+                                    wordsList.add(
+                                        WordSummaryItem(
+                                            wordId = content.wordId,
+                                            arabicWord = content.arabicWord,
+                                            meaning = meaning,
+                                            category = content.lemmaCategory
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
-                }
-            }
 
-            // 2. Cumulative progress stats
-            val masteredWordIds = progressRepository.getMasteredItemIds(userId).toSet()
-            val allWords = contentRepository.getWordCandidates()
-            val totalWordsLearned = masteredWordIds.size
-            val masteredOccurrences = allWords.filter { it.id in masteredWordIds }.sumOf { it.frequencyCount }
-            val totalOccurrences = allWords.sumOf { it.frequencyCount }.coerceAtLeast(1)
-            val coveragePercent = (masteredOccurrences.toDouble() / totalOccurrences.toDouble()) * 100.0
+                    // 2. Cumulative progress stats
+                    val masteredWordIds = progressRepository.getMasteredItemIds(userId).toSet()
+                    val allWords = contentRepository.getWordCandidates()
+                    val totalWordsLearned = masteredWordIds.size
+                    val masteredOccurrences = allWords.filter { it.id in masteredWordIds }.sumOf { it.frequencyCount }
+                    val totalOccurrences = allWords.sumOf { it.frequencyCount }.coerceAtLeast(1)
+                    val coveragePercent = (masteredOccurrences.toDouble() / totalOccurrences.toDouble()) * 100.0
 
-            // 3. Next lesson info
-            var nextTitle: LocalizedText? = null
-            var nextCategory: LemmaCategory? = null
-            var nextKind: LessonKind? = null
-            var nextWordCount = 0
-            var nextSectionTitle: LocalizedText? = null
+                    // 3. Next lesson info
+                    var nextTitle: LocalizedText? = null
+                    var nextCategory: LemmaCategory? = null
+                    var nextKind: LessonKind? = null
+                    var nextWordCount = 0
+                    var nextSectionTitle: LocalizedText? = null
 
-            if (!nextLessonId.isNullOrBlank()) {
-                val nextLesson = contentRepository.getLesson(nextLessonId)
-                if (nextLesson != null) {
-                    nextTitle = nextLesson.title
-                    nextCategory = nextLesson.category
-                    nextKind = nextLesson.kind
+                    if (!nextLessonId.isNullOrBlank()) {
+                        val nextLesson = contentRepository.getLesson(nextLessonId)
+                        if (nextLesson != null) {
+                            nextTitle = nextLesson.title
+                            nextCategory = nextLesson.category
+                            nextKind = nextLesson.kind
 
-                    val nextExercises = contentRepository.getExercisesForLesson(nextLessonId)
-                    nextWordCount = nextExercises.count { ex ->
-                        runCatching {
-                            AppJson.decodeFromString(ExerciseContent.serializer(), ex.contentJson) is ExerciseContent.WordIntro
-                        }.getOrDefault(false)
+                            val nextExercises = contentRepository.getExercisesForLesson(nextLessonId)
+                            nextWordCount = nextExercises.count { ex ->
+                                runCatching {
+                                    AppJson.decodeFromString(ExerciseContent.serializer(), ex.contentJson) is ExerciseContent.WordIntro
+                                }.getOrDefault(false)
+                            }
+
+                            if (nextLesson.sectionId != null) {
+                                val section = contentRepository.getSection(nextLesson.sectionId)
+                                nextSectionTitle = section?.title
+                            }
+                        }
                     }
 
-                    if (nextLesson.sectionId != null) {
-                        val section = contentRepository.getSection(nextLesson.sectionId)
-                        nextSectionTitle = section?.title
-                    }
+                    LessonSummaryUiState(
+                        isLoading = false,
+                        lessonTitle = lessonTitle,
+                        lessonCategory = lessonCategory,
+                        lessonKind = lessonKind,
+                        wordsCoveredCount = wordsList.size,
+                        wordsCoveredList = wordsList,
+                        totalWordsLearned = totalWordsLearned,
+                        totalQuranOccurrencesLearned = masteredOccurrences,
+                        quranCoveragePercent = coveragePercent,
+                        nextLessonId = nextLessonId,
+                        nextLessonTitle = nextTitle,
+                        nextLessonCategory = nextCategory,
+                        nextLessonKind = nextKind,
+                        nextLessonWordCount = nextWordCount,
+                        nextLessonSectionTitle = nextSectionTitle
+                    )
                 }
-            }
 
-            _uiState.update {
-                it.copy(
-                    isLoading = false,
-                    lessonTitle = lessonTitle,
-                    lessonCategory = lessonCategory,
-                    lessonKind = lessonKind,
-                    wordsCoveredCount = wordsList.size,
-                    wordsCoveredList = wordsList,
-                    totalWordsLearned = totalWordsLearned,
-                    totalQuranOccurrencesLearned = masteredOccurrences,
-                    quranCoveragePercent = coveragePercent,
-                    nextLessonId = nextLessonId,
-                    nextLessonTitle = nextTitle,
-                    nextLessonCategory = nextCategory,
-                    nextLessonKind = nextKind,
-                    nextLessonWordCount = nextWordCount,
-                    nextLessonSectionTitle = nextSectionTitle
-                )
+                _uiState.value = stateUpdate
+            } catch (e: Throwable) {
+                android.util.Log.e("LessonSummaryViewModel", "Failed to load summary details", e)
+                _uiState.update { it.copy(isLoading = false) }
             }
         }
     }
