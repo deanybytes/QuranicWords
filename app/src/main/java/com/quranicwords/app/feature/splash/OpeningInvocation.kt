@@ -90,7 +90,7 @@ fun OpeningInvocationSequence(reducedMotion: Boolean, onFinished: () -> Unit) {
     var finished by remember { mutableStateOf(false) }
 
     val phases = InvocationPhase.entries
-    val currentPhase = phases[phaseIndex]
+    val currentPhase = phases.getOrElse(phaseIndex) { phases.last() }
 
     val alpha by animateFloatAsState(
         targetValue = if (visible) 1f else 0f,
@@ -108,7 +108,7 @@ fun OpeningInvocationSequence(reducedMotion: Boolean, onFinished: () -> Unit) {
         if (finished) return
         if (phaseIndex < phases.lastIndex) {
             visible = false
-            phaseIndex += 1
+            phaseIndex = (phaseIndex + 1).coerceAtMost(phases.lastIndex)
         } else {
             visible = false
             finish()

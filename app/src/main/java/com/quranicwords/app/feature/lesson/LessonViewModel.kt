@@ -68,7 +68,8 @@ data class LessonUiState(
     val lastAnswerCorrect: Boolean? = null,
     val isFinished: Boolean = false,
     val result: LessonResult? = null,
-    val newlyUnlockedAchievements: List<AchievementDef> = emptyList()
+    val newlyUnlockedAchievements: List<AchievementDef> = emptyList(),
+    val scoredIndices: Set<Int> = emptySet()
 ) {
     val currentContent: ExerciseContent? get() = contents.getOrNull(currentIndex)
     val progressFraction: Float get() = if (contents.isEmpty()) 0f else (currentIndex + if (isChecked) 1 else 0).toFloat() / contents.size
@@ -455,12 +456,16 @@ class LessonViewModel @Inject constructor(
     }
 
     private fun finalizeCheck(correct: Boolean) {
-        val content = _uiState.value.currentContent
+        val state = _uiState.value
+        val content = state.currentContent
+        val currentIndex = state.currentIndex
+        val alreadyScored = currentIndex in state.scoredIndices
         _uiState.update {
             it.copy(
                 isChecked = true,
                 lastAnswerCorrect = correct,
-                correctCount = it.correctCount + if (correct) 1 else 0
+                correctCount = it.correctCount + if (correct && !alreadyScored) 1 else 0,
+                scoredIndices = if (correct) it.scoredIndices + currentIndex else it.scoredIndices
             )
         }
         viewModelScope.launch { sfxPlayer.play(if (correct) SfxEffect.CORRECT else SfxEffect.WRONG) }
@@ -488,6 +493,21 @@ class LessonViewModel @Inject constructor(
                 isChecked = false,
                 lastAnswerCorrect = null
             )
+        }
+    }
+
+    fun onPreviousPressed() {
+        val state = _uiState.value
+        val prevIndex = state.currentIndex - 1
+        if (prevIndex >= 0) {
+            _uiState.update {
+                it.copy(
+                    currentIndex = prevIndex,
+                    attempt = ExerciseAttemptState(),
+                    isChecked = false,
+                    lastAnswerCorrect = null
+                )
+            }
         }
     }
 
