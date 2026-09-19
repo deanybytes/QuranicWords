@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="NestedWeights,DisableBaselineAlignment"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="0d"
+                tools:text="0d"
                 android:textColor="@color/widget_accent_gold"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -103,7 +105,7 @@
                     android:id="@+id/tv_words_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    tools:text="0"
                     android:textColor="@color/widget_text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -134,7 +136,7 @@
                     android:id="@+id/tv_accuracy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100%"
+                    tools:text="100%"
                     android:textColor="@color/widget_accent_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -171,7 +173,7 @@
                     android:id="@+id/tv_daily_goal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 / 15m"
+                    tools:text="0 / 15m"
                     android:textColor="@color/widget_text_primary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -193,7 +195,7 @@
                     android:layout_marginTop="2dp"
                     android:text="@string/widget_daily_goal_label"
                     android:textColor="@color/widget_text_secondary"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <!-- Review Queue Box -->
@@ -211,7 +213,7 @@
                     android:id="@+id/tv_to_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    tools:text="0"
                     android:textColor="@color/widget_mistake_tag_text"
                     android:textSize="18sp"
                     android:textStyle="bold" />

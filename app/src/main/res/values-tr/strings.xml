@@ -249,7 +249,7 @@
 
     <string name="learned_words_title">Öğrenilen Kelimeler</string>
     <string name="learned_words_subtitle">Kur\'an-ı Kerim\'den %d kelime öğrenildi</string>
-    <string name="learned_words_search_placeholder">Kelimelerde ara...</string>
+    <string name="learned_words_search_placeholder">Kelimelerde ara…</string>
     <string name="learned_words_empty_title">Henüz Öğrenilen Kelime Yok</string>
     <string name="learned_words_empty_desc">Kur\'an kelime dağarcığınızı geliştirmek için dersleri tamamlayın.</string>
     <string name="learned_words_start_learning">Öğrenmeye Başla</string>
@@ -358,4 +358,6 @@
     <string name="chapter_intro_fil_label">Fiil</string>
     <string name="chapter_intro_harf_label">Harf / Edat</string>
     <string name="chapter_intro_begin_button">Bölüm %1$s Başlat</string>
+    <string name="next_sense">Sonraki Anlam</string>
+    <string name="lesson_previous_button">Önceki</string>
 </resources>

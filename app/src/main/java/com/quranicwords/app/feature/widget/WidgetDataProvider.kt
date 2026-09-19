@@ -1,6 +1,7 @@
 package com.quranicwords.app.feature.widget
 
 import android.content.Context
+import androidx.core.content.edit
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
@@ -112,7 +113,7 @@ object WidgetDataProvider {
             var currentStep = sp.getInt(KEY_ROTATION_STEP, 0)
             if (advanceRotation) {
                 currentStep = (currentStep + 1) % 1000
-                sp.edit().putInt(KEY_ROTATION_STEP, currentStep).apply()
+                sp.edit { putInt(KEY_ROTATION_STEP, currentStep) }
             }
 
             // 2:1 ratio logic:

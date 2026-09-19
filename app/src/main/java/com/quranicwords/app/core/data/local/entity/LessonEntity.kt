@@ -22,6 +22,7 @@ import kotlinx.serialization.Serializable
  * chapter, chapter 1) since there's nothing earlier to flash back to.
  */
 @Serializable
+@androidx.annotation.Keep
 enum class LessonKind { CHAPTER_INTRO, REGULAR, LESSON_FLASHBACK, SECTION_EXAM, SECTION_FLASHBACK, CHAPTER_EXAM, CHAPTER_FLASHBACK }
 
 /**

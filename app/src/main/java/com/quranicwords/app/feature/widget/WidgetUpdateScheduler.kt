@@ -1,5 +1,6 @@
 package com.quranicwords.app.feature.widget
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -27,6 +28,7 @@ class WidgetAlarmReceiver : BroadcastReceiver() {
     }
 }
 
+
 object WidgetUpdateScheduler {
     const val INTERVAL_MILLIS = 3 * 60 * 1000L // 3 minutes
     private const val REQUEST_CODE = 9021
@@ -39,6 +41,7 @@ object WidgetUpdateScheduler {
         return (statsIds.isNotEmpty() || wordIds.isNotEmpty() || combinedIds.isNotEmpty())
     }
 
+    @SuppressLint("MissingPermission")
     fun scheduleNextUpdate(context: Context) {
         if (!hasAnyActiveWidgets(context)) {
             cancelSchedule(context)
@@ -53,14 +56,24 @@ object WidgetUpdateScheduler {
         val triggerAt = System.currentTimeMillis() + INTERVAL_MILLIS
 
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (alarmManager.canScheduleExactAlarms()) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+                } else {
+                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
             } else {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
             }
         } catch (_: SecurityException) {
             // Fallback for devices restricting exact alarms
-            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
+            }
         }
     }
 
