@@ -100,8 +100,8 @@
     <string name="home_curriculum_complete_subtitle">بے ترتیب سوالات کے ساتھ مشق جاری رکھنے کے لیے ٹیپ کریں</string>
     <string name="roadmap_title">روڈ میپ</string>
     <string name="home_history_title">حال ہی میں مکمل ہونے والے</string>
-    <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
-    <string name="home_history_position">%1$d/%2$d</string>
+    <string name="home_history_summary">%1$s · %2$s%% · %3$s</string>
+    <string name="home_history_position">%1$s/%2$s</string>
     <string name="home_history_previous">پچھلا مکمل شدہ سبق</string>
     <string name="home_history_next">اگلا مکمل شدہ سبق</string>
 

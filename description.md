@@ -214,20 +214,19 @@ Download QuranicWords today and start understanding the language of the Noble Qu
 
 ## 📢 4. What's New / Release Notes (Character Limit: Max 500)
 
-For Google Play Console release notes under `versionCode 21` / `versionName 1.0.1`:
+For Google Play Console release notes under `versionCode 25` / `versionName 1.0.0`:
 
 ```text
-QuranicWords v1.0.1:
-• 14,358 exercises across 1,217 lessons (0 empty lessons)
-• Matching exercise randomization with strict derangement guarantee
-• Fixed lesson icons: completed lessons show checkmark tick, current shows play
-• Stability fixes: multi-tap debouncing & memory optimization
-• Auto-healing curriculum unlock progression & smooth transitions
-• Harmonized multi-sense meanings (Wujūh al-Qur'an)
-• 100% collision-free quiz options
-• 100% offline, private, and ad-free
+QuranicWords v1.0.0:
+• Surah names added to all Quran verse references
+• Auto-scroll and auto-collapse for seamless curriculum navigation
+• Roadmap now allows jumping to both unlocked and completed lessons
+• Enhanced home screen widgets with robust locale formatting
+• Polished translations in Bengali, Urdu, Indonesian, French, and Turkish
+• 14,358 exercises across 1,217 lessons (4,709 Quranic vocabulary words)
+• 100% offline, private, and completely ad-free
 ```
-*(Length: 461 / 500 characters)*
+*(Length: 423 / 500 characters)*
 
 ---
 

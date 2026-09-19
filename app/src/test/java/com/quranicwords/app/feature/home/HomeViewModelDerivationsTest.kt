@@ -263,4 +263,86 @@ class HomeViewModelDerivationsTest {
         assertEquals(80.0, coverage2["c1"] ?: -1.0, 0.001)
         assertEquals(80.0, calculateTotalUserCoveragePercent(coverage2), 0.001)
     }
+
+    @Test
+    fun `findHomeTargetItemIndex locates item when chapter and section are expanded`() {
+        // Chapters layout:
+        // No top cards (currentIndex = 0)
+        // chapter_1 summary -> index 0
+        // section_1_1 summary -> index 1
+        // l1 -> index 2
+        // l2 -> index 3
+        // chapter_1_exam -> index 4
+        // chapter_2 summary -> index 5
+        val index = findHomeTargetItemIndex(
+            chapters = chapters,
+            isCurriculumComplete = false,
+            hasReviewableItems = false,
+            hasCompletedHistory = false,
+            expandedChapterIds = setOf("chapter_1"),
+            expandedSectionIds = setOf("section_1_1"),
+            targetLessonId = "l2"
+        )
+        assertEquals(3, index)
+    }
+
+    @Test
+    fun `findHomeTargetItemIndex locates section node when section is collapsed`() {
+        // chapter_1 summary -> index 0
+        // section_1_1 summary -> index 1 (collapsed, l1 and l2 not rendered)
+        // chapter_1_exam -> index 2
+        val index = findHomeTargetItemIndex(
+            chapters = chapters,
+            isCurriculumComplete = false,
+            hasReviewableItems = false,
+            hasCompletedHistory = false,
+            expandedChapterIds = setOf("chapter_1"),
+            expandedSectionIds = emptySet(),
+            targetLessonId = "l2"
+        )
+        assertEquals(1, index)
+    }
+
+    @Test
+    fun `findHomeTargetItemIndex locates chapter node when chapter is collapsed`() {
+        // history_card -> index 0
+        // chapter_1 summary -> index 1 (collapsed)
+        // chapter_2 summary -> index 2 (collapsed)
+        val index = findHomeTargetItemIndex(
+            chapters = chapters,
+            isCurriculumComplete = false,
+            hasReviewableItems = false,
+            hasCompletedHistory = true,
+            expandedChapterIds = emptySet(),
+            expandedSectionIds = emptySet(),
+            targetLessonId = "l3"
+        )
+        assertEquals(2, index)
+    }
+
+    @Test
+    fun `findHomeTargetItemIndex returns null when target not found or null`() {
+        val nullIndex = findHomeTargetItemIndex(
+            chapters = chapters,
+            isCurriculumComplete = false,
+            hasReviewableItems = false,
+            hasCompletedHistory = false,
+            expandedChapterIds = setOf("chapter_1"),
+            expandedSectionIds = setOf("section_1_1"),
+            targetLessonId = null
+        )
+        assertNull(nullIndex)
+
+        val notFoundIndex = findHomeTargetItemIndex(
+            chapters = chapters,
+            isCurriculumComplete = false,
+            hasReviewableItems = false,
+            hasCompletedHistory = false,
+            expandedChapterIds = setOf("chapter_1"),
+            expandedSectionIds = setOf("section_1_1"),
+            targetLessonId = "non_existent"
+        )
+        assertNull(notFoundIndex)
+    }
 }
+

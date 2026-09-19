@@ -13,8 +13,8 @@ class RoadmapViewModelTest {
     }
 
     @Test
-    fun `an unlocked-but-not-completed lesson is not reachable`() {
-        assertFalse(isRoadmapReachable(LessonStatus.UNLOCKED))
+    fun `an unlocked-but-not-completed lesson is reachable`() {
+        assertTrue(isRoadmapReachable(LessonStatus.UNLOCKED))
     }
 
     @Test

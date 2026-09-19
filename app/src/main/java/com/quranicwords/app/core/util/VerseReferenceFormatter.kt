@@ -17,8 +17,26 @@ object VerseReferenceFormatter {
     private val ARABIC_INDIC_DIGITS = charArrayOf('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹')
     private val DEVANAGARI_DIGITS = charArrayOf('०', '१', '२', '३', '४', '५', '६', '७', '८', '९')
 
+    private val VERSE_REF_REGEX = Regex("""(\d+)\s*:\s*(\d+)""")
+
     fun format(reference: String?, language: Language): String {
         if (reference.isNullOrBlank()) return ""
+
+        val match = VERSE_REF_REGEX.find(reference)
+        if (match != null) {
+            val surahNum = match.groupValues[1].toIntOrNull()
+            val verseNum = match.groupValues[2]
+            if (surahNum != null && surahNum in 1..114) {
+                val surahName = SurahNames.getSurahName(surahNum, language)
+                val localizedSurah = formatDigits(surahNum.toString(), language)
+                val localizedVerse = formatDigits(verseNum, language)
+                return if (surahName.isNotBlank()) {
+                    "$surahName $localizedSurah:$localizedVerse"
+                } else {
+                    "$localizedSurah:$localizedVerse"
+                }
+            }
+        }
 
         val cleaned = reference
             .replace("(?i)surah".toRegex(), "")

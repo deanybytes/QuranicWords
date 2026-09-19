@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class StatsWidgetProvider : AppWidgetProvider() {
 
@@ -71,7 +72,8 @@ class StatsWidgetProvider : AppWidgetProvider() {
                 views.setTextViewText(R.id.tv_words_count, "${stats.wordsLearnedCount}")
                 views.setTextViewText(
                     R.id.tv_words_pct,
-                    context.getString(R.string.widget_words_learned_label) + " (${String.format("%.1f", stats.wordsLearnedPct)}%)"
+                    context.getString(R.string.widget_words_learned_label) + " (${String.format(
+                        Locale.US, "%.1f", stats.wordsLearnedPct)}%)"
                 )
 
                 // Accuracy

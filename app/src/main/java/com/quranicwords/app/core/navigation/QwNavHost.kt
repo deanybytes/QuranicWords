@@ -254,8 +254,10 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                                 popUpTo(Route.Home)
                             }
                         } else {
-                            navController.navigate(Route.Home) {
-                                popUpTo(Route.Home) { inclusive = true }
+                            if (!navController.popBackStack(Route.Home, inclusive = false)) {
+                                navController.navigate(Route.Home) {
+                                    popUpTo(navController.graph.id) { inclusive = true }
+                                }
                             }
                         }
                     } else {
@@ -330,14 +332,18 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                             popUpTo(Route.Home)
                         }
                     } else {
-                        navController.navigate(Route.Home) {
-                            popUpTo(Route.Home) { inclusive = true }
+                        if (!navController.popBackStack(Route.Home, inclusive = false)) {
+                            navController.navigate(Route.Home) {
+                                popUpTo(navController.graph.id) { inclusive = true }
+                            }
                         }
                     }
                 },
                 onBackHome = {
-                    navController.navigate(Route.Home) {
-                        popUpTo(Route.Home) { inclusive = true }
+                    if (!navController.popBackStack(Route.Home, inclusive = false)) {
+                        navController.navigate(Route.Home) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
                     }
                 }
             )

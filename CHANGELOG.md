@@ -2,6 +2,24 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.0] - 2026-09-19 (versionCode 25)
+
+### Added
+- **Surah Names in Verse References**: Enriched Quran verse citations throughout the app with canonical Surah names (e.g. "Al-Baqarah 2:255" instead of raw numbers) across all 114 Surahs via `SurahNames.kt` and `VerseReferenceFormatter.kt`.
+- **Roadmap Learning & Review Navigation**: Enabled direct navigation to both completed and unlocked lessons on the Roadmap screen, with clear active indicator (`PlayArrow`) and accent styling for the learner's current lesson.
+- **Automated Home Tree Navigation**: Added auto-scrolling to the active lesson upon completion/advancement (`findHomeTargetItemIndex`) and clean auto-collapsing of completed units to keep the curriculum view organized and uncluttered.
+
+### Fixed
+- **Curriculum Auto-Unlock Progression**: Resolved edge cases in `ProgressRepositoryImpl` where completing a chapter intro or transition node now immediately unlocks the subsequent section lessons.
+- **Widget Formatting Across Locales**: Enforced `Locale.US` in float percentage formatting for home screen widgets (`StatsWidgetProvider`), resolving potential layout rendering errors in international locales.
+- **Multi-language String Resources**: Consolidated duplicate Indonesian localization resources under Android standard `values-in` and harmonized string definitions across English, Bengali, French, Indonesian, Turkish, and Urdu.
+
+### Changed
+- **Compiler & Lint Quality Gates**: Configured `warningsAsErrors = true` and `allWarningsAsErrors = true` across Kotlin compiler and Android Lint to guarantee strict code hygiene.
+- **Test Runner Compatibility**: Optimized unit test JVM arguments in `build.gradle.kts` and `gradle.properties` for smooth execution on modern JDK runtimes.
+- **Release Version**: Bumped `versionCode` to `25` (`versionName = "1.0.0"`).
+- **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.0.aab`, release APK `QuranicWords-v1.0.0.apk`, and native debug symbols `QuranicWords-v1.0.0-native-debug-symbols.zip`.
+
 ## [1.0.1] - 2026-09-19 (versionCode 22)
 
 ### Added

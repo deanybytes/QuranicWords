@@ -4,6 +4,78 @@
 
 ---
 
+## 🚀 v1.0.0 (versionCode 25)
+
+```xml
+<en-US>
+QuranicWords v1.0.0:
+• Surah names added to all Quran verse references
+• Auto-scroll and auto-collapse for seamless curriculum navigation
+• Roadmap now allows jumping to both unlocked and completed lessons
+• Enhanced home screen widgets with robust locale formatting
+• Polished translations in Bengali, Urdu, Indonesian, French, and Turkish
+• 14,358 exercises across 1,217 lessons (4,709 Quranic vocabulary words)
+• 100% offline, private, and completely ad-free
+</en-US>
+
+<bn-BD>
+QuranicWords v1.0.0:
+• প্রতিটি আয়াত রেফারেন্সে সুরার নাম সংযোজন
+• পাঠ সমাপ্তির পর স্বয়ংক্রিয় স্ক্রল ও অধ্যায় সংকোচন সুবিধা
+• রোডম্যাপ থেকে আনলকড ও সমাপ্ত সব পাঠ সরাসরি অনুশীলনের সুযোগ
+• বিভিন্ন ভাষার জন্য হোমস্ক্রিন উইজেটের সংখ্যা ও ফরম্যাট ত্রুটিমুক্ত
+• বাংলা, উর্দু, ইন্দোনেশীয়, ফরাসি ও তুর্কি অনুবাদের পরিমার্জন
+• ১,২১৭টি পাঠে ৪,৭০৯টি কুরআনিক শব্দের ১৪,৩৫৮টি অনুশীলন
+• ১০০% অফলাইন, নিরাপদ ও বিজ্ঞাপনমুক্ত
+</bn-BD>
+
+<ur>
+QuranicWords v1.0.0:
+• تمام قرآنی آیات کے حوالوں میں سورتوں کے نام شامل
+• خودکار اسکرولنگ اور اسباق کی ہموار ترتیب
+• روڈ میپ سے تمام مکمل اور کھلے اسباق کا براہ راست مطالعہ
+• تمام زبانوں کے لیے ہوم اسکرین ویجیٹس کی درست ترتیب
+• اردو، بنگلہ، انڈونیشی، فرانسیسی اور ترکی تراجم کی اصلاح
+• ۱،۲۱۷ اسباق میں ۴،۷۰۹ قرآنی الفاظ اور ۱۴،۳۵۸ مشقیں
+• ۱۰۰٪ آف لائن، محفوظ اور اشتہارات سے پاک
+</ur>
+
+<id>
+QuranicWords v1.0.0:
+• Nama surah ditambahkan pada semua referensi ayat Al-Qur'an
+• Gulir otomatis & peringkasan kurikulum untuk navigasi lebih mudah
+• Roadmap kini mendukung akses langsung ke pelajaran selesai & terbuka
+• Format widget beranda lebih stabil untuk berbagai bahasa
+• Penyempurnaan terjemahan (ID, BN, UR, FR, TR)
+• 14.358 latihan di 1.217 pelajaran (4.709 kosakata Al-Qur'an)
+• 100% offline, tanpa iklan, & privat selamanya
+</id>
+
+<tr-TR>
+QuranicWords v1.0.0:
+• Tüm Kur'an ayeti referanslarına sure isimleri eklendi
+• Otomatik kaydırma ve tamamlanan üniteleri daraltma özelliği
+• Yol haritasından hem açık hem tamamlanan derslere doğrudan erişim
+• Ana ekran widget'larında yerel biçimlendirme düzeltmeleri
+• Türkçe, Bengalce, Urduca ve Fransızca çeviri güncellemeleri
+• 1.217 derste 4.709 Kur'an kelimesi ve 14.358 alıştırma
+• %100 çevrimdışı, reklamsız ve gizlilik odaklı
+</tr-TR>
+
+<fr-FR>
+QuranicWords v1.0.0 :
+• Noms des sourates ajoutés à toutes les références de versets
+• Défilement et masquage automatiques pour une navigation fluide
+• Accès direct aux leçons ouvertes et terminées depuis la feuille de route
+• Widgets d'écran d'accueil stabilisés pour tous les formats régionaux
+• Traductions affinées en français, bengali, ourdou, indonésien et turc
+• 14 358 exercices sur 1 217 leçons (4 709 mots du Coran)
+• 100% hors ligne, privé et sans publicité
+</fr-FR>
+```
+
+---
+
 ## 🚀 v1.0.1 (versionCode 21)
 
 ```xml

@@ -5,6 +5,7 @@ import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
@@ -86,6 +87,13 @@ class ProgressRepositoryImpl @Inject constructor(
                 )
                 if (nextId != null) {
                     unlockIfNeeded(userId, nextId)
+                    val nextLesson = lessonsById[nextId]
+                    if (nextLesson?.kind == LessonKind.CHAPTER_INTRO && nextLesson.sectionId != null) {
+                        val secLessons = allLessons.filter { it.sectionId == nextLesson.sectionId }.sortedBy { it.sortOrder }
+                        if (secLessons.size > 1) {
+                            unlockIfNeeded(userId, secLessons[1].id)
+                        }
+                    }
                 }
             }
         }
@@ -146,13 +154,23 @@ class ProgressRepositoryImpl @Inject constructor(
      * fallback it walks. Unlocks whatever it resolves to (if anything) and returns its id. Caller
      * has already confirmed [completedLesson] was actually passed (see [completeLesson]). */
     private suspend fun unlockNextLesson(userId: String, completedLesson: LessonEntity): String? {
+        val allLessons = database.lessonDao().getAll()
         val nextId = CurriculumUnlockResolver.resolveNextLessonId(
             completedLessonId = completedLesson.id,
-            lessons = database.lessonDao().getAll(),
+            lessons = allLessons,
             sections = database.sectionDao().getAll(),
             chapters = database.chapterDao().getAll()
         ) ?: return null
         unlockIfNeeded(userId, nextId)
+
+        val nextLesson = allLessons.find { it.id == nextId }
+        if (nextLesson?.kind == LessonKind.CHAPTER_INTRO && nextLesson.sectionId != null) {
+            val sectionLessons = allLessons.filter { it.sectionId == nextLesson.sectionId }.sortedBy { it.sortOrder }
+            if (sectionLessons.size > 1) {
+                unlockIfNeeded(userId, sectionLessons[1].id)
+            }
+        }
+
         return nextId
     }
 

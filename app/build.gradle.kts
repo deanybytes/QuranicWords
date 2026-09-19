@@ -36,7 +36,7 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 36
-        versionCode = 23
+        versionCode = 25
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -92,6 +92,17 @@ android {
         unitTests {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
+            all { test ->
+                test.jvmArgs(
+                    "-XX:-PrintWarnings",
+                    "--enable-native-access=ALL-UNNAMED",
+                    "--add-opens=java.base/java.lang=ALL-UNNAMED",
+                    "--add-opens=java.base/java.util=ALL-UNNAMED",
+                    "--add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED",
+                    "--add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED",
+                    "-Dprotobuf.disable_unsafe=true"
+                )
+            }
         }
     }
     bundle {
@@ -100,6 +111,8 @@ android {
         }
     }
     lint {
+        warningsAsErrors = true
+        abortOnError = true
         disable += listOf(
             "MissingTranslation",
             "PluralsCandidate",
@@ -112,8 +125,7 @@ android {
             "GradleDependency",
             "NewerVersionAvailable",
             "ObsoleteSdkInt",
-            "OldTargetApi",
-            "DefaultLocale"
+            "OldTargetApi"
         )
     }
 
@@ -122,6 +134,7 @@ android {
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_11)
+        allWarningsAsErrors.set(true)
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
 }
