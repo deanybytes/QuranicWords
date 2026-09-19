@@ -214,7 +214,7 @@ Download QuranicWords today and start understanding the language of the Noble Qu
 
 ## 📢 4. What's New / Release Notes (Character Limit: Max 500)
 
-For Google Play Console release notes under `versionCode 25` / `versionName 1.0.0`:
+For Google Play Console release notes under `versionCode 26` / `versionName 1.0.0`:
 
 ```text
 QuranicWords v1.0.0:

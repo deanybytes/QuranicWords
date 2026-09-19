@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 v1.0.0 (versionCode 25)
+## 🚀 v1.0.0 (versionCode 26)
 
 ```xml
 <en-US>
