@@ -60,10 +60,11 @@ import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
  */
 @Composable
 fun WordIntroExerciseContent(
-    content: ExerciseContent.WordIntro
+    content: ExerciseContent.WordIntro,
+    selectedMeaningIndex: Int = 0,
+    onMeaningSelected: (Int) -> Unit = {}
 ) {
     val language = rememberSelectedLanguage()
-    var selectedMeaningIndex by remember(content) { mutableIntStateOf(0) }
 
     val activePolysemyEntry = content.polysemyEntries.getOrNull(selectedMeaningIndex)
 
@@ -306,7 +307,7 @@ fun WordIntroExerciseContent(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(12.dp))
                                 .background(tabBg)
-                                .clickable { selectedMeaningIndex = idx }
+                                .clickable { onMeaningSelected(idx) }
                                 .padding(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Row(

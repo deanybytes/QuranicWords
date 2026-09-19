@@ -2,6 +2,18 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.1] - 2026-09-19 (versionCode 22)
+
+### Added
+- Added "Next Sense" navigation for words with multiple senses (polysemy), ensuring users review all meanings before proceeding.
+- Added a "Previous" button during exercises to allow revisiting and reviewing completed words.
+
+### Fixed
+- Fixed an intermittent crash (`IndexOutOfBoundsException`) during the splash screen opening invocation sequence when tapped multiple times rapidly.
+
+### Changed
+- Bumped `versionCode` to `22`.
+
 ## [1.0.1] - 2026-09-18 (versionCode 21)
 
 ### Fixed
@@ -29,6 +41,7 @@ All notable changes to QuranicWords are documented here.
 ### Changed
 - **Database Content Reseeding**: Bumped `ContentSeeder.CONTENT_VERSION` from 33 to 34 to cleanly reseed Room content tables on app update without disturbing user progress or statistics.
 - **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` (57.3 MB) reflecting 100% verified senses; built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 20`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+
 
 ## [1.0.0] - 2026-09-16 (Google Play Store Official Release)
 

@@ -75,6 +75,9 @@ fun LessonScreen(
     val language = rememberSelectedLanguage()
     val haptics = rememberQwHaptics()
 
+    var selectedMeaningIndex by remember(uiState.currentIndex) { androidx.compose.runtime.mutableIntStateOf(0) }
+    var visitedSenses by remember(uiState.currentIndex) { mutableStateOf(setOf(0)) }
+
     BackHandler(enabled = !uiState.isLoading) {
         showExitDialog = true
     }
@@ -207,7 +210,12 @@ fun LessonScreen(
                             onSelectRight = viewModel::selectMatchingRight
                         )
                         is ExerciseContent.WordIntro -> WordIntroExerciseContent(
-                            content = content
+                            content = content,
+                            selectedMeaningIndex = selectedMeaningIndex,
+                            onMeaningSelected = {
+                                selectedMeaningIndex = it
+                                visitedSenses = visitedSenses + it
+                            }
                         )
                         is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
                             content = content
@@ -256,6 +264,13 @@ fun LessonScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                                 ) {
+                                    if (uiState.currentIndex > 0) {
+                                        QwSecondaryButton(
+                                            text = stringResource(R.string.lesson_previous_button),
+                                            onClick = viewModel::onPreviousPressed,
+                                            modifier = Modifier.weight(1f)
+                                        )
+                                    }
                                     QwSecondaryButton(
                                         text = stringResource(R.string.lesson_try_again_button),
                                         onClick = viewModel::onTryAgainPressed,
@@ -270,34 +285,94 @@ fun LessonScreen(
                                     )
                                 }
                             } else {
-                                QwPrimaryButton(
-                                    text = stringResource(
-                                        if (isLastExercise) R.string.lesson_finish_button else R.string.lesson_continue_button
-                                    ),
-                                    onClick = viewModel::onContinuePressed,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
+                                    if (uiState.currentIndex > 0) {
+                                        QwSecondaryButton(
+                                            text = stringResource(R.string.lesson_previous_button),
+                                            onClick = viewModel::onPreviousPressed,
+                                            modifier = Modifier.weight(1f)
+                                        )
+                                    }
+                                    QwPrimaryButton(
+                                        text = stringResource(
+                                            if (isLastExercise) R.string.lesson_finish_button else R.string.lesson_continue_button
+                                        ),
+                                        onClick = viewModel::onContinuePressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
                             }
                         }
                         uiState.currentContent is ExerciseContent.MultipleChoice ||
-                            uiState.currentContent is ExerciseContent.FillInTheBlank -> QwPrimaryButton(
-                            text = stringResource(R.string.lesson_check_button),
-                            enabled = uiState.attempt.selectedOptionId != null,
-                            onClick = viewModel::onCheckPressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        uiState.currentContent is ExerciseContent.WordOrderBuilder -> QwPrimaryButton(
-                            text = stringResource(R.string.lesson_check_button),
-                            enabled = uiState.attempt.orderedChipIds.size ==
-                                (uiState.currentContent as ExerciseContent.WordOrderBuilder).orderedChips.size,
-                            onClick = viewModel::onCheckPressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        uiState.currentContent is ExerciseContent.WordIntro -> QwPrimaryButton(
-                            text = stringResource(R.string.lesson_teach_continue_button),
-                            onClick = viewModel::onContinuePressed,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                            uiState.currentContent is ExerciseContent.FillInTheBlank -> {
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (uiState.currentIndex > 0) {
+                                    QwSecondaryButton(
+                                        text = stringResource(R.string.lesson_previous_button),
+                                        onClick = viewModel::onPreviousPressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                                QwPrimaryButton(
+                                    text = stringResource(R.string.lesson_check_button),
+                                    enabled = uiState.attempt.selectedOptionId != null,
+                                    onClick = viewModel::onCheckPressed,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                        uiState.currentContent is ExerciseContent.WordOrderBuilder -> {
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (uiState.currentIndex > 0) {
+                                    QwSecondaryButton(
+                                        text = stringResource(R.string.lesson_previous_button),
+                                        onClick = viewModel::onPreviousPressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                                QwPrimaryButton(
+                                    text = stringResource(R.string.lesson_check_button),
+                                    enabled = uiState.attempt.orderedChipIds.size ==
+                                        (uiState.currentContent as ExerciseContent.WordOrderBuilder).orderedChips.size,
+                                    onClick = viewModel::onCheckPressed,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                        uiState.currentContent is ExerciseContent.WordIntro -> {
+                            val intro = uiState.currentContent as ExerciseContent.WordIntro
+                            val totalSenses = intro.polysemyEntries.size
+                            val allVisited = visitedSenses.size >= totalSenses || totalSenses <= 1
+                            val onContinueOrNextSense = {
+                                if (allVisited) {
+                                    viewModel.onContinuePressed()
+                                } else {
+                                    val nextUnvisited = (0 until totalSenses).firstOrNull { it !in visitedSenses }
+                                    if (nextUnvisited != null) {
+                                        selectedMeaningIndex = nextUnvisited
+                                        visitedSenses = visitedSenses + nextUnvisited
+                                    }
+                                }
+                            }
+                            val btnTextRes = if (allVisited) R.string.lesson_teach_continue_button else R.string.next_sense
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (uiState.currentIndex > 0) {
+                                    QwSecondaryButton(
+                                        text = stringResource(R.string.lesson_previous_button),
+                                        onClick = viewModel::onPreviousPressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                                QwPrimaryButton(
+                                    text = stringResource(btnTextRes),
+                                    onClick = onContinueOrNextSense,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
                         uiState.currentContent is ExerciseContent.ChapterIntro -> {
                             val chNum = (uiState.currentContent as ExerciseContent.ChapterIntro).chapterNumber
                             val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
@@ -310,11 +385,20 @@ fun LessonScreen(
                                     com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chNum.toString(), language)
                                 )
                             }
-                            QwPrimaryButton(
-                                text = btnText,
-                                onClick = viewModel::onContinuePressed,
-                                modifier = Modifier.fillMaxWidth()
-                            )
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (uiState.currentIndex > 0) {
+                                    QwSecondaryButton(
+                                        text = stringResource(R.string.lesson_previous_button),
+                                        onClick = viewModel::onPreviousPressed,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                                QwPrimaryButton(
+                                    text = btnText,
+                                    onClick = viewModel::onContinuePressed,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
                         }
                         else -> Unit // matching self-advances once solved
                     }

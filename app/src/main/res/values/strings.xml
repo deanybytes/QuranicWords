@@ -356,4 +356,6 @@
     <string name="chapter_intro_fil_label">Fi\'l (Verbs)</string>
     <string name="chapter_intro_harf_label">Harf (Particles)</string>
     <string name="chapter_intro_begin_button">Begin Chapter %1$s</string>
+    <string name="next_sense">Next Sense</string>
+    <string name="lesson_previous_button">Previous</string>
 </resources>
