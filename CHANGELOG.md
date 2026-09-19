@@ -2,7 +2,7 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.0] - 2026-09-19 (versionCode 25)
+## [1.0.0] - 2026-09-19 (versionCode 26)
 
 ### Added
 - **Surah Names in Verse References**: Enriched Quran verse citations throughout the app with canonical Surah names (e.g. "Al-Baqarah 2:255" instead of raw numbers) across all 114 Surahs via `SurahNames.kt` and `VerseReferenceFormatter.kt`.
@@ -17,7 +17,7 @@ All notable changes to QuranicWords are documented here.
 ### Changed
 - **Compiler & Lint Quality Gates**: Configured `warningsAsErrors = true` and `allWarningsAsErrors = true` across Kotlin compiler and Android Lint to guarantee strict code hygiene.
 - **Test Runner Compatibility**: Optimized unit test JVM arguments in `build.gradle.kts` and `gradle.properties` for smooth execution on modern JDK runtimes.
-- **Release Version**: Bumped `versionCode` to `25` (`versionName = "1.0.0"`).
+- **Release Version**: Bumped `versionCode` to `26` (`versionName = "1.0.0"`).
 - **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.0.aab`, release APK `QuranicWords-v1.0.0.apk`, and native debug symbols `QuranicWords-v1.0.0-native-debug-symbols.zip`.
 
 ## [1.0.1] - 2026-09-19 (versionCode 22)
