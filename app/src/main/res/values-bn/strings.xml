@@ -261,7 +261,7 @@
 
     <string name="learned_words_title">অর্জিত শব্দসমূহ</string>
     <string name="learned_words_subtitle">পবিত্র কুরআন থেকে %d টি শব্দ আয়ত্ত হয়েছে</string>
-    <string name="learned_words_search_placeholder">অর্জিত শব্দ খুঁজুন...</string>
+    <string name="learned_words_search_placeholder">অর্জিত শব্দ খুঁজুন…</string>
     <string name="learned_words_empty_title">এখনও কোনো শব্দ শেখা হয়নি</string>
     <string name="learned_words_empty_desc">কুরআনিক শব্দভাণ্ডার সমৃদ্ধ করতে পাঠ এবং কুইজ সম্পন্ন করুন।</string>
     <string name="learned_words_start_learning">পড়া শুরু করুন</string>
@@ -358,4 +358,6 @@
     <string name="chapter_intro_fil_label">ফে\'ল (ক্রিয়া)</string>
     <string name="chapter_intro_harf_label">হরফ (অব্যয়)</string>
     <string name="chapter_intro_begin_button">অধ্যায় %1$s শুরু করুন</string>
+    <string name="next_sense">পরবর্তী অর্থ</string>
+    <string name="lesson_previous_button">পূর্ববর্তী</string>
 </resources>

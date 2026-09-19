@@ -252,7 +252,7 @@
 
     <string name="learned_words_title">سیکھے گئے الفاظ</string>
     <string name="learned_words_subtitle">قرآن مجید سے %d الفاظ یاد ہو چکے ہیں</string>
-    <string name="learned_words_search_placeholder">الفاظ تلاش کریں...</string>
+    <string name="learned_words_search_placeholder">الفاظ تلاش کریں…</string>
     <string name="learned_words_empty_title">ابھی تک کوئی لفظ نہیں سیکھا گیا</string>
     <string name="learned_words_empty_desc">اپنے قرآنی ذخیرہ الفاظ بنانے کے لیے اسباق اور کوئز مکمل کریں۔</string>
     <string name="learned_words_start_learning">سیکھنا شروع کریں</string>
@@ -358,4 +358,6 @@
     <string name="chapter_intro_fil_label">فعل</string>
     <string name="chapter_intro_harf_label">حرف</string>
     <string name="chapter_intro_begin_button">باب %1$s شروع کریں</string>
+    <string name="next_sense">اگلا معنی</string>
+    <string name="lesson_previous_button">پچھلا</string>
 </resources>

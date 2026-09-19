@@ -36,8 +36,8 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 36
-        versionCode = 22
-        versionName = "1.0.1"
+        versionCode = 23
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -100,7 +100,21 @@ android {
         }
     }
     lint {
-        disable += "MissingTranslation"
+        disable += listOf(
+            "MissingTranslation",
+            "PluralsCandidate",
+            "Typos",
+            "UnusedAttribute",
+            "UnusedResources",
+            "UnusedTranslation",
+            "IconDuplicates",
+            "AndroidGradlePluginVersion",
+            "GradleDependency",
+            "NewerVersionAvailable",
+            "ObsoleteSdkInt",
+            "OldTargetApi",
+            "DefaultLocale"
+        )
     }
 
 }

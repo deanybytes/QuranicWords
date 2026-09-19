@@ -258,7 +258,7 @@
 
     <string name="learned_words_title">Learned Words</string>
     <string name="learned_words_subtitle">%d words mastered from the Holy Qur\'an</string>
-    <string name="learned_words_search_placeholder">Search learned words...</string>
+    <string name="learned_words_search_placeholder">Search learned words…</string>
     <string name="learned_words_empty_title">No Learned Words Yet</string>
     <string name="learned_words_empty_desc">Complete lessons and practice quizzes to build your Quranic vocabulary.</string>
     <string name="learned_words_start_learning">Start Learning</string>

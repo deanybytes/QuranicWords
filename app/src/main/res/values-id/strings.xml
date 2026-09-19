@@ -233,7 +233,7 @@
 
     <string name="learned_words_title">Kata yang Dipelajari</string>
     <string name="learned_words_subtitle">%d kata dikuasai dari Al-Qur\'an</string>
-    <string name="learned_words_search_placeholder">Cari kata yang dipelajari...</string>
+    <string name="learned_words_search_placeholder">Cari kata yang dipelajari…</string>
     <string name="learned_words_empty_title">Belum Ada Kata yang Dipelajari</string>
     <string name="learned_words_empty_desc">Selesaikan pelajaran dan kuis untuk membangun kosakata Qur\'ani Anda.</string>
     <string name="learned_words_start_learning">Mulai Belajar</string>
@@ -310,4 +310,6 @@
     <string name="word_category_particle">Partikel (حرف)</string>
     <string name="polysemy_tab_format">Arti [%d]</string>
     <string name="polysemy_meanings_title">Arti Kontekstual (Wujuh Al-Qur\'an)</string>
+    <string name="next_sense">Makna berikutnya</string>
+    <string name="lesson_previous_button">Sebelumnya</string>
 </resources>

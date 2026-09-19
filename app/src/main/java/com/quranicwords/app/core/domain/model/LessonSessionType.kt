@@ -17,4 +17,5 @@ import kotlinx.serialization.Serializable
  *   framing.
  */
 @Serializable
+@androidx.annotation.Keep
 enum class LessonSessionType { LESSON, REVIEW, OPEN_PRACTICE, STREAK_RECOVERY }
