@@ -91,6 +91,7 @@ import com.quranicwords.app.core.ui.theme.MedallionShapeDefault
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.VerseReferenceFormatter
+import java.util.Locale
 
 @Composable
 fun LessonSummaryScreen(
@@ -131,7 +132,7 @@ fun LessonSummaryScreen(
     val localizedAccuracy = VerseReferenceFormatter.formatDigits("${route.accuracyPercent}%", language)
     val localizedMistakes = VerseReferenceFormatter.formatDigits(mistakeCount.toString(), language)
     val localizedTotalLearned = VerseReferenceFormatter.formatDigits(uiState.totalWordsLearned.toString(), language)
-    val localizedCoveragePercent = VerseReferenceFormatter.formatDigits(String.format("%.1f%%", uiState.quranCoveragePercent), language)
+    val localizedCoveragePercent = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", uiState.quranCoveragePercent), language)
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (isExamPass) {

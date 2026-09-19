@@ -18,25 +18,24 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import com.quranicwords.app.feature.home.findCurrentLessonId
+
 data class RoadmapUiState(
     val chapters: List<ChapterWithSections> = emptyList(),
     val progressByLessonId: Map<String, UserProgressEntity> = emptyMap(),
+    val currentLessonId: String? = null,
     val isLoading: Boolean = true
 )
 
-/** A completed unit can be jumped to for review; anything not yet completed (UNLOCKED or LOCKED)
- * is inert on the Roadmap - full free navigation to an in-progress/future unit is explicitly not
- * this screen's job (that's the ordinary Home path), only reachable via actually completing the
- * curriculum in order. Pure and unit-tested (`RoadmapViewModelTest`) since it gates every tap
+/** A completed or unlocked unit can be jumped to for learning or review on the Roadmap.
+ * Only locked units remain inert. Pure and unit-tested (`RoadmapViewModelTest`) since it gates every tap
  * target on this screen. */
-fun isRoadmapReachable(status: LessonStatus): Boolean = status == LessonStatus.COMPLETED
+fun isRoadmapReachable(status: LessonStatus): Boolean =
+    status == LessonStatus.COMPLETED || status == LessonStatus.UNLOCKED
 
 /**
- * Full-curriculum timeline for jumping straight to any *completed* chapter/section/lesson for
- * review - a separate destination from Home's collapse/expand tree, which is about progressing
- * forward, not browsing backward. Reuses [ChapterWithSections]/[SectionWithLessons] and the same
- * repository composition [com.quranicwords.app.feature.home.HomeViewModel] already uses, rather
- * than a parallel data shape.
+ * Full-curriculum timeline for viewing learning progress and jumping straight to any *completed*
+ * or *unlocked* chapter/section/lesson for learning or review.
  */
 @HiltViewModel
 class RoadmapViewModel @Inject constructor(
@@ -53,10 +52,13 @@ class RoadmapViewModel @Inject constructor(
             val userId = userIdProvider.get()
             val chapters = contentRepository.getFullCurriculumTree()
             progressRepository.observeProgress(userId).collect { progress ->
+                val progressByLessonId = progress.associateBy { row -> row.lessonId }
+                val currentLessonId = findCurrentLessonId(chapters, progressByLessonId)
                 _uiState.update {
                     it.copy(
                         chapters = chapters,
-                        progressByLessonId = progress.associateBy { row -> row.lessonId },
+                        progressByLessonId = progressByLessonId,
+                        currentLessonId = currentLessonId,
                         isLoading = false
                     )
                 }

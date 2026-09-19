@@ -97,8 +97,8 @@
     <string name="home_curriculum_complete_subtitle">Ketuk untuk terus berlatih dengan pertanyaan acak</string>
     <string name="roadmap_title">Peta Jalan</string>
     <string name="home_history_title">Baru Saja Diselesaikan</string>
-    <string name="home_history_summary">%1$s · %2$d%% · %3$s</string>
-    <string name="home_history_position">%1$d/%2$d</string>
+    <string name="home_history_summary">%1$s · %2$s%% · %3$s</string>
+    <string name="home_history_position">%1$s/%2$s</string>
     <string name="home_history_previous">Pelajaran selesai sebelumnya</string>
     <string name="home_history_next">Pelajaran selesai berikutnya</string>
 

@@ -42,6 +42,15 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
   - **Language Bundle Optimization**: Disabled language splits (`bundle.language.enableSplit = false`) to ensure all 11 languages are bundled locally and switchable offline.
   - **Signed Release Bundle**: Automated `bundleRelease` copying signed `.aab` and `.apk` to repo root.
 
+- **v1.0.0 Surah Names, Auto-Navigation, Quality Hardening & versionCode 25 (2026-09-19)** — done:
+  - **Canonical Surah Names**: Formatted all verse citations with authentic Surah names across 114 Surahs (`SurahNames.kt` & `VerseReferenceFormatter.kt`).
+  - **Curriculum Auto-Scrolling & Auto-Collapsing**: Implemented `findHomeTargetItemIndex` to auto-scroll to the learner's active lesson on completion and cleanly auto-collapsed completed chapters/sections in `HomeScreen.kt`.
+  - **Roadmap Learning & Review Navigation**: Extended `isRoadmapReachable` to allow jumping directly to both unlocked and completed units for learning or review, with active `PlayArrow` indicators on current lessons in `RoadmapScreen.kt`.
+  - **Progression Hardening**: Resolved auto-unlock edge cases for multi-lesson sections upon chapter intro completion in `ProgressRepositoryImpl.kt`.
+  - **Widget & Locale Safety**: Added `Locale.US` to float string formatting in `StatsWidgetProvider.kt` and consolidated Indonesian resources under `values-in`.
+  - **Quality Gates**: Enforced `warningsAsErrors = true` across Kotlin compiler and Android Lint. All unit tests and lint checks pass cleanly.
+  - **Release Artifacts**: Built signed `QuranicWords-v1.0.0.aab` (`versionCode 25`, `versionName 1.0.0`), `QuranicWords-v1.0.0.apk`, and `QuranicWords-v1.0.0-native-debug-symbols.zip`.
+
 - **v1.0.1 Randomization, Lesson Node Icons, Stability & versionCode 21 (2026-09-18)** — done:
   - **Matching Exercise Derangement**: Implemented `derangeRightEntries` ensuring zero row collisions on initial match tile layout, plus shuffled input pairs on regeneration.
   - **Lesson Node Icons**: Aligned `LessonStatusStyle.kt`, `HomeScreen.kt`, and `RoadmapScreen.kt` so completed lessons unconditionally show `CheckCircle`, only active current lesson shows `PlayArrow`, and unlocked non-current lessons show their category/kind icon.

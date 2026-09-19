@@ -192,24 +192,23 @@ fun HomeScreen(
         )
     }
 
+    var lastActiveChapterId by rememberSaveable { mutableStateOf<String?>(null) }
+    var lastActiveSectionId by rememberSaveable { mutableStateOf<String?>(null) }
+    var lastScrolledLessonId by rememberSaveable { mutableStateOf<String?>(null) }
+
     // Seeds and maintains the expand state for the learner's current position so that when
-    // they advance to a new section or chapter, the newly unlocked lessons are immediately visible.
+    // they advance to a new section or chapter, the newly unlocked lessons are immediately visible,
+    // while previously completed chapters/sections collapse cleanly so dozens of lessons don't crowd the screen.
     LaunchedEffect(uiState.initiallyExpandedChapterId, uiState.initiallyExpandedSectionId) {
         val chapterId = uiState.initiallyExpandedChapterId
         val sectionId = uiState.initiallyExpandedSectionId
-        if (chapterId != null) {
-            if (expandedChapterIds == null) {
-                onExpandedChapterIdsChange(setOf(chapterId))
-            } else if (!expandedChapterIds.contains(chapterId)) {
-                onExpandedChapterIdsChange(expandedChapterIds + chapterId)
-            }
+        if (chapterId != null && (chapterId != lastActiveChapterId || expandedChapterIds == null)) {
+            lastActiveChapterId = chapterId
+            onExpandedChapterIdsChange(setOf(chapterId))
         }
-        if (sectionId != null) {
-            if (expandedSectionIds == null) {
-                onExpandedSectionIdsChange(setOf(sectionId))
-            } else if (!expandedSectionIds.contains(sectionId)) {
-                onExpandedSectionIdsChange(expandedSectionIds + sectionId)
-            }
+        if (sectionId != null && (sectionId != lastActiveSectionId || expandedSectionIds == null)) {
+            lastActiveSectionId = sectionId
+            onExpandedSectionIdsChange(setOf(sectionId))
         }
     }
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()
@@ -217,6 +216,27 @@ fun HomeScreen(
 
     LaunchedEffect(uiState.currentLessonId) {
         onContinueLearningLessonIdChange(uiState.currentLessonId)
+    }
+
+    // Auto-scrolls the list to the current lesson or its containing section/chapter node whenever
+    // the active lesson advances (e.g. after completing a lesson/chapter).
+    LaunchedEffect(uiState.currentLessonId, uiState.isLoading, currentExpandedChapterIds, currentExpandedSectionIds) {
+        val targetLessonId = uiState.currentLessonId
+        if (!uiState.isLoading && targetLessonId != null && targetLessonId != lastScrolledLessonId) {
+            val targetIndex = findHomeTargetItemIndex(
+                chapters = uiState.chapters,
+                isCurriculumComplete = uiState.isCurriculumComplete,
+                hasReviewableItems = uiState.hasReviewableItems,
+                hasCompletedHistory = uiState.completedHistory.isNotEmpty(),
+                expandedChapterIds = currentExpandedChapterIds,
+                expandedSectionIds = currentExpandedSectionIds,
+                targetLessonId = targetLessonId
+            )
+            if (targetIndex != null) {
+                lastScrolledLessonId = targetLessonId
+                listState.animateScrollToItem(targetIndex)
+            }
+        }
     }
 
     Scaffold(
@@ -1268,3 +1288,60 @@ private fun HistoryCard(
 }
 
 private val historyStepThreshold = 56.dp
+
+internal fun findHomeTargetItemIndex(
+    chapters: List<ChapterWithSections>,
+    isCurriculumComplete: Boolean,
+    hasReviewableItems: Boolean,
+    hasCompletedHistory: Boolean,
+    expandedChapterIds: Set<String>,
+    expandedSectionIds: Set<String>,
+    targetLessonId: String?
+): Int? {
+    if (targetLessonId == null) return null
+    var currentIndex = 0
+    if (isCurriculumComplete) currentIndex++
+    if (hasReviewableItems) currentIndex++
+    if (hasCompletedHistory) currentIndex++
+
+    for (chapterWithSections in chapters) {
+        val chapter = chapterWithSections.chapter
+        val isTargetInChapter = chapterWithSections.sections.any { s -> s.lessons.any { it.id == targetLessonId } } ||
+            chapterWithSections.chapterLevelLessons.any { it.id == targetLessonId }
+
+        val chapterIndex = currentIndex
+        currentIndex++ // ChapterSummaryNode
+
+        val chapterExpanded = chapter.id in expandedChapterIds
+        if (chapterExpanded) {
+            for (sectionWithLessons in chapterWithSections.sections) {
+                val section = sectionWithLessons.section
+                val isTargetInSection = sectionWithLessons.lessons.any { it.id == targetLessonId }
+
+                val sectionIndex = currentIndex
+                currentIndex++ // SectionSummaryNode
+
+                val sectionExpanded = section.id in expandedSectionIds
+                if (sectionExpanded) {
+                    for (lesson in sectionWithLessons.lessons) {
+                        if (lesson.id == targetLessonId) {
+                            return currentIndex
+                        }
+                        currentIndex++
+                    }
+                } else if (isTargetInSection) {
+                    return sectionIndex
+                }
+            }
+            for (lesson in chapterWithSections.chapterLevelLessons) {
+                if (lesson.id == targetLessonId) {
+                    return currentIndex
+                }
+                currentIndex++
+            }
+        } else if (isTargetInChapter) {
+            return chapterIndex
+        }
+    }
+    return null
+}

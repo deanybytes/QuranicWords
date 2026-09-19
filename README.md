@@ -15,7 +15,7 @@
   <img alt="Target SDK" src="https://img.shields.io/badge/targetSdk-36-blue" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
   <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
-  <img alt="Release" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" />
+  <img alt="Release" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" />
 </p>
 
 ---

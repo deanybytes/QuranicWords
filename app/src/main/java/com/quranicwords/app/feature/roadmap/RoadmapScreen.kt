@@ -15,12 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +33,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,11 +56,12 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.feature.home.aggregateStatus
 
 /**
  * Full-curriculum timeline (all chapters/sections/lessons, flat - no collapse/expand, since the
  * whole point here is a bird's-eye view rather than progressive reveal) for jumping straight to
- * any *completed* unit for review. Locked/not-yet-completed rows are visibly greyed and inert -
+ * any *completed* or *unlocked* unit for learning or review. Locked rows are visibly greyed and inert -
  * see [isRoadmapReachable].
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,6 +73,42 @@ fun RoadmapScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val language = rememberSelectedLanguage()
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(uiState.currentLessonId, uiState.isLoading) {
+        val currentId = uiState.currentLessonId
+        if (!uiState.isLoading && currentId != null) {
+            var itemIndex = 0
+            var found = false
+            for (chapter in uiState.chapters) {
+                if (found) break
+                itemIndex++ // chapter header
+                for (section in chapter.sections) {
+                    if (found) break
+                    itemIndex++ // section header
+                    for (lesson in section.lessons) {
+                        if (lesson.id == currentId) {
+                            found = true
+                            break
+                        }
+                        itemIndex++
+                    }
+                }
+                if (!found) {
+                    for (lesson in chapter.chapterLevelLessons) {
+                        if (lesson.id == currentId) {
+                            found = true
+                            break
+                        }
+                        itemIndex++
+                    }
+                }
+            }
+            if (found) {
+                listState.animateScrollToItem((itemIndex - 1).coerceAtLeast(0))
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -94,26 +134,45 @@ fun RoadmapScreen(
         }
 
         LazyColumn(
+            state = listState,
             modifier = Modifier.padding(padding).fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             uiState.chapters.forEach { chapterWithSections ->
+                val chapterLessonIds = chapterWithSections.sections.flatMap { s -> s.lessons.map { it.id } } +
+                    chapterWithSections.chapterLevelLessons.map { it.id }
+                val chapterStatus = aggregateStatus(chapterLessonIds, uiState.progressByLessonId)
+
                 item(key = "chapter_${chapterWithSections.chapter.id}") {
-                    RoadmapHeaderRow(chapterWithSections.chapter.title.get(language), MaterialTheme.typography.headlineSmall)
+                    RoadmapHeaderRow(
+                        title = chapterWithSections.chapter.title.get(language),
+                        style = MaterialTheme.typography.headlineSmall,
+                        status = chapterStatus
+                    )
                 }
                 chapterWithSections.sections.forEach { sectionWithLessons ->
+                    val sectionLessonIds = sectionWithLessons.lessons.map { it.id }
+                    val sectionStatus = aggregateStatus(sectionLessonIds, uiState.progressByLessonId)
+
                     item(key = "section_${sectionWithLessons.section.id}") {
-                        RoadmapHeaderRow(sectionWithLessons.section.title.get(language), MaterialTheme.typography.titleMedium, indent = 16.dp)
+                        RoadmapHeaderRow(
+                            title = sectionWithLessons.section.title.get(language),
+                            style = MaterialTheme.typography.titleMedium,
+                            indent = 16.dp,
+                            status = sectionStatus
+                        )
                     }
                     itemsIndexed(sectionWithLessons.lessons, key = { _, lesson -> lesson.id }) { _, lesson ->
                         val progress = uiState.progressByLessonId[lesson.id]
                         val status = progress?.status ?: LessonStatus.LOCKED
+                        val isCurrent = lesson.id == uiState.currentLessonId
                         RoadmapLessonRow(
                             title = lesson.title.get(language),
                             kind = lesson.kind,
                             status = status,
                             scorePercent = progress?.bestScorePercent,
+                            isCurrent = isCurrent,
                             onClick = { if (isRoadmapReachable(status)) onOpenLesson(lesson.id) },
                             indent = 32.dp
                         )
@@ -122,11 +181,13 @@ fun RoadmapScreen(
                 itemsIndexed(chapterWithSections.chapterLevelLessons, key = { _, lesson -> lesson.id }) { _, lesson ->
                     val progress = uiState.progressByLessonId[lesson.id]
                     val status = progress?.status ?: LessonStatus.LOCKED
+                    val isCurrent = lesson.id == uiState.currentLessonId
                     RoadmapLessonRow(
                         title = lesson.title.get(language),
                         kind = lesson.kind,
                         status = status,
                         scorePercent = progress?.bestScorePercent,
+                        isCurrent = isCurrent,
                         onClick = { if (isRoadmapReachable(status)) onOpenLesson(lesson.id) },
                         indent = 16.dp
                     )
@@ -137,12 +198,33 @@ fun RoadmapScreen(
 }
 
 @Composable
-private fun RoadmapHeaderRow(title: String, style: androidx.compose.ui.text.TextStyle, indent: Dp = 0.dp) {
-    Text(
-        title,
-        style = style,
-        modifier = Modifier.fillMaxWidth().padding(start = indent, top = 12.dp, bottom = 4.dp)
-    )
+private fun RoadmapHeaderRow(
+    title: String,
+    style: androidx.compose.ui.text.TextStyle,
+    indent: Dp = 0.dp,
+    status: LessonStatus? = null
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = indent, top = 12.dp, bottom = 4.dp)
+    ) {
+        Text(
+            title,
+            style = style,
+            modifier = Modifier.weight(1f, fill = false)
+        )
+        if (status == LessonStatus.COMPLETED) {
+            Icon(
+                Icons.Filled.CheckCircle,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+    }
 }
 
 @Composable
@@ -152,26 +234,33 @@ private fun RoadmapLessonRow(
     status: LessonStatus,
     scorePercent: Int?,
     onClick: () -> Unit,
-    indent: Dp
+    indent: Dp,
+    isCurrent: Boolean = false
 ) {
     val reachable = isRoadmapReachable(status)
     val kindVisual = rememberLessonKindVisual(kind)
-    val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status)
+    val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status, isCurrent = isCurrent)
 
     val icon = when {
         status == LessonStatus.COMPLETED -> Icons.Filled.CheckCircle
+        isCurrent -> Icons.Filled.PlayArrow
         status == LessonStatus.LOCKED -> if (kindVisual.isQuizOrExam) kindVisual.icon else Icons.Filled.Lock
         else -> kindVisual.icon
     }
 
-    val iconTint = if (kindVisual.isQuizOrExam) {
-        if (reachable) kindVisual.accentColor else kindVisual.accentColor.copy(alpha = 0.5f)
+    val iconTint = if (status == LessonStatus.COMPLETED) {
+        MaterialTheme.colorScheme.onPrimary
+    } else if (isCurrent) {
+        MaterialTheme.colorScheme.tertiary
+    } else if (reachable) {
+        if (kindVisual.isQuizOrExam) kindVisual.accentColor else defaultTint
     } else {
-        if (reachable) defaultTint else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
     }
 
     val containerColor = when {
-        kindVisual.isQuizOrExam && reachable -> kindVisual.containerColor
+        status == LessonStatus.COMPLETED -> statusContainerColor(status)
+        isCurrent -> MaterialTheme.colorScheme.primaryContainer
         reachable -> statusContainerColor(status)
         kindVisual.isQuizOrExam -> kindVisual.containerColor.copy(alpha = 0.4f)
         else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
@@ -184,7 +273,9 @@ private fun RoadmapLessonRow(
             .fillMaxWidth()
             .padding(start = indent)
             .then(
-                if (kindVisual.isQuizOrExam) {
+                if (isCurrent) {
+                    Modifier.border(2.dp, MaterialTheme.colorScheme.tertiary, shape)
+                } else if (kindVisual.isQuizOrExam) {
                     Modifier.border(
                         1.dp,
                         kindVisual.accentColor.copy(alpha = if (reachable) 0.6f else 0.25f),
@@ -249,7 +340,7 @@ private fun RoadmapLessonRow(
                 Text(
                     title,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = if (kindVisual.isQuizOrExam) FontWeight.SemiBold else FontWeight.Normal
+                        fontWeight = if (isCurrent || kindVisual.isQuizOrExam) FontWeight.SemiBold else FontWeight.Normal
                     ),
                     color = if (reachable) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                 )
@@ -260,6 +351,13 @@ private fun RoadmapLessonRow(
                     "$scorePercent%",
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = if (kindVisual.isQuizOrExam) kindVisual.accentColor else MaterialTheme.colorScheme.primary
+                )
+            } else if (isCurrent) {
+                Icon(
+                    Icons.Filled.PlayArrow,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }

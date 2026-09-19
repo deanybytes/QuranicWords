@@ -57,6 +57,8 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.BrandGreen
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.util.VerseReferenceFormatter
+import java.util.Locale
 
 @Composable
 fun ChapterIntroExerciseContent(
@@ -78,9 +80,9 @@ fun ChapterIntroExerciseContent(
 
     val localizedChapterNumber = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.chapterNumber.toString(), language)
     val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.wordCount.toString(), language)
-    val localizedOccurrences = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%,d", content.quranOccurrenceCount), language)
-    val localizedChapterCoverage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", content.chapterCoveragePercent), language)
-    val localizedAccumulatedCoverage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", content.accumulatedCoveragePercent), language)
+    val localizedOccurrences = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%,d", content.quranOccurrenceCount), language)
+    val localizedChapterCoverage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", content.chapterCoveragePercent), language)
+    val localizedAccumulatedCoverage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", content.accumulatedCoveragePercent), language)
     val localizedAccumulatedWords = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.accumulatedWords.toString(), language)
     val localizedNouns = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.nounCount.toString(), language)
     val localizedVerbs = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.verbCount.toString(), language)
@@ -373,19 +375,19 @@ fun ChapterIntroExerciseContent(
                         dotColor = BrandGreen,
                         label = stringResource(R.string.chapter_intro_ism_label),
                         count = localizedNouns,
-                        percentage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", nounPct), language)
+                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", nounPct), language)
                     )
                     PosItem(
                         dotColor = BrandGold,
                         label = stringResource(R.string.chapter_intro_fil_label),
                         count = localizedVerbs,
-                        percentage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", verbPct), language)
+                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", verbPct), language)
                     )
                     PosItem(
                         dotColor = particleColor,
                         label = stringResource(R.string.chapter_intro_harf_label),
                         count = localizedParticles,
-                        percentage = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(String.format("%.1f%%", particlePct), language)
+                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", particlePct), language)
                     )
                 }
             }

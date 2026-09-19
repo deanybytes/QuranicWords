@@ -194,14 +194,14 @@ def audit_codebase_config():
     gradle_path = os.path.join(BASE_DIR, 'app', 'build.gradle.kts')
     with open(gradle_path, encoding='utf-8') as f:
         gradle_content = f.read()
-    if 'versionCode = 21' not in gradle_content:
-        errors.append("build.gradle.kts does not have versionCode = 21")
+    if 'versionCode = 25' not in gradle_content:
+        errors.append("build.gradle.kts does not have versionCode = 25")
     else:
-        print("  build.gradle.kts: versionCode = 21 [OK]")
-    if 'versionName = "1.0.1"' not in gradle_content:
-        errors.append("build.gradle.kts does not have versionName = \"1.0.1\"")
+        print("  build.gradle.kts: versionCode = 25 [OK]")
+    if 'versionName = "1.0.0"' not in gradle_content:
+        errors.append("build.gradle.kts does not have versionName = \"1.0.0\"")
     else:
-        print("  build.gradle.kts: versionName = \"1.0.1\" [OK]")
+        print("  build.gradle.kts: versionName = \"1.0.0\" [OK]")
 
     # 3. keystore.properties
     keystore_path = os.path.join(BASE_DIR, 'keystore.properties')
@@ -232,7 +232,7 @@ def audit_codebase_config():
     home_path = os.path.join(BASE_DIR, 'app', 'src', 'main', 'java', 'com', 'quranicwords', 'app', 'feature', 'home', 'HomeScreen.kt')
     with open(home_path, encoding='utf-8') as f:
         home_content = f.read()
-    if 'uiState.initiallyExpandedSectionId' not in home_content or 'expandedSectionIds + sectionId' not in home_content:
+    if 'uiState.initiallyExpandedSectionId' not in home_content or 'onExpandedSectionIdsChange' not in home_content:
         errors.append("HomeScreen.kt missing auto-expand logic for newly active section")
     else:
         print("  HomeScreen.kt: auto-expand active section logic [OK]")
