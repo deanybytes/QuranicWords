@@ -1,5 +1,6 @@
 package com.quranicwords.app.feature.lesson
 
+import com.quranicwords.app.core.domain.model.practicedItemId
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement

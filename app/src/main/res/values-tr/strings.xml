@@ -111,7 +111,7 @@
     <string name="progress_goal_days_label">Hedef Günler</string>
     <string name="progress_quran_coverage">Kur\'an Kapsamı</string>
     <string name="progress_lessons_this_week">Bu Haftaki Dersler</string>
-    <string name="progress_days_practiced">%d Gün Pratik Yapıldı (Son 28)</string>
+    <string name="progress_days_practiced">%s Gün Pratik Yapıldı (Son 28)</string>
 
     
     <string name="lesson_check_button">Kontrol et</string>

@@ -4,7 +4,7 @@
 
 ---
 
-## 🚀 Dynamic Test Quizzes & Universal Digit Localization Update
+## 🚀 v1.0.0 (versionCode 27)
 
 ```xml
 <en-US>

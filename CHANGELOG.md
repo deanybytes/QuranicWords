@@ -2,7 +2,7 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.0] - 2026-09-21 (Dynamic Test Mode Quizzes & Universal Digit Localization)
+## [1.0.0] - 2026-09-21 (versionCode 27)
 
 ### Added
 - **Dynamic Exercise Generation in Test Modes**: Test modes (Ism, Fi'l, Ḥarf, Mix/Random, Mistaken Words Review) now dynamically synthesize a rich alternating exercise mix:
@@ -13,14 +13,20 @@ All notable changes to QuranicWords are documented here.
 - **Test-Only & Review Session Word Breakdown in Lesson Summary**: Forwarded `practicedWordIds` via `LessonSummaryRoute` so that test and review mode completions display a comprehensive breakdown of all practiced words with Arabic text, grammatical category (`GrammarCategoryBadge`), and localized meaning.
 - **Contextual In-Verse Meaning Highlights & Glass Translations**: Added `HighlightedGlassTranslation` with precise meaning highlight ranges (`HighlightUtils.findMeaningHighlightRange`) across `MatchingExercise`, `MultipleChoiceExercise`, and `TapWordInVerseExercise`. Added Quranic font (`LocalQuranFontFamily`) support for Arabic option choices in Multiple Choice (`OptionCard`).
 - **Universal Multi-Language Digit Localization**: Implemented locale-aware number and percentage formatting using `VerseReferenceFormatter.formatDigits(..., language)` across all UI components, badges, charts, and screens (`StatBadges`, `Home30DayActivityTrendChart`, `LearnedWordsScreen`, `ProgressScreen`, `RoadmapScreen`, `TestOnlyHomeScreen`, `WordBrowseScreen`, `WordIntroExercise`).
-- **New Localization Strings**: Added `home_chart_days_ago` and `home_chart_day_mins_format` strings and updated string placeholders across all 6 locales (`en`, `bn`, `ur`, `fr`, `in`, `tr`).
+- **New Localization Strings**: Added `home_chart_days_ago`, `home_chart_day_mins_format`, `progress_day_practiced`, `test_mode_start_chapter_btn`, and updated string placeholders across all locales (`en`, `bn`, `ur`, `fr`, `in`, `tr`).
 
-### Fixed
+### Fixed & Improved
 - **Corpus & Part-of-Speech Counts Harmonization**: Standardized test mode counts to 4,709 total words: 173 particles (Ḥarf, `w_1..173`), 1,479 verbs (Fi'l, `w_174..1652`), and 3,057 nouns (Ism, `w_1653..4709`).
-- **Grammar Category Resolution for Numeric IDs**: Updated `resolveCategoryFromWordId` to support numeric word IDs (`w_1..4709`).
+- **Grammar Category Resolution for Numeric IDs**: Updated `resolveCategoryFromWordId` to support numeric word IDs (`w_1..4709`) and wired into `WordIntroExercise` and `LessonSummaryViewModel`.
+- **Mistakes Review Action Routing**: Fixed card click routing on Mistakes Review banner in `TestOnlyHomeScreen` to correctly trigger review action.
 - **Scored Exercise Filtering**: `ExerciseDao.getScoredExercisesForItems` now explicitly excludes `WORD_INTRO` and `CHAPTER_INTRO` so only scored quizzes are pulled for review and open practice.
 - **Content Seeding Fixes**: Fixed `practicedItemId` assignment in `ContentSeedDtos.kt` to fall back to `(content as? ExerciseContent.WordIntro)?.wordId`.
 - **Content Repository Optimization**: Optimized `getWordIntrosForItems` in `ContentRepositoryImpl.kt` to use cached all-word-intros.
+- **Days Practiced Pluralization & Localization**: Localized 28-day practice count with language-specific digits and singular/plural string formatting in `ProgressScreen`.
+
+### Changed
+- **Release Version**: Bumped `versionCode` to `27` (`versionName = "1.0.0"`).
+- **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.0.aab`, release APK `QuranicWords-v1.0.0.apk`, and native debug symbols `QuranicWords-v1.0.0-native-debug-symbols.zip`.
 
 ## [1.0.0] - 2026-09-19 (versionCode 26)
 

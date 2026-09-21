@@ -51,6 +51,7 @@ import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.components.resolveCategoryFromWordId
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -95,7 +96,7 @@ fun WordIntroExerciseContent(
     ) {
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
-        val category = content.lemmaCategory
+        val category = resolveCategoryFromWordId(content.wordId) ?: content.lemmaCategory
         val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
 
         GlassSurface(

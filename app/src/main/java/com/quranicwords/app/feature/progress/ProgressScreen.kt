@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
@@ -135,8 +136,14 @@ fun ProgressScreen(
 
         item {
             Column(modifier = Modifier.fillMaxWidth()) {
+                val formattedCount = VerseReferenceFormatter.formatDigits(uiState.daysPracticedLast28Count.toString(), language)
+                val daysPracticedText = if (uiState.daysPracticedLast28Count == 1 && language == Language.ENGLISH) {
+                    stringResource(R.string.progress_day_practiced, formattedCount)
+                } else {
+                    stringResource(R.string.progress_days_practiced, formattedCount)
+                }
                 Text(
-                    stringResource(R.string.progress_days_practiced, uiState.daysPracticedLast28Count),
+                    daysPracticedText,
                     style = MaterialTheme.typography.titleMedium
                 )
                 HeatmapChart(practicedDays = uiState.practiceDaysLast28, modifier = Modifier.padding(top = 8.dp))
