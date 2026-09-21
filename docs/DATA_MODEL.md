@@ -70,6 +70,10 @@ erDiagram
 
 > 💡 **`EXERCISE.contentJson` Polymorphism:** `ExerciseContent` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `TapWordInVerse`. `ExerciseContent.isScored` is `false` only for `WordIntro` and `ChapterIntro`.
 
+> 💡 **Scored Quiz Filtering:** `ExerciseDao.getScoredExercisesForItems` explicitly filters `type != 'WORD_INTRO' AND type != 'CHAPTER_INTRO'` so that only true scored exercises are fetched for practice pools, exams, and reviews.
+
+> 💡 **Navigation State (`Routes.kt`):** `Route.LessonSummary` carries `practicedWordIds: List<String> = emptyList()`, which forwards all words encountered during open practice, test modes, and review sessions to `LessonSummaryViewModel` for dynamic summary rendering.
+
 ## 📄 Bundled JSON content shape
 
 The curriculum dataset is compiled under `app/src/main/assets/content/` (`ContentSeeder.CONTENT_VERSION = 34`):

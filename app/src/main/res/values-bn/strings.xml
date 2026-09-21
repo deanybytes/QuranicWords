@@ -272,22 +272,22 @@
 
     <string name="test_mode_ism_title">বিশেষ্য (اسم) মোড</string>
     <string name="test_mode_ism_desc">কুরআনের ৩,০৫৭টি বিশেষ্য, সর্বনাম ও আল্লাহর গুণবাচক নাম নিয়ে বিশেষ টেস্ট।</string>
-    <string name="test_mode_ism_progress">এই চক্রে %2$d টি বিশেষ্যের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_ism_progress">এই চক্রে %2$s টি বিশেষ্যের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_fil_title">ক্রিয়া (فعل) মোড</string>
-    <string name="test_mode_fil_desc">কুরআনের ১,৪৫০টি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
-    <string name="test_mode_fil_progress">এই চক্রে %2$d টি ক্রিয়ার মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_fil_desc">কুরআনের ১,৪৭৯টি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
+    <string name="test_mode_fil_progress">এই চক্রে %2$s টি ক্রিয়ার মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_harf_title">হরফ (حرف) মোড</string>
-    <string name="test_mode_harf_desc">কুরআনের ১০৯টি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
-    <string name="test_mode_harf_progress">এই চক্রে %2$d টি হরফের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_harf_desc">কুরআনের ১৭৩টি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
+    <string name="test_mode_harf_progress">এই চক্রে %2$s টি হরফের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_random_title">মিশ্র / র‍্যান্ডম মোড</string>
-    <string name="test_mode_random_desc">কুরআনের সকল ৪,৬১৬টি শব্দের (اسم, فعل, حرف) মিশ্র কুইজ।</string>
-    <string name="test_mode_random_progress">এই চক্রে %2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_random_desc">কুরআনের সকল ৪,৭০৯টি শব্দের (اسم, فعل, حرف) মিশ্র কুইজ।</string>
+    <string name="test_mode_random_progress">এই চক্রে %2$s টি শব্দের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
-    <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৪,৬১৬ নং ক্রম পর্যন্ত)।</string>
-    <string name="test_mode_frequency_progress">%2$d টি শব্দের মধ্যে %1$d টি সম্পন্ন</string>
+    <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৪,৭০৯ নং ক্রম পর্যন্ত)।</string>
+    <string name="test_mode_frequency_progress">%2$s টি শব্দের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_mistakes_title">ভুল শব্দসমূহ পর্যালোচনা</string>
     <string name="test_mode_mistakes_desc">ভুল হওয়া শব্দগুলো পুনরায় অনুশীলন করুন। সঠিক উত্তর দিলে তা ভুল তালিকা থেকে বাদ যাবে।</string>
-    <string name="test_mode_mistakes_count">%d টি ভুল শব্দ পর্যালোচনার জন্য বাকি</string>
+    <string name="test_mode_mistakes_count">%s টি ভুল শব্দ পর্যালোচনার জন্য বাকি</string>
     <string name="test_mode_mistakes_empty">কোনো ভুল শব্দ নেই! দারুণ প্রস্তুতি।</string>
     <string name="test_mode_start_btn">টেস্ট শুরু করুন</string>
     <string name="test_mode_review_btn">ভুলগুলো সংশোধন করুন</string>
@@ -298,9 +298,11 @@
     <string name="test_mode_start_chapter_btn">অধ্যায় টেস্ট শুরু করুন</string>
 
     <string name="home_chart_30d_title">৩০ দিনের অনুশীলন ও অগ্রগতি</string>
-    <string name="home_chart_30d_summary">৩০ দিনে %1$d দিন সক্রিয় · মোট %2$d মিনিট</string>
-    <string name="home_chart_today_stat">আজ: %d মিনিট</string>
+    <string name="home_chart_30d_summary">৩০ দিনে %1$s দিন সক্রিয় · মোট %2$s মিনিট</string>
+    <string name="home_chart_today_stat">আজ: %s মিনিট</string>
     <string name="home_chart_30d_ago">৩০ দিন আগে</string>
+    <string name="home_chart_days_ago">%s দিন আগে</string>
+    <string name="home_chart_day_mins_format">• %1$s: %2$s মিনিট •</string>
     <string name="home_chart_today">আজ</string>
     <string name="home_chart_quote_high">🌟 মাশাআল্লাহ! আপনার অধ্যবসায় কুরআনিক জ্ঞানকে সমৃদ্ধ করছে।</string>
     <string name="home_chart_quote_mid">✨ দারুণ ধারাবাহিকতা! নিয়মিত অনুশীলন কুরআন বোঝার পথ সহজ করে।</string>

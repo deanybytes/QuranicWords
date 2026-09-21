@@ -37,6 +37,16 @@ fun resolveCategoryFromWordId(wordId: String?): LemmaCategory? = when {
     wordId.startsWith("wv_") -> LemmaCategory.VERB
     wordId.startsWith("wp_") -> LemmaCategory.PARTICLE
     wordId.startsWith("wn_") -> LemmaCategory.NOUN
+    wordId.startsWith("w_") -> {
+        val num = wordId.removePrefix("w_").toIntOrNull()
+        when {
+            num == null -> null
+            num in 1..173 -> LemmaCategory.PARTICLE
+            num in 174..1652 -> LemmaCategory.VERB
+            num in 1653..4709 -> LemmaCategory.NOUN
+            else -> null
+        }
+    }
     else -> null
 }
 

@@ -107,8 +107,24 @@ fun MultipleChoiceExerciseContent(
                         verseArabic = content.exampleVerseArabic,
                         start = content.arabicWordStart,
                         end = content.arabicWordEnd,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        arabicWord = content.promptArabic
                     )
+                    val verseTranslation = content.exampleVerseTranslation.get(language)
+                    if (verseTranslation.isNotBlank()) {
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                        val correctMeaning = content.options.find { it.id == content.correctOptionId }?.label?.getOrNull(language).orEmpty()
+                        val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                            verseTranslation = verseTranslation,
+                            meaningHighlight = content.meaningHighlight.getOrNull(language),
+                            meaning = correctMeaning
+                        )
+                        com.quranicwords.app.core.ui.components.HighlightedGlassTranslation(
+                            verseTranslation = verseTranslation,
+                            range = range,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
                 }
             }
         }
@@ -137,6 +153,7 @@ internal fun OptionCard(
     isSelected: Boolean,
     isChecked: Boolean,
     isCorrectOption: Boolean,
+    showArabic: Boolean = false,
     onClick: () -> Unit
 ) {
     val targetContainer = when {
@@ -186,10 +203,14 @@ internal fun OptionCard(
         enabled = !isChecked,
         interactionSource = interactionSource
     ) {
+        val isArabicText = showArabic && !option.labelArabic.isNullOrBlank()
+        val text = if (isArabicText) option.labelArabic.orEmpty() else option.localizedLabel(language)
         Text(
-            text = option.localizedLabel(language),
+            text = text,
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             style = MaterialTheme.typography.titleMedium,
+            fontFamily = if (isArabicText) LocalQuranFontFamily.current else androidx.compose.ui.text.font.FontFamily.Default,
+            fontSize = if (isArabicText) 24.sp else 16.sp,
             textAlign = TextAlign.Center
         )
     }

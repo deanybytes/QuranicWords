@@ -100,6 +100,20 @@ fun TapWordInVerseExerciseContent(
             ),
             color = MaterialTheme.colorScheme.primary
         )
+
+        val verseTranslation = content.verseTranslation.get(language)
+        if (verseTranslation.isNotBlank()) {
+            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                verseTranslation = verseTranslation,
+                meaningHighlight = content.meaningHighlight.getOrNull(language),
+                meaning = content.meaning.get(language)
+            )
+            com.quranicwords.app.core.ui.components.HighlightedGlassTranslation(
+                verseTranslation = verseTranslation,
+                range = range,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 

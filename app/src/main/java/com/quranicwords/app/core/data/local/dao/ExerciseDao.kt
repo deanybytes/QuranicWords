@@ -22,7 +22,7 @@ interface ExerciseDao {
      * naturally returns one row per id; if a future content type adds a second exercise for the
      * same item, showing both is a feature (more variety on a missed item), not a bug - the
      * caller (`ProgressRepository.getReviewExercises`) is what applies the session's size cap. */
-    @Query("SELECT * FROM exercises WHERE practicedItemId IN (:itemIds)")
+    @Query("SELECT * FROM exercises WHERE practicedItemId IN (:itemIds) AND type != 'WORD_INTRO' AND type != 'CHAPTER_INTRO'")
     suspend fun getScoredExercisesForItems(itemIds: List<String>): List<ExerciseEntity>
 
     @Query("SELECT * FROM exercises WHERE (type = 'TEACH_WORD' OR type = 'WORD_INTRO') AND practicedItemId IN (:itemIds)")

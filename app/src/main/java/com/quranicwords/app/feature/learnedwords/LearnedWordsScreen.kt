@@ -86,6 +86,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -418,7 +419,7 @@ private fun WordQuranExamplesSheet(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = "[${idx + 1}]",
+                                        text = "[${VerseReferenceFormatter.formatDigits((idx + 1).toString(), language)}]",
                                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                                         color = tabTextColor
                                     )

@@ -83,7 +83,7 @@ point, not just "something in the green/gold family."
 | **Fi'l** (Verb) | الفعل | Warm Gold (`#D4AF37`) | `Icons.Filled.FlashOn` |
 | **Ḥarf** (Particle) | الحرف | Sky Blue (`#0288D1`) | `Icons.Filled.AutoAwesome` |
 
-Badges are rendered on exercise headers, 5-mode test cards, and dictionary modals to provide continuous visual grounding.
+Badges are rendered on exercise headers, 6-mode test cards, lesson summary vocabulary breakdowns, and dictionary modals to provide continuous visual grounding.
 
 ## Verse span & Tashkīl highlighting
 
@@ -91,6 +91,17 @@ Highlighted Quranic vocabulary words within verse contexts must preserve complet
 
 - **Continuous inline flow**: Highlighted words within verse spans use in-line text background tinting and bold weight rather than surrounding 3D card borders, preventing line-wrapping anomalies and maintaining natural Arabic typographical flow.
 - **Font rendering**: Arabic verses are rendered using `LocalQuranFontFamily.current` with proportional line-height (`fontSize = 20.sp`, `lineHeight = 34.sp`) to prevent diacritic clipping.
+- **Highlighted Glass Translations** (`HighlightedGlassTranslation`): Rendered below example verses in `MatchingExercise`, `MultipleChoiceExercise`, and `TapWordInVerseExercise`. Features a translucent frosted glass card (`primary.copy(alpha = 0.08f)`) with exact meaning highlights computed via `HighlightUtils.findMeaningHighlightRange`.
+
+## 🔢 Universal Digit & Number Localization
+
+To provide an authentic native reading experience across all 11 languages:
+- **Never display raw ASCII digits directly**: Always pass numbers, percentages, day counts, card indices, and streak values through `VerseReferenceFormatter.formatDigits(text, language)`.
+- **Locale-appropriate scripts**:
+  - Arabic, Urdu, Persian: Eastern Arabic numerals (`٠, ١, ٢, ٣, ٤, ٥, ٦, ٧, ٨, ٩`).
+  - Bengali: Bengali numerals (`০, ১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯`).
+  - Latin script languages: Standard Western digits (`0–9`).
+- **Applied consistently**: Used across `StatBadges` (Streak, Points), `Home30DayActivityTrendChart`, `RoadmapScreen`, `LearnedWordsScreen`, `ProgressScreen`, `TestOnlyHomeScreen`, `WordBrowseScreen`, and `WordIntroExercise`.
 
 ## Streamlined font selection
 

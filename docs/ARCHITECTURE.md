@@ -106,7 +106,7 @@ flowchart LR
     PathSelect -->|Test-only mode| TestOnlyHome
     Home -->|open lesson| Lesson
     TestOnlyHome -->|start mode quiz| Lesson
-    Lesson -->|complete| LessonSummary
+    Lesson -->|complete (passes practicedWordIds)| LessonSummary
     LessonSummary -->|continue| Lesson
     LessonSummary --> Home
     Home --> Settings
@@ -114,21 +114,24 @@ flowchart LR
     Home --> Achievements
 ```
 
-Each onboarding step persists its choice to DataStore **immediately** on selection — if the process is killed mid-onboarding, `SplashViewModel` resumes at the right step next launch (see [`docs/USER_FLOWS.md`](USER_FLOWS.md)).
+Each onboarding step persists its choice to DataStore **immediately** on selection — if the process is killed mid-onboarding, `SplashViewModel` resumes at the right step next launch (see [`docs/USER_FLOWS.md`](USER_FLOWS.md)). When finishing a lesson or test session, `LessonScreen` forwards `practicedWordIds` via `Route.LessonSummary`, enabling `LessonSummaryViewModel` to resolve and display the complete vocabulary breakdown (Arabic word, category badge, meaning) for that session.
 
 ## 🔊 Audio architecture
 
 - **System sound effects** (`SfxPlayer.kt`): Low-latency audio feedback using Android `SoundPool` for UI interactions (`CORRECT`, `WRONG`, `LESSON_COMPLETE`, `EXAM_PASS`, `STREAK_MILESTONE`, `OPENING`). Governed by the `soundEnabled` switch in Settings.
 - **Visual-first focus**: Word pronunciation clips and listen-to-type exercises have been removed to prioritize visual script recognition, contextual comprehension, and reading fluency.
 
-## 🌐 In-app language switching
+## 🌐 In-app language switching & Universal Digit Localization
 
 `MainActivity` extends `AppCompatActivity` (not plain `ComponentActivity`) specifically because `AppCompatDelegate.setApplicationLocales()`'s pre-API-33 compat path needs an `AppCompatActivity`-registered delegate to actually mutate `Configuration.locales` — without it, the call silently no-ops on API 24-32 and `values-bn/` resources never get selected. On a language change, `MainActivity` compares the target locale against `AppCompatDelegate.getApplicationLocales()` and, only when they differ, calls `setApplicationLocales()` followed by `recreate()` on API < 33 (API 33+'s native `LocaleManager` path needs no manual recreate). `MainViewModel` additionally syncs a system-level language change (Android 13+ Settings → App languages) back into `UserPreferencesDataStore` on startup, so the two sources of truth don't fight each other. See [`docs/USER_FLOWS.md`](USER_FLOWS.md).
 
 Screens localize both static UI strings (`stringResource`, resource-qualifier driven — automatic once the `Configuration` is correct) **and** JSON-sourced content fields (`LocalizedText` maps like `title`/`meaning`/`prompt` on entities and `ExerciseContent`, keyed by `Language.tag`) explicitly via `rememberSelectedLanguage()`. All 11 supported languages (English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, French) feature 100% verified translations, contextual polysemic senses, and exact in-verse span highlights with complete Tashkīl.
 
+Furthermore, **Universal Digit Localization** (`VerseReferenceFormatter.formatDigits(text, language)`) converts all ASCII numbers, percentages, day counts, and streaks into authentic localized numerals (e.g. Eastern Arabic `٠-٩` for Arabic/Urdu/Persian, Bengali `০-৯` for Bengali) across all screens, charts, and badges.
+
 ## 🧵 Threading & reactivity
 
 - Room DAOs expose `Flow` for anything the UI observes live (points, streak, lesson unlock state).
 - `LessonViewModel.init` fires its independent reads concurrently via `async`, awaiting only where one genuinely depends on another.
+- `ProgressRepositoryImpl.getReviewExercises` dynamically synthesizes in-verse quizzes (`TapWordInVerse`, `FillInTheBlank`, `MultipleChoice`) with localized prompts and verse word spans on background dispatchers.
 

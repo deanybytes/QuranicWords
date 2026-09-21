@@ -42,7 +42,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import kotlin.math.max
 
 /**
@@ -61,6 +63,7 @@ fun Home30DayActivityTrendChart(
     val values = if (rawValues.size < 30) List(30 - rawValues.size) { 0 } + rawValues else rawValues
 
     val maxVal = max(values.maxOrNull() ?: 0, 15).toFloat()
+    val language = rememberSelectedLanguage()
     var selectedIndex by remember { mutableStateOf<Int?>(null) }
 
     val todayMinutes = values.lastOrNull() ?: 0
@@ -99,7 +102,11 @@ fun Home30DayActivityTrendChart(
                 color = primaryColor.copy(alpha = 0.15f)
             ) {
                 Text(
-                    text = stringResource(R.string.home_chart_30d_summary, activeDaysCount, totalMinutes),
+                    text = stringResource(
+                        R.string.home_chart_30d_summary,
+                        VerseReferenceFormatter.formatDigits(activeDaysCount.toString(), language),
+                        VerseReferenceFormatter.formatDigits(totalMinutes.toString(), language)
+                    ),
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                     color = textColor,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
@@ -117,16 +124,19 @@ fun Home30DayActivityTrendChart(
             if (selectedIndex != null) {
                 val idx = selectedIndex!!
                 val daysAgo = 29 - idx
-                val dayLabel = if (daysAgo == 0) stringResource(R.string.home_chart_today) else "$daysAgo" + "d ago"
+                val localizedDaysAgo = VerseReferenceFormatter.formatDigits(daysAgo.toString(), language)
+                val dayLabel = if (daysAgo == 0) stringResource(R.string.home_chart_today) else stringResource(R.string.home_chart_days_ago, localizedDaysAgo)
                 val mins = values[idx]
+                val localizedMins = VerseReferenceFormatter.formatDigits(mins.toString(), language)
                 Text(
-                    text = "• $dayLabel: $mins mins •",
+                    text = stringResource(R.string.home_chart_day_mins_format, dayLabel, localizedMins),
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                     color = secondaryColor
                 )
             } else {
+                val localizedTodayMins = VerseReferenceFormatter.formatDigits(todayMinutes.toString(), language)
                 Text(
-                    text = stringResource(R.string.home_chart_today_stat, todayMinutes),
+                    text = stringResource(R.string.home_chart_today_stat, localizedTodayMins),
                     style = MaterialTheme.typography.labelSmall,
                     color = textColor.copy(alpha = 0.75f)
                 )

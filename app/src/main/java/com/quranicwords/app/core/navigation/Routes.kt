@@ -49,7 +49,9 @@ sealed interface Route {
         /** See [LessonSessionType]. */
         val sessionType: LessonSessionType = LessonSessionType.LESSON,
         /** Carries forward the test mode ("FREQUENCY" or "RANDOM") if this was an OpenPractice session. */
-        val openPracticeMode: String? = null
+        val openPracticeMode: String? = null,
+        /** Words practiced in this session, enabling LessonSummary to show word breakdowns for test/review modes. */
+        val practicedWordIds: List<String> = emptyList()
     ) : Route
     @Serializable data object Roadmap : Route
     /** An unbounded random-word-pool quiz - see [LessonSessionType.OPEN_PRACTICE]. [isOpenPractice]

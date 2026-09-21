@@ -27,6 +27,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.time.Clock
 import java.time.LocalDate
+import com.quranicwords.app.core.domain.repository.ContentRepository
+import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.domain.model.WordSpan
+import com.quranicwords.app.core.util.AppJson
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,7 +40,8 @@ class ProgressRepositoryImpl @Inject constructor(
     private val streakCalculator: StreakCalculator,
     private val clock: Clock,
     private val preferences: UserPreferencesDataStore,
-    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context
+    @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
+    private val contentRepository: ContentRepository? = null
 ) : ProgressRepository {
 
     /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
@@ -280,7 +285,12 @@ class ProgressRepositoryImpl @Inject constructor(
         val upMode = mode.uppercase()
         val itemIds = when {
             upMode == "ISM" || upMode == "NOUN" -> {
-                val ismWords = allWords.filter { it.id.startsWith("wn_") }
+                val ismWords = allWords.filter {
+                    it.id.startsWith("wn_") || run {
+                        val num = it.id.removePrefix("w_").toIntOrNull()
+                        num != null && num in 1653..4709
+                    }
+                }
                 val allIsmIds = ismWords.map { it.id }
                 val covered = preferences.testIsmCoveredWordIdsFlow.first()
                 val remaining = allIsmIds.filter { it !in covered }
@@ -295,7 +305,12 @@ class ProgressRepositoryImpl @Inject constructor(
                 sampled
             }
             upMode == "FIL" || upMode == "VERB" -> {
-                val filWords = allWords.filter { it.id.startsWith("wv_") }
+                val filWords = allWords.filter {
+                    it.id.startsWith("wv_") || run {
+                        val num = it.id.removePrefix("w_").toIntOrNull()
+                        num != null && num in 174..1652
+                    }
+                }
                 val allFilIds = filWords.map { it.id }
                 val covered = preferences.testFilCoveredWordIdsFlow.first()
                 val remaining = allFilIds.filter { it !in covered }
@@ -310,7 +325,12 @@ class ProgressRepositoryImpl @Inject constructor(
                 sampled
             }
             upMode == "HARF" || upMode == "PARTICLE" -> {
-                val harfWords = allWords.filter { it.id.startsWith("wp_") }
+                val harfWords = allWords.filter {
+                    it.id.startsWith("wp_") || run {
+                        val num = it.id.removePrefix("w_").toIntOrNull()
+                        num != null && num in 1..173
+                    }
+                }
                 val allHarfIds = harfWords.map { it.id }
                 val covered = preferences.testHarfCoveredWordIdsFlow.first()
                 val remaining = allHarfIds.filter { it !in covered }
@@ -372,13 +392,137 @@ class ProgressRepositoryImpl @Inject constructor(
             }
         }
 
-        val exercises = database.exerciseDao().getScoredExercisesForItems(itemIds)
-        if (mode.uppercase() == "FREQUENCY") {
-            val byItem = exercises.groupBy { it.practicedItemId }
-            itemIds.mapNotNull { byItem[it]?.random() }
-        } else {
-            OpenPracticePool.oneExercisePerWord(exercises)
+        val dbExercises = database.exerciseDao().getScoredExercisesForItems(itemIds)
+        val wordIntros = contentRepository?.getWordIntrosForItems(itemIds).orEmpty()
+
+        if (wordIntros.isEmpty()) {
+            return@withContext if (mode.uppercase() == "FREQUENCY") {
+                val byItem = dbExercises.groupBy { it.practicedItemId }
+                itemIds.mapNotNull { byItem[it]?.random() }
+            } else {
+                OpenPracticePool.oneExercisePerWord(dbExercises)
+            }
         }
+
+        val dbByItem = dbExercises.groupBy { it.practicedItemId }
+        val orderedItems = if (mode.uppercase() == "FREQUENCY") itemIds else itemIds.shuffled()
+
+        orderedItems.mapIndexedNotNull { index, wordId ->
+            val intro = wordIntros[wordId]
+            val existing = dbByItem[wordId]?.randomOrNull()
+
+            if (intro != null && !intro.exampleVerseArabic.isNullOrBlank() && intro.arabicWordStart != null && intro.arabicWordEnd != null) {
+                val spans = computeWordSpans(intro.exampleVerseArabic)
+                val wStart = intro.arabicWordStart
+                val wEnd = intro.arabicWordEnd
+                val targetSpan = spans.firstOrNull { it.start == wStart && it.end == wEnd }
+                    ?: spans.firstOrNull { it.start <= wStart && wEnd <= it.end }
+
+                when (index % 3) {
+                    1 -> {
+                        // TapWordInVerse (Reverse Verse Quiz)
+                        if (targetSpan != null) {
+                            val tapContent = ExerciseContent.TapWordInVerse(
+                                prompt = TAP_WORD_PROMPT,
+                                wordId = wordId,
+                                verseArabic = intro.exampleVerseArabic,
+                                verseReference = intro.exampleVerseReference.orEmpty(),
+                                correctWordStart = targetSpan.start,
+                                correctWordEnd = targetSpan.end,
+                                tappableSpans = spans,
+                                meaning = intro.meaning,
+                                verseTranslation = intro.exampleVerseTranslation,
+                                meaningHighlight = intro.meaningHighlight
+                            )
+                            ExerciseEntity(
+                                id = "test_tap_${wordId}_$index",
+                                lessonId = "review_session",
+                                orderIndex = index,
+                                type = ExerciseType.WORD_IN_VERSE_TAP,
+                                contentJson = AppJson.encodeToString(ExerciseContent.serializer(), tapContent),
+                                practicedItemId = wordId
+                            )
+                        } else {
+                            existing ?: buildDefaultMultipleChoice(wordId, intro, index)
+                        }
+                    }
+                    2 -> {
+                        // FillInTheBlank (Verse Completion)
+                        if (targetSpan != null) {
+                            val fillContent = ExerciseContent.FillInTheBlank(
+                                prompt = FILL_BLANK_PROMPT,
+                                wordId = wordId,
+                                sentenceArabic = intro.exampleVerseArabic,
+                                blankStart = targetSpan.start,
+                                blankEnd = targetSpan.end,
+                                sentenceTranslation = intro.exampleVerseTranslation,
+                                sentenceReference = intro.exampleVerseReference.orEmpty(),
+                                options = emptyList(),
+                                correctOptionId = wordId
+                            )
+                            ExerciseEntity(
+                                id = "test_fill_${wordId}_$index",
+                                lessonId = "review_session",
+                                orderIndex = index,
+                                type = ExerciseType.FILL_IN_THE_BLANK,
+                                contentJson = AppJson.encodeToString(ExerciseContent.serializer(), fillContent),
+                                practicedItemId = wordId
+                            )
+                        } else {
+                            existing ?: buildDefaultMultipleChoice(wordId, intro, index)
+                        }
+                    }
+                    else -> {
+                        // MultipleChoice (with Verse & Translation)
+                        existing ?: buildDefaultMultipleChoice(wordId, intro, index)
+                    }
+                }
+            } else {
+                existing ?: intro?.let { buildDefaultMultipleChoice(wordId, it, index) }
+            }
+        }
+    }
+
+    private fun computeWordSpans(verse: String): List<WordSpan> {
+        val spans = mutableListOf<WordSpan>()
+        var i = 0
+        val n = verse.length
+        while (i < n) {
+            while (i < n && verse[i].isWhitespace()) i++
+            if (i >= n) break
+            val start = i
+            while (i < n && !verse[i].isWhitespace()) i++
+            spans.add(WordSpan(start, i))
+        }
+        return spans
+    }
+
+    private fun buildDefaultMultipleChoice(
+        wordId: String,
+        intro: ExerciseContent.WordIntro,
+        index: Int
+    ): ExerciseEntity {
+        val mcContent = ExerciseContent.MultipleChoice(
+            prompt = MULTIPLE_CHOICE_PROMPT,
+            wordId = wordId,
+            promptArabic = intro.arabicWord,
+            options = emptyList(),
+            correctOptionId = wordId,
+            exampleVerseArabic = intro.exampleVerseArabic,
+            exampleVerseReference = intro.exampleVerseReference,
+            arabicWordStart = intro.arabicWordStart,
+            arabicWordEnd = intro.arabicWordEnd,
+            exampleVerseTranslation = intro.exampleVerseTranslation,
+            meaningHighlight = intro.meaningHighlight
+        )
+        return ExerciseEntity(
+            id = "test_mc_${wordId}_$index",
+            lessonId = "review_session",
+            orderIndex = index,
+            type = ExerciseType.MULTIPLE_CHOICE,
+            contentJson = AppJson.encodeToString(ExerciseContent.serializer(), mcContent),
+            practicedItemId = wordId
+        )
     }
 
     override suspend fun getStreakRecoveryExercises(userId: String, count: Int): List<ExerciseEntity> =
@@ -418,5 +562,49 @@ class ProgressRepositoryImpl @Inject constructor(
         database.dailyPracticeDao().deleteForUser(userId)
         database.achievementDao().deleteForUser(userId)
         ensureCurriculumStarted(userId)
+    }
+
+    companion object {
+        private val TAP_WORD_PROMPT = mapOf(
+            "en" to "Tap the Arabic word in the verse",
+            "bn" to "আয়াত থেকে সঠিক আরবি শব্দটি স্পর্শ করুন",
+            "ur" to "آیت میں سے درست عربی لفظ منتخب کریں",
+            "hi" to "आयत में से सही अरबी शब्द चुनें",
+            "in" to "Ketuk kata Arab yang benar dalam ayat",
+            "ms" to "Ketik perkataan Arab yang betul dalam ayat",
+            "tr" to "Ayetteki doğru Arapça kelimeye dokunun",
+            "fa" to "کلمه عربی درست را در آیه لمس کنید",
+            "ha" to "Taba kalmar Larabci daidai a cikin ayar",
+            "sw" to "Gusa neno sahihi la Kiarabu katika aya",
+            "fr" to "Touchez le mot arabe correct dans le verset"
+        )
+
+        private val FILL_BLANK_PROMPT = mapOf(
+            "en" to "Complete the verse",
+            "bn" to "আয়াতটি সম্পূর্ণ করুন",
+            "ur" to "آیت مکمل کریں",
+            "hi" to "आयत पूरी करें",
+            "in" to "Lengkapi ayat berikut",
+            "ms" to "Lengkapkan ayat ini",
+            "tr" to "Ayeti tamamlayın",
+            "fa" to "آیه را کامل کنید",
+            "ha" to "Kammala ayar",
+            "sw" to "Kamilisha aya",
+            "fr" to "Complétez le verset"
+        )
+
+        private val MULTIPLE_CHOICE_PROMPT = mapOf(
+            "en" to "Choose the correct meaning",
+            "bn" to "সঠিক অর্থ নির্বাচন করুন",
+            "ur" to "درست معنی کا انتخاب کریں",
+            "hi" to "सही अर्थ चुनें",
+            "in" to "Pilih arti yang benar",
+            "ms" to "Pilih maksud yang betul",
+            "tr" to "Doğru anlamı seçin",
+            "fa" to "معنی درست را انتخاب کنید",
+            "ha" to "Zabi ma'anar da ta dace",
+            "sw" to "Chagua maana sahihi",
+            "fr" to "Choisissez la bonne signification"
+        )
     }
 }

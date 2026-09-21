@@ -22,6 +22,12 @@ QuranicWords is a focused Quranic vocabulary app structured around the three tra
 - [x] **Unified Multi-Sense & Zero-Collision Distractors (v1.0.1)**: Harmonized all 73 polysemous words with slash-separated senses across 10 languages and eliminated all distractor collisions across 4,709 exercises.
 - [x] **Complete Curriculum Synthesis & Auto-Healing Progression (v1.0.1, versionCode 20 & 21)**: Synthesized closing matching quizzes for all 997 regular lessons (1,207 matching exercises total), populated all 210 exam and flashback lessons (14,358 exercises total across 1,217 lessons; 0 empty lessons), implemented auto-healing curriculum unlock progression and auto-expand active units, deranged matching exercise randomization, aligned completed/active lesson node icons, resolved consecutive-lesson stability, and reseeded database with `ContentSeeder.CONTENT_VERSION = 34`.
 - [x] **Surah Names, Auto-Navigation & Quality Hardening (v1.0.0, versionCode 26)**: Added canonical Surah names to verse references, auto-scroll and auto-collapse curriculum navigation on Home screen, direct roadmap navigation for unlocked & completed units, widget locale formatting robustness, consolidated Indonesian string resources, and enforced zero-warning compiler and lint quality gates.
+- [x] **Dynamic Test Quizzes, Universal Digit Localization & Test Summary Breakdown (v1.0.0)**:
+  - Dynamically synthesized 3-way in-verse quizzes (`TapWordInVerse`, `FillInTheBlank`, `MultipleChoice`) with 11-language prompt mapping for test modes.
+  - Implemented universal digit localization (`VerseReferenceFormatter.formatDigits`) across all UI badges, charts, and screens.
+  - Added full vocabulary breakdown to Lesson Summary after test and review sessions (`practicedWordIds`).
+  - Added `HighlightedGlassTranslation` with exact in-verse meaning highlights across Matching, Multiple Choice, and Verse Tap.
+  - Excluded non-scored introductions from practice quiz pools (`ExerciseDao.getScoredExercisesForItems`).
 - [x] **Open Source & Ecosystem**: GPL-3.0 licensed on GitHub, part of the DEANY TALKS Dawah platform ecosystem.
 
 ## 🔜 Future Enhancements

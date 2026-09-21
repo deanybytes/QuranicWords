@@ -2,6 +2,26 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.0] - 2026-09-21 (Dynamic Test Mode Quizzes & Universal Digit Localization)
+
+### Added
+- **Dynamic Exercise Generation in Test Modes**: Test modes (Ism, Fi'l, Ḥarf, Mix/Random, Mistaken Words Review) now dynamically synthesize a rich alternating exercise mix:
+  - Reverse Verse Quizzes (`TapWordInVerse`: "Tap the Arabic word in the verse")
+  - Verse Completion (`FillInTheBlank`: "Complete the verse")
+  - Contextual Multiple Choice (`MultipleChoice`: "Choose the correct meaning" with verse context and translation)
+  - Full 11-language localized prompts (`TAP_WORD_PROMPT`, `FILL_BLANK_PROMPT`, `MULTIPLE_CHOICE_PROMPT`).
+- **Test-Only & Review Session Word Breakdown in Lesson Summary**: Forwarded `practicedWordIds` via `LessonSummaryRoute` so that test and review mode completions display a comprehensive breakdown of all practiced words with Arabic text, grammatical category (`GrammarCategoryBadge`), and localized meaning.
+- **Contextual In-Verse Meaning Highlights & Glass Translations**: Added `HighlightedGlassTranslation` with precise meaning highlight ranges (`HighlightUtils.findMeaningHighlightRange`) across `MatchingExercise`, `MultipleChoiceExercise`, and `TapWordInVerseExercise`. Added Quranic font (`LocalQuranFontFamily`) support for Arabic option choices in Multiple Choice (`OptionCard`).
+- **Universal Multi-Language Digit Localization**: Implemented locale-aware number and percentage formatting using `VerseReferenceFormatter.formatDigits(..., language)` across all UI components, badges, charts, and screens (`StatBadges`, `Home30DayActivityTrendChart`, `LearnedWordsScreen`, `ProgressScreen`, `RoadmapScreen`, `TestOnlyHomeScreen`, `WordBrowseScreen`, `WordIntroExercise`).
+- **New Localization Strings**: Added `home_chart_days_ago` and `home_chart_day_mins_format` strings and updated string placeholders across all 6 locales (`en`, `bn`, `ur`, `fr`, `in`, `tr`).
+
+### Fixed
+- **Corpus & Part-of-Speech Counts Harmonization**: Standardized test mode counts to 4,709 total words: 173 particles (Ḥarf, `w_1..173`), 1,479 verbs (Fi'l, `w_174..1652`), and 3,057 nouns (Ism, `w_1653..4709`).
+- **Grammar Category Resolution for Numeric IDs**: Updated `resolveCategoryFromWordId` to support numeric word IDs (`w_1..4709`).
+- **Scored Exercise Filtering**: `ExerciseDao.getScoredExercisesForItems` now explicitly excludes `WORD_INTRO` and `CHAPTER_INTRO` so only scored quizzes are pulled for review and open practice.
+- **Content Seeding Fixes**: Fixed `practicedItemId` assignment in `ContentSeedDtos.kt` to fall back to `(content as? ExerciseContent.WordIntro)?.wordId`.
+- **Content Repository Optimization**: Optimized `getWordIntrosForItems` in `ContentRepositoryImpl.kt` to use cached all-word-intros.
+
 ## [1.0.0] - 2026-09-19 (versionCode 26)
 
 ### Added

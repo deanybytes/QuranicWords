@@ -103,6 +103,7 @@ fun FillInTheBlankExerciseContent(
                         isSelected = option.id == selectedOptionId,
                         isChecked = isChecked,
                         isCorrectOption = option.id == content.correctOptionId,
+                        showArabic = true,
                         onClick = { onSelect(option.id) }
                     )
                 }

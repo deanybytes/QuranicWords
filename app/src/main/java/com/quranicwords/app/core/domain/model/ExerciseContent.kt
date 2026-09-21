@@ -195,7 +195,9 @@ sealed interface ExerciseContent {
         val correctWordStart: Int,
         val correctWordEnd: Int,
         val tappableSpans: List<WordSpan>,
-        val meaning: LocalizedText
+        val meaning: LocalizedText,
+        val verseTranslation: LocalizedText = emptyMap(),
+        val meaningHighlight: LocalizedText = emptyMap()
     ) : ExerciseContent
 }
 

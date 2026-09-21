@@ -116,7 +116,13 @@ fun LessonScreen(
                     newlyUnlockedAchievementIds = uiState.newlyUnlockedAchievements.map { it.id },
                     durationMillis = result.durationMillis,
                     sessionType = result.sessionType,
-                    openPracticeMode = viewModel.openPracticeMode
+                    openPracticeMode = viewModel.openPracticeMode,
+                    practicedWordIds = uiState.contents.flatMap { content ->
+                        when (content) {
+                            is ExerciseContent.Matching -> content.pairs.mapNotNull { it.wordId }
+                            else -> listOfNotNull(content.practicedItemId())
+                        }
+                    }.distinct()
                 )
             )
         }
