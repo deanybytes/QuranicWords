@@ -114,7 +114,7 @@
     <string name="progress_goal_days_label">Jours d\'objectif atteint</string>
     <string name="progress_quran_coverage">Couverture du Coran</string>
     <string name="progress_lessons_this_week">Leçons cette semaine</string>
-    <string name="progress_days_practiced">%d jours pratiqués (28 derniers)</string>
+    <string name="progress_days_practiced">%s jours pratiqués (28 derniers)</string>
 
     
     <string name="lesson_check_button">Vérifier</string>

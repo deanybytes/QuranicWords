@@ -118,7 +118,7 @@
     <string name="progress_goal_days_label">লক্ষ্য পূরণের দিন</string>
     <string name="progress_quran_coverage">কুরআন কভারেজ</string>
     <string name="progress_lessons_this_week">এই সপ্তাহের পাঠ</string>
-    <string name="progress_days_practiced">%d দিন অনুশীলন করা হয়েছে (গত 28 দিনে)</string>
+    <string name="progress_days_practiced">%s দিন অনুশীলন করা হয়েছে (গত 28 দিনে)</string>
 
     
     <string name="lesson_check_button">যাচাই করুন</string>

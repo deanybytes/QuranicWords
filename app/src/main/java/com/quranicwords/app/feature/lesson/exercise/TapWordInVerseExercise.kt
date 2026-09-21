@@ -1,5 +1,8 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.getOrNull
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

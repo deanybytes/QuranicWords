@@ -690,7 +690,7 @@ private fun GlossyMistakesReviewCard(
                 if (hasMistakes) Modifier.clickable(
                     interactionSource = interactionSource,
                     indication = null,
-                    onClick = onReview
+                    onClick = onAction
                 ) else Modifier
             )
     ) {
@@ -761,7 +761,7 @@ private fun GlossyMistakesReviewCard(
                         .clickable(
                             interactionSource = btnInteractionSource,
                             indication = null,
-                            onClick = onReview
+                            onClick = onAction
                         ),
                     shape = RoundedCornerShape(14.dp),
                     color = MaterialTheme.colorScheme.error

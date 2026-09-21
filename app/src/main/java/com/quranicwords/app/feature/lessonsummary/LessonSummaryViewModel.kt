@@ -12,6 +12,7 @@ import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.navigation.Route
+import com.quranicwords.app.core.ui.components.resolveCategoryFromWordId
 import com.quranicwords.app.core.util.AppJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -98,12 +99,13 @@ class LessonSummaryViewModel @Inject constructor(
                                 if (content is ExerciseContent.WordIntro) {
                                     val candidate = wordCandidates[content.wordId]
                                     val meaning = candidate?.meaning ?: content.meaning
+                                    val category = resolveCategoryFromWordId(content.wordId) ?: content.lemmaCategory
                                     wordsList.add(
                                         WordSummaryItem(
                                             wordId = content.wordId,
                                             arabicWord = content.arabicWord,
                                             meaning = meaning,
-                                            category = content.lemmaCategory
+                                            category = category
                                         )
                                     )
                                 }
@@ -132,13 +134,9 @@ class LessonSummaryViewModel @Inject constructor(
                             if (candidate != null || intro != null) {
                                 val arabicWord = candidate?.arabicWord ?: intro?.arabicWord ?: ""
                                 val meaning = candidate?.meaning ?: intro?.meaning ?: emptyMap()
-                                val category = intro?.lemmaCategory ?: candidate?.let { 
-                                    when {
-                                        it.id.startsWith("wn_") || (it.id.removePrefix("w_").toIntOrNull() in 1653..4709) -> LemmaCategory.NOUN
-                                        it.id.startsWith("wv_") || (it.id.removePrefix("w_").toIntOrNull() in 174..1652) -> LemmaCategory.VERB
-                                        else -> LemmaCategory.PARTICLE
-                                    }
-                                } ?: LemmaCategory.NOUN
+                                val category = resolveCategoryFromWordId(wordId)
+                                    ?: intro?.lemmaCategory
+                                    ?: LemmaCategory.NOUN
                                 wordsList.add(
                                     WordSummaryItem(
                                         wordId = wordId,

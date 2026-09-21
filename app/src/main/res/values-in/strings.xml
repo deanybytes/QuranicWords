@@ -111,7 +111,7 @@
     <string name="progress_goal_days_label">Hari Target Tercapai</string>
     <string name="progress_quran_coverage">Cakupan Al-Qur\'an</string>
     <string name="progress_lessons_this_week">Pelajaran Minggu Ini</string>
-    <string name="progress_days_practiced">%d Hari Berlatih (28 Terakhir)</string>
+    <string name="progress_days_practiced">%s Hari Berlatih (28 Terakhir)</string>
 
     
     <string name="lesson_check_button">Periksa</string>

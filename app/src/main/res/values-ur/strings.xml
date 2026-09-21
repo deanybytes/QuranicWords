@@ -114,7 +114,7 @@
     <string name="progress_goal_days_label">ہدف والے دن</string>
     <string name="progress_quran_coverage">قرآن کوریج</string>
     <string name="progress_lessons_this_week">اس ہفتے کے اسباق</string>
-    <string name="progress_days_practiced">%d دن مشق کی گئی (آخری 28)</string>
+    <string name="progress_days_practiced">%s دن مشق کی گئی (آخری 28)</string>
 
     
     <string name="lesson_check_button">جانچیں</string>

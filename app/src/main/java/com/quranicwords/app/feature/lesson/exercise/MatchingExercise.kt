@@ -1,5 +1,8 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.getOrNull
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D

@@ -1,5 +1,8 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.getOrNull
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -43,6 +46,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.util.HighlightUtils
 
 @Composable
 fun MultipleChoiceExerciseContent(
@@ -113,8 +117,8 @@ fun MultipleChoiceExerciseContent(
                     val verseTranslation = content.exampleVerseTranslation.get(language)
                     if (verseTranslation.isNotBlank()) {
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                        val correctMeaning = content.options.find { it.id == content.correctOptionId }?.label?.getOrNull(language).orEmpty()
-                        val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                        val correctMeaning = content.options.find { it.id == content.correctOptionId }?.label?.get(language).orEmpty()
+                        val range = HighlightUtils.findMeaningHighlightRange(
                             verseTranslation = verseTranslation,
                             meaningHighlight = content.meaningHighlight.getOrNull(language),
                             meaning = correctMeaning
