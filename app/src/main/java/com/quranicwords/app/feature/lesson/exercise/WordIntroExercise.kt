@@ -53,6 +53,7 @@ import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
  * Non-scored teach step shown before a word's quiz exercises: the word, its grammatical category
@@ -279,7 +280,7 @@ fun WordIntroExerciseContent(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "${selectedMeaningIndex + 1} / ${content.polysemyEntries.size}",
+                        text = "${VerseReferenceFormatter.formatDigits((selectedMeaningIndex + 1).toString(), language)} / ${VerseReferenceFormatter.formatDigits(content.polysemyEntries.size.toString(), language)}",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -315,7 +316,7 @@ fun WordIntroExerciseContent(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "[${idx + 1}]",
+                                    text = "[${VerseReferenceFormatter.formatDigits((idx + 1).toString(), language)}]",
                                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                                     color = tabTextColor
                                 )

@@ -33,6 +33,8 @@ import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
 import com.quranicwords.app.core.ui.components.charts.MetricTile
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatPercent
 import com.quranicwords.app.feature.achievements.AchievementsSection
 
@@ -47,6 +49,7 @@ fun ProgressScreen(
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val language = rememberSelectedLanguage()
 
     if (uiState.isLoading) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -75,13 +78,13 @@ fun ProgressScreen(
             ) {
                 MetricTile(
                     icon = Icons.Filled.LocalFireDepartment,
-                    value = uiState.currentStreak.toString(),
+                    value = VerseReferenceFormatter.formatDigits(uiState.currentStreak.toString(), language),
                     label = stringResource(R.string.progress_current_streak),
                     modifier = Modifier.weight(1f)
                 )
                 MetricTile(
                     icon = Icons.Filled.Star,
-                    value = uiState.totalPoints.toString(),
+                    value = VerseReferenceFormatter.formatDigits(uiState.totalPoints.toString(), language),
                     label = stringResource(R.string.progress_total_points),
                     modifier = Modifier.weight(1f)
                 )
@@ -94,14 +97,14 @@ fun ProgressScreen(
             ) {
                 MetricTile(
                     icon = Icons.AutoMirrored.Filled.MenuBook,
-                    value = uiState.wordsLearnedCount.toString(),
+                    value = VerseReferenceFormatter.formatDigits(uiState.wordsLearnedCount.toString(), language),
                     label = stringResource(R.string.progress_words_learned),
                     modifier = Modifier.weight(1f),
                     onClick = onOpenLearnedWords
                 )
                 MetricTile(
                     icon = Icons.Filled.CheckCircle,
-                    value = stringResource(R.string.progress_goal_days_value, uiState.goalMetDaysLast7),
+                    value = VerseReferenceFormatter.formatDigits(stringResource(R.string.progress_goal_days_value, uiState.goalMetDaysLast7), language),
                     label = stringResource(R.string.progress_goal_days_label),
                     modifier = Modifier.weight(1f)
                 )
@@ -113,7 +116,7 @@ fun ProgressScreen(
                 Text(stringResource(R.string.progress_quran_coverage), style = MaterialTheme.typography.titleMedium)
                 DonutChart(
                     percent = (uiState.quranCoveragePercent / 100.0).toFloat(),
-                    centerLabel = "${formatPercent(uiState.quranCoveragePercent)}%",
+                    centerLabel = VerseReferenceFormatter.formatDigits("${formatPercent(uiState.quranCoveragePercent)}%", language),
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }

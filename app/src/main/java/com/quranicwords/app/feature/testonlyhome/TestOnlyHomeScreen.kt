@@ -22,7 +22,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -94,6 +97,7 @@ fun TestOnlyHomeScreen(
     viewModel: TestOnlyHomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val language = rememberSelectedLanguage()
 
     var streakLockedDialogDismissed by rememberSaveable(uiState.isStreakLocked) { mutableStateOf(false) }
     if (uiState.isStreakLocked && !streakLockedDialogDismissed) {
@@ -142,6 +146,7 @@ fun TestOnlyHomeScreen(
                     last30DaysMinutes = uiState.last30DaysMinutes,
                     activeDaysCount = uiState.last30DaysActiveCount,
                     totalMinutes = uiState.last30DaysTotalMinutes,
+                    language = language,
                     onOpenRoadmap = onOpenRoadmap,
                     onOpenStreakRecovery = onOpenStreakRecovery,
                     onOpenLearnedWords = onOpenLearnedWords
@@ -150,6 +155,8 @@ fun TestOnlyHomeScreen(
 
             // 2. Mode 1: Ism (Nouns) Mode (3D Glossy Card)
             item {
+                val localizedIsmCovered = VerseReferenceFormatter.formatDigits(uiState.ismCoveredCount.toString(), language)
+                val localizedTotalIsm = VerseReferenceFormatter.formatDigits(uiState.totalIsmCount.toString(), language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.AutoStories,
                     accentColor = Color(0xFF2E7D32),
@@ -161,19 +168,22 @@ fun TestOnlyHomeScreen(
                     description = stringResource(R.string.test_mode_ism_desc),
                     progressText = stringResource(
                         R.string.test_mode_ism_progress,
-                        uiState.ismCoveredCount,
-                        uiState.totalIsmCount
+                        localizedIsmCovered,
+                        localizedTotalIsm
                     ),
                     progressFraction = if (uiState.totalIsmCount > 0) {
                         (uiState.ismCoveredCount.toFloat() / uiState.totalIsmCount).coerceIn(0f, 1f)
                     } else 0f,
                     actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    language = language,
                     onAction = { onStartQuiz("ISM") }
                 )
             }
 
             // 3. Mode 2: Fi'l (Verbs) Mode (3D Glossy Card)
             item {
+                val localizedFilCovered = VerseReferenceFormatter.formatDigits(uiState.filCoveredCount.toString(), language)
+                val localizedTotalFil = VerseReferenceFormatter.formatDigits(uiState.totalFilCount.toString(), language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.FlashOn,
                     accentColor = BrandGold,
@@ -185,19 +195,22 @@ fun TestOnlyHomeScreen(
                     description = stringResource(R.string.test_mode_fil_desc),
                     progressText = stringResource(
                         R.string.test_mode_fil_progress,
-                        uiState.filCoveredCount,
-                        uiState.totalFilCount
+                        localizedFilCovered,
+                        localizedTotalFil
                     ),
                     progressFraction = if (uiState.totalFilCount > 0) {
                         (uiState.filCoveredCount.toFloat() / uiState.totalFilCount).coerceIn(0f, 1f)
                     } else 0f,
                     actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    language = language,
                     onAction = { onStartQuiz("FIL") }
                 )
             }
 
             // 4. Mode 3: Ḥarf (Particles) Mode (3D Glossy Card)
             item {
+                val localizedHarfCovered = VerseReferenceFormatter.formatDigits(uiState.harfCoveredCount.toString(), language)
+                val localizedTotalHarf = VerseReferenceFormatter.formatDigits(uiState.totalHarfCount.toString(), language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.AutoAwesome,
                     accentColor = Color(0xFF0288D1),
@@ -209,19 +222,22 @@ fun TestOnlyHomeScreen(
                     description = stringResource(R.string.test_mode_harf_desc),
                     progressText = stringResource(
                         R.string.test_mode_harf_progress,
-                        uiState.harfCoveredCount,
-                        uiState.totalHarfCount
+                        localizedHarfCovered,
+                        localizedTotalHarf
                     ),
                     progressFraction = if (uiState.totalHarfCount > 0) {
                         (uiState.harfCoveredCount.toFloat() / uiState.totalHarfCount).coerceIn(0f, 1f)
                     } else 0f,
                     actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    language = language,
                     onAction = { onStartQuiz("HARF") }
                 )
             }
 
             // 5. Mode 4: Mix / Random Mode (3D Glossy Card)
             item {
+                val localizedRandomCovered = VerseReferenceFormatter.formatDigits(uiState.randomCoveredCount.toString(), language)
+                val localizedTotalWords = VerseReferenceFormatter.formatDigits(uiState.totalWordsCount.toString(), language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.Shuffle,
                     accentColor = Color(0xFF7E57C2),
@@ -233,13 +249,14 @@ fun TestOnlyHomeScreen(
                     description = stringResource(R.string.test_mode_random_desc),
                     progressText = stringResource(
                         R.string.test_mode_random_progress,
-                        uiState.randomCoveredCount,
-                        uiState.totalWordsCount
+                        localizedRandomCovered,
+                        localizedTotalWords
                     ),
                     progressFraction = if (uiState.totalWordsCount > 0) {
                         (uiState.randomCoveredCount.toFloat() / uiState.totalWordsCount).coerceIn(0f, 1f)
                     } else 0f,
                     actionButtonText = stringResource(R.string.test_mode_start_btn),
+                    language = language,
                     onAction = { onStartQuiz("RANDOM") }
                 )
             }
@@ -248,7 +265,8 @@ fun TestOnlyHomeScreen(
             item {
                 GlossyMistakesReviewCard(
                     missedCount = uiState.missedWordsCount,
-                    onReview = onOpenReview
+                    onAction = onOpenReview,
+                    language = language
                 )
             }
 
@@ -323,6 +341,7 @@ private fun TestHeroHeader(
     last30DaysMinutes: List<Int> = emptyList(),
     activeDaysCount: Int = 0,
     totalMinutes: Int = 0,
+    language: Language = rememberSelectedLanguage(),
     onOpenRoadmap: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
     onOpenLearnedWords: () -> Unit = {}
@@ -419,7 +438,7 @@ private fun TestHeroHeader(
                             size = 68.dp,
                             color = MaterialTheme.colorScheme.tertiary,
                             trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.16f),
-                            centerLabel = "${formatPercent(quranCoveragePercent)}%",
+                            centerLabel = VerseReferenceFormatter.formatDigits("${formatPercent(quranCoveragePercent)}%", language),
                             labelStyle = MaterialTheme.typography.labelLarge.copy(
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
                             )
@@ -474,6 +493,7 @@ private fun GlossyTestModeCard(
     progressText: String,
     progressFraction: Float,
     actionButtonText: String,
+    language: Language = rememberSelectedLanguage(),
     onAction: () -> Unit
 ) {
     val shape = RoundedCornerShape(24.dp)
@@ -565,7 +585,7 @@ private fun GlossyTestModeCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${(progressFraction * 100).toInt()}%",
+                        text = VerseReferenceFormatter.formatDigits("${(progressFraction * 100).toInt()}%", language),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                         color = accentColor
                     )
@@ -630,7 +650,8 @@ private fun GlossyTestModeCard(
 @Composable
 private fun GlossyMistakesReviewCard(
     missedCount: Int,
-    onReview: () -> Unit
+    onAction: () -> Unit,
+    language: Language = rememberSelectedLanguage()
 ) {
     val hasMistakes = missedCount > 0
     val shape = RoundedCornerShape(24.dp)
@@ -710,7 +731,10 @@ private fun GlossyMistakesReviewCard(
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         text = if (hasMistakes) {
-                            stringResource(R.string.test_mode_mistakes_count, missedCount)
+                            stringResource(
+                                R.string.test_mode_mistakes_count,
+                                VerseReferenceFormatter.formatDigits(missedCount.toString(), language)
+                            )
                         } else {
                             stringResource(R.string.test_mode_mistakes_empty)
                         },
@@ -908,7 +932,7 @@ private fun GlossyChapterTestCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${(progressFraction * 100).toInt()}%",
+                        text = VerseReferenceFormatter.formatDigits("${(progressFraction * 100).toInt()}%", language),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                         color = accentColor
                     )

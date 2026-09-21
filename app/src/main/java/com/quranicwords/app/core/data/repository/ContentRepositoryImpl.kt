@@ -97,22 +97,8 @@ class ContentRepositoryImpl @Inject constructor(
 
     override suspend fun getWordIntrosForItems(itemIds: List<String>): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro> {
         if (itemIds.isEmpty()) return emptyMap()
-        val missingIds = itemIds.filter { wordIntrosCache?.containsKey(it) != true }
-        if (missingIds.isNotEmpty()) {
-            val loaded = withContext(Dispatchers.IO) {
-                database.exerciseDao().getTeachWordsForItems(missingIds).mapNotNull {
-                    runCatching {
-                        com.quranicwords.app.core.util.AppJson.decodeFromString(
-                            com.quranicwords.app.core.domain.model.ExerciseContent.serializer(),
-                            it.contentJson
-                        )
-                    }.getOrNull() as? com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro
-                }.associateBy { it.wordId }
-            }
-            val updated = (wordIntrosCache ?: emptyMap()) + loaded
-            wordIntrosCache = updated
-        }
-        return wordIntrosCache?.filterKeys { it in itemIds } ?: emptyMap()
+        val allIntros = getAllWordIntros()
+        return allIntros.filterKeys { it in itemIds }
     }
 
     override suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro> {

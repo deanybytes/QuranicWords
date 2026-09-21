@@ -58,6 +58,7 @@ import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
  * Card-flip, "story-fold" browsing of a section's words - tap a card to flip it and reveal the
@@ -223,7 +224,7 @@ private fun WordCardBack(
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "[${idx + 1}]",
+                                text = "[${VerseReferenceFormatter.formatDigits((idx + 1).toString(), language)}]",
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                                 color = tabTextColor
                             )

@@ -45,6 +45,6 @@ internal data class ExerciseSeedDto(
         orderIndex = orderIndex,
         type = exerciseType,
         contentJson = AppJson.encodeToString(ExerciseContent.serializer(), content),
-        practicedItemId = content.practicedItemId()
+        practicedItemId = content.practicedItemId() ?: (content as? ExerciseContent.WordIntro)?.wordId
     )
 }

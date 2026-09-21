@@ -199,8 +199,31 @@ class LessonViewModel @Inject constructor(
         when (content) {
             is ExerciseContent.WordIntro ->
                 candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
-            is ExerciseContent.TapWordInVerse ->
-                candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
+            is ExerciseContent.TapWordInVerse -> {
+                val intro = wordIntros[content.wordId]
+                val meaning = candidatePool.get(content.wordId)?.meaning ?: content.meaning
+                if (intro != null) {
+                    content.copy(
+                        meaning = meaning,
+                        verseTranslation = intro.exampleVerseTranslation,
+                        meaningHighlight = intro.meaningHighlight
+                    )
+                } else {
+                    content.copy(meaning = meaning)
+                }
+            }
+            is ExerciseContent.FillInTheBlank -> {
+                val intro = wordIntros[content.wordId]
+                if (intro != null) {
+                    content.copy(
+                        sentenceArabic = intro.exampleVerseArabic ?: content.sentenceArabic,
+                        blankStart = intro.arabicWordStart ?: content.blankStart,
+                        blankEnd = intro.arabicWordEnd ?: content.blankEnd,
+                        sentenceTranslation = if (intro.exampleVerseTranslation.isNotEmpty()) intro.exampleVerseTranslation else content.sentenceTranslation,
+                        sentenceReference = intro.exampleVerseReference ?: content.sentenceReference
+                    )
+                } else content
+            }
             is ExerciseContent.MultipleChoice -> {
                 val intro = wordIntros[content.wordId]
                 if (intro != null) {
@@ -285,10 +308,12 @@ class LessonViewModel @Inject constructor(
         candidatePool: WordCandidatePool,
         missedItemIds: Set<String>
     ): List<ChoiceOption> {
-        val bakedCorrectOption = baked.find { it.id == correctOptionId } ?: return baked
-        val correctOption = candidatePool.get(wordId)
+        val bakedCorrectOption = baked.find { it.id == correctOptionId }
+        val correctWord = candidatePool.get(wordId)
+        val correctOption = correctWord
             ?.let { ChoiceOption(id = correctOptionId, labelArabic = it.arabicWord, label = it.meaning) }
             ?: bakedCorrectOption
+            ?: return baked
 
         val generated = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds, count = 3)
             .mapNotNull { id -> candidatePool.get(id) }

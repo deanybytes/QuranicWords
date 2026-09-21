@@ -3,6 +3,7 @@ package com.quranicwords.app.feature.lessonsummary
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.ExerciseContent
@@ -10,6 +11,7 @@ import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.util.AppJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,8 +57,10 @@ class LessonSummaryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val lessonId: String? = savedStateHandle["lessonId"]
-    private val nextLessonId: String? = savedStateHandle["nextLessonId"]
+    private val route: Route.LessonSummary? = runCatching { savedStateHandle.toRoute<Route.LessonSummary>() }.getOrNull()
+    private val lessonId: String? = route?.lessonId ?: savedStateHandle["lessonId"]
+    private val nextLessonId: String? = route?.nextLessonId ?: savedStateHandle["nextLessonId"]
+    private val practicedWordIds: List<String> = route?.practicedWordIds ?: savedStateHandle.get<List<String>>("practicedWordIds") ?: emptyList()
 
     private val _uiState = MutableStateFlow(LessonSummaryUiState())
     val uiState: StateFlow<LessonSummaryUiState> = _uiState.asStateFlow()
@@ -103,6 +107,46 @@ class LessonSummaryViewModel @Inject constructor(
                                         )
                                     )
                                 }
+                            }
+                        }
+                    } else if (practicedWordIds.isNotEmpty() || lessonId == "review_session") {
+                        lessonTitle = mapOf(
+                            "en" to "Test Session Completed",
+                            "bn" to "টেস্ট সেশন সম্পন্ন",
+                            "ur" to "ٹیسٹ سیشن مکمل",
+                            "hi" to "टेस्ट सत्र पूरा हुआ",
+                            "in" to "Sesi Tes Selesai",
+                            "ms" to "Sesi Ujian Selesai",
+                            "tr" to "Test Oturumu Tamamlandı",
+                            "fa" to "جلسه آزمون تکمیل شد",
+                            "ha" to "An Kammala Zama na Gwaji",
+                            "sw" to "Kipindi cha Mtihani Kimekamilika",
+                            "fr" to "Session de test terminée"
+                        )
+                        val wordCandidates = contentRepository.getWordCandidates().associateBy { it.id }
+                        val wordIntros = contentRepository.getWordIntrosForItems(practicedWordIds)
+
+                        practicedWordIds.distinct().forEach { wordId ->
+                            val candidate = wordCandidates[wordId]
+                            val intro = wordIntros[wordId]
+                            if (candidate != null || intro != null) {
+                                val arabicWord = candidate?.arabicWord ?: intro?.arabicWord ?: ""
+                                val meaning = candidate?.meaning ?: intro?.meaning ?: emptyMap()
+                                val category = intro?.lemmaCategory ?: candidate?.let { 
+                                    when {
+                                        it.id.startsWith("wn_") || (it.id.removePrefix("w_").toIntOrNull() in 1653..4709) -> LemmaCategory.NOUN
+                                        it.id.startsWith("wv_") || (it.id.removePrefix("w_").toIntOrNull() in 174..1652) -> LemmaCategory.VERB
+                                        else -> LemmaCategory.PARTICLE
+                                    }
+                                } ?: LemmaCategory.NOUN
+                                wordsList.add(
+                                    WordSummaryItem(
+                                        wordId = wordId,
+                                        arabicWord = arabicWord,
+                                        meaning = meaning,
+                                        category = category
+                                    )
+                                )
                             }
                         }
                     }

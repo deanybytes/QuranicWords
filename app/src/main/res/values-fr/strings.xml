@@ -263,22 +263,22 @@
 
     <string name="test_mode_ism_title">Mode Nom (اسم)</string>
     <string name="test_mode_ism_desc">Testez votre maîtrise des 3 057 noms coraniques, pronoms et attributs divins.</string>
-    <string name="test_mode_ism_progress">%1$d sur %2$d noms complétés dans ce cycle</string>
+    <string name="test_mode_ism_progress">%1$s sur %2$s noms complétés dans ce cycle</string>
     <string name="test_mode_fil_title">Mode Verbe (فعل)</string>
-    <string name="test_mode_fil_desc">Pratiquez les 1 450 verbes coraniques (Formes I–X, passé, présent et masdar).</string>
-    <string name="test_mode_fil_progress">%1$d sur %2$d verbes complétés dans ce cycle</string>
+    <string name="test_mode_fil_desc">Pratiquez les 1 479 verbes coraniques (Formes I–X, passé, présent et masdar).</string>
+    <string name="test_mode_fil_progress">%1$s sur %2$s verbes complétés dans ce cycle</string>
     <string name="test_mode_harf_title">Mode Particule (حرف)</string>
-    <string name="test_mode_harf_desc">Maîtrisez les 109 particules fondamentales du Coran, prépositions et conjonctions.</string>
-    <string name="test_mode_harf_progress">%1$d sur %2$d particules complétées dans ce cycle</string>
+    <string name="test_mode_harf_desc">Maîtrisez les 173 particules fondamentales du Coran, prépositions et conjonctions.</string>
+    <string name="test_mode_harf_progress">%1$s sur %2$s particules complétées dans ce cycle</string>
     <string name="test_mode_random_title">Mode Aléatoire / Mixte</string>
-    <string name="test_mode_random_desc">Quiz mixte dynamique sur les 4 616 mots du Coran (اسم, فعل, حرف).</string>
-    <string name="test_mode_random_progress">%1$d sur %2$d mots complétés dans ce cycle</string>
+    <string name="test_mode_random_desc">Quiz mixte dynamique sur les 4 709 mots du Coran (اسم, فعل, حرف).</string>
+    <string name="test_mode_random_progress">%1$s sur %2$s mots complétés dans ce cycle</string>
     <string name="test_mode_frequency_title">Mode Ordre de Fréquence</string>
-    <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 4 616).</string>
-    <string name="test_mode_frequency_progress">%1$d sur %2$d mots couverts</string>
+    <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 4 709).</string>
+    <string name="test_mode_frequency_progress">%1$s sur %2$s mots couverts</string>
     <string name="test_mode_mistakes_title">Révision des Mots Incorrects</string>
     <string name="test_mode_mistakes_desc">Révisez les mots manqués. Une fois réussis, ils sont retirés des erreurs.</string>
-    <string name="test_mode_mistakes_count">%d mots incorrects à réviser</string>
+    <string name="test_mode_mistakes_count">%s mots incorrects à réviser</string>
     <string name="test_mode_mistakes_empty">Aucun mot incorrect ! Bravo.</string>
     <string name="test_mode_start_btn">Commencer le Test</string>
     <string name="test_mode_review_btn">Corriger les Erreurs</string>
@@ -289,9 +289,11 @@
     <string name="test_mode_start_chapter_btn">Démarrer le Test du Chapitre</string>
 
     <string name="home_chart_30d_title">Activité &amp; Tendance sur 30 jours</string>
-    <string name="home_chart_30d_summary">%1$d/30 jours actifs · %2$d min au total</string>
-    <string name="home_chart_today_stat">Aujourd\'hui : %d min</string>
+    <string name="home_chart_30d_summary">%1$s/30 jours actifs · %2$s min au total</string>
+    <string name="home_chart_today_stat">Aujourd\'hui : %s min</string>
     <string name="home_chart_30d_ago">Il y a 30j</string>
+    <string name="home_chart_days_ago">Il y a %s j</string>
+    <string name="home_chart_day_mins_format">• %1$s : %2$s min •</string>
     <string name="home_chart_today">Aujourd\'hui</string>
     <string name="home_chart_quote_high">🌟 Masha\'Allah ! Excellente régularité dans votre apprentissage coranique.</string>
     <string name="home_chart_quote_mid">✨ Bel élan ! La pratique quotidienne renforce la compréhension du Coran.</string>

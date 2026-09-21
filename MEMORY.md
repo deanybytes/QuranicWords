@@ -42,6 +42,14 @@ QuranicWords is a Kotlin + Jetpack Compose + Material 3 app, MVVM + Hilt, Room, 
   - **Language Bundle Optimization**: Disabled language splits (`bundle.language.enableSplit = false`) to ensure all 11 languages are bundled locally and switchable offline.
   - **Signed Release Bundle**: Automated `bundleRelease` copying signed `.aab` and `.apk` to repo root.
 
+- **v1.0.0 Dynamic Test Quizzes, Universal Digit Localization & Test Summary Breakdown (2026-09-21)** — done:
+  - **Dynamic Test Mode Exercises**: `ProgressRepositoryImpl.getReviewExercises` dynamically synthesizes Reverse Verse Quizzes (`TapWordInVerse`), Verse Completion (`FillInTheBlank`), and Contextual Multiple Choice (`MultipleChoice`) from `WordIntro` example verses and spans with 11-language prompt mapping (`TAP_WORD_PROMPT`, `FILL_BLANK_PROMPT`, `MULTIPLE_CHOICE_PROMPT`).
+  - **Universal Digit Localization**: Applied `VerseReferenceFormatter.formatDigits(..., language)` across all UI components, badges, charts, and screens (`StatBadges`, `Home30DayActivityTrendChart`, `LearnedWordsScreen`, `ProgressScreen`, `RoadmapScreen`, `TestOnlyHomeScreen`, `WordBrowseScreen`, `WordIntroExercise`).
+  - **Test-Only & Review Session Word Breakdown in Lesson Summary**: Forwarded `practicedWordIds` via `LessonSummaryRoute` so that test/review mode completions show a comprehensive breakdown of all practiced words with Arabic text, grammatical category (`GrammarCategoryBadge`), and localized meaning.
+  - **In-Verse Highlighted Glass Translations**: Added `HighlightedGlassTranslation` with precise meaning highlight ranges (`HighlightUtils.findMeaningHighlightRange`) across `MatchingExercise`, `MultipleChoiceExercise`, and `TapWordInVerseExercise`. Added Quranic font (`LocalQuranFontFamily`) support for Arabic option choices in Multiple Choice (`OptionCard`).
+  - **Corpus & Part-of-Speech Counts Harmonization**: Standardized test mode counts to 4,709 total words: 173 particles (Ḥarf, `w_1..173`), 1,479 verbs (Fi'l, `w_174..1652`), and 3,057 nouns (Ism, `w_1653..4709`). Updated `resolveCategoryFromWordId` to support numeric word IDs.
+  - **Scored Exercise Filtering & Content Seeding Fixes**: `ExerciseDao.getScoredExercisesForItems` now explicitly excludes `WORD_INTRO` and `CHAPTER_INTRO`; `ContentSeedDtos.kt` assigns `practicedItemId` fallback to `(content as? ExerciseContent.WordIntro)?.wordId`.
+
 - **v1.0.0 Surah Names, Auto-Navigation, Quality Hardening & versionCode 26 (2026-09-19)** — done:
   - **Canonical Surah Names**: Formatted all verse citations with authentic Surah names across 114 Surahs (`SurahNames.kt` & `VerseReferenceFormatter.kt`).
   - **Curriculum Auto-Scrolling & Auto-Collapsing**: Implemented `findHomeTargetItemIndex` to auto-scroll to the learner's active lesson on completion and cleanly auto-collapsed completed chapters/sections in `HomeScreen.kt`.

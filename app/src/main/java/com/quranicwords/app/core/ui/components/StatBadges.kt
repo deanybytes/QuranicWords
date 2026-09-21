@@ -29,9 +29,11 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 @Composable
 fun PointsBadge(points: Int, modifier: Modifier = Modifier) {
+    val language = rememberSelectedLanguage()
     val description = stringResource(R.string.points_content_description, points)
     val animatedPoints by animateIntAsState(targetValue = points, animationSpec = MotionSpecs.countUp, label = "points")
     Surface(
@@ -48,13 +50,17 @@ fun PointsBadge(points: Int, modifier: Modifier = Modifier) {
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSecondaryContainer
             )
-            Text(animatedPoints.toString(), color = MaterialTheme.colorScheme.onSecondaryContainer)
+            Text(
+                text = VerseReferenceFormatter.formatDigits(animatedPoints.toString(), language),
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
         }
     }
 }
 
 @Composable
 fun StreakBadge(streakDays: Int, modifier: Modifier = Modifier) {
+    val language = rememberSelectedLanguage()
     val description = stringResource(R.string.streak_content_description, streakDays)
     val animatedStreak by animateIntAsState(targetValue = streakDays, animationSpec = MotionSpecs.countUp, label = "streak")
     Surface(
@@ -67,7 +73,10 @@ fun StreakBadge(streakDays: Int, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             StreakFlame(streakDays = streakDays)
-            Text(animatedStreak.toString(), color = MaterialTheme.colorScheme.onTertiaryContainer)
+            Text(
+                text = VerseReferenceFormatter.formatDigits(animatedStreak.toString(), language),
+                color = MaterialTheme.colorScheme.onTertiaryContainer
+            )
         }
     }
 }

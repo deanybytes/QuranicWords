@@ -4,6 +4,72 @@
 
 ---
 
+## 🚀 Dynamic Test Quizzes & Universal Digit Localization Update
+
+```xml
+<en-US>
+QuranicWords Update:
+• Dynamic in-verse quizzes in all test modes (Verse Tap, Completion & Multiple Choice)
+• Full vocabulary breakdown on Lesson Summary after test & review sessions
+• Live highlighted glass translations on tap for matching, multiple choice & verse tap
+• Universal digit localization across all languages (Arabic, Urdu, Bengali, etc.)
+• 4,709 Quranic words across 10 chapters & 14,358 exercises
+• 100% offline, private, and ad-free
+</en-US>
+
+<bn-BD>
+QuranicWords আপডেট:
+• টেস্ট মোডে ডায়নামিক ইন-ভার্স কুইজ (আয়াত ট্যাপ, শূন্যস্থান পূরণ ও বহুনির্বাচনী)
+• টেস্ট ও রিভিউর পর লেসন সামারিতে বিস্তারিত শব্দ তালিকা ও ব্যাকরণ ব্যাজ
+• ম্যাচিং ও বহুনির্বাচনীতে আয়াতের অনুবাদ ও অর্থের হাইলাইট প্রদর্শন
+• বাংলায় সকল সংখ্যা ও শতাংশের নিখুঁত স্থানীয় রূপান্তর
+• ১০টি অধ্যায়ে ৪,৭০৯টি শব্দের ১৪,৩৫৮টি অনুশীলন
+• ১০০% অফলাইন, নিরাপদ ও বিজ্ঞাপনমুক্ত
+</bn-BD>
+
+<ur>
+QuranicWords اپ ڈیٹ:
+• تمام ٹیسٹ موڈز میں آیات پر مبنی متحرک مشقیں (آیت ٹیپ، خالی جگہ اور کثیر الانتخابی)
+• ٹیسٹ کے اختتام پر خلاصہ اسکرین میں تمام مشق شدہ الفاظ کی تفصیل
+• میچنگ اور کثیر الانتخابی سوالات میں آیات کے ترجمے اور معانی کی نمایاں جھلک
+• تمام زبانوں اور رسم الخط میں اعداد کا مقامی اظہار
+• ۱۰ ابواب میں ۴،۷۰۹ الفاظ اور ۱۴،۳۵۸ مشقیں
+• ۱۰۰٪ آف لائن، محفوظ اور اشتہارات سے پاک
+</ur>
+
+<id>
+Pembaruan QuranicWords:
+• Kuis ayat dinamis di semua mode tes (Ketuk Ayat, Lengkapi Ayat & Pilihan Ganda)
+• Rincian kosakata lengkap di ringkasan pelajaran setelah sesi tes & latihan
+• Terjemahan bergradasi dengan sorotan makna kata saat disentuh
+• Pelokalan angka & persentase ke semua bahasa
+• 4.709 kata Al-Qur'an dalam 10 bab & 14.358 latihan
+• 100% offline, tanpa iklan & privat selamanya
+</id>
+
+<tr-TR>
+QuranicWords Güncellemesi:
+• Tüm test modlarında dinamik ayet alıştırmaları (Ayet Tamamlama, Dokunma ve Çoktan Seçmeli)
+• Test ve tekrar sonrası ders özetinde detaylı kelime dökümü
+• Eşleştirme ve çoktan seçmeli sorularda vurgulu ayet çevirileri
+• Tüm diller için yerelleştirilmiş sayı ve yüzde gösterimi
+• 10 bölümde 4.709 Kur'an kelimesi ve 14.358 alıştırma
+• %100 çevrimdışı, reklamsız ve gizlilik odaklı
+</tr-TR>
+
+<fr-FR>
+Mise à jour QuranicWords :
+• Quiz dynamiques en versets dans tous les modes de test (Sélection, Complétion, Choix multiple)
+• Récapitulatif détaillé des mots pratiqués sur l'écran de fin de leçon
+• Traductions interactives avec mise en valeur du sens exact des mots
+• Localisation des chiffres et pourcentages dans toutes les langues
+• 4 709 mots coraniques sur 10 chapitres et 14 358 exercices
+• 100% hors ligne, privé et sans publicité
+</fr-FR>
+```
+
+---
+
 ## 🚀 v1.0.0 (versionCode 26)
 
 ```xml

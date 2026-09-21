@@ -51,8 +51,9 @@ In the Qur'an, many words carry different contextual meanings depending on the s
 
 At the end of every lesson:
 - **Performance Report**: Displays total words covered (*Alhamdulillah*), mistake count, accuracy percentage, and time spent.
-- **Next Lesson Introduction**: Previews the upcoming lesson's target words and grammatical context.
-- **Direct Navigation**: Option to immediately proceed to the next lesson or return to the curriculum map.
+- **Vocabulary Breakdown**: In curriculum lessons, open practice, and test modes, displays the complete list of words practiced during the session with Arabic script, grammatical category badge (`GrammarCategoryBadge`), and localized meaning.
+- **Next Lesson Introduction**: Previews the upcoming lesson's target words and grammatical context (for curriculum lessons).
+- **Direct Navigation**: Option to immediately proceed to the next lesson or return to the curriculum map / test hub.
 
 ## 6-Mode Test-Only System
 
@@ -63,3 +64,5 @@ For learners seeking targeted revision and speed testing without linear lesson p
 4. **Mix / Random Mode**: Dynamically samples from all 4,709 words with live grammar badging (`GrammarCategoryBadge`).
 5. **Mistaken Words Review**: Adaptively queries `ExerciseAttemptEntity` for words where the learner made errors.
 6. **Chapterwise Practice & Test Mode**: Targeted unit test suites across each of the 10 Quranic Chapters.
+
+All test modes feature **dynamic in-verse quizzing**, automatically alternating between Reverse Verse Quizzes (`TapWordInVerse`), Verse Completion (`FillInTheBlank`), and Contextual Multiple Choice (`MultipleChoice`) with authentic Quranic verses, Tashkīl, and translations.

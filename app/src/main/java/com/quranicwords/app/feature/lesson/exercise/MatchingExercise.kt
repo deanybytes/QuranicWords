@@ -334,8 +334,23 @@ fun MatchingExerciseContent(
                             verseArabic = exampleArabic,
                             start = selectedPair.arabicWordStart,
                             end = selectedPair.arabicWordEnd,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            arabicWord = selectedPair.effectiveLeftArabic
                         )
+                        val pairTranslation = selectedPair.exampleVerseTranslation.get(language)
+                        if (pairTranslation.isNotBlank()) {
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
+                                verseTranslation = pairTranslation,
+                                meaningHighlight = selectedPair.meaningHighlight.getOrNull(language),
+                                meaning = selectedPair.right.get(language)
+                            )
+                            com.quranicwords.app.core.ui.components.HighlightedGlassTranslation(
+                                verseTranslation = pairTranslation,
+                                range = range,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
                 }
             }

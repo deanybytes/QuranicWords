@@ -56,6 +56,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.components.statusContainerColor
 import com.quranicwords.app.core.ui.components.statusDefaultIconAndTint
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.feature.home.aggregateStatus
 
 /**
@@ -237,6 +238,7 @@ private fun RoadmapLessonRow(
     indent: Dp,
     isCurrent: Boolean = false
 ) {
+    val language = rememberSelectedLanguage()
     val reachable = isRoadmapReachable(status)
     val kindVisual = rememberLessonKindVisual(kind)
     val (defaultIcon, defaultTint) = statusDefaultIconAndTint(status, isCurrent = isCurrent)
@@ -348,7 +350,7 @@ private fun RoadmapLessonRow(
 
             if (status == LessonStatus.COMPLETED && scorePercent != null) {
                 Text(
-                    "$scorePercent%",
+                    VerseReferenceFormatter.formatDigits("$scorePercent%", language),
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = if (kindVisual.isQuizOrExam) kindVisual.accentColor else MaterialTheme.colorScheme.primary
                 )

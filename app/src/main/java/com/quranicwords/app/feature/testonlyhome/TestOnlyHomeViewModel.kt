@@ -40,11 +40,11 @@ data class TestOnlyHomeUiState(
     val ismCoveredCount: Int = 0,
     val totalIsmCount: Int = 3057,
     val filCoveredCount: Int = 0,
-    val totalFilCount: Int = 1450,
+    val totalFilCount: Int = 1479,
     val harfCoveredCount: Int = 0,
-    val totalHarfCount: Int = 109,
+    val totalHarfCount: Int = 173,
     val randomCoveredCount: Int = 0,
-    val totalWordsCount: Int = 4616,
+    val totalWordsCount: Int = 4709,
     val missedWordsCount: Int = 0,
     val quranCoveragePercent: Double = 0.0,
     val last30DaysMinutes: List<Int> = emptyList(),
@@ -57,9 +57,9 @@ data class TestOnlyHomeUiState(
  * Backs [TestOnlyHomeScreen] - manages test status badges and real-time progress for all
  * Test/Quiz-only modes:
  * 1. Ism (Nouns) Mode (3,057 Quranic nouns)
- * 2. Fi'l (Verbs) Mode (1,450 Quranic verbs)
- * 3. Ḥarf (Particles) Mode (109 Quranic particles)
- * 4. Mix / Random Mode (4,616 corpus mix)
+ * 2. Fi'l (Verbs) Mode (1,479 Quranic verbs)
+ * 3. Ḥarf (Particles) Mode (173 Quranic particles)
+ * 4. Mix / Random Mode (4,709 corpus mix)
  * 5. Mistaken Words Review (adaptive retry of missed vocabulary)
  * 6. Chapterwise Test Mode (10 Quranic chapters)
  */
@@ -135,12 +135,12 @@ class TestOnlyHomeViewModel @Inject constructor(
                     streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate),
                     ismCoveredCount = posCovered.ismCovered.size.coerceAtMost(3057),
                     totalIsmCount = 3057,
-                    filCoveredCount = posCovered.filCovered.size.coerceAtMost(1450),
-                    totalFilCount = 1450,
-                    harfCoveredCount = posCovered.harfCovered.size.coerceAtMost(109),
-                    totalHarfCount = 109,
-                    randomCoveredCount = posCovered.randomCovered.size.coerceAtMost(4616),
-                    totalWordsCount = 4616,
+                    filCoveredCount = posCovered.filCovered.size.coerceAtMost(1479),
+                    totalFilCount = 1479,
+                    harfCoveredCount = posCovered.harfCovered.size.coerceAtMost(173),
+                    totalHarfCount = 173,
+                    randomCoveredCount = posCovered.randomCovered.size.coerceAtMost(4709),
+                    totalWordsCount = 4709,
                     missedWordsCount = missedIds.size,
                     quranCoveragePercent = coveragePercent,
                     last30DaysMinutes = last30DaysMinutes,

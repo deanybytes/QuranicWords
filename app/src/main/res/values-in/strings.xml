@@ -260,22 +260,22 @@
 
     <string name="test_mode_ism_title">Mode Nomina (اسم)</string>
     <string name="test_mode_ism_desc">Uji penguasaan Anda atas 3.057 nomina, pronomina, dan nama agung Al-Qur\'an.</string>
-    <string name="test_mode_ism_progress">%1$d dari %2$d isim selesai dalam siklus ini</string>
+    <string name="test_mode_ism_progress">%1$s dari %2$s isim selesai dalam siklus ini</string>
     <string name="test_mode_fil_title">Mode Verba (فعل)</string>
-    <string name="test_mode_fil_desc">Latihan 1.450 kata kerja Al-Qur\'an (Bentuk I–X, lampau, sekarang, dan masdar).</string>
-    <string name="test_mode_fil_progress">%1$d dari %2$d fi\'il selesai dalam siklus ini</string>
+    <string name="test_mode_fil_desc">Latihan 1.479 kata kerja Al-Qur\'an (Bentuk I–X, lampau, sekarang, dan masdar).</string>
+    <string name="test_mode_fil_progress">%1$s dari %2$s fi\'il selesai dalam siklus ini</string>
     <string name="test_mode_harf_title">Mode Partikel (حرف)</string>
-    <string name="test_mode_harf_desc">Kuasai 109 partikel fondasi Al-Qur\'an, preposisi, dan konjungsi.</string>
-    <string name="test_mode_harf_progress">%1$d dari %2$d harf selesai dalam siklus ini</string>
+    <string name="test_mode_harf_desc">Kuasai 173 partikel fondasi Al-Qur\'an, preposisi, dan konjungsi.</string>
+    <string name="test_mode_harf_progress">%1$s dari %2$s harf selesai dalam siklus ini</string>
     <string name="test_mode_random_title">Mode Campuran / Acak</string>
-    <string name="test_mode_random_desc">Kuis campuran dinamis dari seluruh 4.616 kata Al-Qur\'an (اسم, فعل, حرف).</string>
-    <string name="test_mode_random_progress">%1$d dari %2$d kata selesai dalam siklus ini</string>
+    <string name="test_mode_random_desc">Kuis campuran dinamis dari seluruh 4.709 kata Al-Qur\'an (اسم, فعل, حرف).</string>
+    <string name="test_mode_random_progress">%1$s dari %2$s kata selesai dalam siklus ini</string>
     <string name="test_mode_frequency_title">Mode Urutan Frekuensi</string>
-    <string name="test_mode_frequency_desc">Latihan kosakata Al-Qur\'an berdasarkan frekuensi kemunculan (Peringkat 1 hingga 4.616).</string>
-    <string name="test_mode_frequency_progress">%1$d dari %2$d kata tercakup</string>
+    <string name="test_mode_frequency_desc">Latihan kosakata Al-Qur\'an berdasarkan frekuensi kemunculan (Peringkat 1 hingga 4.709).</string>
+    <string name="test_mode_frequency_progress">%1$s dari %2$s kata tercakup</string>
     <string name="test_mode_mistakes_title">Tinjau Kata yang Salah</string>
     <string name="test_mode_mistakes_desc">Latih kata yang salah dijawab. Setelah benar, kata akan dihapus dari daftar kesalahan.</string>
-    <string name="test_mode_mistakes_count">%d kata salah untuk ditinjau</string>
+    <string name="test_mode_mistakes_count">%s kata salah untuk ditinjau</string>
     <string name="test_mode_mistakes_empty">Tidak ada kata yang salah! Luar biasa.</string>
     <string name="test_mode_start_btn">Mulai Tes</string>
     <string name="test_mode_review_btn">Tinjau Kesalahan</string>
@@ -286,9 +286,11 @@
     <string name="test_mode_start_chapter_btn">Mulai Tes Bab</string>
 
     <string name="home_chart_30d_title">Aktivitas &amp; Tren 30 Hari</string>
-    <string name="home_chart_30d_summary">%1$d/30 hari aktif · Total %2$d mnt</string>
-    <string name="home_chart_today_stat">Hari ini: %d mnt</string>
+    <string name="home_chart_30d_summary">%1$s/30 hari aktif · Total %2$s mnt</string>
+    <string name="home_chart_today_stat">Hari ini: %s mnt</string>
     <string name="home_chart_30d_ago">30 hr lalu</string>
+    <string name="home_chart_days_ago">%s hr lalu</string>
+    <string name="home_chart_day_mins_format">• %1$s: %2$s mnt •</string>
     <string name="home_chart_today">Hari ini</string>
     <string name="home_chart_quote_high">🌟 Masya Allah! Konsistensi luar biasa dalam belajar Al-Qur\'an.</string>
     <string name="home_chart_quote_mid">✨ Momentum hebat! Latihan rutin memperkuat pemahaman Al-Qur\'an.</string>

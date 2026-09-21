@@ -52,9 +52,40 @@ Every word is shown via a non-scored `WordIntro` step immediately before its own
 
 The curriculum covers all **4,709 Quranic vocabulary items** divided by Part of Speech (**Ḥarf**, **Fi'l**, **Ism**), with each part of speech ordered strictly by descending occurrence frequency in the Qur'an:
 
-- **Ḥarf (Particles)**: 173 particles (`wp_1` to `wp_173`), such as فِي, مِنْ, عَلَى, covering 24,651 occurrences (41.16% of Quranic text).
-- **Fi'l (Verbs)**: 1,479 verbs (`wv_1` to `wv_1479`), from high-frequency verbs like قَالَ, كَانَ down to specialized verbal roots (13,491 occurrences).
-- **Ism (Nouns)**: 3,057 nouns (`wn_1` to `wn_3057`), including names, descriptors, and divine attributes (21,746 occurrences).
+- **Ḥarf (Particles)**: 173 particles (`wp_1` to `wp_173` or `w_1` to `w_173`), such as فِي, مِنْ, عَلَى, covering 24,651 occurrences (41.16% of Quranic text).
+- **Fi'l (Verbs)**: 1,479 verbs (`wv_1` to `wv_1479` or `w_174` to `w_1652`), from high-frequency verbs like قَالَ, كَانَ down to specialized verbal roots (13,491 occurrences).
+- **Ism (Nouns)**: 3,057 nouns (`wn_1` to `wn_3057` or `w_1653` to `w_4709`), including names, descriptors, and divine attributes (21,746 occurrences).
+
+`resolveCategoryFromWordId` (`core/ui/components/GrammarCategoryBadge.kt`) maps both legacy prefixed IDs (`wp_`, `wv_`, `wn_`) and canonical numeric IDs (`w_1..4709`) to their corresponding `LemmaCategory`.
+
+## 🧪 Dynamic Exercise Generation in Test Modes
+
+In `ProgressRepositoryImpl.getReviewExercises`, test mode sessions dynamically synthesize interactive verse exercises for tested words having verified example verses:
+
+```mermaid
+flowchart TD
+    Word[Word ID from Test Pool] --> Intro{Has WordIntro & Example Verse?}
+    Intro -->|No| MCDefault[MultipleChoice with Word Translation]
+    Intro -->|Yes| Modulo{index % 3}
+    Modulo -->|1| TapVerse[TapWordInVerse:<br/>Reverse Verse Quiz]
+    Modulo -->|2| FillBlank[FillInTheBlank:<br/>Verse Completion]
+    Modulo -->|0| MCVerse[MultipleChoice:<br/>with Verse Context & Translation]
+```
+
+1. **Verse Word Span Computation** (`computeWordSpans`): Computes character-exact whitespace boundaries across `exampleVerseArabic` to locate the target word span matching `arabicWordStart` and `arabicWordEnd`.
+2. **Reverse Verse Quizzing** (`TapWordInVerse`): Shows the localized translation and meaning highlight, prompting the learner to identify and tap the target Arabic word in the verse text.
+3. **Verse Completion** (`FillInTheBlank`): Blanks out the target word span in the verse, prompting the learner to choose the correct missing word.
+4. **Contextual Multiple Choice** (`MultipleChoice`): Displays the Arabic word along with its full Quranic verse citation, translation, and highlighted meaning.
+5. **Multilingual Prompts**: Automatically applies localized prompts across all 11 languages (`TAP_WORD_PROMPT`, `FILL_BLANK_PROMPT`, `MULTIPLE_CHOICE_PROMPT`).
+
+## 🔢 Universal Digit Localization Algorithm
+
+`VerseReferenceFormatter.formatDigits(text, language)` converts ASCII digits `0–9` into target script numerals:
+- **Arabic / Urdu / Persian**: Eastern Arabic numerals (`٠, ١, ٢, ٣, ٤, ٥, ٦, ٧, ٨, ٩`)
+- **Bengali**: Bengali numerals (`০, ১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯`)
+- **Latin-based languages** (English, French, Indonesian, Malay, Turkish, Swahili, Hausa): Standard Western Arabic numerals (`0–9`)
+
+This ensures streak numbers, points, percentages, lesson counters (`1 / N`), and activity charts respect the cultural script conventions of the selected language.
 
 ## 🎯 Distractor Generation & Meaning Resolution
 

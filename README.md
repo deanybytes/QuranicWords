@@ -74,6 +74,8 @@ For learners who want focused recall testing without linear lesson progression, 
 5. 🔄 **Mistaken Words Review**: Adaptive spaced review of previously missed words with grammar category tags.
 6. 📚 **Chapterwise Practice & Test Mode**: Targeted unit testing across all 10 Quranic chapters.
 
+> 🌟 **Dynamic In-Verse Quizzing**: In all test modes, quizzes alternate between **Reverse Verse Quizzes** (`TapWordInVerse`), **Verse Completion** (`FillInTheBlank`), and **Contextual Multiple Choice** with real Quranic verses and full Tashkīl. On completion, the **Lesson Summary** displays a full word breakdown with Arabic text, grammatical categories, and localized meanings.
+
 ## 🎮 Gamification
 
 ```
@@ -82,6 +84,7 @@ For learners who want focused recall testing without linear lesson progression, 
 🔥 Daily streak           → local-calendar-date based, timezone-safe
 🔓 Progression unlocking  → each lesson and section unlocks the next on completion
 📊 Lesson End Summary     → words covered (Alhamdulillah), mistakes, accuracy %, and next lesson preview
+🔢 Universal Digits       → all numbers, streaks, and percentages localized to your script (e.g. Eastern Arabic, Bengali)
 ```
 
 ## 🧩 How a lesson teaches (not just tests)
@@ -91,11 +94,11 @@ Every word is **taught before it's quizzed** — a non-scored intro (the word, i
 | Type | Interaction | Scored? |
 |---|---|---|
 | 📖 Word intro | Word + meaning tabs (Wujūh al-Qur'an) + real verse examples with Tashkīl, tap "Continue" | No — teaching only |
-| 🔤 Multiple choice | Select the correct translation for the highlighted Arabic word | Yes |
-| 🔗 Matching | Pair Arabic words with their corresponding meanings | Yes |
+| 🔤 Multiple choice | Select the correct translation for the Arabic word, with live verse context and highlighted meaning | Yes |
+| 🔗 Matching | Pair Arabic words with their meanings, with live verse examples and highlighted glass translations on tap | Yes |
 | ✏️ Fill in the blank | Complete a Quranic verse by choosing the missing word | Yes |
 | 🧱 Word order builder | Assemble a verse from individual word chips in correct order | Yes |
-| 👁️ Word in verse tap | Identify and tap the target word directly inside a Quranic verse | Yes |
+| 👁️ Word in verse tap | Identify and tap the target word directly inside a Quranic verse with highlighted translation | Yes |
 
 All word meanings and polysemic senses are verified against word-by-word reference corpora. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for data sourcing details.
 
