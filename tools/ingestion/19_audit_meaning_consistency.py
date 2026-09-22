@@ -11,7 +11,7 @@ sync-from-word_frequency would have frozen in the wrong value and *discarded* th
 copy. This script finds every such disagreement so they can be reviewed/fixed before that sync
 runs (see 18_sync_meaning_from_canonical.py).
 
-Compares en/bn only (the two languages with any human/gtaf review per CLAUDE.md; the other 10
+Compares en/bn only (the two languages with primary human/gtaf review; the other 10
 are machine translations of these two, so an en/bn disagreement is the actual signal - a
 same-en/bn-but-different-other-language row is not a meaningful conflict for this audit).
 

@@ -21,7 +21,7 @@ import json
 import re
 import html
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 OUTPUT_FILE = os.path.join(BASE_DIR, 'QuranicWords_Dictionary.html')
 

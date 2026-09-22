@@ -2,6 +2,7 @@ package com.quranicwords.app.feature.lesson.exercise
 
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
+import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -75,7 +76,8 @@ fun MultipleChoiceExerciseContent(
             }
         }
 
-        content.promptArabic?.let { arabic ->
+        content.promptArabic?.let { rawArabic ->
+            val arabic = rawArabic.cleanArabicDisplay()
             Text(
                 text = arabic,
                 fontFamily = LocalQuranFontFamily.current,
@@ -208,7 +210,7 @@ internal fun OptionCard(
         interactionSource = interactionSource
     ) {
         val isArabicText = showArabic && !option.labelArabic.isNullOrBlank()
-        val text = if (isArabicText) option.labelArabic.orEmpty() else option.localizedLabel(language)
+        val text = if (isArabicText) option.labelArabic.orEmpty().cleanArabicDisplay() else option.localizedLabel(language)
         Text(
             text = text,
             modifier = Modifier.fillMaxWidth().padding(16.dp),

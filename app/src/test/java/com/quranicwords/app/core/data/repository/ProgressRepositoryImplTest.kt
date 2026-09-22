@@ -425,4 +425,57 @@ class ProgressRepositoryImplTest {
         // Batch 1 and Batch 2 must have no overlap since 4 items total and 2 items sampled per batch
         assertTrue(items1.intersect(items2).isEmpty())
     }
+
+    @Test
+    fun `completing regular lesson auto-completes preceding CHAPTER_INTRO in same chapter`() = runTest {
+        database.chapterDao().insertAll(
+            listOf(ChapterEntity("chapter_1", mapOf("en" to "C1"), emptyMap(), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
+        )
+        database.sectionDao().insertAll(
+            listOf(SectionEntity("section_1_1", "chapter_1", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
+        )
+        database.lessonDao().insertAll(
+            listOf(
+                LessonEntity("intro_1", "chapter_1", "section_1_1", mapOf("en" to "Intro"), sortOrder = 1, kind = LessonKind.CHAPTER_INTRO),
+                LessonEntity("l1", "chapter_1", "section_1_1", mapOf("en" to "L1"), sortOrder = 2, kind = LessonKind.REGULAR)
+            )
+        )
+
+        repository.completeLesson(userId, "l1", 10, 10, 1000L)
+
+        val introProgress = database.userProgressDao().get(userId, "intro_1")
+        assertEquals(LessonStatus.COMPLETED, introProgress?.status)
+    }
+
+    @Test
+    fun `ensureCurriculumStarted auto-heals uncompleted CHAPTER_INTRO when chapter has completed lesson`() = runTest {
+        database.chapterDao().insertAll(
+            listOf(ChapterEntity("chapter_1", mapOf("en" to "C1"), emptyMap(), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
+        )
+        database.sectionDao().insertAll(
+            listOf(SectionEntity("section_1_1", "chapter_1", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
+        )
+        database.lessonDao().insertAll(
+            listOf(
+                LessonEntity("intro_1", "chapter_1", "section_1_1", mapOf("en" to "Intro"), sortOrder = 1, kind = LessonKind.CHAPTER_INTRO),
+                LessonEntity("l1", "chapter_1", "section_1_1", mapOf("en" to "L1"), sortOrder = 2, kind = LessonKind.REGULAR)
+            )
+        )
+
+        // Seed l1 as COMPLETED without intro_1
+        database.userProgressDao().upsert(
+            com.quranicwords.app.core.data.local.entity.UserProgressEntity(
+                userId = userId,
+                lessonId = "l1",
+                status = LessonStatus.COMPLETED,
+                bestScorePercent = 100,
+                completedAtEpochMillis = 1000L
+            )
+        )
+
+        repository.ensureCurriculumStarted(userId)
+
+        val introProgress = database.userProgressDao().get(userId, "intro_1")
+        assertEquals(LessonStatus.COMPLETED, introProgress?.status)
+    }
 }

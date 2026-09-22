@@ -20,6 +20,7 @@ import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.OptionsBearing
 import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
 import com.quranicwords.app.core.domain.model.WordSpan
+import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.domain.model.isScored
 import com.quranicwords.app.core.domain.model.practicedItemId
 import com.quranicwords.app.core.domain.repository.AchievementRepository
@@ -289,7 +290,7 @@ class LessonViewModel @Inject constructor(
         val distractorId = DistractorGenerator.pickMatchingDistractor(usedWordIds, candidatePool, missedItemIds)
             ?: return null
         val word = candidatePool.get(distractorId) ?: return null
-        return ChoiceOption(id = word.id, labelArabic = word.arabicWord, label = word.meaning)
+        return ChoiceOption(id = word.id, labelArabic = word.arabicWord.cleanArabicDisplay(), label = word.meaning)
     }
 
     /** Regenerates distractors from [candidatePool] and tops up from the pre-baked [baked] pool
@@ -311,13 +312,13 @@ class LessonViewModel @Inject constructor(
         val bakedCorrectOption = baked.find { it.id == correctOptionId }
         val correctWord = candidatePool.get(wordId)
         val correctOption = correctWord
-            ?.let { ChoiceOption(id = correctOptionId, labelArabic = it.arabicWord, label = it.meaning) }
+            ?.let { ChoiceOption(id = correctOptionId, labelArabic = it.arabicWord.cleanArabicDisplay(), label = it.meaning) }
             ?: bakedCorrectOption
             ?: return baked
 
         val generated = DistractorGenerator.pickDistractors(wordId, candidatePool, missedItemIds, count = 3)
             .mapNotNull { id -> candidatePool.get(id) }
-            .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord, label = it.meaning) }
+            .map { ChoiceOption(id = it.id, labelArabic = it.arabicWord.cleanArabicDisplay(), label = it.meaning) }
 
         val selectedOptions = mutableListOf<ChoiceOption>()
         selectedOptions.add(correctOption)
@@ -344,7 +345,7 @@ class LessonViewModel @Inject constructor(
                 .mapNotNull { candidatePool.get(it) }
             for (cand in extraCandidates) {
                 if (selectedOptions.size >= 4) break
-                val opt = ChoiceOption(id = cand.id, labelArabic = cand.arabicWord, label = cand.meaning)
+                val opt = ChoiceOption(id = cand.id, labelArabic = cand.arabicWord.cleanArabicDisplay(), label = cand.meaning)
                 if (selectedOptions.none { optionsCollide(it, opt) }) {
                     selectedOptions.add(opt)
                 }

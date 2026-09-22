@@ -3,7 +3,7 @@
 Internal content-authoring CLI (QW-27/8) - lets a maintainer look up and hand-edit a single
 word's content without touching raw JSON or writing a one-off script for a small fix. Deliberately
 stays a local, single-maintainer CLI rather than a hosted web tool: this app makes zero network
-requests by design (see CLAUDE.md/SECURITY.md), and a web CMS would be the first server/backend
+requests by design (see docs/ARCHITECTURE.md/SECURITY.md), and a web CMS would be the first server/backend
 this project has ever had - out of scope here, same as multi-user auth (explicitly out of scope
 per the ticket).
 

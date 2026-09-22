@@ -127,7 +127,7 @@ def main():
 
         # Tier 5: the label narrowed it to >1 candidates that are themselves duplicate rows for
         # the two languages that actually matter for display consistency (en/bn - the only ones
-        # with human/gtaf-reviewed translations per CLAUDE.md; other languages are machine
+        # with human/gtaf-reviewed translations per project documentation; other languages are machine
         # translations of these two and may vary row-to-row without affecting what's shown) - same
         # "doesn't matter which, they display the same text" logic as tier 3, applied to the
         # narrowed-down subset.

@@ -112,6 +112,7 @@
     <string name="progress_quran_coverage">Kur\'an Kapsamı</string>
     <string name="progress_lessons_this_week">Bu Haftaki Dersler</string>
     <string name="progress_days_practiced">%s Gün Pratik Yapıldı (Son 28)</string>
+    <string name="progress_day_practiced">%s Gün Pratik Yapıldı (Son 28)</string>
 
     
     <string name="lesson_check_button">Kontrol et</string>
@@ -131,6 +132,8 @@
     <string name="exercise_audio_unavailable">Bu öğe için ses henüz mevcut değil.</string>
     <string name="word_order_build_area_label">Cevabınız</string>
     <string name="listen_and_type_hint">Duyduğunuzu yazın</string>
+    <string name="lesson_empty_title">Ders İçeriği Kullanılamıyor</string>
+    <string name="lesson_empty_desc">Bu ders için alıştırma bulunamadı. Lütfen ana panele dönün.</string>
 
     
     <string name="lesson_summary_title_pass">Elhamdülillah! Aferin!</string>
@@ -333,6 +336,7 @@
     <string name="widget_occurrences_format">%d kez geçiyor</string>
     <string name="widget_rank_format">Sıra #%d</string>
     <string name="widget_quran_pct_format">Kur\'an\'ın %.2f%%\'si</string>
+    <string name="widget_refresh">Yenile</string>
 
     <string name="lesson_category_noun">İsim (اسم) Dersi</string>
     <string name="lesson_category_verb">Fiil (فعل) Dersi</string>

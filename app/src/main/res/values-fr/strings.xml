@@ -115,6 +115,7 @@
     <string name="progress_quran_coverage">Couverture du Coran</string>
     <string name="progress_lessons_this_week">Leçons cette semaine</string>
     <string name="progress_days_practiced">%s jours pratiqués (28 derniers)</string>
+    <string name="progress_day_practiced">%s jour pratiqué (28 derniers)</string>
 
     
     <string name="lesson_check_button">Vérifier</string>
@@ -134,6 +135,8 @@
     <string name="exercise_audio_unavailable">L\'audio de cet élément n\'est pas encore disponible.</string>
     <string name="word_order_build_area_label">Votre réponse</string>
     <string name="listen_and_type_hint">Écrivez ce que vous entendez</string>
+    <string name="lesson_empty_title">Contenu de la leçon indisponible</string>
+    <string name="lesson_empty_desc">Aucun exercice trouvé pour cette leçon. Veuillez revenir au tableau de bord.</string>
 
     
     <string name="lesson_summary_title_pass">Alhamdulillah ! Bien joué !</string>
@@ -333,6 +336,7 @@
     <string name="widget_occurrences_format">%d occurrences</string>
     <string name="widget_rank_format">Rang #%d</string>
     <string name="widget_quran_pct_format">%.2f%% du Coran</string>
+    <string name="widget_refresh">Actualiser</string>
 
     <string name="lesson_category_noun">Leçon de Nom (اسم)</string>
     <string name="lesson_category_verb">Leçon de Verbe (فعل)</string>

@@ -82,6 +82,25 @@ class ProgressRepositoryImpl @Inject constructor(
         val lessonsById = allLessons.associateBy { it.id }
         for (prog in completedProgress) {
             val les = lessonsById[prog.lessonId] ?: continue
+            // If any non-intro lesson in a chapter is completed, ensure the chapter's CHAPTER_INTRO is also completed
+            if (les.kind != LessonKind.CHAPTER_INTRO) {
+                val chapterIntros = allLessons.filter { it.chapterId == les.chapterId && it.kind == LessonKind.CHAPTER_INTRO }
+                for (intro in chapterIntros) {
+                    val introProg = database.userProgressDao().get(userId, intro.id)
+                    if (introProg == null || introProg.status != LessonStatus.COMPLETED) {
+                        database.userProgressDao().upsert(
+                            UserProgressEntity(
+                                userId = userId,
+                                lessonId = intro.id,
+                                status = LessonStatus.COMPLETED,
+                                bestScorePercent = 100,
+                                completedAtEpochMillis = prog.completedAtEpochMillis ?: System.currentTimeMillis(),
+                                durationMillis = 0L
+                            )
+                        )
+                    }
+                }
+            }
             val passed = !les.kind.requiresPassingScore() || prog.bestScorePercent >= GamificationConfig.PASSING_SCORE_PERCENT
             if (passed) {
                 val nextId = CurriculumUnlockResolver.resolveNextLessonId(
@@ -132,6 +151,27 @@ class ProgressRepositoryImpl @Inject constructor(
         database.userProgressDao().upsert(progress)
 
         val lesson = database.lessonDao().getById(lessonId)
+        // If a non-intro lesson in a chapter is completed, auto-complete preceding CHAPTER_INTRO in that chapter
+        if (lesson != null && lesson.kind != LessonKind.CHAPTER_INTRO) {
+            val chapterLessons = database.lessonDao().getForChapter(lesson.chapterId)
+            val intros = chapterLessons.filter { it.kind == LessonKind.CHAPTER_INTRO }
+            for (intro in intros) {
+                val existingIntro = database.userProgressDao().get(userId, intro.id)
+                if (existingIntro == null || existingIntro.status != LessonStatus.COMPLETED) {
+                    database.userProgressDao().upsert(
+                        UserProgressEntity(
+                            userId = userId,
+                            lessonId = intro.id,
+                            status = LessonStatus.COMPLETED,
+                            bestScorePercent = 100,
+                            completedAtEpochMillis = System.currentTimeMillis(),
+                            durationMillis = 0L
+                        )
+                    )
+                }
+            }
+        }
+
         val passed = lesson != null &&
             (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
         val nextLessonId = if (lesson != null && passed) unlockNextLesson(userId, lesson) else null

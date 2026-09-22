@@ -1,6 +1,6 @@
 # Contributing to QuranicWords
 
-Thanks for your interest in contributing. This is a single-module Android app (Kotlin + Jetpack Compose + Material 3, MVVM + Hilt, Room, offline-first) — see [`CLAUDE.md`](CLAUDE.md) for the architecture overview and [`docs/`](docs/) for detailed docs on each area.
+Thanks for your interest in contributing. This is a single-module Android app (Kotlin + Jetpack Compose + Material 3, MVVM + Hilt, Room, offline-first) — see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the architecture overview and [`docs/`](docs/) for detailed docs on each area.
 
 ## Getting set up
 
@@ -43,7 +43,7 @@ These are enforced by design, not just convention — PRs that violate them won'
 ## Pull requests
 
 - Keep PRs focused — one logical change per PR.
-- Follow the existing code style (see `CLAUDE.md`'s guidance on comments: default to none, only explain non-obvious *why*).
+- Follow the existing code style (default to clear, self-documenting code; only explain non-obvious *why*).
 - Update the relevant doc under `docs/` if your change makes it stale.
 - Describe what you tested (unit tests run, device/emulator manual testing) in the PR description.
 

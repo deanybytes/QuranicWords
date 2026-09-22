@@ -88,6 +88,45 @@ class HomeViewModelDerivationsTest {
     }
 
     @Test
+    fun `uncompleted preceding chapter intro does not block active lesson advancement`() {
+        val p = progress(
+            "l1" to LessonStatus.UNLOCKED,
+            "l2" to LessonStatus.COMPLETED,
+            "chapter_1_exam" to LessonStatus.UNLOCKED
+        )
+        val (chapterId, sectionId) = findCurrentPosition(chapters, p)
+        assertEquals("chapter_1", chapterId)
+        assertNull(sectionId)
+        assertEquals("chapter_1_exam", findCurrentLessonId(chapters, p))
+    }
+
+    @Test
+    fun `reviewing an earlier lesson does not drag current position backwards`() {
+        // Learner has completed l1 and l2, and chapter_1_exam is UNLOCKED.
+        // Even if l1 is completed again for review, current lesson remains chapter_1_exam.
+        val p = progress(
+            "l1" to LessonStatus.COMPLETED,
+            "l2" to LessonStatus.COMPLETED,
+            "chapter_1_exam" to LessonStatus.UNLOCKED
+        )
+        assertEquals("chapter_1_exam", findCurrentLessonId(chapters, p))
+    }
+
+    @Test
+    fun `all curriculum lessons completed resolves current position and id to null`() {
+        val p = progress(
+            "l1" to LessonStatus.COMPLETED,
+            "l2" to LessonStatus.COMPLETED,
+            "chapter_1_exam" to LessonStatus.COMPLETED,
+            "l3" to LessonStatus.COMPLETED
+        )
+        assertNull(findCurrentLessonId(chapters, p))
+        val (chapterId, sectionId) = findCurrentPosition(chapters, p)
+        assertNull(chapterId)
+        assertNull(sectionId)
+    }
+
+    @Test
     fun `aggregateStatus is LOCKED when no lesson has been reached`() {
         assertEquals(LessonStatus.LOCKED, aggregateStatus(listOf("l1", "l2"), emptyMap()))
     }

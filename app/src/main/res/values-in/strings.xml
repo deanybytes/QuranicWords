@@ -112,6 +112,7 @@
     <string name="progress_quran_coverage">Cakupan Al-Qur\'an</string>
     <string name="progress_lessons_this_week">Pelajaran Minggu Ini</string>
     <string name="progress_days_practiced">%s Hari Berlatih (28 Terakhir)</string>
+    <string name="progress_day_practiced">%s Hari Berlatih (28 Terakhir)</string>
 
     
     <string name="lesson_check_button">Periksa</string>
@@ -131,6 +132,8 @@
     <string name="exercise_audio_unavailable">Audio untuk item ini belum tersedia.</string>
     <string name="word_order_build_area_label">Jawaban Anda</string>
     <string name="listen_and_type_hint">Ketik apa yang Anda dengar</string>
+    <string name="lesson_empty_title">Konten Pelajaran Tidak Tersedia</string>
+    <string name="lesson_empty_desc">Tidak ada latihan yang ditemukan untuk pelajaran ini. Silakan kembali ke dasbor.</string>
 
     
     <string name="lesson_summary_title_pass">Alhamdulillah! Kerja bagus!</string>
@@ -333,6 +336,7 @@
     <string name="widget_occurrences_format">%d kemunculan</string>
     <string name="widget_rank_format">Peringkat #%d</string>
     <string name="widget_quran_pct_format">%.2f%% dari Al-Qur\'an</string>
+    <string name="widget_refresh">Segarkan</string>
 
     <string name="lesson_category_noun">Pelajaran Nomina (اسم)</string>
     <string name="lesson_category_verb">Pelajaran Verba (فعل)</string>

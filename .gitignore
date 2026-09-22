@@ -1,16 +1,22 @@
-*.iml
-.gradle
-.kotlin
-/local.properties
-# Claude Code local session/task state - not project content
-.claude/
-# Whole IDE project directory - embeds local machine paths/state, not project content
+# Build outputs & caches
+.gradle/
+.kotlin/
+build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE & Developer local state - not project content
 .idea/
+.vscode/
+.fleet/
+.claude/
+CLAUDE.md
+MEMORY.md
+*.iml
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+/local.properties
 local.properties
 
 # Secrets - never commit real credentials or signing material
@@ -24,13 +30,16 @@ signing.properties
 *.apk
 *.aab
 *-native-debug-symbols.zip
+QuranicWords-v*.html
 
 # Ingestion pipeline scratch data (scraped HTML, intermediate JSON) - reproducible by re-running
 # tools/ingestion/*.py; the actual deliverable is app/src/main/assets/content/*.json, which is
 # tracked normally. Keeping these out of git avoids ~38MB of regenerable intermediate data.
 tools/ingestion/raw/
 tools/ingestion/output/
-tools/ingestion/__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
 
 .tmp_gtaf_collection/
 scratch/
@@ -38,3 +47,5 @@ scratch/
 db/corpus_data/
 release_v3.0.0/
 keys/
+PROFILE_README.md
+

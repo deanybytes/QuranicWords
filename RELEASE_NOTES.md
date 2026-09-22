@@ -4,7 +4,102 @@
 
 ---
 
-## 🚀 v1.0.0 (versionCode 27)
+## 🚀 v1.0.0
+
+```xml
+<en-US>
+QuranicWords Official Release v1.0.0:
+• Complete 11-language support with 100% verified key parity
+• 4,709 Quranic words across 10 chapters & 14,358 interactive exercises
+• Full static test audit & quality assurance with zero warnings
+• Offline-first, ad-free, and privacy-focused learning experience
+• High-performance UI powered by modern Jetpack Compose
+</en-US>
+
+<bn-BD>
+QuranicWords অফিসিয়াল রিলিজ v1.0.0:
+• ১১টি ভাষার পূর্ণ সমর্থন এবং নিখুঁত স্থানীয়করণ
+• ১০টি অধ্যায়ে ৪,৭০৯টি কুরআনিক শব্দ ও ১৪,৩৫৮টি অনুশীলন
+• সম্পূর্ণ অফলাইন, নিরাপদ ও বিজ্ঞাপনমুক্ত ইন্টারফেস
+• শূন্য ওয়ার্নিং এবং সর্বোচ্চ পারফরম্যান্স নিশ্চিত
+</bn-BD>
+
+<ur>
+QuranicWords آفیشل ریلیز v1.0.0:
+• مکمل ۱۱ زبانوں کی معاونت اور تمام اسکرینوں پر مقامی ترجمہ
+• ۱۰ ابواب میں ۴،۷۰۹ قرآنی الفاظ اور ۱۴،۳۵۸ مشقیں
+• بغیر انٹرنیٹ، مکمل محفوظ اور بغیر کسی اشتہار کے
+• زیرو وارننگز کے ساتھ اعلیٰ ترین کارکردگی کا حامل
+</ur>
+
+<hi-IN>
+QuranicWords आधिकारिक रिलीज़ v1.0.0:
+• सभी 11 भाषाओं का पूर्ण समर्थन और संपूर्ण अनुवाद
+• 10 अध्यायों में 4,709 क़ुरआनी शब्द और 14,358 अभ्यास
+• पूरी तरह ऑफलाइन, सुरक्षित और विज्ञापन मुक्त
+• शून्य चेतावनियों के साथ सर्वोत्तम प्रदर्शन
+</hi-IN>
+
+<id>
+QuranicWords Rilis Resmi v1.0.0:
+• Dukungan penuh 11 bahasa dengan lokalisasi lengkap
+• 4.709 kata Al-Qur'an dalam 10 bab & 14.358 latihan interaktif
+• 100% offline, tanpa iklan, dan menjaga privasi pengguna
+• Kinerja tinggi dan bebas peringatan teknis
+</id>
+
+<ms-MY>
+QuranicWords Keluaran Rasmi v1.0.0:
+• Sokongan penuh 11 bahasa dengan ketepatan terjemahan 100%
+• 4,709 perkataan al-Quran dalam 10 bab & 14,358 latihan
+• 100% luar talian, bebas iklan dan selamat
+• Prestasi lancar dengan piawaian kualiti tertinggi
+</ms-MY>
+
+<tr-TR>
+QuranicWords Resmi Sürüm v1.0.0:
+• 11 dil desteği ile eksiksiz yerelleştirme
+• 10 bölümde 4.709 Kur'an kelimesi ve 14.358 interaktif alıştırma
+• %100 çevrimdışı, reklamsız ve gizlilik odaklı deneyim
+• Sıfır uyarı ve üstün performans kalitesi
+</tr-TR>
+
+<fa>
+نسخه رسمی QuranicWords v1.0.0:
+• پشتیبانی کامل از ۱۱ زبان با ترجمه و بومی‌سازی دقیق
+• ۴،۷۰۹ کلمه قرآنی در ۱۰ فصل و ۱۴،۳۵۸ تمرین تعاملی
+• کاملاً آفلاین، امن و بدون تبلیغات
+• بالاترین عملکرد فنی با صفر هشدار
+</fa>
+
+<ha>
+QuranicWords Sakin v1.0.0 na Hukuma:
+• Cikakken goyon bayan harsuna 11 da fassara mai inganci
+• Kalmomin Alkur'ani 4,709 a babi 10 da atisayen 14,358
+• 100% ba tare da intanet ba, babu tallace-tallace
+• Ayyuka mai sauri da ingantaccen tsaro
+</ha>
+
+<sw>
+Toleo Rasmi la QuranicWords v1.0.0:
+• Usaidizi kamili wa lugha 11 na tafsiri zilizothibitishwa
+• Maneno 4,709 ya Quran katika sura 10 na mazoezi 14,358
+• 100% nje ya mtandao, bila matangazo na salama
+• Utendaji wa kiwango cha juu bila maonyo yoyote
+</sw>
+
+<fr-FR>
+QuranicWords Version Officielle v1.0.0:
+• Support complet de 11 langues avec parité totale des ressources
+• 4 709 mots coraniques répartis en 10 chapitres et 14 358 exercices
+• 100% hors-ligne, confidentiel et sans publicité
+• Code optimisé avec zéro avertissement
+</fr-FR>
+```
+
+---
+
+## 🚀 v1.0.0 - Preview 2
 
 ```xml
 <en-US>
@@ -70,7 +165,7 @@ Mise à jour QuranicWords :
 
 ---
 
-## 🚀 v1.0.0 (versionCode 26)
+## 🚀 v1.0.0 - Preview 1
 
 ```xml
 <en-US>
@@ -142,7 +237,7 @@ QuranicWords v1.0.0 :
 
 ---
 
-## 🚀 v1.0.1 (versionCode 21)
+## 🚀 v1.0.1 
 
 ```xml
 <en-US>
@@ -220,7 +315,7 @@ QuranicWords v1.0.1 :
 
 ---
 
-## 🚀 v1.0.1 (versionCode 20)
+## 🚀 v1.0.1 
 
 ```xml
 <en-US>
@@ -292,7 +387,7 @@ QuranicWords v1.0.1 :
 
 ---
 
-## 📦 v1.0.0 (versionCode 18) - Official Launch
+## 📦 v1.0.0  - Official Launch
 
 ```xml
 <en-US>

@@ -2,7 +2,32 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.0] - 2026-09-21 (versionCode 27)
+## [1.0.0] - 2026-09-22
+
+### Added
+- **Complete 11-Language Resource Parity**: Full localized resource coverage for all 11 supported languages:
+  - English (`en`), Bengali (`bn`), Urdu (`ur`), Hindi (`hi`), Indonesian (`in`), Malay (`ms`), Turkish (`tr`), Persian (`fa`), Hausa (`ha`), Swahili (`sw`), and French (`fr`).
+  - Exactly 321 string keys per locale with 0 missing or redundant keys.
+  - Complete alignment in `app/src/main/res/xml/locales_config.xml` declaring all 11 system locales.
+- **Comprehensive Static Test Audit Suites**:
+  - `LocalizationParityTest`: Verifies 100% key parity across all 11 languages, XML manifest declarations, argument counts, and positional formatting specifiers.
+  - `BackupRepositoryImplTest`: Validates end-to-end JSON export/import data serialization, validation, and progress restoration.
+  - `ContentRepositoryImplTest`: Tests curriculum hierarchy querying, unit/lesson traversal, and offline caching.
+  - `UserPreferencesDataStoreTest`: Added comprehensive tests covering language, font, daily goal, haptics, and streak freeze persistence.
+
+### Fixed & Audited
+- **Manifest Merger Warning Elimination**: Added a test manifest (`app/src/test/AndroidManifest.xml`) with a mock `InitializationProvider` containing `androidx.work.WorkManagerInitializer` to eliminate AndroidX WorkManager `tools:node="remove"` warnings during test manifest merging.
+- **Strict Format Specifier Alignment**: Fixed format parameter indices in Persian (`fa`) `test_mode_harf_progress` and removed literal `%` signs causing `StringFormatCount` lint mismatches.
+- **Pristine Quality Gate (0 Warnings)**:
+  - Clean compilation across all modules under Kotlin `-Werror`.
+  - Clean Android Lint analysis with 0 errors and 0 warnings.
+  - Clean ProGuard / R8 code shrinking and resource optimization with full native debug symbol export.
+
+### Changed
+- **Release Version**: Official release `v1.0.0`.
+- **Distribution Artifacts**: Generated cryptographically signed Play Store Release App Bundle (`QuranicWords-v1.0.0.aab`), signed Release APK (`QuranicWords-v1.0.0.apk`), and native debug symbols archive (`QuranicWords-v1.0.0-native-debug-symbols.zip`).
+
+## [1.0.0] - 2026-09-21
 
 ### Added
 - **Dynamic Exercise Generation in Test Modes**: Test modes (Ism, Fi'l, Ḥarf, Mix/Random, Mistaken Words Review) now dynamically synthesize a rich alternating exercise mix:
@@ -25,10 +50,10 @@ All notable changes to QuranicWords are documented here.
 - **Days Practiced Pluralization & Localization**: Localized 28-day practice count with language-specific digits and singular/plural string formatting in `ProgressScreen`.
 
 ### Changed
-- **Release Version**: Bumped `versionCode` to `27` (`versionName = "1.0.0"`).
+- **Release Version**: Updated `v1.0.0`.
 - **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.0.aab`, release APK `QuranicWords-v1.0.0.apk`, and native debug symbols `QuranicWords-v1.0.0-native-debug-symbols.zip`.
 
-## [1.0.0] - 2026-09-19 (versionCode 26)
+## [1.0.0] - 2026-09-19
 
 ### Added
 - **Surah Names in Verse References**: Enriched Quran verse citations throughout the app with canonical Surah names (e.g. "Al-Baqarah 2:255" instead of raw numbers) across all 114 Surahs via `SurahNames.kt` and `VerseReferenceFormatter.kt`.
@@ -43,10 +68,10 @@ All notable changes to QuranicWords are documented here.
 ### Changed
 - **Compiler & Lint Quality Gates**: Configured `warningsAsErrors = true` and `allWarningsAsErrors = true` across Kotlin compiler and Android Lint to guarantee strict code hygiene.
 - **Test Runner Compatibility**: Optimized unit test JVM arguments in `build.gradle.kts` and `gradle.properties` for smooth execution on modern JDK runtimes.
-- **Release Version**: Bumped `versionCode` to `26` (`versionName = "1.0.0"`).
+- **Release Version**: Updated `v1.0.0`.
 - **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.0.aab`, release APK `QuranicWords-v1.0.0.apk`, and native debug symbols `QuranicWords-v1.0.0-native-debug-symbols.zip`.
 
-## [1.0.1] - 2026-09-19 (versionCode 22)
+## [1.0.1] - 2026-09-19
 
 ### Added
 - Added "Next Sense" navigation for words with multiple senses (polysemy), ensuring users review all meanings before proceeding.
@@ -56,9 +81,8 @@ All notable changes to QuranicWords are documented here.
 - Fixed an intermittent crash (`IndexOutOfBoundsException`) during the splash screen opening invocation sequence when tapped multiple times rapidly.
 
 ### Changed
-- Bumped `versionCode` to `22`.
 
-## [1.0.1] - 2026-09-18 (versionCode 21)
+## [1.0.1] - 2026-09-18
 
 ### Fixed
 - **Matching Exercise Shuffling & Derangement**: Implemented a derangement algorithm (`derangeRightEntries`) ensuring that right tiles are strictly non-aligned with left tiles on the initial row layout, and randomized input pair ordering on distractor regeneration.
@@ -70,10 +94,10 @@ All notable changes to QuranicWords are documented here.
   - Removed per-correct-answer `CelebrationBurst` from `AnswerFeedbackOverlay.kt` to prevent animator accumulation and memory exhaustion during extended lesson runs.
 
 ### Changed
-- **Release Version Bump**: Bumped `versionCode` to `21` (`versionName = "1.0.1"`).
+- **Release Version**: Updated `v1.0.1`.
 - **Production Artifacts**: Built signed release app bundle `QuranicWords-v1.0.1.aab`, release APK `QuranicWords-v1.0.1.apk`, and native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
 
-## [1.0.1] - 2026-09-17 (versionCode 20)
+## [1.0.1] - 2026-09-17
 
 ### Fixed
 - **End-of-Lesson Matching Quizzes**: Synthesized and restored interactive 4–5 pair `MATCHING` exercises at the end of all 997 regular lessons (plus all 100 flashbacks, 100 section exams, and 10 chapter exams), totaling 1,207 matching exercises.
@@ -84,7 +108,7 @@ All notable changes to QuranicWords are documented here.
 
 ### Changed
 - **Database Content Reseeding**: Bumped `ContentSeeder.CONTENT_VERSION` from 33 to 34 to cleanly reseed Room content tables on app update without disturbing user progress or statistics.
-- **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` (57.3 MB) reflecting 100% verified senses; built signed release app bundle `QuranicWords-v1.0.1.aab` (`versionCode 20`, `versionName 1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
+- **Production Artifacts & Dictionary**: Regenerated `QuranicWords_Dictionary.html` (57.3 MB) reflecting 100% verified senses; built signed release app bundle `QuranicWords-v1.0.1.aab` (`v1.0.1`), release APK `QuranicWords-v1.0.1.apk`, and unstripped native debug symbols `QuranicWords-v1.0.1-native-debug-symbols.zip`.
 
 
 ## [1.0.0] - 2026-09-16 (Google Play Store Official Release)
@@ -93,7 +117,7 @@ All notable changes to QuranicWords are documented here.
 - **Target SDK 36 Upgrade**: Updated targetSdk and compileSdk to 36 (Android 16 compatibility) fulfilling Google Play Console publishing guidelines.
 - **Native Debug Symbols Generation**: Automated `extractReleaseNativeDebugMetadata` and `mergeReleaseNativeDebugMetadata` tasks extracting unstripped native symbols into `QuranicWords-v1.0.0-native-debug-symbols.zip`.
 - **Language Split Bundle Optimization**: Disabled Dynamic Feature language splits (`bundle.language.enableSplit = false`) to guarantee instant in-app language switching offline across all 11 supported languages without requiring Play Store feature downloads.
-- **Version Number Alignment**: Realigned public production versioning to `v1.0.0` (internal `versionCode 18`) for Google Play Store launch.
+- **Version Number Alignment**: Realigned public production versioning to `v1.0.0` for Google Play Store launch.
 
 ## [3.1.0] - 2026-09-16
 

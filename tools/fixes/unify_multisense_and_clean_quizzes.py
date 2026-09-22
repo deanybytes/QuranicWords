@@ -19,7 +19,7 @@ import os
 import json
 import re
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 
 WF_PATH = os.path.join(CONTENT_DIR, 'word_frequency.json')

@@ -119,6 +119,7 @@
     <string name="progress_quran_coverage">কুরআন কভারেজ</string>
     <string name="progress_lessons_this_week">এই সপ্তাহের পাঠ</string>
     <string name="progress_days_practiced">%s দিন অনুশীলন করা হয়েছে (গত 28 দিনে)</string>
+    <string name="progress_day_practiced">%s দিন অনুশীলন করা হয়েছে (গত ২৮ দিনে)</string>
 
     
     <string name="lesson_check_button">যাচাই করুন</string>
@@ -139,6 +140,8 @@
     <string name="exercise_audio_unavailable">এই আইটেমের অডিও এখনো উপলব্ধ নয়।</string>
     <string name="word_order_build_area_label">আপনার উত্তর</string>
     <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>
+    <string name="lesson_empty_title">পাঠের বিষয়বস্তু অনুপলব্ধ</string>
+    <string name="lesson_empty_desc">এই পাঠের জন্য কোনো অনুশীলন পাওয়া যায়নি। অনুগ্রহ করে ড্যাশবোর্ডে ফিরে যান।</string>
 
     
     <string name="lesson_summary_title_pass">আলহামদুলিল্লাহ! চমৎকার হয়েছে!</string>
@@ -333,6 +336,7 @@
     <string name="widget_occurrences_format">%d বার উল্লেখ</string>
     <string name="widget_rank_format">র‍্যাংক #%d</string>
     <string name="widget_quran_pct_format">কুরআনের %.2f%%</string>
+    <string name="widget_refresh">রিফ্রেশ</string>
 
     <string name="lesson_category_noun">বিশেষ্য (اسم) পাঠ</string>
     <string name="lesson_category_verb">ক্রিয়া (فعل) পাঠ</string>
