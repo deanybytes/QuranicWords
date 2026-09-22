@@ -20,6 +20,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -63,17 +65,28 @@ class UserPreferencesDataStore @Inject constructor(
         val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
     }
 
+    private val userIdMutex = Mutex()
+    @Volatile private var cachedUserId: String? = null
+
     /**
      * Stable local key for Room progress/stats - generated once per device and persisted (see
      * [CurrentUserIdProvider]). The app is local-device-only, so this is the sole identity a
      * learner's progress is keyed by.
      */
     suspend fun getOrCreateLocalUserId(): String {
-        val existing = context.dataStore.data.first()[Keys.LOCAL_USER_ID]
-        if (existing != null) return existing
-        val generated = java.util.UUID.randomUUID().toString()
-        context.dataStore.edit { it[Keys.LOCAL_USER_ID] = generated }
-        return generated
+        cachedUserId?.let { return it }
+        return userIdMutex.withLock {
+            cachedUserId?.let { return it }
+            val existing = context.dataStore.data.first()[Keys.LOCAL_USER_ID]
+            if (existing != null) {
+                cachedUserId = existing
+                return@withLock existing
+            }
+            val generated = java.util.UUID.randomUUID().toString()
+            context.dataStore.edit { it[Keys.LOCAL_USER_ID] = generated }
+            cachedUserId = generated
+            generated
+        }
     }
 
     /** Overwrites the local user id - used by [com.quranicwords.app.core.domain.repository.BackupRepository]'s
@@ -81,7 +94,10 @@ class UserPreferencesDataStore @Inject constructor(
      * still tagged with it, untouched on import) line up with what [getOrCreateLocalUserId]
      * returns afterwards. */
     suspend fun setLocalUserId(id: String) {
-        context.dataStore.edit { it[Keys.LOCAL_USER_ID] = id }
+        userIdMutex.withLock {
+            context.dataStore.edit { it[Keys.LOCAL_USER_ID] = id }
+            cachedUserId = id
+        }
     }
 
     val languageFlow: Flow<Language?> =

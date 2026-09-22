@@ -100,40 +100,47 @@ data class HomeUiState(
     val last30DaysTotalMinutes: Int = 0
 )
 
-/** Pure derivation, no DB access - the first lesson (in tree order: chapter by chapter, section
- * by section, then this chapter's own trailing exam/flashback) whose progress status is
- * [LessonStatus.UNLOCKED] rather than [LessonStatus.COMPLETED] or missing entirely. A lesson with
- * no progress row at all is not "current" - only [com.quranicwords.app.core.data.repository
- * .ProgressRepositoryImpl.unlockIfNeeded] ever creates one, so an absent row means "not reached
- * yet", not "in progress". */
+/** Pure derivation, no DB access - the containing chapter and section id of [findCurrentLessonId],
+ * auto-expanding the collapse/expand tree to wherever the learner's active lesson lives. */
 fun findCurrentPosition(chapters: List<ChapterWithSections>, progressByLessonId: Map<String, UserProgressEntity>): Pair<String?, String?> {
+    val currentLessonId = findCurrentLessonId(chapters, progressByLessonId) ?: return null to null
     for (chapterWithSections in chapters) {
         for (sectionWithLessons in chapterWithSections.sections) {
-            val hasCurrent = sectionWithLessons.lessons.any { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
-            if (hasCurrent) return chapterWithSections.chapter.id to sectionWithLessons.section.id
+            if (sectionWithLessons.lessons.any { it.id == currentLessonId }) {
+                return chapterWithSections.chapter.id to sectionWithLessons.section.id
+            }
         }
-        val hasCurrentChapterLevel = chapterWithSections.chapterLevelLessons
-            .any { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
-        if (hasCurrentChapterLevel) return chapterWithSections.chapter.id to null
+        if (chapterWithSections.chapterLevelLessons.any { it.id == currentLessonId }) {
+            return chapterWithSections.chapter.id to null
+        }
     }
     return null to null
 }
 
-/** Pure derivation, no DB access - the exact lesson id of the learner's current position (first
- * UNLOCKED-but-not-COMPLETED lesson in tree order), rather than just its containing chapter/
- * section (see [findCurrentPosition]). Drives the Home "Continue Learning" FAB, which opens this
- * lesson directly instead of only scrolling/expanding the tree to where it lives. */
+/** Pure derivation, no DB access - the exact lesson id of the learner's current position (the
+ * first UNLOCKED-but-not-COMPLETED lesson following the highest completed lesson in tree order,
+ * or the first UNLOCKED lesson if none completed yet). Drives the Home "Continue Learning" FAB,
+ * Roadmap timeline pointer, and auto-scrolling. */
 fun findCurrentLessonId(chapters: List<ChapterWithSections>, progressByLessonId: Map<String, UserProgressEntity>): String? {
-    for (chapterWithSections in chapters) {
-        for (sectionWithLessons in chapterWithSections.sections) {
-            val current = sectionWithLessons.lessons.firstOrNull { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
-            if (current != null) return current.id
-        }
-        val currentChapterLevel = chapterWithSections.chapterLevelLessons
-            .firstOrNull { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }
-        if (currentChapterLevel != null) return currentChapterLevel.id
+    val allLessons = chapters.flatMap { chapterWithSections ->
+        chapterWithSections.sections.flatMap { it.lessons } + chapterWithSections.chapterLevelLessons
     }
-    return null
+    if (allLessons.isEmpty()) return null
+
+    val lastCompletedIndex = allLessons.indexOfLast { lesson ->
+        progressByLessonId[lesson.id]?.status == LessonStatus.COMPLETED
+    }
+
+    if (lastCompletedIndex >= 0) {
+        for (i in (lastCompletedIndex + 1) until allLessons.size) {
+            val lesson = allLessons[i]
+            if (progressByLessonId[lesson.id]?.status == LessonStatus.UNLOCKED) {
+                return lesson.id
+            }
+        }
+    }
+
+    return allLessons.firstOrNull { progressByLessonId[it.id]?.status == LessonStatus.UNLOCKED }?.id
 }
 
 /** Pure derivation for a chapter/section summary node's own status, from its children's real

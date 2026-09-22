@@ -47,6 +47,7 @@ import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedPrompt
+import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
@@ -115,7 +116,7 @@ fun WordIntroExerciseContent(
                 com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
 
                 Text(
-                    text = content.arabicWord,
+                    text = content.arabicWord.cleanArabicDisplay(),
                     fontFamily = LocalQuranFontFamily.current,
                     fontSize = 54.sp,
                     lineHeight = 66.sp,

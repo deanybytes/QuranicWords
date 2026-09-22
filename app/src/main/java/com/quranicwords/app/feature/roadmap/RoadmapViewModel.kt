@@ -50,6 +50,7 @@ class RoadmapViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
+            progressRepository.ensureCurriculumStarted(userId)
             val chapters = contentRepository.getFullCurriculumTree()
             progressRepository.observeProgress(userId).collect { progress ->
                 val progressByLessonId = progress.associateBy { row -> row.lessonId }

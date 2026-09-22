@@ -272,11 +272,15 @@ data class MatchPair(
     val arabicWordEnd: Int? = null,
     val meaningHighlight: LocalizedText = emptyMap()
 ) {
-    val effectiveLeftArabic: String get() = leftArabic.ifBlank { left.orEmpty() }
+    val effectiveLeftArabic: String get() = leftArabic.ifBlank { left.orEmpty() }.cleanArabicDisplay()
     val effectiveId: String get() = id.ifBlank { wordId.orEmpty() }
 }
 
+private val LEMMA_ID_REGEX = Regex("""\s*\(\d+\)""")
+
+fun String.cleanArabicDisplay(): String = this.replace(LEMMA_ID_REGEX, "").trim()
+
 fun ExerciseContent.localizedPrompt(language: Language): String = prompt.get(language)
 fun ChoiceOption.localizedLabel(language: Language): String =
-    label.getOrNull(language) ?: labelArabic.orEmpty()
+    label.getOrNull(language) ?: labelArabic.orEmpty().cleanArabicDisplay()
 fun MatchPair.localizedRight(language: Language): String = right.get(language)

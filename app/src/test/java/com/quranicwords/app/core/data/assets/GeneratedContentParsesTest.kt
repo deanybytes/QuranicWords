@@ -2,6 +2,7 @@ package com.quranicwords.app.core.data.assets
 
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LemmaCategory
+import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.util.AppJson
 import kotlinx.serialization.decodeFromString
 import org.junit.Assert.assertEquals
@@ -207,6 +208,25 @@ class GeneratedContentParsesTest {
                 }
             }
         }
+    }
+
+    @Test
+    fun `no parenthesized numbers exist in any content assets or exercise arabic words`() {
+        val lemmaIdPattern = Regex("""\s*\(\d+\)""")
+        val wfFile = readAsset("word_frequency.json")
+        val lvFile = readAsset("lessons_vocabulary.json")
+        val evFile = readAsset("exercises_vocabulary.json")
+
+        assertTrue("word_frequency.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(wfFile))
+        assertTrue("lessons_vocabulary.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(lvFile))
+        assertTrue("exercises_vocabulary.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(evFile))
+
+        // Also verify cleanArabicDisplay strips numbers cleanly
+        assertEquals("مُصغَر", "مُصغَر (1021)".cleanArabicDisplay())
+        assertEquals("مُأوَل", "مُأوَل (1026)".cleanArabicDisplay())
+        assertEquals("مُشهَد", "مُشهَد (1068)".cleanArabicDisplay())
+        assertEquals("مُعدَل", "مُعدَل (250)".cleanArabicDisplay())
+        assertEquals("تَقدِيم", "تَقدِيم".cleanArabicDisplay())
     }
 }
 

@@ -11,7 +11,7 @@ import json
 import re
 import sys
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'ms', 'tr', 'fa', 'ha', 'sw']
 

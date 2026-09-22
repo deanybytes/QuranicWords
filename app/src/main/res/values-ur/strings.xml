@@ -115,6 +115,7 @@
     <string name="progress_quran_coverage">قرآن کوریج</string>
     <string name="progress_lessons_this_week">اس ہفتے کے اسباق</string>
     <string name="progress_days_practiced">%s دن مشق کی گئی (آخری 28)</string>
+    <string name="progress_day_practiced">%s دن مشق کی (پچھلے 28)</string>
 
     
     <string name="lesson_check_button">جانچیں</string>
@@ -134,6 +135,8 @@
     <string name="exercise_audio_unavailable">اس آئٹم کے لیے آڈیو ابھی دستیاب نہیں ہے۔</string>
     <string name="word_order_build_area_label">آپ کا جواب</string>
     <string name="listen_and_type_hint">جو سنیں وہ ٹائپ کریں</string>
+    <string name="lesson_empty_title">سبق کا مواد دستیاب نہیں ہے</string>
+    <string name="lesson_empty_desc">اس سبق کے لیے کوئی مشقیں نہیں ملیں۔ براہ کرم ڈیش بورড پر واپس جائیں۔</string>
 
     
     <string name="lesson_summary_title_pass">الحمدللہ! بہت خوب!</string>
@@ -333,6 +336,7 @@
     <string name="widget_occurrences_format">%d بار آیا ہے</string>
     <string name="widget_rank_format">درجہ #%d</string>
     <string name="widget_quran_pct_format">قرآن کا %.2f%%</string>
+    <string name="widget_refresh">ریفریش کریں</string>
 
     <string name="lesson_category_noun">اسم (اسم) کا سبق</string>
     <string name="lesson_category_verb">فعل (فعل) کا سبق</string>

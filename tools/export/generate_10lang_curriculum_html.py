@@ -19,7 +19,7 @@ import time
 from collections import defaultdict
 import openpyxl
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 DB_DIR = os.path.join(BASE_DIR, 'db')
 OUTPUT_HTML = os.path.join(BASE_DIR, 'QuranicWords_Dictionary.html')
 

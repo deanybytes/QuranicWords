@@ -48,7 +48,7 @@ object WidgetDataProvider {
     private const val PREFS_WIDGET_STATE = "quranic_words_widget_state"
     private const val KEY_ROTATION_STEP = "widget_rotation_step"
     private const val TOTAL_QURAN_WORDS = 77797.0
-    private const val TOTAL_VOCABULARY_TARGET = 3680.0
+    private const val TOTAL_VOCABULARY_TARGET = 4709.0
 
     suspend fun getWidgetData(context: Context, advanceRotation: Boolean = false): WidgetSnapshot = withContext(Dispatchers.IO) {
         val database = QwDatabase.getInstance(context)

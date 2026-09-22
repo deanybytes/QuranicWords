@@ -18,7 +18,7 @@ import json
 import re
 import random
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 
 CHAPTERS_PATH = os.path.join(CONTENT_DIR, 'chapters.json')

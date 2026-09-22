@@ -29,7 +29,7 @@ import sqlite3
 import openpyxl
 from collections import defaultdict
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 DB_DIR = os.path.join(BASE_DIR, 'db')
 CORPUS_DIR = os.path.join(DB_DIR, 'corpus_data')
 

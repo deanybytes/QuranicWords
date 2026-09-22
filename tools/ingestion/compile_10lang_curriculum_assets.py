@@ -18,7 +18,7 @@ import time
 import openpyxl
 from collections import defaultdict
 
-BASE_DIR = '/home/rafi/WorkSpace/QuranicWords'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 DB_DIR = os.path.join(BASE_DIR, 'db')
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 
