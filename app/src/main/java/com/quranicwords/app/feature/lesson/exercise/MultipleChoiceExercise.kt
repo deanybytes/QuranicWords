@@ -1,6 +1,5 @@
 package com.quranicwords.app.feature.lesson.exercise
 
-import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 
@@ -26,11 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,7 +34,6 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ChoiceOption
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
-import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
@@ -47,7 +41,6 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
-import com.quranicwords.app.core.util.HighlightUtils
 
 @Composable
 fun MultipleChoiceExerciseContent(
@@ -57,10 +50,6 @@ fun MultipleChoiceExerciseContent(
     onSelect: (String) -> Unit
 ) {
     val language = rememberSelectedLanguage()
-    val highlightStyle = SpanStyle(
-        color = MaterialTheme.colorScheme.primary,
-        fontWeight = FontWeight.Bold
-    )
 
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -116,21 +105,6 @@ fun MultipleChoiceExerciseContent(
                         modifier = Modifier.fillMaxWidth(),
                         arabicWord = content.promptArabic
                     )
-                    val verseTranslation = content.exampleVerseTranslation.get(language)
-                    if (verseTranslation.isNotBlank()) {
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                        val correctMeaning = content.options.find { it.id == content.correctOptionId }?.label?.get(language).orEmpty()
-                        val range = HighlightUtils.findMeaningHighlightRange(
-                            verseTranslation = verseTranslation,
-                            meaningHighlight = content.meaningHighlight.getOrNull(language),
-                            meaning = correctMeaning
-                        )
-                        com.quranicwords.app.core.ui.components.HighlightedGlassTranslation(
-                            verseTranslation = verseTranslation,
-                            range = range,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
                 }
             }
         }

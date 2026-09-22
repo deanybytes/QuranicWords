@@ -2,20 +2,17 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.0] - 2026-09-22
-
-### Added
-- **Complete 11-Language Resource Parity**: Full localized resource coverage for all 11 supported languages:
-  - English (`en`), Bengali (`bn`), Urdu (`ur`), Hindi (`hi`), Indonesian (`in`), Malay (`ms`), Turkish (`tr`), Persian (`fa`), Hausa (`ha`), Swahili (`sw`), and French (`fr`).
-  - Exactly 321 string keys per locale with 0 missing or redundant keys.
-  - Complete alignment in `app/src/main/res/xml/locales_config.xml` declaring all 11 system locales.
-- **Comprehensive Static Test Audit Suites**:
-  - `LocalizationParityTest`: Verifies 100% key parity across all 11 languages, XML manifest declarations, argument counts, and positional formatting specifiers.
-  - `BackupRepositoryImplTest`: Validates end-to-end JSON export/import data serialization, validation, and progress restoration.
-  - `ContentRepositoryImplTest`: Tests curriculum hierarchy querying, unit/lesson traversal, and offline caching.
-  - `UserPreferencesDataStoreTest`: Added comprehensive tests covering language, font, daily goal, haptics, and streak freeze persistence.
+## [1.0.0] - 2026-09-22 (Build 100001)
 
 ### Fixed & Audited
+- **Quiz Answer Leak Elimination**: Removed verse translations and translation highlights from Multiple Choice (`MultipleChoiceExercise`) and Matching (`MatchingExercise`) exercises, ensuring answers are never revealed to the learner while preserving authentic Quranic Arabic verse context.
+- **Universal Multi-Language Meaning Highlighting**:
+  - Upgraded `HighlightUtils.normalize` and `findMeaningHighlightRange` across all 11 supported languages.
+  - Added full support for non-Latin punctuation: Urdu full stop (`۔`), Arabic comma (`،`), Arabic semicolon (`؛`), Arabic question mark (`؟`), and Devanagari double danda (`॥`).
+  - Preserved Indic vowel signs (matras in Bengali and Hindi) during tokenization and sub-word candidate matching.
+  - Added normalization for Arabic/Persian/Urdu character variants (`ي`/`ی`, `ك`/`ک`, `ه`/`ہ`, aerab/tashkeel).
+  - Added unit test coverage for all 11 languages in `HighlightUtilsTest`.
+- **Word Browse Screen Highlighting**: Integrated `HighlightedGlassArabic` and `HighlightedGlassTranslation` into `WordBrowseScreen` so both Arabic vocabulary and localized meanings are highlighted when browsing words.
 - **Manifest Merger Warning Elimination**: Added a test manifest (`app/src/test/AndroidManifest.xml`) with a mock `InitializationProvider` containing `androidx.work.WorkManagerInitializer` to eliminate AndroidX WorkManager `tools:node="remove"` warnings during test manifest merging.
 - **Strict Format Specifier Alignment**: Fixed format parameter indices in Persian (`fa`) `test_mode_harf_progress` and removed literal `%` signs causing `StringFormatCount` lint mismatches.
 - **Pristine Quality Gate (0 Warnings)**:
@@ -24,8 +21,8 @@ All notable changes to QuranicWords are documented here.
   - Clean ProGuard / R8 code shrinking and resource optimization with full native debug symbol export.
 
 ### Changed
-- **Release Version**: Official release `v1.0.0`.
-- **Distribution Artifacts**: Generated cryptographically signed Play Store Release App Bundle (`QuranicWords-v1.0.0.aab`), signed Release APK (`QuranicWords-v1.0.0.apk`), and native debug symbols archive (`QuranicWords-v1.0.0-native-debug-symbols.zip`).
+- **Release Version**: Official release `v1.0.0` (versionCode `100001`).
+- **Distribution Artifacts**: Generated cryptographically signed Play Store Release App Bundle (`QuranicWords-v1.0.0.aab`), signed universal Release APK (`QuranicWords-v1.0.0.apk`), and native debug symbols archive (`QuranicWords-v1.0.0-native-debug-symbols.zip`).
 
 ## [1.0.0] - 2026-09-21
 
