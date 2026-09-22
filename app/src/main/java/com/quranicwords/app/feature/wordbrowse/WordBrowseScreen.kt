@@ -40,7 +40,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -52,12 +51,16 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.ui.components.GlassSurface
+import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
+import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.util.HighlightUtils
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
@@ -242,8 +245,12 @@ private fun WordCardBack(
             ) { targetIdx ->
                 val entry = word.polysemyEntries.getOrNull(targetIdx)
                 val activeArabicVerse = entry?.verseArabic ?: word.exampleVerseArabic
+                val activeArabicStart = entry?.arabicWordStart ?: word.arabicWordStart
+                val activeArabicEnd = entry?.arabicWordEnd ?: word.arabicWordEnd
                 val activeVerseTranslation = entry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
                 val activeVerseRef = entry?.verseReference ?: word.exampleVerseReference
+                val activeMeaningHighlight = entry?.translationHighlight?.get(language) ?: word.meaningHighlight.getOrNull(language)
+                val activeMeaningText = entry?.contextualMeaning?.get(language) ?: word.meaning.get(language)
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -251,30 +258,24 @@ private fun WordCardBack(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     if (!activeArabicVerse.isNullOrBlank()) {
-                        Text(
-                            text = activeArabicVerse,
-                            fontFamily = LocalQuranFontFamily.current,
-                            fontSize = 20.sp,
-                            lineHeight = 34.sp,
-                            textAlign = TextAlign.End,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    MaterialTheme.colorScheme.surface,
-                                    RoundedCornerShape(12.dp)
-                                )
-                                .padding(12.dp)
+                        HighlightedGlassArabic(
+                            verseArabic = activeArabicVerse,
+                            start = activeArabicStart,
+                            end = activeArabicEnd,
+                            arabicWord = word.arabicWord,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                     if (activeVerseTranslation.isNotBlank()) {
-                        Text(
-                            text = activeVerseTranslation,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontStyle = FontStyle.Italic
-                            ),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
+                        val range = HighlightUtils.findMeaningHighlightRange(
+                            verseTranslation = activeVerseTranslation,
+                            meaningHighlight = activeMeaningHighlight,
+                            meaning = activeMeaningText
+                        )
+                        HighlightedGlassTranslation(
+                            verseTranslation = activeVerseTranslation,
+                            range = range,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                     if (!activeVerseRef.isNullOrBlank()) {

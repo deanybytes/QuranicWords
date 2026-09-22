@@ -4,19 +4,30 @@ import java.text.Normalizer
 
 object HighlightUtils {
     /**
-     * Normalizes text by decomposing diacritics / combining characters (e.g. macron vowels).
+     * Normalizes text across all supported languages:
+     * - Decomposes Latin diacritics (macrons, acutes, umlauts, cedillas) while stripping combining marks in \u0300-\u036F.
+     * - Strips Arabic/Urdu aerab / tashkeel (\u064B-\u065F, \u0670, \u06D6-\u06ED).
+     * - Normalizes Arabic vs Persian/Urdu character variants (yeh, kaf, heh, teh marbuta, alif variants).
+     * - Preserves Indic vowel matras (Bengali \u0980-\u09FF, Hindi Devanagari \u0900-\u097F).
      */
-    private fun normalize(text: String): String {
+    fun normalize(text: String): String {
         return Normalizer.normalize(text, Normalizer.Form.NFKD)
-            .replace("\\p{M}+".toRegex(), "")
+            .replace("[\u0300-\u036F]".toRegex(), "")
+            .replace("[\u064B-\u065F\u0670\u06D6-\u06ED\uFEFF]".toRegex(), "")
+            .replace('ي', 'ی')
+            .replace('ك', 'ک')
+            .replace('ه', 'ہ')
+            .replace('ة', 'ہ')
+            .replace("[إأآٱ]".toRegex(), "ا")
     }
 
     /**
-     * Checks if a character is part of a word (excluding whitespace and sentence punctuation).
+     * Checks if a character is part of a word across English, Bengali, Urdu, Hindi, Indonesian,
+     * Malay, Turkish, Persian, Hausa, Swahili, and French.
      */
     fun isWordChar(c: Char): Boolean {
         if (c.isWhitespace()) return false
-        if (c in "।.,!?;:\"'()[]{}<>-—–/\\»«“”‘’`…") return false
+        if (c in "।॥.,!?;:\"'()[]{}<>-—–/\\»«“”‘’`…،؛؟۔؏۞۩﴾﴿") return false
         return true
     }
 
@@ -57,7 +68,7 @@ object HighlightUtils {
     ): Pair<Int, Int>? {
         if (verseTranslation.isNullOrBlank()) return null
 
-        val tokenRegex = Regex("[^\\s,.;:!?।()\\[\\]{}\"'`«»„“”/\\\\-]+")
+        val tokenRegex = Regex("[^\\s.,!?;:\"'()\\[\\]{}<>—–/\\\\»«“”‘’`…।॥،؛؟۔؏۞۩﴾﴿\\-]+")
         val tokens = tokenRegex.findAll(verseTranslation).map { match ->
             Triple(match.range.first, match.range.last + 1, match.value)
         }.toList()
@@ -148,8 +159,8 @@ object HighlightUtils {
 
         // Match individual words from multi-word candidates
         val subWords = candidates.flatMap { cand ->
-            cand.split(Regex("[^\\p{L}\\p{N}']+"))
-                .filter { it.length >= 3 }
+            cand.split(Regex("[^\\p{L}\\p{M}\\p{N}']+"))
+                .filter { it.length >= 2 }
         }.distinct().sortedByDescending { it.length }
 
         for (word in subWords) {
@@ -159,7 +170,7 @@ object HighlightUtils {
                 if (normTok.equals(normWord, ignoreCase = true)) {
                     return Pair(start, end)
                 }
-                if (normTok.length >= 3 && (normTok.startsWith(normWord, ignoreCase = true) || normWord.startsWith(normTok, ignoreCase = true))) {
+                if (word.length >= 3 && normTok.length >= 3 && (normTok.startsWith(normWord, ignoreCase = true) || normWord.startsWith(normTok, ignoreCase = true))) {
                     return Pair(start, end)
                 }
             }
