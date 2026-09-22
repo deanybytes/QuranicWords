@@ -105,6 +105,7 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setLanguage(language: Language) {
         context.dataStore.edit { it[Keys.LANGUAGE] = language.tag }
+        com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
     }
 
     val themeModeFlow: Flow<ThemeMode> =

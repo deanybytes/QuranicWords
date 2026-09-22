@@ -13,6 +13,12 @@ All notable changes to QuranicWords are documented here.
   - Added normalization for Arabic/Persian/Urdu character variants (`ي`/`ی`, `ك`/`ک`, `ه`/`ہ`, aerab/tashkeel).
   - Added unit test coverage for all 11 languages in `HighlightUtilsTest`.
 - **Word Browse Screen Highlighting**: Integrated `HighlightedGlassArabic` and `HighlightedGlassTranslation` into `WordBrowseScreen` so both Arabic vocabulary and localized meanings are highlighted when browsing words.
+- **Complete Home Screen Widget Localization & Dynamic Digit Formatting**:
+  - Wired `getLocalizedWidgetContext(language)` to `WordWidgetProvider`, `StatsWidgetProvider`, and `CombinedWidgetProvider` so widgets faithfully reflect the user's chosen in-app language rather than falling back to device OS language.
+  - Formatted all widget numbers (streaks, words learned count, percentage, accuracy, daily practice minutes/goal, review queue, occurrences, Quran % and rank) using `VerseReferenceFormatter.formatDigits` for Eastern Arabic-Indic numerals (Urdu, Persian), Bengali numerals, and Devanagari numerals (Hindi).
+  - Formatted example verse references with localized Surah names and numerals.
+  - Added XML element IDs and localized text injection for empty state cards and grid stat labels across all 11 languages.
+  - Connected `UserPreferencesDataStore.setLanguage` to trigger immediate background widget refreshes via `WidgetUpdateScheduler.updateAllWidgets` whenever the user switches languages in Settings.
 - **Manifest Merger Warning Elimination**: Added a test manifest (`app/src/test/AndroidManifest.xml`) with a mock `InitializationProvider` containing `androidx.work.WorkManagerInitializer` to eliminate AndroidX WorkManager `tools:node="remove"` warnings during test manifest merging.
 - **Strict Format Specifier Alignment**: Fixed format parameter indices in Persian (`fa`) `test_mode_harf_progress` and removed literal `%` signs causing `StringFormatCount` lint mismatches.
 - **Pristine Quality Gate (0 Warnings)**:

@@ -8,6 +8,8 @@ import android.content.Intent
 import android.widget.RemoteViews
 import com.quranicwords.app.MainActivity
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -44,6 +46,8 @@ class StatsWidgetProvider : AppWidgetProvider() {
         ) {
             val snapshot = WidgetDataProvider.getWidgetData(context, advanceRotation = false)
             val stats = snapshot.stats
+            val lang = snapshot.language
+            val localizedContext = context.getLocalizedWidgetContext(lang)
 
             val openAppIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -66,28 +70,58 @@ class StatsWidgetProvider : AppWidgetProvider() {
                 )
 
                 // Streak
-                views.setTextViewText(R.id.tv_streak, "${stats.streakDays}d")
+                val streakDigits = VerseReferenceFormatter.formatDigits(stats.streakDays.toString(), lang)
+                val streakUnit = when (lang) {
+                    Language.BANGLA -> " দিন"
+                    Language.URDU, Language.PERSIAN -> " دن"
+                    Language.HINDI -> " দিন"
+                    Language.FRENCH -> "j"
+                    Language.TURKISH -> "g"
+                    else -> "d"
+                }
+                views.setTextViewText(R.id.tv_streak, "$streakDigits$streakUnit")
+                views.setContentDescription(
+                    R.id.ll_streak_badge,
+                    localizedContext.getString(
+                        if (stats.streakDays > 0) R.string.widget_streak_days else R.string.widget_streak_zero,
+                        stats.streakDays
+                    )
+                )
 
                 // Words learned
-                views.setTextViewText(R.id.tv_words_count, "${stats.wordsLearnedCount}")
-                views.setTextViewText(
-                    R.id.tv_words_pct,
-                    context.getString(R.string.widget_words_learned_label) + " (${String.format(
-                        Locale.US, "%.1f", stats.wordsLearnedPct)}%)"
+                val wordsCountFormatted = VerseReferenceFormatter.formatDigits(stats.wordsLearnedCount.toString(), lang)
+                views.setTextViewText(R.id.tv_words_count, wordsCountFormatted)
+                val formattedPct = VerseReferenceFormatter.formatDigits(
+                    String.format(Locale.forLanguageTag(lang.tag), "%.1f", stats.wordsLearnedPct),
+                    lang
                 )
+                val wordsLearnedLabel = localizedContext.getString(R.string.widget_words_learned_label)
+                views.setTextViewText(R.id.tv_words_pct, "$wordsLearnedLabel ($formattedPct%)")
 
                 // Accuracy
-                views.setTextViewText(R.id.tv_accuracy, "${stats.accuracyPct}%")
+                val accuracyFormatted = VerseReferenceFormatter.formatDigits(stats.accuracyPct.toString(), lang)
+                views.setTextViewText(R.id.tv_accuracy, "$accuracyFormatted%")
+                views.setTextViewText(R.id.tv_accuracy_label, localizedContext.getString(R.string.widget_accuracy_label))
 
                 // Daily Goal
+                val todayMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.todayPracticeMinutes.toString(), lang)
+                val goalMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.dailyGoalMinutes.toString(), lang)
+                val minUnit = when (lang) {
+                    Language.BANGLA -> "মি"
+                    Language.URDU, Language.PERSIAN -> "منٹ"
+                    else -> "m"
+                }
                 views.setTextViewText(
                     R.id.tv_daily_goal,
-                    "${stats.todayPracticeMinutes} / ${stats.dailyGoalMinutes}m"
+                    "$todayMinutesFormatted / $goalMinutesFormatted$minUnit"
                 )
                 views.setProgressBar(R.id.pb_daily_goal, 100, stats.dailyGoalProgressPct, false)
+                views.setTextViewText(R.id.tv_daily_goal_label, localizedContext.getString(R.string.widget_daily_goal_label))
 
                 // To Review
-                views.setTextViewText(R.id.tv_to_review, "${stats.reviewCount}")
+                val reviewFormatted = VerseReferenceFormatter.formatDigits(stats.reviewCount.toString(), lang)
+                views.setTextViewText(R.id.tv_to_review, reviewFormatted)
+                views.setTextViewText(R.id.tv_review_label, localizedContext.getString(R.string.widget_review_label))
 
                 // Click handlers
                 views.setOnClickPendingIntent(R.id.widget_root, openAppPendingIntent)
@@ -98,6 +132,7 @@ class StatsWidgetProvider : AppWidgetProvider() {
                     providerClass = StatsWidgetProvider::class.java
                 )
                 views.setOnClickPendingIntent(R.id.btn_refresh, refreshPendingIntent)
+                views.setContentDescription(R.id.btn_refresh, localizedContext.getString(R.string.widget_refresh))
 
                 appWidgetManager.updateAppWidget(widgetId, views)
             }

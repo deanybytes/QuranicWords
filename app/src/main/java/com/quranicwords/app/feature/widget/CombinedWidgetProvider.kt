@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.RemoteViews
 import com.quranicwords.app.MainActivity
 import com.quranicwords.app.R
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -46,6 +48,8 @@ class CombinedWidgetProvider : AppWidgetProvider() {
             val snapshot = WidgetDataProvider.getWidgetData(context, advanceRotation = advanceRotation)
             val stats = snapshot.stats
             val word = snapshot.currentWord
+            val lang = snapshot.language
+            val localizedContext = context.getLocalizedWidgetContext(lang)
 
             val openAppIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -68,24 +72,66 @@ class CombinedWidgetProvider : AppWidgetProvider() {
                 )
 
                 // Header & Mini-Stats
-                views.setTextViewText(R.id.tv_streak, "${stats.streakDays}d")
-                views.setTextViewText(R.id.tv_words_count, "${stats.wordsLearnedCount} words")
-                views.setTextViewText(R.id.tv_accuracy, "${stats.accuracyPct}%")
-                views.setTextViewText(R.id.tv_daily_goal, "${stats.todayPracticeMinutes}/${stats.dailyGoalMinutes}m")
+                val streakDigits = VerseReferenceFormatter.formatDigits(stats.streakDays.toString(), lang)
+                val streakUnit = when (lang) {
+                    Language.BANGLA -> " দিন"
+                    Language.URDU, Language.PERSIAN -> " دن"
+                    Language.HINDI -> " दिन"
+                    Language.FRENCH -> "j"
+                    Language.TURKISH -> "g"
+                    else -> "d"
+                }
+                views.setTextViewText(R.id.tv_streak, "$streakDigits$streakUnit")
+                views.setContentDescription(
+                    R.id.ll_streak_badge,
+                    localizedContext.getString(
+                        if (stats.streakDays > 0) R.string.widget_streak_days else R.string.widget_streak_zero,
+                        stats.streakDays
+                    )
+                )
+
+                val wordsCountFormatted = VerseReferenceFormatter.formatDigits(stats.wordsLearnedCount.toString(), lang)
+                views.setTextViewText(R.id.tv_words_count, wordsCountFormatted)
+                views.setContentDescription(
+                    R.id.tv_words_count,
+                    "$wordsCountFormatted ${localizedContext.getString(R.string.widget_words_learned_label)}"
+                )
+
+                val accuracyFormatted = VerseReferenceFormatter.formatDigits(stats.accuracyPct.toString(), lang)
+                views.setTextViewText(R.id.tv_accuracy, "$accuracyFormatted%")
+                views.setContentDescription(
+                    R.id.tv_accuracy,
+                    "$accuracyFormatted% ${localizedContext.getString(R.string.widget_accuracy_label)}"
+                )
+
+                val todayMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.todayPracticeMinutes.toString(), lang)
+                val goalMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.dailyGoalMinutes.toString(), lang)
+                val minUnit = when (lang) {
+                    Language.BANGLA -> "মি"
+                    Language.URDU, Language.PERSIAN -> "منٹ"
+                    else -> "m"
+                }
+                views.setTextViewText(R.id.tv_daily_goal, "$todayMinutesFormatted/$goalMinutesFormatted$minUnit")
+                views.setContentDescription(
+                    R.id.tv_daily_goal,
+                    "${localizedContext.getString(R.string.widget_daily_goal_label)}: $todayMinutesFormatted/$goalMinutesFormatted$minUnit"
+                )
 
                 if (word == null) {
                     views.setViewVisibility(R.id.ll_empty_state, View.VISIBLE)
                     views.setViewVisibility(R.id.ll_word_content, View.GONE)
+                    views.setTextViewText(R.id.tv_empty_words_title, localizedContext.getString(R.string.widget_empty_words_title))
+                    views.setTextViewText(R.id.tv_empty_words_desc, localizedContext.getString(R.string.widget_empty_words_desc))
                 } else {
                     views.setViewVisibility(R.id.ll_empty_state, View.GONE)
                     views.setViewVisibility(R.id.ll_word_content, View.VISIBLE)
 
                     // Badge: Needs Review vs Mastered
                     if (word.isMistaken) {
-                        views.setTextViewText(R.id.tv_status_badge, context.getString(R.string.widget_mistake_badge))
+                        views.setTextViewText(R.id.tv_status_badge, localizedContext.getString(R.string.widget_mistake_badge))
                         views.setTextColor(R.id.tv_status_badge, context.getColor(R.color.widget_mistake_tag_text))
                     } else {
-                        views.setTextViewText(R.id.tv_status_badge, context.getString(R.string.widget_mastered_badge))
+                        views.setTextViewText(R.id.tv_status_badge, localizedContext.getString(R.string.widget_mastered_badge))
                         views.setTextColor(R.id.tv_status_badge, context.getColor(R.color.widget_mastered_tag_text))
                     }
 
@@ -94,23 +140,29 @@ class CombinedWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.tv_word_meaning, word.meaning)
 
                     // Stats: occurrences, % of Quran, frequency rank
+                    val occText = localizedContext.getString(R.string.widget_occurrences_format, word.occurrenceCount)
                     views.setTextViewText(
                         R.id.tv_occurrences,
-                        context.getString(R.string.widget_occurrences_format, word.occurrenceCount)
+                        VerseReferenceFormatter.formatDigits(occText, lang)
                     )
+                    val quranPctText = localizedContext.getString(R.string.widget_quran_pct_format, word.quranPercentage)
                     views.setTextViewText(
                         R.id.tv_quran_pct,
-                        context.getString(R.string.widget_quran_pct_format, word.quranPercentage)
+                        VerseReferenceFormatter.formatDigits(quranPctText, lang)
                     )
+                    val rankText = localizedContext.getString(R.string.widget_rank_format, word.frequencyRank)
                     views.setTextViewText(
                         R.id.tv_freq_rank,
-                        context.getString(R.string.widget_rank_format, word.frequencyRank)
+                        VerseReferenceFormatter.formatDigits(rankText, lang)
                     )
 
                     // Example Verse
                     if (word.exampleVerseArabic != null && word.exampleVerseReference != null) {
                         views.setViewVisibility(R.id.ll_verse_box, View.VISIBLE)
-                        views.setTextViewText(R.id.tv_verse_ref, word.exampleVerseReference)
+                        views.setTextViewText(
+                            R.id.tv_verse_ref,
+                            VerseReferenceFormatter.format(word.exampleVerseReference, lang)
+                        )
                         views.setTextViewText(R.id.tv_verse_arabic, word.exampleVerseArabic)
                     } else {
                         views.setViewVisibility(R.id.ll_verse_box, View.GONE)
@@ -126,6 +178,7 @@ class CombinedWidgetProvider : AppWidgetProvider() {
                     providerClass = CombinedWidgetProvider::class.java
                 )
                 views.setOnClickPendingIntent(R.id.btn_refresh, refreshPendingIntent)
+                views.setContentDescription(R.id.btn_refresh, localizedContext.getString(R.string.widget_refresh))
 
                 appWidgetManager.updateAppWidget(widgetId, views)
             }

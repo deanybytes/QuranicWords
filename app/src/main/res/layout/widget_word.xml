@@ -78,6 +78,7 @@
             android:src="@drawable/ic_widget_book" />
 
         <TextView
+            android:id="@+id/tv_empty_words_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -87,6 +88,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_empty_words_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
