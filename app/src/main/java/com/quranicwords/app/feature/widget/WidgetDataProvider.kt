@@ -41,8 +41,16 @@ data class WidgetWordData(
 
 data class WidgetSnapshot(
     val stats: WidgetStatsData,
-    val currentWord: WidgetWordData?
+    val currentWord: WidgetWordData?,
+    val language: Language = Language.ENGLISH
 )
+
+fun Context.getLocalizedWidgetContext(language: Language): Context {
+    val locale = java.util.Locale.forLanguageTag(language.tag)
+    val config = android.content.res.Configuration(resources.configuration)
+    config.setLocale(locale)
+    return createConfigurationContext(config)
+}
 
 object WidgetDataProvider {
     private const val PREFS_WIDGET_STATE = "quranic_words_widget_state"
@@ -197,6 +205,6 @@ object WidgetDataProvider {
             }
         }
 
-        WidgetSnapshot(stats = stats, currentWord = wordData)
+        WidgetSnapshot(stats = stats, currentWord = wordData, language = language)
     }
 }

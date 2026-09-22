@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.quranicwords.app.MainActivity
 import com.quranicwords.app.R
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -45,6 +46,8 @@ class WordWidgetProvider : AppWidgetProvider() {
         ) {
             val snapshot = WidgetDataProvider.getWidgetData(context, advanceRotation = advanceRotation)
             val word = snapshot.currentWord
+            val lang = snapshot.language
+            val localizedContext = context.getLocalizedWidgetContext(lang)
 
             val openAppIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -71,6 +74,8 @@ class WordWidgetProvider : AppWidgetProvider() {
                     views.setViewVisibility(R.id.ll_empty_state, View.VISIBLE)
                     views.setViewVisibility(R.id.ll_word_content, View.GONE)
                     views.setViewVisibility(R.id.tv_status_badge, View.GONE)
+                    views.setTextViewText(R.id.tv_empty_words_title, localizedContext.getString(R.string.widget_empty_words_title))
+                    views.setTextViewText(R.id.tv_empty_words_desc, localizedContext.getString(R.string.widget_empty_words_desc))
                 } else {
                     views.setViewVisibility(R.id.ll_empty_state, View.GONE)
                     views.setViewVisibility(R.id.ll_word_content, View.VISIBLE)
@@ -78,10 +83,10 @@ class WordWidgetProvider : AppWidgetProvider() {
 
                     // Badge: Needs Review vs Mastered
                     if (word.isMistaken) {
-                        views.setTextViewText(R.id.tv_status_badge, context.getString(R.string.widget_mistake_badge))
+                        views.setTextViewText(R.id.tv_status_badge, localizedContext.getString(R.string.widget_mistake_badge))
                         views.setTextColor(R.id.tv_status_badge, context.getColor(R.color.widget_mistake_tag_text))
                     } else {
-                        views.setTextViewText(R.id.tv_status_badge, context.getString(R.string.widget_mastered_badge))
+                        views.setTextViewText(R.id.tv_status_badge, localizedContext.getString(R.string.widget_mastered_badge))
                         views.setTextColor(R.id.tv_status_badge, context.getColor(R.color.widget_mastered_tag_text))
                     }
 
@@ -90,23 +95,29 @@ class WordWidgetProvider : AppWidgetProvider() {
                     views.setTextViewText(R.id.tv_word_meaning, word.meaning)
 
                     // Stats: occurrences, % of Quran, frequency rank
+                    val occText = localizedContext.getString(R.string.widget_occurrences_format, word.occurrenceCount)
                     views.setTextViewText(
                         R.id.tv_occurrences,
-                        context.getString(R.string.widget_occurrences_format, word.occurrenceCount)
+                        VerseReferenceFormatter.formatDigits(occText, lang)
                     )
+                    val quranPctText = localizedContext.getString(R.string.widget_quran_pct_format, word.quranPercentage)
                     views.setTextViewText(
                         R.id.tv_quran_pct,
-                        context.getString(R.string.widget_quran_pct_format, word.quranPercentage)
+                        VerseReferenceFormatter.formatDigits(quranPctText, lang)
                     )
+                    val rankText = localizedContext.getString(R.string.widget_rank_format, word.frequencyRank)
                     views.setTextViewText(
                         R.id.tv_freq_rank,
-                        context.getString(R.string.widget_rank_format, word.frequencyRank)
+                        VerseReferenceFormatter.formatDigits(rankText, lang)
                     )
 
                     // Example Verse
                     if (word.exampleVerseArabic != null && word.exampleVerseReference != null) {
                         views.setViewVisibility(R.id.ll_verse_box, View.VISIBLE)
-                        views.setTextViewText(R.id.tv_verse_ref, word.exampleVerseReference)
+                        views.setTextViewText(
+                            R.id.tv_verse_ref,
+                            VerseReferenceFormatter.format(word.exampleVerseReference, lang)
+                        )
                         views.setTextViewText(R.id.tv_verse_arabic, word.exampleVerseArabic)
                     } else {
                         views.setViewVisibility(R.id.ll_verse_box, View.GONE)
@@ -122,6 +133,7 @@ class WordWidgetProvider : AppWidgetProvider() {
                     providerClass = WordWidgetProvider::class.java
                 )
                 views.setOnClickPendingIntent(R.id.btn_refresh, refreshPendingIntent)
+                views.setContentDescription(R.id.btn_refresh, localizedContext.getString(R.string.widget_refresh))
 
                 appWidgetManager.updateAppWidget(widgetId, views)
             }

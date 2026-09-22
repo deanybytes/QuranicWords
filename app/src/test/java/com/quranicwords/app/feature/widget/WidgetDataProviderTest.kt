@@ -1,5 +1,7 @@
 package com.quranicwords.app.feature.widget
 
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -47,5 +49,52 @@ class WidgetDataProviderTest {
         val totalWords = 77797.0
         val percentage = (count / totalWords) * 100.0
         assertTrue(percentage > 3.0 && percentage < 4.0)
+    }
+
+    @Test
+    fun `widget digit formatting is correct across all 11 supported languages`() {
+        val testNumber = "1234567890"
+
+        val expected = mapOf(
+            Language.ENGLISH to "1234567890",
+            Language.BANGLA to "১২৩৪৫৬৭৮৯০",
+            Language.URDU to "۱۲۳۴۵۶۷۸۹۰",
+            Language.PERSIAN to "۱۲۳۴۵۶۷۸۹۰",
+            Language.HINDI to "१२३४५६७८९०",
+            Language.INDONESIAN to "1234567890",
+            Language.TURKISH to "1234567890",
+            Language.FRENCH to "1234567890",
+            Language.MALAY to "1234567890",
+            Language.SWAHILI to "1234567890",
+            Language.HAUSA to "1234567890"
+        )
+
+        assertEquals(11, Language.entries.size)
+        for (lang in Language.entries) {
+            val formatted = VerseReferenceFormatter.formatDigits(testNumber, lang)
+            assertEquals("Failed digit formatting for language $lang", expected[lang], formatted)
+        }
+    }
+
+    @Test
+    fun `widget snapshot preserves user language`() {
+        val dummyStats = WidgetStatsData(
+            streakDays = 5,
+            isStreakActive = true,
+            wordsLearnedCount = 50,
+            wordsLearnedPct = 1.05f,
+            accuracyPct = 95,
+            todayPracticeMinutes = 10,
+            dailyGoalMinutes = 15,
+            dailyGoalProgressPct = 67,
+            reviewCount = 3
+        )
+        val snapshot = WidgetSnapshot(
+            stats = dummyStats,
+            currentWord = null,
+            language = Language.BANGLA
+        )
+        assertEquals(Language.BANGLA, snapshot.language)
+        assertEquals(5, snapshot.stats.streakDays)
     }
 }
