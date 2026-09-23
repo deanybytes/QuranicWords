@@ -30,7 +30,7 @@ signing.properties
 *.apk
 *.aab
 *-native-debug-symbols.zip
-QuranicWords-v*.html
+
 
 # Ingestion pipeline scratch data (scraped HTML, intermediate JSON) - reproducible by re-running
 # tools/ingestion/*.py; the actual deliverable is app/src/main/assets/content/*.json, which is
