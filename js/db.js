@@ -3,8 +3,8 @@
  * Uses IndexedDB for instant 0ms offline storage & fast asynchronous bootstrap.
  */
 
-const DB_NAME = 'QuranicWords_DB_v2';
-const DB_VERSION = 2;
+const DB_NAME = 'QuranicWords_DB_v3';
+const DB_VERSION = 3;
 const STORE_DATA = 'datasets';
 
 class QuranicDB {

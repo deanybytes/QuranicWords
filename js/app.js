@@ -1,11 +1,12 @@
 /**
  * QuranicWords — Master Application Orchestrator
- * High Performance SPA Controller
+ * High Performance SPA Controller with Full Multilingual (i18n) Engine
  */
 
 import { dbService } from './db.js';
 import { audioService } from './audio.js';
 import { SearchEngine, stripTashkeel } from './search.js';
+import { t, I18N_DICTIONARY } from './i18n.js';
 
 class QuranicApp {
   constructor() {
@@ -52,9 +53,9 @@ class QuranicApp {
     try {
       // Step 1: Fast asynchronous load of metadata and summary dataset (<50ms)
       const [meta, summary, roots] = await Promise.all([
-        dbService.fetchCached('/data/metadata.json?v=1.0.2', 'meta_v2'),
-        dbService.fetchCached('/data/words_summary.json?v=1.0.2', 'words_summary_v2'),
-        dbService.fetchCached('/data/roots.json?v=1.0.2', 'roots_v2')
+        dbService.fetchCached('/data/metadata.json?v=1.0.3', 'meta_v3'),
+        dbService.fetchCached('/data/words_summary.json?v=1.0.3', 'words_summary_v3'),
+        dbService.fetchCached('/data/roots.json?v=1.0.3', 'roots_v3')
       ]);
 
       this.metadata = meta;
@@ -64,11 +65,10 @@ class QuranicApp {
 
       // Populate UI filters & statistics
       this.renderMetadataStats();
-      this.renderChapterFilters();
       this.renderRootCloud();
 
-      // Trigger initial filter & render
-      this.applyFilter();
+      // Apply initial full internationalization
+      this.updateUILanguage(this.currentLang, false);
 
       // Step 2: Background preload of full verses data
       setTimeout(() => this.preloadFullVerses(), 200);
@@ -81,7 +81,7 @@ class QuranicApp {
 
   async preloadFullVerses() {
     try {
-      const fullList = await dbService.fetchCached('/data/words.json?v=1.0.2', 'words_full_v2');
+      const fullList = await dbService.fetchCached('/data/words.json?v=1.0.3', 'words_full_v3');
       if (Array.isArray(fullList)) {
         for (const w of fullList) {
           this.wordsFull.set(w.id, w);
@@ -172,8 +172,7 @@ class QuranicApp {
     this.el.langSelect.addEventListener('change', (e) => {
       this.currentLang = e.target.value;
       localStorage.setItem('qw_lang', this.currentLang);
-      this.applyFilter();
-      this.showToast(`Language switched to ${this.getLangName(this.currentLang)}`);
+      this.updateUILanguage(this.currentLang, true);
     });
 
     // Theme Toggle
@@ -228,24 +227,184 @@ class QuranicApp {
     });
   }
 
+  /**
+   * Complete UI Internationalization Switcher
+   */
+  updateUILanguage(lang, showToastNotification = true) {
+    const dict = I18N_DICTIONARY[lang] || I18N_DICTIONARY['en'];
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', dict.dir || 'ltr');
+
+    // Update Header & Brand
+    const brandSub = document.querySelector('.brand-sub');
+    if (brandSub) brandSub.textContent = t(lang, 'brandSub');
+
+    // Update Hero
+    const heroPill = document.getElementById('hero-pill');
+    if (heroPill) heroPill.textContent = t(lang, 'heroPill');
+    const heroTitle = document.getElementById('hero-title');
+    if (heroTitle) heroTitle.textContent = t(lang, 'heroTitle');
+    const heroSub = document.getElementById('hero-sub');
+    if (heroSub) heroSub.textContent = t(lang, 'heroSub');
+
+    // Update Stats Ribbon labels
+    const lblLemmas = document.getElementById('stat-lbl-lemmas');
+    if (lblLemmas) lblLemmas.textContent = t(lang, 'statLemmas');
+    const lblOcc = document.getElementById('stat-lbl-occ');
+    if (lblOcc) lblOcc.textContent = t(lang, 'statOccurrences');
+    const lblRoots = document.getElementById('stat-lbl-roots');
+    if (lblRoots) lblRoots.textContent = t(lang, 'statRoots');
+    const lblChapters = document.getElementById('stat-lbl-chapters');
+    if (lblChapters) lblChapters.textContent = t(lang, 'statChapters');
+    const lblLangs = document.getElementById('stat-lbl-languages');
+    if (lblLangs) lblLangs.textContent = t(lang, 'statLanguages');
+
+    // Update Search bar & shortcuts
+    if (this.el.searchInput) this.el.searchInput.placeholder = t(lang, 'searchPlaceholder');
+    const searchShortcut = document.getElementById('search-shortcut');
+    if (searchShortcut) searchShortcut.textContent = t(lang, 'searchShortcut');
+
+    // Update View Mode Tabs
+    const tabCards = document.getElementById('tab-btn-cards');
+    if (tabCards) tabCards.textContent = t(lang, 'tabCards');
+    const tabTable = document.getElementById('tab-btn-table');
+    if (tabTable) tabTable.textContent = t(lang, 'tabTable');
+    const tabFlashcards = document.getElementById('tab-btn-flashcards');
+    if (tabFlashcards) tabFlashcards.textContent = t(lang, 'tabFlashcards');
+    const tabRoots = document.getElementById('tab-btn-roots');
+    if (tabRoots) tabRoots.textContent = t(lang, 'tabRoots');
+    const tabQuiz = document.getElementById('tab-btn-quiz');
+    if (tabQuiz) tabQuiz.textContent = t(lang, 'tabQuiz');
+
+    // Update Dropdown Filters
+    this.renderChapterFilters();
+    this.renderPosFilter();
+    this.renderSortFilter();
+
+    // Update Table Header
+    const thIdx = document.getElementById('th-index');
+    if (thIdx) thIdx.textContent = t(lang, 'tableIndex');
+    const thLemma = document.getElementById('th-lemma');
+    if (thLemma) thLemma.textContent = t(lang, 'tableLemma');
+    const thTranslit = document.getElementById('th-translit');
+    if (thTranslit) thTranslit.textContent = t(lang, 'tableTranslit');
+    const thRoot = document.getElementById('th-root');
+    if (thRoot) thRoot.textContent = t(lang, 'tableRoot');
+    const thMeaning = document.getElementById('th-meaning');
+    if (thMeaning) thMeaning.textContent = t(lang, 'tableMeaning');
+    const thFreq = document.getElementById('th-freq');
+    if (thFreq) thFreq.textContent = t(lang, 'tableFreq');
+    const thAudio = document.getElementById('th-audio');
+    if (thAudio) thAudio.textContent = t(lang, 'tableAudio');
+
+    // Update Flashcards UI text
+    const fcFrontHint = document.getElementById('fc-flip-hint-front');
+    if (fcFrontHint) fcFrontHint.textContent = t(lang, 'fcFlipHintFront');
+    const fcBackHint = document.getElementById('fc-flip-hint-back');
+    if (fcBackHint) fcBackHint.textContent = t(lang, 'fcFlipHintBack');
+    const fcPrev = document.getElementById('fc-prev-btn');
+    if (fcPrev) fcPrev.textContent = t(lang, 'fcPrev');
+    const fcNext = document.getElementById('fc-next-btn');
+    if (fcNext) fcNext.textContent = t(lang, 'fcNext');
+    const fcAudio = document.getElementById('fc-audio-btn');
+    if (fcAudio) fcAudio.textContent = t(lang, 'fcAudio');
+    const fcKb = document.getElementById('fc-keyboard-hint');
+    if (fcKb) fcKb.textContent = t(lang, 'fcKeyboardHint');
+
+    // Update Roots UI
+    const rootsTitle = document.getElementById('roots-title');
+    if (rootsTitle) rootsTitle.textContent = t(lang, 'rootsTitle');
+    const rootsSub = document.getElementById('roots-sub');
+    if (rootsSub) rootsSub.textContent = t(lang, 'rootsSub');
+
+    // Update Quiz UI
+    const quizTitle = document.getElementById('quiz-title');
+    if (quizTitle) quizTitle.textContent = t(lang, 'quizTitle');
+
+    // Update Empty State
+    const emptyTitle = document.getElementById('empty-title');
+    if (emptyTitle) emptyTitle.textContent = t(lang, 'emptyTitle');
+    const emptySub = document.getElementById('empty-sub');
+    if (emptySub) emptySub.textContent = t(lang, 'emptySub');
+
+    // Update Modal
+    const modalTitle = document.getElementById('modal-title');
+    if (modalTitle) modalTitle.textContent = t(lang, 'modalTitle');
+
+    // Update Buttons
+    const bmBtn = document.getElementById('bookmarks-toggle-btn');
+    if (bmBtn) bmBtn.innerHTML = `⭐ ${t(lang, 'btnBookmarks')}`;
+    const randBtn = document.getElementById('random-word-btn');
+    if (randBtn) randBtn.innerHTML = `🎲 ${t(lang, 'btnRandom')}`;
+
+    // Update Footer
+    const footAbout = document.getElementById('footer-about');
+    if (footAbout) footAbout.textContent = t(lang, 'footerAbout');
+    const footRepo = document.getElementById('footer-repo-link');
+    if (footRepo) footRepo.textContent = t(lang, 'footerRepo');
+    const footLive = document.getElementById('footer-live-link');
+    if (footLive) footLive.textContent = t(lang, 'footerLive');
+    const footReleases = document.getElementById('footer-releases-link');
+    if (footReleases) footReleases.textContent = t(lang, 'footerReleases');
+    const footCopy = document.getElementById('footer-copyright');
+    if (footCopy) footCopy.textContent = t(lang, 'footerCopyright');
+
+    // Re-render active view
+    this.applyFilter();
+
+    if (showToastNotification) {
+      this.showToast(t(lang, 'langSwitchedToast', { lang: this.getLangName(lang) }));
+    }
+  }
+
   renderMetadataStats() {
     if (!this.metadata) return;
     if (this.el.statTotalWords) this.el.statTotalWords.textContent = (this.metadata.total_words || 4709).toLocaleString();
     if (this.el.statOccurrences) this.el.statOccurrences.textContent = (this.metadata.total_occurrences || 77430).toLocaleString();
-    if (this.el.statRoots) this.el.statRoots.textContent = (this.metadata.total_roots || 251).toLocaleString();
+    if (this.el.statRoots) this.el.statRoots.textContent = (this.metadata.total_roots || 250).toLocaleString();
   }
 
   renderChapterFilters() {
     if (!this.metadata || !this.metadata.chapters) return;
     const select = this.el.chapterFilter;
-    select.innerHTML = '<option value="all">All 10 Chapters</option>';
+    const currentVal = select.value || 'all';
+    select.innerHTML = `<option value="all">${t(this.currentLang, 'allChapters')}</option>`;
     for (const ch of this.metadata.chapters) {
       const opt = document.createElement('option');
       opt.value = ch.id;
-      const title = ch.title.en || ch.title;
-      opt.textContent = `Ch ${ch.sort}: ${title} (${ch.words} words)`;
+      const title = (ch.title && (ch.title[this.currentLang] || ch.title.en)) || ch.title;
+      const chLabel = t(this.currentLang, 'chapterLabel', { n: ch.sort });
+      opt.textContent = `${chLabel}: ${title} (${ch.words})`;
       select.appendChild(opt);
     }
+    select.value = currentVal;
+  }
+
+  renderPosFilter() {
+    const select = this.el.posFilter;
+    const currentVal = select.value || 'all';
+    select.innerHTML = `
+      <option value="all">${t(this.currentLang, 'allPos')}</option>
+      <option value="noun">${t(this.currentLang, 'posNoun')}</option>
+      <option value="verb">${t(this.currentLang, 'posVerb')}</option>
+      <option value="particle">${t(this.currentLang, 'posParticle')}</option>
+      <option value="pronoun">${t(this.currentLang, 'posPronoun')}</option>
+      <option value="proper_noun">${t(this.currentLang, 'posProperNoun')}</option>
+    `;
+    select.value = currentVal;
+  }
+
+  renderSortFilter() {
+    const select = this.el.sortFilter;
+    const currentVal = select.value || 'default';
+    select.innerHTML = `
+      <option value="default">${t(this.currentLang, 'sortDefault')}</option>
+      <option value="occ_desc">${t(this.currentLang, 'sortOccDesc')}</option>
+      <option value="occ_asc">${t(this.currentLang, 'sortOccAsc')}</option>
+      <option value="alpha_ar">${t(this.currentLang, 'sortAlphaAr')}</option>
+      <option value="alpha_en">${t(this.currentLang, 'sortAlphaMeaning')}</option>
+    `;
+    select.value = currentVal;
   }
 
   renderRootCloud() {
@@ -307,7 +466,7 @@ class QuranicApp {
     });
 
     if (this.el.statFilteredCount) {
-      this.el.statFilteredCount.textContent = `${this.filteredWords.length} words found`;
+      this.el.statFilteredCount.textContent = t(this.currentLang, 'wordsFound', { count: this.filteredWords.length.toLocaleString() });
     }
 
     if (this.currentView === 'cards') {
@@ -352,6 +511,8 @@ class QuranicApp {
 
     if (this.renderedCount < this.filteredWords.length) {
       this.el.loadingIndicator.style.display = 'block';
+      const loadText = document.getElementById('loading-indicator-text');
+      if (loadText) loadText.textContent = t(this.currentLang, 'streamingWords');
     } else {
       this.el.loadingIndicator.style.display = 'none';
     }
@@ -378,6 +539,7 @@ class QuranicApp {
     const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
     const validRoot = (w.rt && w.rt !== '—' && w.rt !== '-' && w.rt !== 'None' && w.rt.trim() !== '') ? w.rt.trim() : null;
     const chNum = w.ch_num || (w.ch ? String(w.ch).replace(/^ch_0?/, '') : '1');
+    const chLabel = t(this.currentLang, 'chapterLabel', { n: chNum });
 
     card.innerHTML = `
       <div class="card-header">
@@ -393,12 +555,12 @@ class QuranicApp {
 
       <div class="card-tags-row">
         ${validRoot ? `<span class="tag-root" title="Filter by root">${validRoot}</span>` : ''}
-        <span class="tag-chapter">Chapter ${chNum}</span>
+        <span class="tag-chapter">${chLabel}</span>
       </div>
 
       <div class="card-meaning-box">
         <div class="card-primary-meaning">${meaning}</div>
-        ${w.has_poly ? `<span class="card-poly-indicator">🔀 Context Senses</span>` : ''}
+        ${w.has_poly ? `<span class="card-poly-indicator">${t(this.currentLang, 'polyIndicator')}</span>` : ''}
       </div>
 
       <div class="card-verse-box" id="verse-box-${w.id}">
@@ -406,15 +568,15 @@ class QuranicApp {
           <span class="verse-ref-badge">📖 Ayah ${w.ref || ''}</span>
         </div>
         <div class="card-verse-content" id="verse-content-${w.id}">
-          <p style="color: var(--text-dim); font-size: 0.8rem;">Click card to load full Quranic context...</p>
+          <p style="color: var(--text-dim); font-size: 0.8rem;">${t(this.currentLang, 'ayahContextPlaceholder')}</p>
         </div>
       </div>
 
       <div class="card-actions">
-        <button class="card-action-btn audio-btn" title="Pronounce Arabic">🔊 Audio</button>
-        <button class="card-action-btn copy-btn" title="Copy Lemma">📋 Copy</button>
+        <button class="card-action-btn audio-btn" title="Pronounce Arabic">${t(this.currentLang, 'btnAudio')}</button>
+        <button class="card-action-btn copy-btn" title="Copy Lemma">${t(this.currentLang, 'btnCopy')}</button>
         <button class="card-action-btn bookmark-btn ${isBookmarked ? 'active' : ''}" title="Save Bookmark">
-          ${isBookmarked ? '★ Saved' : '☆ Save'}
+          ${isBookmarked ? t(this.currentLang, 'btnSaved') : t(this.currentLang, 'btnSave')}
         </button>
       </div>
     `;
@@ -426,7 +588,7 @@ class QuranicApp {
     // Copy click
     card.querySelector('.copy-btn').addEventListener('click', () => {
       navigator.clipboard.writeText(`${w.ar} (${w.tr}) - ${meaning}`);
-      this.showToast(`Copied "${w.ar}" to clipboard!`);
+      this.showToast(t(this.currentLang, 'copiedToast', { word: w.ar }));
     });
 
     // Bookmark toggle
@@ -482,16 +644,16 @@ class QuranicApp {
       this.bookmarks.delete(id);
       if (btn) {
         btn.classList.remove('active');
-        btn.textContent = '☆ Save';
+        btn.textContent = t(this.currentLang, 'btnSave');
       }
-      this.showToast('Bookmark removed');
+      this.showToast(t(this.currentLang, 'removedToast'));
     } else {
       this.bookmarks.add(id);
       if (btn) {
         btn.classList.add('active');
-        btn.textContent = '★ Saved';
+        btn.textContent = t(this.currentLang, 'btnSaved');
       }
-      this.showToast('Word saved to bookmarks!');
+      this.showToast(t(this.currentLang, 'savedToast'));
     }
     localStorage.setItem('qw_bookmarks', JSON.stringify([...this.bookmarks]));
   }
@@ -525,7 +687,7 @@ class QuranicApp {
   }
 
   /* ------------------------------------------------------------------------
-     Flashcard Study Mode
+     Flashcard SRS Study Mode
      ------------------------------------------------------------------------ */
   initFlashcards() {
     this.fcIndex = 0;
@@ -549,7 +711,9 @@ class QuranicApp {
     // Back elements
     const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
     document.getElementById('fc-back-meaning').textContent = meaning;
-    document.getElementById('fc-back-occ').textContent = `Appears ${w.occ} times in the Qur'an (Chapter ${w.ch})`;
+    
+    const chLabel = t(this.currentLang, 'chapterLabel', { n: w.ch_num || w.ch });
+    document.getElementById('fc-back-occ').textContent = t(this.currentLang, 'fcAppears', { n: (w.occ || 0).toLocaleString(), ch: chLabel });
 
     // Counter
     document.getElementById('fc-counter').textContent = `${this.fcIndex + 1} / ${this.filteredWords.length}`;
@@ -603,7 +767,7 @@ class QuranicApp {
 
   generateNextQuizQuestion() {
     if (this.filteredWords.length < 4) {
-      this.showToast('Need at least 4 words in the current filter for Quiz mode');
+      this.showToast(t(this.currentLang, 'quizMinWords'));
       return;
     }
 
@@ -625,7 +789,7 @@ class QuranicApp {
 
     document.getElementById('quiz-arabic').textContent = correctWord.ar;
     document.getElementById('quiz-translit').textContent = correctWord.tr;
-    document.getElementById('quiz-score-display').textContent = `Score: ${this.quizScore}/${this.quizTotal}`;
+    document.getElementById('quiz-score-display').textContent = t(this.currentLang, 'quizScore', { score: this.quizScore, total: this.quizTotal });
 
     const grid = document.getElementById('quiz-options');
     grid.innerHTML = '';
@@ -644,7 +808,7 @@ class QuranicApp {
         if (opt.id === correctWord.id) {
           btn.classList.add('correct');
           this.quizScore++;
-          this.showToast('✅ Correct!');
+          this.showToast(t(this.currentLang, 'quizCorrect'));
         } else {
           btn.classList.add('wrong');
           // Highlight correct one
@@ -653,10 +817,10 @@ class QuranicApp {
               b.classList.add('correct');
             }
           });
-          this.showToast('❌ Incorrect');
+          this.showToast(t(this.currentLang, 'quizWrong'));
         }
 
-        document.getElementById('quiz-score-display').textContent = `Score: ${this.quizScore}/${this.quizTotal}`;
+        document.getElementById('quiz-score-display').textContent = t(this.currentLang, 'quizScore', { score: this.quizScore, total: this.quizTotal });
         setTimeout(() => this.generateNextQuizQuestion(), 1600);
       });
 
@@ -695,7 +859,7 @@ class QuranicApp {
         <div class="card-arabic" style="font-size: 2.8rem;">${fullWord.ar}</div>
         <div class="card-translit" style="font-size: 1.1rem;">${fullWord.tr}</div>
         <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 6px;">
-          Wujūh al-Qur'an (Contextual Polysemy) across different Surahs
+          ${t(this.currentLang, 'modalSub')}
         </p>
       </div>
       ${sensesHtml}
@@ -715,7 +879,7 @@ class QuranicApp {
     this.switchView('cards');
     this.applyFilter();
     audioService.speakArabic(rand.ar);
-    this.showToast(`Random Discovery: ${rand.ar} (${rand.tr})`);
+    this.showToast(t(this.currentLang, 'randomToast', { word: `${rand.ar} (${rand.tr})` }));
   }
 
   getLangName(code) {
