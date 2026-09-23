@@ -63,7 +63,10 @@ class MainActivity : AppCompatActivity() {
                 if (currentLang != null) {
                     val targetTag = currentLang.tag
                     val currentAppLocales = AppCompatDelegate.getApplicationLocales()
-                    if (currentAppLocales.toLanguageTags() != targetTag) {
+                    val currentLangFromLocales = currentAppLocales.get(0)?.let {
+                        Language.fromTag(it.toLanguageTag()) ?: Language.fromTag(it.language)
+                    } ?: Language.fromTag(currentAppLocales.toLanguageTags())
+                    if (currentLangFromLocales != currentLang) {
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(targetTag))
                     }
                 }

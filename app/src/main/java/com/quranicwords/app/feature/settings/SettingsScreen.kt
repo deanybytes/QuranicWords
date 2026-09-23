@@ -83,6 +83,8 @@ import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.core.ui.theme.toFontFamily
 import com.quranicwords.app.core.util.QuranPreviewText
 import kotlinx.coroutines.delay
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -421,7 +423,10 @@ fun SettingsScreen(
                     text = stringResource(R.string.settings_backup_export),
                     enabled = !backupUiState.isWorking,
                     modifier = Modifier.weight(1f),
-                    onClick = { exportLauncher.launch("quranicwords_backup.json") }
+                    onClick = {
+                        val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))
+                        exportLauncher.launch("quranicwords_backup_$timestamp.json")
+                    }
                 )
                 QwSecondaryButton(
                     text = stringResource(R.string.settings_backup_import),

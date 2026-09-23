@@ -14,7 +14,7 @@ interface ExerciseAttemptDao {
     @Insert
     suspend fun insertAll(attempts: List<ExerciseAttemptEntity>)
 
-    @Query("SELECT * FROM exercise_attempts WHERE userId = :userId ORDER BY attemptedAtEpochMillis DESC LIMIT :limit")
+    @Query("SELECT * FROM exercise_attempts WHERE userId = :userId ORDER BY attemptedAtEpochMillis DESC, id DESC LIMIT :limit")
     fun observeRecentForUser(userId: String, limit: Int): Flow<List<ExerciseAttemptEntity>>
 
     /** Full history for backup export - no limit, unlike [observeRecentForUser]. */
@@ -30,7 +30,7 @@ interface ExerciseAttemptDao {
     /**
      * Distinct `itemId`s whose most recent attempt was incorrect - a simple "last attempt wrong"
      * signal (not a full spaced-repetition scheduler). The correlated subquery picks each item's
-     * single latest row by timestamp, then this filters to the ones where that latest row was
+     * single latest row by timestamp and id, then this filters to the ones where that latest row was
      * wrong. An item naturally drops out of this set the next time it's answered correctly.
      */
     @Query(
@@ -38,9 +38,11 @@ interface ExerciseAttemptDao {
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
         AND a.wasCorrect = 0
-        AND a.attemptedAtEpochMillis = (
-            SELECT MAX(b.attemptedAtEpochMillis) FROM exercise_attempts b
+        AND a.id = (
+            SELECT b.id FROM exercise_attempts b
             WHERE b.userId = a.userId AND b.itemId = a.itemId
+            ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
+            LIMIT 1
         )
         GROUP BY a.itemId
         """
@@ -52,9 +54,11 @@ interface ExerciseAttemptDao {
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
         AND a.wasCorrect = 0
-        AND a.attemptedAtEpochMillis = (
-            SELECT MAX(b.attemptedAtEpochMillis) FROM exercise_attempts b
+        AND a.id = (
+            SELECT b.id FROM exercise_attempts b
             WHERE b.userId = a.userId AND b.itemId = a.itemId
+            ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
+            LIMIT 1
         )
         GROUP BY a.itemId
         """
@@ -71,9 +75,11 @@ interface ExerciseAttemptDao {
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
         AND a.wasCorrect = 1
-        AND a.attemptedAtEpochMillis = (
-            SELECT MAX(b.attemptedAtEpochMillis) FROM exercise_attempts b
+        AND a.id = (
+            SELECT b.id FROM exercise_attempts b
             WHERE b.userId = a.userId AND b.itemId = a.itemId
+            ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
+            LIMIT 1
         )
         GROUP BY a.itemId
         """

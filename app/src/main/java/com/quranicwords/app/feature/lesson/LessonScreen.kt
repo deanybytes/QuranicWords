@@ -31,6 +31,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -201,51 +202,53 @@ fun LessonScreen(
 
             Column(modifier = Modifier.padding(padding).fillMaxSize()) {
                 Box(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
-                    when (val content = uiState.currentContent) {
-                        is ExerciseContent.MultipleChoice -> MultipleChoiceExerciseContent(
-                            content = content,
-                            selectedOptionId = uiState.attempt.selectedOptionId,
-                            isChecked = uiState.isChecked,
-                            onSelect = viewModel::selectOption
-                        )
-                        is ExerciseContent.Matching -> MatchingExerciseContent(
-                            content = content,
-                            matchedPairIds = uiState.attempt.matchedPairIds,
-                            pendingLeftId = uiState.attempt.pendingLeftId,
-                            lastMismatch = uiState.attempt.lastMismatch,
-                            onSelectLeft = viewModel::selectMatchingLeft,
-                            onSelectRight = viewModel::selectMatchingRight
-                        )
-                        is ExerciseContent.WordIntro -> WordIntroExerciseContent(
-                            content = content,
-                            selectedMeaningIndex = selectedMeaningIndex,
-                            onMeaningSelected = {
-                                selectedMeaningIndex = it
-                                visitedSenses = visitedSenses + it
-                            }
-                        )
-                        is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
-                            content = content
-                        )
-                        is ExerciseContent.FillInTheBlank -> FillInTheBlankExerciseContent(
-                            content = content,
-                            selectedOptionId = uiState.attempt.selectedOptionId,
-                            isChecked = uiState.isChecked,
-                            onSelect = viewModel::selectOption
-                        )
-                        is ExerciseContent.WordOrderBuilder -> WordOrderBuilderExerciseContent(
-                            content = content,
-                            selectedChipIds = uiState.attempt.orderedChipIds,
-                            isChecked = uiState.isChecked,
-                            onSelectChip = viewModel::selectWordOrderChip,
-                            onDeselectChip = viewModel::deselectWordOrderChip
-                        )
-                        is ExerciseContent.TapWordInVerse -> TapWordInVerseExerciseContent(
-                            content = content,
-                            selectedSpan = uiState.attempt.selectedSpan,
-                            onSelectWord = viewModel::selectVerseWord
-                        )
-                        else -> {}
+                    key(uiState.currentIndex) {
+                        when (val content = uiState.currentContent) {
+                            is ExerciseContent.MultipleChoice -> MultipleChoiceExerciseContent(
+                                content = content,
+                                selectedOptionId = uiState.attempt.selectedOptionId,
+                                isChecked = uiState.isChecked,
+                                onSelect = viewModel::selectOption
+                            )
+                            is ExerciseContent.Matching -> MatchingExerciseContent(
+                                content = content,
+                                matchedPairIds = uiState.attempt.matchedPairIds,
+                                pendingLeftId = uiState.attempt.pendingLeftId,
+                                lastMismatch = uiState.attempt.lastMismatch,
+                                onSelectLeft = viewModel::selectMatchingLeft,
+                                onSelectRight = viewModel::selectMatchingRight
+                            )
+                            is ExerciseContent.WordIntro -> WordIntroExerciseContent(
+                                content = content,
+                                selectedMeaningIndex = selectedMeaningIndex,
+                                onMeaningSelected = {
+                                    selectedMeaningIndex = it
+                                    visitedSenses = visitedSenses + it
+                                }
+                            )
+                            is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
+                                content = content
+                            )
+                            is ExerciseContent.FillInTheBlank -> FillInTheBlankExerciseContent(
+                                content = content,
+                                selectedOptionId = uiState.attempt.selectedOptionId,
+                                isChecked = uiState.isChecked,
+                                onSelect = viewModel::selectOption
+                            )
+                            is ExerciseContent.WordOrderBuilder -> WordOrderBuilderExerciseContent(
+                                content = content,
+                                selectedChipIds = uiState.attempt.orderedChipIds,
+                                isChecked = uiState.isChecked,
+                                onSelectChip = viewModel::selectWordOrderChip,
+                                onDeselectChip = viewModel::deselectWordOrderChip
+                            )
+                            is ExerciseContent.TapWordInVerse -> TapWordInVerseExerciseContent(
+                                content = content,
+                                selectedSpan = uiState.attempt.selectedSpan,
+                                onSelectWord = viewModel::selectVerseWord
+                            )
+                            else -> {}
+                        }
                     }
                 }
 
