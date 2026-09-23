@@ -2,22 +2,345 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary</title>
+    <meta name="title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary">
+    <meta name="description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 11 languages, root analysis, audio pronunciation, flashcards, and polysemy exploration.">
+    <meta name="keywords" content="Quran vocabulary, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran lemmas, Uthmani Quran, Arabic grammar, Wujuh al-Quran, polysemy, Quranic root words, deanybytes">
+    <meta name="author" content="DeanyBytes">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://quranicwords.vercel.app/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quranicwords.vercel.app/">
+    <meta property="og:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum">
+    <meta property="og:description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency with verse contexts, audio, root explorer, and flashcards.">
+    <meta property="og:image" content="https://quranicwords.vercel.app/favicon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://quranicwords.vercel.app/">
+    <meta property="twitter:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum">
+    <meta property="twitter:description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency with verse contexts, audio, root explorer, and flashcards.">
+    <meta property="twitter:image" content="https://quranicwords.vercel.app/favicon.png">
+
+    <!-- Favicon & Icons -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
-    <meta http-equiv="refresh" content="0; url=/QuranicWords-v1.0.0.html">
-    <title>QuranicWords — Master Curriculum Dictionary v1.0.0</title>
-    <script>
-        window.location.replace("/QuranicWords-v1.0.0.html" + window.location.search + window.location.hash);
+    <meta name="theme-color" content="#06080e">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/components.css">
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QuranicWords Master Curriculum Dictionary",
+      "url": "https://quranicwords.vercel.app/",
+      "description": "Master 4,709 verified Qur'anic Arabic words ordered by frequency with authentic verse contexts and 11-language translations.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Organization",
+        "name": "DeanyBytes",
+        "url": "https://github.com/deanybytes"
+      }
+    }
     </script>
 </head>
-<body style="background-color: #070a12; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
-    <div style="text-align: center; padding: 24px;">
-        <img src="/favicon.png" width="64" height="64" alt="deanybytes logo" style="border-radius: 16px; margin-bottom: 16px; box-shadow: 0 4px 16px rgba(5, 150, 105, 0.35); background: #ffffff; padding: 4px;">
-        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">QuranicWords Master Curriculum</h2>
-        <p style="color: #94a3b8; font-size: 14px;">Loading interactive dictionary by deanybytes...</p>
-        <p style="margin-top: 14px;"><a href="/QuranicWords-v1.0.0.html" style="color: #34d399; font-size: 13px; font-weight: 600; text-decoration: none;">Click here if not redirected automatically</a></p>
+<body>
+
+    <!-- Top Sticky Header -->
+    <header class="app-header">
+        <div class="container header-inner">
+            <a href="/" class="brand">
+                <div class="brand-logo-wrap">
+                    <img src="/favicon.png" alt="DeanyBytes Logo" class="brand-logo" width="38" height="38">
+                </div>
+                <div class="brand-info">
+                    <div class="brand-title">
+                        QuranicWords
+                        <span class="brand-badge">v1.0.0</span>
+                    </div>
+                    <span class="brand-sub">Master Curriculum by DeanyBytes</span>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <!-- 11-Language Selector -->
+                <div class="lang-select-wrap">
+                    <select id="lang-select" class="lang-select" aria-label="Select Language">
+                        <option value="en">English (EN)</option>
+                        <option value="bn">বাংলা (BN)</option>
+                        <option value="ur">اردو (UR)</option>
+                        <option value="hi">हिन्दी (HI)</option>
+                        <option value="in">Bahasa Indonesia (ID)</option>
+                        <option value="ms">Bahasa Melayu (MS)</option>
+                        <option value="tr">Türkçe (TR)</option>
+                        <option value="fa">فارسی (FA)</option>
+                        <option value="ha">Hausa (HA)</option>
+                        <option value="sw">Kiswahili (SW)</option>
+                        <option value="fr">Français (FR)</option>
+                    </select>
+                    <span class="lang-icon-indicator">▼</span>
+                </div>
+
+                <!-- Bookmarks Button -->
+                <button id="bookmarks-toggle-btn" class="btn" title="View Bookmarks">
+                    ⭐ <span style="display: none; @media(min-width: 600px){ display: inline; }">Saved</span>
+                </button>
+
+                <!-- Random Word -->
+                <button id="random-word-btn" class="btn btn-gold" title="Explore Random Word">
+                    🎲 <span style="display: none; @media(min-width: 600px){ display: inline; }">Random</span>
+                </button>
+
+                <!-- Dark / Light Theme Toggle -->
+                <button id="theme-toggle-btn" class="btn btn-icon" title="Toggle Theme">
+                    ☀️
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-pill">
+                ✨ Frequency-Ranked Quranic Arabic Dictionary
+            </div>
+            <h1 class="hero-title">Master the Vocabulary of the Qur'an</h1>
+            <p class="hero-sub">
+                Explore 4,709 verified Quranic lemmas, 251 roots, and authentic verse contexts across 11 world languages.
+            </p>
+
+            <!-- Stat Counters -->
+            <div class="stats-ribbon">
+                <div class="stat-chip">
+                    <span class="stat-val primary" id="stat-total-words">4,709</span>
+                    <span class="stat-lbl">Quranic Lemmas</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-val gold" id="stat-occurrences">77,430+</span>
+                    <span class="stat-lbl">Occurrences</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-val cyan" id="stat-roots">251</span>
+                    <span class="stat-lbl">Unique Roots</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-val">10</span>
+                    <span class="stat-lbl">Chapters</span>
+                </div>
+                <div class="stat-chip">
+                    <span class="stat-val primary">11</span>
+                    <span class="stat-lbl">Languages</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sticky Control & Search Bar -->
+        <div class="control-bar-wrap">
+            <div class="control-bar">
+                <!-- Search Row -->
+                <div class="search-row">
+                    <div class="search-box-wrap">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search-input" class="search-input" placeholder="Search Arabic lemma, root (e.g. كتب), transliteration, English or Bengali meaning..." autocomplete="off">
+                        <button id="search-clear-btn" class="search-clear-btn" title="Clear search">✕</button>
+                        <span class="search-shortcut-badge">Press /</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Filters & View Modes Row -->
+                <div class="filter-row">
+                    <!-- View Modes -->
+                    <div class="view-mode-tabs">
+                        <button class="view-tab-btn active" data-mode="cards">🎴 Stream Cards</button>
+                        <button class="view-tab-btn" data-mode="table">📊 Table</button>
+                        <button class="view-tab-btn" data-mode="flashcards">📇 Flashcards</button>
+                        <button class="view-tab-btn" data-mode="roots">🌳 Root Graph</button>
+                        <button class="view-tab-btn" data-mode="quiz">🎯 Quiz</button>
+                    </div>
+
+                    <!-- Filter Dropdowns -->
+                    <div class="filter-selectors">
+                        <select id="chapter-filter" class="filter-select" aria-label="Filter by Chapter">
+                            <option value="all">All 10 Chapters</option>
+                        </select>
+
+                        <select id="pos-filter" class="filter-select" aria-label="Filter by Part of Speech">
+                            <option value="all">All Parts of Speech</option>
+                            <option value="noun">Nouns (اسم)</option>
+                            <option value="verb">Verbs (فعل)</option>
+                            <option value="particle">Particles (حرف)</option>
+                            <option value="pronoun">Pronouns (ضمير)</option>
+                            <option value="proper_noun">Proper Nouns (علم)</option>
+                        </select>
+
+                        <select id="sort-filter" class="filter-select" aria-label="Sort Order">
+                            <option value="default">Curriculum Order</option>
+                            <option value="occ_desc">Most Frequent (Highest Occurrences)</option>
+                            <option value="occ_asc">Least Frequent</option>
+                            <option value="alpha_ar">Alphabetical (Arabic)</option>
+                            <option value="alpha_en">Alphabetical (Meaning)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Count Indicator -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.88rem; color: var(--text-muted);">
+            <span id="stat-filtered-count">Loading vocabulary...</span>
+        </div>
+
+        <!-- 1. Stream Cards View -->
+        <section id="cards-container">
+            <div id="words-grid" class="words-grid"></div>
+            <div id="loading-indicator" class="loading-container">
+                <div class="spinner"></div>
+                <p style="color: var(--text-muted); font-size: 0.88rem;">Streaming next words...</p>
+            </div>
+        </section>
+
+        <!-- 2. Table View -->
+        <section id="table-container" style="display: none;">
+            <div class="table-container">
+                <table class="dict-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th style="text-align: right;">Arabic Lemma</th>
+                            <th>Transliteration</th>
+                            <th>Root</th>
+                            <th>Meaning</th>
+                            <th>Frequency</th>
+                            <th>Audio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. Flashcard SRS Study Mode -->
+        <section id="flashcard-container" style="display: none;">
+            <div class="flashcard-section">
+                <div class="flashcard-controls-top">
+                    <span id="fc-counter" class="flashcard-progress-text">1 / 4709</span>
+                    <span class="flashcard-streak-badge">⚡ Interactive Study Mode</span>
+                </div>
+
+                <div class="flashcard-perspective-box" id="fc-perspective-box">
+                    <div class="flashcard-flipper" id="fc-flipper">
+                        <!-- Front Face -->
+                        <div class="flashcard-face flashcard-front">
+                            <div class="fc-arabic" id="fc-front-arabic">قَالَ</div>
+                            <div class="fc-translit" id="fc-front-translit">qāla</div>
+                            <div class="fc-root-tag" id="fc-front-root">Root: ق و ل</div>
+                            <div class="fc-hint-tap">Tap card or press [Space] to flip</div>
+                        </div>
+
+                        <!-- Back Face -->
+                        <div class="flashcard-face flashcard-back">
+                            <div class="fc-meaning" id="fc-back-meaning">he said / spoke</div>
+                            <div style="color: var(--text-muted); font-size: 0.9rem;" id="fc-back-occ">Appears 1,722 times in Qur'an</div>
+                            <div class="fc-hint-tap">Tap to flip back</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-nav-bar">
+                    <button id="fc-prev-btn" class="btn">← Previous</button>
+                    <button id="fc-audio-btn" class="btn btn-primary">🔊 Pronounce</button>
+                    <button id="fc-next-btn" class="btn">Next →</button>
+                </div>
+                <p style="color: var(--text-dim); font-size: 0.78rem; margin-top: 14px;">
+                    Keyboard: [Space] Flip • [←/→] Navigate • [A] Audio
+                </p>
+            </div>
+        </section>
+
+        <!-- 4. Root Explorer Cloud -->
+        <section id="roots-container" style="display: none;">
+            <div class="roots-section">
+                <div style="margin-bottom: 16px;">
+                    <h2 style="font-size: 1.4rem; font-weight: 800;">Quranic Roots Index (251 Roots)</h2>
+                    <p style="color: var(--text-muted); font-size: 0.88rem;">Click any root letter to view all derived lemmas and Quranic occurrences.</p>
+                </div>
+                <div class="roots-cloud" id="roots-cloud"></div>
+            </div>
+        </section>
+
+        <!-- 5. Quiz & Self-Test Mode -->
+        <section id="quiz-container" style="display: none;">
+            <div class="quiz-box">
+                <div class="quiz-header">
+                    <h2 style="font-size: 1.2rem; font-weight: 800;">Vocabulary Trainer Quiz</h2>
+                    <span id="quiz-score-display" style="font-weight: 700; color: var(--accent-gold);">Score: 0/0</span>
+                </div>
+                <div class="quiz-question-arabic" id="quiz-arabic">قَالَ</div>
+                <div style="text-align: center; color: var(--text-muted); font-size: 1rem; margin-bottom: 16px;" id="quiz-translit">qāla</div>
+                <div class="quiz-options-grid" id="quiz-options"></div>
+            </div>
+        </section>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <div class="empty-state-icon">🔍</div>
+            <h3>No matching Quranic words found</h3>
+            <p style="margin-top: 6px;">Try adjusting your search query, root letters, or filters.</p>
+        </div>
+
+    </main>
+
+    <!-- Context Senses / Polysemy Modal -->
+    <div class="modal-backdrop" id="polysemy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Quranic Context & Senses</h3>
+                <button id="modal-close-btn" class="btn btn-icon" style="border: none;">✕</button>
+            </div>
+            <div id="modal-body"></div>
+        </div>
     </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container footer-inner">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="/favicon.png" alt="DeanyBytes" width="28" height="28" style="border-radius: 8px;">
+                <strong style="color: var(--text-main); font-size: 1rem;">QuranicWords Master Curriculum</strong>
+            </div>
+            <p style="max-width: 600px; font-size: 0.84rem;">
+                A comprehensive open-source Quranic vocabulary curriculum and interactive dictionary. Designed and developed with reverence by DeanyBytes.
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/deanybytes/QuranicWords" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a>
+                <a href="https://quranicwords.vercel.app/" class="footer-link">Live Web Application</a>
+                <a href="https://github.com/deanybytes/QuranicWords/releases" target="_blank" rel="noopener" class="footer-link">Releases (APK/AAB/HTML)</a>
+            </div>
+            <p style="font-size: 0.76rem; color: var(--text-dim); margin-top: 8px;">
+                © 2026 DeanyBytes • Licensed under Apache 2.0
+            </p>
+        </div>
+    </footer>
+
+    <!-- Application Script Module -->
+    <script type="module" src="/js/app.js"></script>
 </body>
 </html>

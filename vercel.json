@@ -1,19 +1,58 @@
 {
+  "version": 2,
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(css|js)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, immutable"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/",
-      "destination": "/QuranicWords-v1.0.0.html"
+      "destination": "/index.html"
     },
     {
       "source": "/dictionary",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/flashcards",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/roots",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/standalone",
       "destination": "/QuranicWords-v1.0.0.html"
     },
     {
       "source": "/v1.0.0",
-      "destination": "/QuranicWords-v1.0.0.html"
-    },
-    {
-      "source": "/v1",
       "destination": "/QuranicWords-v1.0.0.html"
     }
   ]
