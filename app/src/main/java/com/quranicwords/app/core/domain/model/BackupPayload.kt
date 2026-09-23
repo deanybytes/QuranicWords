@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.domain.model
 
 import com.quranicwords.app.core.data.local.entity.AchievementEntity
+import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
@@ -25,7 +26,8 @@ data class BackupPayload(
     /** Added in schema version 2 - default keeps older exported backup files (schemaVersion 1,
      * with no achievements key at all) decodable via [com.quranicwords.app.core.util.AppJson]'s
      * lenient/default-value handling. */
-    val achievements: List<AchievementEntity> = emptyList()
+    val achievements: List<AchievementEntity> = emptyList(),
+    val dailyPractices: List<DailyPracticeEntity> = emptyList()
 )
 
 @Serializable
@@ -33,7 +35,12 @@ data class BackupPreferences(
     val languageTag: String?,
     val themeMode: String,
     val fontStyle: String,
-    val reduceMotion: Boolean
+    val reduceMotion: Boolean,
+    val learningPath: String? = null,
+    val learningStyle: String? = null,
+    val dailyGoalLevel: String? = null,
+    val reduceGlassEffects: Boolean = false,
+    val soundEnabled: Boolean = true
 )
 
 const val BACKUP_SCHEMA_VERSION = 2

@@ -172,6 +172,7 @@ fun MatchingExerciseContent(
     // redesign spec), regardless of each column's own independent original shuffle.
     val matchOrder = remember(content) { mutableStateListOf<String>() }
     LaunchedEffect(matchedPairIds) {
+        matchOrder.retainAll(matchedPairIds)
         matchedPairIds.forEach { id -> if (id !in matchOrder) matchOrder.add(id) }
     }
 
@@ -366,12 +367,18 @@ private fun MatchTile(
     LaunchedEffect(isMatched) {
         if (isMatched) {
             justMatched = true
-            if (!reducedMotion && !reducedGlass) {
-                sheenProgress.snapTo(0f)
-                sheenProgress.animateTo(1f, animationSpec = tween(durationMillis = 850, easing = LinearEasing))
+            try {
+                if (!reducedMotion && !reducedGlass) {
+                    sheenProgress.snapTo(0f)
+                    sheenProgress.animateTo(1f, animationSpec = tween(durationMillis = 850, easing = LinearEasing))
+                }
+                delay(if (reducedMotion) 0L else 850L)
+            } finally {
+                justMatched = false
             }
-            delay(if (reducedMotion) 0L else 850L)
+        } else {
             justMatched = false
+            sheenProgress.snapTo(0f)
         }
     }
 

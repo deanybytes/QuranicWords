@@ -5,7 +5,10 @@ import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.domain.model.BACKUP_SCHEMA_VERSION
 import com.quranicwords.app.core.domain.model.BackupPayload
 import com.quranicwords.app.core.domain.model.BackupPreferences
+import com.quranicwords.app.core.domain.model.DailyGoalLevel
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LearningPath
+import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.repository.BackupRepository
@@ -34,11 +37,17 @@ class BackupRepositoryImpl @Inject constructor(
             progress = database.userProgressDao().getAllForUserOnce(userId),
             attempts = database.exerciseAttemptDao().getAllForUser(userId),
             achievements = database.achievementDao().getAllForUserOnce(userId),
+            dailyPractices = database.dailyPracticeDao().getAllForUserOnce(userId),
             preferences = BackupPreferences(
                 languageTag = preferences.languageFlow.first()?.tag,
                 themeMode = preferences.themeModeFlow.first().name,
                 fontStyle = preferences.fontStyleFlow.first().name,
-                reduceMotion = preferences.reduceMotionFlow.first()
+                reduceMotion = preferences.reduceMotionFlow.first(),
+                learningPath = preferences.learningPathFlow.first().name,
+                learningStyle = preferences.learningStyleFlow.first().name,
+                dailyGoalLevel = preferences.dailyGoalLevelFlow.first().name,
+                reduceGlassEffects = preferences.reduceGlassEffectsFlow.first(),
+                soundEnabled = preferences.soundEnabledFlow.first()
             )
         )
         output.use { it.write(AppJson.encodeToString(payload).toByteArray()) }
@@ -53,12 +62,20 @@ class BackupRepositoryImpl @Inject constructor(
         payload.stats?.let { database.userStatsDao().upsert(it) }
         database.userProgressDao().upsertAll(payload.progress)
         database.exerciseAttemptDao().deleteForUser(payload.userId)
-        database.exerciseAttemptDao().insertAll(payload.attempts)
+        val sanitizedAttempts = payload.attempts.map { it.copy(id = 0) }
+        database.exerciseAttemptDao().insertAll(sanitizedAttempts)
         database.achievementDao().insertAll(payload.achievements)
+        database.dailyPracticeDao().deleteForUser(payload.userId)
+        database.dailyPracticeDao().insertAll(payload.dailyPractices)
 
         Language.fromTag(payload.preferences.languageTag)?.let { preferences.setLanguage(it) }
         preferences.setThemeMode(ThemeMode.fromName(payload.preferences.themeMode))
         preferences.setFontStyle(QuranFontStyle.fromName(payload.preferences.fontStyle))
         preferences.setReduceMotion(payload.preferences.reduceMotion)
+        payload.preferences.learningPath?.let { LearningPath.fromName(it) }?.let { preferences.setLearningPath(it) }
+        payload.preferences.learningStyle?.let { LearningStyle.fromName(it) }?.let { preferences.setLearningStyle(it) }
+        payload.preferences.dailyGoalLevel?.let { DailyGoalLevel.fromName(it) }?.let { preferences.setDailyGoalLevel(it) }
+        preferences.setReduceGlassEffects(payload.preferences.reduceGlassEffects)
+        preferences.setSoundEnabled(payload.preferences.soundEnabled)
     }
 }

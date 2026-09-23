@@ -47,8 +47,10 @@ class MainViewModel @Inject constructor(
         // forced value persists across process restarts (AppCompatDelegate's own compat shim), so
         // without this guard a user who quits mid-onboarding, before ever picking a language, would
         // come back to find the picker silently skipped with English "chosen" on their behalf.
-        val systemLanguage = AppCompatDelegate.getApplicationLocales().get(0)?.language
-            ?.let { tag -> Language.entries.find { it.tag == tag } }
+        val appLocale = AppCompatDelegate.getApplicationLocales().get(0)
+        val systemLanguage = appLocale?.let {
+            Language.fromTag(it.toLanguageTag()) ?: Language.fromTag(it.language)
+        }
         if (systemLanguage != null) {
             viewModelScope.launch {
                 val current = preferences.languageFlow.first()
