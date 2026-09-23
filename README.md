@@ -10,12 +10,17 @@
 
 <p align="center">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Android-3DDC84?logo=android&logoColor=white" />
+  <img alt="Web Live" src="https://img.shields.io/badge/Web%20Live-quranicwords.vercel.app-000000?logo=vercel&logoColor=white" />
   <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" />
   <img alt="UI" src="https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4?logo=jetpackcompose&logoColor=white" />
   <img alt="Target SDK" src="https://img.shields.io/badge/targetSdk-36-blue" />
   <img alt="Min SDK" src="https://img.shields.io/badge/minSdk-24-success" />
   <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue" />
   <img alt="Release" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" />
+</p>
+
+<p align="center">
+  🌐 <strong>Live Web Edition & Interactive Dictionary:</strong> <a href="https://quranicwords.vercel.app/"><strong>https://quranicwords.vercel.app/</strong></a>
 </p>
 
 ---
@@ -177,11 +182,27 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and 
 
 ---
 
+## 🌐 Live Web Edition & Interactive Dictionary
+
+Explore and study the complete **QuranicWords Master Curriculum Dictionary** directly in any web browser with zero installation:
+
+👉 **[https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)**
+
+- 📖 **All 4,709 Lemmas**: Instant search across Arabic (with or without Tashkīl), English, Bengali, Urdu, Hindi, Bahasa, Turkish, French, roots, and Surah citations.
+- 🔊 **Audio Pronunciation**: High-clarity Arabic pronunciation for every lemma.
+- 📋 **One-Click Copy & Ayah Links**: Direct citations linking to Quranic Ayahs on Quran.com.
+- ⭐ **Favorites / Bookmarking**: Save words locally to your browser for revision.
+- 🔀 **Polysemy (Wujūh al-Qur'an) Explorer**: Interactive contextual meaning tabs with live Ayah switching.
+- 📱 **PWA / Responsive Design**: Works seamlessly on desktop, tablets, and smartphones.
+
+---
+
 ## 🤝 Open Source & Community
 
 **QuranicWords** is an open-source project licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). Contributions, bug reports, and pull requests are warmly welcomed to help make Quranic Arabic learning accessible to everyone worldwide.
 
-- 🌐 **GitHub Repository**: [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords)
+- 🌐 **Live Web Application**: [https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)
+- 🐙 **GitHub Organization / Repo**: [github.com/deanybytes/QuranicWords](https://github.com/deanybytes/QuranicWords) (also mirrored at [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords))
 - 📢 **DEANY TALKS Ecosystem**: Part of the **DEANY TALKS** digital Dawah platforms, creating modern, open Islamic educational tools.
 - ✉️ **Contact & Feedback**: Reach out via email at `contact.deanstalks@gmail.com` or open an issue on GitHub.
 

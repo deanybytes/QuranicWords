@@ -62,7 +62,13 @@ For learners seeking targeted revision and speed testing without linear lesson p
 2. **Fi'l Mode**: Quizzes from the 1,479 verbs.
 3. **Ḥarf Mode**: Quizzes from the 173 particles.
 4. **Mix / Random Mode**: Dynamically samples from all 4,709 words with live grammar badging (`GrammarCategoryBadge`).
-5. **Mistaken Words Review**: Adaptively queries `ExerciseAttemptEntity` for words where the learner made errors.
-6. **Chapterwise Practice & Test Mode**: Targeted unit test suites across each of the 10 Quranic Chapters.
-
 All test modes feature **dynamic in-verse quizzing**, automatically alternating between Reverse Verse Quizzes (`TapWordInVerse`), Verse Completion (`FillInTheBlank`), and Contextual Multiple Choice (`MultipleChoice`) with authentic Quranic verses, Tashkīl, and translations.
+
+## 🌐 Live Interactive Curriculum Dictionary
+
+The entire curriculum is also available as a standalone, zero-installation web application deployed at:
+
+👉 **[https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)**
+
+Learners and educators can explore the complete 4,709-lemma dataset with instant search, audio pronunciation, 11-language translations, polysemic sense tabs, and interactive table and curriculum views.
+
