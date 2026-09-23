@@ -83,7 +83,7 @@ class TestOnlyHomeViewModel @Inject constructor(
             val today = todayDate.toString()
             val startDate = todayDate.minusDays(29).toString()
 
-            val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
+            val progressFlow = progressRepository.observeProgress(userId)
             val statsFlow = progressRepository.observeStats(userId)
             val todayPracticeFlow = progressRepository.observeTodayPractice(userId, today)
             val dailyGoalFlow = preferences.dailyGoalLevelFlow
@@ -96,7 +96,7 @@ class TestOnlyHomeViewModel @Inject constructor(
             val chaptersFlow = contentRepository.observeChapters()
 
             combine(
-                combine(statsFlow, todayPracticeFlow, dailyGoalFlow) { stats, practice, goal ->
+                combine(statsFlow, todayPracticeFlow, dailyGoalFlow, progressFlow) { stats, practice, goal, _ ->
                     Triple(stats, practice, goal)
                 },
                 combine(ismCoveredFlow, filCoveredFlow, harfCoveredFlow, randomCoveredFlow) { ism, fil, harf, random ->
@@ -106,6 +106,7 @@ class TestOnlyHomeViewModel @Inject constructor(
                     Triple(missed, range, chapters)
                 }
             ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters) ->
+                val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
                 val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
                 val last30DaysMinutes = (29 downTo 0).map { offset ->
                     val d = todayDate.minusDays(offset.toLong()).toString()
