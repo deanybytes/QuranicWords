@@ -120,10 +120,13 @@ def build_data():
                                 'tr_hl': se_hl_m
                             })
 
-                        root_val = c.get('root', '').strip()
+                        root_raw = c.get('root', '').strip()
+                        # Ignore placeholder dashes for rootless words (particles, pronouns)
+                        root_val = '' if root_raw in ('—', '-', 'None', 'null', 'N/A') else root_raw
                         occ = c.get('quranOccurrenceCount', 1)
                         total_quran_occ += occ
                         
+                        ch_num = ch.get('sortOrder', cid.replace('ch_', ''))
                         w_item = {
                             'id': c['wordId'],
                             'ar': c['arabicWord'],
@@ -134,6 +137,7 @@ def build_data():
                             'pos': c.get('partOfSpeech', 'noun'),
                             'cat': les['category'],
                             'ch': cid,
+                            'ch_num': ch_num,
                             'sec': sid,
                             'les': lid,
                             'occ': occ,
@@ -199,6 +203,7 @@ def build_data():
             'pos': w['pos'],
             'cat': w['cat'],
             'ch': w['ch'],
+            'ch_num': w.get('ch_num', 1),
             'sec': w['sec'],
             'les': w['les'],
             'occ': w['occ'],

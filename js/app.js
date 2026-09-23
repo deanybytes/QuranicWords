@@ -390,8 +390,8 @@ class QuranicApp {
       </div>
 
       <div class="card-tags-row">
-        ${w.rt ? `<span class="tag-root" title="Filter by root">${w.rt}</span>` : ''}
-        <span class="tag-chapter">Ch ${w.ch}</span>
+        ${(w.rt && w.rt !== '—' && w.rt !== '-') ? `<span class="tag-root" title="Filter by root">${w.rt}</span>` : ''}
+        <span class="tag-chapter">Chapter ${w.ch_num || w.ch.replace('ch_', '')}</span>
       </div>
 
       <div class="card-meaning-box">
@@ -508,7 +508,7 @@ class QuranicApp {
         <td style="color: var(--text-dim); font-size: 0.8rem;">#${w.id}</td>
         <td class="table-arabic-cell" style="cursor: pointer;" title="Click to listen">${w.ar}</td>
         <td><strong>${w.tr}</strong></td>
-        <td><span class="tag-root" style="font-size: 0.9rem;">${w.rt || '—'}</span></td>
+        <td>${w.rt ? `<span class="tag-root" style="font-size: 0.9rem;">${w.rt}</span>` : '<span style="color: var(--text-dim);">—</span>'}</td>
         <td>${meaning}</td>
         <td><span class="card-occ-pill">${w.occ}×</span></td>
         <td><button class="btn btn-icon btn-sm audio-btn">🔊</button></td>
