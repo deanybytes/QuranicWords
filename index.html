@@ -35,8 +35,8 @@
     <meta name="theme-color" content="#06080e">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/main.css?v=1.0.2">
-    <link rel="stylesheet" href="/css/components.css?v=1.0.2">
+    <link rel="stylesheet" href="/css/main.css?v=1.0.3">
+    <link rel="stylesheet" href="/css/components.css?v=1.0.3">
 
     <!-- Structured Data (Schema.org) -->
     <script type="application/ld+json">
@@ -116,11 +116,11 @@
 
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="hero-pill">
+            <div class="hero-pill" id="hero-pill">
                 ✨ Frequency-Ranked Quranic Arabic Dictionary
             </div>
-            <h1 class="hero-title">Master the Vocabulary of the Qur'an</h1>
-            <p class="hero-sub">
+            <h1 class="hero-title" id="hero-title">Master the Vocabulary of the Qur'an</h1>
+            <p class="hero-sub" id="hero-sub">
                 Explore 4,709 verified Quranic lemmas, 251 roots, and authentic verse contexts across 11 world languages.
             </p>
 
@@ -128,23 +128,23 @@
             <div class="stats-ribbon">
                 <div class="stat-chip">
                     <span class="stat-val primary" id="stat-total-words">4,709</span>
-                    <span class="stat-lbl">Quranic Lemmas</span>
+                    <span class="stat-lbl" id="stat-lbl-lemmas">Quranic Lemmas</span>
                 </div>
                 <div class="stat-chip">
                     <span class="stat-val gold" id="stat-occurrences">77,430+</span>
-                    <span class="stat-lbl">Occurrences</span>
+                    <span class="stat-lbl" id="stat-lbl-occ">Occurrences</span>
                 </div>
                 <div class="stat-chip">
                     <span class="stat-val cyan" id="stat-roots">251</span>
-                    <span class="stat-lbl">Unique Roots</span>
+                    <span class="stat-lbl" id="stat-lbl-roots">Unique Roots</span>
                 </div>
                 <div class="stat-chip">
-                    <span class="stat-val">10</span>
-                    <span class="stat-lbl">Chapters</span>
+                    <span class="stat-val" id="stat-chapters-count">10</span>
+                    <span class="stat-lbl" id="stat-lbl-chapters">Chapters</span>
                 </div>
                 <div class="stat-chip">
                     <span class="stat-val primary">11</span>
-                    <span class="stat-lbl">Languages</span>
+                    <span class="stat-lbl" id="stat-lbl-languages">Languages</span>
                 </div>
             </div>
         </section>
@@ -156,9 +156,9 @@
                 <div class="search-row">
                     <div class="search-box-wrap">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="search-input" class="search-input" placeholder="Search Arabic lemma, root (e.g. كتب), transliteration, English or Bengali meaning..." autocomplete="off">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search Arabic lemma, root (e.g. كتب), transliteration, meaning..." autocomplete="off">
                         <button id="search-clear-btn" class="search-clear-btn" title="Clear search">✕</button>
-                        <span class="search-shortcut-badge">Press /</span>
+                        <span class="search-shortcut-badge" id="search-shortcut">Press /</span>
                     </div>
                 </div>
 
@@ -166,11 +166,11 @@
                 <div class="filter-row">
                     <!-- View Modes -->
                     <div class="view-mode-tabs">
-                        <button class="view-tab-btn active" data-mode="cards">🎴 Stream Cards</button>
-                        <button class="view-tab-btn" data-mode="table">📊 Table</button>
-                        <button class="view-tab-btn" data-mode="flashcards">📇 Flashcards</button>
-                        <button class="view-tab-btn" data-mode="roots">🌳 Root Graph</button>
-                        <button class="view-tab-btn" data-mode="quiz">🎯 Quiz</button>
+                        <button class="view-tab-btn active" id="tab-btn-cards" data-mode="cards">🎴 Stream Cards</button>
+                        <button class="view-tab-btn" id="tab-btn-table" data-mode="table">📊 Table</button>
+                        <button class="view-tab-btn" id="tab-btn-flashcards" data-mode="flashcards">📇 Flashcards</button>
+                        <button class="view-tab-btn" id="tab-btn-roots" data-mode="roots">🌳 Root Graph</button>
+                        <button class="view-tab-btn" id="tab-btn-quiz" data-mode="quiz">🎯 Quiz</button>
                     </div>
 
                     <!-- Filter Dropdowns -->
@@ -210,7 +210,7 @@
             <div id="words-grid" class="words-grid"></div>
             <div id="loading-indicator" class="loading-container">
                 <div class="spinner"></div>
-                <p style="color: var(--text-muted); font-size: 0.88rem;">Streaming next words...</p>
+                <p id="loading-indicator-text" style="color: var(--text-muted); font-size: 0.88rem;">Streaming next words...</p>
             </div>
         </section>
 
@@ -220,13 +220,13 @@
                 <table class="dict-table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th style="text-align: right;">Arabic Lemma</th>
-                            <th>Transliteration</th>
-                            <th>Root</th>
-                            <th>Meaning</th>
-                            <th>Frequency</th>
-                            <th>Audio</th>
+                            <th id="th-index">#</th>
+                            <th id="th-lemma" style="text-align: right;">Arabic Lemma</th>
+                            <th id="th-translit">Transliteration</th>
+                            <th id="th-root">Root</th>
+                            <th id="th-meaning">Meaning</th>
+                            <th id="th-freq">Frequency</th>
+                            <th id="th-audio">Audio</th>
                         </tr>
                     </thead>
                     <tbody id="table-body"></tbody>
@@ -249,14 +249,14 @@
                             <div class="fc-arabic" id="fc-front-arabic">قَالَ</div>
                             <div class="fc-translit" id="fc-front-translit">qāla</div>
                             <div class="fc-root-tag" id="fc-front-root">Root: ق و ل</div>
-                            <div class="fc-hint-tap">Tap card or press [Space] to flip</div>
+                            <div class="fc-hint-tap" id="fc-flip-hint-front">Tap card or press [Space] to flip</div>
                         </div>
 
                         <!-- Back Face -->
                         <div class="flashcard-face flashcard-back">
                             <div class="fc-meaning" id="fc-back-meaning">he said / spoke</div>
                             <div style="color: var(--text-muted); font-size: 0.9rem;" id="fc-back-occ">Appears 1,722 times in Qur'an</div>
-                            <div class="fc-hint-tap">Tap to flip back</div>
+                            <div class="fc-hint-tap" id="fc-flip-hint-back">Tap to flip back</div>
                         </div>
                     </div>
                 </div>
@@ -266,7 +266,7 @@
                     <button id="fc-audio-btn" class="btn btn-primary">🔊 Pronounce</button>
                     <button id="fc-next-btn" class="btn">Next →</button>
                 </div>
-                <p style="color: var(--text-dim); font-size: 0.78rem; margin-top: 14px;">
+                <p id="fc-keyboard-hint" style="color: var(--text-dim); font-size: 0.78rem; margin-top: 14px;">
                     Keyboard: [Space] Flip • [←/→] Navigate • [A] Audio
                 </p>
             </div>
@@ -276,8 +276,8 @@
         <section id="roots-container" style="display: none;">
             <div class="roots-section">
                 <div style="margin-bottom: 16px;">
-                    <h2 style="font-size: 1.4rem; font-weight: 800;">Quranic Roots Index (251 Roots)</h2>
-                    <p style="color: var(--text-muted); font-size: 0.88rem;">Click any root letter to view all derived lemmas and Quranic occurrences.</p>
+                    <h2 id="roots-title" style="font-size: 1.4rem; font-weight: 800;">Quranic Roots Index (251 Roots)</h2>
+                    <p id="roots-sub" style="color: var(--text-muted); font-size: 0.88rem;">Click any root letter to view all derived lemmas and Quranic occurrences.</p>
                 </div>
                 <div class="roots-cloud" id="roots-cloud"></div>
             </div>
@@ -287,7 +287,7 @@
         <section id="quiz-container" style="display: none;">
             <div class="quiz-box">
                 <div class="quiz-header">
-                    <h2 style="font-size: 1.2rem; font-weight: 800;">Vocabulary Trainer Quiz</h2>
+                    <h2 id="quiz-title" style="font-size: 1.2rem; font-weight: 800;">Vocabulary Trainer Quiz</h2>
                     <span id="quiz-score-display" style="font-weight: 700; color: var(--accent-gold);">Score: 0/0</span>
                 </div>
                 <div class="quiz-question-arabic" id="quiz-arabic">قَالَ</div>
@@ -299,8 +299,8 @@
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
             <div class="empty-state-icon">🔍</div>
-            <h3>No matching Quranic words found</h3>
-            <p style="margin-top: 6px;">Try adjusting your search query, root letters, or filters.</p>
+            <h3 id="empty-title">No matching Quranic words found</h3>
+            <p id="empty-sub" style="margin-top: 6px;">Try adjusting your search query, root letters, or filters.</p>
         </div>
 
     </main>
@@ -309,7 +309,7 @@
     <div class="modal-backdrop" id="polysemy-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Quranic Context & Senses</h3>
+                <h3 class="modal-title" id="modal-title">Quranic Context & Senses</h3>
                 <button id="modal-close-btn" class="btn btn-icon" style="border: none;">✕</button>
             </div>
             <div id="modal-body"></div>
@@ -326,21 +326,21 @@
                 <img src="/favicon.png" alt="DeanyBytes" width="28" height="28" style="border-radius: 8px;">
                 <strong style="color: var(--text-main); font-size: 1rem;">QuranicWords Master Curriculum</strong>
             </div>
-            <p style="max-width: 600px; font-size: 0.84rem;">
+            <p id="footer-about" style="max-width: 600px; font-size: 0.84rem;">
                 A comprehensive open-source Quranic vocabulary curriculum and interactive dictionary. Designed and developed with reverence by DeanyBytes.
             </p>
             <div class="footer-links">
-                <a href="https://github.com/deanybytes/QuranicWords" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a>
-                <a href="https://quranicwords.vercel.app/" class="footer-link">Live Web Application</a>
-                <a href="https://github.com/deanybytes/QuranicWords/releases" target="_blank" rel="noopener" class="footer-link">Releases (APK/AAB/HTML)</a>
+                <a id="footer-repo-link" href="https://github.com/deanybytes/QuranicWords" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a>
+                <a id="footer-live-link" href="https://quranicwords.vercel.app/" class="footer-link">Live Web Application</a>
+                <a id="footer-releases-link" href="https://github.com/deanybytes/QuranicWords/releases" target="_blank" rel="noopener" class="footer-link">Releases (APK/AAB/HTML)</a>
             </div>
-            <p style="font-size: 0.76rem; color: var(--text-dim); margin-top: 8px;">
+            <p id="footer-copyright" style="font-size: 0.76rem; color: var(--text-dim); margin-top: 8px;">
                 © 2026 DeanyBytes • Licensed under Apache 2.0
             </p>
         </div>
     </footer>
 
     <!-- Application Script Module -->
-    <script type="module" src="/js/app.js?v=1.0.2"></script>
+    <script type="module" src="/js/app.js?v=1.0.3"></script>
 </body>
 </html>
