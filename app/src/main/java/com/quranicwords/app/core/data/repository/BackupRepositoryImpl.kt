@@ -57,17 +57,39 @@ class BackupRepositoryImpl @Inject constructor(
         val json = input.use { it.readBytes().decodeToString() }
         val payload = AppJson.decodeFromString<BackupPayload>(json)
 
-        preferences.setLocalUserId(payload.userId)
+        val targetUserId = preferences.getOrCreateLocalUserId()
 
-        payload.stats?.let { database.userStatsDao().upsert(it) }
-        database.userProgressDao().upsertAll(payload.progress)
-        database.exerciseAttemptDao().deleteForUser(payload.userId)
-        val sanitizedAttempts = payload.attempts.map { it.copy(id = 0) }
+        // 1. Wipe existing user tables for targetUserId to prevent orphaned/duplicate rows
+        database.userProgressDao().deleteForUser(targetUserId)
+        database.userStatsDao().deleteForUser(targetUserId)
+        database.exerciseAttemptDao().deleteForUser(targetUserId)
+        database.achievementDao().deleteForUser(targetUserId)
+        database.dailyPracticeDao().deleteForUser(targetUserId)
+
+        // If the backup has a different userId, clean that up from local db as well
+        if (payload.userId.isNotBlank() && payload.userId != targetUserId) {
+            database.userProgressDao().deleteForUser(payload.userId)
+            database.userStatsDao().deleteForUser(payload.userId)
+            database.exerciseAttemptDao().deleteForUser(payload.userId)
+            database.achievementDao().deleteForUser(payload.userId)
+            database.dailyPracticeDao().deleteForUser(payload.userId)
+        }
+
+        // 2. Restore tables remapped to the active targetUserId
+        payload.stats?.copy(userId = targetUserId)?.let { database.userStatsDao().upsert(it) }
+        val remappedProgress = payload.progress.map { it.copy(userId = targetUserId) }
+        database.userProgressDao().upsertAll(remappedProgress)
+
+        val sanitizedAttempts = payload.attempts.map { it.copy(id = 0, userId = targetUserId) }
         database.exerciseAttemptDao().insertAll(sanitizedAttempts)
-        database.achievementDao().insertAll(payload.achievements)
-        database.dailyPracticeDao().deleteForUser(payload.userId)
-        database.dailyPracticeDao().insertAll(payload.dailyPractices)
 
+        val remappedAchievements = payload.achievements.map { it.copy(userId = targetUserId) }
+        database.achievementDao().insertAll(remappedAchievements)
+
+        val remappedDailyPractices = payload.dailyPractices.map { it.copy(userId = targetUserId) }
+        database.dailyPracticeDao().insertAll(remappedDailyPractices)
+
+        // 3. Restore all preferences
         Language.fromTag(payload.preferences.languageTag)?.let { preferences.setLanguage(it) }
         preferences.setThemeMode(ThemeMode.fromName(payload.preferences.themeMode))
         preferences.setFontStyle(QuranFontStyle.fromName(payload.preferences.fontStyle))
