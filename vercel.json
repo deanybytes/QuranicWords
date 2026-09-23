@@ -3,11 +3,27 @@
   "cleanUrls": true,
   "routes": [
     {
-      "src": "/",
+      "src": "/QuranicWords-v1.0.0.html",
+      "dest": "/QuranicWords_Dictionary.html"
+    },
+    {
+      "src": "/QuranicWords-v1.0.0",
+      "dest": "/QuranicWords_Dictionary.html"
+    },
+    {
+      "src": "/v1.0.0",
+      "dest": "/QuranicWords_Dictionary.html"
+    },
+    {
+      "src": "/v1",
       "dest": "/QuranicWords_Dictionary.html"
     },
     {
       "src": "/dictionary",
+      "dest": "/QuranicWords_Dictionary.html"
+    },
+    {
+      "src": "/",
       "dest": "/QuranicWords_Dictionary.html"
     }
   ]
