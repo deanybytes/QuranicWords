@@ -82,33 +82,35 @@ class LearnedWordsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            val masteredIds = progressRepository.getMasteredItemIds(userId)
             val allCandidates = contentRepository.getWordCandidates().associateBy { it.id }
             val wordIntros = contentRepository.getAllWordIntros()
 
-            val items = masteredIds.mapNotNull { wordId ->
-                val cand = allCandidates[wordId] ?: return@mapNotNull null
-                val intro = wordIntros[wordId]
-                LearnedWordItem(
-                    wordId = wordId,
-                    arabicWord = cand.arabicWord,
-                    meaning = cand.meaning,
-                    root = intro?.root,
-                    frequencyRank = cand.frequencyRank,
-                    frequencyCount = cand.frequencyCount,
-                    audioAssetPath = cand.audioAssetPath ?: intro?.audioAssetPath,
-                    exampleVerseArabic = intro?.exampleVerseArabic,
-                    exampleVerseTranslation = intro?.exampleVerseTranslation ?: emptyMap(),
-                    exampleVerseReference = intro?.exampleVerseReference,
-                    arabicWordStart = intro?.arabicWordStart,
-                    arabicWordEnd = intro?.arabicWordEnd,
-                    meaningHighlight = intro?.meaningHighlight ?: emptyMap(),
-                    polysemyEntries = intro?.polysemyEntries ?: emptyList()
-                )
-            }.sortedBy { it.frequencyRank }
+            progressRepository.observeMissedItemIds(userId).collect {
+                val masteredIds = progressRepository.getMasteredItemIds(userId)
+                val items = masteredIds.mapNotNull { wordId ->
+                    val cand = allCandidates[wordId] ?: return@mapNotNull null
+                    val intro = wordIntros[wordId]
+                    LearnedWordItem(
+                        wordId = wordId,
+                        arabicWord = cand.arabicWord,
+                        meaning = cand.meaning,
+                        root = intro?.root,
+                        frequencyRank = cand.frequencyRank,
+                        frequencyCount = cand.frequencyCount,
+                        audioAssetPath = cand.audioAssetPath ?: intro?.audioAssetPath,
+                        exampleVerseArabic = intro?.exampleVerseArabic,
+                        exampleVerseTranslation = intro?.exampleVerseTranslation ?: emptyMap(),
+                        exampleVerseReference = intro?.exampleVerseReference,
+                        arabicWordStart = intro?.arabicWordStart,
+                        arabicWordEnd = intro?.arabicWordEnd,
+                        meaningHighlight = intro?.meaningHighlight ?: emptyMap(),
+                        polysemyEntries = intro?.polysemyEntries ?: emptyList()
+                    )
+                }.sortedBy { it.frequencyRank }
 
-            _learnedWords.value = items
-            _isLoading.value = false
+                _learnedWords.value = items
+                _isLoading.value = false
+            }
         }
     }
 

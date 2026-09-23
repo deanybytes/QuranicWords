@@ -22,6 +22,8 @@ import java.time.LocalDate
 import java.time.ZoneId
 import javax.inject.Inject
 
+import kotlinx.coroutines.flow.combine
+
 data class ProgressUiState(
     val isLoading: Boolean = true,
     val totalPoints: Int = 0,
@@ -88,20 +90,24 @@ class ProgressViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = userIdProvider.get()
             val zone = clock.zone
-
-            val stats = progressRepository.observeStats(userId).first()
-            val progress = progressRepository.observeProgress(userId).first()
-            val masteredCount = progressRepository.getMasteredItemIds(userId).size
-            val dailyPractice = progressRepository.getDailyPracticeHistory(userId)
-            val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
-            val goalMinutes = preferences.dailyGoalLevelFlow.first().minutes
-
             val today = LocalDate.now(clock)
             val last7Days = (6 downTo 0).map { today.minusDays(it.toLong()) }
             val last28Days = (27 downTo 0).map { today.minusDays(it.toLong()) }
+            val startDate = today.minusDays(27).toString()
+            val endDate = today.toString()
 
-            _uiState.update {
-                it.copy(
+            combine(
+                progressRepository.observeStats(userId),
+                progressRepository.observeProgress(userId),
+                preferences.dailyGoalLevelFlow,
+                progressRepository.observePracticeHistoryForRange(userId, startDate, endDate),
+                progressRepository.observeMissedItemIds(userId)
+            ) { stats, progress, goalLevel, dailyPractice, _ ->
+                val masteredCount = progressRepository.getMasteredItemIds(userId).size
+                val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
+                val goalMinutes = goalLevel.minutes
+
+                ProgressUiState(
                     isLoading = false,
                     totalPoints = stats?.totalPoints ?: 0,
                     currentStreak = stats?.currentStreak ?: 0,
@@ -114,6 +120,8 @@ class ProgressViewModel @Inject constructor(
                     daysPracticedLast28Count = practiceDaysGrid(dailyPractice, last28Days).count { it },
                     goalMetDaysLast7 = countGoalMetDays(dailyPractice, last7Days, goalMinutes)
                 )
+            }.collect { state ->
+                _uiState.value = state
             }
         }
     }
