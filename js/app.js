@@ -52,9 +52,9 @@ class QuranicApp {
     try {
       // Step 1: Fast asynchronous load of metadata and summary dataset (<50ms)
       const [meta, summary, roots] = await Promise.all([
-        dbService.fetchCached('/data/metadata.json', 'meta_v1'),
-        dbService.fetchCached('/data/words_summary.json', 'words_summary_v1'),
-        dbService.fetchCached('/data/roots.json', 'roots_v1')
+        dbService.fetchCached('/data/metadata.json?v=1.0.2', 'meta_v2'),
+        dbService.fetchCached('/data/words_summary.json?v=1.0.2', 'words_summary_v2'),
+        dbService.fetchCached('/data/roots.json?v=1.0.2', 'roots_v2')
       ]);
 
       this.metadata = meta;
@@ -81,7 +81,7 @@ class QuranicApp {
 
   async preloadFullVerses() {
     try {
-      const fullList = await dbService.fetchCached('/data/words.json', 'words_full_v1');
+      const fullList = await dbService.fetchCached('/data/words.json?v=1.0.2', 'words_full_v2');
       if (Array.isArray(fullList)) {
         for (const w of fullList) {
           this.wordsFull.set(w.id, w);
@@ -376,6 +376,8 @@ class QuranicApp {
 
     const isBookmarked = this.bookmarks.has(w.id);
     const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
+    const validRoot = (w.rt && w.rt !== '—' && w.rt !== '-' && w.rt !== 'None' && w.rt.trim() !== '') ? w.rt.trim() : null;
+    const chNum = w.ch_num || (w.ch ? String(w.ch).replace(/^ch_0?/, '') : '1');
 
     card.innerHTML = `
       <div class="card-header">
@@ -390,8 +392,8 @@ class QuranicApp {
       </div>
 
       <div class="card-tags-row">
-        ${(w.rt && w.rt !== '—' && w.rt !== '-') ? `<span class="tag-root" title="Filter by root">${w.rt}</span>` : ''}
-        <span class="tag-chapter">Chapter ${w.ch_num || w.ch.replace('ch_', '')}</span>
+        ${validRoot ? `<span class="tag-root" title="Filter by root">${validRoot}</span>` : ''}
+        <span class="tag-chapter">Chapter ${chNum}</span>
       </div>
 
       <div class="card-meaning-box">
@@ -432,12 +434,14 @@ class QuranicApp {
     bmBtn.addEventListener('click', () => this.toggleBookmark(w.id, bmBtn));
 
     // Root click
-    const rootTag = card.querySelector('.tag-root');
-    if (rootTag) {
-      rootTag.addEventListener('click', () => {
-        this.el.searchInput.value = w.rt;
-        this.applyFilter();
-      });
+    if (validRoot) {
+      const rootTag = card.querySelector('.tag-root');
+      if (rootTag) {
+        rootTag.addEventListener('click', () => {
+          this.el.searchInput.value = validRoot;
+          this.applyFilter();
+        });
+      }
     }
 
     // Polysemy click
