@@ -26,10 +26,26 @@ import os
 import json
 import re
 import html
+import io
+import base64
+from PIL import Image
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 CONTENT_DIR = os.path.join(BASE_DIR, 'app', 'src', 'main', 'assets', 'content')
 OUTPUT_FILE_V1 = os.path.join(BASE_DIR, 'QuranicWords-v1.0.0.html')
+
+# Generate optimized deanybytes logo base64 and favicon
+LOGO_PATH = os.path.join(BASE_DIR, 'assets', 'image', 'LOGO.png')
+if os.path.exists(LOGO_PATH):
+    img = Image.open(LOGO_PATH)
+    img = img.resize((128, 128), Image.Resampling.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format='PNG', optimize=True)
+    LOGO_B64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+    LOGO_DATA_URI = f"data:image/png;base64,{LOGO_B64}"
+    img.save(os.path.join(BASE_DIR, 'favicon.png'), format='PNG', optimize=True)
+else:
+    LOGO_DATA_URI = ""
 
 def strip_tashkeel(text):
     if not text:
@@ -249,6 +265,11 @@ def main():
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="theme-color" content="#064e3b" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)">
+
+    <!-- Web App & Favicon Icons (deanybytes logo) -->
+    <link rel="icon" type="image/png" href="{LOGO_DATA_URI}">
+    <link rel="apple-touch-icon" href="{LOGO_DATA_URI}">
+    <link rel="shortcut icon" href="{LOGO_DATA_URI}">
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
@@ -1299,11 +1320,11 @@ def main():
     <!-- Left Sidebar: Chapters & Sections Directory -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <span style="font-size:26px;">📖</span>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <img src="{LOGO_DATA_URI}" alt="deanybytes QuranicWords logo" width="38" height="38" style="border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.3); background:#ffffff; padding:2px; flex-shrink:0;">
                 <div>
-                    <h2 style="font-size:16px; font-weight:800; color:#ffffff;">QuranicWords</h2>
-                    <p style="font-size:11px; color:#a7f3d0;">Master Curriculum v1.0.0</p>
+                    <h2 style="font-size:16px; font-weight:800; color:#ffffff; line-height:1.2;">QuranicWords</h2>
+                    <p style="font-size:11px; color:#a7f3d0;">by deanybytes</p>
                 </div>
             </div>
             <div style="margin-top:14px; font-size:12px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center;">
