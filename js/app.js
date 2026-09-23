@@ -70,12 +70,73 @@ class QuranicApp {
       // Apply initial full internationalization
       this.updateUILanguage(this.currentLang, false);
 
+      // Handle URL Deep-Linking & Search Query Parameters for SEO & Sitelinks
+      this.handleURLParameters();
+
       // Step 2: Background preload of full verses data
       setTimeout(() => this.preloadFullVerses(), 200);
 
     } catch (err) {
       console.error('Error initializing QuranicWords app:', err);
       this.showToast('⚠️ Error loading dictionary data. Please check your connection.');
+    }
+  }
+
+  handleURLParameters() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      let filterNeeded = false;
+
+      // 1. Language parameter (?lang=bn)
+      const lang = params.get('lang');
+      if (lang && I18N_DICTIONARY[lang] && lang !== this.currentLang) {
+        this.currentLang = lang;
+        localStorage.setItem('qw_lang', lang);
+        if (this.el.langSelect) this.el.langSelect.value = lang;
+        this.updateUILanguage(lang, false);
+      }
+
+      // 2. View / Mode parameter (?view=roots or ?mode=flashcards)
+      const view = params.get('view') || params.get('mode');
+      if (view && ['cards', 'table', 'flashcards', 'roots', 'quiz'].includes(view)) {
+        this.switchView(view);
+      }
+
+      // 3. Search query (?q=min or ?search=qala)
+      const query = params.get('q') || params.get('search');
+      if (query && this.el.searchInput) {
+        this.el.searchInput.value = query;
+        if (this.el.searchClearBtn) this.el.searchClearBtn.style.display = 'block';
+        filterNeeded = true;
+      }
+
+      // 4. Root parameter (?root=كتب)
+      const root = params.get('root');
+      if (root && this.el.searchInput) {
+        this.el.searchInput.value = root;
+        if (this.el.searchClearBtn) this.el.searchClearBtn.style.display = 'block';
+        filterNeeded = true;
+      }
+
+      // 5. Part of speech filter (?pos=verb)
+      const pos = params.get('pos');
+      if (pos && this.el.posFilter) {
+        this.el.posFilter.value = pos;
+        filterNeeded = true;
+      }
+
+      // 6. Chapter filter (?chapter=ch_01)
+      const ch = params.get('chapter') || params.get('ch');
+      if (ch && this.el.chapterFilter) {
+        this.el.chapterFilter.value = ch;
+        filterNeeded = true;
+      }
+
+      if (filterNeeded) {
+        this.applyFilter();
+      }
+    } catch (e) {
+      console.warn('URL parameters handling notice:', e);
     }
   }
 

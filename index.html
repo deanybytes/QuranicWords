@@ -1,58 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Primary SEO Meta Tags -->
-    <title>QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary</title>
-    <meta name="title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary">
-    <meta name="description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 11 languages, root analysis, audio pronunciation, flashcards, and polysemy exploration.">
-    <meta name="keywords" content="Quran vocabulary, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran lemmas, Uthmani Quran, Arabic grammar, Wujuh al-Quran, polysemy, Quranic root words, deanybytes">
+    <title>QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Arabic Vocabulary</title>
+    <meta name="title" content="QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Arabic Vocabulary">
+    <meta name="description" content="Master 4,709 Quranic Arabic words ordered by frequency. Features authentic verse contexts, word by word meanings in 11 languages, 251 root words dictionary, audio pronunciation, flashcards, and polysemy (Wujuh al-Quran). Free & open source.">
+    <meta name="keywords" content="Quran words, Quran vocabulary, Quran word meaning, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran root words, word by word Quran, Uthmani Quran words, Wujuh al-Quran, Quranic Arabic vocabulary, Quran flashcards, Quran dictionary, Quran word count, Quranic words list, Quran meaning in English, Quran meaning in Bengali, Quran meaning in Urdu, Quran root explorer, DeanyBytes">
     <meta name="author" content="DeanyBytes">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://quranicwords.vercel.app/">
+
+    <!-- Multilingual Alternate Hreflang Tags -->
+    <link rel="alternate" hreflang="x-default" href="https://quranicwords.vercel.app/">
+    <link rel="alternate" hreflang="en" href="https://quranicwords.vercel.app/?lang=en">
+    <link rel="alternate" hreflang="bn" href="https://quranicwords.vercel.app/?lang=bn">
+    <link rel="alternate" hreflang="ur" href="https://quranicwords.vercel.app/?lang=ur">
+    <link rel="alternate" hreflang="hi" href="https://quranicwords.vercel.app/?lang=hi">
+    <link rel="alternate" hreflang="id" href="https://quranicwords.vercel.app/?lang=in">
+    <link rel="alternate" hreflang="ms" href="https://quranicwords.vercel.app/?lang=ms">
+    <link rel="alternate" hreflang="tr" href="https://quranicwords.vercel.app/?lang=tr">
+    <link rel="alternate" hreflang="fa" href="https://quranicwords.vercel.app/?lang=fa">
+    <link rel="alternate" hreflang="ha" href="https://quranicwords.vercel.app/?lang=ha">
+    <link rel="alternate" hreflang="sw" href="https://quranicwords.vercel.app/?lang=sw">
+    <link rel="alternate" hreflang="fr" href="https://quranicwords.vercel.app/?lang=fr">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="QuranicWords">
     <meta property="og:url" content="https://quranicwords.vercel.app/">
-    <meta property="og:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum">
-    <meta property="og:description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency with verse contexts, audio, root explorer, and flashcards.">
+    <meta property="og:title" content="QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Arabic Vocabulary">
+    <meta property="og:description" content="Master 4,709 verified Quranic Arabic words ordered by frequency with verse contexts, 251 roots, audio pronunciation, flashcards, and 11-language meanings.">
     <meta property="og:image" content="https://quranicwords.vercel.app/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="QuranicWords - Quranic Arabic Vocabulary Dictionary">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="bn_BD">
+    <meta property="og:locale:alternate" content="ur_PK">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta property="og:locale:alternate" content="id_ID">
+    <meta property="og:locale:alternate" content="tr_TR">
+    <meta property="og:locale:alternate" content="fr_FR">
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://quranicwords.vercel.app/">
-    <meta property="twitter:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum">
-    <meta property="twitter:description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency with verse contexts, audio, root explorer, and flashcards.">
-    <meta property="twitter:image" content="https://quranicwords.vercel.app/favicon.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@deanybytes">
+    <meta name="twitter:creator" content="@deanybytes">
+    <meta name="twitter:url" content="https://quranicwords.vercel.app/">
+    <meta name="twitter:title" content="QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Arabic Vocabulary">
+    <meta name="twitter:description" content="Master 4,709 verified Quranic Arabic words ordered by frequency with verse contexts, audio, root explorer, and flashcards.">
+    <meta name="twitter:image" content="https://quranicwords.vercel.app/favicon.png">
+    <meta name="twitter:image:alt" content="QuranicWords logo and vocabulary preview">
 
-    <!-- Favicon & Icons -->
+    <!-- Favicon, Manifest & App Meta -->
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#06080e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QuranicWords">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="/css/main.css?v=1.0.3">
-    <link rel="stylesheet" href="/css/components.css?v=1.0.3">
+    <link rel="stylesheet" href="/css/main.css?v=1.0.4">
+    <link rel="stylesheet" href="/css/components.css?v=1.0.4">
 
-    <!-- Structured Data (Schema.org) -->
+    <!-- Structured Data (Schema.org) - WebSite with Sitelinks SearchBox -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "QuranicWords Master Curriculum Dictionary",
-      "url": "https://quranicwords.vercel.app/",
-      "description": "Master 4,709 verified Qur'anic Arabic words ordered by frequency with authentic verse contexts and 11-language translations.",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "author": {
-        "@type": "Organization",
-        "name": "DeanyBytes",
-        "url": "https://github.com/deanybytes"
-      }
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://quranicwords.vercel.app/#website",
+          "url": "https://quranicwords.vercel.app/",
+          "name": "QuranicWords",
+          "alternateName": ["Quranic Words", "Quran Vocabulary Master Curriculum", "Quran Words Dictionary"],
+          "description": "Master 4,709 verified Quranic Arabic words ordered by frequency with authentic verse contexts, root analysis, and 11-language meanings.",
+          "inLanguage": ["en", "bn", "ur", "hi", "id", "ms", "tr", "fa", "ha", "sw", "fr", "ar"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://quranicwords.vercel.app/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://quranicwords.vercel.app/#app",
+          "name": "QuranicWords Master Curriculum Dictionary",
+          "url": "https://quranicwords.vercel.app/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All (Web, Android, iOS, Windows, macOS, Linux)",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "description": "Comprehensive interactive dictionary and curriculum for 4,709 Quranic Arabic words, 251 roots, 77,430+ occurrences, audio, and polysemy explorer.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "DeanyBytes",
+            "url": "https://github.com/deanybytes"
+          },
+          "featureList": [
+            "4,709 Frequency-Ranked Quranic Arabic Lemmas",
+            "251 Quranic Root Words Index with Live Derivation Explorer",
+            "Word-by-word meanings across 11 world languages",
+            "Contextual Polysemy (Wujuh al-Quran) with Ayah switching",
+            "High-clarity Arabic audio pronunciation",
+            "Spaced repetition interactive flashcards and quiz trainer",
+            "100% free, open source, and offline-capable"
+          ]
+        },
+        {
+          "@type": "Course",
+          "@id": "https://quranicwords.vercel.app/#course",
+          "name": "QuranicWords Vocabulary Master Curriculum",
+          "description": "Complete educational curriculum teaching 4,709 Quranic words across Particles (Harf), Verbs (Fi'l), and Nouns (Ism) in order of real Quranic frequency.",
+          "provider": {
+            "@type": "Organization",
+            "name": "DeanyBytes",
+            "sameAs": "https://github.com/deanybytes/QuranicWords"
+          },
+          "educationalLevel": "Beginner to Advanced",
+          "inLanguage": ["en", "bn", "ur", "hi", "id", "ms", "tr", "fa", "ha", "sw", "fr", "ar"]
+        },
+        {
+          "@type": "DefinedTermSet",
+          "@id": "https://quranicwords.vercel.app/#lexicon",
+          "name": "Quranic Arabic Vocabulary Lexicon",
+          "description": "4,709 Quranic lemmas covering over 80% of total Quranic text occurrences."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://quranicwords.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is QuranicWords?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "QuranicWords is a free, open-source Quranic Arabic vocabulary curriculum and interactive dictionary. It teaches 4,709 unique Quranic words ordered by frequency of occurrence across 10 chapters, covering over 80% of the Noble Qur'an."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How are Quranic words ordered in QuranicWords?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Words are ordered by their real occurrence frequency in the Qur'an, categorized into the 3 classical Arabic parts of speech (Aqsam al-Kalimah): Particles (Harf - 173 words), Verbs (Fi'l - 1,479 words), and Nouns (Ism - 3,057 words)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What languages are available for Quran word meanings?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "QuranicWords provides full verified word-by-word meanings in 11 languages: English, Bengali (বাংলা), Urdu (اردو), Hindi (हिन्दी), Indonesian (Bahasa Indonesia), Malay (Bahasa Melayu), Turkish (Türkçe), Persian (فارسی), Hausa, Swahili (Kiswahili), and French (Français)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How many root words are indexed in QuranicWords?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "QuranicWords indexes 251 unique Quranic Arabic roots. Learners can click any root to immediately view all derived nouns, verbs, and particles with their occurrence counts in the Qur'an."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is Wujuh al-Quran (Quranic Polysemy)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Wujuh al-Quran refers to words in the Qur'an that hold multiple distinct contextual meanings depending on the Surah and verse. QuranicWords features interactive polysemy tabs showing each contextual sense with authentic Ayah citations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is QuranicWords free, offline-capable, and ad-free?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, QuranicWords is 100% free, ad-free, and open source under Apache 2.0 / GPL 3.0. Both the web application (PWA) and Android app work offline with zero tracking or accounts."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
 </head>
@@ -295,6 +439,255 @@
                 <div class="quiz-options-grid" id="quiz-options"></div>
             </div>
         </section>
+
+        <!-- Crawlable Semantic SEO Guide, Vocabulary Index & FAQ Section -->
+        <article class="seo-guide-section" id="curriculum-guide">
+            <header class="seo-guide-header">
+                <div class="seo-guide-badge">📖 Complete Quranic Arabic Lexicon</div>
+                <h2 class="seo-guide-title">Master the Words and Meanings of the Noble Qur'an</h2>
+                <p class="seo-guide-lead">
+                    Understand what you recite in your daily Salah. <strong>QuranicWords</strong> is an open-source master curriculum dictionary indexing <strong>4,709 verified Quranic lemmas</strong>, <strong>251 root words</strong>, and over <strong>77,430 occurrences</strong> in descending order of Quranic frequency.
+                </p>
+            </header>
+
+            <!-- 3 Parts of Speech Breakdown -->
+            <div class="seo-grid-3">
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">✨</span>
+                    <h3 class="seo-card-title">1. Ḥarf (الحرف — Particles)</h3>
+                    <p class="seo-card-desc">
+                        <strong>173 Particles</strong> covering <strong>24,651 occurrences (41.16% of total Quranic text)</strong>. Master prepositions, conjunctions, pronouns, and conditional particles in Chapter 1.
+                    </p>
+                </div>
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">⚡</span>
+                    <h3 class="seo-card-title">2. Fi'l (الفعل — Verbs)</h3>
+                    <p class="seo-card-desc">
+                        <strong>1,479 Quranic Verbs</strong> covering <strong>13,491 occurrences</strong>. Taught systematically across Chapters 2 through 4 with authentic verb forms, roots, and verse contexts.
+                    </p>
+                </div>
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">📖</span>
+                    <h3 class="seo-card-title">3. Ism (الاسم — Nouns)</h3>
+                    <p class="seo-card-desc">
+                        <strong>3,057 Quranic Nouns</strong> covering <strong>21,746 occurrences</strong> across Chapters 5 through 10. Learn the divine names, descriptors, plurals, and contextual senses.
+                    </p>
+                </div>
+            </div>
+
+            <!-- High-Frequency Quran Words Preview Table -->
+            <div class="seo-showcase-box">
+                <div class="seo-showcase-title">
+                    <span>🔥 Most Frequent Quranic Words Sample</span>
+                    <span style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Top Occurrence Lemmas</span>
+                </div>
+                <div class="seo-table-responsive">
+                    <table class="seo-preview-table" summary="Top most frequent Quranic words with meanings in English, Bengali, and Urdu">
+                        <thead>
+                            <tr>
+                                <th>Arabic Lemma</th>
+                                <th>Transliteration</th>
+                                <th>Part of Speech</th>
+                                <th>Occurrences</th>
+                                <th>English Meaning</th>
+                                <th>Bengali (বাংলা)</th>
+                                <th>Urdu (اردو)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="seo-ar-word">مِنْ</span></td>
+                                <td><code>min</code></td>
+                                <td><span class="seo-badge-tag">Preposition</span></td>
+                                <td><strong>3,226</strong></td>
+                                <td>from / of</td>
+                                <td>হতে / দিয়ে</td>
+                                <td>سے / میں سے</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">فِي</span></td>
+                                <td><code>fī</code></td>
+                                <td><span class="seo-badge-tag">Preposition</span></td>
+                                <td><strong>1,701</strong></td>
+                                <td>in / concerning</td>
+                                <td>মধ্যে / সম্পর্কে</td>
+                                <td>میں / کے اندر</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">إِنَّ</span></td>
+                                <td><code>inna</code></td>
+                                <td><span class="seo-badge-tag">Accusative</span></td>
+                                <td><strong>1,682</strong></td>
+                                <td>indeed / truly</td>
+                                <td>নিশ্চয়ই</td>
+                                <td>بے شک</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">عَلَى</span></td>
+                                <td><code>ʿalā</code></td>
+                                <td><span class="seo-badge-tag">Preposition</span></td>
+                                <td><strong>1,445</strong></td>
+                                <td>upon / against</td>
+                                <td>উপর / বিরুদ্ধে</td>
+                                <td>پر / خلاف</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">الَّذِي</span></td>
+                                <td><code>alladhī</code></td>
+                                <td><span class="seo-badge-tag">Relative Pronoun</span></td>
+                                <td><strong>1,442</strong></td>
+                                <td>who / which</td>
+                                <td>যে / যা</td>
+                                <td>جو / جس</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">لَا</span></td>
+                                <td><code>lā</code></td>
+                                <td><span class="seo-badge-tag">Negation</span></td>
+                                <td><strong>1,364</strong></td>
+                                <td>no / do not</td>
+                                <td>নেই / করো না</td>
+                                <td>نہیں / نہ</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">مَا</span></td>
+                                <td><code>mā</code></td>
+                                <td><span class="seo-badge-tag">Relative / Negation</span></td>
+                                <td><strong>1,266</strong></td>
+                                <td>what / not</td>
+                                <td>যা / না</td>
+                                <td>جو / نہیں</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">هُوَ</span></td>
+                                <td><code>huwa</code></td>
+                                <td><span class="seo-badge-tag">Pronoun</span></td>
+                                <td><strong>890</strong></td>
+                                <td>He</td>
+                                <td>তিনি</td>
+                                <td>وہ</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">إِلَى</span></td>
+                                <td><code>ilā</code></td>
+                                <td><span class="seo-badge-tag">Preposition</span></td>
+                                <td><strong>742</strong></td>
+                                <td>to / towards / until</td>
+                                <td>পর্যন্ত / দিকে</td>
+                                <td>طرف / تک</td>
+                            </tr>
+                            <tr>
+                                <td><span class="seo-ar-word">مَنْ</span></td>
+                                <td><code>man</code></td>
+                                <td><span class="seo-badge-tag">Relative Pronoun</span></td>
+                                <td><strong>606</strong></td>
+                                <td>who / whoever</td>
+                                <td>যারা / যে</td>
+                                <td>جو شخص / جو کوئی</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Features & Methodology -->
+            <div class="seo-grid-3">
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">🔀</span>
+                    <h3 class="seo-card-title">Wujūh al-Qur'an (Polysemy)</h3>
+                    <p class="seo-card-desc">
+                        Explore multi-sense words whose meanings vary by verse context. Switch between contextual sense tabs with live in-verse span highlights.
+                    </p>
+                </div>
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">🌳</span>
+                    <h3 class="seo-card-title">251 Roots Explorer</h3>
+                    <p class="seo-card-desc">
+                        Connect derived verbs and nouns back to their trilateral root letters (e.g. <code>ق-و-ل</code>, <code>ك-ت-ب</code>, <code>ع-ل-م</code>).
+                    </p>
+                </div>
+                <div class="seo-feature-card">
+                    <span class="seo-card-icon">🔊</span>
+                    <h3 class="seo-card-title">Audio & Flashcard Trainer</h3>
+                    <p class="seo-card-desc">
+                        Listen to high-clarity Arabic audio pronunciations and train your recall with spaced repetition flashcards and dynamic quiz challenges.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Frequently Asked Questions (FAQ) with Structured Rich Snippet schema -->
+            <div class="seo-showcase-box" style="margin-bottom: 24px;">
+                <h3 class="seo-showcase-title">❓ Frequently Asked Questions about Quranic Words & Vocabulary</h3>
+                
+                <div class="seo-faq-list">
+                    <details class="seo-faq-item" open>
+                        <summary class="seo-faq-summary">What is QuranicWords and how does it work?</summary>
+                        <div class="seo-faq-answer">
+                            <strong>QuranicWords</strong> is an open-source educational platform and interactive dictionary designed to teach Quranic Arabic vocabulary. Rather than memorizing random lists, it organizes <strong>4,709 verified Quranic lemmas</strong> in descending order of their real occurrence frequency across 10 chapters. By learning the most frequent words first, learners quickly gain comprehension of over 80% of the Qur'anic text.
+                        </div>
+                    </details>
+
+                    <details class="seo-faq-item">
+                        <summary class="seo-faq-summary">What languages are supported for Quran word translations?</summary>
+                        <div class="seo-faq-answer">
+                            QuranicWords features verified word-by-word meanings across <strong>11 languages</strong>:
+                            <ul>
+                                <li><strong>English</strong> (EN)</li>
+                                <li><strong>Bengali</strong> (বাংলা - BN)</li>
+                                <li><strong>Urdu</strong> (اردو - UR)</li>
+                                <li><strong>Hindi</strong> (हिन्दी - HI)</li>
+                                <li><strong>Indonesian</strong> (Bahasa Indonesia - ID)</li>
+                                <li><strong>Malay</strong> (Bahasa Melayu - MS)</li>
+                                <li><strong>Turkish</strong> (Türkçe - TR)</li>
+                                <li><strong>Persian / Farsi</strong> (فارسی - FA)</li>
+                                <li><strong>Hausa</strong> (HA)</li>
+                                <li><strong>Swahili</strong> (Kiswahili - SW)</li>
+                                <li><strong>French</strong> (Français - FR)</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="seo-faq-item">
+                        <summary class="seo-faq-summary">How many unique words and root words are in the Qur'an?</summary>
+                        <div class="seo-faq-answer">
+                            The Noble Qur'an contains approximately 77,430 total word tokens. The QuranicWords curriculum indexes <strong>4,709 unique vocabulary lemmas</strong> derived from <strong>251 primary Arabic root words</strong>, categorized into Particles (173), Verbs (1,479), and Nouns (3,057).
+                        </div>
+                    </details>
+
+                    <details class="seo-faq-item">
+                        <summary class="seo-faq-summary">What is Wujūh al-Qur'an (Quranic Polysemy)?</summary>
+                        <div class="seo-faq-answer">
+                            <em>Wujūh al-Qur'an</em> is the classical Islamic science of Quranic polysemy, where an Arabic word holds multiple distinct meanings in different verses and contexts. QuranicWords provides interactive polysemy tabs for all relevant lemmas, showing the precise contextual sense alongside authentic Ayah citations.
+                        </div>
+                    </details>
+
+                    <details class="seo-faq-item">
+                        <summary class="seo-faq-summary">Is QuranicWords completely free, offline, and private?</summary>
+                        <div class="seo-faq-answer">
+                            Yes. QuranicWords is 100% free, open source, and ad-free. It requires no login, no accounts, and no data tracking. The web application functions as a Progressive Web App (PWA) that works offline, and a native Android app built with Jetpack Compose is also available on GitHub.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- High Intent Search Queries & Topic Pills -->
+            <div style="margin-top: 24px;">
+                <span style="font-size: 0.82rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Popular Vocabulary & Root Searches:</span>
+                <div class="seo-keyword-cloud">
+                    <a href="/?q=min" class="seo-keyword-pill">🔍 min (مِنْ) meaning</a>
+                    <a href="/?q=inna" class="seo-keyword-pill">🔍 inna (إِنَّ) meaning</a>
+                    <a href="/?q=qala" class="seo-keyword-pill">🔍 qāla (قَالَ) meaning</a>
+                    <a href="/?q=alladhina" class="seo-keyword-pill">🔍 alladhīna (الَّذِينَ)</a>
+                    <a href="/?q=rabb" class="seo-keyword-pill">🔍 rabb (رَبّ)</a>
+                    <a href="/?q=allah" class="seo-keyword-pill">🔍 Allah (الله)</a>
+                    <a href="/?view=roots" class="seo-keyword-pill">🌳 251 Quranic Roots</a>
+                    <a href="/?view=flashcards" class="seo-keyword-pill">📇 Quran Flashcards</a>
+                    <a href="/?view=quiz" class="seo-keyword-pill">🎯 Vocabulary Quiz</a>
+                    <a href="/?lang=bn" class="seo-keyword-pill">🌐 অর্থসহ কুরআনের শব্দভাণ্ডার</a>
+                    <a href="/?lang=ur" class="seo-keyword-pill">🌐 قرآنی الفاظ معانی</a>
+                </div>
+            </div>
+        </article>
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">

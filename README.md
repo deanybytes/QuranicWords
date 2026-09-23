@@ -1,11 +1,18 @@
-# 🕌 QuranicWords
+# 🕌 QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Vocabulary Master Curriculum
 
 <p align="center">
   <img src="assets/image/LOGO.png" width="140" alt="QuranicWords logo" />
 </p>
 
 <p align="center">
-  <strong>A gamified, game-like Android app for learning Quranic vocabulary — Arabic words taught in the order they actually appear in the Qur'an, most frequent first.</strong>
+  <strong>The Ultimate Quranic Arabic Vocabulary Curriculum & Interactive Dictionary — 4,709 Quranic words taught in descending order of real frequency with meanings in 11 languages, 251 roots, authentic verse contexts, audio, and gamified Android app.</strong>
+</p>
+
+<p align="center">
+  <a href="https://quranicwords.vercel.app/"><img alt="Quran Vocabulary" src="https://img.shields.io/badge/Quran%20Vocabulary-4%2C709%20Words-10b981?style=for-the-badge&logo=bookstack&logoColor=white" /></a>
+  <a href="https://quranicwords.vercel.app/roots"><img alt="Roots Dictionary" src="https://img.shields.io/badge/Root%20Words-251%20Roots-f59e0b?style=for-the-badge" /></a>
+  <a href="https://quranicwords.vercel.app/"><img alt="11 Languages" src="https://img.shields.io/badge/Meanings-11%20Languages-06b6d4?style=for-the-badge" /></a>
+  <a href="https://github.com/rmrashahriar/QuranicWords/releases"><img alt="Android APK" src="https://img.shields.io/badge/Android%20App-v1.0.0%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
 </p>
 
 <p align="center">
@@ -20,8 +27,20 @@
 </p>
 
 <p align="center">
-  🌐 <strong>Live Web Edition & Interactive Dictionary:</strong> <a href="https://quranicwords.vercel.app/"><strong>https://quranicwords.vercel.app/</strong></a>
+  🌐 <strong>Live Web Application & Interactive Dictionary:</strong> <a href="https://quranicwords.vercel.app/"><strong>https://quranicwords.vercel.app/</strong></a>
 </p>
+
+---
+
+## 🔍 Key Search Terms & Overview
+
+| Topic | Search Queries Targeted | Direct Link |
+|---|---|---|
+| 📖 **Quran Words & Vocabulary** | Quran words, Quran vocabulary, learn Quran words, frequency list | [Explore 4,709 Lemmas](https://quranicwords.vercel.app/) |
+| 🔤 **Word-by-Word Meanings** | Quran word meaning, English, Bengali, Urdu, Hindi, Indonesian | [11-Language Dictionary](https://quranicwords.vercel.app/) |
+| 🌳 **Quran Root Words** | Quran root words dictionary, 251 roots, Arabic root explorer | [Root Graph Explorer](https://quranicwords.vercel.app/roots) |
+| 📇 **Quran Flashcards & Quiz** | Quran flashcards, Quran vocabulary quiz, spaced repetition | [Flashcard Trainer](https://quranicwords.vercel.app/flashcards) |
+| 📱 **Android Native App** | QuranicWords Android app, Jetpack Compose offline APK | [Download Release](https://github.com/rmrashahriar/QuranicWords/releases) |
 
 ---
 
