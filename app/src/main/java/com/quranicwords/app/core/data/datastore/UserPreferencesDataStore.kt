@@ -221,6 +221,9 @@ class UserPreferencesDataStore @Inject constructor(
             it[Keys.DAILY_GOAL_LEVEL] = level.name
             it[Keys.DAILY_GOAL_CHOICE_MADE] = true
         }
+        runCatching {
+            com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+        }
     }
 
     val dailyGoalChoiceMadeFlow: Flow<Boolean> =
