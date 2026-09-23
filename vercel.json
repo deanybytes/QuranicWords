@@ -4,27 +4,27 @@
   "routes": [
     {
       "src": "/QuranicWords-v1.0.0.html",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     },
     {
       "src": "/QuranicWords-v1.0.0",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     },
     {
       "src": "/v1.0.0",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     },
     {
       "src": "/v1",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     },
     {
       "src": "/dictionary",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     },
     {
       "src": "/",
-      "dest": "/QuranicWords_Dictionary.html"
+      "dest": "/QuranicWords-v1.0.0.html"
     }
   ]
 }
