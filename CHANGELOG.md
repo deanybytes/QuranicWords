@@ -5,6 +5,7 @@ All notable changes to QuranicWords are documented here.
 ## [1.0.0] - 2026-09-23 (Build 100002)
 
 ### Fixed & Improved
+- **Widget Theme Synchronization**: Synchronized widget visual styling (background glass drawables, surface cards, badges, buttons, and text colors) directly with the in-app `ThemeMode` (`DARK`, `LIGHT`, `SYSTEM`). Added dual-theme `RemoteViews(light, dark)` support on Android 12+ (API 31+) for system-following mode, and connected `UserPreferencesDataStore.setThemeMode` to trigger immediate background widget refreshes via `WidgetUpdateScheduler.updateAllWidgets`.
 - **Backup Restore Progress Synchronization**: Remapped all imported stats, progress, exercise attempts, achievements, and daily practice entities to the device's active local user ID, ensuring Home screen, Roadmap/Timeline, Progress tab, and Learned Words immediately reflect restored data and stay continuously in sync as new lessons are completed.
 - **Matching Exercise Selection Reset**: Scoped lesson exercise state by `key(uiState.currentIndex)` and ensured clean `justMatched` reset and `matchOrder` synchronization so tapped words never remain selected across multi-repetition (3x / 5x) practice sequences.
 - **Timestamped Backup Export**: Export filenames now include date and time (`quranicwords_backup_yyyyMMdd_HHmmss.json`).

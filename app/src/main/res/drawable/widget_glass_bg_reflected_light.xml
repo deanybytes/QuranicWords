@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer shadow -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <solid android:color="#26000000" />
+        </shape>
+    </item>
+    <!-- Base glass -->
+    <item
+        android:bottom="2dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="135"
+                android:endColor="@color/widget_light_bg_gradient_end"
+                android:startColor="@color/widget_light_bg_gradient_start"
+                android:type="linear" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/widget_light_accent_primary" />
+        </shape>
+    </item>
+    <!-- Reflection sheen highlight streak -->
+    <item
+        android:bottom="4dp"
+        android:left="3dp"
+        android:right="3dp"
+        android:top="3dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient
+                android:angle="45"
+                android:centerColor="@color/widget_light_reflection_color"
+                android:endColor="#00FFFFFF"
+                android:startColor="#00FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

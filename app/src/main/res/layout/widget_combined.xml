@@ -24,6 +24,7 @@
             android:src="@drawable/ic_qw_mark" />
 
         <TextView
+            android:id="@+id/tv_app_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -84,6 +85,7 @@
 
         <!-- Words Mastered -->
         <LinearLayout
+            android:id="@+id/ll_words_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -113,6 +115,7 @@
 
         <!-- Accuracy -->
         <LinearLayout
+            android:id="@+id/ll_accuracy_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="2dp"
@@ -142,6 +145,7 @@
 
         <!-- Daily Goal -->
         <LinearLayout
+            android:id="@+id/ll_daily_goal_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -212,6 +216,7 @@
 
         <!-- Arabic & Meaning Card -->
         <LinearLayout
+            android:id="@+id/ll_hero_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/widget_surface_card"
