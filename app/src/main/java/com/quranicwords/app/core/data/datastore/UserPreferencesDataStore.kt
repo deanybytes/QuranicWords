@@ -115,6 +115,9 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setThemeMode(mode: ThemeMode) {
         context.dataStore.edit { it[Keys.THEME_MODE] = mode.name }
+        runCatching {
+            com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+        }
     }
 
     val fontStyleFlow: Flow<QuranFontStyle> =

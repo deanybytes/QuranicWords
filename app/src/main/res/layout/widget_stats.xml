@@ -24,6 +24,7 @@
             android:src="@drawable/ic_qw_mark" />
 
         <TextView
+            android:id="@+id/tv_app_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -92,6 +93,7 @@
 
             <!-- Words Learned Box -->
             <LinearLayout
+                android:id="@+id/ll_words_card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -123,6 +125,7 @@
 
             <!-- Accuracy Box -->
             <LinearLayout
+                android:id="@+id/ll_accuracy_card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -161,6 +164,7 @@
 
             <!-- Daily Goal Box -->
             <LinearLayout
+                android:id="@+id/ll_daily_goal_card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -202,6 +206,7 @@
 
             <!-- Review Queue Box -->
             <LinearLayout
+                android:id="@+id/ll_review_card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"

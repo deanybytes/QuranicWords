@@ -7,6 +7,7 @@ import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.util.AppJson
 import kotlinx.coroutines.Dispatchers
@@ -40,15 +41,32 @@ data class WidgetWordData(
 )
 
 data class WidgetSnapshot(
+
     val stats: WidgetStatsData,
     val currentWord: WidgetWordData?,
-    val language: Language = Language.ENGLISH
+    val language: Language = Language.ENGLISH,
+    val themeMode: ThemeMode = ThemeMode.SYSTEM
 )
 
 fun Context.getLocalizedWidgetContext(language: Language): Context {
+    return getThemedAndLocalizedWidgetContext(language, ThemeMode.SYSTEM)
+}
+
+fun Context.getThemedAndLocalizedWidgetContext(language: Language, themeMode: ThemeMode): Context {
     val locale = java.util.Locale.forLanguageTag(language.tag)
     val config = android.content.res.Configuration(resources.configuration)
     config.setLocale(locale)
+    when (themeMode) {
+        ThemeMode.DARK -> {
+            config.uiMode = (config.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK.inv()) or android.content.res.Configuration.UI_MODE_NIGHT_YES
+        }
+        ThemeMode.LIGHT -> {
+            config.uiMode = (config.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK.inv()) or android.content.res.Configuration.UI_MODE_NIGHT_NO
+        }
+        ThemeMode.SYSTEM -> {
+            // Keep device system UI mode
+        }
+    }
     return createConfigurationContext(config)
 }
 
@@ -63,6 +81,7 @@ object WidgetDataProvider {
         val prefs = UserPreferencesDataStore(context)
         val userId = prefs.getOrCreateLocalUserId()
         val language = prefs.languageFlow.first() ?: Language.ENGLISH
+        val themeMode = prefs.themeModeFlow.first()
 
         // 1. Compute Stats
         val statsEntity = database.userStatsDao().get(userId)
@@ -205,6 +224,6 @@ object WidgetDataProvider {
             }
         }
 
-        WidgetSnapshot(stats = stats, currentWord = wordData, language = language)
+        WidgetSnapshot(stats = stats, currentWord = wordData, language = language, themeMode = themeMode)
     }
 }

@@ -22,4 +22,42 @@
     <color name="widget_progress_track">#33007A42</color>
     <color name="widget_progress_fill">#007A42</color>
     <color name="widget_reflection_color">#66FFFFFF</color>
+
+    <!-- Explicit Light Theme Widget Tokens -->
+    <color name="widget_light_bg_gradient_start">#E6FDF9F0</color>
+    <color name="widget_light_bg_gradient_end">#CCF4EBD8</color>
+    <color name="widget_light_bg_stroke">#80FFFFFF</color>
+    <color name="widget_light_surface_card">#73FFFFFF</color>
+    <color name="widget_light_surface_card_stroke">#66FFFFFF</color>
+    <color name="widget_light_text_primary">#053827</color>
+    <color name="widget_light_text_secondary">#355E30</color>
+    <color name="widget_light_text_tertiary">#5D6E5C</color>
+    <color name="widget_light_accent_primary">#007A42</color>
+    <color name="widget_light_accent_gold">#C48300</color>
+    <color name="widget_light_mistake_tag_bg">#26BA1A1A</color>
+    <color name="widget_light_mistake_tag_text">#BA1A1A</color>
+    <color name="widget_light_mastered_tag_bg">#26007A42</color>
+    <color name="widget_light_mastered_tag_text">#007A42</color>
+    <color name="widget_light_progress_track">#33007A42</color>
+    <color name="widget_light_progress_fill">#007A42</color>
+    <color name="widget_light_reflection_color">#66FFFFFF</color>
+
+    <!-- Explicit Dark Theme Widget Tokens -->
+    <color name="widget_dark_bg_gradient_start">#E6072D20</color>
+    <color name="widget_dark_bg_gradient_end">#CC021810</color>
+    <color name="widget_dark_bg_stroke">#337ED957</color>
+    <color name="widget_dark_surface_card">#38114431</color>
+    <color name="widget_dark_surface_card_stroke">#267ED957</color>
+    <color name="widget_dark_text_primary">#F2F7F0</color>
+    <color name="widget_dark_text_secondary">#B2E6AA</color>
+    <color name="widget_dark_text_tertiary">#8EA896</color>
+    <color name="widget_dark_accent_primary">#7ED957</color>
+    <color name="widget_dark_accent_gold">#EBC971</color>
+    <color name="widget_dark_mistake_tag_bg">#40FFB4AB</color>
+    <color name="widget_dark_mistake_tag_text">#FFB4AB</color>
+    <color name="widget_dark_mastered_tag_bg">#407ED957</color>
+    <color name="widget_dark_mastered_tag_text">#7ED957</color>
+    <color name="widget_dark_progress_track">#337ED957</color>
+    <color name="widget_dark_progress_fill">#7ED957</color>
+    <color name="widget_dark_reflection_color">#4DFFFFFF</color>
 </resources>
