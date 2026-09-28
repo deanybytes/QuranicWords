@@ -99,6 +99,7 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
+    val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
     val streakReminderHour by viewModel.streakReminderHour.collectAsStateWithLifecycle()
@@ -264,6 +265,19 @@ fun SettingsScreen(
                 Text(stringResource(R.string.settings_reduce_glass_label), style = MaterialTheme.typography.labelLarge)
                 Switch(checked = reduceGlassEffects, onCheckedChange = viewModel::setReduceGlassEffects)
             }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(stringResource(R.string.settings_require_exit_confirmation_label), style = MaterialTheme.typography.labelLarge)
+                Switch(checked = requireExitConfirmation, onCheckedChange = viewModel::setRequireExitConfirmation)
+            }
+            Text(
+                stringResource(R.string.settings_require_exit_confirmation_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
 
             Text(stringResource(R.string.settings_font_scale_label), style = MaterialTheme.typography.labelLarge)
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {

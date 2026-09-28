@@ -18,6 +18,7 @@ sealed interface Route {
      * [LanguageSelect] would. See `SplashScreen`'s own doc comment for why *that* screen no longer
      * plays it for a first-time user. */
     @Serializable data object OnboardingInvocation : Route
+    @Serializable data object Walkthrough : Route
     @Serializable data object Home : Route
     @Serializable data class ChapterIntro(val chapterId: String) : Route
     @Serializable data class SectionIntro(val sectionId: String) : Route

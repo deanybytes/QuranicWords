@@ -33,6 +33,9 @@ class QwBottomNavShellViewModel @Inject constructor(
     val learningPath: StateFlow<LearningPath> = preferences.learningPathFlow
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), LearningPath.DEFAULT)
 
+    val requireExitConfirmation: StateFlow<Boolean> = preferences.requireExitConfirmationFlow
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
+
     val currentLessonId: StateFlow<String?> = flow {
         val userId = userIdProvider.get()
         progressRepository.ensureCurriculumStarted(userId)

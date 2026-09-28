@@ -63,6 +63,7 @@ class UserPreferencesDataStore @Inject constructor(
         val TEST_ISM_COVERED_IDS = stringSetPreferencesKey("test_ism_covered_ids")
         val TEST_FIL_COVERED_IDS = stringSetPreferencesKey("test_fil_covered_ids")
         val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
+        val REQUIRE_EXIT_CONFIRMATION = booleanPreferencesKey("require_exit_confirmation")
     }
 
     private val userIdMutex = Mutex()
@@ -158,6 +159,13 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setReduceGlassEffects(enabled: Boolean) {
         context.dataStore.edit { it[Keys.REDUCE_GLASS_EFFECTS] = enabled }
+    }
+
+    val requireExitConfirmationFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.REQUIRE_EXIT_CONFIRMATION] != false }
+
+    suspend fun setRequireExitConfirmation(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.REQUIRE_EXIT_CONFIRMATION] = enabled }
     }
 
     /** Master sound-effects toggle (Settings screen) - checked once inside

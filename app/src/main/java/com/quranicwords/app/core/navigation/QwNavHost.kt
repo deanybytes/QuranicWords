@@ -37,6 +37,7 @@ import com.quranicwords.app.feature.roadmap.RoadmapScreen
 import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.splash.OnboardingInvocationScreen
 import com.quranicwords.app.feature.splash.SplashScreen
+import com.quranicwords.app.feature.walkthrough.WalkthroughScreen
 
 private typealias EnterSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
 private typealias ExitSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition
@@ -192,8 +193,22 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             OnboardingInvocationScreen(
                 onFinished = {
-                    navController.navigate(Route.Home) {
+                    navController.navigate(Route.Walkthrough) {
                         popUpTo(Route.OnboardingInvocation) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<Route.Walkthrough>(
+            enterTransition = t.onboardingEnter,
+            exitTransition = t.onboardingExit,
+            popEnterTransition = t.onboardingPopEnter,
+            popExitTransition = t.onboardingPopExit
+        ) {
+            WalkthroughScreen(
+                onFinished = {
+                    navController.navigate(Route.Home) {
+                        popUpTo(Route.Walkthrough) { inclusive = true }
                     }
                 }
             )

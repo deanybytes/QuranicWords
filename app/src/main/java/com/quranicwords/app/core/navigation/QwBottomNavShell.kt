@@ -1,5 +1,7 @@
 package com.quranicwords.app.core.navigation
 
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +13,14 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Insights
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -71,6 +77,37 @@ fun QwBottomNavShell(
     var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
     val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
     val currentLessonId by viewModel.currentLessonId.collectAsStateWithLifecycle()
+    val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
+
+    var showExitDialog by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = requireExitConfirmation) {
+        showExitDialog = true
+    }
+
+    if (showExitDialog) {
+        val activity = LocalActivity.current
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(stringResource(R.string.app_exit_confirm_title)) },
+            text = { Text(stringResource(R.string.app_exit_confirm_message)) },
+            confirmButton = {
+                TextButton(onClick = { 
+                    showExitDialog = false
+                    activity?.finish()
+                }) {
+                    Text(stringResource(R.string.app_exit_confirm_exit))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(stringResource(R.string.app_exit_confirm_cancel))
+                }
+            },
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            textContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
 
     Scaffold(
         bottomBar = {
