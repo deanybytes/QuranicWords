@@ -61,25 +61,29 @@ class MainActivity : AppCompatActivity() {
             LaunchedEffect(language) {
                 val currentLang = language
                 if (currentLang != null) {
-                    val targetTag = currentLang.tag
+                    val targetTag = if (currentLang == Language.INDONESIAN) "in" else currentLang.tag
                     val currentAppLocales = AppCompatDelegate.getApplicationLocales()
-                    val currentLangFromLocales = currentAppLocales.get(0)?.let {
-                        Language.fromTag(it.toLanguageTag()) ?: Language.fromTag(it.language)
-                    } ?: Language.fromTag(currentAppLocales.toLanguageTags())
-                    if (currentLangFromLocales != currentLang) {
+                    val currentFirstLocale = currentAppLocales.get(0)
+                    val currentLangTag = currentFirstLocale?.toLanguageTag() ?: currentFirstLocale?.language
+                    if (currentLangTag != targetTag) {
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(targetTag))
                     }
                 }
             }
 
             val targetLocale = remember(selectedLanguage) {
-                Locale.forLanguageTag(selectedLanguage.tag)
+                selectedLanguage.locale
+            }
+
+            LaunchedEffect(targetLocale) {
+                Locale.setDefault(targetLocale)
             }
 
             val currentConfiguration = LocalConfiguration.current
             val configuration = remember(targetLocale, currentConfiguration) {
                 Configuration(currentConfiguration).apply {
                     setLocale(targetLocale)
+                    setLocales(android.os.LocaleList(targetLocale))
                     setLayoutDirection(targetLocale)
                 }
             }

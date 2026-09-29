@@ -13,6 +13,9 @@ enum class Language(val tag: String, val nativeName: String) {
     SWAHILI("sw", "Kiswahili"),
     FRENCH("fr", "Français");
 
+    val locale: java.util.Locale
+        get() = if (this == INDONESIAN) java.util.Locale.forLanguageTag("in") else java.util.Locale.forLanguageTag(tag)
+
     companion object {
         fun fromTag(tag: String?): Language? = entries.find { it.tag.equals(tag, ignoreCase = true) } ?: when (tag?.lowercase()) {
             "id" -> INDONESIAN

@@ -36,28 +36,4 @@ class MainViewModel @Inject constructor(
 
     val fontStyle: StateFlow<com.quranicwords.app.core.domain.model.QuranFontStyle> = preferences.fontStyleFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, com.quranicwords.app.core.domain.model.QuranFontStyle.DEFAULT)
-
-    init {
-        // If the system-level per-app language (Android 13+ Settings > App languages, or a prior
-        // session's AppCompatDelegate persistence) already differs from what's in DataStore,
-        // treat it as authoritative rather than silently overwriting it back on the next
-        // MainActivity LaunchedEffect(language) pass. Only applies once onboarding's LanguageSelect
-        // step has actually run (DataStore language non-null) - MainActivity's LaunchedEffect
-        // forces AppCompatDelegate to English as a display-only default before that step, and that
-        // forced value persists across process restarts (AppCompatDelegate's own compat shim), so
-        // without this guard a user who quits mid-onboarding, before ever picking a language, would
-        // come back to find the picker silently skipped with English "chosen" on their behalf.
-        val appLocale = AppCompatDelegate.getApplicationLocales().get(0)
-        val systemLanguage = appLocale?.let {
-            Language.fromTag(it.toLanguageTag()) ?: Language.fromTag(it.language)
-        }
-        if (systemLanguage != null) {
-            viewModelScope.launch {
-                val current = preferences.languageFlow.first()
-                if (current != null && current != systemLanguage) {
-                    preferences.setLanguage(systemLanguage)
-                }
-            }
-        }
-    }
 }
