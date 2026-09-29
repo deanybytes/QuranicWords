@@ -342,22 +342,22 @@
     <string name="lesson_previous_button">Iliyopita</string>
 
     <!-- Exit Confirmation -->
-    <string name="app_exit_confirm_title">Exit App</string>
-    <string name="app_exit_confirm_message">Are you sure you want to exit?</string>
-    <string name="app_exit_confirm_exit">Exit</string>
-    <string name="app_exit_confirm_cancel">Cancel</string>
-    <string name="settings_require_exit_confirmation_label">Require Exit Confirmation</string>
-    <string name="settings_require_exit_confirmation_description">Show a confirmation popup when pressing the back button to exit the app.</string>
+    <string name="app_exit_confirm_title">Toka kwenye Programu</string>
+    <string name="app_exit_confirm_message">Je, una uhakika unataka kutoka kwenye programu?</string>
+    <string name="app_exit_confirm_exit">Toka</string>
+    <string name="app_exit_confirm_cancel">Ghairi</string>
+    <string name="settings_require_exit_confirmation_label">Thibitisha Kabla ya Kutoka</string>
+    <string name="settings_require_exit_confirmation_description">Onyesha ujumbe wa uthibitisho unapobonyeza kitufe cha kurudi ili kutoka kwenye programu.</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">Welcome to QuranicWords</string>
-    <string name="walkthrough_page1_desc">Learn Quranic vocabulary through interactive exercises. Follow our guided learning path to master the most frequent words in the Quran.</string>
-    <string name="walkthrough_page2_title">Interactive Exercises</string>
-    <string name="walkthrough_page2_desc">Practice with quizzes, matching games, and reviews. Build your daily streak and earn points as you progress through the lessons.</string>
-    <string name="walkthrough_page3_title">Track Your Progress</string>
-    <string name="walkthrough_page3_desc">View your achievements, daily goals, and see what percentage of the Quran you can understand. Stay motivated and consistent!</string>
-    <string name="walkthrough_back">Back</string>
-    <string name="walkthrough_next">Next</string>
-    <string name="walkthrough_finish">Get Started</string>
-    <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
+    <string name="walkthrough_page1_title">Karibu kwenye QuranicWords</string>
+    <string name="walkthrough_page1_desc">Jifunze msamiati wa Qur\'an kupitia mazoezi shirikishi. Fuata njia yetu ya masomo ili kujua maneno yanayotokea mara nyingi zaidi kwenye Qur\'an.</string>
+    <string name="walkthrough_page2_title">Mazoezi Shirikishi</string>
+    <string name="walkthrough_page2_desc">Fanya mazoezi ya chemsha bongo, michezo ya kulinganisha na marudio. Jenga mfululizo wako wa kila siku na upate pointi unapoendelea.</string>
+    <string name="walkthrough_page3_title">Fuatilia Maendeleo Yako</string>
+    <string name="walkthrough_page3_desc">Tazama mafanikio yako, malengo ya kila siku, na uone asilimia ya Qur\'an unayoweza kuielewa. Endelea kuwa na motisha na msimamo!</string>
+    <string name="walkthrough_back">Nyuma</string>
+    <string name="walkthrough_next">Mbele</string>
+    <string name="walkthrough_finish">Anza Sasa</string>
+    <string name="settings_show_walkthrough_button">Onyesha Mwongozo wa Utangulizi</string>
 </resources>

@@ -226,7 +226,8 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenRoadmap = { navController.navigate(Route.Roadmap) },
                 onOpenOpenPractice = { mode -> navController.navigate(Route.OpenPractice(mode = mode)) },
                 onOpenStreakRecovery = { navController.navigate(Route.StreakRecovery()) },
-                onOpenLearnedWords = { navController.navigate(Route.LearnedWords) }
+                onOpenLearnedWords = { navController.navigate(Route.LearnedWords) },
+                onOpenWalkthrough = { navController.navigate(Route.Walkthrough) }
             )
         }
         composable<Route.ChapterIntro>(

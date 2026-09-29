@@ -342,22 +342,22 @@
     <string name="lesson_previous_button">قبلی</string>
 
     <!-- Exit Confirmation -->
-    <string name="app_exit_confirm_title">Exit App</string>
-    <string name="app_exit_confirm_message">Are you sure you want to exit?</string>
-    <string name="app_exit_confirm_exit">Exit</string>
-    <string name="app_exit_confirm_cancel">Cancel</string>
-    <string name="settings_require_exit_confirmation_label">Require Exit Confirmation</string>
-    <string name="settings_require_exit_confirmation_description">Show a confirmation popup when pressing the back button to exit the app.</string>
+    <string name="app_exit_confirm_title">خروج از برنامه</string>
+    <string name="app_exit_confirm_message">آیا مطمئن هستید که می‌خواهید از برنامه خارج شوید؟</string>
+    <string name="app_exit_confirm_exit">خروج</string>
+    <string name="app_exit_confirm_cancel">انصراف</string>
+    <string name="settings_require_exit_confirmation_label">تأیید هنگام خروج</string>
+    <string name="settings_require_exit_confirmation_description">نمایش پیام تأیید هنگام فشردن دکمه برگشت برای خروج از برنامه.</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">Welcome to QuranicWords</string>
-    <string name="walkthrough_page1_desc">Learn Quranic vocabulary through interactive exercises. Follow our guided learning path to master the most frequent words in the Quran.</string>
-    <string name="walkthrough_page2_title">Interactive Exercises</string>
-    <string name="walkthrough_page2_desc">Practice with quizzes, matching games, and reviews. Build your daily streak and earn points as you progress through the lessons.</string>
-    <string name="walkthrough_page3_title">Track Your Progress</string>
-    <string name="walkthrough_page3_desc">View your achievements, daily goals, and see what percentage of the Quran you can understand. Stay motivated and consistent!</string>
-    <string name="walkthrough_back">Back</string>
-    <string name="walkthrough_next">Next</string>
-    <string name="walkthrough_finish">Get Started</string>
-    <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
+    <string name="walkthrough_page1_title">به قرآنیک‌وردز خوش آمدید</string>
+    <string name="walkthrough_page1_desc">واژگان قرآن کریم را با تمرین‌های تعاملی بیاموزید. مسیر یادگیری هدایت‌شده ما را برای تسلط بر پرتکرارترین کلمات قرآن دنبال کنید.</string>
+    <string name="walkthrough_page2_title">تمرین‌های تعاملی</string>
+    <string name="walkthrough_page2_desc">با آزمون‌ها، بازی‌های تطبیق و مرورها تمرین کنید. با پیشرفت در درس‌ها، تداوم روزانه (Streak) خود را حفظ کرده و امتیاز کسب کنید.</string>
+    <string name="walkthrough_page3_title">پیشرفت خود را پیگیری کنید</string>
+    <string name="walkthrough_page3_desc">دستاوردها، اهداف روزانه و درصد قابل فهم قرآن برای خود را مشاهده کنید. باانگیزه و مداوم پیش بروید!</string>
+    <string name="walkthrough_back">بازگشت</string>
+    <string name="walkthrough_next">بعدی</string>
+    <string name="walkthrough_finish">شروع کنید</string>
+    <string name="settings_show_walkthrough_button">نمایش راهنمای معرفی</string>
 </resources>

@@ -70,6 +70,7 @@ fun QwBottomNavShell(
     onOpenOpenPractice: (String) -> Unit,
     onOpenStreakRecovery: () -> Unit,
     onOpenLearnedWords: () -> Unit = {},
+    onOpenWalkthrough: () -> Unit = {},
     viewModel: QwBottomNavShellViewModel = hiltViewModel()
 ) {
     var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
@@ -233,7 +234,11 @@ fun QwBottomNavShell(
                 }
                 BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords)
                 BottomTab.ABOUT -> AboutScreen()
-                BottomTab.SETTINGS -> SettingsScreen(onBack = {}, showBackButton = false)
+                BottomTab.SETTINGS -> SettingsScreen(
+                    onBack = {},
+                    showBackButton = false,
+                    onOpenWalkthrough = onOpenWalkthrough
+                )
             }
         }
     }

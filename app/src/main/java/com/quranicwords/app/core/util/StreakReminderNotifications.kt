@@ -45,13 +45,27 @@ object StreakReminderNotifications {
      * lint annotation asks for, just not one lint's simple pattern-matching can see across this
      * function boundary. */
     @SuppressLint("MissingPermission")
-    fun notifyStreakAtRisk(context: Context, currentStreak: Int) {
+    fun notifyStreakAtRisk(
+        context: Context,
+        currentStreak: Int,
+        language: com.quranicwords.app.core.domain.model.Language? = null
+    ) {
         if (!canNotify(context)) return
-        ensureChannel(context)
+        val localizedContext = if (language != null) {
+            val locale = java.util.Locale.forLanguageTag(language.tag)
+            val config = android.content.res.Configuration(context.resources.configuration).apply {
+                setLocale(locale)
+                setLayoutDirection(locale)
+            }
+            context.createConfigurationContext(config)
+        } else {
+            context
+        }
+        ensureChannel(localizedContext)
         val openAppIntent = PendingIntent.getActivity(
-            context,
+            localizedContext,
             0,
-            Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
+            Intent(localizedContext, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         // A streak this long is worth a recovery quiz if missed (see StreakRecovery's own 7-day
@@ -59,20 +73,20 @@ object StreakReminderNotifications {
         // generic reminder, so this notification doubles as the "prior warning" that feature
         // needs without a second notification channel/worker.
         val bodyRes = if (currentStreak >= 7) R.string.notification_streak_body_recoverable else R.string.notification_streak_body
-        val body = context.getString(bodyRes, currentStreak)
+        val body = localizedContext.getString(bodyRes, currentStreak)
         // Expanded (long-press/swipe-open) form only - the collapsed contentText stays the short
         // streak-specific line so the notification shade isn't dominated by the citation; the
         // hadith is the "why regular practice matters" reinforcement for whoever expands it.
-        val expandedBody = "$body\n\n${context.getString(R.string.hadith_consistency_quote)}"
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val expandedBody = "$body\n\n${localizedContext.getString(R.string.hadith_consistency_quote)}"
+        val notification = NotificationCompat.Builder(localizedContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification_streak)
-            .setContentTitle(context.getString(R.string.notification_streak_title))
+            .setContentTitle(localizedContext.getString(R.string.notification_streak_title))
             .setContentText(body)
             .setStyle(NotificationCompat.BigTextStyle().bigText(expandedBody))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setContentIntent(openAppIntent)
             .build()
-        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
+        NotificationManagerCompat.from(localizedContext).notify(NOTIFICATION_ID, notification)
     }
 }

@@ -91,6 +91,7 @@ import java.time.format.DateTimeFormatter
 fun SettingsScreen(
     onBack: () -> Unit,
     showBackButton: Boolean = true,
+    onOpenWalkthrough: (() -> Unit)? = null,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
@@ -294,6 +295,15 @@ fun SettingsScreen(
                         shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
                     ) { Text(label) }
                 }
+            }
+
+            if (onOpenWalkthrough != null) {
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                QwSecondaryButton(
+                    text = stringResource(R.string.settings_show_walkthrough_button),
+                    onClick = onOpenWalkthrough,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         } }
 

@@ -37,13 +37,12 @@ class StreakReminderWorker @AssistedInject constructor(
 
         val userId = currentUserIdProvider.get()
         val stats = progressRepository.observeStats(userId).first() ?: return Result.success()
-        if (stats.currentStreak <= 0) return Result.success()
-
         val today = LocalDate.now(clock)
         val lastActivity = stats.lastActivityLocalDate?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
         if (lastActivity == today) return Result.success()
 
-        StreakReminderNotifications.notifyStreakAtRisk(applicationContext, stats.currentStreak)
+        val language = preferences.languageFlow.first()
+        StreakReminderNotifications.notifyStreakAtRisk(applicationContext, stats.currentStreak, language)
         return Result.success()
     }
 

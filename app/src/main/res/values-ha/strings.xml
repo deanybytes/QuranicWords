@@ -342,22 +342,22 @@
     <string name="lesson_previous_button">Baya</string>
 
     <!-- Exit Confirmation -->
-    <string name="app_exit_confirm_title">Exit App</string>
-    <string name="app_exit_confirm_message">Are you sure you want to exit?</string>
-    <string name="app_exit_confirm_exit">Exit</string>
-    <string name="app_exit_confirm_cancel">Cancel</string>
-    <string name="settings_require_exit_confirmation_label">Require Exit Confirmation</string>
-    <string name="settings_require_exit_confirmation_description">Show a confirmation popup when pressing the back button to exit the app.</string>
+    <string name="app_exit_confirm_title">Fita daga Manhaja</string>
+    <string name="app_exit_confirm_message">Shin kun tabbata kuna son fita daga manhajar?</string>
+    <string name="app_exit_confirm_exit">Fita</string>
+    <string name="app_exit_confirm_cancel">Soke</string>
+    <string name="settings_require_exit_confirmation_label">Nemi Tabbatar da Fita</string>
+    <string name="settings_require_exit_confirmation_description">Nuna sanarwar tabbatarwa lokacin danna madannin komawa baya domin fita daga manhaja.</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">Welcome to QuranicWords</string>
-    <string name="walkthrough_page1_desc">Learn Quranic vocabulary through interactive exercises. Follow our guided learning path to master the most frequent words in the Quran.</string>
-    <string name="walkthrough_page2_title">Interactive Exercises</string>
-    <string name="walkthrough_page2_desc">Practice with quizzes, matching games, and reviews. Build your daily streak and earn points as you progress through the lessons.</string>
-    <string name="walkthrough_page3_title">Track Your Progress</string>
-    <string name="walkthrough_page3_desc">View your achievements, daily goals, and see what percentage of the Quran you can understand. Stay motivated and consistent!</string>
-    <string name="walkthrough_back">Back</string>
-    <string name="walkthrough_next">Next</string>
-    <string name="walkthrough_finish">Get Started</string>
-    <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
+    <string name="walkthrough_page1_title">Barka da zuwa QuranicWords</string>
+    <string name="walkthrough_page1_desc">Koyi kalmomin Alkur\'ani mai girma ta hanyar darussa masu fa\'ida. Bi tsarin koyarwarmu domin kwarewa a kalmomin da suka fi maimaituwa a Alkur\'ani.</string>
+    <string name="walkthrough_page2_title">Ayyukan Motsa Jiki da Gwaji</string>
+    <string name="walkthrough_page2_desc">Yi aiki tare da tambayoyi, wasannin daidaita kalmomi, da bitar darussa. Gina juriyar koyo ta kowace rana da samun maki yayin da kuke ci gaba.</string>
+    <string name="walkthrough_page3_title">Bibiyar Ci Gabanku</string>
+    <string name="walkthrough_page3_desc">Duba nasarorinku, burin kowace rana, da kuma ganin kaso nawa na Alkur\'ani kuke iya fahimta. Ku kasance masu juriya da kwazo!</string>
+    <string name="walkthrough_back">Baya</string>
+    <string name="walkthrough_next">Gaba</string>
+    <string name="walkthrough_finish">Fara Yanzu</string>
+    <string name="settings_show_walkthrough_button">Nuna Jagorar Farko</string>
 </resources>
