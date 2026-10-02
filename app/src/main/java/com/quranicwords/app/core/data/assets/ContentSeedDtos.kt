@@ -23,9 +23,6 @@ internal data class LessonsFile(val lessons: List<LessonEntity>)
 @Serializable
 internal data class WordFrequencyFile(val words: List<WordFrequencyEntity>)
 
-@Serializable
-internal data class ExercisesFile(val exercises: List<ExerciseSeedDto>)
-
 /**
  * Exercise shape genuinely differs from [ExerciseEntity] (nested, polymorphic [content] vs. a
  * flattened [ExerciseEntity.contentJson] string), so - unlike the other seed files - this one

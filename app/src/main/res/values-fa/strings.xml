@@ -361,4 +361,7 @@
     <string name="settings_show_walkthrough_button">نمایش راهنمای معرفی</string>
     <string name="splash_load_failed">درس‌ها آماده نشدند. پیشرفت شما محفوظ است.</string>
     <string name="action_retry">دوباره تلاش کنید</string>
+    <string name="content_language_notice_title">درباره معنای واژه‌ها</string>
+    <string name="content_language_notice_body">معنای هر واژه اکنون مستقیماً از ترجمه واژه‌به‌واژه تأییدشده قرآن گرفته می‌شود. هنوز منبع تأییدشده‌ای به زبان شما نیست، بنابراین معانی به انگلیسی نمایش داده می‌شوند.</string>
+    <string name="content_language_notice_ok">باشه</string>
 </resources>

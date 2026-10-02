@@ -1,0 +1,42 @@
+{
+  "words": 3900,
+  "excluded": 880,
+  "by_track": {
+    "FUNCTION": 72,
+    "VERB": 1144,
+    "NOUN": 2684
+  },
+  "chapters": 10,
+  "sections": 79,
+  "lessons": 958,
+  "exercises": 17618,
+  "total_quran_segments": 97155,
+  "taught_occurrences": 95560,
+  "coverage_percent": 98.36,
+  "audio_matched_words": 2034,
+  "audio_unused_clips": 1648,
+  "low_confidence_meanings": 7223,
+  "legacy_mapping": {
+    "35": {
+      "exact": 461,
+      "skeleton": 689,
+      "surface": 1016,
+      "unmapped": 2543
+    },
+    "34": {
+      "exact": 343,
+      "skeleton": 807,
+      "surface": 1016,
+      "unmapped": 2543
+    }
+  },
+  "validation_errors": 0,
+  "asset_sha256": {
+    "chapters.json": "cf7e843c04cc14296cdfdc49c717eb514a584813249b96582ccc50ea6b64762a",
+    "sections.json": "3892a3bc4c2e81cb77fd5f604a442e98e5c614e9f1ae2895c20c5214c63937b2",
+    "lessons_vocabulary.json": "22256fa40ae932885c1ce569dc232f4fec043ad1aaf57a053d213776f3227f45",
+    "exercises_vocabulary.json": "52818769ae19fd84dc6e6cb9ff58c9b97d2e34e4b05399499e03e3fe57d7976f",
+    "word_frequency.json": "ba29f4bd73959a775cdcf97be799c89cd4be74ddd7bce155bc9fe6469d8a2bbe",
+    "legacy_progress_map.json": "95420a4946c238bb0165490ebb454bd3b626a7849a45fd39643edd986ce21d94"
+  }
+}

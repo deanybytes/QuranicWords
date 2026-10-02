@@ -379,4 +379,7 @@
     <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
     <string name="splash_load_failed">Couldn\'t prepare the lessons. Your progress is safe.</string>
     <string name="action_retry">Try again</string>
+    <string name="content_language_notice_title">About word meanings</string>
+    <string name="content_language_notice_body">Every word meaning is now taken directly from a verified word-by-word translation of the Qur\'an. A verified source isn\'t available in your language yet, so word meanings are shown in English while the app stays in your language.</string>
+    <string name="content_language_notice_ok">OK</string>
 </resources>

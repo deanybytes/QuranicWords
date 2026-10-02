@@ -43,6 +43,7 @@ class UserPreferencesDataStore @Inject constructor(
         val FONT_STYLE = stringPreferencesKey("quran_font_style")
         val FONT_CHOICE_MADE = booleanPreferencesKey("font_choice_made")
         val CONTENT_SEEDED_VERSION = intPreferencesKey("content_seeded_version")
+        val CONTENT_LANGUAGE_NOTICE_SHOWN = booleanPreferencesKey("content_language_notice_shown")
         val LOCAL_USER_ID = stringPreferencesKey("local_user_id")
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
         val REDUCE_GLASS_EFFECTS = booleanPreferencesKey("reduce_glass_effects")
@@ -133,6 +134,26 @@ class UserPreferencesDataStore @Inject constructor(
 
     val fontChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.FONT_CHOICE_MADE] == true }
+
+    val contentLanguageNoticeShownFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.CONTENT_LANGUAGE_NOTICE_SHOWN] == true }
+
+    suspend fun setContentLanguageNoticeShown() {
+        context.dataStore.edit { it[Keys.CONTENT_LANGUAGE_NOTICE_SHOWN] = true }
+    }
+
+    /** The content version currently seeded, or null on a fresh install. */
+    suspend fun contentSeededVersion(): Int? = context.dataStore.data.first()[Keys.CONTENT_SEEDED_VERSION]
+
+    /** Open-practice "already covered" sets hold word ids; they are meaningless once the word ids
+     * change with a content rebuild. */
+    suspend fun resetAllTestCoverage() {
+        context.dataStore.edit { prefs ->
+            @Suppress("UNCHECKED_CAST")
+            prefs.asMap().keys.filter { it.name.startsWith("test_") }
+                .forEach { prefs.remove(it as androidx.datastore.preferences.core.Preferences.Key<Any>) }
+        }
+    }
 
     suspend fun isContentSeeded(version: Int): Boolean =
         context.dataStore.data.first()[Keys.CONTENT_SEEDED_VERSION] == version

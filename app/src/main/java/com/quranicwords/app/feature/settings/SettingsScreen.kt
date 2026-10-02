@@ -208,7 +208,7 @@ fun SettingsScreen(
 
             Text(stringResource(R.string.settings_language_label), style = MaterialTheme.typography.labelLarge)
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(Language.entries) { lang ->
+                items(Language.entries.filter { it.isContentLanguage || it == language }) { lang ->
                     FilterChip(
                         selected = language == lang,
                         onClick = { viewModel.setLanguage(lang) },

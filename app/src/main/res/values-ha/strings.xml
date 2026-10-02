@@ -361,4 +361,7 @@
     <string name="settings_show_walkthrough_button">Nuna Jagorar Farko</string>
     <string name="splash_load_failed">Ba a iya shirya darussan ba. Ci gabanka yana nan lafiya.</string>
     <string name="action_retry">Sake gwadawa</string>
+    <string name="content_language_notice_title">Game da ma\'anonin kalmomi</string>
+    <string name="content_language_notice_body">Yanzu ana ɗaukar ma\'anar kowace kalma kai tsaye daga fassarar Alƙur\'ani kalma-kalma da aka tabbatar. Babu ingantaccen tushe a harshenka tukuna, don haka za a nuna ma\'anoni da Turanci yayin da manhajar ta ci gaba da kasancewa a harshenka.</string>
+    <string name="content_language_notice_ok">To</string>
 </resources>

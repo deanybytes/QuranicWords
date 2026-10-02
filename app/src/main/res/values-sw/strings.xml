@@ -361,4 +361,7 @@
     <string name="settings_show_walkthrough_button">Onyesha Mwongozo wa Utangulizi</string>
     <string name="splash_load_failed">Imeshindwa kuandaa masomo. Maendeleo yako yako salama.</string>
     <string name="action_retry">Jaribu tena</string>
+    <string name="content_language_notice_title">Kuhusu maana za maneno</string>
+    <string name="content_language_notice_body">Kila maana ya neno sasa inachukuliwa moja kwa moja kutoka kwenye tafsiri ya neno kwa neno ya Qur\'an iliyothibitishwa. Chanzo kilichothibitishwa bado hakipatikani katika lugha yako, kwa hivyo maana za maneno zitaonyeshwa kwa Kiingereza huku programu ikibaki katika lugha yako.</string>
+    <string name="content_language_notice_ok">Sawa</string>
 </resources>

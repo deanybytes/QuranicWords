@@ -8,6 +8,7 @@ import com.quranicwords.app.core.data.local.migration.PreMigrationBackup
 import com.quranicwords.app.core.data.local.dao.AchievementDao
 import com.quranicwords.app.core.data.local.dao.ChapterDao
 import com.quranicwords.app.core.data.local.dao.DailyPracticeDao
+import com.quranicwords.app.core.data.local.dao.LegacyMigrationDao
 import com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao
 import com.quranicwords.app.core.data.local.dao.ExerciseDao
 import com.quranicwords.app.core.data.local.dao.LessonDao
@@ -57,6 +58,7 @@ abstract class QwDatabase : RoomDatabase() {
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
     abstract fun achievementDao(): AchievementDao
     abstract fun dailyPracticeDao(): DailyPracticeDao
+    abstract fun legacyMigrationDao(): LegacyMigrationDao
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"

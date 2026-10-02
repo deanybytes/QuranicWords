@@ -387,4 +387,7 @@
     <string name="settings_show_walkthrough_button">Tampilkan Panduan Pengenalan</string>
     <string name="splash_load_failed">Pelajaran tidak dapat disiapkan. Kemajuan Anda aman.</string>
     <string name="action_retry">Coba lagi</string>
+    <string name="content_language_notice_title">Tentang arti kata</string>
+    <string name="content_language_notice_body">Setiap arti kata kini diambil langsung dari terjemahan kata per kata Al-Qur\'an yang terverifikasi. Sumber terverifikasi belum tersedia dalam bahasa Anda, jadi arti kata ditampilkan dalam bahasa Inggris.</string>
+    <string name="content_language_notice_ok">Oke</string>
 </resources>

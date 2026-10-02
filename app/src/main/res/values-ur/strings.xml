@@ -387,4 +387,7 @@
     <string name="settings_show_walkthrough_button">تعارفی گائیڈ دیکھیں</string>
     <string name="splash_load_failed">اسباق تیار نہیں ہو سکے۔ آپ کی پیش رفت محفوظ ہے۔</string>
     <string name="action_retry">دوبارہ کوشش کریں</string>
+    <string name="content_language_notice_title">الفاظ کے معانی کے بارے میں</string>
+    <string name="content_language_notice_body">ہر لفظ کا معنی اب قرآن کے مستند لفظی ترجمے سے لیا جاتا ہے۔ آپ کی زبان میں ابھی مستند ماخذ دستیاب نہیں، اس لیے معانی انگریزی میں دکھائے جائیں گے۔</string>
+    <string name="content_language_notice_ok">ٹھیک ہے</string>
 </resources>

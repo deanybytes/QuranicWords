@@ -361,4 +361,7 @@
     <string name="settings_show_walkthrough_button">Tunjukkan Panduan Pengenalan</string>
     <string name="splash_load_failed">Pelajaran tidak dapat disediakan. Kemajuan anda selamat.</string>
     <string name="action_retry">Cuba lagi</string>
+    <string name="content_language_notice_title">Tentang maksud perkataan</string>
+    <string name="content_language_notice_body">Setiap maksud perkataan kini diambil terus daripada terjemahan perkataan demi perkataan al-Quran yang disahkan. Sumber yang disahkan belum tersedia dalam bahasa anda, jadi maksud perkataan dipaparkan dalam bahasa Inggeris sementara aplikasi kekal dalam bahasa anda.</string>
+    <string name="content_language_notice_ok">Baik</string>
 </resources>

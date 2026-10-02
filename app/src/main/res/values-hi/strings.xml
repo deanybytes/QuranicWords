@@ -361,4 +361,7 @@
     <string name="settings_show_walkthrough_button">परिचयात्मक गाइड देखें</string>
     <string name="splash_load_failed">पाठ तैयार नहीं हो सके। आपकी प्रगति सुरक्षित है।</string>
     <string name="action_retry">फिर से कोशिश करें</string>
+    <string name="content_language_notice_title">शब्दों के अर्थ के बारे में</string>
+    <string name="content_language_notice_body">हर शब्द का अर्थ अब क़ुरआन के प्रमाणित शब्दशः अनुवाद से लिया जाता है। आपकी भाषा में अभी प्रमाणित स्रोत उपलब्ध नहीं है, इसलिए अर्थ अंग्रेज़ी में दिखाए जाएँगे।</string>
+    <string name="content_language_notice_ok">ठीक है</string>
 </resources>

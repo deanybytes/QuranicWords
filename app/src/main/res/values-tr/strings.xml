@@ -387,4 +387,7 @@
     <string name="settings_show_walkthrough_button">Başlangıç Rehberini Göster</string>
     <string name="splash_load_failed">Dersler hazırlanamadı. İlerlemeniz güvende.</string>
     <string name="action_retry">Tekrar dene</string>
+    <string name="content_language_notice_title">Kelime anlamları hakkında</string>
+    <string name="content_language_notice_body">Her kelimenin anlamı artık Kur\'an\'ın doğrulanmış kelime kelime çevirisinden alınıyor. Dilinizde henüz doğrulanmış bir kaynak olmadığından anlamlar İngilizce gösterilir.</string>
+    <string name="content_language_notice_ok">Tamam</string>
 </resources>

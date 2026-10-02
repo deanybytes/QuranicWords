@@ -28,6 +28,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.navigation.QwNavHost
+import com.quranicwords.app.R
 import com.quranicwords.app.core.ui.components.LocalAppLanguage
 import com.quranicwords.app.core.ui.motion.LocalReduceGlassPreference
 import com.quranicwords.app.core.ui.motion.LocalReduceMotionPreference
@@ -119,6 +120,19 @@ class MainActivity : AppCompatActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         QwNavHost()
+                        val showLanguageNotice by viewModel.showContentLanguageNotice.collectAsStateWithLifecycle()
+                        if (showLanguageNotice) {
+                            androidx.compose.material3.AlertDialog(
+                                onDismissRequest = viewModel::dismissContentLanguageNotice,
+                                title = { androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_title)) },
+                                text = { androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_body)) },
+                                confirmButton = {
+                                    androidx.compose.material3.TextButton(onClick = viewModel::dismissContentLanguageNotice) {
+                                        androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_ok))
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
             }

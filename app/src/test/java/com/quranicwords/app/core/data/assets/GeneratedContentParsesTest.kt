@@ -1,232 +1,124 @@
 package com.quranicwords.app.core.data.assets
 
+import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LemmaCategory
-import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.util.AppJson
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 
+/**
+ * Invariants of the bundled curriculum as the app decodes it. Expected counts come from the
+ * pipeline's own build report (tools/pipeline/reports/build_report.json), never hardcoded - the
+ * previous content passed hardcoded-count tests while teaching 90 verbs 1,479 times over.
+ */
 class GeneratedContentParsesTest {
 
     private val assetsDir = File("src/main/assets/content")
+    private val report = Json.parseToJsonElement(File("../tools/pipeline/reports/build_report.json").readText()).jsonObject
+    private val contentLanguages = setOf("en", "bn", "ur", "hi", "in", "tr", "fa", "fr")
 
     private fun readAsset(name: String): String = File(assetsDir, name).readText()
+    private fun reported(key: String) = report.getValue(key).jsonPrimitive.int
+
+    private val exercises: List<ExerciseSeedDto> by lazy {
+        AppJson.decodeFromString(ListSerializer(ExerciseSeedDto.serializer()), readAsset("exercises_vocabulary.json"))
+    }
+    private val intros by lazy { exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>() }
 
     @Test
-    fun `chapters json decodes, word counts sum to the full corpus, percents sum to 100`() {
-        val file = AppJson.decodeFromString<ChaptersFile>(readAsset("chapters.json"))
-        assertEquals(10, file.chapters.size)
-        assertEquals(4709, file.chapters.sumOf { it.wordCount })
-        assertEquals(100.0, file.chapters.sumOf { it.quranOccurrencePercent }, 0.5)
+    fun `counts match the build report`() {
+        assertEquals(reported("chapters"), AppJson.decodeFromString<ChaptersFile>(readAsset("chapters.json")).chapters.size)
+        assertEquals(reported("sections"), AppJson.decodeFromString<SectionsFile>(readAsset("sections.json")).sections.size)
+        assertEquals(reported("lessons"), AppJson.decodeFromString<LessonsFile>(readAsset("lessons_vocabulary.json")).lessons.size)
+        assertEquals(reported("exercises"), exercises.size)
+        assertEquals(reported("words"), AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json")).words.size)
     }
 
     @Test
-    fun `sections json decodes, ten per chapter, word counts sum to their chapter`() {
-        val file = AppJson.decodeFromString<SectionsFile>(readAsset("sections.json"))
-        assertEquals(100, file.sections.size)
-        val byChapter = file.sections.groupBy { it.chapterId }
-        assertEquals(10, byChapter.size)
-        byChapter.values.forEach { sections ->
-            assertEquals(10, sections.size)
-            assertTrue(sections.sumOf { it.wordCount } > 0)
-        }
+    fun `chapter word counts add up to the word list`() {
+        val chapters = AppJson.decodeFromString<ChaptersFile>(readAsset("chapters.json")).chapters
+        assertEquals(reported("words"), chapters.sumOf { it.wordCount })
+        assertTrue(chapters.sumOf { it.quranOccurrencePercent } <= 100.0)
     }
 
     @Test
-    fun `vocabulary lessons decode with correct counts per kind and category`() {
+    fun `every word is taught exactly once and every word is distinct`() {
+        assertEquals(reported("words"), intros.size)
+        assertEquals(intros.size, intros.map { it.wordId }.toSet().size)
+        assertEquals(intros.size, intros.map { it.arabicWord to it.lemmaCategory }.toSet().size)
+    }
+
+    @Test
+    fun `every lesson has a valid shape`() {
         val lessons = AppJson.decodeFromString<LessonsFile>(readAsset("lessons_vocabulary.json")).lessons
-        assertEquals(1217, lessons.size)
-
-        val byKind = lessons.groupingBy { it.kind }.eachCount()
-        assertEquals(10, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_INTRO])
-        assertEquals(997, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR])
-        assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_FLASHBACK])
-        assertEquals(100, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.SECTION_EXAM])
-        assertEquals(10, byKind[com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_EXAM])
-
-        val regularLessons = lessons.filter { it.kind == com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR }
-        val byCategory = regularLessons.groupingBy { it.category }.eachCount()
-        assertTrue((byCategory[LemmaCategory.NOUN] ?: 0) > 0)
-        assertTrue((byCategory[LemmaCategory.VERB] ?: 0) > 0)
-        assertTrue((byCategory[LemmaCategory.PARTICLE] ?: 0) > 0)
-
         lessons.forEach { lesson ->
-            val isChapterScoped = lesson.kind == com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_EXAM ||
-                lesson.kind == com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_FLASHBACK
-            if (isChapterScoped) assertNull(lesson.sectionId) else assertTrue(lesson.sectionId != null)
+            val chapterScoped = lesson.kind == LessonKind.CHAPTER_EXAM || lesson.kind == LessonKind.CHAPTER_FLASHBACK
+            assertEquals(chapterScoped, lesson.sectionId == null)
+        }
+        val scoredLessons = exercises.filter { it.content !is ExerciseContent.WordIntro && it.content !is ExerciseContent.ChapterIntro }
+            .map { it.lessonId }.toSet()
+        lessons.filter { it.kind != LessonKind.CHAPTER_INTRO }.forEach { assertTrue(it.id, it.id in scoredLessons) }
+        val categories = lessons.map { it.category }.toSet()
+        assertTrue(LemmaCategory.NOUN in categories && LemmaCategory.VERB in categories)
+    }
+
+    @Test
+    fun `meanings cover every content language and the word list agrees with the intros`() {
+        val words = AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json")).words.associateBy { it.id }
+        intros.forEach { intro ->
+            assertEquals(intro.wordId, contentLanguages, intro.meaning.keys)
+            intro.meaning.values.forEach { assertTrue(intro.wordId, it.isNotBlank()) }
+            assertEquals(intro.wordId, words.getValue(intro.wordId).meaning, intro.meaning)
         }
     }
 
     @Test
-    fun `vocabulary exercises decode and every teach step is a WordIntro or ChapterIntro`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        assertEquals(14358, exercises.exercises.size)
-
-        val entities = exercises.exercises.map { it.toEntity() }
-        assertEquals(14358, entities.size)
-
-        val teachCount = exercises.exercises.count { it.content is ExerciseContent.WordIntro }
-        assertEquals(4709, teachCount)
-
-        val chapterIntroCount = exercises.exercises.count { it.content is ExerciseContent.ChapterIntro }
-        assertEquals(10, chapterIntroCount)
-
-        val quizCount = exercises.exercises.count { it.content is ExerciseContent.MultipleChoice }
-        assertEquals(8432, quizCount)
-
-        val matchingCount = exercises.exercises.count { it.content is ExerciseContent.Matching }
-        assertEquals(1207, matchingCount)
-    }
-
-    @Test
-    fun `word frequency file decodes with correct count and unique ranks`() {
-        val file = AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json"))
-        assertEquals(4709, file.words.size)
-        val ranks = file.words.map { it.frequencyRank }.toSet()
-        assertEquals(4709, ranks.size)
-    }
-
-    private val allLanguageTags = setOf("en", "bn", "ur", "hi", "in", "ms", "tr", "fa", "ha", "sw")
-
-    @Test
-    fun `every word_intro prompt covers all 10 master languages`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-        assertEquals(4709, wordIntros.size)
-        wordIntros.forEach { assertEquals(allLanguageTags, it.prompt.keys) }
-    }
-
-    @Test
-    fun `word_intro meaning covers all 10 master languages`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-        wordIntros.forEach {
-            assertTrue("meaning missing required languages for ${it.wordId}", it.meaning.keys.containsAll(allLanguageTags))
-        }
-    }
-
-    @Test
-    fun `word_frequency meaning stays in sync with the matching word_intro meaning`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordFreq = AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json"))
-        val meaningByWordId = exercises.exercises.map { it.content }
-            .filterIsInstance<ExerciseContent.WordIntro>()
-            .associate { it.wordId to it.meaning }
-
-        wordFreq.words.forEach { word ->
-            val expected = meaningByWordId[word.id] ?: return@forEach
-            assertEquals("meaning diverged for ${word.id}", expected, word.meaning)
-        }
-    }
-
-    @Test
-    fun `every word_intro has zero programmatic placeholders and zero null meanings`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-
-        wordIntros.forEach { intro ->
-            val word = intro.arabicWord
-            assertTrue("Word contains programmatic placeholder: $word", 
-                !word.contains("Programmatic") && !word.contains("Form ") && !word.contains("فِعْل_") && !word.contains("حَرْف_"))
-
-            allLanguageTags.forEach { lang ->
-                val m = intro.meaning[lang]
-                assertNotNull("Missing meaning for $lang in ${intro.wordId}", m)
-                assertTrue("Meaning is NULL or empty for $lang in ${intro.wordId}", !m.isNullOrBlank() && !m.equals("NULL", ignoreCase = true))
+    fun `verse spans and highlights are exact`() {
+        intros.forEach { intro ->
+            val verse = intro.exampleVerseArabic!!
+            val start = intro.arabicWordStart!!
+            val end = intro.arabicWordEnd!!
+            assertTrue(intro.wordId, start in 0 until end && end <= verse.length)
+            assertEquals(intro.wordId, contentLanguages, intro.exampleVerseTranslation.keys)
+            intro.meaningHighlight.forEach { (lang, hl) ->
+                assertTrue("${intro.wordId} $lang", intro.exampleVerseTranslation.getValue(lang).contains(hl))
             }
-        }
-    }
-
-    @Test
-    fun `every word_intro has valid non-empty arabic word spans matching the verse`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-
-        wordIntros.forEach { intro ->
-            val verse = intro.exampleVerseArabic
-            assertNotNull("Verse is null for ${intro.wordId}", verse)
-            val start = intro.arabicWordStart
-            val end = intro.arabicWordEnd
-            assertNotNull("Start span is null for ${intro.wordId}", start)
-            assertNotNull("End span is null for ${intro.wordId}", end)
-            assertTrue("Invalid spans ($start, $end) for verse length ${verse!!.length} in ${intro.wordId}",
-                start!! >= 0 && end!! <= verse.length && start < end)
-            val token = verse.substring(start, end!!)
-            assertTrue("Extracted token is blank in ${intro.wordId}", token.isNotBlank())
-        }
-    }
-
-    @Test
-    fun `every word_intro meaningHighlight exists verbatim in verseTranslation across all 10 languages`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-
-        wordIntros.forEach { intro ->
-            allLanguageTags.forEach { lang ->
-                val verseTr = intro.exampleVerseTranslation[lang]
-                assertNotNull("Missing verse translation for $lang in ${intro.wordId}", verseTr)
-                assertTrue("Verse translation is blank for $lang in ${intro.wordId}", verseTr!!.isNotBlank())
-
-                val hl = intro.meaningHighlight[lang]
-                assertNotNull("Missing translation highlight for $lang in ${intro.wordId}", hl)
-                assertTrue("Translation highlight is blank for $lang in ${intro.wordId}", hl!!.isNotBlank())
-                assertTrue("Highlight '$hl' not found verbatim in verse translation '$verseTr' for $lang in ${intro.wordId}",
-                    verseTr.contains(hl))
-            }
-        }
-    }
-
-    @Test
-    fun `every polysemy entry has valid arabic spans and verbatim translation highlights across all 10 languages`() {
-        val exercises = AppJson.decodeFromString<ExercisesFile>(readAsset("exercises_vocabulary.json"))
-        val wordIntros = exercises.exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>()
-
-        wordIntros.forEach { intro ->
             intro.polysemyEntries.forEach { pe ->
-                val verse = pe.verseArabic
-                assertNotNull("Polysemy verse is null for sense ${pe.meaningIndex} in ${intro.wordId}", verse)
-                val start = pe.arabicWordStart
-                val end = pe.arabicWordEnd
-                assertNotNull("Polysemy start is null for sense ${pe.meaningIndex} in ${intro.wordId}", start)
-                assertNotNull("Polysemy end is null for sense ${pe.meaningIndex} in ${intro.wordId}", end)
-                assertTrue("Invalid polysemy spans ($start, $end) in ${intro.wordId}",
-                    start!! >= 0 && end!! <= verse!!.length && start < end)
+                val v = pe.verseArabic!!
+                assertTrue(intro.wordId, pe.arabicWordStart!! in 0 until pe.arabicWordEnd!! && pe.arabicWordEnd <= v.length)
+            }
+        }
+        exercises.map { it.content }.filterIsInstance<ExerciseContent.TapWordInVerse>().forEach { t ->
+            assertTrue(t.wordId, t.tappableSpans.any { it.start == t.correctWordStart && it.end == t.correctWordEnd })
+        }
+    }
 
-                allLanguageTags.forEach { lang ->
-                    val verseTr = pe.verseTranslation[lang]
-                    assertNotNull("Missing polysemy verse translation for $lang in ${intro.wordId}", verseTr)
-                    val hl = pe.translationHighlight?.get(lang)
-                    assertNotNull("Missing polysemy translation highlight for $lang in ${intro.wordId}", hl)
-                    assertTrue("Polysemy highlight '$hl' not found in '$verseTr' for $lang in ${intro.wordId}",
-                        verseTr!!.contains(hl!!))
-                }
+    @Test
+    fun `option-bearing exercises always contain the answer and never two equal meanings`() {
+        exercises.map { it.content }.filterIsInstance<com.quranicwords.app.core.domain.model.OptionsBearing>().forEach { ex ->
+            assertTrue(ex.wordId, ex.options.any { it.id == ex.correctOptionId })
+            contentLanguages.forEach { lang ->
+                val labels = ex.options.map { it.label[lang]?.lowercase() }
+                assertEquals("${ex.wordId} $lang", labels.size, labels.toSet().size)
             }
         }
     }
 
     @Test
-    fun `no parenthesized numbers exist in any content assets or exercise arabic words`() {
-        val lemmaIdPattern = Regex("""\s*\(\d+\)""")
-        val wfFile = readAsset("word_frequency.json")
-        val lvFile = readAsset("lessons_vocabulary.json")
-        val evFile = readAsset("exercises_vocabulary.json")
-
-        assertTrue("word_frequency.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(wfFile))
-        assertTrue("lessons_vocabulary.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(lvFile))
-        assertTrue("exercises_vocabulary.json contains parenthesized numbers", !lemmaIdPattern.containsMatchIn(evFile))
-
-        // Also verify cleanArabicDisplay strips numbers cleanly
-        assertEquals("مُصغَر", "مُصغَر (1021)".cleanArabicDisplay())
-        assertEquals("مُأوَل", "مُأوَل (1026)".cleanArabicDisplay())
-        assertEquals("مُشهَد", "مُشهَد (1068)".cleanArabicDisplay())
-        assertEquals("مُعدَل", "مُعدَل (250)".cleanArabicDisplay())
-        assertEquals("تَقدِيم", "تَقدِيم".cleanArabicDisplay())
+    fun `legacy map covers both released content versions`() {
+        val text = readAsset("legacy_progress_map.json")
+        val map = AppJson.decodeFromString<Map<String, com.quranicwords.app.core.data.migration.LegacyContentMap>>(text)
+        assertTrue(map.keys.containsAll(setOf("34", "35")))
+        val wordIds = intros.map { it.wordId }.toSet()
+        map.values.forEach { m -> assertTrue(m.words.values.all { it in wordIds }) }
     }
 }
-

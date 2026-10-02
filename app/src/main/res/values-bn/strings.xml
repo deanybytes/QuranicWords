@@ -387,4 +387,7 @@
     <string name="settings_show_walkthrough_button">নির্দেশিকা গাইড দেখুন</string>
     <string name="splash_load_failed">পাঠগুলো প্রস্তুত করা যায়নি। আপনার অগ্রগতি নিরাপদ আছে।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
+    <string name="content_language_notice_title">শব্দের অর্থ সম্পর্কে</string>
+    <string name="content_language_notice_body">প্রতিটি শব্দের অর্থ এখন কুরআনের যাচাইকৃত শব্দে-শব্দে অনুবাদ থেকে নেওয়া। আপনার ভাষায় এখনো যাচাইকৃত উৎস নেই, তাই অর্থগুলো ইংরেজিতে দেখানো হবে।</string>
+    <string name="content_language_notice_ok">ঠিক আছে</string>
 </resources>
