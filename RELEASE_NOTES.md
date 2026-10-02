@@ -4,6 +4,84 @@
 
 ---
 
+## 🚀 v1.0.0 (Build 100007)
+
+```xml
+<en-US>
+A major learning update:
+• Rebuilt curriculum: 3,900 distinct Qur'anic words with verified meanings from a word-by-word source
+• Daily Review with spaced repetition, so words stay learned
+• XP levels, combos, daily quests, hearts and achievements
+• New verse and listening exercises, with pronunciation audio
+• Your progress carries over safely
+</en-US>
+
+<bn-BD>
+বড় শিক্ষণ হালনাগাদ:
+• নতুন পাঠ্যক্রম: যাচাইকৃত অর্থসহ ৩,৯০০টি স্বতন্ত্র কুরআনিক শব্দ
+• স্পেসড রিপিটিশনসহ দৈনিক রিভিউ
+• লেভেল, কম্বো, দৈনিক কোয়েস্ট, হার্ট ও অর্জন
+• আয়াতভিত্তিক ও শ্রবণ অনুশীলন, উচ্চারণসহ
+• আপনার অগ্রগতি নিরাপদে স্থানান্তরিত
+</bn-BD>
+
+<ur>
+بڑی تعلیمی تازہ کاری:
+• نیا نصاب: مستند معانی کے ساتھ ۳،۹۰۰ منفرد قرآنی الفاظ
+• وقفے وقفے سے دہرائی کے ساتھ روزانہ جائزہ
+• لیول، کومبو، روزانہ کوئسٹ، دل اور کامیابیاں
+• آیت اور سننے کی نئی مشقیں، تلفظ کے ساتھ
+• آپ کی پیش رفت محفوظ طریقے سے منتقل
+</ur>
+
+<hi-IN>
+बड़ा शिक्षण अपडेट:
+• नया पाठ्यक्रम: प्रमाणित अर्थों के साथ ३,९०० अलग क़ुरआनी शब्द
+• स्पेस्ड रिपिटिशन के साथ दैनिक समीक्षा
+• लेवल, कॉम्बो, दैनिक क्वेस्ट, दिल और उपलब्धियाँ
+• आयत और सुनने के नए अभ्यास, उच्चारण के साथ
+• आपकी प्रगति सुरक्षित रूप से स्थानांतरित
+</hi-IN>
+
+<id>
+Pembaruan belajar besar:
+• Kurikulum baru: 3.900 kata Al-Qur'an dengan arti terverifikasi
+• Tinjauan Harian dengan pengulangan berjarak
+• Level, kombo, misi harian, hati dan pencapaian
+• Latihan ayat dan mendengar yang baru, dengan audio pelafalan
+• Kemajuan Anda dipindahkan dengan aman
+</id>
+
+<tr-TR>
+Büyük öğrenme güncellemesi:
+• Yeni müfredat: doğrulanmış anlamlarla 3.900 farklı Kur'an kelimesi
+• Aralıklı tekrarla Günlük Tekrar
+• Seviyeler, kombolar, günlük görevler, kalpler ve başarımlar
+• Yeni ayet ve dinleme alıştırmaları, telaffuzlu
+• İlerlemeniz güvenle aktarıldı
+</tr-TR>
+
+<fa-IR>
+به‌روزرسانی بزرگ آموزشی:
+• برنامه درسی نو: ۳٬۹۰۰ واژه قرآنی با معانی تأییدشده
+• مرور روزانه با تکرار فاصله‌دار
+• سطح، کمبو، مأموریت روزانه، قلب و دستاورد
+• تمرین‌های تازه آیه و شنیداری، با تلفظ
+• پیشرفت شما با امنیت منتقل شد
+</fa-IR>
+
+<fr-FR>
+Grande mise à jour :
+• Nouveau programme : 3 900 mots du Coran au sens vérifié
+• Révision quotidienne par répétition espacée
+• Niveaux, combos, quêtes du jour, cœurs et succès
+• Nouveaux exercices de versets et d'écoute, avec prononciation
+• Votre progression est conservée
+</fr-FR>
+```
+
+---
+
 ## 🚀 v1.0.0
 
 ```xml

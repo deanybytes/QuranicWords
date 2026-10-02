@@ -31,7 +31,7 @@
 |---|---|---|---|
 | **Option 1 (Recommended)** | `Master 4,700+ Quranic words ordered by frequency. 100% offline & ad-free.` | **73 / 80** | Numbers, offline, ad-free |
 | **Option 2** | `Understand the Qur'an by learning its most frequent vocabulary. 100% offline.` | **77 / 80** | Comprehension goal |
-| **Option 3** | `Learn 4,709 Quranic Arabic words by frequency. Game-like, private & offline.` | **76 / 80** | Gamified & private |
+| **Option 3** | `Learn 3,900 Quranic Arabic words by frequency. Game-like, private & offline.` | **76 / 80** | Gamified & private |
 | **Option 4** | `Understand what you recite in Salah. 4,700+ Quran words taught by frequency.` | **76 / 80** | Salah prayer focus |
 | **Option 5** | `Learn Quranic Arabic vocabulary: 10 chapters, 6 test modes, 100% offline.` | **74 / 80** | Curriculum & feature focus |
 
@@ -63,13 +63,13 @@ By mastering the top words, you will quickly understand over 80% of the Quranic 
 📚 THE COMPLETE CURRICULUM
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Covering 4,709 authentic Quranic lemmas across 59,888 occurrences (~80%+ of the Qur'an), categorized into the 3 classical parts of speech (Aqsam al-Kalimah):
+Covering 3,900 authentic Quranic lemmas across 59,888 occurrences (~80%+ of the Qur'an), categorized into the 3 classical parts of speech (Aqsam al-Kalimah):
 
 1. ✨ ḤARF (الحرف — Particles): 173 words covering 24,651 Quranic occurrences (41.16% of total text) in Chapter 1.
 2. ⚡ FI'L (الفعل — Verbs): 1,479 words covering 13,491 occurrences across Chapters 2 to 4.
 3. 📖 ISM (الاسم — Nouns): 3,057 words covering 21,746 occurrences across Chapters 5 to 10.
 
-Structured across 10 Curated Chapters, 100 Sections, 1,217 Bite-Sized Lessons, and 14,358 Interactive Exercises!
+Structured across 10 Curated Chapters, 100 Sections, 958 Bite-Sized Lessons, and 17,618 Interactive Exercises!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🧠 6 DEDICATED TESTING & PRACTICE MODES
@@ -80,7 +80,7 @@ For fast recall and targeted revision, the Test-Only Hub offers:
 1. 📖 Ism Mode: Drill all 3,057 Quranic nouns.
 2. ⚡ Fi'l Mode: Practice 1,479 Quranic verbs.
 3. ✨ Ḥarf Mode: Master all 173 essential particles.
-4. 🔀 Mix / Random Mode: Dynamic quiz across the entire 4,709-word corpus with live grammar tags.
+4. 🔀 Mix / Random Mode: Dynamic quiz across the entire 3,900-word corpus with live grammar tags.
 5. 🔄 Mistaken Words Review: Adaptive spaced retry focusing exclusively on words you previously missed.
 6. 📚 Chapterwise Mode: Dedicated tests for each of the 10 Quranic chapters.
 
@@ -91,7 +91,7 @@ For fast recall and targeted revision, the Test-Only Hub offers:
 • Contextual Polysemy (Wujūh al-Qur'an): Many Quranic words change meaning depending on context. View multi-sense tabs and real verse examples with highlighted target words.
 • 100% Arabic Vocalization (Tashkīl): Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with natural in-verse text flow.
 • 5 Sacred Arabic Script Styles: Choose your favorite Qur'an typeface—Uthmani (Amiri), Scheherazade Naskh, Simple Naskh (Noto), IndoPak Naskh (Lateef), or Nastaliq (Noto Urdu).
-• 11 Global Languages: Complete localized translations and in-verse highlights for English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
+• 8 Meaning Languages: Source-verified word meanings and verse translations in English, Bengali, Urdu, Hindi, Indonesian, Turkish, Persian and French (interface also in Malay, Hausa and Swahili).
 • Gamified Motivation: Earn points, build daily streaks, unlock milestone medallion badges, and review rich lesson summary statistics.
 • Local Backup & Restore: Export and import your progress anytime via Android Storage Access Framework (SAF).
 
@@ -114,17 +114,17 @@ QuranicWords is a 100% offline, privacy-first Android app designed to help you u
 🌟 CORE HIGHLIGHTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-• 4,709 Quranic Lemmas: Covering 59,888 word occurrences—over 80% of the entire Quranic text!
+• 3,900 Quranic Lemmas: Covering 59,888 word occurrences—over 80% of the entire Quranic text!
 • 3 Classical Parts of Speech:
   - Ḥarf (Particles): 173 words (41.16% frequency)
   - Fi'l (Verbs): 1,479 words
   - Ism (Nouns): 3,057 words
-• 10 Chapters & 100 Sections: 1,217 short lessons and 14,358 interactive exercises.
+• 10 Chapters & 100 Sections: 958 short lessons and 17,618 interactive exercises.
 • 6 Practice & Test Modes: Noun Mode, Verb Mode, Particle Mode, Mix Random Mode, Mistaken Words Review, and Chapterwise Tests.
 • Contextual Meanings (Wujūh al-Qur'an): Learn polysemic senses with authentic Quranic verse examples and in-verse highlighting.
 • Complete Vocalization (Tashkīl): Full diacritics on every word and verse for effortless readability.
 • 5 Bundled Arabic Typefaces: Uthmani, Scheherazade, Noto Naskh, IndoPak Lateef, and Nastaliq Urdu.
-• 11 Languages Supported: English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
+• 8 Languages Supported: English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
 • 100% Offline & Private: No accounts, no sign-in, zero analytics, zero ads.
 • Daily Streaks & Milestones: Earn points, maintain daily consistency, and collect 17 achievement badges.
 
@@ -166,21 +166,21 @@ The Holy Qur'an contains over 77,000 words, but many words are repeated frequent
 • Just 173 Particles (Ḥarf) make up over 41% of all word occurrences in the Qur'an!
 • 1,479 Verbs (Fi'l) cover high-frequency actions and essential verbal forms.
 • 3,057 Nouns (Ism) cover Divine Names (Asmaul Husna), prophetic narratives, moral concepts, and creation.
-• In total: 4,709 Quranic lemmas covering ~80%+ of the entire Quranic text across 59,888 occurrences.
+• In total: 3,900 Quranic lemmas covering ~80%+ of the entire Quranic text across 59,888 occurrences.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🚀 APP FEATURES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📖 10 Curated Chapters & 100 Sections
-Progress through 1,217 bite-sized lessons. Learn high-frequency particles, common verbs, and core nominals in a structured curriculum with section and chapter exams.
+Progress through 958 bite-sized lessons. Learn high-frequency particles, common verbs, and core nominals in a structured curriculum with section and chapter exams.
 
 🧠 6 Dedicated Testing Modes
 Switch between learning and rapid recall anytime:
 • Noun Mode (Ism)
 • Verb Mode (Fi'l)
 • Particle Mode (Ḥarf)
-• Mix / Random Quiz (All 4,709 words)
+• Mix / Random Quiz (All 3,900 words)
 • Mistaken Words Review (Adaptive spaced revision of past errors)
 • Chapterwise Test Mode (Targeted tests per chapter)
 
@@ -195,7 +195,7 @@ Customize your Quran reading experience:
 4. IndoPak Naskh (Lateef)
 5. Nastaliq (Noto Urdu)
 
-🌍 11 Languages Included
+🌍 8 Languages Included
 100% verified translations and verse highlights in English, বাংলা (Bengali), اردو (Urdu), हिन्दी (Hindi), Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی (Persian), Hausa, Kiswahili, and Français.
 
 🔒 100% Offline, Ad-Free & Private
@@ -222,7 +222,7 @@ QuranicWords Update:
 • Full vocabulary breakdown on Lesson Summary after test & review sessions
 • Live highlighted glass translations on tap for matching, multiple choice & verse tap
 • Universal digit localization across all languages (Arabic, Urdu, Bengali, etc.)
-• 4,709 Quranic words across 10 chapters & 14,358 exercises
+• 3,900 Quranic words across 10 chapters & 17,618 exercises
 • 100% offline, private, and ad-free
 ```
 *(Length: 448 / 500 characters)*
@@ -233,7 +233,7 @@ QuranicWords Update:
 
 ### 🇧🇩 Bengali (বাংলা)
 - **Title (<=30)**: `QuranicWords: কুরআন আরবি` (25)
-- **Short (<=80)**: `ফ্রিকোয়েন্সিতে ৪,৭০৯টি কুরআন শব্দ শিখুন। সম্পূর্ণ অফলাইন ও বিজ্ঞাপনমুক্ত।` (74)
+- **Short (<=80)**: `ফ্রিকোয়েন্সিতে ৩,৯০০টি কুরআন শব্দ শিখুন। সম্পূর্ণ অফলাইন ও বিজ্ঞাপনমুক্ত।` (74)
 - **Full**:
 ```text
 কুরআন ও নামাজে যা তিলাওয়াত করেন তার অর্থ সরাসরি আরবিতেই বুঝুন।
@@ -241,7 +241,7 @@ QuranicWords Update:
 QuranicWords একটি গ্যামিফায়েড, সম্পূর্ণ অফলাইন ও বিজ্ঞাপনমুক্ত কুরআন শব্দভাণ্ডার শেখার অ্যাপ। কুরআনে ব্যবহৃত সর্বাধিক পুনরাবৃত্ত শব্দগুলোকে ফ্রিকোয়েন্সি ক্রমানুসারে সাজানো হয়েছে, যাতে সহজে এবং দ্রুত কুরআনের ৮০%+ শব্দার্থ আয়ত্ত করা যায়।
 
 মূল বৈশিষ্ট্যসমূহ:
-• ৪,৭০৯টি মূল কুরআনিক শব্দ (হরফ ১৭৩টি, ফেল ১,৪৭৯টি, ইসম ৩,০৫৭টি)।
+• ৩,৯০০টি মূল কুরআনিক শব্দ (হরফ ১৭৩টি, ফেল ১,৪৭৯টি, ইসম ৩,০৫৭টি)।
 • ১০টি অধ্যায়, ১০০টি সেকশন এবং ১,২১৭টি পাঠ।
 • ৬টি ভিন্ন প্র্যাকটিস ও টেস্ট মোড (হরফ, ফেল, ইসম, মিক্স, ভুল শব্দের রিভিশন ও অধ্যায়ভিত্তিক টেস্ট)।
 • কুরআনিক ওয়াজহ (বহু-অর্থ ও প্রাসঙ্গিক আয়াত উদাহরণ)।
@@ -255,7 +255,7 @@ QuranicWords একটি গ্যামিফায়েড, সম্পূ�
 
 ### 🇵🇰 🇮🇳 Urdu (اردو)
 - **Title (<=30)**: `QuranicWords: قرآنی الفاظ` (24)
-- **Short (<=80)**: `تکرار کی ترتیب سے ۴،۷۰۹ قرآنی الفاظ سیکھیں۔ ۱۰۰٪ آف لائن اور مفت۔` (64)
+- **Short (<=80)**: `تکرار کی ترتیب سے ۳،۹۰۰ قرآنی الفاظ سیکھیں۔ ۱۰۰٪ آف لائن اور مفت۔` (64)
 - **Full**:
 ```text
 نماز اور تلاوتِ قرآن میں پڑھے جانے والے الفاظ کا مفہوم براہِ راست سمجھیں۔
@@ -263,7 +263,7 @@ QuranicWords একটি গ্যামিফায়েড, সম্পূ�
 QuranicWords ایک مکمل طور پر آف لائن اور اشتہارات سے پاک قرآنی ذخیرہ الفاظ سیکھنے کی ایپ ہے، جو قرآن مجید کے الفاظ کو کثرتِ استعمال (تکرار) کی ترتیب سے سکھاتی ہے۔
 
 اہم خصوصیات:
-• ۴،۷۰۹ مستند قرآنی الفاظ (حروف ۱۷۳، افعال ۱،۴۷۹، اور اسماء ۳،۰۵৭)۔
+• ۳،۹۰۰ مستند قرآنی الفاظ (حروف ۱۷۳، افعال ۱،۴۷۹، اور اسماء ۳،۰۵৭)۔
 • ۱۰ ابواب، ۱۰۰ سیکشنز، اور ۱،۲۱۷ اسباق۔
 • ۶ امتحانی موڈز (حروف، افعال، اسماء، مکس کوئز، غلط الفاظ کا اعادہ، اور باب وار ٹیسٹ)۔
 • وجوہ القرآن: سیاق و سباق کے مطابق مختلف معانی اور قرآنی آیات کی مثالیں۔
@@ -284,7 +284,7 @@ Pahami kata-kata yang Anda baca dalam Al-Qur'an dan shalat langsung dalam bahasa
 QuranicWords adalah aplikasi kosakata bahasa Arab Al-Qur'an yang interaktif, menyenangkan, dan 100% offline. Disusun berdasarkan urutan frekuensi kemunculan kata di dalam Al-Qur'an, aplikasi ini membantu Anda memahami lebih dari 80% teks Al-Qur'an secara cepat dan terarah.
 
 Fitur Utama:
-• 4.709 Lema Al-Qur'an: 173 Harf (Partikel), 1.479 Fi'il (Kata Kerja), dan 3.057 Ism (Kata Benda).
+• 3.900 Lema Al-Qur'an: 173 Harf (Partikel), 1.479 Fi'il (Kata Kerja), dan 3.057 Ism (Kata Benda).
 • 10 Bab & 100 Bagian: 1.217 pelajaran ringkas dan 9.428 latihan interaktif.
 • 6 Mode Latihan & Ujian: Mode Ism, Fi'il, Harf, Acak Campuran, Ulasan Kata yang Salah, dan Ujian per Bab.
 • Wujuh Al-Qur'an: Makna kontekstual dengan contoh ayat Al-Qur'an nyata dan sorotan kata yang tepat.
@@ -305,7 +305,7 @@ Kuran-ı Kerim tilavetinde ve namazda okuduğunuz ayetlerin anlamını doğrudan
 QuranicWords, Kuran kelimelerini ayetlerdeki geçiş sıklığına göre öğreten, %100 çevrimdışı ve reklamsız bir kelime öğrenme uygulamasıdır. En sık geçen kelimelerden başlayarak Kuran metninin %80'inden fazlasını kolayca anlamaya başlayın.
 
 Öne Çıkan Özellikler:
-• 4.709 Kuran Kelimesi: 173 Harf (Edat), 1.479 Fiil, 3.057 İsim.
+• 3.900 Kuran Kelimesi: 173 Harf (Edat), 1.479 Fiil, 3.057 İsim.
 • 10 Bölüm ve 100 Ünite: 1.217 kısa ders ve 9.428 etkileşimli alıştırma.
 • 6 Özel Test Modu: İsim, Fiil, Harf, Karışık Test, Hatalı Kelimeleri Tekrar ve Bölüm Testleri.
 • Vücûhu'l-Kur'an: Bağlamsal anlamlar, ayet örnekleri ve tam kelime vurguları.
