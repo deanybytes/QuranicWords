@@ -2,6 +2,14 @@ package com.quranicwords.app.core.data.repository
 
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
+import com.quranicwords.app.core.domain.HeartsCalculator
+import com.quranicwords.app.core.domain.QuestCatalog
+import com.quranicwords.app.core.domain.QuestEligibility
+import com.quranicwords.app.core.domain.QuestEvent
+import com.quranicwords.app.core.domain.model.HeartsStatus
+import com.quranicwords.app.core.domain.model.LearningPath
+import com.quranicwords.app.core.domain.model.SessionStats
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.LessonEntity
@@ -213,24 +221,32 @@ class ProgressRepositoryImpl @Inject constructor(
         lessonId: String,
         correctCount: Int,
         totalCount: Int,
-        durationMillis: Long
+        durationMillis: Long,
+        session: SessionStats
     ): LessonResult = withContext(Dispatchers.IO) {
+        val eligibility = questEligibility(userId)
         val result = database.withTransaction {
             val lesson = database.lessonDao().getById(lessonId)
             val scorePercent = GamificationConfig.percentOf(correctCount, totalCount)
             val passed = lesson != null &&
                 (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
+            val existing = database.userProgressDao().get(userId, lessonId)
             // A failed exam/flashback still counts as practice (streak, minutes) but earns nothing
             // and must not be recorded as completed - Home checkmarks, chapter completion and
-            // coverage all key off COMPLETED.
-            val points = if (passed) GamificationConfig.pointsForLesson(correctCount, totalCount) else 0
+            // coverage all key off COMPLETED. A replay of a completed lesson pays half.
+            val xp = sessionXp(correctCount, totalCount, session, paid = passed, replay = existing?.status == LessonStatus.COMPLETED)
 
             val previousStats = database.userStatsDao().get(userId)
-            val update = streakCalculator.recordActivity(previousStats, userId, points)
-            database.userStatsDao().upsert(update.stats)
+            val update = streakCalculator.recordActivity(previousStats, userId, xp.points)
             recordDailyPracticeMinutes(userId, durationMillis)
+            val finishedALesson = passed && lesson.kind != LessonKind.CHAPTER_INTRO
+            val quests = advanceQuests(userId, eligibility, session, xp.points, LessonSessionType.LESSON, lessonsFinished = if (finishedALesson) 1 else 0)
+            val stats = update.stats.copy(
+                totalPoints = update.stats.totalPoints + quests.rewardXp,
+                bestCombo = maxOf(update.stats.bestCombo, session.bestCombo)
+            )
+            database.userStatsDao().upsert(stats)
 
-            val existing = database.userProgressDao().get(userId, lessonId)
             val now = clock.millis()
             val progress = if (passed) {
                 UserProgressEntity(
@@ -280,17 +296,142 @@ class ProgressRepositoryImpl @Inject constructor(
                 lessonId = lessonId,
                 correctCount = correctCount,
                 totalCount = totalCount,
-                pointsAwarded = points,
-                newTotalPoints = update.stats.totalPoints,
-                currentStreak = update.stats.currentStreak,
+                pointsAwarded = xp.points,
+                newTotalPoints = stats.totalPoints,
+                currentStreak = stats.currentStreak,
                 streakIncreased = update.streakIncreased,
                 nextLessonId = nextLessonId,
                 lessonKind = lesson?.kind,
-                durationMillis = durationMillis
+                durationMillis = durationMillis,
+                basePoints = xp.base,
+                perfectBonus = xp.perfect,
+                comboBonus = xp.combo,
+                replayDeduction = xp.replayDeduction,
+                questRewardXp = quests.rewardXp,
+                completedQuestIds = quests.completedQuestIds,
+                bestCombo = session.bestCombo
             )
         }
         refreshWidgetsInBackground()
         result
+    }
+
+    /** One session's XP: base + perfect bonus + combo bonus, nothing when [paid] is false (a
+     * failed gated lesson), and [GamificationConfig.REPLAY_POINTS_PERCENT] of it on a [replay]. */
+    private fun sessionXp(correctCount: Int, totalCount: Int, session: SessionStats, paid: Boolean, replay: Boolean): SessionXp {
+        if (!paid) return SessionXp(0, 0, 0, 0)
+        val base = correctCount * GamificationConfig.POINTS_PER_CORRECT_ANSWER
+        val perfect = GamificationConfig.perfectBonus(correctCount, totalCount)
+        val combo = session.comboBonusXp.coerceAtLeast(0)
+        val earned = base + perfect + combo
+        val paidOut = if (replay) earned * GamificationConfig.REPLAY_POINTS_PERCENT / 100 else earned
+        return SessionXp(base, perfect, combo, earned - paidOut)
+    }
+
+    private data class SessionXp(val base: Int, val perfect: Int, val combo: Int, val replayDeduction: Int) {
+        val points: Int get() = base + perfect + combo - replayDeduction
+    }
+
+    /** Preference reads for quest selection - done before a transaction opens, not inside it. */
+    private suspend fun questEligibility(userId: String): QuestEligibility = QuestEligibility(
+        dueReviewCount = database.wordMemoryDao().getDueCount(userId, clock.millis()),
+        listeningEnabled = preferences.pronunciationAudioEnabledFlow.first(),
+        lessonsAvailable = preferences.learningPathFlow.first() == LearningPath.LEARN,
+        dailyGoalMinutes = preferences.dailyGoalLevelFlow.first().minutes
+    )
+
+    /** Today's quest rows, picking them (and pruning older days) on first use. Must run inside a
+     * transaction, so two sessions finishing at once can't both pick. */
+    private suspend fun ensureQuests(userId: String, localDate: String, eligibility: QuestEligibility): List<DailyQuestEntity> {
+        val dao = database.dailyQuestDao()
+        val existing = dao.getForDay(userId, localDate)
+        if (existing.isNotEmpty()) return existing
+        dao.deleteBefore(userId, localDate)
+        dao.insertAllIfAbsent(QuestCatalog.toEntities(userId, localDate, QuestCatalog.questsFor(userId, localDate, eligibility)))
+        return dao.getForDay(userId, localDate)
+    }
+
+    /** Applies a finished session to today's quests and returns the XP their completion pays -
+     * each quest's reward is paid once (see [QuestCatalog.apply]). Must run inside the session's
+     * transaction, after today's practice minutes were recorded. */
+    private suspend fun advanceQuests(
+        userId: String,
+        eligibility: QuestEligibility,
+        session: SessionStats,
+        xpEarned: Int,
+        sessionType: LessonSessionType,
+        lessonsFinished: Int
+    ): com.quranicwords.app.core.domain.QuestUpdate {
+        val today = LocalDate.now(clock).toString()
+        val quests = ensureQuests(userId, today, eligibility)
+        val event = QuestEvent(
+            reviewedWords = if (sessionType == LessonSessionType.REVIEW) session.firstTryAnswers else 0,
+            bestCombo = session.bestCombo,
+            lessonsFinished = lessonsFinished,
+            xpEarned = xpEarned,
+            todayMinutes = database.dailyPracticeDao().get(userId, today)?.minutesPracticed ?: 0,
+            listeningAnswers = session.listeningAnswers,
+            newWords = session.newWords
+        )
+        val update = QuestCatalog.apply(quests, event, clock.millis())
+        if (update.changed.isNotEmpty()) database.dailyQuestDao().updateAll(update.changed)
+        return update
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun observeQuests(userId: String, localDate: String): Flow<List<DailyQuestEntity>> =
+        flow {
+            val eligibility = questEligibility(userId)
+            database.withTransaction { ensureQuests(userId, localDate, eligibility) }
+            emit(Unit)
+        }.flatMapLatest { database.dailyQuestDao().observeForDay(userId, localDate) }
+
+    private fun heartsStatusOf(stats: UserStatsEntity?, nowMillis: Long): HeartsStatus {
+        if (stats == null || !stats.heartsEnabled) return HeartsStatus(enabled = false, hearts = HeartsCalculator.MAX_HEARTS, nextHeartAtMillis = null)
+        val current = HeartsCalculator.current(stats.hearts, stats.heartsUpdatedAtEpochMillis, nowMillis)
+        val next = HeartsCalculator.millisUntilNext(current.hearts, current.anchorMillis, nowMillis)?.let { nowMillis + it }
+        return HeartsStatus(enabled = true, hearts = current.hearts, nextHeartAtMillis = next)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun observeHearts(userId: String): Flow<HeartsStatus> =
+        database.userStatsDao().observe(userId).flatMapLatest { stats ->
+            flow {
+                while (true) {
+                    emit(heartsStatusOf(stats, clock.millis()))
+                    delay(HEARTS_REFRESH_MILLIS)
+                }
+            }
+        }.distinctUntilChanged()
+
+    override suspend fun getHearts(userId: String): HeartsStatus = withContext(Dispatchers.IO) {
+        heartsStatusOf(database.userStatsDao().get(userId), clock.millis())
+    }
+
+    override suspend fun loseHeart(userId: String): HeartsStatus = withContext(Dispatchers.IO) {
+        database.withTransaction {
+            val stats = database.userStatsDao().get(userId)
+            val now = clock.millis()
+            if (stats == null || !stats.heartsEnabled) return@withTransaction heartsStatusOf(stats, now)
+            val next = HeartsCalculator.lose(stats.hearts, stats.heartsUpdatedAtEpochMillis, now)
+            val updated = stats.copy(hearts = next.hearts, heartsUpdatedAtEpochMillis = next.anchorMillis)
+            database.userStatsDao().upsert(updated)
+            heartsStatusOf(updated, now)
+        }
+    }
+
+    override suspend fun setHeartsEnabled(userId: String, enabled: Boolean): Unit = withContext(Dispatchers.IO) {
+        database.withTransaction {
+            ensureStatsRow(userId)
+            val stats = database.userStatsDao().get(userId) ?: return@withTransaction
+            database.userStatsDao().upsert(
+                stats.copy(
+                    heartsEnabled = enabled,
+                    hearts = if (enabled && !stats.heartsEnabled) HeartsCalculator.MAX_HEARTS else stats.hearts,
+                    heartsUpdatedAtEpochMillis = clock.millis()
+                )
+            )
+        }
     }
 
     /** Widgets decode a lot of content to render; never make the lesson summary wait on that. */
@@ -473,29 +614,56 @@ class ProgressRepositoryImpl @Inject constructor(
         correctCount: Int,
         totalCount: Int,
         durationMillis: Long,
-        sessionType: LessonSessionType
+        sessionType: LessonSessionType,
+        session: SessionStats
     ): LessonResult = withContext(Dispatchers.IO) {
-        val points = GamificationConfig.pointsForLesson(correctCount, totalCount)
-        val previousStats = database.userStatsDao().get(userId)
-        val update = streakCalculator.recordActivity(previousStats, userId, points)
-        database.userStatsDao().upsert(update.stats)
-        recordDailyPracticeMinutes(userId, durationMillis)
+        val eligibility = questEligibility(userId)
+        database.withTransaction {
+            val xp = sessionXp(correctCount, totalCount, session, paid = true, replay = false)
+            val previousStats = database.userStatsDao().get(userId)
+            val update = streakCalculator.recordActivity(previousStats, userId, xp.points)
+            recordDailyPracticeMinutes(userId, durationMillis)
+            val quests = advanceQuests(userId, eligibility, session, xp.points, sessionType, lessonsFinished = 0)
 
-        // Unlike completeLesson, there's no single lessonId here to attach a user_progress write
-        // to. Stats/points/streak (and now daily practice minutes) are still recorded locally the
-        // same way - a Review-only day still counts toward the daily goal.
-        LessonResult(
-            lessonId = REVIEW_SESSION_LESSON_ID,
-            correctCount = correctCount,
-            totalCount = totalCount,
-            pointsAwarded = points,
-            newTotalPoints = update.stats.totalPoints,
-            currentStreak = update.stats.currentStreak,
-            streakIncreased = update.streakIncreased,
-            nextLessonId = null,
-            durationMillis = durationMillis,
-            sessionType = sessionType
-        )
+            // Review and practice never cost hearts and each finished one restores a heart - the
+            // friendly way back after running out in a lesson.
+            val now = clock.millis()
+            val withStreak = update.stats
+            val refill = if (withStreak.heartsEnabled && totalCount > 0) {
+                HeartsCalculator.gain(withStreak.hearts, withStreak.heartsUpdatedAtEpochMillis, now, GamificationConfig.HEARTS_PER_REVIEW_SESSION)
+            } else {
+                null
+            }
+            val stats = withStreak.copy(
+                totalPoints = withStreak.totalPoints + quests.rewardXp,
+                bestCombo = maxOf(withStreak.bestCombo, session.bestCombo),
+                hearts = refill?.hearts ?: withStreak.hearts,
+                heartsUpdatedAtEpochMillis = refill?.anchorMillis ?: withStreak.heartsUpdatedAtEpochMillis
+            )
+            database.userStatsDao().upsert(stats)
+
+            // Unlike completeLesson, there's no single lessonId here to attach a user_progress write
+            // to. Stats/points/streak (and daily practice minutes) are still recorded locally the
+            // same way - a Review-only day still counts toward the daily goal.
+            LessonResult(
+                lessonId = REVIEW_SESSION_LESSON_ID,
+                correctCount = correctCount,
+                totalCount = totalCount,
+                pointsAwarded = xp.points,
+                newTotalPoints = stats.totalPoints,
+                currentStreak = stats.currentStreak,
+                streakIncreased = update.streakIncreased,
+                nextLessonId = null,
+                durationMillis = durationMillis,
+                sessionType = sessionType,
+                basePoints = xp.base,
+                perfectBonus = xp.perfect,
+                comboBonus = xp.combo,
+                questRewardXp = quests.rewardXp,
+                completedQuestIds = quests.completedQuestIds,
+                bestCombo = session.bestCombo
+            )
+        }
     }
 
     override suspend fun getOpenPracticeExercises(
@@ -781,6 +949,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 database.dailyPracticeDao().deleteForUser(userId)
                 database.achievementDao().deleteForUser(userId)
                 database.wordMemoryDao().deleteForUser(userId)
+                database.dailyQuestDao().deleteForUser(userId)
                 ensureStatsRow(userId)
                 if (heartsEnabled != null) {
                     database.userStatsDao().get(userId)?.let { database.userStatsDao().upsert(it.copy(heartsEnabled = heartsEnabled)) }
@@ -794,5 +963,8 @@ class ProgressRepositoryImpl @Inject constructor(
         /** How often [observeDueCount] re-checks the clock - a lapse comes due ten minutes after
          * the miss, so a minute keeps Home's count honest without busy polling. */
         const val DUE_COUNT_REFRESH_MILLIS = 60_000L
+
+        /** Hearts regenerate every 30 minutes; checking every 15 s keeps the badge current. */
+        const val HEARTS_REFRESH_MILLIS = 15_000L
     }
 }

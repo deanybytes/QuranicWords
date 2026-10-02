@@ -64,6 +64,8 @@ private enum class BottomTab { HOME, PROGRESS, ABOUT, SETTINGS }
 @Composable
 fun QwBottomNavShell(
     onOpenLesson: (String) -> Unit,
+    onResumeLesson: (String) -> Unit,
+    onOpenAchievements: () -> Unit,
     onOpenReview: () -> Unit,
     onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
@@ -178,16 +180,15 @@ fun QwBottomNavShell(
                 )
                 // Center "Continue Learning" action: always visible across all tabs (Home, Progress,
                 // About, Settings) as long as there is an unlocked lesson to progress in.
+                // The one labelled item: unlike the tabs it's an action, and a bare play icon
+                // didn't say what it would continue.
                 if (currentLessonId != null) {
                     NavigationBarItem(
                         selected = false,
                         onClick = { onOpenLesson(currentLessonId!!) },
-                        icon = {
-                            Icon(
-                                Icons.Filled.PlayArrow,
-                                contentDescription = stringResource(R.string.home_continue_learning)
-                            )
-                        }
+                        icon = { Icon(Icons.Filled.PlayArrow, contentDescription = null) },
+                        label = { Text(stringResource(R.string.bottom_nav_continue), maxLines = 1) },
+                        alwaysShowLabel = true
                     )
                 }
                 NavigationBarItem(
@@ -232,6 +233,7 @@ fun QwBottomNavShell(
                 } else {
                     HomeScreen(
                         onOpenLesson = onOpenLesson,
+                        onResumeLesson = onResumeLesson,
                         onOpenReview = onOpenReview,
                         onOpenDailyReview = onOpenDailyReview,
                         onOpenChapterIntro = onOpenChapterIntro,
@@ -247,7 +249,7 @@ fun QwBottomNavShell(
                         onExpandedSectionIdsChange = { expandedSectionIds = it }
                     )
                 }
-                BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords)
+                BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords, onOpenAchievements = onOpenAchievements)
                 BottomTab.ABOUT -> AboutScreen()
                 BottomTab.SETTINGS -> SettingsScreen(
                     onBack = {},

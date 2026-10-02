@@ -105,6 +105,9 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
+    val pronunciationAudioEnabled by viewModel.pronunciationAudioEnabled.collectAsStateWithLifecycle()
+    val invocationEveryLaunch by viewModel.invocationEveryLaunch.collectAsStateWithLifecycle()
+    val heartsEnabled by viewModel.heartsEnabled.collectAsStateWithLifecycle()
     val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
@@ -313,10 +316,41 @@ fun SettingsScreen(
                 checked = soundEnabled,
                 onCheckedChange = viewModel::setSoundEnabled
             )
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_pronunciation_audio_label),
+                checked = pronunciationAudioEnabled,
+                onCheckedChange = viewModel::setPronunciationAudioEnabled
+            )
+            Text(
+                stringResource(R.string.settings_pronunciation_audio_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_invocation_every_launch_label),
+                checked = invocationEveryLaunch,
+                onCheckedChange = viewModel::setInvocationEveryLaunch
+            )
+            Text(
+                stringResource(R.string.settings_invocation_every_launch_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         } }
 
         StaggeredEntrance(index = 2) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_mode))
+
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_hearts_label),
+                checked = heartsEnabled,
+                onCheckedChange = viewModel::setHeartsEnabled
+            )
+            Text(
+                stringResource(R.string.settings_hearts_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
 
             Text(stringResource(R.string.settings_learning_path_label), style = MaterialTheme.typography.labelLarge)
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {

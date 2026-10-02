@@ -37,6 +37,7 @@ import com.quranicwords.app.core.ui.components.charts.MetricTile
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.core.ui.components.LevelProgressBar
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatPercent
@@ -50,6 +51,7 @@ import com.quranicwords.app.feature.achievements.AchievementsSection
 @Composable
 fun ProgressScreen(
     onOpenLearnedWords: () -> Unit = {},
+    onOpenAchievements: () -> Unit = {},
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,6 +75,10 @@ fun ProgressScreen(
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.semantics { heading() }
             )
+        }
+
+        item {
+            LevelProgressBar(totalXp = uiState.totalPoints)
         }
 
         item {
@@ -162,7 +168,7 @@ fun ProgressScreen(
         }
 
         item {
-            AchievementsSection()
+            AchievementsSection(onOpenAll = onOpenAchievements)
         }
     }
 }

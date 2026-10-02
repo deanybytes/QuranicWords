@@ -17,6 +17,8 @@ import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
+import com.quranicwords.app.core.domain.model.SessionStats
 import com.quranicwords.app.core.domain.srs.FsrsScheduler
 import com.quranicwords.app.core.domain.srs.MemoryState
 import com.quranicwords.app.core.domain.srs.WordMemoryRules
@@ -688,5 +690,71 @@ class ProgressRepositoryImplTest {
 
         val introProgress = database.userProgressDao().get(userId, "intro_1")
         assertEquals(LessonStatus.COMPLETED, introProgress?.status)
+    }
+
+    @Test
+    fun `replaying a completed lesson pays half and a failed exam pays nothing even with a combo`() = runTest {
+        seedTree()
+        val first = repository.completeLesson(userId, "l1", 10, 10, 0L, SessionStats(comboBonusXp = 15, bestCombo = 10))
+        assertEquals(10 * 10 + 20 + 15, first.pointsAwarded)
+        assertEquals(15, first.comboBonus)
+        assertEquals(0, first.replayDeduction)
+
+        val replay = repository.completeLesson(userId, "l1", 10, 10, 0L)
+        assertEquals(60, replay.pointsAwarded)
+        assertEquals(60, replay.replayDeduction)
+
+        val failed = repository.completeLesson(userId, "section_exam", 2, 10, 0L, SessionStats(comboBonusXp = 7))
+        assertEquals(0, failed.pointsAwarded)
+        assertEquals(0, failed.comboBonus)
+        assertEquals(10, database.userStatsDao().get(userId)?.bestCombo)
+    }
+
+    @Test
+    fun `a completed quest pays its reward into XP exactly once`() = runTest {
+        seedTree()
+        database.dailyQuestDao().insertAllIfAbsent(
+            listOf(DailyQuestEntity(userId, "2026-08-22", "earn_50_xp", "EARN_XP", 50, 0, 15, null))
+        )
+
+        val result = repository.completeLesson(userId, "l1", 10, 10, 0L)
+        assertEquals(15, result.questRewardXp)
+        assertEquals(listOf("earn_50_xp"), result.completedQuestIds)
+        assertEquals(120 + 15, result.newTotalPoints)
+        assertEquals(0, result.previousTotalPoints)
+
+        val again = repository.completeLesson(userId, "l2", 10, 10, 0L)
+        assertEquals(0, again.questRewardXp)
+        assertEquals(135 + 120, again.newTotalPoints)
+        assertEquals(50, database.dailyQuestDao().getForDay(userId, "2026-08-22").single().progress)
+    }
+
+    @Test
+    fun `today's quests are picked once and include a review while words are due`() = runTest {
+        seedTree()
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        val later = repositoryAt("2026-08-22T11:00:00Z")
+
+        val quests = later.observeQuests(userId, "2026-08-22").first()
+        assertEquals(3, quests.size)
+        assertTrue(quests.any { it.metric == "REVIEW_WORDS" })
+        assertEquals(quests, later.observeQuests(userId, "2026-08-22").first())
+    }
+
+    @Test
+    fun `mistakes cost hearts only while enabled and a review session restores one`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        repository.setHeartsEnabled(userId, false)
+        assertEquals(false, repository.loseHeart(userId).enabled)
+        assertEquals(5, database.userStatsDao().get(userId)?.hearts)
+
+        repository.setHeartsEnabled(userId, true)
+        repeat(2) { repository.loseHeart(userId) }
+        assertEquals(3, repository.getHearts(userId).hearts)
+        assertTrue(repository.getHearts(userId).nextHeartAtMillis != null)
+
+        repository.completeReviewSession(userId, correctCount = 3, totalCount = 3, durationMillis = 0L)
+        assertEquals(4, repository.getHearts(userId).hearts)
     }
 }

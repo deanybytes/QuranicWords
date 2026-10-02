@@ -23,7 +23,9 @@ sealed interface Route {
     @Serializable data class ChapterIntro(val chapterId: String) : Route
     @Serializable data class SectionIntro(val sectionId: String) : Route
     @Serializable data class WordBrowse(val sectionId: String) : Route
-    @Serializable data class Lesson(val lessonId: String) : Route
+    /** [resume] continues an interrupted session (see `LessonResumeRecord`) instead of starting
+     * the lesson fresh - only Home's "Resume lesson" card sets it. */
+    @Serializable data class Lesson(val lessonId: String, val resume: Boolean = false) : Route
     /** The dynamic Review session (see `LessonViewModel.isReviewSession`) - a distinct route
      * rather than a sentinel `lessonId` string, so it can never collide with a real lesson id. */
     @Serializable data object Review : Route
@@ -31,6 +33,11 @@ sealed interface Route {
      * semantics, distinguished only by how `LessonViewModel` sources its exercises. Same
      * `data class`-for-a-SavedStateHandle-marker shape as [OpenPractice]. */
     @Serializable data class DailyReview(val isDailyReview: Boolean = true) : Route
+    /** A Review of exactly [reviewWordIds] - the summary's "Review these now" for words missed in
+     * the session just finished. */
+    @Serializable data class FocusedReview(val reviewWordIds: List<String>) : Route
+    /** Every achievement, with requirements and progress for the locked ones (from Progress). */
+    @Serializable data object Achievements : Route
     @Serializable data class LessonSummary(
         val lessonId: String,
         val correctCount: Int,
@@ -56,7 +63,18 @@ sealed interface Route {
         /** Carries forward the test mode ("FREQUENCY" or "RANDOM") if this was an OpenPractice session. */
         val openPracticeMode: String? = null,
         /** Words practiced in this session, enabling LessonSummary to show word breakdowns for test/review modes. */
-        val practicedWordIds: List<String> = emptyList()
+        val practicedWordIds: List<String> = emptyList(),
+        /** Words whose first try this session was wrong - "Review these now". */
+        val missedWordIds: List<String> = emptyList(),
+        // XP breakdown - see LessonResult.
+        val basePoints: Int = 0,
+        val perfectBonus: Int = 0,
+        val comboBonus: Int = 0,
+        val replayDeduction: Int = 0,
+        val questRewardXp: Int = 0,
+        val completedQuestCount: Int = 0,
+        val bestCombo: Int = 0,
+        val previousTotalPoints: Int = 0
     ) : Route
     @Serializable data object Roadmap : Route
     /** An unbounded random-word-pool quiz - see [LessonSessionType.OPEN_PRACTICE]. [isOpenPractice]

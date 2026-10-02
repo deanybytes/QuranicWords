@@ -8,6 +8,8 @@ import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.util.ArabicSearch
+import com.quranicwords.app.core.util.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -50,7 +52,8 @@ data class LearnedWordsUiState(
 class LearnedWordsViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val contentRepository: ContentRepository,
-    private val userIdProvider: CurrentUserIdProvider
+    private val userIdProvider: CurrentUserIdProvider,
+    private val audioPlayer: AudioPlayer
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -67,12 +70,12 @@ class LearnedWordsViewModel @Inject constructor(
         val filtered = if (query.isBlank()) {
             words
         } else {
-            val q = query.trim().lowercase()
+            // Arabic is matched without its diacritics, so "كتب" finds "كَتَبَ".
             words.filter { item ->
-                item.arabicWord.contains(q, ignoreCase = true) ||
-                    item.meaning.values.any { it.lowercase().contains(q) } ||
-                    item.root?.lowercase()?.contains(q) == true ||
-                    item.exampleVerseReference?.contains(q) == true
+                ArabicSearch.matches(item.arabicWord, query) ||
+                    item.meaning.values.any { ArabicSearch.matches(it, query) } ||
+                    ArabicSearch.matches(item.root, query) ||
+                    item.exampleVerseReference?.contains(query.trim()) == true
             }
         }
         LearnedWordsUiState(
@@ -119,6 +122,14 @@ class LearnedWordsViewModel @Inject constructor(
                 _isLoading.value = false
             }
         }
+    }
+
+    /** False (no throw) when the clip isn't bundled or pronunciation audio is off. */
+    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
+
+    override fun onCleared() {
+        audioPlayer.release()
+        super.onCleared()
     }
 
     fun onSearchQueryChanged(query: String) {

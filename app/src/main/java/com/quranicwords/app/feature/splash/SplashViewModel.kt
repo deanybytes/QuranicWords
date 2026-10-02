@@ -16,13 +16,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.time.Clock
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val preferences: UserPreferencesDataStore,
-    private val sfxPlayer: SfxPlayer
+    private val sfxPlayer: SfxPlayer,
+    private val clock: Clock
 ) : ViewModel() {
 
     private val _destination = MutableStateFlow<Route?>(null)
@@ -33,8 +36,21 @@ class SplashViewModel @Inject constructor(
     private val _loadFailed = MutableStateFlow(false)
     val loadFailed: StateFlow<Boolean> = _loadFailed.asStateFlow()
 
+    /** Whether this launch opens with the invocation: the first launch of each local day, or
+     * every launch when the learner asked for that in Settings. Null until decided. */
+    private val _playInvocation = MutableStateFlow<Boolean?>(null)
+    val playInvocation: StateFlow<Boolean?> = _playInvocation.asStateFlow()
+
     init {
-        viewModelScope.launch { sfxPlayer.play(SfxEffect.OPENING) }
+        viewModelScope.launch {
+            val today = LocalDate.now(clock).toString()
+            val play = preferences.invocationEveryLaunchFlow.first() || preferences.lastInvocationDate() != today
+            if (play) {
+                preferences.setLastInvocationDate(today)
+                sfxPlayer.play(SfxEffect.OPENING)
+            }
+            _playInvocation.value = play
+        }
         resolveDestination()
     }
 

@@ -66,6 +66,9 @@ class UserPreferencesDataStore @Inject constructor(
         val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
         val REQUIRE_EXIT_CONFIRMATION = booleanPreferencesKey("require_exit_confirmation")
         val WORD_MEMORY_BACKFILLED = booleanPreferencesKey("word_memory_backfilled")
+        val LESSON_RESUME = stringPreferencesKey("lesson_resume")
+        val LAST_INVOCATION_DATE = stringPreferencesKey("last_invocation_date")
+        val INVOCATION_EVERY_LAUNCH = booleanPreferencesKey("invocation_every_launch")
     }
 
     private val userIdMutex = Mutex()
@@ -191,6 +194,29 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setWordMemoryBackfilled(done: Boolean) {
         context.dataStore.edit { it[Keys.WORD_MEMORY_BACKFILLED] = done }
+    }
+
+    /** JSON of the last interrupted Learn lesson (`feature.lesson.LessonResumeRecord`), or null. */
+    val lessonResumeJsonFlow: Flow<String?> =
+        context.dataStore.data.map { it[Keys.LESSON_RESUME] }
+
+    suspend fun setLessonResumeJson(json: String?) {
+        context.dataStore.edit { if (json == null) it.remove(Keys.LESSON_RESUME) else it[Keys.LESSON_RESUME] = json }
+    }
+
+    /** ISO date the opening invocation last played - it plays on the first launch of each day. */
+    suspend fun lastInvocationDate(): String? = context.dataStore.data.first()[Keys.LAST_INVOCATION_DATE]
+
+    suspend fun setLastInvocationDate(date: String) {
+        context.dataStore.edit { it[Keys.LAST_INVOCATION_DATE] = date }
+    }
+
+    /** Settings: play the opening invocation on every cold start instead of once a day. Off by default. */
+    val invocationEveryLaunchFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.INVOCATION_EVERY_LAUNCH] == true }
+
+    suspend fun setInvocationEveryLaunch(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.INVOCATION_EVERY_LAUNCH] = enabled }
     }
 
     val requireExitConfirmationFlow: Flow<Boolean> =

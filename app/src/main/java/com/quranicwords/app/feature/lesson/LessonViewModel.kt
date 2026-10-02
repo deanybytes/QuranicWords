@@ -28,6 +28,10 @@ import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.domain.model.HeartsStatus
+import com.quranicwords.app.core.data.local.entity.ExerciseEntity
+import com.quranicwords.app.core.data.local.entity.LessonKind
+import java.util.IdentityHashMap
 import com.quranicwords.app.core.util.AudioPlayer
 import com.quranicwords.app.core.util.AppJson
 import com.quranicwords.app.core.util.SfxEffect
@@ -81,13 +85,28 @@ data class LessonUiState(
     val wordCategories: Map<String, LemmaCategory> = emptyMap(),
     /** Memory strength per word as of session start, for the teach step's strength meter - a
      * snapshot, so the meter doesn't jump mid-lesson as answers update `word_memory`. */
-    val wordStrengths: Map<String, WordStrength> = emptyMap()
+    val wordStrengths: Map<String, WordStrength> = emptyMap(),
+    /** Pronunciation clip per word id, for the play buttons on the teach step and MC feedback. */
+    val audioByWordId: Map<String, String> = emptyMap(),
+    /** Null outside Learn lessons (review/practice never cost hearts). */
+    val hearts: HeartsStatus? = null,
+    /** Hearts ran out before this lesson started - the screen shows the refill sheet instead. */
+    val outOfHearts: Boolean = false,
+    val refillTarget: RefillTarget = RefillTarget.OPEN_PRACTICE,
+    /** True when this session continued an interrupted one. */
+    val isResumed: Boolean = false
 ) {
+    /** Consecutive first-try correct answers right now - see [LessonScoring.combo]. */
+    val combo: Int get() = scoring.combo
     /** First-try correct answers only - see [LessonScoring]. */
     val correctCount: Int get() = scoring.correctCount
     val currentContent: ExerciseContent? get() = contents.getOrNull(currentIndex)
     val progressFraction: Float get() = if (contents.isEmpty()) 0f else (currentIndex + if (isChecked) 1 else 0).toFloat() / contents.size
 }
+
+/** Where "Practice to refill" sends a learner who is out of hearts - the most useful practice
+ * available: due reviews, then mistakes, then open practice. */
+enum class RefillTarget { DAILY_REVIEW, MISTAKES, OPEN_PRACTICE }
 
 @HiltViewModel
 class LessonViewModel @Inject constructor(
@@ -99,7 +118,7 @@ class LessonViewModel @Inject constructor(
     private val audioPlayer: AudioPlayer,
     private val preferences: UserPreferencesDataStore,
     private val clock: Clock,
-    savedStateHandle: androidx.lifecycle.SavedStateHandle
+    private val savedStateHandle: androidx.lifecycle.SavedStateHandle
 ) : ViewModel() {
 
     // Null exactly when this ViewModel was reached via Route.Review (a distinct destination with
@@ -132,6 +151,24 @@ class LessonViewModel @Inject constructor(
      * Review session in every respect except where its exercises come from. */
     private val isDailyReview: Boolean = savedStateHandle["isDailyReview"] ?: false
 
+    /** Set when reached via Route.FocusedReview - a Review of exactly these words. */
+    private val focusedReviewIds: List<String>? =
+        // Navigation stores a List<String> argument as a String array in the saved state.
+        when (val raw = savedStateHandle.get<Any>("reviewWordIds")) {
+            is Array<*> -> raw.filterIsInstance<String>()
+            is List<*> -> raw.filterIsInstance<String>()
+            else -> null
+        }
+
+    /** Route.Lesson(resume = true): continue the stored interrupted session if it's this lesson. */
+    private val resumeRequested: Boolean = savedStateHandle["resume"] ?: false
+
+    /** The session's exercise order (exercise ids) - persisted for resume. Empty outside lessons. */
+    private var exerciseOrder: List<String> = emptyList()
+
+    /** Hearts apply to Learn lessons with something to score (not chapter intros). */
+    private var lessonCostsHearts = false
+
     /** True when reached via Route.Review rather than a real lesson - [init] then assembles its
      * exercise list from missed items instead of a fixed lesson, and [finishLesson] records the
      * result via `completeReviewSession` instead of `completeLesson`. False for Open Practice and
@@ -141,6 +178,9 @@ class LessonViewModel @Inject constructor(
     private val isReviewSession: Boolean = lessonId == null && !isOpenPractice && !isStreakRecovery
 
     private var isFinishing = false
+
+    /** An empty review means everything is caught up - a good outcome, worded as one. */
+    val isReviewLike: Boolean get() = isReviewSession
 
     // Single-value today (vocabulary words only) - see ItemKind's doc comment.
     private val itemKind: ItemKind = ItemKind.WORD
@@ -172,6 +212,7 @@ class LessonViewModel @Inject constructor(
                         val mode: String = savedStateHandle["mode"] ?: "RANDOM"
                         progressRepository.getOpenPracticeExercises(userId, mode = mode)
                     }
+                    focusedReviewIds != null -> progressRepository.getReviewExercises(focusedReviewIds, limit = focusedReviewIds.size)
                     isDailyReview -> progressRepository.getDailyReviewExercises(
                         userId = userId,
                         limit = preferences.dailyGoalLevelFlow.first().dailyReviewCap,
@@ -193,43 +234,134 @@ class LessonViewModel @Inject constructor(
             val candidates = candidatesDeferred.await()
             val wordIntros = wordIntrosDeferred.await()
             val learningStyle = preferences.learningStyleFlow.first()
-
+            val resume = if (lessonId != null) restoredResume(lessonId) else null
 
             val contents = withContext(Dispatchers.Default) {
                 // Built once per lesson load and reused for every options-bearing exercise below,
                 // instead of DistractorGenerator re-sorting the full candidate list from scratch
                 // per exercise (see WordCandidatePool's doc comment).
                 val candidatePool = WordCandidatePool.from(candidates)
-                val decoded = exercises
-                    .map { AppJson.decodeFromString(ExerciseContent.serializer(), it.contentJson) }
-                    // ListenAndType has no authored content yet; TapWhatYouHear only with audio on.
-                    .filter { content ->
-                        content !is ExerciseContent.ListenAndType &&
-                            (listeningEnabled || content !is ExerciseContent.TapWhatYouHear)
-                    }
-                // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
-                // comment) so each repeated instance gets its own independent distractor/shuffle
-                // pass below, rather than N identical copies of the same regenerated exercise.
-                // Open Practice and Streak Recovery always use a 1x multiplier (no-op) regardless
-                // of the learner's stored LearningStyle - each batch is already freshly
-                // randomized, so repeating a word within one batch wouldn't add the same "extra
-                // reinforcement" it does for a fixed lesson's authored word set.
-                val repeatCount = if (isOpenPractice || isStreakRecovery || isDailyReview) 1 else learningStyle.repeatCount
-                val sequenced = AdaptiveSequencer.reorderForAdaptivePractice(decoded, missedItemIds)
-                LessonContentRepeater.apply(sequenced, repeatCount)
-                    .map { content -> resolveCanonicalMeaning(content, candidatePool, wordIntros) }
-                    .map { content -> regenerateDistractors(content, candidatePool, missedItemIds, wordIntros) }
+                val ordered = if (resume != null) {
+                    resumedOrder(resume, exercises)
+                } else {
+                    // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
+                    // comment) so each repeated instance gets its own independent distractor/shuffle
+                    // pass below, rather than N identical copies of the same regenerated exercise.
+                    // Open Practice, Streak Recovery and the Daily Review always use a 1x
+                    // multiplier (no-op) regardless of the learner's stored LearningStyle - each
+                    // batch is already freshly chosen, so repeating a word within one batch wouldn't
+                    // add the same "extra reinforcement" it does for a fixed lesson's word set.
+                    val repeatCount = if (isOpenPractice || isStreakRecovery || isDailyReview) 1 else learningStyle.repeatCount
+                    freshOrder(exercises, listeningEnabled, missedItemIds, repeatCount)
+                }
+                val playable = ordered
+                    .map { (id, content) -> id to resolveCanonicalMeaning(content, candidatePool, wordIntros) }
+                    .map { (id, content) -> id to regenerateDistractors(content, candidatePool, missedItemIds, wordIntros) }
                     // An exercise that still can't offer a real choice (no resolvable correct
                     // option, or no distractors at all) would render an empty, unanswerable card -
                     // drop it rather than strand the learner.
-                    .filter { content -> isPlayable(content) }
+                    .filter { (_, content) -> isPlayable(content) }
+                // Recorded after filtering, so a resume rebuilds exactly the list being shown.
+                exerciseOrder = playable.map { it.first }
+                playable.map { it.second }
             }
             val wordCategories = categoriesDeferred.await()
             val wordStrengths = strengthsDeferred.await()
+            val audioByWordId = buildMap {
+                candidates.forEach { word -> word.audioAssetPath?.let { put(word.id, it) } }
+                wordIntros.forEach { (id, intro) -> intro.audioAssetPath?.let { putIfAbsent(id, it) } }
+            }
+
+            if (lessonId != null) {
+                lessonCostsHearts = contentRepository.getLesson(lessonId)?.kind != LessonKind.CHAPTER_INTRO &&
+                    contents.any { it.isScored }
+            }
+            val hearts = if (lessonCostsHearts) progressRepository.getHearts(userId) else null
+            val refillTarget = when {
+                progressRepository.getDueItemIds(userId, limit = 1).isNotEmpty() -> RefillTarget.DAILY_REVIEW
+                missedItemIds.isNotEmpty() -> RefillTarget.MISTAKES
+                else -> RefillTarget.OPEN_PRACTICE
+            }
             _uiState.update {
-                it.copy(isLoading = false, contents = contents, wordCategories = wordCategories, wordStrengths = wordStrengths)
+                it.copy(
+                    isLoading = false,
+                    contents = contents,
+                    wordCategories = wordCategories,
+                    wordStrengths = wordStrengths,
+                    audioByWordId = audioByWordId,
+                    hearts = hearts,
+                    // Out of hearts blocks starting a lesson, never finishing one already begun.
+                    outOfHearts = hearts?.isEmpty == true && resume == null,
+                    refillTarget = refillTarget,
+                    isResumed = resume != null,
+                    currentIndex = resume?.index?.coerceIn(0, (contents.size - 1).coerceAtLeast(0)) ?: 0,
+                    scoring = resume?.scoring ?: LessonScoring()
+                )
+            }
+            if (lessonCostsHearts) observeHearts(userId)
+        }
+    }
+
+    /** Keeps the hearts badge live and lifts the out-of-hearts gate the moment one regenerates. */
+    private fun observeHearts(userId: String) {
+        viewModelScope.launch {
+            progressRepository.observeHearts(userId).collect { status ->
+                _uiState.update { state ->
+                    val stillAtStart = state.currentIndex == 0 && state.scoring.gradedIndices.isEmpty()
+                    state.copy(hearts = status, outOfHearts = state.outOfHearts && stillAtStart && status.isEmpty)
+                }
             }
         }
+    }
+
+    /** Decodes, filters, adaptively reorders and repeats a lesson's exercises, keeping each
+     * instance's exercise id alongside it (the repeater hands back the same instances, so an
+     * identity map recovers the ids) for the resume record. */
+    private fun freshOrder(
+        exercises: List<ExerciseEntity>,
+        listeningEnabled: Boolean,
+        missedItemIds: Set<String>,
+        repeatCount: Int
+    ): List<Pair<String, ExerciseContent>> {
+        val idByContent = IdentityHashMap<ExerciseContent, String>()
+        val decoded = exercises
+            .map { entity -> AppJson.decodeFromString(ExerciseContent.serializer(), entity.contentJson).also { idByContent[it] = entity.id } }
+            // ListenAndType has no authored content yet; TapWhatYouHear only with audio on.
+            .filter { content ->
+                content !is ExerciseContent.ListenAndType &&
+                    (listeningEnabled || content !is ExerciseContent.TapWhatYouHear)
+            }
+        val sequenced = AdaptiveSequencer.reorderForAdaptivePractice(decoded, missedItemIds)
+        return LessonContentRepeater.apply(sequenced, repeatCount).map { (idByContent[it] ?: "") to it }
+    }
+
+    /** The interrupted session's exact exercise order, rebuilt from its stored ids. */
+    private fun resumedOrder(resume: LessonResumeRecord, exercises: List<ExerciseEntity>): List<Pair<String, ExerciseContent>> {
+        val byId = exercises.associateBy { it.id }
+        return resume.exerciseOrder.mapNotNull { id ->
+            byId[id]?.let { id to AppJson.decodeFromString(ExerciseContent.serializer(), it.contentJson) }
+        }
+    }
+
+    /** A resume record for [lessonId]: the SavedStateHandle copy after process death, else the
+     * DataStore copy when Home's "Resume lesson" asked for it. */
+    private suspend fun restoredResume(lessonId: String): LessonResumeRecord? {
+        val saved = LessonResumeRecord.decodeOrNull(savedStateHandle[RESUME_KEY])
+        if (saved != null && saved.lessonId == lessonId) return saved
+        if (!resumeRequested) return null
+        return LessonResumeRecord.decodeOrNull(preferences.lessonResumeJsonFlow.first())
+            ?.takeIf { it.lessonId == lessonId && it.isFresh(clock.millis()) }
+    }
+
+    /** Persists the session position (SavedStateHandle + DataStore) once a Learn lesson is under
+     * way, so an interruption can be resumed. */
+    private fun saveResumePoint() {
+        val id = lessonId ?: return
+        val state = _uiState.value
+        if (isFinishing || exerciseOrder.size != state.contents.size || state.currentIndex <= 0) return
+        val json = LessonResumeRecord(id, exerciseOrder, state.currentIndex, state.scoring, clock.millis()).encode()
+        savedStateHandle[RESUME_KEY] = json
+        viewModelScope.launch { preferences.setLessonResumeJson(json) }
     }
 
     /** Overrides every baked, content-pipeline-authored copy of a word's meaning with the single
@@ -566,6 +698,13 @@ class LessonViewModel @Inject constructor(
         val state = _uiState.value
         val content = state.currentContent
         val currentIndex = state.currentIndex
+        // A first-check mistake in a Learn lesson costs a heart; re-checks never do.
+        if (!correct && lessonCostsHearts && !state.scoring.isGraded(currentIndex)) {
+            viewModelScope.launch {
+                val status = progressRepository.loseHeart(userIdProvider.get())
+                _uiState.update { it.copy(hearts = status) }
+            }
+        }
         _uiState.update {
             it.copy(
                 isChecked = true,
@@ -642,13 +781,16 @@ class LessonViewModel @Inject constructor(
     /** Called once the first exercise is actually on screen - starts the active-time clock. */
     fun onContentShown() = sessionTimer.start()
 
-    /** App backgrounded (screen stopped) - stop counting practice time. */
-    fun onPause() = sessionTimer.pause()
+    /** App backgrounded (screen stopped) - stop counting practice time and keep the place. */
+    fun onPause() {
+        sessionTimer.pause()
+        saveResumePoint()
+    }
 
     fun onResume() = sessionTimer.resume()
 
     fun onContinuePressed() {
-        if (isFinishing) return
+        if (isFinishing || _uiState.value.outOfHearts) return
         val now = clock.millis()
         if (lastAdvanceMillis != Long.MIN_VALUE && now - lastAdvanceMillis in 0 until CONTINUE_DEBOUNCE_MILLIS) return
         val state = _uiState.value
@@ -669,6 +811,7 @@ class LessonViewModel @Inject constructor(
                     lastAnswerCorrect = null
                 )
             }
+            saveResumePoint()
         }
     }
 
@@ -690,6 +833,7 @@ class LessonViewModel @Inject constructor(
                 val state = _uiState.value
                 val userId = userIdProvider.get()
                 val totalCount = state.contents.count { it.isScored }
+                val sessionStats = state.scoring.sessionStats(knownItemIds = state.wordStrengths.keys)
                 val result = if (isStreakRecovery) {
                     val passed = progressRepository.attemptStreakRecovery(userId, state.correctCount, totalCount)
                     val stats = progressRepository.observeStats(userId).first()
@@ -710,7 +854,8 @@ class LessonViewModel @Inject constructor(
                         correctCount = state.correctCount,
                         totalCount = totalCount,
                         durationMillis = durationMillis,
-                        sessionType = sessionType
+                        sessionType = sessionType,
+                        session = sessionStats
                     )
                 } else {
                     progressRepository.completeLesson(
@@ -718,11 +863,13 @@ class LessonViewModel @Inject constructor(
                         lessonId = checkNotNull(lessonId),
                         correctCount = state.correctCount,
                         totalCount = totalCount,
-                        durationMillis = durationMillis
+                        durationMillis = durationMillis,
+                        session = sessionStats
                     )
                 }
+                if (lessonId != null) clearResumePoint()
                 val newlyUnlocked = try {
-                    achievementRepository.checkAndUnlock(userId)
+                    achievementRepository.checkAndUnlock(userId, completedReviewSession = sessionType == LessonSessionType.REVIEW)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
@@ -761,7 +908,15 @@ class LessonViewModel @Inject constructor(
         }
     }
 
+    /** The session finished - nothing left to resume. Only clears a record for this lesson. */
+    private suspend fun clearResumePoint() {
+        savedStateHandle.remove<String>(RESUME_KEY)
+        val stored = LessonResumeRecord.decodeOrNull(preferences.lessonResumeJsonFlow.first())
+        if (stored?.lessonId == lessonId) preferences.setLessonResumeJson(null)
+    }
+
     private companion object {
         const val CONTINUE_DEBOUNCE_MILLIS = 400L
+        const val RESUME_KEY = "lessonResumeRecord"
     }
 }

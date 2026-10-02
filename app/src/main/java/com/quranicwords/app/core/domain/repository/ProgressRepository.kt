@@ -1,6 +1,9 @@
 package com.quranicwords.app.core.domain.repository
 
 import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
+import com.quranicwords.app.core.domain.model.HeartsStatus
+import com.quranicwords.app.core.domain.model.SessionStats
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
@@ -28,14 +31,18 @@ interface ProgressRepository {
      * [com.quranicwords.app.core.data.local.entity.LessonKind.REGULAR] lesson, only on a passing
      * score (see [com.quranicwords.app.core.util.GamificationConfig.PASSING_SCORE_PERCENT]) for
      * every other kind. A failed exam/flashback still records the attempt (score visible, retry
-     * available) but leaves whatever comes next locked.
+     * available) but leaves whatever comes next locked, and pays no XP at all. Replaying an
+     * already-completed lesson pays [com.quranicwords.app.core.util.GamificationConfig
+     * .REPLAY_POINTS_PERCENT] of its XP. [session] carries combo bonus/best combo and the counts
+     * daily quests advance on - all committed in one transaction with the result.
      */
     suspend fun completeLesson(
         userId: String,
         lessonId: String,
         correctCount: Int,
         totalCount: Int,
-        durationMillis: Long
+        durationMillis: Long,
+        session: SessionStats = SessionStats()
     ): LessonResult
 
     /** Logs one scored check against a single letter/word - the per-item signal
@@ -118,7 +125,8 @@ interface ProgressRepository {
         correctCount: Int,
         totalCount: Int,
         durationMillis: Long,
-        sessionType: LessonSessionType = LessonSessionType.REVIEW
+        sessionType: LessonSessionType = LessonSessionType.REVIEW,
+        session: SessionStats = SessionStats()
     ): LessonResult
 
     /** A batch of up to [batchSize] scored exercises drawn from a flexible word pool according
@@ -143,6 +151,22 @@ interface ProgressRepository {
      * false - the locked state simply persists until the next successful attempt or the streak
      * naturally resets via a normal lesson/review completion. */
     suspend fun attemptStreakRecovery(userId: String, correctCount: Int, totalCount: Int): Boolean
+
+    /** Today's quests for [localDate], created on first request (see
+     * [com.quranicwords.app.core.domain.QuestCatalog]). Advanced by [completeLesson] and
+     * [completeReviewSession] in the same transaction as the session result. */
+    fun observeQuests(userId: String, localDate: String): Flow<List<DailyQuestEntity>>
+
+    /** Live hearts (regeneration applied), re-evaluated as time passes. */
+    fun observeHearts(userId: String): Flow<HeartsStatus>
+
+    suspend fun getHearts(userId: String): HeartsStatus
+
+    /** A first-try mistake in a Learn lesson - a no-op while hearts are switched off. */
+    suspend fun loseHeart(userId: String): HeartsStatus
+
+    /** The Settings "Hearts" toggle. Turning hearts on starts from a full set. */
+    suspend fun setHeartsEnabled(userId: String, enabled: Boolean)
 
     /** The Settings "reset progress" action - wipes every progress/stats table for [userId]
      * (lesson unlocks/scores, points/streak, per-item attempt history, daily practice minutes,

@@ -114,6 +114,8 @@ import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.DailyGoalBadge
 import com.quranicwords.app.core.ui.components.DailyReviewCard
+import com.quranicwords.app.core.ui.components.HeartsBadge
+import com.quranicwords.app.core.ui.components.LevelProgressBar
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -161,6 +163,7 @@ import kotlin.math.sin
 @Composable
 fun HomeScreen(
     onOpenLesson: (String) -> Unit,
+    onResumeLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
     onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
@@ -236,7 +239,7 @@ fun HomeScreen(
                 isCurriculumComplete = uiState.isCurriculumComplete,
                 hasReviewableItems = uiState.hasReviewableItems,
                 hasCompletedHistory = uiState.completedHistory.isNotEmpty(),
-                extraLeadingItems = if (uiState.dueReviewCount > 0) 1 else 0,
+                extraLeadingItems = listOf(uiState.dueReviewCount > 0, uiState.resume != null, uiState.quests.isNotEmpty()).count { it },
                 expandedChapterIds = currentExpandedChapterIds,
                 expandedSectionIds = currentExpandedSectionIds,
                 targetLessonId = targetLessonId
@@ -246,6 +249,16 @@ fun HomeScreen(
                 listState.animateScrollToItem(targetIndex)
             }
         }
+    }
+
+    // Chime when a quest completes while Home is away (e.g. during a lesson) - compared against
+    // the count last seen here, so the first load after launch stays quiet.
+    val completedQuests = uiState.quests.count { it.completedAtEpochMillis != null }
+    var lastSeenCompletedQuests by rememberSaveable { mutableIntStateOf(-1) }
+    LaunchedEffect(completedQuests, uiState.isLoading) {
+        if (uiState.isLoading) return@LaunchedEffect
+        if (lastSeenCompletedQuests in 0 until completedQuests) viewModel.playQuestChime()
+        lastSeenCompletedQuests = completedQuests
     }
 
     Scaffold(
@@ -283,6 +296,9 @@ fun HomeScreen(
                     last30DaysMinutes = uiState.last30DaysMinutes,
                     activeDaysCount = uiState.last30DaysActiveCount,
                     totalMinutes = uiState.last30DaysTotalMinutes,
+                    hearts = uiState.hearts?.takeIf { it.enabled }?.hearts,
+                    todayMinutes = uiState.todayMinutes,
+                    dailyGoalMinutes = uiState.dailyGoalMinutes,
                     onOpenRoadmap = onOpenRoadmap,
                     onOpenStreakRecovery = onOpenStreakRecovery,
                     onOpenLearnedWords = onOpenLearnedWords
@@ -341,6 +357,18 @@ fun HomeScreen(
                     if (uiState.dueReviewCount > 0) {
                         item(key = "daily_review") {
                             DailyReviewCard(dueCount = uiState.dueReviewCount, onClick = onOpenDailyReview)
+                        }
+                    }
+
+                    uiState.resume?.let { resume ->
+                        item(key = "resume_lesson") {
+                            ResumeLessonCard(resume = resume, onResume = { onResumeLesson(resume.lessonId) })
+                        }
+                    }
+
+                    if (uiState.quests.isNotEmpty()) {
+                        item(key = "daily_quests") {
+                            QuestsCard(quests = uiState.quests)
                         }
                     }
 
@@ -491,6 +519,10 @@ private fun HomeHeroHeader(
     last30DaysMinutes: List<Int> = emptyList(),
     activeDaysCount: Int = 0,
     totalMinutes: Int = 0,
+    /** Null while hearts are switched off. */
+    hearts: Int? = null,
+    todayMinutes: Int = 0,
+    dailyGoalMinutes: Int = 0,
     onOpenRoadmap: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
     onOpenLearnedWords: () -> Unit = {}
@@ -614,10 +646,15 @@ private fun HomeHeroHeader(
                                 } else {
                                     StreakBadge(currentStreak)
                                 }
+                                if (hearts != null) HeartsBadge(hearts = hearts)
+                                if (dailyGoalMinutes > 0) DailyGoalRing(minutes = todayMinutes, goalMinutes = dailyGoalMinutes, size = 36.dp)
                                 DailyGoalBadge(visible = isDailyGoalMetToday)
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    LevelProgressBar(totalXp = totalPoints)
 
                     Spacer(modifier = Modifier.height(14.dp))
 

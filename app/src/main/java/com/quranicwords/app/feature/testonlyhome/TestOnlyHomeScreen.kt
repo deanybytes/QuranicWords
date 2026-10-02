@@ -164,6 +164,12 @@ fun TestOnlyHomeScreen(
                 }
             }
 
+            if (uiState.quests.isNotEmpty()) {
+                item(key = "daily_quests") {
+                    com.quranicwords.app.feature.home.QuestsCard(quests = uiState.quests)
+                }
+            }
+
             // 2. Mode 1: Ism (Nouns) Mode (3D Glossy Card)
             item {
                 val localizedIsmCovered = VerseReferenceFormatter.formatNumber(uiState.ismCoveredCount, language)
@@ -476,6 +482,9 @@ private fun TestHeroHeader(
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    com.quranicwords.app.core.ui.components.LevelProgressBar(totalXp = totalPoints)
 
                     Spacer(modifier = Modifier.height(14.dp))
 

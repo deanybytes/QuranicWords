@@ -17,6 +17,11 @@ import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
+import com.quranicwords.app.core.domain.model.HeartsStatus
+import com.quranicwords.app.core.util.SfxEffect
+import com.quranicwords.app.core.util.SfxPlayer
+import com.quranicwords.app.feature.lesson.LessonResumeRecord
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.quranicwords.app.core.util.currentDateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -52,6 +57,14 @@ data class HomeUiState(
     val missedWordsCount: Int = 0,
     /** Words whose spaced-repetition review is due now - drives the Daily Review hero card. */
     val dueReviewCount: Int = 0,
+    /** Null until read; `enabled = false` hides the hearts badge. */
+    val hearts: HeartsStatus? = null,
+    /** Today's practice minutes against the daily goal - the header's progress ring. */
+    val todayMinutes: Int = 0,
+    val dailyGoalMinutes: Int = 0,
+    val quests: List<DailyQuestEntity> = emptyList(),
+    /** A recent interrupted lesson Home offers to resume. */
+    val resume: ResumeInfo? = null,
     /** The chapter/section containing the learner's actual current lesson (first UNLOCKED-but-
      * not-COMPLETED one) - the collapse/expand tree auto-opens to here on load rather than
      * requiring a tap first, softening the collapse-by-default UX trade-off. Null/null when there
@@ -102,6 +115,26 @@ data class HomeUiState(
     val last30DaysActiveCount: Int = 0,
     val last30DaysTotalMinutes: Int = 0
 )
+
+/** Home's "Resume lesson" card: which lesson, and how far into it the learner got. */
+data class ResumeInfo(val lessonId: String, val lessonTitle: com.quranicwords.app.core.domain.model.LocalizedText, val position: Int, val total: Int)
+
+/** Pure: the resume card for [record], or null when it's stale, finished or for an unknown lesson. */
+fun resumeInfoFor(
+    record: LessonResumeRecord?,
+    chapters: List<ChapterWithSections>,
+    progressByLessonId: Map<String, UserProgressEntity>,
+    nowMillis: Long
+): ResumeInfo? {
+    if (record == null || !record.isFresh(nowMillis)) return null
+    if (progressByLessonId[record.lessonId]?.status == LessonStatus.COMPLETED &&
+        (progressByLessonId[record.lessonId]?.completedAtEpochMillis ?: 0L) > record.savedAtEpochMillis
+    ) return null
+    val lesson = chapters.asSequence()
+        .flatMap { it.sections.flatMap { s -> s.lessons } + it.chapterLevelLessons }
+        .firstOrNull { it.id == record.lessonId } ?: return null
+    return ResumeInfo(lesson.id, lesson.title, record.index + 1, record.exerciseOrder.size)
+}
 
 /** Pure derivation, no DB access - the containing chapter and section id of [findCurrentLessonId],
  * auto-expanding the collapse/expand tree to wherever the learner's active lesson lives. */
@@ -250,7 +283,8 @@ class HomeViewModel @Inject constructor(
     private val achievementRepository: AchievementRepository,
     private val preferences: UserPreferencesDataStore,
     private val userIdProvider: CurrentUserIdProvider,
-    private val clock: Clock
+    private val clock: Clock,
+    private val sfxPlayer: SfxPlayer
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -289,8 +323,13 @@ class HomeViewModel @Inject constructor(
                     ) { missedItemIds, goalLevel, rangeHistory ->
                         Triple(missedItemIds, goalLevel, rangeHistory)
                     },
-                    progressRepository.observeDueCount(userId)
-                ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory), dueCount ->
+                    progressRepository.observeDueCount(userId),
+                    combine(
+                        progressRepository.observeHearts(userId),
+                        progressRepository.observeQuests(userId, today),
+                        preferences.lessonResumeJsonFlow
+                    ) { hearts, quests, resumeJson -> Triple(hearts, quests, resumeJson) }
+                ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory), dueCount, (hearts, quests, resumeJson) ->
                     val progressByLessonId = progress.associateBy { it.lessonId }
                     val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
                     val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
@@ -312,6 +351,11 @@ class HomeViewModel @Inject constructor(
                         hasReviewableItems = missedItemIds.isNotEmpty(),
                         missedWordsCount = missedItemIds.size,
                         dueReviewCount = dueCount,
+                        hearts = hearts,
+                        todayMinutes = todayPractice?.minutesPracticed ?: 0,
+                        dailyGoalMinutes = goalLevel.minutes,
+                        quests = quests,
+                        resume = resumeInfoFor(LessonResumeRecord.decodeOrNull(resumeJson), chapters, progressByLessonId, clock.millis()),
                         initiallyExpandedChapterId = currentChapterId,
                         initiallyExpandedSectionId = currentSectionId,
                         currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
@@ -338,4 +382,9 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun loadCurriculumTree(): List<ChapterWithSections> =
         contentRepository.getFullCurriculumTree()
+
+    /** The quest-complete chime - Home plays it when it sees a quest newly done. */
+    fun playQuestChime() {
+        viewModelScope.launch { sfxPlayer.play(SfxEffect.QUEST_COMPLETE) }
+    }
 }

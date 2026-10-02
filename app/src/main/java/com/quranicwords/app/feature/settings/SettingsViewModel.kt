@@ -21,6 +21,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -62,6 +66,21 @@ class SettingsViewModel @Inject constructor(
     val soundEnabled: StateFlow<Boolean> =
         preferences.soundEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
+    val pronunciationAudioEnabled: StateFlow<Boolean> =
+        preferences.pronunciationAudioEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
+
+    val invocationEveryLaunch: StateFlow<Boolean> =
+        preferences.invocationEveryLaunchFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    /** The hearts setting lives on the learner's stats row (it's part of their progress rules,
+     * and backs up with it), not in DataStore. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val heartsEnabled: StateFlow<Boolean> =
+        flow { emit(userIdProvider.get()) }
+            .flatMapLatest { progressRepository.observeStats(it) }
+            .map { it?.heartsEnabled ?: false }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
     val requireExitConfirmation: StateFlow<Boolean> =
         preferences.requireExitConfirmationFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
@@ -102,6 +121,18 @@ class SettingsViewModel @Inject constructor(
 
     fun setSoundEnabled(enabled: Boolean) {
         viewModelScope.launch { preferences.setSoundEnabled(enabled) }
+    }
+
+    fun setPronunciationAudioEnabled(enabled: Boolean) {
+        viewModelScope.launch { preferences.setPronunciationAudioEnabled(enabled) }
+    }
+
+    fun setInvocationEveryLaunch(enabled: Boolean) {
+        viewModelScope.launch { preferences.setInvocationEveryLaunch(enabled) }
+    }
+
+    fun setHeartsEnabled(enabled: Boolean) {
+        viewModelScope.launch { progressRepository.setHeartsEnabled(userIdProvider.get(), enabled) }
     }
 
     fun setRequireExitConfirmation(enabled: Boolean) {

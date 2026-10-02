@@ -40,14 +40,28 @@ import com.quranicwords.app.core.ui.components.AchievementBadge
 import com.quranicwords.app.core.ui.components.displayDescription
 import com.quranicwords.app.core.ui.components.displayName
 import com.quranicwords.app.core.ui.motion.rememberReducedGlass
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import com.quranicwords.app.core.ui.components.QwIconButton
+import com.quranicwords.app.core.ui.components.QwSecondaryButton
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.theme.QwShapes
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
- * Achievements rendered as one glassmorphic card holding a plain, non-scrolling column of
- * [AchievementRow]s - meant to sit as a single item inside the host screen's own scrolling
- * container (the Progress tab), which owns all scrolling.
+ * Progress tab's achievements preview: one glassmorphic card with the unlocked count, the few
+ * most relevant achievements (latest unlocks, then the nearest to done) and a way into the full
+ * [AchievementsScreen]. A plain, non-scrolling column, so the host screen owns all scrolling.
  */
 @Composable
-fun AchievementsSection(viewModel: AchievementsViewModel = hiltViewModel()) {
+fun AchievementsSection(onOpenAll: () -> Unit, viewModel: AchievementsViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val reducedGlass = rememberReducedGlass()
     val shape = RoundedCornerShape(28.dp)
@@ -132,9 +146,24 @@ fun AchievementsSection(viewModel: AchievementsViewModel = hiltViewModel()) {
                         CircularProgressIndicator()
                     }
                 } else {
-                    uiState.items.forEach { item ->
+                    val language = rememberSelectedLanguage()
+                    Text(
+                        stringResource(
+                            R.string.achievements_unlocked_count,
+                            VerseReferenceFormatter.formatNumber(uiState.unlockedCount, language),
+                            VerseReferenceFormatter.formatNumber(uiState.items.size, language)
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    uiState.preview.forEach { item ->
                         AchievementRow(item = item, reducedGlass = reducedGlass)
                     }
+                    QwSecondaryButton(
+                        text = stringResource(R.string.achievements_view_all),
+                        onClick = onOpenAll,
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
             }
 
@@ -154,6 +183,54 @@ fun AchievementsSection(viewModel: AchievementsViewModel = hiltViewModel()) {
                             )
                         )
                 )
+            }
+        }
+    }
+}
+
+/** Every achievement, each locked one with its requirement and a progress bar towards it. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AchievementsScreen(onBack: () -> Unit, viewModel: AchievementsViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val reducedGlass = rememberReducedGlass()
+    val language = rememberSelectedLanguage()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.achievements_title)) },
+                navigationIcon = {
+                    QwIconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
+                    }
+                }
+            )
+        }
+    ) { padding ->
+        if (uiState.isLoading) {
+            Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+            return@Scaffold
+        }
+        // Unlocked first (newest on top), then locked ones nearest to done.
+        val ordered = uiState.items.filter { it.unlocked }.sortedByDescending { it.unlockedAtEpochMillis ?: 0L } +
+            uiState.items.filterNot { it.unlocked }.sortedByDescending { it.progress?.fraction ?: 0f }
+        LazyColumn(
+            modifier = Modifier.padding(padding).fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            item {
+                Text(
+                    stringResource(
+                        R.string.achievements_unlocked_count,
+                        VerseReferenceFormatter.formatNumber(uiState.unlockedCount, language),
+                        VerseReferenceFormatter.formatNumber(uiState.items.size, language)
+                    ),
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            items(ordered, key = { it.def.id }) { item ->
+                AchievementRow(item = item, reducedGlass = reducedGlass)
             }
         }
     }
@@ -221,15 +298,37 @@ private fun AchievementRow(item: AchievementUiItem, reducedGlass: Boolean) {
                         MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(modifier = Modifier.height(2.dp))
+                // The requirement is shown either way - a locked medallion says what earns it.
                 Text(
-                    text = if (item.unlocked) item.def.displayDescription()
-                    else stringResource(R.string.achievements_locked_hint),
+                    text = item.def.displayDescription(),
                     style = MaterialTheme.typography.bodySmall,
                     color = if (item.unlocked)
                         MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.78f)
                     else
-                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.60f)
+                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.80f)
                 )
+                val progress = item.progress
+                if (!item.unlocked && progress != null && progress.target > 1) {
+                    val language = rememberSelectedLanguage()
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        LinearProgressIndicator(
+                            progress = { progress.fraction },
+                            modifier = Modifier.weight(1f).height(6.dp).clip(QwShapes.extraSmall),
+                            color = MaterialTheme.colorScheme.tertiary,
+                            trackColor = MaterialTheme.colorScheme.surface
+                        )
+                        Text(
+                            stringResource(
+                                R.string.quest_progress,
+                                VerseReferenceFormatter.formatNumber(progress.current, language),
+                                VerseReferenceFormatter.formatNumber(progress.target, language)
+                            ),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
             }
 
             // Gold dot for unlocked achievements

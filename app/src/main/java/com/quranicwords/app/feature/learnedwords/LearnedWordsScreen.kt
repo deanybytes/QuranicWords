@@ -83,6 +83,7 @@ import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.feature.lesson.exercise.AudioPlayButton
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -193,7 +194,8 @@ fun LearnedWordsScreen(
                             LearnedWordCard(
                                 word = word,
                                 language = language,
-                                onClick = { viewModel.onSelectWordForDetail(word) }
+                                onClick = { viewModel.onSelectWordForDetail(word) },
+                                onPlayAudio = word.audioAssetPath?.let { path -> { viewModel.playPronunciation(path) } }
                             )
                         }
                     }
@@ -216,7 +218,8 @@ fun LearnedWordsScreen(
 private fun LearnedWordCard(
     word: LearnedWordItem,
     language: Language,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onPlayAudio: (() -> Boolean)? = null
 ) {
     GlassSurface(
         modifier = Modifier
@@ -285,6 +288,10 @@ private fun LearnedWordCard(
                         )
                     }
                 }
+            }
+
+            if (onPlayAudio != null) {
+                AudioPlayButton(onPlay = onPlayAudio)
             }
 
             Icon(
