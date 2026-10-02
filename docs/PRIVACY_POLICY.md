@@ -14,7 +14,7 @@ QuranicWords is completely offline, does not require an account, does not collec
 ## Zero Network Access
 
 The app is **100% offline** and makes **zero network requests**:
-- All curriculum data (4,709 words across Ḥarf, Fi'l, Ism), translations across 11 languages, and verse examples are bundled directly inside the application.
+- All curriculum data (3,900 words), meanings in 8 languages, and verse examples are bundled directly inside the application.
 - All typeface files and sound effects are bundled locally.
 - No personal data or telemetry is ever transmitted to any remote server.
 

@@ -23,22 +23,33 @@ You'll need an Android SDK installed and `local.properties` pointing at it (`sdk
 
 Run the relevant unit tests before opening a PR. For UI/feature changes, actually exercise the change on a device or emulator — passing tests verify code correctness, not feature correctness.
 
-## Content ingestion pipeline
+## Content pipeline
 
-`tools/ingestion/*.py` (numbered stages `01_...` through `16_...`) is a separate, offline Python pipeline that regenerates the bundled JSON under `app/src/main/assets/content/` from external corpora. It is not part of the Android build or CI. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) before touching it — it documents the sources and verification methodology for all vocabulary, root data, and verse translations.
+All vocabulary content under `app/src/main/assets/content/` and `data/` is generated. **Never
+hand-edit it.** CI rebuilds it and fails on any difference.
 
-If you change the *shape* of any file under `app/src/main/assets/content/`, bump `ContentSeeder.CONTENT_VERSION` (`app/src/main/java/com/quranicwords/app/core/data/assets/ContentSeeder.kt`) in the same change — otherwise existing installs silently skip reseeding. **A value-only change needs the same bump** — the seeder gates on the version flag alone, not a per-row diff.
+```bash
+python3 tools/pipeline/run.py               # rebuild + validate + write assets
+python3 -m pytest tools/pipeline/tests      # golden words, validator, determinism
+python3 tools/export/build_web_data.py      # web data from the app assets
+python3 tools/export/generate_dictionary_html.py   # standalone HTML dictionary
+```
 
-### Editing a single word without a full pipeline re-run
+To fix a meaning, add a reviewed entry to `tools/pipeline/overrides/` (function words live in
+`function_words.tsv`) or improve the extraction rules, then rebuild. If the output changes, bump
+`ContentSeeder.CONTENT_VERSION` in the same change so installed apps reseed. Bump it for a
+value-only change too. See [`tools/pipeline/README.md`](tools/pipeline/README.md) and
+[`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md).
 
-For a small, one-off fix (a wrong meaning, a bad example verse) that doesn't warrant re-running a whole pipeline stage, use `tools/ingestion/16_cms.py` — a local interactive CLI (`python 16_cms.py`) to look up a word by id or Arabic text, edit its meaning or example verse directly, and validate the content set before saving. It keeps `word_frequency.json` in sync automatically and flags whatever you edit as `meaningReviewed[lang] = false`/`exampleVerseVerified = false` (a human edit isn't the same as passing through the pipeline's own independent-source cross-checks). It prints the `CONTENT_VERSION` bump reminder when you save — follow it. This is deliberately a local CLI, not a hosted web tool: the app makes zero network requests by design, and a web CMS would be this project's first server.
+`tools/legacy/` holds the old one-off scripts that produced the corrupted v1.0 content. Don't run
+them.
 
 ## Two hard product constraints
 
 These are enforced by design, not just convention — PRs that violate them won't be merged:
 
 - **No human faces anywhere** in icons/illustrations (geometric/calligraphic/nature motifs only).
-- **No rendering of actual Ayat/Mushaf text as decoration** — scripture is never used as a loading-screen or gamification skin. (The one narrow, deliberate exception — the every-launch opening invocation — is documented inline where it's implemented.)
+- **No rendering of actual Ayat/Mushaf text as decoration** — scripture is never used as a loading-screen or gamification skin. (The one narrow, deliberate exception — the opening invocation — is documented inline where it's implemented.)
 
 ## Pull requests
 

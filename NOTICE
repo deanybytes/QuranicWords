@@ -9,33 +9,29 @@ and open-source typefaces:
 ==============================================================================
 License: GNU General Public License (GPL)
 Source:  https://corpus.quran.com
-Attribution: Quranic Arabic Corpus (University of Leeds)
-Details: Vocabulary frequency rankings, lemma occurrences, and morphological analysis.
+Attribution: Quranic Arabic Corpus (University of Leeds), morphology v0.4, via the
+             corrected fork https://github.com/mustafa0x/quran-morphology
+Details: Lemmas, roots, parts of speech, verb forms, clitic segmentation and frequencies
+         for every word - the basis of the curriculum.
 
 ==============================================================================
-2. Quran-bil-Quran
+2. Verse translations (alquran.cloud editions)
 ==============================================================================
-License: MIT License
-Source:  https://github.com/R3GENESI5/quran-bil-quran
-Details: Classical Arabic root lexicons, root definitions, and English verse translations.
+Source:  https://alquran.cloud
+Details: Saheeh International (en), Muhiuddin Khan (bn), Fateh Muhammad Jalandhry (ur),
+         Suhel Farooq Khan & Saifur Rahman Nadwi (hi), Indonesian Ministry of Religious
+         Affairs (id), Diyanet Isleri (tr), Mohammad Mahdi Fooladvand (fa),
+         Muhammad Hamidullah (fr).
 
 ==============================================================================
-3. Bangla Quran Dataset
-==============================================================================
-License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-Source:  https://github.com/risan/quran-json
-Details: Bangla Quranic verse translations.
-
-==============================================================================
-4. Greentech Apps Foundation (GTAF)
+3. Greentech Apps Foundation (GTAF)
 ==============================================================================
 Source:  https://quran.gtaf.org
-Details: Multilingual word-by-word Quran reference databases across 12 languages
-         (Albanian, Bangla, Chinese, English, Farsi, French, German, Hindi,
-         Indonesian, Russian, Turkish, Urdu).
+Details: Word-by-word glosses (the source of every word meaning) in English, Bangla,
+         Urdu, Hindi, Indonesian, Turkish, Farsi and French.
 
 ==============================================================================
-5. Open Typography & Typefaces
+4. Open Typography & Typefaces
 ==============================================================================
 License: SIL Open Font License, Version 1.1 (https://openfontlicense.org)
 Typefaces:
@@ -46,6 +42,6 @@ Typefaces:
   • Noto Nastaliq Urdu (Nastaliq Style) - The Noto Project Authors
 
 ==============================================================================
-6. Word Pronunciation Audio
+5. Word Pronunciation Audio
 ==============================================================================
 Details: Synthesized Arabic pronunciation assistance powered by Google Cloud Text-to-Speech.

@@ -1,39 +1,45 @@
 # 📚 Content Sources
 
-This repo's discipline is to **flag unsourced content rather than fabricate it**. This doc catalogs the real, open-licensed sources used for the 4,709-word vocabulary curriculum across the three primary parts of speech (**Ḥarf**, **Fi'l**, **Ism**), along with contextual polysemy (**Wujūh al-Qur'an**) and verse alignment data across 11 languages.
+The repository's rule is to **source content, never invent it**. All vocabulary content is
+produced by the reproducible pipeline in [`tools/pipeline`](../tools/pipeline/README.md) from the
+pinned sources below. Every download is checksum-verified against `tools/pipeline/pins.json`.
 
-## Sourced Corpora
+| Source | License | Provides |
+|---|---|---|
+| [Quranic Arabic Corpus](https://corpus.quran.com) morphology v0.4, via the [mustafa0x/quran-morphology](https://github.com/mustafa0x/quran-morphology) fork (spelling and root fixes) | GPL (attribution and link-back to corpus.quran.com) | Lemma, root, part of speech, verb form and clitic segmentation for all 77,429 words |
+| [quran.gtaf.org](https://quran.gtaf.org) word-by-word (Greentech Apps Foundation), bundled in `reference/word-by-word/` | Public Dawah data | Word-aligned glosses in English, Bangla, Urdu, Hindi, Indonesian, Turkish, Persian and French; the Uthmani word forms used for verses |
+| [alquran.cloud](https://alquran.cloud) editions | Per edition | Full-verse translations: Saheeh International (en), Muhiuddin Khan (bn), Fateh Muhammad Jalandhry (ur), Suhel Farooq Khan & Saifur Rahman Nadwi (hi), Indonesian Ministry of Religious Affairs (id), Diyanet İşleri (tr), Mohammad Mahdi Fooladvand (fa), Muhammad Hamidullah (fr) |
+| Google Cloud Text-to-Speech (ar-XA-Wavenet-B) | Generated assets | Pronunciation clips, reattached only where the clip's source text reads identically to the word |
+| [Amiri](https://github.com/aliftype/amiri), [Scheherazade New](https://github.com/silnrsi/font-scheherazade), [Noto Naskh Arabic](https://github.com/notofonts/arabic), [Lateef](https://github.com/silnrsi/font-lateef), [Noto Nastaliq Urdu](https://github.com/notofonts/nastaliq) | SIL OFL 1.1 | Qur'anic script typefaces |
 
-| Source | License | Provides | Used for |
-|---|---|---|---|
-| [Quranic Arabic Corpus](https://corpus.quran.com) (corpus.quran.com) | GPL, with explicit attribution/link-back requirement | Lemmatized Quranic vocabulary frequency & morphological part-of-speech categorization (verbs, particles, nouns) | Complete frequency rankings and POS classification |
-| [Quran-bil-Quran](https://github.com/R3GENESI5/quran-bil-quran) | MIT | `roots_index.json` (triliteral root index, meanings, occurrences) and `verses_text.json` (6,236 Uthmani Arabic verses) | Root classification, verse citations, and Arabic text |
-| [risan/quran-json](https://github.com/risan/quran-json) | CC BY-SA 4.0 | Full Bangla verse translations for all 114 surahs | Bengali contextual verse translations |
-| [quran.gtaf.org](https://quran.gtaf.org) (Greentech Apps Foundation) | Public Dawah API | Comprehensive word-by-word Arabic glosses across multiple global languages | Multi-language vocabulary meanings and polysemic verification |
-| [Amiri](https://github.com/aliftype/amiri), [Scheherazade New](https://github.com/silnrsi/font-scheherazade), [Noto Naskh Arabic](https://github.com/notofonts/arabic), [Lateef](https://github.com/silnrsi/font-lateef), [Noto Nastaliq Urdu](https://github.com/notofonts/nastaliq) | SIL OFL 1.1 | 5 bundled open-license Quranic script typefaces | In-app Quran typography and font selection |
+## How a meaning is verified
 
-## Curriculum Ingestion & Asset Compilation
+1. **Word-by-word alignment.** QAC and GTAF agree on the number of words in every one of the
+   6,236 ayahs, so each QAC word is paired with its GTAF gloss by position.
+2. **Clean occurrences only.** For each lemma the pipeline uses only occurrences where the Qur'anic
+   word *is* the lemma. It allows the article, a leading وَ/فَ, or a verb's own subject ending, and
+   nothing else attached. This is what prevents the previous failure, where a word's "meaning"
+   was really a neighbouring word or a whole phrase.
+3. **Cleaning and voting.** Implied words in parentheses, articles, and the conjunction's
+   translation are removed. Inflected variants pool their votes. A second sense is kept when it is
+   clearly attested (at least 25% of occurrences).
+4. **Last resort.** For words that only occur with an attached pronoun, the pronoun's
+   translation is stripped. These meanings are flagged `meaningReviewed: false` and listed in
+   `reports/review_queue.tsv` for native-speaker review.
+5. **Ship rule.** A lemma ships only if all 8 languages have a meaning that passes the shared
+   fragment checks.
+6. **Function words.** The 82 function-word entries are reviewed by hand in
+   `tools/pipeline/overrides/function_words.tsv`.
 
-`tools/ingestion/compile_10lang_curriculum_assets.py` and `tools/ingestion/audit_and_align_10lang_corpus.py` compile the production curriculum:
-1. **Ḥarf (Particles)**: 173 particles partitioned into 10 sections in Chapter 1.
-2. **Fi'l (Verbs)**: 1,479 verbs partitioned into 30 sections across Chapters 2 to 4.
-3. **Ism (Nouns)**: 3,057 nouns partitioned into 60 sections across Chapters 5 to 10.
-4. **Compiled JSON Assets**: Emits `chapters.json`, `sections.json`, `lessons_vocabulary.json`, `exercises_vocabulary.json`, and `word_frequency.json` containing all 4,709 lemmas across 11 languages.
+## Languages
 
-## Contextual Polysemy (Wujūh al-Qur'an) & Full Tashkīl
+Content is provided in **8 languages**: en, bn, ur, hi, id, tr, fa and fr. The interface is also
+translated into Malay, Hausa and Swahili, but no verified word-by-word source exists in those
+languages yet. Learners who already use them see English meanings, with a one-time explanation,
+and the languages are not offered to new learners.
 
-- **Multi-sense tabs & Unified Meanings**: Words with distinct Quranic connotations carry structured `polysemyEntries` with dedicated contextual verse occurrences and translations. All 73 polysemous lemmas across Harf, Fil, and Ism combine senses via `' / '` separators across 10 languages (curated via `tools/fixes/unify_multisense_and_clean_quizzes.py`).
-- **Tashkīl & Ḥarakāt Preservation**: Character spans (`arabicWordStart`/`arabicWordEnd`) preserve diacritical markings across all verses. Complete vocalization curated via `tools/fixes/curate_vocalization_and_diacritics.py` ensuring 100% presence of sukūn, fatḥah, kasrah, ḍammah, shaddah, and tanwīn.
+## Attribution obligations
 
-## Audio Architecture
-
-- **System Sound Effects**: Interactive feedback sounds (`CORRECT`, `WRONG`, `LESSON_COMPLETE`, `EXAM_PASS`, etc.) are synthesized and played via low-latency Android `SoundPool` (`SfxPlayer.kt`).
-- **Word Pronunciation**: Word pronunciation playback buttons and listening quizzes have been removed to focus entirely on visual reading, contextual comprehension, and retention.
-
-## Attribution Obligations
-
-The bundled `NOTICE.txt` file (available in-app under Settings → About → Licenses & Sources) details full licensing and credit:
-- **Quranic Arabic Corpus (GPL-3.0)**: Morphology and lemma data.
-- **Quran-bil-Quran (MIT)**: Root index and English translations.
-- **risan/quran-json (CC BY-SA 4.0)**: Bengali Quran translations.
-- **SIL OFL 1.1 Fonts**: Amiri, Scheherazade New, Noto Naskh, Lateef, Noto Nastaliq Urdu.
+- **Quranic Arabic Corpus.** The GPL requires attribution and a link back to
+  https://corpus.quran.com. This is given in-app under Settings → About and in `NOTICE`.
+- **Fonts.** The fonts are covered by SIL OFL 1.1 (see `NOTICE`).

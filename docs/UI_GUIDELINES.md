@@ -95,7 +95,7 @@ Highlighted Quranic vocabulary words within verse contexts must preserve complet
 
 ## 🔢 Universal Digit & Number Localization
 
-To provide an authentic native reading experience across all 11 languages:
+To provide an authentic native reading experience across all interface languages:
 - **Never display raw ASCII digits directly**: Always pass numbers, percentages, day counts, card indices, and streak values through `VerseReferenceFormatter.formatDigits(text, language)`.
 - **Locale-appropriate scripts**:
   - Arabic, Urdu, Persian: Eastern Arabic numerals (`٠, ١, ٢, ٣, ٤, ٥, ٦, ٧, ٨, ٩`).
