@@ -83,6 +83,7 @@ class AchievementRepositoryImpl @Inject constructor(
             .map { it.chapterId }
             .toSet()
         val cumulativeCoveragePercent = coverageForCompletedLessons(lessons, sections, chapters, completedLessonIds)
+        val chaptersInOrder = chapters.sortedBy { it.sortOrder }
 
         val hasCompletedRegularLesson = completedLessonIds.any { id -> lessonById[id]?.kind == LessonKind.REGULAR }
         val hasPassedAnExam = progress.any { row ->
@@ -97,8 +98,9 @@ class AchievementRepositoryImpl @Inject constructor(
                     val threshold = def.id.removePrefix("streak_").toIntOrNull() ?: return@filter false
                     (stats?.longestStreak ?: 0) >= threshold
                 }
-                AchievementCatalog.chapterIdFor(def.id) != null -> {
-                    AchievementCatalog.chapterIdFor(def.id) in completedChapterExamChapterIds
+                AchievementCatalog.chapterNumberFor(def.id) != null -> {
+                    val number = AchievementCatalog.chapterNumberFor(def.id) ?: return@filter false
+                    chaptersInOrder.getOrNull(number - 1)?.id in completedChapterExamChapterIds
                 }
                 def.id.startsWith("coverage_") -> {
                     val band = def.id.removePrefix("coverage_").toIntOrNull() ?: return@filter false

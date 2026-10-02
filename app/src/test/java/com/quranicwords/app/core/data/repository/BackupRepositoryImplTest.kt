@@ -235,4 +235,19 @@ class BackupRepositoryImplTest {
         assertTrue(database.userProgressDao().getAllForUserOnce(foreignUserId).isEmpty())
         assertTrue(database.exerciseAttemptDao().getAllForUser(foreignUserId).isEmpty())
     }
+
+    @Test
+    fun `a backup from a newer schema is rejected and existing progress is untouched`() = runTest {
+        val userId = preferences.getOrCreateLocalUserId()
+        database.userStatsDao().upsert(
+            UserStatsEntity(userId = userId, totalPoints = 300, currentStreak = 3, longestStreak = 5, lastActivityLocalDate = "2026-09-30")
+        )
+        val futureBackup = """{"schemaVersion":99,"exportedAtEpochMillis":0,"userId":"other","stats":null,""" +
+            """"progress":[],"attempts":[],"preferences":{"languageTag":null,"themeMode":"SYSTEM","fontStyle":"AMIRI","reduceMotion":false}}"""
+
+        val result = repository.importBackup(ByteArrayInputStream(futureBackup.toByteArray()))
+
+        assertTrue(result.isFailure)
+        assertEquals(300, database.userStatsDao().get(userId)?.totalPoints)
+    }
 }

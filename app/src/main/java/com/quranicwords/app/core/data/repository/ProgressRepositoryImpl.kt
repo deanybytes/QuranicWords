@@ -21,7 +21,12 @@ import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.StreakCalculator
+import androidx.room.withTransaction
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
@@ -41,8 +46,11 @@ class ProgressRepositoryImpl @Inject constructor(
     private val clock: Clock,
     private val preferences: UserPreferencesDataStore,
     @dagger.hilt.android.qualifiers.ApplicationContext private val context: android.content.Context,
-    private val contentRepository: ContentRepository? = null
+    private val contentRepository: ContentRepository? = null,
+    private val applicationScope: CoroutineScope? = null
 ) : ProgressRepository {
+
+    private val curriculumMutex = Mutex()
 
     /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
      * Review session shouldn't silently contribute 0 toward the daily goal. */
@@ -59,46 +67,59 @@ class ProgressRepositoryImpl @Inject constructor(
         database.userProgressDao().observeForUser(userId)
 
     override suspend fun ensureCurriculumStarted(userId: String) = withContext(Dispatchers.IO) {
+        // Home, Roadmap and the bottom-nav shell all call this on open; serialize them so their
+        // read-modify-write unlock passes can't interleave.
+        curriculumMutex.withLock {
+            database.withTransaction { repairUnlockChain(userId) }
+        }
+    }
+
+    /** Single pass over the learner's progress: unlock the very first lesson, auto-complete a
+     * chapter's intro once any of its lessons is done, and make sure every passed lesson has its
+     * successor unlocked. Must run inside a transaction. */
+    private suspend fun repairUnlockChain(userId: String) {
         val allLessons = database.lessonDao().getAll()
         val allSections = database.sectionDao().getAll()
         val allChapters = database.chapterDao().getAll()
 
-        val firstChapter = allChapters.minByOrNull { it.sortOrder } ?: return@withContext
+        val firstChapter = allChapters.minByOrNull { it.sortOrder } ?: return
         val firstSection = allSections.filter { it.chapterId == firstChapter.id }.minByOrNull { it.sortOrder }
-            ?: return@withContext
-        val sectionLessons = allLessons.filter { it.sectionId == firstSection.id }.sortedBy { it.sortOrder }
-        val firstLesson = sectionLessons.firstOrNull() ?: return@withContext
+            ?: return
+        val lessonsBySection = allLessons.groupBy { it.sectionId }
+        val sectionLessons = lessonsBySection[firstSection.id].orEmpty().sortedBy { it.sortOrder }
+        val firstLesson = sectionLessons.firstOrNull() ?: return
         unlockIfNeeded(userId, firstLesson.id)
 
         // If the first lesson is CHAPTER_INTRO, ensure the first playable content lesson is also unlocked
-        if (firstLesson.kind == com.quranicwords.app.core.data.local.entity.LessonKind.CHAPTER_INTRO && sectionLessons.size > 1) {
+        if (firstLesson.kind == LessonKind.CHAPTER_INTRO && sectionLessons.size > 1) {
             unlockIfNeeded(userId, sectionLessons[1].id)
         }
 
-        // Auto-heal / repair unlock chain:
-        // Any completed lesson that was passed should have its next lesson unlocked.
-        val completedProgress = database.userProgressDao().getAllForUserOnce(userId)
-            .filter { it.status == LessonStatus.COMPLETED }
+        val progressByLesson = database.userProgressDao().getAllForUserOnce(userId).associateBy { it.lessonId }
+        val completedProgress = progressByLesson.values.filter { it.status == LessonStatus.COMPLETED }
         val lessonsById = allLessons.associateBy { it.id }
+        val introsByChapter = allLessons.filter { it.kind == LessonKind.CHAPTER_INTRO }.groupBy { it.chapterId }
+        val healedIntros = mutableSetOf<String>()
+
         for (prog in completedProgress) {
             val les = lessonsById[prog.lessonId] ?: continue
-            // If any non-intro lesson in a chapter is completed, ensure the chapter's CHAPTER_INTRO is also completed
+            // If any non-intro lesson in a chapter is completed, its CHAPTER_INTRO counts as completed too
             if (les.kind != LessonKind.CHAPTER_INTRO) {
-                val chapterIntros = allLessons.filter { it.chapterId == les.chapterId && it.kind == LessonKind.CHAPTER_INTRO }
-                for (intro in chapterIntros) {
-                    val introProg = database.userProgressDao().get(userId, intro.id)
-                    if (introProg == null || introProg.status != LessonStatus.COMPLETED) {
+                for (intro in introsByChapter[les.chapterId].orEmpty()) {
+                    if (intro.id in healedIntros) continue
+                    if (progressByLesson[intro.id]?.status != LessonStatus.COMPLETED) {
                         database.userProgressDao().upsert(
                             UserProgressEntity(
                                 userId = userId,
                                 lessonId = intro.id,
                                 status = LessonStatus.COMPLETED,
                                 bestScorePercent = 100,
-                                completedAtEpochMillis = prog.completedAtEpochMillis ?: System.currentTimeMillis(),
+                                completedAtEpochMillis = prog.completedAtEpochMillis ?: clock.millis(),
                                 durationMillis = 0L
                             )
                         )
                     }
+                    healedIntros += intro.id
                 }
             }
             val passed = !les.kind.requiresPassingScore() || prog.bestScorePercent >= GamificationConfig.PASSING_SCORE_PERCENT
@@ -113,7 +134,7 @@ class ProgressRepositoryImpl @Inject constructor(
                     unlockIfNeeded(userId, nextId)
                     val nextLesson = lessonsById[nextId]
                     if (nextLesson?.kind == LessonKind.CHAPTER_INTRO && nextLesson.sectionId != null) {
-                        val secLessons = allLessons.filter { it.sectionId == nextLesson.sectionId }.sortedBy { it.sortOrder }
+                        val secLessons = lessonsBySection[nextLesson.sectionId].orEmpty().sortedBy { it.sortOrder }
                         if (secLessons.size > 1) {
                             unlockIfNeeded(userId, secLessons[1].id)
                         }
@@ -130,68 +151,92 @@ class ProgressRepositoryImpl @Inject constructor(
         totalCount: Int,
         durationMillis: Long
     ): LessonResult = withContext(Dispatchers.IO) {
-        val points = GamificationConfig.pointsForLesson(correctCount, totalCount)
-        val previousStats = database.userStatsDao().get(userId)
-        val update = streakCalculator.recordActivity(previousStats, userId, points)
-        database.userStatsDao().upsert(update.stats)
-        recordDailyPracticeMinutes(userId, durationMillis)
+        val result = database.withTransaction {
+            val lesson = database.lessonDao().getById(lessonId)
+            val scorePercent = GamificationConfig.percentOf(correctCount, totalCount)
+            val passed = lesson != null &&
+                (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
+            // A failed exam/flashback still counts as practice (streak, minutes) but earns nothing
+            // and must not be recorded as completed - Home checkmarks, chapter completion and
+            // coverage all key off COMPLETED.
+            val points = if (passed) GamificationConfig.pointsForLesson(correctCount, totalCount) else 0
 
-        val scorePercent = GamificationConfig.percentOf(correctCount, totalCount)
-        val progress = UserProgressEntity(
-            userId = userId,
-            lessonId = lessonId,
-            status = LessonStatus.COMPLETED,
-            bestScorePercent = maxOf(
-                scorePercent,
-                database.userProgressDao().get(userId, lessonId)?.bestScorePercent ?: 0
-            ),
-            completedAtEpochMillis = System.currentTimeMillis(),
-            durationMillis = durationMillis
-        )
-        database.userProgressDao().upsert(progress)
+            val previousStats = database.userStatsDao().get(userId)
+            val update = streakCalculator.recordActivity(previousStats, userId, points)
+            database.userStatsDao().upsert(update.stats)
+            recordDailyPracticeMinutes(userId, durationMillis)
 
-        val lesson = database.lessonDao().getById(lessonId)
-        // If a non-intro lesson in a chapter is completed, auto-complete preceding CHAPTER_INTRO in that chapter
-        if (lesson != null && lesson.kind != LessonKind.CHAPTER_INTRO) {
-            val chapterLessons = database.lessonDao().getForChapter(lesson.chapterId)
-            val intros = chapterLessons.filter { it.kind == LessonKind.CHAPTER_INTRO }
-            for (intro in intros) {
-                val existingIntro = database.userProgressDao().get(userId, intro.id)
-                if (existingIntro == null || existingIntro.status != LessonStatus.COMPLETED) {
-                    database.userProgressDao().upsert(
-                        UserProgressEntity(
-                            userId = userId,
-                            lessonId = intro.id,
-                            status = LessonStatus.COMPLETED,
-                            bestScorePercent = 100,
-                            completedAtEpochMillis = System.currentTimeMillis(),
-                            durationMillis = 0L
+            val existing = database.userProgressDao().get(userId, lessonId)
+            val now = clock.millis()
+            val progress = if (passed) {
+                UserProgressEntity(
+                    userId = userId,
+                    lessonId = lessonId,
+                    status = LessonStatus.COMPLETED,
+                    bestScorePercent = maxOf(scorePercent, existing?.bestScorePercent ?: 0),
+                    completedAtEpochMillis = now,
+                    durationMillis = durationMillis
+                )
+            } else {
+                UserProgressEntity(
+                    userId = userId,
+                    lessonId = lessonId,
+                    status = if (existing?.status == LessonStatus.COMPLETED) LessonStatus.COMPLETED else LessonStatus.UNLOCKED,
+                    bestScorePercent = maxOf(scorePercent, existing?.bestScorePercent ?: 0),
+                    completedAtEpochMillis = existing?.completedAtEpochMillis,
+                    durationMillis = existing?.durationMillis ?: durationMillis
+                )
+            }
+            database.userProgressDao().upsert(progress)
+
+            // If a non-intro lesson in a chapter is completed, auto-complete preceding CHAPTER_INTRO in that chapter
+            if (lesson != null && passed && lesson.kind != LessonKind.CHAPTER_INTRO) {
+                val intros = database.lessonDao().getForChapter(lesson.chapterId)
+                    .filter { it.kind == LessonKind.CHAPTER_INTRO }
+                for (intro in intros) {
+                    val existingIntro = database.userProgressDao().get(userId, intro.id)
+                    if (existingIntro == null || existingIntro.status != LessonStatus.COMPLETED) {
+                        database.userProgressDao().upsert(
+                            UserProgressEntity(
+                                userId = userId,
+                                lessonId = intro.id,
+                                status = LessonStatus.COMPLETED,
+                                bestScorePercent = 100,
+                                completedAtEpochMillis = now,
+                                durationMillis = 0L
+                            )
                         )
-                    )
+                    }
                 }
             }
+
+            val nextLessonId = if (lesson != null && passed) unlockNextLesson(userId, lesson) else null
+
+            LessonResult(
+                lessonId = lessonId,
+                correctCount = correctCount,
+                totalCount = totalCount,
+                pointsAwarded = points,
+                newTotalPoints = update.stats.totalPoints,
+                currentStreak = update.stats.currentStreak,
+                streakIncreased = update.streakIncreased,
+                nextLessonId = nextLessonId,
+                lessonKind = lesson?.kind,
+                durationMillis = durationMillis
+            )
         }
+        refreshWidgetsInBackground()
+        result
+    }
 
-        val passed = lesson != null &&
-            (!lesson.kind.requiresPassingScore() || scorePercent >= GamificationConfig.PASSING_SCORE_PERCENT)
-        val nextLessonId = if (lesson != null && passed) unlockNextLesson(userId, lesson) else null
-
-        runCatching {
-            com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+    /** Widgets decode a lot of content to render; never make the lesson summary wait on that. */
+    private fun refreshWidgetsInBackground() {
+        val refresh: suspend () -> Unit = {
+            runCatching {
+                com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+            }
         }
-
-        LessonResult(
-            lessonId = lessonId,
-            correctCount = correctCount,
-            totalCount = totalCount,
-            pointsAwarded = points,
-            newTotalPoints = update.stats.totalPoints,
-            currentStreak = update.stats.currentStreak,
-            streakIncreased = update.streakIncreased,
-            nextLessonId = nextLessonId,
-            lessonKind = lesson?.kind,
-            durationMillis = durationMillis
-        )
+        applicationScope?.launch(Dispatchers.IO) { refresh() }
     }
 
     /** Loads the whole curriculum tree and delegates to the pure [CurriculumUnlockResolver] for
@@ -248,7 +293,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 itemKind = itemKind,
                 exerciseType = exerciseType,
                 wasCorrect = wasCorrect,
-                attemptedAtEpochMillis = System.currentTimeMillis()
+                attemptedAtEpochMillis = clock.millis()
             )
         )
     }
@@ -596,12 +641,16 @@ class ProgressRepositoryImpl @Inject constructor(
         }
 
     override suspend fun resetProgress(userId: String): Unit = withContext(Dispatchers.IO) {
-        database.userProgressDao().deleteForUser(userId)
-        database.userStatsDao().deleteForUser(userId)
-        database.exerciseAttemptDao().deleteForUser(userId)
-        database.dailyPracticeDao().deleteForUser(userId)
-        database.achievementDao().deleteForUser(userId)
-        ensureCurriculumStarted(userId)
+        curriculumMutex.withLock {
+            database.withTransaction {
+                database.userProgressDao().deleteForUser(userId)
+                database.userStatsDao().deleteForUser(userId)
+                database.exerciseAttemptDao().deleteForUser(userId)
+                database.dailyPracticeDao().deleteForUser(userId)
+                database.achievementDao().deleteForUser(userId)
+                repairUnlockChain(userId)
+            }
+        }
     }
 
     companion object {

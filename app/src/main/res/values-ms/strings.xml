@@ -360,4 +360,6 @@
     <string name="walkthrough_next">Seterusnya</string>
     <string name="walkthrough_finish">Mula Sekarang</string>
     <string name="settings_show_walkthrough_button">Tunjukkan Panduan Pengenalan</string>
+    <string name="splash_load_failed">Pelajaran tidak dapat disediakan. Kemajuan anda selamat.</string>
+    <string name="action_retry">Cuba lagi</string>
 </resources>

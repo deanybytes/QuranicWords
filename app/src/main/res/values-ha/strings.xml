@@ -360,4 +360,6 @@
     <string name="walkthrough_next">Gaba</string>
     <string name="walkthrough_finish">Fara Yanzu</string>
     <string name="settings_show_walkthrough_button">Nuna Jagorar Farko</string>
+    <string name="splash_load_failed">Ba a iya shirya darussan ba. Ci gabanka yana nan lafiya.</string>
+    <string name="action_retry">Sake gwadawa</string>
 </resources>

@@ -6,6 +6,7 @@ import com.quranicwords.app.core.domain.model.BACKUP_SCHEMA_VERSION
 import com.quranicwords.app.core.domain.model.BackupPayload
 import com.quranicwords.app.core.domain.model.BackupPreferences
 import com.quranicwords.app.core.domain.model.DailyGoalLevel
+import com.quranicwords.app.core.domain.model.FontScale
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LearningStyle
@@ -13,6 +14,7 @@ import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.repository.BackupRepository
 import com.quranicwords.app.core.util.AppJson
+import androidx.room.withTransaction
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -47,57 +49,73 @@ class BackupRepositoryImpl @Inject constructor(
                 learningStyle = preferences.learningStyleFlow.first().name,
                 dailyGoalLevel = preferences.dailyGoalLevelFlow.first().name,
                 reduceGlassEffects = preferences.reduceGlassEffectsFlow.first(),
-                soundEnabled = preferences.soundEnabledFlow.first()
+                soundEnabled = preferences.soundEnabledFlow.first(),
+                pronunciationAudioEnabled = preferences.pronunciationAudioEnabledFlow.first(),
+                fontScale = preferences.fontScaleFlow.first().name,
+                requireExitConfirmation = preferences.requireExitConfirmationFlow.first()
             )
         )
         output.use { it.write(AppJson.encodeToString(payload).toByteArray()) }
     }
 
     override suspend fun importBackup(input: InputStream): Result<Unit> = runCatching {
-        val json = input.use { it.readBytes().decodeToString() }
+        val json = input.use { readCapped(it) }.decodeToString()
         val payload = AppJson.decodeFromString<BackupPayload>(json)
+        require(payload.schemaVersion in 1..BACKUP_SCHEMA_VERSION) {
+            "Backup schema ${payload.schemaVersion} is newer than this app supports ($BACKUP_SCHEMA_VERSION)"
+        }
 
         val targetUserId = preferences.getOrCreateLocalUserId()
 
-        // 1. Wipe existing user tables for targetUserId to prevent orphaned/duplicate rows
-        database.userProgressDao().deleteForUser(targetUserId)
-        database.userStatsDao().deleteForUser(targetUserId)
-        database.exerciseAttemptDao().deleteForUser(targetUserId)
-        database.achievementDao().deleteForUser(targetUserId)
-        database.dailyPracticeDao().deleteForUser(targetUserId)
+        // Wipe-and-restore is all-or-nothing: a decode/insert failure part-way through must leave
+        // the learner's existing progress exactly as it was.
+        database.withTransaction {
+            val userIds = listOf(targetUserId, payload.userId).filter { it.isNotBlank() }.distinct()
+            for (id in userIds) {
+                database.userProgressDao().deleteForUser(id)
+                database.userStatsDao().deleteForUser(id)
+                database.exerciseAttemptDao().deleteForUser(id)
+                database.achievementDao().deleteForUser(id)
+                database.dailyPracticeDao().deleteForUser(id)
+            }
 
-        // If the backup has a different userId, clean that up from local db as well
-        if (payload.userId.isNotBlank() && payload.userId != targetUserId) {
-            database.userProgressDao().deleteForUser(payload.userId)
-            database.userStatsDao().deleteForUser(payload.userId)
-            database.exerciseAttemptDao().deleteForUser(payload.userId)
-            database.achievementDao().deleteForUser(payload.userId)
-            database.dailyPracticeDao().deleteForUser(payload.userId)
+            payload.stats?.copy(userId = targetUserId)?.let { database.userStatsDao().upsert(it) }
+            database.userProgressDao().upsertAll(payload.progress.map { it.copy(userId = targetUserId) })
+            database.exerciseAttemptDao().insertAll(payload.attempts.map { it.copy(id = 0, userId = targetUserId) })
+            database.achievementDao().insertAll(payload.achievements.map { it.copy(userId = targetUserId) })
+            database.dailyPracticeDao().insertAll(payload.dailyPractices.map { it.copy(userId = targetUserId) })
         }
 
-        // 2. Restore tables remapped to the active targetUserId
-        payload.stats?.copy(userId = targetUserId)?.let { database.userStatsDao().upsert(it) }
-        val remappedProgress = payload.progress.map { it.copy(userId = targetUserId) }
-        database.userProgressDao().upsertAll(remappedProgress)
+        val prefs = payload.preferences
+        Language.fromTag(prefs.languageTag)?.let { preferences.setLanguage(it) }
+        preferences.setThemeMode(ThemeMode.fromName(prefs.themeMode))
+        preferences.setFontStyle(QuranFontStyle.fromName(prefs.fontStyle))
+        preferences.setReduceMotion(prefs.reduceMotion)
+        prefs.learningPath?.let { LearningPath.fromName(it) }?.let { preferences.setLearningPath(it) }
+        prefs.learningStyle?.let { LearningStyle.fromName(it) }?.let { preferences.setLearningStyle(it) }
+        prefs.dailyGoalLevel?.let { DailyGoalLevel.fromName(it) }?.let { preferences.setDailyGoalLevel(it) }
+        preferences.setReduceGlassEffects(prefs.reduceGlassEffects)
+        preferences.setSoundEnabled(prefs.soundEnabled)
+        prefs.pronunciationAudioEnabled?.let { preferences.setPronunciationAudioEnabled(it) }
+        prefs.fontScale?.let { preferences.setFontScale(FontScale.fromName(it)) }
+        prefs.requireExitConfirmation?.let { preferences.setRequireExitConfirmation(it) }
+    }
 
-        val sanitizedAttempts = payload.attempts.map { it.copy(id = 0, userId = targetUserId) }
-        database.exerciseAttemptDao().insertAll(sanitizedAttempts)
+    private fun readCapped(input: InputStream): ByteArray {
+        val out = java.io.ByteArrayOutputStream()
+        val buffer = ByteArray(64 * 1024)
+        var total = 0L
+        while (true) {
+            val read = input.read(buffer)
+            if (read < 0) break
+            total += read
+            require(total <= MAX_BACKUP_BYTES) { "Backup file is larger than ${MAX_BACKUP_BYTES / (1024 * 1024)} MB" }
+            out.write(buffer, 0, read)
+        }
+        return out.toByteArray()
+    }
 
-        val remappedAchievements = payload.achievements.map { it.copy(userId = targetUserId) }
-        database.achievementDao().insertAll(remappedAchievements)
-
-        val remappedDailyPractices = payload.dailyPractices.map { it.copy(userId = targetUserId) }
-        database.dailyPracticeDao().insertAll(remappedDailyPractices)
-
-        // 3. Restore all preferences
-        Language.fromTag(payload.preferences.languageTag)?.let { preferences.setLanguage(it) }
-        preferences.setThemeMode(ThemeMode.fromName(payload.preferences.themeMode))
-        preferences.setFontStyle(QuranFontStyle.fromName(payload.preferences.fontStyle))
-        preferences.setReduceMotion(payload.preferences.reduceMotion)
-        payload.preferences.learningPath?.let { LearningPath.fromName(it) }?.let { preferences.setLearningPath(it) }
-        payload.preferences.learningStyle?.let { LearningStyle.fromName(it) }?.let { preferences.setLearningStyle(it) }
-        payload.preferences.dailyGoalLevel?.let { DailyGoalLevel.fromName(it) }?.let { preferences.setDailyGoalLevel(it) }
-        preferences.setReduceGlassEffects(payload.preferences.reduceGlassEffects)
-        preferences.setSoundEnabled(payload.preferences.soundEnabled)
+    private companion object {
+        const val MAX_BACKUP_BYTES = 64L * 1024 * 1024
     }
 }

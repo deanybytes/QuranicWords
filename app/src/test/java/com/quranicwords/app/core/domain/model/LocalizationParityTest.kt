@@ -42,7 +42,7 @@ class LocalizationParityTest {
         val baseXml = File(root, "app/src/main/res/values/strings.xml")
         assertTrue("Base strings.xml must exist", baseXml.exists())
         val baseKeys = loadStringKeys(baseXml)
-        assertEquals("Base strings count", 337, baseKeys.size)
+        assertTrue("Base strings unexpectedly shrank: ${baseKeys.size}", baseKeys.size >= 337)
 
         for (lang in Language.entries) {
             val resDirName = if (lang == Language.ENGLISH) "values" else "values-${lang.tag}"

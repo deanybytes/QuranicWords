@@ -386,4 +386,6 @@
     <string name="walkthrough_next">İleri</string>
     <string name="walkthrough_finish">Başlayın</string>
     <string name="settings_show_walkthrough_button">Başlangıç Rehberini Göster</string>
+    <string name="splash_load_failed">Dersler hazırlanamadı. İlerlemeniz güvende.</string>
+    <string name="action_retry">Tekrar dene</string>
 </resources>

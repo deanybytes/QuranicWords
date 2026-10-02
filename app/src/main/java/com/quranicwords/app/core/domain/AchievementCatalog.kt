@@ -25,12 +25,11 @@ data class AchievementDef(
 )
 
 object AchievementCatalog {
-    /** How many chapters the curriculum has - matches `tools/ingestion/11_build_curriculum.py`'s
-     * 8-chapter shape. Not derived from the DB at catalog-definition time since this is a static,
-     * compile-time list; [com.quranicwords.app.core.data.repository.AchievementRepositoryImpl]
-     * checks each chapter id against what's actually seeded, so a mismatch fails safe (no
-     * unlock), never crashes. */
-    private const val CHAPTER_COUNT = 8
+    /** How many chapters the bundled curriculum has (`assets/content/chapters.json`). Static
+     * because this is a compile-time list; [com.quranicwords.app.core.data.repository
+     * .AchievementRepositoryImpl] resolves "chapter N" to the N-th seeded chapter by sortOrder, so
+     * an achievement past the real chapter count simply never unlocks. */
+    private const val CHAPTER_COUNT = 10
     val coverageBands = listOf(25, 50, 75, 100)
 
     val all: List<AchievementDef> = buildList {
@@ -70,9 +69,9 @@ object AchievementCatalog {
 
     val byId: Map<String, AchievementDef> = all.associateBy { it.id }
 
-    /** The chapter id (e.g. "chapter_3") a chapter-completion achievement id corresponds to -
-     * mirrors the id shape `tools/ingestion/11_build_curriculum.py` emits. Null for any other
-     * achievement id. */
-    fun chapterIdFor(achievementId: String): String? =
-        Regex("^chapter_(\\d+)_complete$").find(achievementId)?.groupValues?.get(1)?.let { "chapter_$it" }
+    /** The 1-based chapter position a chapter-completion achievement id refers to, or null for
+     * any other achievement. Position (by sortOrder), not a chapter id string: content ids have
+     * changed shape before (`chapter_3` vs `ch_03`) and silently broke every chapter unlock. */
+    fun chapterNumberFor(achievementId: String): Int? =
+        Regex("^chapter_(\\d+)_complete$").find(achievementId)?.groupValues?.get(1)?.toIntOrNull()
 }

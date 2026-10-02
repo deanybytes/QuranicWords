@@ -386,4 +386,6 @@
     <string name="walkthrough_next">Lanjut</string>
     <string name="walkthrough_finish">Mulai Belajar</string>
     <string name="settings_show_walkthrough_button">Tampilkan Panduan Pengenalan</string>
+    <string name="splash_load_failed">Pelajaran tidak dapat disiapkan. Kemajuan Anda aman.</string>
+    <string name="action_retry">Coba lagi</string>
 </resources>

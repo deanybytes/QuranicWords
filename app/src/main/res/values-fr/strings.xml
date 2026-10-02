@@ -386,4 +386,6 @@
     <string name="walkthrough_next">Suivant</string>
     <string name="walkthrough_finish">Commencer</string>
     <string name="settings_show_walkthrough_button">Afficher le guide d\'introduction</string>
+    <string name="splash_load_failed">Impossible de préparer les leçons. Votre progression est préservée.</string>
+    <string name="action_retry">Réessayer</string>
 </resources>

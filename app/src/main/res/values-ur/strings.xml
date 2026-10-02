@@ -386,4 +386,6 @@
     <string name="walkthrough_next">آگے</string>
     <string name="walkthrough_finish">شروع کریں</string>
     <string name="settings_show_walkthrough_button">تعارفی گائیڈ دیکھیں</string>
+    <string name="splash_load_failed">اسباق تیار نہیں ہو سکے۔ آپ کی پیش رفت محفوظ ہے۔</string>
+    <string name="action_retry">دوبارہ کوشش کریں</string>
 </resources>

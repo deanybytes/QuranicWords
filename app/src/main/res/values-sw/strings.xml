@@ -360,4 +360,6 @@
     <string name="walkthrough_next">Mbele</string>
     <string name="walkthrough_finish">Anza Sasa</string>
     <string name="settings_show_walkthrough_button">Onyesha Mwongozo wa Utangulizi</string>
+    <string name="splash_load_failed">Imeshindwa kuandaa masomo. Maendeleo yako yako salama.</string>
+    <string name="action_retry">Jaribu tena</string>
 </resources>

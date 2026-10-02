@@ -16,7 +16,7 @@ import com.quranicwords.app.core.domain.model.ExerciseType
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("lessonId")]
+    indices = [Index("lessonId"), Index("practicedItemId")]
 )
 data class ExerciseEntity(
     @PrimaryKey val id: String,

@@ -64,8 +64,11 @@ class MainActivity : AppCompatActivity() {
                     val targetTag = if (currentLang == Language.INDONESIAN) "in" else currentLang.tag
                     val currentAppLocales = AppCompatDelegate.getApplicationLocales()
                     val currentFirstLocale = currentAppLocales.get(0)
-                    val currentLangTag = currentFirstLocale?.toLanguageTag() ?: currentFirstLocale?.language
-                    if (currentLangTag != targetTag) {
+                    // Compare bare language codes, folding Indonesian's legacy "in" and modern
+                    // "id" together - toLanguageTag() reports "id" for an "in" locale, so a raw tag
+                    // comparison never matched and re-applied the locale on every launch.
+                    fun normalized(code: String?) = if (code == "in") "id" else code
+                    if (normalized(currentFirstLocale?.language) != normalized(Locale.forLanguageTag(targetTag).language)) {
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(targetTag))
                     }
                 }

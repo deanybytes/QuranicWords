@@ -44,19 +44,19 @@ class AchievementRepositoryImplTest {
     private fun seedTree() = runTest {
         database.chapterDao().insertAll(
             listOf(
-                ChapterEntity("chapter_1", mapOf("en" to "C1"), emptyMap(), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 30.0),
-                ChapterEntity("chapter_2", mapOf("en" to "C2"), emptyMap(), sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 20.0)
+                ChapterEntity("ch_01", mapOf("en" to "C1"), emptyMap(), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 30.0),
+                ChapterEntity("ch_02", mapOf("en" to "C2"), emptyMap(), sortOrder = 2, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 20.0)
             )
         )
         database.sectionDao().insertAll(
-            listOf(SectionEntity("section_1_1", "chapter_1", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
+            listOf(SectionEntity("section_1_1", "ch_01", mapOf("en" to "S1"), sortOrder = 1, wordCount = 0, quranOccurrenceCount = 0, quranOccurrencePercent = 0.0))
         )
         database.lessonDao().insertAll(
             listOf(
-                LessonEntity("l1", "chapter_1", "section_1_1", mapOf("en" to "L1"), sortOrder = 1, kind = LessonKind.REGULAR),
-                LessonEntity("section_exam", "chapter_1", "section_1_1", mapOf("en" to "Exam"), sortOrder = 2, kind = LessonKind.SECTION_EXAM),
-                LessonEntity("chapter_1_exam", "chapter_1", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
-                LessonEntity("chapter_2_exam", "chapter_2", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM)
+                LessonEntity("l1", "ch_01", "section_1_1", mapOf("en" to "L1"), sortOrder = 1, kind = LessonKind.REGULAR),
+                LessonEntity("section_exam", "ch_01", "section_1_1", mapOf("en" to "Exam"), sortOrder = 2, kind = LessonKind.SECTION_EXAM),
+                LessonEntity("chapter_1_exam", "ch_01", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM),
+                LessonEntity("chapter_2_exam", "ch_02", null, mapOf("en" to "CE"), sortOrder = 1, kind = LessonKind.CHAPTER_EXAM)
             )
         )
     }

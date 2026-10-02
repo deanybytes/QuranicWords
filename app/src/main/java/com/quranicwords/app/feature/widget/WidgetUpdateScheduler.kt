@@ -1,6 +1,5 @@
 package com.quranicwords.app.feature.widget
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -8,7 +7,6 @@ import android.content.BroadcastReceiver
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -30,7 +28,7 @@ class WidgetAlarmReceiver : BroadcastReceiver() {
 
 
 object WidgetUpdateScheduler {
-    const val INTERVAL_MILLIS = 3 * 60 * 1000L // 3 minutes
+    const val INTERVAL_MILLIS = 30 * 60 * 1000L
     private const val REQUEST_CODE = 9021
 
     fun hasAnyActiveWidgets(context: Context): Boolean {
@@ -41,7 +39,9 @@ object WidgetUpdateScheduler {
         return (statsIds.isNotEmpty() || wordIds.isNotEmpty() || combinedIds.isNotEmpty())
     }
 
-    @SuppressLint("MissingPermission")
+    /** Inexact, non-wakeup refresh: the rotating word and stats only need to be fresh when the
+     * learner glances at the home screen, never worth waking the device for. Lesson completion
+     * and the in-app refresh receiver push immediate updates on top of this. */
     fun scheduleNextUpdate(context: Context) {
         if (!hasAnyActiveWidgets(context)) {
             cancelSchedule(context)
@@ -53,28 +53,7 @@ object WidgetUpdateScheduler {
         val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         val pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, flags)
 
-        val triggerAt = System.currentTimeMillis() + INTERVAL_MILLIS
-
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-                } else {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-                }
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-            }
-        } catch (_: SecurityException) {
-            // Fallback for devices restricting exact alarms
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-            }
-        }
+        alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + INTERVAL_MILLIS, pendingIntent)
     }
 
     fun cancelSchedule(context: Context) {

@@ -360,4 +360,6 @@
     <string name="walkthrough_next">आगे</string>
     <string name="walkthrough_finish">शुरू करें</string>
     <string name="settings_show_walkthrough_button">परिचयात्मक गाइड देखें</string>
+    <string name="splash_load_failed">पाठ तैयार नहीं हो सके। आपकी प्रगति सुरक्षित है।</string>
+    <string name="action_retry">फिर से कोशिश करें</string>
 </resources>

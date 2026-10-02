@@ -141,6 +141,31 @@ class ProgressRepositoryImplTest {
     }
 
     @Test
+    fun `a failed exam is not recorded as completed and earns no points`() = runTest {
+        seedTree()
+
+        val result = repository.completeLesson(userId, "section_exam", correctCount = 3, totalCount = 10, durationMillis = 60_000L)
+
+        assertEquals(0, result.pointsAwarded)
+        val row = database.userProgressDao().get(userId, "section_exam")
+        assertEquals(LessonStatus.UNLOCKED, row?.status)
+        assertEquals(30, row?.bestScorePercent)
+        assertNull(row?.completedAtEpochMillis)
+    }
+
+    @Test
+    fun `failing a previously passed exam keeps it completed`() = runTest {
+        seedTree()
+        repository.completeLesson(userId, "section_exam", correctCount = 9, totalCount = 10, durationMillis = 60_000L)
+
+        repository.completeLesson(userId, "section_exam", correctCount = 2, totalCount = 10, durationMillis = 60_000L)
+
+        val row = database.userProgressDao().get(userId, "section_exam")
+        assertEquals(LessonStatus.COMPLETED, row?.status)
+        assertEquals(90, row?.bestScorePercent)
+    }
+
+    @Test
     fun `a REGULAR lesson at a low score still unlocks the next lesson`() = runTest {
         seedTree()
 

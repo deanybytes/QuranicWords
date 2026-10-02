@@ -386,4 +386,6 @@
     <string name="walkthrough_next">পরবর্তী</string>
     <string name="walkthrough_finish">শুরু করুন</string>
     <string name="settings_show_walkthrough_button">নির্দেশিকা গাইড দেখুন</string>
+    <string name="splash_load_failed">পাঠগুলো প্রস্তুত করা যায়নি। আপনার অগ্রগতি নিরাপদ আছে।</string>
+    <string name="action_retry">আবার চেষ্টা করুন</string>
 </resources>

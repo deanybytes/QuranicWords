@@ -40,7 +40,12 @@ data class BackupPreferences(
     val learningStyle: String? = null,
     val dailyGoalLevel: String? = null,
     val reduceGlassEffects: Boolean = false,
-    val soundEnabled: Boolean = true
+    val soundEnabled: Boolean = true,
+    // Added after schema 2 shipped; nullable so older backups (which lack them) leave the
+    // current setting untouched instead of resetting it.
+    val pronunciationAudioEnabled: Boolean? = null,
+    val fontScale: String? = null,
+    val requireExitConfirmation: Boolean? = null
 )
 
 const val BACKUP_SCHEMA_VERSION = 2

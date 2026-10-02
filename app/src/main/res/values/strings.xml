@@ -378,4 +378,6 @@
     <string name="walkthrough_next">Next</string>
     <string name="walkthrough_finish">Get Started</string>
     <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
+    <string name="splash_load_failed">Couldn\'t prepare the lessons. Your progress is safe.</string>
+    <string name="action_retry">Try again</string>
 </resources>
