@@ -1,5 +1,11 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.unit.LayoutDirection
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 
@@ -51,7 +57,7 @@ fun TapWordInVerseExerciseContent(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        val category = com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(content.wordId)
+        val category = com.quranicwords.app.core.ui.components.wordCategory(content.wordId)
         if (category != null) {
             androidx.compose.foundation.layout.Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -70,24 +76,32 @@ fun TapWordInVerseExerciseContent(
             modifier = Modifier.fillMaxWidth()
         )
 
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            content.tappableSpans.forEach { span ->
-                val isCorrectSpan = span.start == content.correctWordStart && span.end == content.correctWordEnd
-                val isSelectedSpan = span == selectedSpan
-                val answered = selectedSpan != null
-                TappableWord(
-                    text = content.verseArabic.substring(span.start, span.end),
-                    highlight = when {
-                        answered && isCorrectSpan -> WordHighlight.CORRECT
-                        answered && isSelectedSpan -> WordHighlight.INCORRECT
-                        else -> WordHighlight.NONE
-                    },
-                    enabled = !answered,
-                    onClick = { onSelectWord(span) }
-                )
+        // Verse words are Arabic and read right-to-left whatever the UI language - without forcing
+        // RTL, an English/French UI laid the verse out in reversed word order.
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                content.tappableSpans.forEach { span ->
+                    val isCorrectSpan = span.start == content.correctWordStart && span.end == content.correctWordEnd
+                    val isSelectedSpan = span == selectedSpan
+                    val answered = selectedSpan != null
+                    // Clamped like FillInTheBlankExercise's blank - span offsets that drift past the
+                    // verse text must degrade to an empty chip, not crash the lesson.
+                    val start = span.start.coerceIn(0, content.verseArabic.length)
+                    val end = span.end.coerceIn(start, content.verseArabic.length)
+                    TappableWord(
+                        text = content.verseArabic.substring(start, end),
+                        highlight = when {
+                            answered && isCorrectSpan -> WordHighlight.CORRECT
+                            answered && isSelectedSpan -> WordHighlight.INCORRECT
+                            else -> WordHighlight.NONE
+                        },
+                        enabled = !answered,
+                        onClick = { onSelectWord(span) }
+                    )
+                }
             }
         }
 
@@ -137,6 +151,13 @@ private fun TappableWord(
         label = "tapWordScale"
     )
 
+    val stateText = when (highlight) {
+        WordHighlight.CORRECT -> stringResource(R.string.a11y_state_correct)
+        WordHighlight.INCORRECT -> stringResource(R.string.a11y_state_incorrect)
+        WordHighlight.NONE -> ""
+    }
+    val clickLabel = stringResource(R.string.a11y_action_select_word)
+
     Text(
         text = text,
         fontFamily = LocalQuranFontFamily.current,
@@ -144,7 +165,8 @@ private fun TappableWord(
         lineHeight = 40.sp,
         modifier = Modifier
             .graphicsLayer { scaleX = scale; scaleY = scale }
-            .clickable(enabled = enabled, onClick = onClick)
+            .clickable(enabled = enabled, onClickLabel = clickLabel, role = Role.Button, onClick = onClick)
+            .semantics { if (stateText.isNotEmpty()) stateDescription = stateText }
             .background(backgroundColor, RoundedCornerShape(8.dp))
             .padding(horizontal = 8.dp, vertical = 4.dp)
     )

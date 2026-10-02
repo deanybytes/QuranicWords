@@ -76,7 +76,45 @@ class StreakCalculatorTest {
         assertEquals(1, result.stats.currentStreak)
         // Longest streak is a high-water mark - a reset never lowers it.
         assertEquals(9, result.stats.longestStreak)
+        // A reset is not an increase - the summary must not celebrate a broken streak.
+        assertFalse(result.streakIncreased)
+        assertTrue(result.streakReset)
+    }
+
+    @Test
+    fun `extending or repeating a streak never reports a reset`() {
+        val yesterday = UserStatsEntity("u1", totalPoints = 0, currentStreak = 3, longestStreak = 3, lastActivityLocalDate = "2026-08-11")
+        val sameDay = yesterday.copy(lastActivityLocalDate = "2026-08-12")
+
+        assertFalse(calculator.recordActivity(yesterday, "u1", 0).streakReset)
+        assertFalse(calculator.recordActivity(sameDay, "u1", 0).streakReset)
+        assertFalse(calculator.recordActivity(null, "u1", 0).streakReset)
+    }
+
+    @Test
+    fun `a stale zero streak restarting is an increase, not a reset`() {
+        val previous = UserStatsEntity("u1", totalPoints = 0, currentStreak = 0, longestStreak = 4, lastActivityLocalDate = "2026-07-01")
+
+        val result = calculator.recordActivity(previous, "u1", 0)
+
+        assertEquals(1, result.stats.currentStreak)
         assertTrue(result.streakIncreased)
+        assertFalse(result.streakReset)
+    }
+
+    @Test
+    fun `a last-activity date in the future is treated as the same day`() {
+        // Clock rolled back two days (or the learner travelled west across the date line).
+        val previous = UserStatsEntity("u1", totalPoints = 0, currentStreak = 5, longestStreak = 5, lastActivityLocalDate = "2026-08-14")
+
+        val result = calculator.recordActivity(previous, "u1", pointsToAdd = 10)
+
+        assertEquals(5, result.stats.currentStreak)
+        assertEquals(10, result.stats.totalPoints)
+        assertFalse(result.streakIncreased)
+        assertFalse(result.streakReset)
+        // The later date is kept, so the streak survives once the clock catches up.
+        assertEquals("2026-08-14", result.stats.lastActivityLocalDate)
     }
 
     @Test

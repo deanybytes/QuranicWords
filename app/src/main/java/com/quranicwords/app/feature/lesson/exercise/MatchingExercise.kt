@@ -1,5 +1,9 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 
@@ -222,7 +226,7 @@ fun MatchingExerciseContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        val category = content.pairs.firstOrNull()?.wordId?.let { com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(it) }
+        val category = content.pairs.firstOrNull()?.wordId?.let { com.quranicwords.app.core.ui.components.wordCategory(it) }
         if (category != null) {
             com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
         }
@@ -434,6 +438,14 @@ private fun MatchTile(
         )
     }
 
+    val stateText = when {
+        isMatched -> stringResource(R.string.a11y_state_matched)
+        isMismatch -> stringResource(R.string.a11y_state_incorrect)
+        isSelected -> stringResource(R.string.a11y_state_selected)
+        else -> ""
+    }
+    val clickLabel = stringResource(R.string.a11y_action_match)
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -452,11 +464,17 @@ private fun MatchTile(
                 interactionSource = interactionSource,
                 indication = null,
                 enabled = !isMatched && !isMismatch,
+                onClickLabel = clickLabel,
+                role = Role.Button,
                 onClick = {
                     tapClickCount++
                     onClick()
                 }
             )
+            .semantics {
+                selected = isSelected
+                if (stateText.isNotEmpty()) stateDescription = stateText
+            }
     ) {
         Box(
             modifier = Modifier

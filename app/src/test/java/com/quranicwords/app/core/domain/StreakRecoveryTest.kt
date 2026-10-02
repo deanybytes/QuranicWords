@@ -95,6 +95,28 @@ class StreakRecoveryTest {
         assertFalse(StreakRecovery.isLocked(s, today))
     }
 
+    // --- canRecover ---
+
+    @Test
+    fun `canRecover is true for a locked streak within the recovery window`() {
+        // Last active 8 days ago -> lapsed 7 days ago, the last recoverable day.
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(8).toString())
+        assertTrue(StreakRecovery.canRecover(s, today))
+    }
+
+    @Test
+    fun `canRecover is false once the lapse is older than the recovery window`() {
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(9).toString())
+        assertTrue(StreakRecovery.isLocked(s, today))
+        assertFalse(StreakRecovery.canRecover(s, today))
+    }
+
+    @Test
+    fun `canRecover is false when the streak is not locked`() {
+        val s = stats(currentStreak = 10, lastActivityLocalDate = today.minusDays(1).toString())
+        assertFalse(StreakRecovery.canRecover(s, today))
+    }
+
     // --- inactivityDuration ---
 
     @Test

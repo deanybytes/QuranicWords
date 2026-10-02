@@ -55,7 +55,7 @@ fun MultipleChoiceExerciseContent(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        val category = com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(content.wordId)
+        val category = com.quranicwords.app.core.ui.components.wordCategory(content.wordId)
         if (category != null) {
             androidx.compose.foundation.layout.Box(
                 modifier = Modifier.fillMaxWidth(),

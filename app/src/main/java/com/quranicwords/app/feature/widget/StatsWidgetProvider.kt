@@ -20,9 +20,16 @@ import java.util.Locale
 class StatsWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        // goAsync keeps the receiver (and so the process) alive until the update finishes - a
+        // bare coroutine could be killed mid-update once onUpdate returned.
+        val pendingResult = goAsync()
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
-            updateWidgets(context, appWidgetManager, appWidgetIds)
-            WidgetUpdateScheduler.scheduleNextUpdate(context)
+            try {
+                updateWidgets(context, appWidgetManager, appWidgetIds)
+                WidgetUpdateScheduler.scheduleNextUpdate(context)
+            } finally {
+                pendingResult.finish()
+            }
         }
     }
 
@@ -128,16 +135,8 @@ class StatsWidgetProvider : AppWidgetProvider() {
             views.setInt(R.id.ll_review_card, "setBackgroundResource", cardBg)
 
             // Streak
-            val streakDigits = VerseReferenceFormatter.formatDigits(stats.streakDays.toString(), lang)
-            val streakUnit = when (lang) {
-                Language.BANGLA -> " দিন"
-                Language.URDU, Language.PERSIAN -> " دن"
-                Language.HINDI -> " দিন"
-                Language.FRENCH -> "j"
-                Language.TURKISH -> "g"
-                else -> "d"
-            }
-            views.setTextViewText(R.id.tv_streak, "$streakDigits$streakUnit")
+            val streakDigits = VerseReferenceFormatter.formatNumber(stats.streakDays, lang)
+            views.setTextViewText(R.id.tv_streak, themedContext.getString(R.string.widget_streak_value, streakDigits))
             views.setTextColor(R.id.tv_streak, themedContext.getColor(R.color.widget_accent_gold))
             views.setContentDescription(
                 R.id.ll_streak_badge,
@@ -148,7 +147,7 @@ class StatsWidgetProvider : AppWidgetProvider() {
             )
 
             // Words learned
-            val wordsCountFormatted = VerseReferenceFormatter.formatDigits(stats.wordsLearnedCount.toString(), lang)
+            val wordsCountFormatted = VerseReferenceFormatter.formatNumber(stats.wordsLearnedCount, lang)
             views.setTextViewText(R.id.tv_words_count, wordsCountFormatted)
             views.setTextColor(R.id.tv_words_count, themedContext.getColor(R.color.widget_text_primary))
 
@@ -168,16 +167,11 @@ class StatsWidgetProvider : AppWidgetProvider() {
             views.setTextColor(R.id.tv_accuracy_label, themedContext.getColor(R.color.widget_text_secondary))
 
             // Daily Goal
-            val todayMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.todayPracticeMinutes.toString(), lang)
-            val goalMinutesFormatted = VerseReferenceFormatter.formatDigits(stats.dailyGoalMinutes.toString(), lang)
-            val minUnit = when (lang) {
-                Language.BANGLA -> "মি"
-                Language.URDU, Language.PERSIAN -> "منٹ"
-                else -> "m"
-            }
+            val todayMinutesFormatted = VerseReferenceFormatter.formatNumber(stats.todayPracticeMinutes, lang)
+            val goalMinutesFormatted = VerseReferenceFormatter.formatNumber(stats.dailyGoalMinutes, lang)
             views.setTextViewText(
                 R.id.tv_daily_goal,
-                "$todayMinutesFormatted / $goalMinutesFormatted$minUnit"
+                themedContext.getString(R.string.widget_goal_value, todayMinutesFormatted, goalMinutesFormatted)
             )
             views.setTextColor(R.id.tv_daily_goal, themedContext.getColor(R.color.widget_text_primary))
             views.setProgressBar(R.id.pb_daily_goal, 100, stats.dailyGoalProgressPct, false)

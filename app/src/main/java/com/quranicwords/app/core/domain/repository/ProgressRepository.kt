@@ -36,16 +36,19 @@ interface ProgressRepository {
     ): LessonResult
 
     /** Logs one scored check against a single letter/word - the per-item signal
-     * [completeLesson]'s aggregate `correctCount`/`totalCount` doesn't provide. */
+     * [completeLesson]'s aggregate `correctCount`/`totalCount` doesn't provide. [isFirstTry] is
+     * false for a retry or an in-session repeat of an item already logged this session; such
+     * rows are kept for history but never feed the missed/mastered sets. */
     suspend fun logAttempt(
         userId: String,
         itemId: String,
         itemKind: ItemKind,
         exerciseType: ExerciseType,
-        wasCorrect: Boolean
+        wasCorrect: Boolean,
+        isFirstTry: Boolean = true
     )
 
-    /** Ids whose most recent attempt was incorrect - drives adaptive sequencing and the Review
+    /** Ids whose most recent first-try attempt was incorrect - drives adaptive sequencing and the Review
      * session. Empty if [userId] has no attempt history yet. */
     suspend fun getMissedItemIds(userId: String): List<String>
 
@@ -53,7 +56,7 @@ interface ProgressRepository {
      * new attempt. */
     fun observeMissedItemIds(userId: String): Flow<List<String>>
 
-    /** Ids whose most recent attempt was correct - the Progress tab's "words learned" metric.
+    /** Ids whose most recent first-try attempt was correct - the Progress tab's "words learned" metric.
      * See [com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao.getMasteredItemIds]. */
     suspend fun getMasteredItemIds(userId: String): List<String>
 
@@ -93,7 +96,7 @@ interface ProgressRepository {
     /** A batch of up to [batchSize] scored exercises drawn from a flexible word pool according
      * to the requested mode:
      * - "FREQUENCY": Sequential Quranic frequency order (Rank #1 upwards) advancing monotonically.
-     * - "RANDOM": Random sampling across the entire 3,680-word corpus without repetition until the full corpus is completed.
+     * - "RANDOM": Random sampling across the whole word corpus without repetition until the full corpus is completed.
      * - "MISTAKES": Sourced from user's current mistaken/missed word list. */
     suspend fun getOpenPracticeExercises(userId: String, mode: String = "RANDOM", batchSize: Int = 18): List<ExerciseEntity>
 

@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -30,8 +31,12 @@ class QwBottomNavShellViewModel @Inject constructor(
     progressRepository: ProgressRepository,
     userIdProvider: CurrentUserIdProvider
 ) : ViewModel() {
-    val learningPath: StateFlow<LearningPath> = preferences.learningPathFlow
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), LearningPath.DEFAULT)
+    /** Null until the stored preference has actually been read - starting from
+     * `LearningPath.DEFAULT` instead flashed the Learn-path Home for a Test-only learner on every
+     * launch before switching over. */
+    val learningPath: StateFlow<LearningPath?> = preferences.learningPathFlow
+        .map<LearningPath, LearningPath?> { it }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     val requireExitConfirmation: StateFlow<Boolean> = preferences.requireExitConfirmationFlow
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)

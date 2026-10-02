@@ -33,6 +33,13 @@ interface ContentRepository {
     /** Map of wordId -> WordIntro for specific items in the current lesson or session. */
     suspend fun getWordIntrosForItems(itemIds: List<String>): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>
 
+    /** wordId -> grammatical category (Ism/Fi'l/Ḥarf) for every practiced word, read from the
+     * content itself - each word's own WORD_INTRO `lemmaCategory`, falling back to its lesson's
+     * category only when it has no intro (and that category isn't MIXED). Cached. The single
+     * source for category badges, Open Practice's category modes and per-category counts - no
+     * caller may infer a category from a word id's shape or numeric range. */
+    suspend fun getWordCategories(): Map<String, com.quranicwords.app.core.domain.model.LemmaCategory>
+
     /** Map of wordId -> WordIntro (containing Quran example verse and translation) across all vocabulary words. */
     suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro>
 }

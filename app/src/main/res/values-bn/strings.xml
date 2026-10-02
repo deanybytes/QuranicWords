@@ -54,7 +54,7 @@
     <string name="daily_goal_devoted_description">দ্রুত শব্দভাণ্ডার সমৃদ্ধ করতে ৩০ মিনিটের নিবেদিত সেশন।</string>
     <string name="daily_goal_minutes_suffix">%d মিনিট প্রতিদিন</string>
     <string name="format_minutes_short">%1$d মিনিট</string>
-    <string name="format_repeat_count">%1$d বার</string>
+    <string name="format_repeat_count">%1$s বার</string>
     <string name="home_daily_challenge_completed">দৈনিক চ্যালেঞ্জ সম্পন্ন</string>
     <string name="test_only_start_quiz_title">কুইজ শুরু করুন</string>
     <string name="test_only_start_quiz_subtitle">আপনার জানা শব্দ থেকে র‍্যান্ডম প্রশ্ন</string>
@@ -273,16 +273,16 @@
     <string name="learned_words_occurrences_total">কুরআনে মোট আগমন: %d বার</string>
 
     <string name="test_mode_ism_title">বিশেষ্য (اسم) মোড</string>
-    <string name="test_mode_ism_desc">কুরআনের ৩,০৫৭টি বিশেষ্য, সর্বনাম ও আল্লাহর গুণবাচক নাম নিয়ে বিশেষ টেস্ট।</string>
+    <string name="test_mode_ism_desc">কুরআনের %1$sটি বিশেষ্য, সর্বনাম ও আল্লাহর গুণবাচক নাম নিয়ে বিশেষ টেস্ট।</string>
     <string name="test_mode_ism_progress">এই চক্রে %2$s টি বিশেষ্যের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_fil_title">ক্রিয়া (فعل) মোড</string>
-    <string name="test_mode_fil_desc">কুরআনের ১,৪৭৯টি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
+    <string name="test_mode_fil_desc">কুরআনের %1$sটি ক্রিয়াপদ (মাযী, মুদারে ও মূলশব্দ) নিয়ে বিশেষ টেস্ট।</string>
     <string name="test_mode_fil_progress">এই চক্রে %2$s টি ক্রিয়ার মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_harf_title">হরফ (حرف) মোড</string>
-    <string name="test_mode_harf_desc">কুরআনের ১৭৩টি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
+    <string name="test_mode_harf_desc">কুরআনের %1$sটি মৌলিক হরফ, অব্যয় এবং সংযোগসূচক শব্দের বিশেষ টেস্ট।</string>
     <string name="test_mode_harf_progress">এই চক্রে %2$s টি হরফের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_random_title">মিশ্র / র‍্যান্ডম মোড</string>
-    <string name="test_mode_random_desc">কুরআনের সকল ৪,৭০৯টি শব্দের (اسم, فعل, حرف) মিশ্র কুইজ।</string>
+    <string name="test_mode_random_desc">কুরআনের সকল %1$sটি শব্দের (اسم, فعل, حرف) মিশ্র কুইজ।</string>
     <string name="test_mode_random_progress">এই চক্রে %2$s টি শব্দের মধ্যে %1$s টি সম্পন্ন</string>
     <string name="test_mode_frequency_title">কুরআনের ক্রমানুসারে মোড</string>
     <string name="test_mode_frequency_desc">কুরআনে শব্দের পুনরাবৃত্তির ক্রম অনুসারে অনুশীলন করুন (১ নং ক্রম থেকে ৪,৭০৯ নং ক্রম পর্যন্ত)।</string>
@@ -387,4 +387,36 @@
     <string name="settings_show_walkthrough_button">নির্দেশিকা গাইড দেখুন</string>
     <string name="splash_load_failed">পাঠগুলো প্রস্তুত করা যায়নি। আপনার অগ্রগতি নিরাপদ আছে।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
+    <string name="lesson_skip_button">এড়িয়ে যান</string>
+    <string name="chapter_label">অধ্যায় %1$s</string>
+    <string name="chapter_label_ordinal">%1$s অধ্যায়</string>
+    <string name="chapter_intro_label_ordinal">%1$s অধ্যায় পরিচিতি</string>
+    <string name="chapter_intro_begin_button_ordinal">%1$s অধ্যায় শুরু করুন</string>
+    <string name="lesson_summary_practice_session_title">টেস্ট সেশন সম্পন্ন</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="one">%1$s দিন অনুশীলন করা হয়েছে (গত %2$s দিনে)</item>
+        <item quantity="other">%1$s দিন অনুশীলন করা হয়েছে (গত %2$s দিনে)</item>
+    </plurals>
+    <string name="intro_unavailable">এই পরিচিতিটি এখন পাওয়া যাচ্ছে না।</string>
+    <string name="a11y_state_correct">সঠিক</string>
+    <string name="a11y_state_incorrect">ভুল</string>
+    <string name="a11y_state_matched">মিলেছে</string>
+    <string name="a11y_state_selected">নির্বাচিত</string>
+    <string name="a11y_action_match">মেলান</string>
+    <string name="a11y_action_select_word">এই শব্দটি বেছে নিন</string>
+    <string name="a11y_meaning_tab">অর্থ %1$s / %2$s</string>
+    <string name="a11y_play_pronunciation">উচ্চারণ শুনুন</string>
+    <string name="a11y_action_flip_card">কার্ড উল্টান</string>
+    <string name="a11y_card_showing_word">শব্দটি দেখানো হচ্ছে</string>
+    <string name="a11y_card_showing_meaning">অর্থ দেখানো হচ্ছে</string>
+    <string name="a11y_chart_item">%1$s: %2$s</string>
+    <string name="a11y_heatmap_summary">গত %2$s দিনের মধ্যে %1$s দিন অনুশীলন করা হয়েছে</string>
+    <string name="a11y_activity_trend_summary">গত ৩০ দিনের মধ্যে %1$s দিন সক্রিয়, মোট %2$s মিনিট</string>
+    <string name="a11y_clear_search">অনুসন্ধান মুছুন</string>
+    <string name="a11y_expand">প্রসারিত করুন</string>
+    <string name="a11y_collapse">সংকুচিত করুন</string>
+    <string name="lesson_locked_hint">আগে আগের পাঠটি সম্পন্ন করুন</string>
+    <string name="learned_words_root_label">মূল: %1$s</string>
+    <string name="widget_streak_value">%1$s দিন</string>
+    <string name="widget_goal_value">%1$s / %2$s মি</string>
 </resources>

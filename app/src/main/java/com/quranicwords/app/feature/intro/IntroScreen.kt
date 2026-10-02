@@ -54,6 +54,28 @@ fun IntroScreen(
             return@Scaffold
         }
 
+        if (uiState.isUnavailable) {
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(R.string.intro_unavailable),
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center
+                )
+                QwPrimaryButton(
+                    text = stringResource(R.string.lesson_summary_back_to_dashboard),
+                    onClick = onContinue
+                )
+            }
+            return@Scaffold
+        }
+
         Column(
             modifier = Modifier
                 .padding(padding)

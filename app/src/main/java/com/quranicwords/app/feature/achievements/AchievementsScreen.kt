@@ -42,10 +42,9 @@ import com.quranicwords.app.core.ui.components.displayName
 import com.quranicwords.app.core.ui.motion.rememberReducedGlass
 
 /**
- * Achievements rendered as a standalone glassmorphic card box with its own internal vertical
- * scroll — fixes the previous stuck-then-auto-scroll jank that occurred when a plain Column
- * with StaggeredEntrance animations was placed inside a LazyColumn item. The [heightIn]
- * cap ensures it never fights the outer LazyColumn for scroll events.
+ * Achievements rendered as one glassmorphic card holding a plain, non-scrolling column of
+ * [AchievementRow]s - meant to sit as a single item inside the host screen's own scrolling
+ * container (the Progress tab), which owns all scrolling.
  */
 @Composable
 fun AchievementsSection(viewModel: AchievementsViewModel = hiltViewModel()) {

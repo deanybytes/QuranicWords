@@ -34,8 +34,14 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercises WHERE type = 'TEACH_WORD' OR type = 'WORD_INTRO'")
     suspend fun getAllTeachWords(): List<ExerciseEntity>
 
+    /** Which lesson(s) each practiced word appears in - the fallback source for a word's
+     * category (its lesson's category) when it has no WORD_INTRO to read one from. */
+    @Query("SELECT DISTINCT practicedItemId, lessonId FROM exercises WHERE practicedItemId IS NOT NULL")
+    suspend fun getPracticedItemLessons(): List<PracticedItemLesson>
+
     @Query("DELETE FROM exercises")
     suspend fun deleteAll()
 }
 
-
+/** Projection row for [ExerciseDao.getPracticedItemLessons]. */
+data class PracticedItemLesson(val practicedItemId: String, val lessonId: String)

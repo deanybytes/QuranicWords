@@ -35,7 +35,11 @@ internal fun AudioPlayButton(onPlay: () -> Boolean) {
         interactionSource = interactionSource,
         colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
-        Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
+        Icon(
+            Icons.AutoMirrored.Filled.VolumeUp,
+            contentDescription = stringResource(R.string.a11y_play_pronunciation),
+            tint = MaterialTheme.colorScheme.onPrimary
+        )
     }
 
     if (audioUnavailable) {

@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -30,7 +32,11 @@ fun DonutChart(
     centerLabel: String? = null,
     labelStyle: TextStyle = MaterialTheme.typography.titleLarge
 ) {
-    Box(modifier = modifier.size(size), contentAlignment = Alignment.Center) {
+    val summary = centerLabel ?: "${(percent.coerceIn(0f, 1f) * 100).toInt()}%"
+    Box(
+        modifier = modifier.size(size).semantics(mergeDescendants = true) { contentDescription = summary },
+        contentAlignment = Alignment.Center
+    ) {
         Canvas(modifier = Modifier.size(size)) {
             val strokeWidth = this.size.minDimension * 0.16f
             val inset = strokeWidth / 2

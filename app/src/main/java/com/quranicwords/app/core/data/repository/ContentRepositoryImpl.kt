@@ -10,6 +10,7 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.model.ChapterWithSections
+import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.SectionWithLessons
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -98,7 +99,28 @@ class ContentRepositoryImpl @Inject constructor(
     override suspend fun getWordIntrosForItems(itemIds: List<String>): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro> {
         if (itemIds.isEmpty()) return emptyMap()
         val allIntros = getAllWordIntros()
-        return allIntros.filterKeys { it in itemIds }
+        val wanted = itemIds.toSet()
+        return allIntros.filterKeys { it in wanted }
+    }
+
+    @Volatile
+    private var wordCategoriesCache: Map<String, LemmaCategory>? = null
+
+    override suspend fun getWordCategories(): Map<String, LemmaCategory> {
+        wordCategoriesCache?.let { return it }
+        val fromIntros = getAllWordIntros().mapValues { (_, intro) -> intro.lemmaCategory }
+        val categories = withContext(Dispatchers.IO) {
+            val lessonCategory = database.lessonDao().getAll().associate { it.id to it.category }
+            val fallback = database.exerciseDao().getPracticedItemLessons()
+                .filter { it.practicedItemId !in fromIntros }
+                .mapNotNull { row ->
+                    lessonCategory[row.lessonId]?.takeIf { it != LemmaCategory.MIXED }?.let { row.practicedItemId to it }
+                }
+                .toMap()
+            fallback + fromIntros
+        }
+        wordCategoriesCache = categories
+        return categories
     }
 
     override suspend fun getAllWordIntros(): Map<String, com.quranicwords.app.core.domain.model.ExerciseContent.WordIntro> {

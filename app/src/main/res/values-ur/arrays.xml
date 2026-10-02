@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chapter_ordinals">
+        <item>پہلا</item>
+        <item>دوسرا</item>
+        <item>تیسرا</item>
+        <item>چوتھا</item>
+        <item>پانچواں</item>
+        <item>چھٹا</item>
+        <item>ساتواں</item>
+        <item>آٹھواں</item>
+        <item>نواں</item>
+        <item>دسواں</item>
+    </string-array>
+</resources>

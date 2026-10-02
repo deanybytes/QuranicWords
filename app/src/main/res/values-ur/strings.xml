@@ -54,7 +54,7 @@
     <string name="daily_goal_devoted_description">تیزی سے ذخیرہ الفاظ بڑھانے کے لیے روزانہ 30 منٹ کا جامع سیشن۔</string>
     <string name="daily_goal_minutes_suffix">روزانہ %d منٹ</string>
     <string name="format_minutes_short">%1$d منٹ</string>
-    <string name="format_repeat_count">%1$d بار</string>
+    <string name="format_repeat_count">%1$s بار</string>
     <string name="home_daily_challenge_completed">روزانہ چیلنج مکمل ہوا</string>
     <string name="test_only_start_quiz_title">کوئز شروع کریں</string>
     <string name="test_only_start_quiz_subtitle">ان الفاظ سے بے ترتیب سوالات جو آپ پہلے سے جانتے ہیں</string>
@@ -264,16 +264,16 @@
     <string name="learned_words_occurrences_total">قرآن میں کل تعداد: %d</string>
 
     <string name="test_mode_ism_title">اسم (اسم) موڈ</string>
-    <string name="test_mode_ism_desc">قرآن کے 3,057 اسماء، ضمائر اور صفاتِ الٰہیہ کا خصوصی ٹیسٹ۔</string>
+    <string name="test_mode_ism_desc">قرآن کے %1$s اسماء، ضمائر اور صفاتِ الٰہیہ کا خصوصی ٹیسٹ۔</string>
     <string name="test_mode_ism_progress">اس چکر میں %2$s اسماء میں سے %1$s مکمل</string>
     <string name="test_mode_fil_title">فعل (فعل) موڈ</string>
-    <string name="test_mode_fil_desc">قرآن کے تمام 1,479 افعال (ماضی، مضارع اور مصادر) کی مخصوص پریکٹس۔</string>
+    <string name="test_mode_fil_desc">قرآن کے تمام %1$s افعال (ماضی، مضارع اور مصادر) کی مخصوص پریکٹس۔</string>
     <string name="test_mode_fil_progress">اس چکر میں %2$s افعال میں سے %1$s مکمل</string>
     <string name="test_mode_harf_title">حرف (حرف) موڈ</string>
-    <string name="test_mode_harf_desc">قرآن کے تمام 173 بنیادی حروف، حروفِ جار اور حروفِ عطف کی پریکٹس۔</string>
+    <string name="test_mode_harf_desc">قرآن کے تمام %1$s بنیادی حروف، حروفِ جار اور حروفِ عطف کی پریکٹس۔</string>
     <string name="test_mode_harf_progress">اس چکر میں %2$s حروف میں سے %1$s مکمل</string>
     <string name="test_mode_random_title">مکس / رینڈم موڈ</string>
-    <string name="test_mode_random_desc">تمام 4,709 قرآنی الفاظ (اسم، فعل، حرف) کا مشترکہ ٹیسٹ۔</string>
+    <string name="test_mode_random_desc">تمام %1$s قرآنی الفاظ (اسم، فعل، حرف) کا مشترکہ ٹیسٹ۔</string>
     <string name="test_mode_random_progress">اس چکر میں %2$s میں سے %1$s الفاظ مکمل</string>
     <string name="test_mode_frequency_title">تواتر کی ترتیب کا موڈ</string>
     <string name="test_mode_frequency_desc">قرآن مجید میں کثرتِ استعمال کی ترتیب سے الفاظ کی مشق کریں (1 سے 4,709 تک)۔</string>
@@ -387,4 +387,36 @@
     <string name="settings_show_walkthrough_button">تعارفی گائیڈ دیکھیں</string>
     <string name="splash_load_failed">اسباق تیار نہیں ہو سکے۔ آپ کی پیش رفت محفوظ ہے۔</string>
     <string name="action_retry">دوبارہ کوشش کریں</string>
+    <string name="lesson_skip_button">چھوڑیں</string>
+    <string name="chapter_label">باب نمبر %1$s</string>
+    <string name="chapter_label_ordinal">%1$s باب</string>
+    <string name="chapter_intro_label_ordinal">%1$s باب کا تعارف</string>
+    <string name="chapter_intro_begin_button_ordinal">%1$s باب شروع کریں</string>
+    <string name="lesson_summary_practice_session_title">ٹیسٹ سیشن مکمل</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="one">%1$s دن مشق کی گئی (آخری %2$s)</item>
+        <item quantity="other">%1$s دن مشق کی گئی (آخری %2$s)</item>
+    </plurals>
+    <string name="intro_unavailable">یہ تعارف اس وقت دستیاب نہیں ہے۔</string>
+    <string name="a11y_state_correct">درست</string>
+    <string name="a11y_state_incorrect">غلط</string>
+    <string name="a11y_state_matched">جوڑا بن گیا</string>
+    <string name="a11y_state_selected">منتخب</string>
+    <string name="a11y_action_match">جوڑیں</string>
+    <string name="a11y_action_select_word">یہ لفظ منتخب کریں</string>
+    <string name="a11y_meaning_tab">معنی %1$s از %2$s</string>
+    <string name="a11y_play_pronunciation">تلفظ سنیں</string>
+    <string name="a11y_action_flip_card">کارڈ پلٹیں</string>
+    <string name="a11y_card_showing_word">لفظ دکھایا جا رہا ہے</string>
+    <string name="a11y_card_showing_meaning">معنی دکھایا جا رہا ہے</string>
+    <string name="a11y_chart_item">%1$s: %2$s</string>
+    <string name="a11y_heatmap_summary">پچھلے %2$s دنوں میں سے %1$s دن مشق کی گئی</string>
+    <string name="a11y_activity_trend_summary">پچھلے ۳۰ دنوں میں سے %1$s دن فعال، کل %2$s منٹ</string>
+    <string name="a11y_clear_search">تلاش صاف کریں</string>
+    <string name="a11y_expand">پھیلائیں</string>
+    <string name="a11y_collapse">سمیٹیں</string>
+    <string name="lesson_locked_hint">پہلے پچھلا سبق مکمل کریں</string>
+    <string name="learned_words_root_label">مادہ: %1$s</string>
+    <string name="widget_streak_value">%1$s دن</string>
+    <string name="widget_goal_value">%1$s / %2$s منٹ</string>
 </resources>
