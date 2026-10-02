@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chapter_ordinals">
+        <item>اول</item>
+        <item>دوم</item>
+        <item>سوم</item>
+        <item>چهارم</item>
+        <item>پنجم</item>
+        <item>ششم</item>
+        <item>هفتم</item>
+        <item>هشتم</item>
+        <item>نهم</item>
+        <item>دهم</item>
+    </string-array>
+</resources>

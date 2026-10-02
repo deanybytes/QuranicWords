@@ -11,9 +11,15 @@ import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.domain.CurriculumUnlockResolver
 import com.quranicwords.app.core.domain.OpenPracticePool
+import com.quranicwords.app.core.domain.StreakRecovery
+import com.quranicwords.app.core.data.local.chunkedInQuery
+import com.quranicwords.app.core.domain.model.ChoiceOption
+import com.quranicwords.app.core.domain.model.GeneratedExercisePrompts
+import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.domain.requiresPassingScore
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
+import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
@@ -52,10 +58,11 @@ class ProgressRepositoryImpl @Inject constructor(
 
     private val curriculumMutex = Mutex()
 
-    /** Rounds up so any real, non-zero session registers at least one minute - a 40-second
-     * Review session shouldn't silently contribute 0 toward the daily goal. */
+    /** Floors to whole minutes - rounding up let a string of quick sessions (or a lesson left
+     * open in the background) inflate the daily goal well past the time actually practiced.
+     * [durationMillis] is already active foreground time only (see LessonViewModel's timer). */
     private suspend fun recordDailyPracticeMinutes(userId: String, durationMillis: Long) {
-        val minutes = ((durationMillis + 59_999L) / 60_000L).toInt()
+        val minutes = (durationMillis / 60_000L).toInt()
         if (minutes <= 0) return
         database.dailyPracticeDao().addMinutes(userId, LocalDate.now(clock).toString(), minutes)
     }
@@ -284,7 +291,8 @@ class ProgressRepositoryImpl @Inject constructor(
         itemId: String,
         itemKind: ItemKind,
         exerciseType: ExerciseType,
-        wasCorrect: Boolean
+        wasCorrect: Boolean,
+        isFirstTry: Boolean
     ) = withContext(Dispatchers.IO) {
         database.exerciseAttemptDao().insert(
             ExerciseAttemptEntity(
@@ -293,7 +301,8 @@ class ProgressRepositoryImpl @Inject constructor(
                 itemKind = itemKind,
                 exerciseType = exerciseType,
                 wasCorrect = wasCorrect,
-                attemptedAtEpochMillis = clock.millis()
+                attemptedAtEpochMillis = clock.millis(),
+                isFirstTry = isFirstTry
             )
         )
     }
@@ -326,8 +335,15 @@ class ProgressRepositoryImpl @Inject constructor(
     override suspend fun getReviewExercises(missedItemIds: List<String>, limit: Int): List<ExerciseEntity> =
         withContext(Dispatchers.IO) {
             if (missedItemIds.isEmpty()) return@withContext emptyList()
-            database.exerciseDao().getScoredExercisesForItems(missedItemIds).take(limit)
+            // Chunked (a long mistake history overflows SQLite's IN-parameter limit), one exercise
+            // per word (a word drilled by several exercises would otherwise crowd out the rest of
+            // the list) and shuffled before the cap so a session isn't always the same first N.
+            val exercises = scoredExercisesFor(missedItemIds)
+            OpenPracticePool.oneExercisePerWord(exercises).take(limit)
         }
+
+    private suspend fun scoredExercisesFor(itemIds: Collection<String>): List<ExerciseEntity> =
+        chunkedInQuery(itemIds) { database.exerciseDao().getScoredExercisesForItems(it) }
 
     override suspend fun completeReviewSession(
         userId: String,
@@ -369,66 +385,24 @@ class ProgressRepositoryImpl @Inject constructor(
 
         val upMode = mode.uppercase()
         val itemIds = when {
-            upMode == "ISM" || upMode == "NOUN" -> {
-                val ismWords = allWords.filter {
-                    it.id.startsWith("wn_") || run {
-                        val num = it.id.removePrefix("w_").toIntOrNull()
-                        num != null && num in 1653..4709
-                    }
-                }
-                val allIsmIds = ismWords.map { it.id }
-                val covered = preferences.testIsmCoveredWordIdsFlow.first()
-                val remaining = allIsmIds.filter { it !in covered }
-                val pool = if (remaining.size < batchSize) {
-                    preferences.resetTestIsmCoveredWordIds()
-                    allIsmIds
-                } else {
-                    remaining
-                }
-                val sampled = pool.shuffled().take(batchSize)
-                preferences.addTestIsmCoveredWordIds(sampled)
-                sampled
-            }
-            upMode == "FIL" || upMode == "VERB" -> {
-                val filWords = allWords.filter {
-                    it.id.startsWith("wv_") || run {
-                        val num = it.id.removePrefix("w_").toIntOrNull()
-                        num != null && num in 174..1652
-                    }
-                }
-                val allFilIds = filWords.map { it.id }
-                val covered = preferences.testFilCoveredWordIdsFlow.first()
-                val remaining = allFilIds.filter { it !in covered }
-                val pool = if (remaining.size < batchSize) {
-                    preferences.resetTestFilCoveredWordIds()
-                    allFilIds
-                } else {
-                    remaining
-                }
-                val sampled = pool.shuffled().take(batchSize)
-                preferences.addTestFilCoveredWordIds(sampled)
-                sampled
-            }
-            upMode == "HARF" || upMode == "PARTICLE" -> {
-                val harfWords = allWords.filter {
-                    it.id.startsWith("wp_") || run {
-                        val num = it.id.removePrefix("w_").toIntOrNull()
-                        num != null && num in 1..173
-                    }
-                }
-                val allHarfIds = harfWords.map { it.id }
-                val covered = preferences.testHarfCoveredWordIdsFlow.first()
-                val remaining = allHarfIds.filter { it !in covered }
-                val pool = if (remaining.size < batchSize) {
-                    preferences.resetTestHarfCoveredWordIds()
-                    allHarfIds
-                } else {
-                    remaining
-                }
-                val sampled = pool.shuffled().take(batchSize)
-                preferences.addTestHarfCoveredWordIds(sampled)
-                sampled
-            }
+            upMode == "ISM" || upMode == "NOUN" -> sampleCategory(
+                allWords.map { it.id }, LemmaCategory.NOUN, batchSize,
+                covered = preferences.testIsmCoveredWordIdsFlow.first(),
+                reset = { preferences.resetTestIsmCoveredWordIds() },
+                markCovered = { preferences.addTestIsmCoveredWordIds(it) }
+            )
+            upMode == "FIL" || upMode == "VERB" -> sampleCategory(
+                allWords.map { it.id }, LemmaCategory.VERB, batchSize,
+                covered = preferences.testFilCoveredWordIdsFlow.first(),
+                reset = { preferences.resetTestFilCoveredWordIds() },
+                markCovered = { preferences.addTestFilCoveredWordIds(it) }
+            )
+            upMode == "HARF" || upMode == "PARTICLE" -> sampleCategory(
+                allWords.map { it.id }, LemmaCategory.PARTICLE, batchSize,
+                covered = preferences.testHarfCoveredWordIdsFlow.first(),
+                reset = { preferences.resetTestHarfCoveredWordIds() },
+                markCovered = { preferences.addTestHarfCoveredWordIds(it) }
+            )
             upMode == "MISTAKES" -> {
                 val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
                 if (missed.isEmpty()) return@withContext emptyList()
@@ -446,7 +420,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 val cleanChapterId = if (rawChapter.startsWith("ch_")) rawChapter else "ch_${rawChapter.padStart(2, '0')}"
                 val lessons = database.lessonDao().getForChapter(cleanChapterId)
                 val lessonIds = lessons.map { it.id }
-                val exercises = database.exerciseDao().getForLessons(lessonIds)
+                val exercises = chunkedInQuery(lessonIds) { database.exerciseDao().getForLessons(it) }
                 val chapterWordIds = exercises.mapNotNull { it.practicedItemId }.distinct()
                 if (chapterWordIds.isEmpty()) return@withContext emptyList()
                 val covered = preferences.testChapterCoveredWordIdsFlow(cleanChapterId).first()
@@ -477,7 +451,7 @@ class ProgressRepositoryImpl @Inject constructor(
             }
         }
 
-        val dbExercises = database.exerciseDao().getScoredExercisesForItems(itemIds)
+        val dbExercises = scoredExercisesFor(itemIds)
         val wordIntros = contentRepository?.getWordIntrosForItems(itemIds).orEmpty()
 
         if (wordIntros.isEmpty()) {
@@ -508,7 +482,7 @@ class ProgressRepositoryImpl @Inject constructor(
                         // TapWordInVerse (Reverse Verse Quiz)
                         if (targetSpan != null) {
                             val tapContent = ExerciseContent.TapWordInVerse(
-                                prompt = TAP_WORD_PROMPT,
+                                prompt = GeneratedExercisePrompts.TAP_WORD_PROMPT,
                                 wordId = wordId,
                                 verseArabic = intro.exampleVerseArabic,
                                 verseReference = intro.exampleVerseReference.orEmpty(),
@@ -521,7 +495,7 @@ class ProgressRepositoryImpl @Inject constructor(
                             )
                             ExerciseEntity(
                                 id = "test_tap_${wordId}_$index",
-                                lessonId = "review_session",
+                                lessonId = REVIEW_SESSION_LESSON_ID,
                                 orderIndex = index,
                                 type = ExerciseType.WORD_IN_VERSE_TAP,
                                 contentJson = AppJson.encodeToString(ExerciseContent.serializer(), tapContent),
@@ -535,19 +509,19 @@ class ProgressRepositoryImpl @Inject constructor(
                         // FillInTheBlank (Verse Completion)
                         if (targetSpan != null) {
                             val fillContent = ExerciseContent.FillInTheBlank(
-                                prompt = FILL_BLANK_PROMPT,
+                                prompt = GeneratedExercisePrompts.FILL_BLANK_PROMPT,
                                 wordId = wordId,
                                 sentenceArabic = intro.exampleVerseArabic,
                                 blankStart = targetSpan.start,
                                 blankEnd = targetSpan.end,
                                 sentenceTranslation = intro.exampleVerseTranslation,
                                 sentenceReference = intro.exampleVerseReference.orEmpty(),
-                                options = emptyList(),
+                                options = listOf(correctOptionFor(wordId, intro)),
                                 correctOptionId = wordId
                             )
                             ExerciseEntity(
                                 id = "test_fill_${wordId}_$index",
-                                lessonId = "review_session",
+                                lessonId = REVIEW_SESSION_LESSON_ID,
                                 orderIndex = index,
                                 type = ExerciseType.FILL_IN_THE_BLANK,
                                 contentJson = AppJson.encodeToString(ExerciseContent.serializer(), fillContent),
@@ -568,6 +542,31 @@ class ProgressRepositoryImpl @Inject constructor(
         }
     }
 
+    /** One batch from a single grammatical category, without repeats until the whole category has
+     * been covered. Category membership comes from the content's own word categories (see
+     * `ContentRepository.getWordCategories`), never from id prefixes or numeric id ranges. */
+    private suspend fun sampleCategory(
+        allWordIds: List<String>,
+        category: LemmaCategory,
+        batchSize: Int,
+        covered: Set<String>,
+        reset: suspend () -> Unit,
+        markCovered: suspend (List<String>) -> Unit
+    ): List<String> {
+        val categories = contentRepository?.getWordCategories().orEmpty()
+        val allInCategory = allWordIds.filter { categories[it] == category }
+        val remaining = allInCategory.filter { it !in covered }
+        val pool = if (remaining.size < batchSize) {
+            reset()
+            allInCategory
+        } else {
+            remaining
+        }
+        val sampled = pool.shuffled().take(batchSize)
+        markCovered(sampled)
+        return sampled
+    }
+
     private fun computeWordSpans(verse: String): List<WordSpan> {
         val spans = mutableListOf<WordSpan>()
         var i = 0
@@ -582,16 +581,22 @@ class ProgressRepositoryImpl @Inject constructor(
         return spans
     }
 
+    /** Generated exercises bake only their correct option (from the word's own intro) -
+     * `LessonViewModel.rebuildOptions` adds fresh distractors on load. Never an empty list, which
+     * would leave the exercise with nothing to tap. */
+    private fun correctOptionFor(wordId: String, intro: ExerciseContent.WordIntro): ChoiceOption =
+        ChoiceOption(id = wordId, labelArabic = intro.arabicWord.cleanArabicDisplay(), label = intro.meaning)
+
     private fun buildDefaultMultipleChoice(
         wordId: String,
         intro: ExerciseContent.WordIntro,
         index: Int
     ): ExerciseEntity {
         val mcContent = ExerciseContent.MultipleChoice(
-            prompt = MULTIPLE_CHOICE_PROMPT,
+            prompt = GeneratedExercisePrompts.MULTIPLE_CHOICE_PROMPT,
             wordId = wordId,
             promptArabic = intro.arabicWord,
-            options = emptyList(),
+            options = listOf(correctOptionFor(wordId, intro)),
             correctOptionId = wordId,
             exampleVerseArabic = intro.exampleVerseArabic,
             exampleVerseReference = intro.exampleVerseReference,
@@ -602,7 +607,7 @@ class ProgressRepositoryImpl @Inject constructor(
         )
         return ExerciseEntity(
             id = "test_mc_${wordId}_$index",
-            lessonId = "review_session",
+            lessonId = REVIEW_SESSION_LESSON_ID,
             orderIndex = index,
             type = ExerciseType.MULTIPLE_CHOICE,
             contentJson = AppJson.encodeToString(ExerciseContent.serializer(), mcContent),
@@ -621,15 +626,17 @@ class ProgressRepositoryImpl @Inject constructor(
     private suspend fun sampleExercises(pool: List<String>, count: Int): List<ExerciseEntity> {
         if (pool.isEmpty()) return emptyList()
         val sampledIds = OpenPracticePool.sampleIds(pool, count)
-        val exercises = database.exerciseDao().getScoredExercisesForItems(sampledIds)
-        return OpenPracticePool.oneExercisePerWord(exercises)
+        return OpenPracticePool.oneExercisePerWord(scoredExercisesFor(sampledIds))
     }
 
     override suspend fun attemptStreakRecovery(userId: String, correctCount: Int, totalCount: Int): Boolean =
         withContext(Dispatchers.IO) {
+            val stats = database.userStatsDao().get(userId) ?: return@withContext false
+            // Only a genuinely locked streak, lapsed within the recovery window, can be restored -
+            // otherwise a recovery quiz could revive a long-dead streak (or "extend" a live one).
+            if (!StreakRecovery.canRecover(stats, LocalDate.now(clock))) return@withContext false
             val passed = GamificationConfig.percentOf(correctCount, totalCount) >= GamificationConfig.PASSING_SCORE_PERCENT
             if (passed) {
-                val stats = database.userStatsDao().get(userId) ?: return@withContext false
                 database.userStatsDao().upsert(
                     stats.copy(
                         lastActivityLocalDate = LocalDate.now(clock).toString(),
@@ -651,49 +658,5 @@ class ProgressRepositoryImpl @Inject constructor(
                 repairUnlockChain(userId)
             }
         }
-    }
-
-    companion object {
-        private val TAP_WORD_PROMPT = mapOf(
-            "en" to "Tap the Arabic word in the verse",
-            "bn" to "আয়াত থেকে সঠিক আরবি শব্দটি স্পর্শ করুন",
-            "ur" to "آیت میں سے درست عربی لفظ منتخب کریں",
-            "hi" to "आयत में से सही अरबी शब्द चुनें",
-            "in" to "Ketuk kata Arab yang benar dalam ayat",
-            "ms" to "Ketik perkataan Arab yang betul dalam ayat",
-            "tr" to "Ayetteki doğru Arapça kelimeye dokunun",
-            "fa" to "کلمه عربی درست را در آیه لمس کنید",
-            "ha" to "Taba kalmar Larabci daidai a cikin ayar",
-            "sw" to "Gusa neno sahihi la Kiarabu katika aya",
-            "fr" to "Touchez le mot arabe correct dans le verset"
-        )
-
-        private val FILL_BLANK_PROMPT = mapOf(
-            "en" to "Complete the verse",
-            "bn" to "আয়াতটি সম্পূর্ণ করুন",
-            "ur" to "آیت مکمل کریں",
-            "hi" to "आयत पूरी करें",
-            "in" to "Lengkapi ayat berikut",
-            "ms" to "Lengkapkan ayat ini",
-            "tr" to "Ayeti tamamlayın",
-            "fa" to "آیه را کامل کنید",
-            "ha" to "Kammala ayar",
-            "sw" to "Kamilisha aya",
-            "fr" to "Complétez le verset"
-        )
-
-        private val MULTIPLE_CHOICE_PROMPT = mapOf(
-            "en" to "Choose the correct meaning",
-            "bn" to "সঠিক অর্থ নির্বাচন করুন",
-            "ur" to "درست معنی کا انتخاب کریں",
-            "hi" to "सही अर्थ चुनें",
-            "in" to "Pilih arti yang benar",
-            "ms" to "Pilih maksud yang betul",
-            "tr" to "Doğru anlamı seçin",
-            "fa" to "معنی درست را انتخاب کنید",
-            "ha" to "Zabi ma'anar da ta dace",
-            "sw" to "Chagua maana sahihi",
-            "fr" to "Choisissez la bonne signification"
-        )
     }
 }

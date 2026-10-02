@@ -9,25 +9,26 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
-import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.domain.CoverageCalculator
 import com.quranicwords.app.core.domain.DailyGoalCalculator
+import com.quranicwords.app.core.domain.DisplayedStreak
 import com.quranicwords.app.core.domain.InactivityDuration
 import com.quranicwords.app.core.domain.StreakRecovery
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import com.quranicwords.app.core.util.currentDateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import com.quranicwords.app.core.domain.model.ChapterWithSections as DomainChapterWithSections
 import com.quranicwords.app.core.domain.model.SectionWithLessons as DomainSectionWithLessons
 import kotlinx.coroutines.launch
 import java.time.Clock
-import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 typealias SectionWithLessons = DomainSectionWithLessons
@@ -166,38 +167,15 @@ fun progressFraction(lessonIds: List<String>, progressByLessonId: Map<String, Us
     return completed.toFloat() / lessonIds.size
 }
 
-/** Pure derivation, no DB access - calculates the real Quran occurrence percent the learner has
- * actually covered within each chapter based on their completed lessons.
- * For each chapter, section lessons contribute `(completedCount / totalCount) * section.quranOccurrencePercent`.
- * Returns a map of chapterId -> real user covered occurrence percent within that chapter. */
+/** Pure derivation, no DB access - the Qur'an occurrence percent the learner has covered within
+ * each chapter (chapterId -> percent), from their completed lessons. Delegates to
+ * [CoverageCalculator] so Home agrees with Progress, the lesson summary and the intros. */
 fun userCoveragePercentByChapter(
     chapters: List<ChapterWithSections>,
     progressByLessonId: Map<String, UserProgressEntity>
 ): Map<String, Double> {
-    return chapters.associate { chapterWithSections ->
-        var chapterCovered = 0.0
-        val sections = chapterWithSections.sections
-        if (sections.isNotEmpty()) {
-            sections.forEach { sectionWithLessons ->
-                val totalLessons = sectionWithLessons.lessons.size
-                if (totalLessons > 0) {
-                    val completed = sectionWithLessons.lessons.count { lesson ->
-                        progressByLessonId[lesson.id]?.status == LessonStatus.COMPLETED
-                    }
-                    chapterCovered += (completed.toDouble() / totalLessons) * sectionWithLessons.section.quranOccurrencePercent
-                }
-            }
-        } else {
-            val total = chapterWithSections.chapterLevelLessons.size
-            if (total > 0) {
-                val completed = chapterWithSections.chapterLevelLessons.count { lesson ->
-                    progressByLessonId[lesson.id]?.status == LessonStatus.COMPLETED
-                }
-                chapterCovered += (completed.toDouble() / total) * chapterWithSections.chapter.quranOccurrencePercent
-            }
-        }
-        chapterWithSections.chapter.id to chapterCovered.coerceIn(0.0, chapterWithSections.chapter.quranOccurrencePercent)
-    }
+    val completed = progressByLessonId.values.filter { it.status == LessonStatus.COMPLETED }.map { it.lessonId }.toSet()
+    return CoverageCalculator.coverageByChapter(chapters, completed)
 }
 
 /** Pure derivation, no DB access - calculates the total Quran occurrence percent the user has covered
@@ -262,6 +240,7 @@ fun isCurriculumComplete(chapters: List<ChapterWithSections>, progressByLessonId
     return allLessonIds.all { progressByLessonId[it]?.status == LessonStatus.COMPLETED }
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
@@ -283,87 +262,76 @@ class HomeViewModel @Inject constructor(
             // - every later unlock chains from there via ProgressRepositoryImpl.completeLesson.
             progressRepository.ensureCurriculumStarted(userId)
 
-            val hasReviewableItems = progressRepository.getMissedItemIds(userId).isNotEmpty()
             val chapters = loadCurriculumTree()
             val cumulativeCoverage = cumulativeCoveragePercentByChapter(chapters)
-            val todayDate = LocalDate.now(clock)
-            val today = todayDate.toString()
-            val startDate = todayDate.minusDays(29).toString()
-            val practiceRangeFlow = progressRepository.observePracticeHistoryForRange(userId, startDate, today)
 
-            combine(
-                combine(
-                    progressRepository.observeProgress(userId),
-                    progressRepository.observeStats(userId),
-                    progressRepository.observeTodayPractice(userId, today)
-                ) { progress, stats, todayPractice ->
-                    Triple(progress, stats, todayPractice)
-                },
-                combine(
-                    progressRepository.observeMissedItemIds(userId),
-                    preferences.dailyGoalLevelFlow,
-                    practiceRangeFlow
-                ) { missedItemIds, goalLevel, rangeHistory ->
-                    Triple(missedItemIds, goalLevel, rangeHistory)
-                }
-            ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory) ->
-                val progressByLessonId = progress.associateBy { it.lessonId }
-                val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
-                val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
-                val last30DaysMinutes = (29 downTo 0).map { offset ->
-                    val d = todayDate.minusDays(offset.toLong()).toString()
-                    practiceMap[d] ?: 0
-                }
-                val total30DaysMins = last30DaysMinutes.sum()
-                val active30DaysDays = last30DaysMinutes.count { it > 0 }
-                val userCoverage = userCoveragePercentByChapter(chapters, progressByLessonId)
-                val totalUserCoverage = calculateTotalUserCoveragePercent(userCoverage)
+            // Re-subscribed at local midnight, so a Home left open overnight rolls over to the new
+            // day's practice row / 30-day window / streak display instead of showing yesterday's.
+            currentDateFlow(clock).flatMapLatest { todayDate ->
+                val today = todayDate.toString()
+                val startDate = todayDate.minusDays(29).toString()
+                val practiceRangeFlow = progressRepository.observePracticeHistoryForRange(userId, startDate, today)
 
-                HomeUiState(
-                    chapters = chapters,
-                    progressByLessonId = progressByLessonId,
-                    totalPoints = stats?.totalPoints ?: 0,
-                    currentStreak = displayedStreak(stats),
-                    isLoading = false,
-                    hasReviewableItems = missedItemIds.isNotEmpty(),
-                    missedWordsCount = missedItemIds.size,
-                    initiallyExpandedChapterId = currentChapterId,
-                    initiallyExpandedSectionId = currentSectionId,
-                    currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
-                    quranCoveragePercent = totalUserCoverage,
-                    userCoveragePercentByChapter = userCoverage,
-                    cumulativeCoveragePercentByChapter = cumulativeCoverage,
-                    completedHistory = completedLessonsHistory(chapters, progressByLessonId),
-                    isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(
-                        todayPractice?.minutesPracticed ?: 0,
-                        goalLevel.minutes
-                    ),
-                    isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId),
-                    isStreakLocked = StreakRecovery.isLocked(stats, todayDate),
-                    streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
-                    streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate),
-                    last30DaysMinutes = last30DaysMinutes,
-                    last30DaysActiveCount = active30DaysDays,
-                    last30DaysTotalMinutes = total30DaysMins
-                )
+                combine(
+                    combine(
+                        progressRepository.observeProgress(userId),
+                        progressRepository.observeStats(userId),
+                        progressRepository.observeTodayPractice(userId, today)
+                    ) { progress, stats, todayPractice ->
+                        Triple(progress, stats, todayPractice)
+                    },
+                    combine(
+                        progressRepository.observeMissedItemIds(userId),
+                        preferences.dailyGoalLevelFlow,
+                        practiceRangeFlow
+                    ) { missedItemIds, goalLevel, rangeHistory ->
+                        Triple(missedItemIds, goalLevel, rangeHistory)
+                    }
+                ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory) ->
+                    val progressByLessonId = progress.associateBy { it.lessonId }
+                    val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
+                    val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
+                    val last30DaysMinutes = (29 downTo 0).map { offset ->
+                        val d = todayDate.minusDays(offset.toLong()).toString()
+                        practiceMap[d] ?: 0
+                    }
+                    val total30DaysMins = last30DaysMinutes.sum()
+                    val active30DaysDays = last30DaysMinutes.count { it > 0 }
+                    val userCoverage = userCoveragePercentByChapter(chapters, progressByLessonId)
+                    val totalUserCoverage = calculateTotalUserCoveragePercent(userCoverage)
+
+                    HomeUiState(
+                        chapters = chapters,
+                        progressByLessonId = progressByLessonId,
+                        totalPoints = stats?.totalPoints ?: 0,
+                        currentStreak = DisplayedStreak.of(stats, todayDate),
+                        isLoading = false,
+                        hasReviewableItems = missedItemIds.isNotEmpty(),
+                        missedWordsCount = missedItemIds.size,
+                        initiallyExpandedChapterId = currentChapterId,
+                        initiallyExpandedSectionId = currentSectionId,
+                        currentLessonId = findCurrentLessonId(chapters, progressByLessonId),
+                        quranCoveragePercent = totalUserCoverage,
+                        userCoveragePercentByChapter = userCoverage,
+                        cumulativeCoveragePercentByChapter = cumulativeCoverage,
+                        completedHistory = completedLessonsHistory(chapters, progressByLessonId),
+                        isDailyGoalMetToday = DailyGoalCalculator.isGoalMetToday(
+                            todayPractice?.minutesPracticed ?: 0,
+                            goalLevel.minutes
+                        ),
+                        isCurriculumComplete = isCurriculumComplete(chapters, progressByLessonId),
+                        isStreakLocked = StreakRecovery.canRecover(stats, todayDate),
+                        streakRecoveryQuestionCount = StreakRecovery.recoveryQuestionCount(stats?.currentStreak ?: 0) ?: 0,
+                        streakInactivityDuration = StreakRecovery.inactivityDuration(stats, todayDate),
+                        last30DaysMinutes = last30DaysMinutes,
+                        last30DaysActiveCount = active30DaysDays,
+                        last30DaysTotalMinutes = total30DaysMins
+                    )
+                }
             }.collect { _uiState.value = it }
         }
     }
 
     private suspend fun loadCurriculumTree(): List<ChapterWithSections> =
         contentRepository.getFullCurriculumTree()
-
-
-    /** [UserStatsEntity.currentStreak] is only ever recomputed by StreakCalculator when a
-     * lesson completes, so a stored streak from days ago would otherwise still show as "alive"
-     * here even though the user missed a day - it only silently drops the next time they finish
-     * a lesson. Treat a gap of more than one day as already broken for display purposes. */
-    private fun displayedStreak(stats: UserStatsEntity?): Int {
-        if (stats == null) return 0
-        val lastActivity = stats.lastActivityLocalDate
-            ?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
-            ?: return 0
-        val dayGap = ChronoUnit.DAYS.between(lastActivity, LocalDate.now(clock))
-        return if (dayGap <= 1) stats.currentStreak else 0
-    }
 }

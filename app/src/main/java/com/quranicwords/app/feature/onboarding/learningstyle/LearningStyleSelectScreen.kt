@@ -26,6 +26,8 @@ import com.quranicwords.app.core.domain.model.LearningStyle
 import com.quranicwords.app.core.ui.components.IconLabelChip
 import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.components.QwSelectableCard
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
  * Onboarding step between the font step and Daily Goal - how many times each word (and each
@@ -81,7 +83,7 @@ private fun LearningStyleOptionCard(style: LearningStyle, onClick: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(nameRes), style = MaterialTheme.typography.titleMedium)
-                IconLabelChip(icon = Icons.Filled.Repeat, label = stringResource(R.string.format_repeat_count, style.repeatCount))
+                IconLabelChip(icon = Icons.Filled.Repeat, label = stringResource(R.string.format_repeat_count, VerseReferenceFormatter.formatNumber(style.repeatCount, rememberSelectedLanguage())))
             }
             Text(
                 stringResource(descriptionRes),

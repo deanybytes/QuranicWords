@@ -87,7 +87,6 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.BrandGreen
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
-import com.quranicwords.app.core.ui.theme.MedallionShapeDefault
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -128,10 +127,10 @@ fun LessonSummaryScreen(
     val mistakeCount = (route.totalCount - route.correctCount).coerceAtLeast(0)
 
     val wordsCount = if (uiState.wordsCoveredCount > 0) uiState.wordsCoveredCount else route.totalCount
-    val localizedWordsCovered = VerseReferenceFormatter.formatDigits(wordsCount.toString(), language)
+    val localizedWordsCovered = VerseReferenceFormatter.formatNumber(wordsCount, language)
     val localizedAccuracy = VerseReferenceFormatter.formatDigits("${route.accuracyPercent}%", language)
-    val localizedMistakes = VerseReferenceFormatter.formatDigits(mistakeCount.toString(), language)
-    val localizedTotalLearned = VerseReferenceFormatter.formatDigits(uiState.totalWordsLearned.toString(), language)
+    val localizedMistakes = VerseReferenceFormatter.formatNumber(mistakeCount, language)
+    val localizedTotalLearned = VerseReferenceFormatter.formatNumber(uiState.totalWordsLearned, language)
     val localizedCoveragePercent = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", uiState.quranCoveragePercent), language)
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -190,9 +189,11 @@ fun LessonSummaryScreen(
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-                    if (uiState.lessonTitle != null) {
+                    val subtitle = uiState.lessonTitle?.get(language)
+                        ?: if (uiState.isPracticeSession) stringResource(R.string.lesson_summary_practice_session_title) else null
+                    if (subtitle != null) {
                         Text(
-                            text = uiState.lessonTitle?.get(language) ?: "",
+                            text = subtitle,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
@@ -206,12 +207,12 @@ fun LessonSummaryScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Qw3DFlipCard(
                         flipped = visible,
-                        front = { BadgeMedallionPlaceholder() },
+                        front = {},
                         back = { PointsBadge(route.newTotalPoints) }
                     )
                     Qw3DFlipCard(
                         flipped = visible,
-                        front = { BadgeMedallionPlaceholder() },
+                        front = {},
                         back = { StreakBadge(route.currentStreak) }
                     )
                 }
@@ -247,14 +248,14 @@ fun LessonSummaryScreen(
                         SummaryMetricCard(
                             icon = if (mistakeCount == 0) Icons.Filled.Stars else Icons.Filled.ErrorOutline,
                             title = if (mistakeCount == 0) stringResource(R.string.lesson_summary_flawless) else stringResource(R.string.lesson_summary_mistakes_count, mistakeCount),
-                            value = if (mistakeCount == 0) "0" else localizedMistakes,
+                            value = localizedMistakes,
                             accentColor = if (mistakeCount == 0) BrandGold else MaterialTheme.colorScheme.error,
                             modifier = Modifier.weight(1f)
                         )
                         SummaryMetricCard(
                             icon = Icons.AutoMirrored.Filled.TrendingUp,
                             title = stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
-                            value = "+$animatedPointsEarned",
+                            value = "+" + VerseReferenceFormatter.formatNumber(animatedPointsEarned, language),
                             accentColor = BrandGold,
                             modifier = Modifier.weight(1f)
                         )
@@ -519,7 +520,7 @@ fun LessonSummaryScreen(
                             items(newlyUnlockedAchievements) { achievement ->
                                 Qw3DFlipCard(
                                     flipped = visible,
-                                    front = { BadgeMedallionPlaceholder() },
+                                    front = {},
                                     back = {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                             AchievementBadge(motifKind = achievement.motifKind, unlocked = true)
@@ -627,15 +628,6 @@ private fun SummaryMetricCard(
             }
         }
     }
-}
-
-@Composable
-private fun BadgeMedallionPlaceholder() {
-    Surface(
-        modifier = Modifier.size(56.dp),
-        shape = MedallionShapeDefault,
-        color = MaterialTheme.colorScheme.surfaceVariant
-    ) {}
 }
 
 private val Route.LessonSummary.accuracyPercent: Int

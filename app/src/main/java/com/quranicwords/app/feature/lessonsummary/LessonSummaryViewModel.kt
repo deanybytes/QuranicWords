@@ -6,18 +6,21 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.data.local.entity.LessonKind
+import com.quranicwords.app.core.data.local.entity.LessonStatus
+import com.quranicwords.app.core.domain.CoverageCalculator
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.LocalizedText
+import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.navigation.Route
-import com.quranicwords.app.core.ui.components.resolveCategoryFromWordId
 import com.quranicwords.app.core.util.AppJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,6 +38,9 @@ data class LessonSummaryUiState(
     val lessonTitle: LocalizedText? = null,
     val lessonCategory: LemmaCategory? = null,
     val lessonKind: LessonKind? = null,
+    /** Review/Open Practice/Streak Recovery - no [lessonTitle]; titled via
+     * `R.string.lesson_summary_practice_session_title` instead. */
+    val isPracticeSession: Boolean = false,
     val wordsCoveredCount: Int = 0,
     val wordsCoveredList: List<WordSummaryItem> = emptyList(),
     // Cumulative Qur'an stats
@@ -80,9 +86,11 @@ class LessonSummaryViewModel @Inject constructor(
                     var lessonTitle: LocalizedText? = null
                     var lessonCategory: LemmaCategory? = null
                     var lessonKind: LessonKind? = null
+                    var isPracticeSession = false
                     val wordsList = mutableListOf<WordSummaryItem>()
+                    val wordCategories = contentRepository.getWordCategories()
 
-                    if (!lessonId.isNullOrBlank() && lessonId != "review_session") {
+                    if (!lessonId.isNullOrBlank() && lessonId != REVIEW_SESSION_LESSON_ID) {
                         val currentLesson = contentRepository.getLesson(lessonId)
                         if (currentLesson != null) {
                             lessonTitle = currentLesson.title
@@ -99,7 +107,7 @@ class LessonSummaryViewModel @Inject constructor(
                                 if (content is ExerciseContent.WordIntro) {
                                     val candidate = wordCandidates[content.wordId]
                                     val meaning = candidate?.meaning ?: content.meaning
-                                    val category = resolveCategoryFromWordId(content.wordId) ?: content.lemmaCategory
+                                    val category = content.lemmaCategory
                                     wordsList.add(
                                         WordSummaryItem(
                                             wordId = content.wordId,
@@ -111,20 +119,9 @@ class LessonSummaryViewModel @Inject constructor(
                                 }
                             }
                         }
-                    } else if (practicedWordIds.isNotEmpty() || lessonId == "review_session") {
-                        lessonTitle = mapOf(
-                            "en" to "Test Session Completed",
-                            "bn" to "টেস্ট সেশন সম্পন্ন",
-                            "ur" to "ٹیسٹ سیشن مکمل",
-                            "hi" to "टेस्ट सत्र पूरा हुआ",
-                            "in" to "Sesi Tes Selesai",
-                            "ms" to "Sesi Ujian Selesai",
-                            "tr" to "Test Oturumu Tamamlandı",
-                            "fa" to "جلسه آزمون تکمیل شد",
-                            "ha" to "An Kammala Zama na Gwaji",
-                            "sw" to "Kipindi cha Mtihani Kimekamilika",
-                            "fr" to "Session de test terminée"
-                        )
+                    } else if (practicedWordIds.isNotEmpty() || lessonId == REVIEW_SESSION_LESSON_ID) {
+                        // No lesson to name - the screen titles it from a string resource.
+                        isPracticeSession = true
                         val wordCandidates = contentRepository.getWordCandidates().associateBy { it.id }
                         val wordIntros = contentRepository.getWordIntrosForItems(practicedWordIds)
 
@@ -134,7 +131,7 @@ class LessonSummaryViewModel @Inject constructor(
                             if (candidate != null || intro != null) {
                                 val arabicWord = candidate?.arabicWord ?: intro?.arabicWord ?: ""
                                 val meaning = candidate?.meaning ?: intro?.meaning ?: emptyMap()
-                                val category = resolveCategoryFromWordId(wordId)
+                                val category = wordCategories[wordId]
                                     ?: intro?.lemmaCategory
                                     ?: LemmaCategory.NOUN
                                 wordsList.add(
@@ -154,8 +151,14 @@ class LessonSummaryViewModel @Inject constructor(
                     val allWords = contentRepository.getWordCandidates()
                     val totalWordsLearned = masteredWordIds.size
                     val masteredOccurrences = allWords.filter { it.id in masteredWordIds }.sumOf { it.frequencyCount }
-                    val totalOccurrences = allWords.sumOf { it.frequencyCount }.coerceAtLeast(1)
-                    val coveragePercent = (masteredOccurrences.toDouble() / totalOccurrences.toDouble()) * 100.0
+                    // Same coverage figure as Home/Progress (completed lessons) - see CoverageCalculator.
+                    val completedLessonIds = progressRepository.observeProgress(userId).first()
+                        .filter { it.status == LessonStatus.COMPLETED }
+                        .map { it.lessonId }
+                        .toSet()
+                    val coveragePercent = CoverageCalculator.coverageByChapter(
+                        contentRepository.getFullCurriculumTree(), completedLessonIds
+                    ).values.sum()
 
                     // 3. Next lesson info
                     var nextTitle: LocalizedText? = null
@@ -190,6 +193,7 @@ class LessonSummaryViewModel @Inject constructor(
                         lessonTitle = lessonTitle,
                         lessonCategory = lessonCategory,
                         lessonKind = lessonKind,
+                        isPracticeSession = isPracticeSession,
                         wordsCoveredCount = wordsList.size,
                         wordsCoveredList = wordsList,
                         totalWordsLearned = totalWordsLearned,

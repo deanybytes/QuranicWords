@@ -1,6 +1,7 @@
 package com.quranicwords.app.core.util
 
 import com.quranicwords.app.core.domain.model.Language
+import java.text.NumberFormat
 
 /**
  * The single place a Qur'an verse citation is rendered: `<Surah word> <surah name> <s:v>`, with
@@ -69,6 +70,13 @@ object VerseReferenceFormatter {
             else -> input
         }
     }
+
+    /** A whole number with the language's own grouping separators (via [NumberFormat]) and then
+     * its native digits (via [formatDigits]) - the one way counts are shown to the learner. */
+    fun formatNumber(value: Long, language: Language): String =
+        formatDigits(NumberFormat.getIntegerInstance(language.locale).format(value), language)
+
+    fun formatNumber(value: Int, language: Language): String = formatNumber(value.toLong(), language)
 
     private fun convertDigits(input: String, digitMap: CharArray): String {
         val sb = StringBuilder(input.length)

@@ -28,19 +28,22 @@ interface ExerciseAttemptDao {
     suspend fun deleteForUser(userId: String)
 
     /**
-     * Distinct `itemId`s whose most recent attempt was incorrect - a simple "last attempt wrong"
-     * signal (not a full spaced-repetition scheduler). The correlated subquery picks each item's
-     * single latest row by timestamp and id, then this filters to the ones where that latest row was
-     * wrong. An item naturally drops out of this set the next time it's answered correctly.
+     * Distinct `itemId`s whose most recent *first-try* attempt was incorrect - a simple "last
+     * attempt wrong" signal (not a full spaced-repetition scheduler). The correlated subquery picks
+     * each item's single latest first-try row by timestamp and id, then this filters to the ones
+     * where that latest row was wrong. Retries (`isFirstTry = 0`) are ignored on both sides, so an
+     * item only drops out of this set when a later session answers it correctly first time - a
+     * same-session "try again" can't clear a mistake.
      */
     @Query(
         """
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
+        AND a.isFirstTry = 1
         AND a.wasCorrect = 0
         AND a.id = (
             SELECT b.id FROM exercise_attempts b
-            WHERE b.userId = a.userId AND b.itemId = a.itemId
+            WHERE b.userId = a.userId AND b.itemId = a.itemId AND b.isFirstTry = 1
             ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
             LIMIT 1
         )
@@ -53,10 +56,11 @@ interface ExerciseAttemptDao {
         """
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
+        AND a.isFirstTry = 1
         AND a.wasCorrect = 0
         AND a.id = (
             SELECT b.id FROM exercise_attempts b
-            WHERE b.userId = a.userId AND b.itemId = a.itemId
+            WHERE b.userId = a.userId AND b.itemId = a.itemId AND b.isFirstTry = 1
             ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
             LIMIT 1
         )
@@ -65,7 +69,8 @@ interface ExerciseAttemptDao {
     )
     fun observeMissedItemIds(userId: String): Flow<List<String>>
 
-    /** Inverse of [getMissedItemIds]: distinct `itemId`s whose most recent attempt was correct -
+    /** Inverse of [getMissedItemIds]: distinct `itemId`s whose most recent first-try attempt was
+     * correct (retries never count toward mastery) -
      * the derived definition of "words learned" used by the Progress tab (see
      * `com.quranicwords.app.feature.progress.ProgressViewModel`). Not a permanent "mastered"
      * flag - an item drops out of this set the next time it's answered wrong, same as
@@ -74,10 +79,11 @@ interface ExerciseAttemptDao {
         """
         SELECT a.itemId FROM exercise_attempts a
         WHERE a.userId = :userId
+        AND a.isFirstTry = 1
         AND a.wasCorrect = 1
         AND a.id = (
             SELECT b.id FROM exercise_attempts b
-            WHERE b.userId = a.userId AND b.itemId = a.itemId
+            WHERE b.userId = a.userId AND b.itemId = a.itemId AND b.isFirstTry = 1
             ORDER BY b.attemptedAtEpochMillis DESC, b.id DESC
             LIMIT 1
         )

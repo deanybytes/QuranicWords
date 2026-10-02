@@ -30,9 +30,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Search
@@ -162,7 +162,7 @@ fun LearnedWordsScreen(
                         trailingIcon = {
                             if (uiState.searchQuery.isNotEmpty()) {
                                 IconButton(onClick = { viewModel.onSearchQueryChanged("") }) {
-                                    Icon(Icons.Filled.Clear, contentDescription = null)
+                                    Icon(Icons.Filled.Clear, contentDescription = stringResource(R.string.a11y_clear_search))
                                 }
                             }
                         },
@@ -281,7 +281,7 @@ private fun LearnedWordCard(
             }
 
             Icon(
-                Icons.Filled.ChevronRight,
+                Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
             )
@@ -362,7 +362,7 @@ private fun WordQuranExamplesSheet(
                     )
                     word.root?.let { root ->
                         Text(
-                            text = "Root: $root",
+                            text = stringResource(R.string.learned_words_root_label, root),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                         )

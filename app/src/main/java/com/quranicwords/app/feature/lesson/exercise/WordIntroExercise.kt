@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -33,12 +34,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
@@ -52,7 +57,6 @@ import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
-import com.quranicwords.app.core.ui.components.resolveCategoryFromWordId
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -77,19 +81,6 @@ fun WordIntroExerciseContent(
         content.meaning.get(language)
     }
 
-    val verseArabic = activePolysemyEntry?.verseArabic ?: content.exampleVerseArabic
-    val verseReference = activePolysemyEntry?.verseReference ?: content.exampleVerseReference
-    val verseTranslation = activePolysemyEntry?.verseTranslation?.get(language) ?: content.exampleVerseTranslation.get(language)
-    val arabicWordStart = activePolysemyEntry?.arabicWordStart ?: content.arabicWordStart
-    val arabicWordEnd = activePolysemyEntry?.arabicWordEnd ?: content.arabicWordEnd
-    val meaningHighlight = activePolysemyEntry?.translationHighlight?.getOrNull(language) ?: content.meaningHighlight.getOrNull(language)
-
-    val highlightStyle = SpanStyle(
-        color = MaterialTheme.colorScheme.primary,
-        fontWeight = FontWeight.Bold,
-        background = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
-    )
-
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -97,7 +88,7 @@ fun WordIntroExerciseContent(
     ) {
         Text(content.localizedPrompt(language), style = MaterialTheme.typography.titleMedium)
 
-        val category = resolveCategoryFromWordId(content.wordId) ?: content.lemmaCategory
+        val category = content.lemmaCategory
         val categoryAccent = com.quranicwords.app.core.ui.components.categoryAccentColor(category)
 
         GlassSurface(
@@ -306,11 +297,19 @@ fun WordIntroExerciseContent(
                         )
                         val senseMeaning = entry.contextualMeaning.get(language).ifBlank { content.meaning.get(language) }
 
+                        val tabLabel = stringResource(
+                            R.string.a11y_meaning_tab,
+                            VerseReferenceFormatter.formatNumber(idx + 1, language),
+                            VerseReferenceFormatter.formatNumber(content.polysemyEntries.size, language)
+                        )
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(12.dp))
                                 .background(tabBg)
-                                .clickable { onMeaningSelected(idx) }
+                                // A tab, not an anonymous clickable: announced as "Meaning 2 of 3,
+                                // <meaning>, selected/not selected".
+                                .selectable(selected = isSelected, role = Role.Tab, onClick = { onMeaningSelected(idx) })
+                                .semantics(mergeDescendants = true) { contentDescription = "$tabLabel, $senseMeaning" }
                                 .padding(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Row(
@@ -336,10 +335,13 @@ fun WordIntroExerciseContent(
             }
         }
 
+        val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
         AnimatedContent(
             targetState = selectedMeaningIndex,
             transitionSpec = {
-                if (targetState > initialState) {
+                // "Next" slides in from the reading-direction end: from the right in LTR, from the
+                // left in RTL (Urdu/Persian UIs).
+                if ((targetState > initialState) != isRtl) {
                     (androidx.compose.animation.slideInHorizontally { width -> width / 4 } + fadeIn(androidx.compose.animation.core.tween(250)))
                         .togetherWith(androidx.compose.animation.slideOutHorizontally { width -> -width / 4 } + fadeOut(androidx.compose.animation.core.tween(200)))
                 } else {

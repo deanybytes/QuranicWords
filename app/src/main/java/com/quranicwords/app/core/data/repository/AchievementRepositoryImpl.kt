@@ -7,6 +7,7 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.domain.AchievementCatalog
+import com.quranicwords.app.core.domain.CoverageCalculator
 import com.quranicwords.app.core.domain.AchievementDef
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.util.GamificationConfig
@@ -33,37 +34,14 @@ class AchievementRepositoryImpl @Inject constructor(
         coverageForCompletedLessons(lessons, sections, chapters, completedLessonIds)
     }
 
-    /** Calculates real proportional Quran coverage percent over completed lessons/sections,
-     * with fallback to chapter exams if section occurrence percentages are unpopulated.
-     * Shared by [checkAndUnlock] (coverage-band achievements) and [getCumulativeCoveragePercent]
-     * (the Progress tab's coverage donut). */
+    /** Shared by [checkAndUnlock] (coverage-band achievements) and [getCumulativeCoveragePercent]
+     * (the Progress tab's coverage donut) - see [CoverageCalculator]. */
     private fun coverageForCompletedLessons(
         lessons: List<LessonEntity>,
         sections: List<com.quranicwords.app.core.data.local.entity.SectionEntity>,
         chapters: List<ChapterEntity>,
         completedLessonIds: Set<String>
-    ): Double {
-        val hasSectionPercents = sections.any { it.quranOccurrencePercent > 0.0 }
-        if (hasSectionPercents) {
-            val lessonsBySection = lessons.filter { it.sectionId != null }.groupBy { it.sectionId!! }
-            var total = 0.0
-            sections.forEach { section ->
-                val sectionLessons = lessonsBySection[section.id] ?: emptyList()
-                if (sectionLessons.isNotEmpty()) {
-                    val completed = sectionLessons.count { it.id in completedLessonIds }
-                    total += (completed.toDouble() / sectionLessons.size) * section.quranOccurrencePercent
-                }
-            }
-            return total
-        }
-        val completedChapterExamChapterIds = lessons
-            .filter { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
-            .map { it.chapterId }
-            .toSet()
-        return chapters
-            .filter { it.id in completedChapterExamChapterIds }
-            .sumOf { it.quranOccurrencePercent }
-    }
+    ): Double = CoverageCalculator.totalCoverage(chapters, sections, lessons, completedLessonIds)
 
     override suspend fun checkAndUnlock(userId: String): List<AchievementDef> = withContext(Dispatchers.IO) {
         val alreadyUnlocked = database.achievementDao().getAllForUserOnce(userId).map { it.achievementId }.toSet()

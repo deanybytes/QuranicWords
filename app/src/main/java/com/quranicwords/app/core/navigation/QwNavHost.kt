@@ -14,6 +14,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -207,8 +208,14 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             WalkthroughScreen(
                 onFinished = {
-                    navController.navigate(Route.Home) {
-                        popUpTo(Route.Walkthrough) { inclusive = true }
+                    // Replayed from Settings: Home is already underneath, so just return to it -
+                    // navigating to Route.Home again stacked a second Home on top of the first.
+                    if (navController.previousBackStackEntry?.destination?.hasRoute<Route.Home>() == true) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(Route.Home) {
+                            popUpTo(Route.Walkthrough) { inclusive = true }
+                        }
                     }
                 }
             )

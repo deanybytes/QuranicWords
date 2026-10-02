@@ -51,7 +51,7 @@
     <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">%d menit per hari</string>
     <string name="format_minutes_short">%1$d mnt</string>
-    <string name="format_repeat_count">%1$dx</string>
+    <string name="format_repeat_count">%1$sx</string>
     <string name="home_daily_challenge_completed">Tantangan harian selesai</string>
     <string name="test_only_start_quiz_title">Mulai Kuis</string>
     <string name="test_only_start_quiz_subtitle">Pertanyaan acak dari kata-kata yang sudah Anda ketahui</string>
@@ -261,16 +261,16 @@
     <string name="learned_words_occurrences_total">Total Kemunculan di Qur\'an: %d</string>
 
     <string name="test_mode_ism_title">Mode Nomina (اسم)</string>
-    <string name="test_mode_ism_desc">Uji penguasaan Anda atas 3.057 nomina, pronomina, dan nama agung Al-Qur\'an.</string>
+    <string name="test_mode_ism_desc">Uji penguasaan Anda atas %1$s nomina, pronomina, dan nama agung Al-Qur\'an.</string>
     <string name="test_mode_ism_progress">%1$s dari %2$s isim selesai dalam siklus ini</string>
     <string name="test_mode_fil_title">Mode Verba (فعل)</string>
-    <string name="test_mode_fil_desc">Latihan 1.479 kata kerja Al-Qur\'an (Bentuk I–X, lampau, sekarang, dan masdar).</string>
+    <string name="test_mode_fil_desc">Latihan %1$s kata kerja Al-Qur\'an (Bentuk I–X, lampau, sekarang, dan masdar).</string>
     <string name="test_mode_fil_progress">%1$s dari %2$s fi\'il selesai dalam siklus ini</string>
     <string name="test_mode_harf_title">Mode Partikel (حرف)</string>
-    <string name="test_mode_harf_desc">Kuasai 173 partikel fondasi Al-Qur\'an, preposisi, dan konjungsi.</string>
+    <string name="test_mode_harf_desc">Kuasai %1$s partikel fondasi Al-Qur\'an, preposisi, dan konjungsi.</string>
     <string name="test_mode_harf_progress">%1$s dari %2$s harf selesai dalam siklus ini</string>
     <string name="test_mode_random_title">Mode Campuran / Acak</string>
-    <string name="test_mode_random_desc">Kuis campuran dinamis dari seluruh 4.709 kata Al-Qur\'an (اسم, فعل, حرف).</string>
+    <string name="test_mode_random_desc">Kuis campuran dinamis dari seluruh %1$s kata Al-Qur\'an (اسم, فعل, حرف).</string>
     <string name="test_mode_random_progress">%1$s dari %2$s kata selesai dalam siklus ini</string>
     <string name="test_mode_frequency_title">Mode Urutan Frekuensi</string>
     <string name="test_mode_frequency_desc">Latihan kosakata Al-Qur\'an berdasarkan frekuensi kemunculan (Peringkat 1 hingga 4.709).</string>
@@ -390,4 +390,35 @@
     <string name="content_language_notice_title">Tentang arti kata</string>
     <string name="content_language_notice_body">Setiap arti kata kini diambil langsung dari terjemahan kata per kata Al-Qur\'an yang terverifikasi. Sumber terverifikasi belum tersedia dalam bahasa Anda, jadi arti kata ditampilkan dalam bahasa Inggris.</string>
     <string name="content_language_notice_ok">Oke</string>
+    <string name="lesson_skip_button">Lewati</string>
+    <string name="chapter_label">Bab %1$s</string>
+    <string name="chapter_label_ordinal">Bab %1$s</string>
+    <string name="chapter_intro_label_ordinal">Ikhtisar Bab %1$s</string>
+    <string name="chapter_intro_begin_button_ordinal">Mulai Bab %1$s</string>
+    <string name="lesson_summary_practice_session_title">Sesi Tes Selesai</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="other">%1$s Hari Berlatih (%2$s Terakhir)</item>
+    </plurals>
+    <string name="intro_unavailable">Pengantar ini belum tersedia saat ini.</string>
+    <string name="a11y_state_correct">Benar</string>
+    <string name="a11y_state_incorrect">Salah</string>
+    <string name="a11y_state_matched">Cocok</string>
+    <string name="a11y_state_selected">Dipilih</string>
+    <string name="a11y_action_match">Cocokkan</string>
+    <string name="a11y_action_select_word">Pilih kata ini</string>
+    <string name="a11y_meaning_tab">Arti %1$s dari %2$s</string>
+    <string name="a11y_play_pronunciation">Putar pelafalan</string>
+    <string name="a11y_action_flip_card">Balik kartu</string>
+    <string name="a11y_card_showing_word">Menampilkan kata</string>
+    <string name="a11y_card_showing_meaning">Menampilkan arti</string>
+    <string name="a11y_chart_item">%1$s: %2$s</string>
+    <string name="a11y_heatmap_summary">Berlatih %1$s dari %2$s hari terakhir</string>
+    <string name="a11y_activity_trend_summary">Aktif %1$s dari 30 hari terakhir, total %2$s menit</string>
+    <string name="a11y_clear_search">Hapus pencarian</string>
+    <string name="a11y_expand">Luaskan</string>
+    <string name="a11y_collapse">Ciutkan</string>
+    <string name="lesson_locked_hint">Selesaikan pelajaran sebelumnya terlebih dahulu</string>
+    <string name="learned_words_root_label">Akar: %1$s</string>
+    <string name="widget_streak_value">%1$s hr</string>
+    <string name="widget_goal_value">%1$s / %2$s mnt</string>
 </resources>

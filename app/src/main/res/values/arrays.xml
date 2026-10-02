@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chapter ordinal words for chapters 1..10, for languages that say "1st chapter" rather
+         than "chapter 1" (bn/ur/fa override this). An empty item means: use the numeric
+         chapter_* string instead of its *_ordinal variant. -->
+    <string-array name="chapter_ordinals">
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
+    </string-array>
+</resources>

@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -40,6 +41,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -110,7 +114,8 @@ fun WordBrowseScreen(
 
         Column(modifier = Modifier.padding(padding).fillMaxSize()) {
             Text(
-                text = "${pagerState.currentPage + 1} / ${uiState.words.size}",
+                text = "${VerseReferenceFormatter.formatNumber(pagerState.currentPage + 1, language)} / " +
+                    VerseReferenceFormatter.formatNumber(uiState.words.size, language),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -123,12 +128,15 @@ fun WordBrowseScreen(
             ) { page ->
                 val word = uiState.words[page]
                 val flipped = flippedByWordId[word.wordId] == true
+                val flipLabel = stringResource(R.string.a11y_action_flip_card)
+                val sideLabel = stringResource(if (flipped) R.string.a11y_card_showing_meaning else R.string.a11y_card_showing_word)
                 Qw3DFlipCard(
                     flipped = flipped,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(24.dp)
-                        .clickable { flippedByWordId[word.wordId] = !flipped },
+                        .clickable(onClickLabel = flipLabel, role = Role.Button) { flippedByWordId[word.wordId] = !flipped }
+                        .semantics { stateDescription = sideLabel },
                     front = { WordCardFront(word) },
                     back = { WordCardBack(word, language) }
                 )
@@ -223,7 +231,7 @@ private fun WordCardBack(
                                 .padding(horizontal = 4.dp)
                                 .clip(RoundedCornerShape(10.dp))
                                 .background(tabBg)
-                                .clickable { selectedMeaningIndex = idx }
+                                .selectable(selected = isSelected, role = Role.Tab, onClick = { selectedMeaningIndex = idx })
                                 .padding(horizontal = 10.dp, vertical = 4.dp)
                         ) {
                             Text(

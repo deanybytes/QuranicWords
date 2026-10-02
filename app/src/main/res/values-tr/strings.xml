@@ -51,7 +51,7 @@
     <string name="daily_goal_devoted">Devoted</string>
     <string name="daily_goal_minutes_suffix">Günde %d dakika</string>
     <string name="format_minutes_short">%1$d dk</string>
-    <string name="format_repeat_count">%1$dx</string>
+    <string name="format_repeat_count">%1$sx</string>
     <string name="home_daily_challenge_completed">Günlük görev tamamlandı</string>
     <string name="test_only_start_quiz_title">Sınava Başla</string>
     <string name="test_only_start_quiz_subtitle">Zaten bildiğin kelimelerden rastgele sorular</string>
@@ -261,16 +261,16 @@
     <string name="learned_words_occurrences_total">Kur\'an\'daki Toplam Sayı: %d</string>
 
     <string name="test_mode_ism_title">İsim (اسم) Modu</string>
-    <string name="test_mode_ism_desc">3.057 Kur\'an ismini, zamirleri ve esma-i hüsnayı test edin.</string>
+    <string name="test_mode_ism_desc">%1$s Kur\'an ismini, zamirleri ve esma-i hüsnayı test edin.</string>
     <string name="test_mode_ism_progress">Bu döngüde %2$s isimden %1$s tanesi tamamlandı</string>
     <string name="test_mode_fil_title">Fiil (فعل) Modu</string>
-    <string name="test_mode_fil_desc">Geçmiş, şimdiki zaman ve mastar kalıplarıyla 1.479 Kur\'an fiilini uygulayın.</string>
+    <string name="test_mode_fil_desc">Geçmiş, şimdiki zaman ve mastar kalıplarıyla %1$s Kur\'an fiilini uygulayın.</string>
     <string name="test_mode_fil_progress">Bu döngüde %2$s fiilden %1$s tanesi tamamlandı</string>
     <string name="test_mode_harf_title">Harf (حرف) Modu</string>
-    <string name="test_mode_harf_desc">173 temel Kur\'an harfini, edatları ve bağlaçları pekiştirin.</string>
+    <string name="test_mode_harf_desc">%1$s temel Kur\'an harfini, edatları ve bağlaçları pekiştirin.</string>
     <string name="test_mode_harf_progress">Bu döngüde %2$s harften %1$s tanesi tamamlandı</string>
     <string name="test_mode_random_title">Karışık / Rastgele Mod</string>
-    <string name="test_mode_random_desc">Tüm 4.709 Kur\'an kelimesinden (اسم, فعل, حرف) dinamik karışık test.</string>
+    <string name="test_mode_random_desc">Tüm %1$s Kur\'an kelimesinden (اسم, فعل, حرف) dinamik karışık test.</string>
     <string name="test_mode_random_progress">Bu döngüde %2$s kelimeden %1$s tamamlandı</string>
     <string name="test_mode_frequency_title">Sıklık Sırasına Göre Mod</string>
     <string name="test_mode_frequency_desc">Kur\'an\'da geçiş sıklığına göre kelime pratiği yapın (1\'den 4.709\'a kadar).</string>
@@ -390,4 +390,36 @@
     <string name="content_language_notice_title">Kelime anlamları hakkında</string>
     <string name="content_language_notice_body">Her kelimenin anlamı artık Kur\'an\'ın doğrulanmış kelime kelime çevirisinden alınıyor. Dilinizde henüz doğrulanmış bir kaynak olmadığından anlamlar İngilizce gösterilir.</string>
     <string name="content_language_notice_ok">Tamam</string>
+    <string name="lesson_skip_button">Atla</string>
+    <string name="chapter_label">%1$s. Bölüm</string>
+    <string name="chapter_label_ordinal">%1$s Bölüm</string>
+    <string name="chapter_intro_label_ordinal">%1$s Bölüm Tanıtımı</string>
+    <string name="chapter_intro_begin_button_ordinal">%1$s Bölümü Başlat</string>
+    <string name="lesson_summary_practice_session_title">Test Oturumu Tamamlandı</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="one">%1$s Gün Pratik Yapıldı (Son %2$s)</item>
+        <item quantity="other">%1$s Gün Pratik Yapıldı (Son %2$s)</item>
+    </plurals>
+    <string name="intro_unavailable">Bu tanıtım şu anda kullanılamıyor.</string>
+    <string name="a11y_state_correct">Doğru</string>
+    <string name="a11y_state_incorrect">Yanlış</string>
+    <string name="a11y_state_matched">Eşleşti</string>
+    <string name="a11y_state_selected">Seçildi</string>
+    <string name="a11y_action_match">Eşleştir</string>
+    <string name="a11y_action_select_word">Bu kelimeyi seç</string>
+    <string name="a11y_meaning_tab">Anlam %1$s / %2$s</string>
+    <string name="a11y_play_pronunciation">Telaffuzu dinle</string>
+    <string name="a11y_action_flip_card">Kartı çevir</string>
+    <string name="a11y_card_showing_word">Kelime gösteriliyor</string>
+    <string name="a11y_card_showing_meaning">Anlam gösteriliyor</string>
+    <string name="a11y_chart_item">%1$s: %2$s</string>
+    <string name="a11y_heatmap_summary">Son %2$s günün %1$s gününde pratik yapıldı</string>
+    <string name="a11y_activity_trend_summary">Son 30 günün %1$s gününde aktif, toplam %2$s dakika</string>
+    <string name="a11y_clear_search">Aramayı temizle</string>
+    <string name="a11y_expand">Genişlet</string>
+    <string name="a11y_collapse">Daralt</string>
+    <string name="lesson_locked_hint">Önce önceki dersi tamamlayın</string>
+    <string name="learned_words_root_label">Kök: %1$s</string>
+    <string name="widget_streak_value">%1$sg</string>
+    <string name="widget_goal_value">%1$s / %2$s dk</string>
 </resources>

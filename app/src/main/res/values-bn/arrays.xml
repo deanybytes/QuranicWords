@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chapter_ordinals">
+        <item>১ম</item>
+        <item>২য়</item>
+        <item>৩য়</item>
+        <item>৪র্থ</item>
+        <item>৫ম</item>
+        <item>৬ষ্ঠ</item>
+        <item>৭ম</item>
+        <item>৮ম</item>
+        <item>৯ম</item>
+        <item>১০ম</item>
+    </string-array>
+</resources>

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.quranicwords.app.core.ui.motion.pressDepth
@@ -87,7 +88,7 @@ fun GlassSurface(
     }
     val clickModifier = if (onClick != null) {
         Modifier
-            .clickable(interactionSource = interactionSource, indication = null) {
+            .clickable(interactionSource = interactionSource, indication = null, role = Role.Button) {
                 clickCount++
                 onClick()
             }

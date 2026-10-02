@@ -54,7 +54,7 @@
     <string name="daily_goal_devoted_description">Une session intensive de 30 minutes par jour pour enrichir rapidement votre vocabulaire.</string>
     <string name="daily_goal_minutes_suffix">%d minutes par jour</string>
     <string name="format_minutes_short">%1$d min</string>
-    <string name="format_repeat_count">%1$dx</string>
+    <string name="format_repeat_count">%1$sx</string>
     <string name="home_daily_challenge_completed">Défi quotidien terminé</string>
     <string name="test_only_start_quiz_title">Démarrer un quiz</string>
     <string name="test_only_start_quiz_subtitle">Questions aléatoires sur des mots que vous connaissez déjà</string>
@@ -264,16 +264,16 @@
     <string name="learned_words_occurrences_total">Nombre total dans le Coran: %d</string>
 
     <string name="test_mode_ism_title">Mode Nom (اسم)</string>
-    <string name="test_mode_ism_desc">Testez votre maîtrise des 3 057 noms coraniques, pronoms et attributs divins.</string>
+    <string name="test_mode_ism_desc">Testez votre maîtrise des %1$s noms coraniques, pronoms et attributs divins.</string>
     <string name="test_mode_ism_progress">%1$s sur %2$s noms complétés dans ce cycle</string>
     <string name="test_mode_fil_title">Mode Verbe (فعل)</string>
-    <string name="test_mode_fil_desc">Pratiquez les 1 479 verbes coraniques (Formes I–X, passé, présent et masdar).</string>
+    <string name="test_mode_fil_desc">Pratiquez les %1$s verbes coraniques (Formes I–X, passé, présent et masdar).</string>
     <string name="test_mode_fil_progress">%1$s sur %2$s verbes complétés dans ce cycle</string>
     <string name="test_mode_harf_title">Mode Particule (حرف)</string>
-    <string name="test_mode_harf_desc">Maîtrisez les 173 particules fondamentales du Coran, prépositions et conjonctions.</string>
+    <string name="test_mode_harf_desc">Maîtrisez les %1$s particules fondamentales du Coran, prépositions et conjonctions.</string>
     <string name="test_mode_harf_progress">%1$s sur %2$s particules complétées dans ce cycle</string>
     <string name="test_mode_random_title">Mode Aléatoire / Mixte</string>
-    <string name="test_mode_random_desc">Quiz mixte dynamique sur les 4 709 mots du Coran (اسم, فعل, حرف).</string>
+    <string name="test_mode_random_desc">Quiz mixte dynamique sur les %1$s mots du Coran (اسم, فعل, حرف).</string>
     <string name="test_mode_random_progress">%1$s sur %2$s mots complétés dans ce cycle</string>
     <string name="test_mode_frequency_title">Mode Ordre de Fréquence</string>
     <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 4 709).</string>
@@ -390,4 +390,37 @@
     <string name="content_language_notice_title">À propos du sens des mots</string>
     <string name="content_language_notice_body">Chaque sens de mot provient désormais directement d\'une traduction mot à mot vérifiée du Coran. Aucune source vérifiée n\'existe encore dans votre langue : les sens sont donc affichés en anglais.</string>
     <string name="content_language_notice_ok">OK</string>
+    <string name="lesson_skip_button">Passer</string>
+    <string name="chapter_label">Chapitre %1$s</string>
+    <string name="chapter_label_ordinal">%1$s chapitre</string>
+    <string name="chapter_intro_label_ordinal">Aperçu du %1$s chapitre</string>
+    <string name="chapter_intro_begin_button_ordinal">Commencer le %1$s chapitre</string>
+    <string name="lesson_summary_practice_session_title">Session de test terminée</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="one">%1$s jour pratiqué (%2$s derniers)</item>
+        <item quantity="many">%1$s jours pratiqués (%2$s derniers)</item>
+        <item quantity="other">%1$s jours pratiqués (%2$s derniers)</item>
+    </plurals>
+    <string name="intro_unavailable">Cette introduction n\'est pas disponible pour le moment.</string>
+    <string name="a11y_state_correct">Correct</string>
+    <string name="a11y_state_incorrect">Incorrect</string>
+    <string name="a11y_state_matched">Associé</string>
+    <string name="a11y_state_selected">Sélectionné</string>
+    <string name="a11y_action_match">Associer</string>
+    <string name="a11y_action_select_word">Choisir ce mot</string>
+    <string name="a11y_meaning_tab">Sens %1$s sur %2$s</string>
+    <string name="a11y_play_pronunciation">Écouter la prononciation</string>
+    <string name="a11y_action_flip_card">Retourner la carte</string>
+    <string name="a11y_card_showing_word">Le mot est affiché</string>
+    <string name="a11y_card_showing_meaning">Le sens est affiché</string>
+    <string name="a11y_chart_item">%1$s : %2$s</string>
+    <string name="a11y_heatmap_summary">Pratiqué %1$s jours sur les %2$s derniers</string>
+    <string name="a11y_activity_trend_summary">Actif %1$s jours sur les 30 derniers, %2$s minutes au total</string>
+    <string name="a11y_clear_search">Effacer la recherche</string>
+    <string name="a11y_expand">Développer</string>
+    <string name="a11y_collapse">Réduire</string>
+    <string name="lesson_locked_hint">Terminez d\'abord la leçon précédente</string>
+    <string name="learned_words_root_label">Racine : %1$s</string>
+    <string name="widget_streak_value">%1$sj</string>
+    <string name="widget_goal_value">%1$s / %2$s min</string>
 </resources>

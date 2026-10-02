@@ -10,7 +10,13 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.quranicwords.app.R
+import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /** Pure Canvas-drawn calendar heatmap - [practicedDays] is oldest-first, one entry per day,
  * laid out in a 7-column grid (one column per weekday) so complete weeks form visually even
@@ -23,7 +29,13 @@ fun HeatmapChart(
     emptyColor: Color = MaterialTheme.colorScheme.surfaceVariant
 ) {
     val columns = 7
-    Canvas(modifier = modifier.fillMaxWidth().height(80.dp)) {
+    val language = rememberSelectedLanguage()
+    val summary = stringResource(
+        R.string.a11y_heatmap_summary,
+        VerseReferenceFormatter.formatNumber(practicedDays.count { it }, language),
+        VerseReferenceFormatter.formatNumber(practicedDays.size, language)
+    )
+    Canvas(modifier = modifier.fillMaxWidth().height(80.dp).semantics { contentDescription = summary }) {
         if (practicedDays.isEmpty()) return@Canvas
         val rows = (practicedDays.size + columns - 1) / columns
         val cellWidth = size.width / columns

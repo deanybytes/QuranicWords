@@ -13,6 +13,9 @@ import com.quranicwords.app.core.util.AppJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import com.quranicwords.app.core.di.SystemZoneClock
+import com.quranicwords.app.core.domain.DisplayedStreak
+import java.time.Clock
 import java.time.LocalDate
 
 data class WidgetStatsData(
@@ -74,7 +77,9 @@ object WidgetDataProvider {
     private const val PREFS_WIDGET_STATE = "quranic_words_widget_state"
     private const val KEY_ROTATION_STEP = "widget_rotation_step"
     private const val TOTAL_QURAN_WORDS = 77797.0
-    private const val TOTAL_VOCABULARY_TARGET = 4709.0
+
+    /** Widgets aren't Hilt-injected, so this mirrors ClockModule's zone-following clock. */
+    private val clock: Clock = SystemZoneClock()
 
     suspend fun getWidgetData(context: Context, advanceRotation: Boolean = false): WidgetSnapshot = withContext(Dispatchers.IO) {
         val database = QwDatabase.getInstance(context)
@@ -85,7 +90,9 @@ object WidgetDataProvider {
 
         // 1. Compute Stats
         val statsEntity = database.userStatsDao().get(userId)
-        val streak = statsEntity?.currentStreak ?: 0
+        val today = LocalDate.now(clock)
+        // Same "displayed" streak as Home/Progress - a lapsed streak shows as 0, not its stale value.
+        val streak = DisplayedStreak.of(statsEntity, today)
         val isStreakActive = streak > 0
 
         val masteredIds = database.exerciseAttemptDao().getMasteredItemIds(userId)
@@ -93,7 +100,13 @@ object WidgetDataProvider {
         val allPracticedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
 
         val wordsLearnedCount = masteredIds.size
-        val wordsLearnedPct = ((wordsLearnedCount / TOTAL_VOCABULARY_TARGET) * 100).toFloat().coerceIn(0f, 100f)
+        // Out of the seeded vocabulary, whatever size the current content build has.
+        val vocabularySize = database.wordFrequencyDao().count()
+        val wordsLearnedPct = if (vocabularySize > 0) {
+            ((wordsLearnedCount.toDouble() / vocabularySize) * 100).toFloat().coerceIn(0f, 100f)
+        } else {
+            0f
+        }
 
         val recentAttempts = database.exerciseAttemptDao().getAllForUser(userId)
         val accuracyPct = if (recentAttempts.isNotEmpty()) {
@@ -103,7 +116,7 @@ object WidgetDataProvider {
             100
         }
 
-        val todayStr = LocalDate.now().toString()
+        val todayStr = today.toString()
         val dailyPractice = database.dailyPracticeDao().get(userId, todayStr)
         val todayPracticeMinutes = dailyPractice?.minutesPracticed ?: 0
         val goalLevel = prefs.dailyGoalLevelFlow.first()

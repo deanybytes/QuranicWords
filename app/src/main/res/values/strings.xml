@@ -53,7 +53,7 @@
     <string name="daily_goal_devoted_description">An intensive 30-minute daily session for fast vocabulary mastery.</string>
     <string name="daily_goal_minutes_suffix">%d minutes a day</string>
     <string name="format_minutes_short">%1$d min</string>
-    <string name="format_repeat_count">%1$dx</string>
+    <string name="format_repeat_count">%1$sx</string>
     <string name="home_daily_challenge_completed">Daily challenge completed</string>
     <string name="test_only_start_quiz_title">Start a Quiz</string>
     <string name="test_only_start_quiz_subtitle">Random questions from words you already know</string>
@@ -268,16 +268,16 @@
     <string name="learned_words_occurrences_total">Total Occurrences in Qur\'an: %d</string>
 
     <string name="test_mode_ism_title">Noun (اسم) Mode</string>
-    <string name="test_mode_ism_desc">Test your mastery across 3,057 Qur\'anic nouns, pronouns, and divine attributes.</string>
+    <string name="test_mode_ism_desc">Test your mastery across %1$s Qur\'anic nouns, pronouns, and divine attributes.</string>
     <string name="test_mode_ism_progress">%1$s of %2$s nouns completed in this cycle</string>
     <string name="test_mode_fil_title">Verb (فعل) Mode</string>
-    <string name="test_mode_fil_desc">Practice all 1,479 Qur\'anic verbs across Form I–X with past, present, and root patterns.</string>
+    <string name="test_mode_fil_desc">Practice all %1$s Qur\'anic verbs across Form I–X with past, present, and root patterns.</string>
     <string name="test_mode_fil_progress">%1$s of %2$s verbs completed in this cycle</string>
     <string name="test_mode_harf_title">Particle (حرف) Mode</string>
-    <string name="test_mode_harf_desc">Master all 173 foundational Qur\'anic particles, prepositions, and conjunctions.</string>
+    <string name="test_mode_harf_desc">Master all %1$s foundational Qur\'anic particles, prepositions, and conjunctions.</string>
     <string name="test_mode_harf_progress">%1$s of %2$s particles completed in this cycle</string>
     <string name="test_mode_random_title">Mix / Random Mode</string>
-    <string name="test_mode_random_desc">Dynamic mixed quiz across all 4,709 Qur\'an words (اسم, فعل, حرف) with category tagging.</string>
+    <string name="test_mode_random_desc">Dynamic mixed quiz across all %1$s Qur\'an words (اسم, فعل, حرف) with category tagging.</string>
     <string name="test_mode_random_progress">%1$s of %2$s words completed in this cycle</string>
     <string name="test_mode_frequency_title">Frequency Order Mode</string>
     <string name="test_mode_frequency_desc">Practice Quranic words in sequential order of occurrence frequency (Rank #1 to #4,709).</string>
@@ -382,4 +382,36 @@
     <string name="content_language_notice_title">About word meanings</string>
     <string name="content_language_notice_body">Every word meaning is now taken directly from a verified word-by-word translation of the Qur\'an. A verified source isn\'t available in your language yet, so word meanings are shown in English while the app stays in your language.</string>
     <string name="content_language_notice_ok">OK</string>
+    <string name="lesson_skip_button">Skip</string>
+    <string name="chapter_label">Chapter %1$s</string>
+    <string name="chapter_label_ordinal">%1$s Chapter</string>
+    <string name="chapter_intro_label_ordinal">%1$s Chapter Overview</string>
+    <string name="chapter_intro_begin_button_ordinal">Begin the %1$s Chapter</string>
+    <string name="lesson_summary_practice_session_title">Test Session Completed</string>
+    <plurals name="progress_days_practiced_count">
+        <item quantity="one">%1$s Day Practiced (Last %2$s)</item>
+        <item quantity="other">%1$s Days Practiced (Last %2$s)</item>
+    </plurals>
+    <string name="intro_unavailable">This introduction isn\'t available right now.</string>
+    <string name="a11y_state_correct">Correct</string>
+    <string name="a11y_state_incorrect">Incorrect</string>
+    <string name="a11y_state_matched">Matched</string>
+    <string name="a11y_state_selected">Selected</string>
+    <string name="a11y_action_match">Match</string>
+    <string name="a11y_action_select_word">Select this word</string>
+    <string name="a11y_meaning_tab">Meaning %1$s of %2$s</string>
+    <string name="a11y_play_pronunciation">Play pronunciation</string>
+    <string name="a11y_action_flip_card">Flip card</string>
+    <string name="a11y_card_showing_word">Showing the word</string>
+    <string name="a11y_card_showing_meaning">Showing the meaning</string>
+    <string name="a11y_chart_item">%1$s: %2$s</string>
+    <string name="a11y_heatmap_summary">Practiced on %1$s of the last %2$s days</string>
+    <string name="a11y_activity_trend_summary">Active on %1$s of the last 30 days, %2$s minutes in total</string>
+    <string name="a11y_clear_search">Clear search</string>
+    <string name="a11y_expand">Expand</string>
+    <string name="a11y_collapse">Collapse</string>
+    <string name="lesson_locked_hint">Complete the previous lesson first</string>
+    <string name="learned_words_root_label">Root: %1$s</string>
+    <string name="widget_streak_value">%1$sd</string>
+    <string name="widget_goal_value">%1$s / %2$sm</string>
 </resources>

@@ -15,8 +15,12 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.quranicwords.app.R
 
 /** Pure Canvas-drawn bar chart - one bar per (value, label) pair, e.g. lessons completed per day
  * over the last 7 days. Bars at value 0 still draw a faint sliver (not nothing) so an empty day
@@ -26,10 +30,17 @@ fun BarChart(
     values: List<Int>,
     labels: List<String>,
     modifier: Modifier = Modifier,
-    barColor: Color = MaterialTheme.colorScheme.primary
+    barColor: Color = MaterialTheme.colorScheme.primary,
+    /** Spoken names for each bar (e.g. full weekday names where [labels] are narrow letters). */
+    accessibilityLabels: List<String> = labels,
+    valueFormatter: (Int) -> String = { it.toString() }
 ) {
     val maxValue = (values.maxOrNull() ?: 0).coerceAtLeast(1)
-    Column(modifier = modifier) {
+    // A Canvas is invisible to screen readers - announce the data as one "label: value" list.
+    val summary = values.indices.map { i ->
+        stringResource(R.string.a11y_chart_item, accessibilityLabels.getOrElse(i) { "" }, valueFormatter(values[i]))
+    }.joinToString(", ")
+    Column(modifier = modifier.semantics(mergeDescendants = true) { contentDescription = summary }) {
         Canvas(modifier = Modifier.fillMaxWidth().height(96.dp)) {
             if (values.isEmpty()) return@Canvas
             val slotWidth = size.width / values.size

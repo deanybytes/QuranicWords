@@ -207,14 +207,24 @@ class ProgressRepositoryImplTest {
     }
 
     @Test
-    fun `completeLesson rounds a session's duration up into today's daily practice minutes`() = runTest {
+    fun `completeLesson floors a session's duration into today's daily practice minutes`() = runTest {
         seedTree()
 
-        // 90 seconds should round up to 2 minutes, not truncate to 1.
+        // 90 seconds is one whole minute of practice - rounding up used to inflate it to 2.
         repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 90_000L)
 
         val today = java.time.LocalDate.now(clock).toString()
-        assertEquals(2, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+        assertEquals(1, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+    }
+
+    @Test
+    fun `a sub-minute session does not create a daily practice row`() = runTest {
+        seedTree()
+
+        repository.completeReviewSession(userId, correctCount = 5, totalCount = 5, durationMillis = 45_000L)
+
+        val today = java.time.LocalDate.now(clock).toString()
+        assertNull(database.dailyPracticeDao().get(userId, today))
     }
 
     @Test
@@ -342,7 +352,7 @@ class ProgressRepositoryImplTest {
     @Test
     fun `attemptStreakRecovery on a passing score restores lastActivityLocalDate without touching currentStreak`() = runTest {
         seedTree()
-        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-19"))
 
         val passed = repository.attemptStreakRecovery(userId, correctCount = 4, totalCount = 5)
 
@@ -355,14 +365,77 @@ class ProgressRepositoryImplTest {
     @Test
     fun `attemptStreakRecovery under the passing threshold leaves stats untouched`() = runTest {
         seedTree()
-        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-19"))
 
         val passed = repository.attemptStreakRecovery(userId, correctCount = 2, totalCount = 5)
 
         assertEquals(false, passed)
         val stats = database.userStatsDao().get(userId)
-        assertEquals("2020-01-01", stats?.lastActivityLocalDate)
+        assertEquals("2026-08-19", stats?.lastActivityLocalDate)
         assertEquals(15, stats?.currentStreak)
+    }
+
+    @Test
+    fun `attemptStreakRecovery refuses a streak that is not locked`() = runTest {
+        seedTree()
+        // Practiced yesterday - the streak is still alive, nothing to recover.
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-21"))
+
+        assertEquals(false, repository.attemptStreakRecovery(userId, correctCount = 5, totalCount = 5))
+        assertEquals("2026-08-21", database.userStatsDao().get(userId)?.lastActivityLocalDate)
+    }
+
+    @Test
+    fun `attemptStreakRecovery refuses a lapse older than the recovery window`() = runTest {
+        seedTree()
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+
+        assertEquals(false, repository.attemptStreakRecovery(userId, correctCount = 5, totalCount = 5))
+        assertEquals("2020-01-01", database.userStatsDao().get(userId)?.lastActivityLocalDate)
+    }
+
+    @Test
+    fun `a correct retry does not clear a first-try mistake or count as mastery`() = runTest {
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, isFirstTry = false)
+
+        assertEquals(listOf("word_1"), repository.getMissedItemIds(userId))
+        assertEquals(emptyList<String>(), repository.getMasteredItemIds(userId))
+
+        // A later session's first try is what actually clears it.
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+        assertEquals(emptyList<String>(), repository.getMissedItemIds(userId))
+        assertEquals(listOf("word_1"), repository.getMasteredItemIds(userId))
+    }
+
+    @Test
+    fun `getReviewExercises handles more ids than SQLite's bound-parameter limit`() = runTest {
+        seedTree()
+        val ids = (1..1500).map { "word_$it" }
+        database.exerciseDao().insertAll(
+            ids.mapIndexed { i, id -> ExerciseEntity("ex_$i", "l1", i, ExerciseType.MULTIPLE_CHOICE, "{}", id) }
+        )
+
+        val result = repository.getReviewExercises(ids, limit = 20)
+
+        assertEquals(20, result.size)
+        assertEquals(20, result.map { it.practicedItemId }.toSet().size)
+    }
+
+    @Test
+    fun `getReviewExercises returns one exercise per word`() = runTest {
+        seedTree()
+        database.exerciseDao().insertAll(
+            listOf(
+                ExerciseEntity("ex_a1", "l1", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "word_a"),
+                ExerciseEntity("ex_a2", "l2", 1, ExerciseType.FILL_IN_THE_BLANK, "{}", "word_a"),
+                ExerciseEntity("ex_b1", "l1", 2, ExerciseType.MULTIPLE_CHOICE, "{}", "word_b")
+            )
+        )
+
+        val result = repository.getReviewExercises(listOf("word_a", "word_b"))
+
+        assertEquals(listOf("word_a", "word_b"), result.mapNotNull { it.practicedItemId }.sorted())
     }
 
     @Test

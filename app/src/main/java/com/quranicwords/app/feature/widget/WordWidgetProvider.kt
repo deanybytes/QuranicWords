@@ -20,9 +20,16 @@ import com.quranicwords.app.core.domain.model.ThemeMode
 class WordWidgetProvider : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        // goAsync keeps the receiver (and so the process) alive until the update finishes - a
+        // bare coroutine could be killed mid-update once onUpdate returned.
+        val pendingResult = goAsync()
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
-            updateWidgets(context, appWidgetManager, appWidgetIds, advanceRotation = false)
-            WidgetUpdateScheduler.scheduleNextUpdate(context)
+            try {
+                updateWidgets(context, appWidgetManager, appWidgetIds, advanceRotation = false)
+                WidgetUpdateScheduler.scheduleNextUpdate(context)
+            } finally {
+                pendingResult.finish()
+            }
         }
     }
 
