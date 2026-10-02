@@ -484,10 +484,7 @@ private fun WordQuranExamplesSheet(
                             verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Text(
-                                text = stringResource(
-                                    R.string.lesson_word_example_verse_label,
-                                    com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language)
-                                ),
+                                text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language),
                                 style = MaterialTheme.typography.labelLarge.copy(
                                     fontFamily = QuranCitationFontFamily,
                                     fontWeight = FontWeight.Bold,

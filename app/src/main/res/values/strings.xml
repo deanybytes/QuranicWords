@@ -22,7 +22,7 @@
     <string name="splash_invocation_basmala_translation">In the name of Allah, the Most Gracious, the Most Merciful</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">My Lord, increase me in knowledge</string>
-    <string name="splash_invocation_rabbizidni_reference">Qur\'an 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Surah Taha 20:114</string>
     <string name="splash_invocation_skip_hint">Tap to skip</string>
 
     <!-- Language select -->
@@ -135,7 +135,6 @@
     <string name="lesson_exit_confirm_stay">Keep learning</string>
     <string name="lesson_matching_instruction">Tap a letter, then tap its match.</string>
     <string name="lesson_teach_continue_button">Got it</string>
-    <string name="lesson_word_example_verse_label">Al Qur\'an %s</string>
     <string name="exercise_audio_unavailable">Audio for this item isn\'t available yet.</string>
     <string name="word_order_build_area_label">Your answer</string>
     <string name="listen_and_type_hint">Type what you hear</string>

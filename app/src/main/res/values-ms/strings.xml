@@ -22,7 +22,7 @@
     <string name="splash_invocation_basmala_translation">Dengan nama Allah Yang Maha Pemurah, Maha Penyayang</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">Wahai Tuhanku, tambahkanlah ilmuku</string>
-    <string name="splash_invocation_rabbizidni_reference">Al-Quran 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Surah Taha 20:114</string>
     <string name="splash_invocation_skip_hint">Ketik untuk melangkau</string>
     <!-- Language select -->
     <string name="language_select_title">Pilih bahasa anda</string>
@@ -123,7 +123,6 @@
     <string name="lesson_exit_confirm_stay">Teruskan Belajar</string>
     <string name="lesson_matching_instruction">Ketik perkataan Arab, kemudian ketik maknanya yang sepadan.</string>
     <string name="lesson_teach_continue_button">Faham</string>
-    <string name="lesson_word_example_verse_label">Al-Quran %s</string>
     <string name="exercise_audio_unavailable">Audio untuk perkataan ini belum tersedia.</string>
     <string name="word_order_build_area_label">Jawapan anda</string>
     <string name="listen_and_type_hint">Taip apa yang anda dengar</string>

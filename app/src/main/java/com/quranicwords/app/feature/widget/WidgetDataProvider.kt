@@ -203,7 +203,7 @@ object WidgetDataProvider {
                     frequencyRank = rank,
                     exampleVerseArabic = intro.exampleVerseArabic,
                     exampleVerseTranslation = intro.exampleVerseTranslation.get(language),
-                    exampleVerseReference = com.quranicwords.app.core.util.VerseReferenceFormatter.format(intro.exampleVerseReference, language),
+                    exampleVerseReference = intro.exampleVerseReference,
                     isMistaken = isMistaken
                 )
             } else if (freq != null) {

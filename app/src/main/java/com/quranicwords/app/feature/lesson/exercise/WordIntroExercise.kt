@@ -373,10 +373,7 @@ fun WordIntroExerciseContent(
                     ) {
                         if (!activeVerseReference.isNullOrBlank()) {
                             Text(
-                                text = stringResource(
-                                    R.string.lesson_word_example_verse_label,
-                                    com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language)
-                                ),
+                                text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseReference, language),
                                 style = MaterialTheme.typography.labelLarge.copy(
                                     fontFamily = QuranCitationFontFamily,
                                     fontWeight = FontWeight.Bold,

@@ -280,10 +280,7 @@ private fun WordCardBack(
                     }
                     if (!activeVerseRef.isNullOrBlank()) {
                         Text(
-                            text = stringResource(
-                                R.string.lesson_word_example_verse_label,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseRef, language)
-                            ),
+                            text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseRef, language),
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontFamily = QuranCitationFontFamily,
                                 fontWeight = FontWeight.Bold,

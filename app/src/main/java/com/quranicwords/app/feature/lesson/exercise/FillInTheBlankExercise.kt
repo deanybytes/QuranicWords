@@ -81,10 +81,7 @@ fun FillInTheBlankExerciseContent(
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = stringResource(
-                R.string.lesson_word_example_verse_label,
-                com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.sentenceReference, language)
-            ),
+            text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.sentenceReference, language),
             style = MaterialTheme.typography.labelLarge.copy(
                 fontFamily = QuranCitationFontFamily,
                 fontWeight = FontWeight.Bold,

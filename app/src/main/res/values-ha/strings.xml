@@ -22,7 +22,7 @@
     <string name="splash_invocation_basmala_translation">Da sunan Allah, Mai rahama, Mai jin ƙai</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">Ya Ubangijina, ka ƙara mini ilimi</string>
-    <string name="splash_invocation_rabbizidni_reference">Alƙur\'ani 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Surah Taha 20:114</string>
     <string name="splash_invocation_skip_hint">Taɓa don wucewa</string>
     <!-- Language select -->
     <string name="language_select_title">Zaɓi yarenku</string>
@@ -123,7 +123,6 @@
     <string name="lesson_exit_confirm_stay">Ci gaba da Koyo</string>
     <string name="lesson_matching_instruction">Taɓa kalmar Larabci, sannan taɓa ma\'anarta mai dacewa.</string>
     <string name="lesson_teach_continue_button">Na fahimta</string>
-    <string name="lesson_word_example_verse_label">Alƙur\'ani %s</string>
     <string name="exercise_audio_unavailable">Babu sautin wannan kalmar a yanzu.</string>
     <string name="word_order_build_area_label">Amsarku</string>
     <string name="listen_and_type_hint">Rubuta abin da kuka ji</string>

@@ -7,6 +7,7 @@
 
 export const I18N_DICTIONARY = {
   en: {
+    surahWord: 'Surah',
     dir: 'ltr',
     brandSub: 'Master Curriculum by DeanyBytes',
     heroPill: '✨ Frequency-Ranked Quranic Arabic Dictionary',
@@ -84,6 +85,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Licensed under Apache 2.0'
   },
   bn: {
+    surahWord: 'সূরা',
     dir: 'ltr',
     brandSub: 'দ্বীনি বাইটসের কুরআন পাঠ্যক্রম',
     heroPill: '✨ পুনরাবৃত্তির ক্রমানুসারে সাজানো কুরআনিক আরবি অভিধান',
@@ -161,6 +163,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© ২০২৬ DeanyBytes • অ্যাপাচি ২.০ লাইসেন্সপ্রাপ্ত'
   },
   ur: {
+    surahWord: 'سورۃ',
     dir: 'rtl',
     brandSub: 'دینی بائٹس کا قرآنی نصاب',
     heroPill: '✨ تکرار کی ترتیب کے مطابق قرآنی عربی لغت',
@@ -238,6 +241,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • لائسنس یافتہ اپاچی 2.0'
   },
   hi: {
+    surahWord: 'सूरह',
     dir: 'ltr',
     brandSub: 'दीनी बाइट्स का क़ुरआनी पाठ्यक्रम',
     heroPill: '✨ आवृत्ति के क्रम में व्यवस्थित क़ुरआनी अरबी शब्दकोश',
@@ -315,6 +319,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • अपाचे 2.0 लाइसेंस'
   },
   in: {
+    surahWord: 'Surah',
     dir: 'ltr',
     brandSub: 'Kurikulum Master oleh DeanyBytes',
     heroPill: '✨ Kamus Bahasa Arab Al-Qur\'an Berdasarkan Frekuensi',
@@ -392,6 +397,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Lisensi Apache 2.0'
   },
   ms: {
+    surahWord: 'Surah',
     dir: 'ltr',
     brandSub: 'Kurikulum Utama oleh DeanyBytes',
     heroPill: '✨ Kamus Bahasa Arab Al-Quran Mengikut Kekerapan',
@@ -469,6 +475,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Lesen Apache 2.0'
   },
   tr: {
+    surahWord: 'Sure',
     dir: 'ltr',
     brandSub: 'DeanyBytes Kur’an Müfredatı',
     heroPill: '✨ Frekans Sıralı Kur’an-ı Kerim Arapça Sözlüğü',
@@ -546,6 +553,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Apache 2.0 Lisanslıdır'
   },
   fa: {
+    surahWord: 'سوره',
     dir: 'rtl',
     brandSub: 'برنامه جامع قرآنی دینی بایتس',
     heroPill: '✨ واژه‌نامه بسامدی عربی قرآنی',
@@ -623,6 +631,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • تحت مجوز آپاچی ۲.۰'
   },
   ha: {
+    surahWord: 'Surah',
     dir: 'ltr',
     brandSub: 'Manhajar Kur\'ani ta DeanyBytes',
     heroPill: '✨ Kamus na Larabcin Alkur\'ani Bisa Yawan Amfani',
@@ -700,6 +709,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Lasisin Apache 2.0'
   },
   sw: {
+    surahWord: 'Sura',
     dir: 'ltr',
     brandSub: 'Mtaala Mkuu wa DeanyBytes',
     heroPill: '✨ Kamusi ya Kiarabu cha Qur\'ani kwa Mtiririko wa Marudio',
@@ -777,6 +787,7 @@ export const I18N_DICTIONARY = {
     footerCopyright: '© 2026 DeanyBytes • Leseni ya Apache 2.0'
   },
   fr: {
+    surahWord: 'Sourate',
     dir: 'ltr',
     brandSub: 'Programme d\'Étude par DeanyBytes',
     heroPill: '✨ Dictionnaire Arabe Coranique Classé par Fréquence',

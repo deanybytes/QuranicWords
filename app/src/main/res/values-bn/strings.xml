@@ -23,7 +23,7 @@
     <string name="splash_invocation_basmala_translation">পরম করুণাময় ও অসীম দয়ালু আল্লাহর নামে</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">হে আমার রব, আমার জ্ঞান বৃদ্ধি করে দিন</string>
-    <string name="splash_invocation_rabbizidni_reference">কুরআন ২০:১১৪</string>
+    <string name="splash_invocation_rabbizidni_reference">সূরা ত্বা-হা ২০:১১৪</string>
     <string name="splash_invocation_skip_hint">এড়িয়ে যেতে ট্যাপ করুন</string>
 
     
@@ -136,7 +136,6 @@
     <string name="lesson_exit_confirm_stay">শিখতে থাকুন</string>
     <string name="lesson_matching_instruction">একটি হরফে চাপ দিন, তারপর এর মিল খুঁজুন।</string>
     <string name="lesson_teach_continue_button">বুঝেছি</string>
-    <string name="lesson_word_example_verse_label">আল কুরআন %s</string>
     <string name="exercise_audio_unavailable">এই আইটেমের অডিও এখনো উপলব্ধ নয়।</string>
     <string name="word_order_build_area_label">আপনার উত্তর</string>
     <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>

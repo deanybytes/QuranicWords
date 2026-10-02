@@ -23,7 +23,7 @@
     <string name="splash_invocation_basmala_translation">Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">Seigneur, accrois-moi en savoir</string>
-    <string name="splash_invocation_rabbizidni_reference">Coran 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Sourate Ta-Ha 20:114</string>
     <string name="splash_invocation_skip_hint">Touchez pour passer</string>
 
     
@@ -131,7 +131,6 @@
     <string name="lesson_exit_confirm_stay">Continuer à apprendre</string>
     <string name="lesson_matching_instruction">Touchez une lettre, puis touchez sa correspondance.</string>
     <string name="lesson_teach_continue_button">Compris</string>
-    <string name="lesson_word_example_verse_label">Al-Coran %s</string>
     <string name="exercise_audio_unavailable">L\'audio de cet élément n\'est pas encore disponible.</string>
     <string name="word_order_build_area_label">Votre réponse</string>
     <string name="listen_and_type_hint">Écrivez ce que vous entendez</string>

@@ -22,7 +22,7 @@
     <string name="splash_invocation_basmala_translation">به نام خداوند بخشنده مهربان</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">پروردگارا، بر دانشم بیفزای</string>
-    <string name="splash_invocation_rabbizidni_reference">قرآن ۲۰:۱۱۴</string>
+    <string name="splash_invocation_rabbizidni_reference">سوره طه ۲۰:۱۱۴</string>
     <string name="splash_invocation_skip_hint">برای رد شدن لمس کنید</string>
     <!-- Language select -->
     <string name="language_select_title">زبان خود را انتخاب کنید</string>
@@ -123,7 +123,6 @@
     <string name="lesson_exit_confirm_stay">ادامه یادگیری</string>
     <string name="lesson_matching_instruction">یک کلمه عربی را لمس کنید، سپس معنای مطابق با آن را انتخاب کنید.</string>
     <string name="lesson_teach_continue_button">متوجه شدم</string>
-    <string name="lesson_word_example_verse_label">قرآن کریم %s</string>
     <string name="exercise_audio_unavailable">صوت این مورد هنوز در دسترس نیست.</string>
     <string name="word_order_build_area_label">پاسخ شما</string>
     <string name="listen_and_type_hint">آنچه را می‌شنوید بنویسید</string>

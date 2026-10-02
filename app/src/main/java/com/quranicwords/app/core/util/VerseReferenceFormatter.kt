@@ -3,13 +3,14 @@ package com.quranicwords.app.core.util
 import com.quranicwords.app.core.domain.model.Language
 
 /**
- * Formats a Qur'an verse reference by removing the word "Surah" / "surah" / "সূরা" / "سورۃ"
- * and localizing the chapter and verse numbers according to the user's selected [Language].
+ * The single place a Qur'an verse citation is rendered: `<Surah word> <surah name> <s:v>`, with
+ * the surah word, name and digits localized for the learner's [Language]. Every screen and widget
+ * shows citations through [format] so the pattern is identical everywhere.
  *
- * For example:
- * - "Surah 36:62" in BANGLA -> "৩৬:৬২"
- * - "Surah 36:62" in URDU -> "۳۶:۶۲"
- * - "Surah 36:62" in ENGLISH / INDONESIAN / TURKISH / FRENCH -> "36:62"
+ * For example, "Al-Baqarah 2:22" (or "Surah 2:22", or "2:22") becomes:
+ * - ENGLISH -> "Surah Al-Baqarah 2:22"
+ * - BANGLA  -> "সূরা আল-বাকারা ২:২২"
+ * - URDU    -> "سورۃ البقرۃ ۲:۲۲"
  */
 object VerseReferenceFormatter {
 
@@ -30,11 +31,8 @@ object VerseReferenceFormatter {
                 val surahName = SurahNames.getSurahName(surahNum, language)
                 val localizedSurah = formatDigits(surahNum.toString(), language)
                 val localizedVerse = formatDigits(verseNum, language)
-                return if (surahName.isNotBlank()) {
-                    "$surahName $localizedSurah:$localizedVerse"
-                } else {
-                    "$localizedSurah:$localizedVerse"
-                }
+                val name = if (surahName.isNotBlank()) "$surahName " else ""
+                return "${surahWord(language)} $name$localizedSurah:$localizedVerse"
             }
         }
 
@@ -46,6 +44,18 @@ object VerseReferenceFormatter {
             .trim()
 
         return formatDigits(cleaned, language)
+    }
+
+    /** The word for "Surah" in each language, placed before the surah's name. */
+    fun surahWord(language: Language): String = when (language) {
+        Language.BANGLA -> "সূরা"
+        Language.URDU -> "سورۃ"
+        Language.HINDI -> "सूरह"
+        Language.PERSIAN -> "سوره"
+        Language.TURKISH -> "Sure"
+        Language.FRENCH -> "Sourate"
+        Language.SWAHILI -> "Sura"
+        else -> "Surah"
     }
 
     /**

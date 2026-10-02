@@ -92,10 +92,7 @@ fun TapWordInVerseExerciseContent(
         }
 
         Text(
-            text = stringResource(
-                R.string.lesson_word_example_verse_label,
-                com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.verseReference, language)
-            ),
+            text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.verseReference, language),
             style = MaterialTheme.typography.labelLarge.copy(
                 fontFamily = QuranCitationFontFamily,
                 fontWeight = FontWeight.Bold,

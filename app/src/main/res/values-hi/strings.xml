@@ -22,7 +22,7 @@
     <string name="splash_invocation_basmala_translation">अल्लाह के नाम से जो बड़ा कृपालु, अत्यंत दयावान है</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">ऐ मेरे रब, मेरे ज्ञान में वृद्धि फ़रमा</string>
-    <string name="splash_invocation_rabbizidni_reference">क़ुरआन 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">सूरह ता-हा २०:११४</string>
     <string name="splash_invocation_skip_hint">आगे बढ़ने के लिए टैप करें</string>
     <!-- Language select -->
     <string name="language_select_title">अपनी भाषा चुनें</string>
@@ -123,7 +123,6 @@
     <string name="lesson_exit_confirm_stay">सीखते रहें</string>
     <string name="lesson_matching_instruction">एक अरबी शब्द पर टैप करें, फिर उसके सही अर्थ को चुनें।</string>
     <string name="lesson_teach_continue_button">समझ गया</string>
-    <string name="lesson_word_example_verse_label">अल-क़ुरआन %s</string>
     <string name="exercise_audio_unavailable">इस शब्द का ऑडियो अभी उपलब्ध नहीं है।</string>
     <string name="word_order_build_area_label">आपका उत्तर</string>
     <string name="listen_and_type_hint">जो सुनते हैं उसे टाइप करें</string>

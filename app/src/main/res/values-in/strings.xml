@@ -23,7 +23,7 @@
     <string name="splash_invocation_basmala_translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">Ya Tuhanku, tambahkanlah ilmu kepadaku</string>
-    <string name="splash_invocation_rabbizidni_reference">Al-Qur\'an 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Surah Taha 20:114</string>
     <string name="splash_invocation_skip_hint">Ketuk untuk melewati</string>
 
     
@@ -128,7 +128,6 @@
     <string name="lesson_exit_confirm_stay">Terus belajar</string>
     <string name="lesson_matching_instruction">Ketuk satu huruf, lalu ketuk pasangannya.</string>
     <string name="lesson_teach_continue_button">Mengerti</string>
-    <string name="lesson_word_example_verse_label">Al-Qur\'an %s</string>
     <string name="exercise_audio_unavailable">Audio untuk item ini belum tersedia.</string>
     <string name="word_order_build_area_label">Jawaban Anda</string>
     <string name="listen_and_type_hint">Ketik apa yang Anda dengar</string>

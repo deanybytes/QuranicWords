@@ -23,7 +23,7 @@
     <string name="splash_invocation_basmala_translation">Rahman ve Rahim olan Allah\'ın adıyla</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">Rabbim, ilmimi artır</string>
-    <string name="splash_invocation_rabbizidni_reference">Kur\'an 20:114</string>
+    <string name="splash_invocation_rabbizidni_reference">Sure Tâhâ 20:114</string>
     <string name="splash_invocation_skip_hint">Geçmek için dokunun</string>
 
     
@@ -128,7 +128,6 @@
     <string name="lesson_exit_confirm_stay">Öğrenmeye devam et</string>
     <string name="lesson_matching_instruction">Bir harfe dokunun, ardından eşleşenine dokunun.</string>
     <string name="lesson_teach_continue_button">Anladım</string>
-    <string name="lesson_word_example_verse_label">Kur\'an-ı Kerim %s</string>
     <string name="exercise_audio_unavailable">Bu öğe için ses henüz mevcut değil.</string>
     <string name="word_order_build_area_label">Cevabınız</string>
     <string name="listen_and_type_hint">Duyduğunuzu yazın</string>

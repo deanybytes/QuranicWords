@@ -626,7 +626,7 @@ class QuranicApp {
 
       <div class="card-verse-box" id="verse-box-${w.id}">
         <div class="card-verse-header">
-          <span class="verse-ref-badge">📖 Ayah ${w.ref || ''}</span>
+          <span class="verse-ref-badge">📖 ${w.ref ? t(this.currentLang, 'surahWord') + ' ' + w.ref : ''}</span>
         </div>
         <div class="card-verse-content" id="verse-content-${w.id}">
           <p style="color: var(--text-dim); font-size: 0.8rem;">${t(this.currentLang, 'ayahContextPlaceholder')}</p>
@@ -907,7 +907,7 @@ class QuranicApp {
         <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
             <strong style="color: var(--accent-gold); font-size: 0.85rem;">Sense #${s.idx}: ${sMeaning}</strong>
-            <span class="verse-ref-badge">📖 Ayah ${s.ref}</span>
+            <span class="verse-ref-badge">📖 ${t(this.currentLang, 'surahWord')} ${s.ref}</span>
           </div>
           <div class="card-verse-arabic" style="font-size: 1.3rem;">${s.v_ar}</div>
           <div class="card-verse-trans">${sTrans}</div>

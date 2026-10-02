@@ -23,7 +23,7 @@
     <string name="splash_invocation_basmala_translation">اللہ کے نام سے جو نہایت مہربان، رحم کرنے والا ہے</string>
     <string name="splash_invocation_rabbizidni_arabic">رَبِّ زِدْنِي عِلْمًا</string>
     <string name="splash_invocation_rabbizidni_translation">اے میرے رب، میرے علم میں اضافہ فرما</string>
-    <string name="splash_invocation_rabbizidni_reference">قرآن ۲۰:۱۱۴</string>
+    <string name="splash_invocation_rabbizidni_reference">سورۃ طٰہٰ ۲۰:۱۱۴</string>
     <string name="splash_invocation_skip_hint">چھوڑنے کے لیے تھپتھپائیں</string>
 
     
@@ -131,7 +131,6 @@
     <string name="lesson_exit_confirm_stay">سیکھنا جاری رکھیں</string>
     <string name="lesson_matching_instruction">ایک حرف پر تھپتھپائیں، پھر اس کے جوڑے پر تھپتھپائیں۔</string>
     <string name="lesson_teach_continue_button">سمجھ گیا</string>
-    <string name="lesson_word_example_verse_label">القرآن %s</string>
     <string name="exercise_audio_unavailable">اس آئٹم کے لیے آڈیو ابھی دستیاب نہیں ہے۔</string>
     <string name="word_order_build_area_label">آپ کا جواب</string>
     <string name="listen_and_type_hint">جو سنیں وہ ٹائپ کریں</string>
