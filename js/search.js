@@ -1,106 +1,86 @@
-/**
- * QuranicWords — In-Memory Multi-Field Search Engine
- * Blazing fast query execution (<2ms) across Arabic lemmas, transliterations, roots, meanings, and chapter/section filters.
- */
+// Pure search / filter / sort over the word index.
 
-export function stripTashkeel(text) {
-  if (!text) return '';
-  let t = String(text).replace(/\s*\([0-9]+\)\s*$/, '');
-  t = t.replace(/\u0670/g, 'ا').replace(/\u0627\u065F/g, 'ا').replace(/\u06E5/g, 'و').replace(/\u06E6/g, 'ي');
-  t = t.replace(/[\u064B-\u065F\u06D6-\u06ED\uFEFF]/g, '');
-  t = t.replace(/[إأآٱ]/g, 'ا');
-  t = t.replace(/ة/g, 'ه').replace(/ى/g, 'ي');
-  return t.trim();
+const ALEF_MAP = { 'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ٱ': 'ا', 'ى': 'ي', 'ة': 'ه', 'ؤ': 'و', 'ئ': 'ي' };
+
+/**
+ * Arabic skeleton: identical to tools/export/build_web_data.py `skeleton()` so that a query is
+ * compared with the precomputed `sk` field — diacritic- and hamza-seat-insensitive.
+ */
+export function skeleton(text) {
+  let out = '';
+  for (const ch of String(text || '').normalize('NFC')) {
+    const c = ALEF_MAP[ch] || ch;
+    if (c >= 'ء' && c <= 'ي') out += c;
+  }
+  return out;
 }
 
-export class SearchEngine {
-  constructor(words = []) {
-    this.words = words;
+/** Latin folding for transliteration / meaning search: lowercase, no diacritics or ʿ ʾ ' marks. */
+export function latinFold(text) {
+  return String(text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[ʿʾ'`’‘]/g, '');
+}
+
+const HAS_ARABIC = /[؀-ۿ]/;
+
+/** Returns true when the word matches the free-text query. */
+export function matchesQuery(w, query, lang) {
+  const q = String(query || '').trim();
+  if (!q) return true;
+  if (HAS_ARABIC.test(q)) {
+    const sq = skeleton(q);
+    if (!sq) return false;
+    if (w.sk && w.sk.includes(sq)) return true;
+    if (w.rt && skeleton(w.rt) === sq) return true;
+    return false;
   }
-
-  setWords(words) {
-    this.words = words;
+  const fq = latinFold(q);
+  if (!fq) return true;
+  if (w.tl && latinFold(w.tl).includes(fq)) return true;
+  if (w.m) {
+    if (w.m[lang] && latinFold(w.m[lang]).includes(fq)) return true;
+    if (lang !== 'en' && w.m.en && latinFold(w.m.en).includes(fq)) return true;
   }
+  if (/\d+:\d+/.test(q) && w.ref && w.ref.includes(q)) return true;
+  return false;
+}
 
-  /**
-   * Filter and search words
-   * @param {Object} options
-   * @param {string} options.query Search string
-   * @param {string} options.chapter Chapter ID filter
-   * @param {string} options.pos Part of speech filter
-   * @param {string} options.root Root filter
-   * @param {string} options.lang Current UI language for meaning search
-   * @param {boolean} options.bookmarksOnly Filter bookmarked words
-   * @param {Set} options.bookmarkSet Set of bookmarked IDs
-   * @param {string} options.sortBy Sort mode ('default', 'occ_desc', 'occ_asc', 'alpha_ar', 'alpha_en')
-   */
-  filter({ query = '', chapter = 'all', pos = 'all', root = 'all', lang = 'en', bookmarksOnly = false, bookmarkSet = new Set(), sortBy = 'default' }) {
-    let q = query.trim().toLowerCase();
-    let qAr = stripTashkeel(q);
+/**
+ * Filters and sorts the word list.
+ * @param {Array} words
+ * @param {{q?:string, ch?:number|null, cat?:string|null, root?:string|null, saved?:boolean,
+ *          savedIds?:Set<string>, sort?:string, lang?:string}} opts
+ */
+export function filterWords(words, opts = {}) {
+  const { q = '', ch = null, cat = null, root = null, saved = false, savedIds = new Set(), sort = 'curriculum', lang = 'en' } = opts;
+  const out = words.filter((w) =>
+    (!saved || savedIds.has(w.id)) &&
+    (!ch || w.ch === ch) &&
+    (!cat || w.cat === cat) &&
+    (!root || w.rt === root) &&
+    matchesQuery(w, q, lang));
+  return sortWords(out, sort, lang);
+}
 
-    let results = this.words.filter(w => {
-      // Bookmarks filter
-      if (bookmarksOnly && !bookmarkSet.has(w.id)) {
-        return false;
-      }
+export function curriculumCompare(a, b) {
+  return (a.ch - b.ch) || (a.sec - b.sec) || (a.les - b.les) || (a.rank - b.rank);
+}
 
-      // Chapter filter
-      if (chapter !== 'all' && w.ch !== chapter) {
-        return false;
-      }
-
-      // Part of speech filter
-      if (pos !== 'all' && w.pos !== pos) {
-        return false;
-      }
-
-      // Root filter
-      if (root !== 'all' && w.rt !== root) {
-        return false;
-      }
-
-      // Query search
-      if (!q) return true;
-
-      // Match Arabic lemma / clean lemma
-      if (w.cl && (w.cl.includes(qAr) || w.cl.includes(q))) return true;
-      if (w.ar && w.ar.includes(q)) return true;
-
-      // Match Transliteration
-      if (w.tr && w.tr.toLowerCase().includes(q)) return true;
-
-      // Match Root
-      if (w.rt && (w.rt.includes(q) || w.rt.includes(qAr))) return true;
-
-      // Match Meanings across selected language + English
-      if (w.m) {
-        if (w.m[lang] && w.m[lang].toLowerCase().includes(q)) return true;
-        if (w.m['en'] && w.m['en'].toLowerCase().includes(q)) return true;
-        if (w.m['bn'] && w.m['bn'].includes(q)) return true;
-        if (w.m['ur'] && w.m['ur'].includes(q)) return true;
-      }
-
-      // Match Verse Reference (e.g. 2:255)
-      if (w.ref && w.ref.includes(q)) return true;
-
-      return false;
-    });
-
-    // Sorting
-    if (sortBy === 'occ_desc') {
-      results.sort((a, b) => (b.occ || 0) - (a.occ || 0));
-    } else if (sortBy === 'occ_asc') {
-      results.sort((a, b) => (a.occ || 0) - (b.occ || 0));
-    } else if (sortBy === 'alpha_ar') {
-      results.sort((a, b) => (a.cl || '').localeCompare(b.cl || '', 'ar'));
-    } else if (sortBy === 'alpha_en') {
-      results.sort((a, b) => {
-        const ma = (a.m && a.m[lang]) || (a.m && a.m['en']) || '';
-        const mb = (b.m && b.m[lang]) || (b.m && b.m['en']) || '';
-        return ma.localeCompare(mb);
-      });
+export function sortWords(list, sort, lang = 'en') {
+  const arr = list.slice();
+  switch (sort) {
+    case 'freq_desc': arr.sort((a, b) => (b.occ - a.occ) || (a.rank - b.rank)); break;
+    case 'freq_asc': arr.sort((a, b) => (a.occ - b.occ) || (b.rank - a.rank)); break;
+    case 'alpha_ar': arr.sort((a, b) => (a.sk || '').localeCompare(b.sk || '', 'ar')); break;
+    case 'alpha_meaning': {
+      const m = (w) => (w.m && (w.m[lang] || w.m.en)) || '';
+      arr.sort((a, b) => m(a).localeCompare(m(b), lang === 'in' ? 'id' : lang));
+      break;
     }
-
-    return results;
+    default: arr.sort(curriculumCompare);
   }
+  return arr;
 }
