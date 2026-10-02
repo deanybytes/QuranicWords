@@ -1,58 +1,50 @@
 {
-  "name": "QuranicWords — 4,709 Quran Vocabulary & Root Dictionary",
+  "name": "QuranicWords — Learn the Vocabulary of the Qur'an",
   "short_name": "QuranicWords",
-  "description": "Master 4,709 verified Quranic Arabic words ordered by frequency with authentic verse contexts, root analysis, audio, and meanings in 11 languages.",
-  "start_url": "/?source=pwa",
+  "description": "Learn 3,900 Qur'anic Arabic words in order of frequency, with verse examples, roots, audio, lessons, quizzes and spaced-repetition review. Meanings in 8 languages. Works offline; no tracking.",
+  "id": "/",
+  "start_url": "/learn?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#06080e",
-  "theme_color": "#06080e",
+  "background_color": "#021d14",
+  "theme_color": "#053827",
   "categories": ["education", "books", "reference"],
   "lang": "en",
   "dir": "ltr",
   "icons": [
-    {
-      "src": "/favicon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/favicon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
     {
+      "name": "Learn",
+      "short_name": "Learn",
+      "description": "Continue the learning path",
+      "url": "/learn",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Review",
+      "short_name": "Review",
+      "description": "Review the words due today",
+      "url": "/review",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
       "name": "Dictionary",
       "short_name": "Dictionary",
-      "description": "Search 4,709 Quranic words by frequency",
-      "url": "/?view=cards",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "description": "Search 3,900 Qur'anic words",
+      "url": "/dictionary",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
     },
     {
-      "name": "Flashcards",
-      "short_name": "Flashcards",
-      "description": "Review vocabulary with interactive flashcards",
-      "url": "/?view=flashcards",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Roots Index",
-      "short_name": "Roots",
-      "description": "Explore 251 Quranic roots",
-      "url": "/?view=roots",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Quiz Trainer",
+      "name": "Quiz",
       "short_name": "Quiz",
-      "description": "Test your Quranic Arabic vocabulary",
-      "url": "/?view=quiz",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "description": "Test your Qur'anic vocabulary",
+      "url": "/quiz",
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
     }
   ]
 }
