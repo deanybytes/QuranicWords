@@ -9,9 +9,8 @@ Architectural Highlights:
 - High-Performance Compact Inlined Dataset (~8 MB payload vs 74 MB).
 - Infinite / Progressive Batch Rendering (Render 24 cards initially in <5ms, stream more on scroll).
 - Zero DOM Reflow Latency with IntersectionObserver.
-- 11 Master Languages: English, Bengali (বাংলা), Urdu (اردو), Hindi (हिन्दी),
-  Indonesian (Bahasa), Malay (Melayu), Turkish (Türkçe), Persian (فارسی),
-  Hausa, Swahili (Kiswahili), French (Français).
+- 8 content languages with source-verified meanings: English, Bengali (বাংলা), Urdu (اردو),
+  Hindi (हिन्दी), Indonesian, Turkish (Türkçe), Persian (فارسی), French (Français).
 - 3 View Modes: 📚 Card Stream View, 📋 Interactive Data Table, 📇 Flashcard Master Mode.
 - 🔊 Audio Pronunciation with SpeechSynthesis.
 - 📋 Instant Quick Copy with animated glass toast notifications.
@@ -107,7 +106,7 @@ def main():
     with open(os.path.join(CONTENT_DIR, 'lessons_vocabulary.json'), encoding='utf-8') as f:
         lessons = json.load(f)['lessons']
     with open(os.path.join(CONTENT_DIR, 'exercises_vocabulary.json'), encoding='utf-8') as f:
-        exercises = json.load(f)['exercises']
+        exercises = json.load(f)  # top-level array (tools/pipeline output)
 
     print(f"Loaded {len(chapters)} chapters, {len(sections)} sections, {len(lessons)} lessons, {len(exercises)} exercises.")
 
@@ -137,8 +136,8 @@ def main():
             sec_by_ch[cid] = []
         sec_by_ch[cid].append(sec)
 
-    SUPPORTED_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'ms', 'tr', 'fa', 'ha', 'sw', 'fr']
-    CORE_VERSE_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fr']
+    SUPPORTED_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']
+    CORE_VERSE_LANGS = SUPPORTED_LANGS
 
     chapters_meta = []
     flat_words = []
@@ -217,8 +216,8 @@ def main():
                             'norm': strip_tashkeel(c['arabicWord']),
                             'tr': c.get('transliteration', ''),
                             'rt': c.get('root', ''),
-                            'pos': c.get('partOfSpeech', ''),
-                            'cat': les['category'],
+                            'pos': c.get('partOfSpeechDetail') or c.get('verbForm') or '',
+                            'cat': c.get('lemmaCategory', les['category']),
                             'ch': cid,
                             'sec': sid,
                             'les': lid,
@@ -241,6 +240,16 @@ def main():
     print(f"Total Words Processed: {total_words_count}")
     print(f"Total Multi-meaning (Polysemous) Words: {poly_words_count}")
 
+    n_words = f"{len(flat_words):,}"
+    n_part = f"{sum(1 for w in flat_words if w['cat'] == 'PARTICLE'):,}"
+    n_verb = f"{sum(1 for w in flat_words if w['cat'] == 'VERB'):,}"
+    n_noun = f"{sum(1 for w in flat_words if w['cat'] == 'NOUN'):,}"
+    n_poly = f"{poly_words_count:,}"
+    n_chapters = f"{len(chapters):,}"
+    n_sections = f"{len(sections):,}"
+    n_lessons = f"{len(lessons):,}"
+    coverage = round(sum(c['quranOccurrencePercent'] for c in chapters), 1)
+
     # Generate Compact JSON (Stripping whitespace)
     words_json = json.dumps(flat_words, separators=(',', ':'), ensure_ascii=False)
     chapters_json = json.dumps(chapters_meta, separators=(',', ':'), ensure_ascii=False)
@@ -254,9 +263,9 @@ def main():
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Primary SEO Meta Tags -->
-    <title>QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary</title>
-    <meta name="title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary">
-    <meta name="description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 11 languages, root analysis, audio pronunciation, and polysemy exploration.">
+    <title>QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary</title>
+    <meta name="title" content="QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary">
+    <meta name="description" content="Master {n_words} verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 8 languages, root analysis, audio pronunciation, and polysemy exploration.">
     <meta name="keywords" content="Quran vocabulary, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran lemmas, Uthmani Quran, Arabic grammar, Wujuh al-Quran, polysemy, Quranic root words, deanybytes, quranic words english, quran dictionary bangla">
     <meta name="author" content="DEANY TALKS (deanybytes)">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -272,8 +281,8 @@ def main():
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://quranicwords.vercel.app/">
     <meta property="og:site_name" content="QuranicWords">
-    <meta property="og:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Dictionary">
-    <meta property="og:description" content="Master 4,700+ Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 11 languages.">
+    <meta property="og:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
+    <meta property="og:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
     <meta property="og:image" content="{LOGO_DATA_URI}">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="bn_BD">
@@ -282,8 +291,8 @@ def main():
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://quranicwords.vercel.app/">
-    <meta name="twitter:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Dictionary">
-    <meta name="twitter:description" content="Master 4,700+ Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 11 languages.">
+    <meta name="twitter:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
+    <meta name="twitter:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
     <meta name="twitter:image" content="{LOGO_DATA_URI}">
 
     <!-- Preconnect & Google Fonts -->
@@ -300,7 +309,7 @@ def main():
           "@type": "WebApplication",
           "name": "QuranicWords Master Curriculum Dictionary",
           "url": "https://quranicwords.vercel.app/",
-          "description": "Interactive, offline-ready dictionary teaching 4,709 Qur'anic Arabic words organized by frequency with verified contextual verses and 11-language translations.",
+          "description": "Interactive, offline-ready dictionary teaching {n_words} Qur'anic Arabic words organized by frequency with verified contextual verses and 8-language translations.",
           "applicationCategory": "EducationalApplication",
           "operatingSystem": "All",
           "offers": {{
@@ -311,7 +320,7 @@ def main():
           "author": {{
             "@type": "Organization",
             "name": "DEANY TALKS",
-            "url": "https://github.com/deanybytes"
+            "url": "https://github.com/rmrashahriar/QuranicWords"
           }}
         }}
       ]
@@ -1207,8 +1216,8 @@ def main():
                 </div>
             </div>
             <div style="margin-top:12px; font-size:11px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center;">
-                <span>10 Chapters · 4,709 Words</span>
-                <span class="count-pill">100% Verified</span>
+                <span>10 Chapters · {n_words} Words</span>
+                <span class="count-pill">Source-verified</span>
             </div>
         </div>
 
@@ -1247,17 +1256,17 @@ def main():
             <!-- Filter Controls Row -->
             <div class="chips-row">
                 <span style="font-size:11px; font-weight:700; color:var(--text-muted); margin-right:2px;">Filter:</span>
-                <div class="filter-chip active" onclick="filterCategory('ALL', this)">All (4,709)</div>
-                <div class="filter-chip" onclick="filterCategory('PARTICLE', this)">Particles (173)</div>
-                <div class="filter-chip" onclick="filterCategory('VERB', this)">Verbs (1,479)</div>
-                <div class="filter-chip" onclick="filterCategory('NOUN', this)">Nouns (3,057)</div>
-                <div class="filter-chip" onclick="filterCategory('POLYSEMY', this)">✨ Polysemy (44)</div>
+                <div class="filter-chip active" onclick="filterCategory('ALL', this)">All ({n_words})</div>
+                <div class="filter-chip" onclick="filterCategory('PARTICLE', this)">Particles ({n_part})</div>
+                <div class="filter-chip" onclick="filterCategory('VERB', this)">Verbs ({n_verb})</div>
+                <div class="filter-chip" onclick="filterCategory('NOUN', this)">Nouns ({n_noun})</div>
+                <div class="filter-chip" onclick="filterCategory('POLYSEMY', this)">✨ Polysemy ({n_poly})</div>
                 <div class="filter-chip" onclick="filterCategory('BOOKMARKS', this)" id="bookmark-chip">⭐ Saved (<span id="bookmark-count">0</span>)</div>
 
                 <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
                     <select id="chapter-select" class="btn" onchange="onChapterSelect(this.value)" style="padding:5px 8px; font-size:11px;">
                         <option value="ALL">All 10 Chapters</option>
-                        <option value="ch_01">Ch 1: Particles (173)</option>
+                        <option value="ch_01">Ch 1: Particles ({n_part})</option>
                         <option value="ch_02">Ch 2: High-Freq Verbs (500)</option>
                         <option value="ch_03">Ch 3: Verbal Forms (500)</option>
                         <option value="ch_04">Ch 4: Specialized Verbs (479)</option>
@@ -1280,15 +1289,12 @@ def main():
                     <button class="lang-toggle-btn active" onclick="toggleLanguage('ur', this)">🇵🇰 اردو</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('hi', this)">🇮🇳 हिन्दी</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('in', this)">🇮🇩 Bahasa</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('ms', this)">🇲🇾 Melayu</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('tr', this)">🇹🇷 Türkçe</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('fa', this)">🇮🇷 فارسی</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('ha', this)">🇳🇬 Hausa</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('sw', this)">🇰🇪 Swahili</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('fr', this)">🇫🇷 Français</button>
                 </div>
                 <div id="stats-badge" style="margin-left:auto; font-size:11px; font-weight:700; color:var(--emerald);">
-                    Showing 4,709 / 4,709 words
+                    Showing {n_words} / {n_words} words
                 </div>
             </div>
         </header>
@@ -1303,7 +1309,7 @@ def main():
                             <img src="{LOGO_DATA_URI}" width="16" height="16" alt="logo" style="border-radius:3px;">
                             <span>Master Curriculum v1.0.0</span>
                             <span style="opacity:0.8;">•</span>
-                            <span style="color:#a7f3d0;">100% Precision Verified</span>
+                            <span style="color:#a7f3d0;">Meanings from the word-by-word source</span>
                         </div>
                         <h1 style="font-size:24px; font-weight:900; line-height:1.2; letter-spacing:-0.02em;">
                             The Complete Vocabulary of the Holy Qur'an
@@ -1316,27 +1322,27 @@ def main():
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-num">10</div>
+                        <div class="stat-num">{n_chapters}</div>
                         <div class="stat-label">Chapters</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">100</div>
+                        <div class="stat-num">{n_sections}</div>
                         <div class="stat-label">Sections</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">1,214</div>
+                        <div class="stat-num">{n_lessons}</div>
                         <div class="stat-label">Lessons</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">4,709</div>
+                        <div class="stat-num">{n_words}</div>
                         <div class="stat-label">Lemmas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">85%+</div>
+                        <div class="stat-num">{coverage}%</div>
                         <div class="stat-label">Tokens</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">11</div>
+                        <div class="stat-num">8</div>
                         <div class="stat-label">Languages</div>
                     </div>
                 </div>
@@ -1381,7 +1387,7 @@ def main():
             <div id="flashcard-view-wrapper">
                 <div class="flashcard-box" id="flashcard-box">
                     <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                        <span id="fc-counter">Card 1 / 4,709</span>
+                        <span id="fc-counter">Card 1 / {n_words}</span>
                         <span id="fc-category" class="badge-pos">PARTICLE</span>
                     </div>
 
@@ -1613,8 +1619,8 @@ def main():
                     <div class="verse-box" id="verse-box-${{w.id}}">
                         <div class="verse-meta-row">
                             <span>📖 Qur'an Context</span>
-                            <a href="https://quran.com/${{w.ref.split(' ')[1] || '2:255'}}" target="_blank" rel="noopener" class="verse-ref-link" id="ref-${{w.id}}">
-                                ${{w.ref}} ↗
+                            <a href="https://quran.com/${{(w.ref.match(/(\d+:\d+)$/) || [, '2:255'])[1]}}" target="_blank" rel="noopener" class="verse-ref-link" id="ref-${{w.id}}">
+                                Surah ${{w.ref}} ↗
                             </a>
                         </div>
                         <div class="verse-arabic-text font-arabic" id="verse-ar-${{w.id}}">
@@ -1686,8 +1692,8 @@ def main():
 
             const refEl = document.getElementById(`ref-${{wordId}}`);
             if (refEl) {{
-                refEl.innerText = se.ref + ' ↗';
-                refEl.href = `https://quran.com/${{se.ref.split(' ')[1] || '2:255'}}`;
+                refEl.innerText = 'Surah ' + se.ref + ' ↗';
+                refEl.href = `https://quran.com/${{(se.ref.match(/(\d+:\d+)$/) || [, '2:255'])[1]}}`;
             }}
             const verseArEl = document.getElementById(`verse-ar-${{wordId}}`);
             if (verseArEl) verseArEl.innerHTML = se.v_ar;
@@ -1802,7 +1808,7 @@ def main():
                     <td class="font-bn" style="font-weight:600;">${{w.m.bn || '—'}}</td>
                     <td class="font-ur" style="font-weight:600;">${{w.m.ur || '—'}}</td>
                     <td style="min-width:200px;">
-                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">${{w.ref}}</div>
+                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">Surah ${{w.ref}}</div>
                         <div class="font-arabic" style="font-size:14px;">${{w.v_ar}}</div>
                     </td>
                     <td>
@@ -1850,7 +1856,7 @@ def main():
                 }}
             }}
             document.getElementById('fc-meanings').innerHTML = meaningsText;
-            document.getElementById('fc-verse').innerHTML = `${{w.v_ar}} <span style="font-size:12px; color:var(--emerald);">(${{w.ref}})</span>`;
+            document.getElementById('fc-verse').innerHTML = `${{w.v_ar}} <span style="font-size:12px; color:var(--emerald);">(Surah ${{w.ref}})</span>`;
 
             // Reset answer visibility
             document.getElementById('fc-answer-box').style.display = 'none';
