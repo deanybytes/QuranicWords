@@ -96,4 +96,36 @@ This ensures streak numbers, points, percentages, lesson counters (`1 / N`), and
 
 ## 🔄 Adaptive Mistaken Words Tracking
 
-`ExerciseAttemptEntity` logs every quiz attempt with `(userId, itemId, itemKind, exerciseType, correct)`. The **Mistaken Words Review** mode queries items where the learner's most recent attempt was incorrect, presenting them with dynamic `GrammarCategoryBadge` tags until the learner achieves mastery.
+`ExerciseAttemptEntity` logs every quiz attempt with `(userId, itemId, itemKind, exerciseType, correct, isFirstTry)`. The **Mistaken Words Review** draws from spaced-repetition memory (below): every word whose most recent first try was graded *Again* (`word_memory.lastGrade = 1`), most recently missed first, presented with dynamic `GrammarCategoryBadge` tags. A word leaves the list the next time a first try is correct; a same-session retry never clears it.
+
+## 🧠 Spaced repetition (FSRS-4.5)
+
+`core/domain/srs/FsrsScheduler.kt` is a pure, `Clock`-injected implementation of [FSRS-4.5](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm) with its 17 published default weights, reduced to the two grades the app can observe: a first-try correct answer is **Good (3)**, a wrong one **Again (1)** (retries and in-session repeats are never graded).
+
+| Quantity | Formula |
+|---|---|
+| Retrievability | `R(t,S) = (1 + 19/81 · t/S)^-0.5` (t = days since last review) |
+| Initial stability | `S₀(G) = w[G-1]` → Good 3.71 d, Again 0.49 d |
+| Initial difficulty | `D₀(G) = w4 − (G−3)·w5`, clamped to 1..10 |
+| Next difficulty | `D' = w7·w4 + (1−w7)·(D − w6·(G−3))`, clamped to 1..10 |
+| Stability after Good | `S' = S · (1 + e^w8 · (11−D) · S^-w9 · (e^(w10·(1−R)) − 1))` |
+| Stability after Again | `S' = min(S, w11 · D^-w12 · ((S+1)^w13 − 1) · e^(w14·(1−R)))` |
+| Review interval | `round(S/F · (0.9^(1/−0.5) − 1))` days = `S` at 90 % retention, clamped to 1..365 |
+
+```mermaid
+stateDiagram-v2
+    [*] --> Learning: first try (Good: due +1 day, Again: due +10 min)
+    Learning --> Review: Good (interval from S)
+    Learning --> Learning: Again (+10 min)
+    Review --> Review: Good (S grows)
+    Review --> Relearning: Again (lapse, +10 min)
+    Relearning --> Review: Good
+```
+
+Because recall is measured over *days*, `WordMemoryRules.applyFirstTry` runs the scheduler **at most once per word per local day**; later first tries that day only update `lastGrade` (a correct one also moves an already-due lapse to tomorrow, so it doesn't sit in the due list all day). A clock that runs backwards counts as no time elapsed. The attempt row and the memory update commit in one transaction (`ProgressRepositoryImpl.logAttempt`).
+
+**Backfill for upgraded learners.** DB v7 adds `word_memory` empty; on the first curriculum load each word's first-try history is replayed chronologically through the same rules, then stability is capped at 3 days and due dates are spread over the next 7 days by `floorMod(itemId.hashCode(), 7)` — deterministic, and no wall of reviews on upgrade. A DataStore marker makes it one-time; insert-if-absent means rows written live always win.
+
+**Strength buckets** (`WordStrength`): New (no memory) · Learning (S < 2 d) · Familiar (< 7 d) · Strong (< 30 d) · Mastered (≥ 30 d). "Strong+" is the app's definition of a *learned* word (Progress, lesson summary, Learned Words).
+
+**Daily Review.** Due words (`dueAt ≤ now`, most overdue first, ties by lowest R), capped at 30/50/80 by daily-goal level. `ReviewExercisePicker` chooses one exercise per word by strength: Learning → multiple choice; Familiar → fill-in-the-blank / tap-in-verse (alternating); Strong+ → tap-what-you-hear when the word has verified audio and pronunciation audio is on, else multiple choice.

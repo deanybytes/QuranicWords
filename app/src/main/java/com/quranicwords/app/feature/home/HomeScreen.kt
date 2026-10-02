@@ -113,6 +113,7 @@ import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.DailyGoalBadge
+import com.quranicwords.app.core.ui.components.DailyReviewCard
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -161,6 +162,7 @@ import kotlin.math.sin
 fun HomeScreen(
     onOpenLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
+    onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
@@ -234,6 +236,7 @@ fun HomeScreen(
                 isCurriculumComplete = uiState.isCurriculumComplete,
                 hasReviewableItems = uiState.hasReviewableItems,
                 hasCompletedHistory = uiState.completedHistory.isNotEmpty(),
+                extraLeadingItems = if (uiState.dueReviewCount > 0) 1 else 0,
                 expandedChapterIds = currentExpandedChapterIds,
                 expandedSectionIds = currentExpandedSectionIds,
                 targetLessonId = targetLessonId
@@ -333,6 +336,14 @@ fun HomeScreen(
                     ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // Due reviews lead the list: keeping known words alive is the best use of the
+                    // first minutes of a session.
+                    if (uiState.dueReviewCount > 0) {
+                        item(key = "daily_review") {
+                            DailyReviewCard(dueCount = uiState.dueReviewCount, onClick = onOpenDailyReview)
+                        }
+                    }
+
                     if (uiState.isCurriculumComplete) {
                         item(key = "curriculum_complete") {
                             CurriculumCompleteCard(onClick = onOpenOpenPractice)
@@ -1334,10 +1345,12 @@ internal fun findHomeTargetItemIndex(
     hasCompletedHistory: Boolean,
     expandedChapterIds: Set<String>,
     expandedSectionIds: Set<String>,
-    targetLessonId: String?
+    targetLessonId: String?,
+    /** Further cards above the chapter tree (e.g. the Daily Review card) - each shifts the tree down one item. */
+    extraLeadingItems: Int = 0
 ): Int? {
     if (targetLessonId == null) return null
-    var currentIndex = 0
+    var currentIndex = extraLeadingItems
     if (isCurriculumComplete) currentIndex++
     if (hasReviewableItems) currentIndex++
     if (hasCompletedHistory) currentIndex++

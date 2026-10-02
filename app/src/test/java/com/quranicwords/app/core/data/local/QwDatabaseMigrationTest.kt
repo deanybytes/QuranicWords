@@ -7,6 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.quranicwords.app.core.data.local.migration.Migrations
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -16,7 +17,8 @@ import org.robolectric.annotation.Config
 
 /**
  * v5 is what v1.0.0 and v1.0.1 shipped, so every learner table must survive the upgrade with
- * its rows intact - this is the guard against ever going back to destructive migration.
+ * its rows intact - this is the guard against ever going back to destructive migration. Every
+ * later version gets the same treatment, chained from v5 so the real upgrade path is exercised.
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [36])
@@ -54,6 +56,51 @@ class QwDatabaseMigrationTest {
             assertTrue("pre-v6 attempts default to first-try", attempts.single().isFirstTry)
             assertEquals(1, db.achievementDao().getAllForUserOnce("u1").size)
             assertEquals(14, db.dailyPracticeDao().getAllForUserOnce("u1").single().minutesPracticed)
+        } finally {
+            db.close()
+        }
+    }
+
+    @Test
+    fun migrate5To6To7_keepsAllLearnerDataAndAddsGamificationDefaults() = runTest {
+        val name = "migration-test-7.db"
+        helper.createDatabase(name, 5).apply {
+            execSQL("INSERT INTO user_stats VALUES ('u1', 420, 9, 12, '2026-09-30')")
+            execSQL("INSERT INTO user_progress VALUES ('u1', 'les_1', 'COMPLETED', 90, 1700000000000, 60000)")
+            execSQL("INSERT INTO exercise_attempts (userId, itemId, itemKind, exerciseType, wasCorrect, attemptedAtEpochMillis) VALUES ('u1', 'w_0001', 'WORD', 'MULTIPLE_CHOICE', 1, 1700000000000)")
+            execSQL("INSERT INTO achievements VALUES ('u1', 'first_lesson', 1700000000000)")
+            execSQL("INSERT INTO daily_practice VALUES ('u1', '2026-09-30', 14)")
+            close()
+        }
+        helper.runMigrationsAndValidate(name, 6, true, *Migrations.ALL).apply {
+            // A row written by a v6 build, between the two upgrades.
+            execSQL("INSERT INTO exercise_attempts (userId, itemId, itemKind, exerciseType, wasCorrect, attemptedAtEpochMillis, isFirstTry) VALUES ('u1', 'w_0002', 'WORD', 'MULTIPLE_CHOICE', 0, 1700000500000, 0)")
+            close()
+        }
+
+        helper.runMigrationsAndValidate(name, 7, true, *Migrations.ALL).close()
+
+        val db = Room.databaseBuilder(ApplicationProvider.getApplicationContext(), QwDatabase::class.java, name)
+            .addMigrations(*Migrations.ALL)
+            .allowMainThreadQueries()
+            .build()
+        try {
+            val stats = checkNotNull(db.userStatsDao().get("u1"))
+            assertEquals(420, stats.totalPoints)
+            assertEquals(9, stats.currentStreak)
+            assertEquals(12, stats.longestStreak)
+            assertEquals("2026-09-30", stats.lastActivityLocalDate)
+            assertEquals(5, stats.hearts)
+            assertEquals(0, stats.bestCombo)
+            assertFalse("migrated learners keep playing without hearts", stats.heartsEnabled)
+            assertEquals(90, db.userProgressDao().get("u1", "les_1")?.bestScorePercent)
+            val attempts = db.exerciseAttemptDao().getAllForUser("u1").sortedBy { it.attemptedAtEpochMillis }
+            assertEquals(2, attempts.size)
+            assertTrue(attempts[0].isFirstTry)
+            assertFalse(attempts[1].isFirstTry)
+            assertEquals(1, db.achievementDao().getAllForUserOnce("u1").size)
+            assertEquals(14, db.dailyPracticeDao().getAllForUserOnce("u1").single().minutesPracticed)
+            assertEquals("memory is backfilled at runtime, not by SQL", 0, db.wordMemoryDao().countForUser("u1"))
         } finally {
             db.close()
         }

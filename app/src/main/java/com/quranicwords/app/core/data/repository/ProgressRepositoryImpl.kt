@@ -9,6 +9,10 @@ import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.domain.srs.FsrsScheduler
+import com.quranicwords.app.core.domain.srs.ReviewExercisePicker
+import com.quranicwords.app.core.domain.srs.WordMemoryRules
+import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.domain.CurriculumUnlockResolver
 import com.quranicwords.app.core.domain.OpenPracticePool
 import com.quranicwords.app.core.domain.StreakRecovery
@@ -33,8 +37,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.time.Clock
 import java.time.LocalDate
@@ -58,6 +68,9 @@ class ProgressRepositoryImpl @Inject constructor(
 
     private val curriculumMutex = Mutex()
 
+    /** Pure FSRS scheduler on the repository's own clock - see [WordMemoryRules]. */
+    private val scheduler = FsrsScheduler(clock)
+
     /** Floors to whole minutes - rounding up let a string of quick sessions (or a lesson left
      * open in the background) inflate the daily goal well past the time actually practiced.
      * [durationMillis] is already active foreground time only (see LessonViewModel's timer). */
@@ -77,8 +90,52 @@ class ProgressRepositoryImpl @Inject constructor(
         // Home, Roadmap and the bottom-nav shell all call this on open; serialize them so their
         // read-modify-write unlock passes can't interleave.
         curriculumMutex.withLock {
-            database.withTransaction { repairUnlockChain(userId) }
+            database.withTransaction {
+                ensureStatsRow(userId)
+                repairUnlockChain(userId)
+            }
+            backfillWordMemoryIfNeeded(userId)
         }
+    }
+
+    /** Creates [userId]'s stats row the first time the curriculum is opened. Hearts start on only
+     * for a genuinely new learner (nothing answered, nothing completed) - a learner upgrading
+     * from a build without hearts already has a row (migrated with hearts off) or, at worst,
+     * history that marks them as not new. Must run inside a transaction. */
+    private suspend fun ensureStatsRow(userId: String) {
+        if (database.userStatsDao().get(userId) != null) return
+        val hasHistory = database.exerciseAttemptDao().hasAnyForUser(userId) ||
+            database.userProgressDao().getAllForUserOnce(userId).any { it.status == LessonStatus.COMPLETED }
+        database.userStatsDao().upsert(
+            UserStatsEntity(
+                userId = userId,
+                totalPoints = 0,
+                currentStreak = 0,
+                longestStreak = 0,
+                lastActivityLocalDate = null,
+                heartsUpdatedAtEpochMillis = clock.millis(),
+                heartsEnabled = !hasHistory
+            )
+        )
+    }
+
+    /** One-time replay of pre-v7 attempt history into `word_memory` (see
+     * [WordMemoryRules.backfill]). Insert-if-absent, so a row a live session already wrote wins,
+     * and the DataStore marker is only set once the rows are committed - an interrupted backfill
+     * simply runs again next launch and produces the same rows. */
+    private suspend fun backfillWordMemoryIfNeeded(userId: String) {
+        if (preferences.isWordMemoryBackfilled()) return
+        database.withTransaction {
+            val rows = WordMemoryRules.backfill(
+                userId = userId,
+                attempts = database.exerciseAttemptDao().getAllForUser(userId),
+                zone = clock.zone,
+                nowMillis = clock.millis(),
+                scheduler = scheduler
+            )
+            if (rows.isNotEmpty()) database.wordMemoryDao().insertAllIfAbsent(rows)
+        }
+        preferences.setWordMemoryBackfilled(true)
     }
 
     /** Single pass over the learner's progress: unlock the very first lesson, auto-complete a
@@ -294,28 +351,94 @@ class ProgressRepositoryImpl @Inject constructor(
         wasCorrect: Boolean,
         isFirstTry: Boolean
     ) = withContext(Dispatchers.IO) {
-        database.exerciseAttemptDao().insert(
-            ExerciseAttemptEntity(
-                userId = userId,
-                itemId = itemId,
-                itemKind = itemKind,
-                exerciseType = exerciseType,
-                wasCorrect = wasCorrect,
-                attemptedAtEpochMillis = clock.millis(),
-                isFirstTry = isFirstTry
+        val now = clock.millis()
+        // Attempt row and memory update commit together: a crash between them would otherwise
+        // leave a first try in history that the scheduler never saw (or the reverse).
+        database.withTransaction {
+            database.exerciseAttemptDao().insert(
+                ExerciseAttemptEntity(
+                    userId = userId,
+                    itemId = itemId,
+                    itemKind = itemKind,
+                    exerciseType = exerciseType,
+                    wasCorrect = wasCorrect,
+                    attemptedAtEpochMillis = now,
+                    isFirstTry = isFirstTry
+                )
             )
-        )
+            if (isFirstTry) {
+                val memory = database.wordMemoryDao()
+                memory.upsert(
+                    WordMemoryRules.applyFirstTry(
+                        existing = memory.get(userId, itemId),
+                        userId = userId,
+                        itemId = itemId,
+                        correct = wasCorrect,
+                        nowMillis = now,
+                        localDate = LocalDate.now(clock).toString(),
+                        scheduler = scheduler
+                    )
+                )
+            }
+        }
     }
 
     override suspend fun getMissedItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
-        database.exerciseAttemptDao().getMissedItemIds(userId)
+        database.wordMemoryDao().getWeakItemIds(userId)
     }
 
     override fun observeMissedItemIds(userId: String): Flow<List<String>> =
-        database.exerciseAttemptDao().observeMissedItemIds(userId)
+        database.wordMemoryDao().observeWeakItemIds(userId)
 
     override suspend fun getMasteredItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
-        database.exerciseAttemptDao().getMasteredItemIds(userId)
+        database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.STRONG_MIN_DAYS)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun observeDueCount(userId: String): Flow<Int> =
+        flow {
+            while (true) {
+                emit(clock.millis())
+                delay(DUE_COUNT_REFRESH_MILLIS)
+            }
+        }.flatMapLatest { now -> database.wordMemoryDao().observeDueCount(userId, now) }
+            .distinctUntilChanged()
+
+    override suspend fun getDueItemIds(userId: String, limit: Int): List<String> = withContext(Dispatchers.IO) {
+        database.wordMemoryDao().getDueItemIds(userId, clock.millis(), limit)
+    }
+
+    override suspend fun getDailyReviewExercises(
+        userId: String,
+        limit: Int,
+        listeningEnabled: Boolean
+    ): List<ExerciseEntity> = withContext(Dispatchers.IO) {
+        val dueIds = database.wordMemoryDao().getDueItemIds(userId, clock.millis(), limit)
+        if (dueIds.isEmpty()) return@withContext emptyList()
+        val strengths = database.wordMemoryDao().getStabilities(userId)
+            .associate { it.itemId to WordStrength.fromStability(it.stability) }
+        ReviewExercisePicker.pick(
+            orderedItemIds = dueIds,
+            exercisesByItem = scoredExercisesFor(dueIds).groupBy { it.practicedItemId.orEmpty() },
+            strengthByItem = strengths,
+            listeningEnabled = listeningEnabled
+        )
+    }
+
+    override fun observeWordStrengths(userId: String): Flow<Map<String, WordStrength>> =
+        database.wordMemoryDao().observeStabilities(userId).map { rows ->
+            rows.associate { it.itemId to WordStrength.fromStability(it.stability) }
+        }
+
+    override suspend fun getWordStrengths(userId: String): Map<String, WordStrength> = withContext(Dispatchers.IO) {
+        database.wordMemoryDao().getStabilities(userId).associate { it.itemId to WordStrength.fromStability(it.stability) }
+    }
+
+    override suspend fun getStrengthCounts(userId: String): Map<WordStrength, Int> = withContext(Dispatchers.IO) {
+        database.wordMemoryDao().getStabilities(userId)
+            .groupingBy { WordStrength.fromStability(it.stability) }
+            .eachCount()
+            .filterKeys { it != WordStrength.NEW }
     }
 
     override suspend fun getDailyPracticeHistory(userId: String): List<DailyPracticeEntity> = withContext(Dispatchers.IO) {
@@ -404,7 +527,7 @@ class ProgressRepositoryImpl @Inject constructor(
                 markCovered = { preferences.addTestHarfCoveredWordIds(it) }
             )
             upMode == "MISTAKES" -> {
-                val missed = database.exerciseAttemptDao().getMissedItemIds(userId)
+                val missed = database.wordMemoryDao().getWeakItemIds(userId)
                 if (missed.isEmpty()) return@withContext emptyList()
                 missed.shuffled().take(batchSize)
             }
@@ -650,13 +773,26 @@ class ProgressRepositoryImpl @Inject constructor(
     override suspend fun resetProgress(userId: String): Unit = withContext(Dispatchers.IO) {
         curriculumMutex.withLock {
             database.withTransaction {
+                // The hearts choice is a setting, not progress - it survives the reset.
+                val heartsEnabled = database.userStatsDao().get(userId)?.heartsEnabled
                 database.userProgressDao().deleteForUser(userId)
                 database.userStatsDao().deleteForUser(userId)
                 database.exerciseAttemptDao().deleteForUser(userId)
                 database.dailyPracticeDao().deleteForUser(userId)
                 database.achievementDao().deleteForUser(userId)
+                database.wordMemoryDao().deleteForUser(userId)
+                ensureStatsRow(userId)
+                if (heartsEnabled != null) {
+                    database.userStatsDao().get(userId)?.let { database.userStatsDao().upsert(it.copy(heartsEnabled = heartsEnabled)) }
+                }
                 repairUnlockChain(userId)
             }
         }
+    }
+
+    private companion object {
+        /** How often [observeDueCount] re-checks the clock - a lapse comes due ten minutes after
+         * the miss, so a minute keeps Home's count honest without busy polling. */
+        const val DUE_COUNT_REFRESH_MILLIS = 60_000L
     }
 }

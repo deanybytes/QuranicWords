@@ -65,6 +65,7 @@ private enum class BottomTab { HOME, PROGRESS, ABOUT, SETTINGS }
 fun QwBottomNavShell(
     onOpenLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
+    onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
@@ -224,6 +225,7 @@ fun QwBottomNavShell(
                         onStartQuiz = onOpenOpenPractice,
                         onOpenReview = onOpenReview,
                         onOpenStreakRecovery = onOpenStreakRecovery,
+                        onOpenDailyReview = onOpenDailyReview,
                         onOpenRoadmap = onOpenRoadmap,
                         onOpenLearnedWords = onOpenLearnedWords
                     )
@@ -231,6 +233,7 @@ fun QwBottomNavShell(
                     HomeScreen(
                         onOpenLesson = onOpenLesson,
                         onOpenReview = onOpenReview,
+                        onOpenDailyReview = onOpenDailyReview,
                         onOpenChapterIntro = onOpenChapterIntro,
                         onOpenSectionIntro = onOpenSectionIntro,
                         onOpenWordBrowse = onOpenWordBrowse,

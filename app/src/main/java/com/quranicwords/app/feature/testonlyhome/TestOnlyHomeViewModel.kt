@@ -52,6 +52,8 @@ data class TestOnlyHomeUiState(
     val randomCoveredCount: Int = 0,
     val totalWordsCount: Int = 0,
     val missedWordsCount: Int = 0,
+    /** See [com.quranicwords.app.feature.home.HomeUiState.dueReviewCount]. */
+    val dueReviewCount: Int = 0,
     val quranCoveragePercent: Double = 0.0,
     val last30DaysMinutes: List<Int> = emptyList(),
     val last30DaysActiveCount: Int = 0,
@@ -118,8 +120,9 @@ class TestOnlyHomeViewModel @Inject constructor(
                     },
                     combine(missedIdsFlow, practiceRangeFlow, chaptersFlow) { missed, range, chapters ->
                         Triple(missed, range, chapters)
-                    }
-                ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters) ->
+                    },
+                    progressRepository.observeDueCount(userId)
+                ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters), dueCount ->
                     val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
                     val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
                     val last30DaysMinutes = (29 downTo 0).map { offset ->
@@ -157,6 +160,7 @@ class TestOnlyHomeViewModel @Inject constructor(
                         randomCoveredCount = pools.coveredCount(posCovered.randomCovered, pools.all),
                         totalWordsCount = pools.all.size,
                         missedWordsCount = missedIds.size,
+                        dueReviewCount = dueCount,
                         quranCoveragePercent = coveragePercent,
                         last30DaysMinutes = last30DaysMinutes,
                         last30DaysActiveCount = active30DaysDays,

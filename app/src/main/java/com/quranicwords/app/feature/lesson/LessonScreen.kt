@@ -66,6 +66,7 @@ import com.quranicwords.app.feature.lesson.exercise.ChapterIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MultipleChoiceExerciseContent
+import com.quranicwords.app.feature.lesson.exercise.TapWhatYouHearExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.TapWordInVerseExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordOrderBuilderExerciseContent
@@ -223,6 +224,17 @@ fun LessonScreen(
                                     isChecked = uiState.isChecked,
                                     onSelect = viewModel::selectOption
                                 )
+                                is ExerciseContent.TapWhatYouHear -> {
+                                    // Plays once on arrival - the exercise is unanswerable unheard.
+                                    LaunchedEffect(content.audioAssetPath) { viewModel.playPronunciation(content.audioAssetPath) }
+                                    TapWhatYouHearExerciseContent(
+                                        content = content,
+                                        selectedOptionId = uiState.attempt.selectedOptionId,
+                                        isChecked = uiState.isChecked,
+                                        onPlay = viewModel::playPronunciation,
+                                        onSelect = viewModel::selectOption
+                                    )
+                                }
                                 is ExerciseContent.Matching -> MatchingExerciseContent(
                                     content = content,
                                     matchedPairIds = uiState.attempt.matchedPairIds,
@@ -233,6 +245,7 @@ fun LessonScreen(
                                 )
                                 is ExerciseContent.WordIntro -> WordIntroExerciseContent(
                                     content = content,
+                                    strength = uiState.wordStrengths[content.wordId],
                                     selectedMeaningIndex = selectedMeaningIndex,
                                     onMeaningSelected = {
                                         selectedMeaningIndex = it
@@ -339,6 +352,7 @@ fun LessonScreen(
                                 }
                             }
                             uiState.currentContent is ExerciseContent.MultipleChoice ||
+                                uiState.currentContent is ExerciseContent.TapWhatYouHear ||
                                 uiState.currentContent is ExerciseContent.FillInTheBlank -> {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     if (uiState.currentIndex > 0) {
@@ -484,6 +498,10 @@ fun LessonScreen(
 private fun correctAnswerLabel(content: ExerciseContent?, language: Language): String = when (content) {
     is ExerciseContent.MultipleChoice ->
         content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
+    is ExerciseContent.TapWhatYouHear ->
+        content.options.firstOrNull { it.id == content.correctOptionId }
+            ?.let { option -> option.labelArabic?.cleanArabicDisplay()?.takeIf { it.isNotBlank() } ?: option.localizedLabel(language) }
+            .orEmpty()
     // FillInTheBlank's options are the Arabic words themselves, so the answer is the Arabic word
     // (its meaning only as a fallback for an option with no Arabic label).
     is ExerciseContent.FillInTheBlank ->

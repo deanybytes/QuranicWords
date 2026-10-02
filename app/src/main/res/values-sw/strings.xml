@@ -396,4 +396,16 @@
     <string name="learned_words_root_label">Mzizi: %1$s</string>
     <string name="widget_streak_value">siku %1$s</string>
     <string name="widget_goal_value">%1$s / %2$s dk</string>
+    <string name="word_strength_new">Mpya</string>
+    <string name="word_strength_learning">Inajifunzwa</string>
+    <string name="word_strength_familiar">Inafahamika</string>
+    <string name="word_strength_strong">Imara</string>
+    <string name="word_strength_mastered">Imeimarika kabisa</string>
+    <string name="a11y_word_strength">Nguvu ya kumbukumbu: %1$s</string>
+    <string name="home_daily_review_title">Marudio ya Leo</string>
+    <string name="home_daily_review_due">Maneno %1$s yanasubiri kurudiwa</string>
+    <string name="home_daily_review_subtitle">Dakika chache za marudio ya mara kwa mara huzuia maneno kusahaulika.</string>
+    <string name="home_daily_review_action">Rudia</string>
+    <string name="learned_words_subtitle_strength">%1$s imara au zimeimarika · %2$s zimesomwa</string>
+    <string name="progress_word_strength_title">Nguvu ya maneno</string>
 </resources>

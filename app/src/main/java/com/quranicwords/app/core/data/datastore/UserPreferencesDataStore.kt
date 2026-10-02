@@ -65,6 +65,7 @@ class UserPreferencesDataStore @Inject constructor(
         val TEST_FIL_COVERED_IDS = stringSetPreferencesKey("test_fil_covered_ids")
         val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
         val REQUIRE_EXIT_CONFIRMATION = booleanPreferencesKey("require_exit_confirmation")
+        val WORD_MEMORY_BACKFILLED = booleanPreferencesKey("word_memory_backfilled")
     }
 
     private val userIdMutex = Mutex()
@@ -180,6 +181,16 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setReduceGlassEffects(enabled: Boolean) {
         context.dataStore.edit { it[Keys.REDUCE_GLASS_EFFECTS] = enabled }
+    }
+
+    /** One-time marker for `ProgressRepositoryImpl`'s replay of attempt history into
+     * `word_memory` (spaced-repetition state introduced in DB v7). Cleared by a backup restore
+     * that carries no memory rows, so the restored attempts get replayed too. */
+    suspend fun isWordMemoryBackfilled(): Boolean =
+        context.dataStore.data.first()[Keys.WORD_MEMORY_BACKFILLED] == true
+
+    suspend fun setWordMemoryBackfilled(done: Boolean) {
+        context.dataStore.edit { it[Keys.WORD_MEMORY_BACKFILLED] = done }
     }
 
     val requireExitConfirmationFlow: Flow<Boolean> =

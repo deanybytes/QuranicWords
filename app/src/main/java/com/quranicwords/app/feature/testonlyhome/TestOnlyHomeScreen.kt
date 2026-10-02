@@ -92,6 +92,7 @@ fun TestOnlyHomeScreen(
     onStartQuiz: (mode: String) -> Unit,
     onOpenReview: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
+    onOpenDailyReview: () -> Unit = {},
     onOpenRoadmap: () -> Unit = {},
     onOpenLearnedWords: () -> Unit = {},
     viewModel: TestOnlyHomeViewModel = hiltViewModel()
@@ -151,6 +152,16 @@ fun TestOnlyHomeScreen(
                     onOpenStreakRecovery = onOpenStreakRecovery,
                     onOpenLearnedWords = onOpenLearnedWords
                 )
+            }
+
+            // Due spaced-repetition reviews first, same as the Learn Home.
+            if (uiState.dueReviewCount > 0) {
+                item(key = "daily_review") {
+                    com.quranicwords.app.core.ui.components.DailyReviewCard(
+                        dueCount = uiState.dueReviewCount,
+                        onClick = onOpenDailyReview
+                    )
+                }
             }
 
             // 2. Mode 1: Ism (Nouns) Mode (3D Glossy Card)

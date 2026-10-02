@@ -34,6 +34,9 @@ import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
 import com.quranicwords.app.core.ui.components.charts.MetricTile
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatPercent
@@ -112,6 +115,12 @@ fun ProgressScreen(
             }
         }
 
+        if (uiState.strengthCounts.isNotEmpty()) {
+            item {
+                WordStrengthBreakdown(counts = uiState.strengthCounts, language = language)
+            }
+        }
+
         item {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.progress_quran_coverage), style = MaterialTheme.typography.titleMedium)
@@ -154,6 +163,27 @@ fun ProgressScreen(
 
         item {
             AchievementsSection()
+        }
+    }
+}
+
+/** One row per remembered strength bucket (Learning -> Mastered): its meter, name and count. */
+@Composable
+private fun WordStrengthBreakdown(counts: Map<WordStrength, Int>, language: Language) {
+    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.progress_word_strength_title), style = MaterialTheme.typography.titleMedium)
+        WordStrength.entries.filter { it != WordStrength.NEW }.forEach { strength ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                WordStrengthMeter(strength = strength)
+                Text(
+                    VerseReferenceFormatter.formatNumber(counts[strength] ?: 0, language),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
     }
 }

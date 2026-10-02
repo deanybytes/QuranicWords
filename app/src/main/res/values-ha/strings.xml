@@ -396,4 +396,16 @@
     <string name="learned_words_root_label">Tushe: %1$s</string>
     <string name="widget_streak_value">kwana %1$s</string>
     <string name="widget_goal_value">%1$s / %2$s min</string>
+    <string name="word_strength_new">Sabo</string>
+    <string name="word_strength_learning">Ana koyo</string>
+    <string name="word_strength_familiar">Sananne</string>
+    <string name="word_strength_strong">Mai ƙarfi</string>
+    <string name="word_strength_mastered">An ƙware</string>
+    <string name="a11y_word_strength">Ƙarfin tunawa: %1$s</string>
+    <string name="home_daily_review_title">Bitar Yau</string>
+    <string name="home_daily_review_due">Kalmomi %1$s na jiran bita</string>
+    <string name="home_daily_review_subtitle">Bita ta mintuna kaɗan a kai a kai na hana mantuwa da kalmomi.</string>
+    <string name="home_daily_review_action">Yi bita</string>
+    <string name="learned_words_subtitle_strength">%1$s masu ƙarfi ko an ƙware · %2$s an karanta</string>
+    <string name="progress_word_strength_title">Ƙarfin kalmomi</string>
 </resources>

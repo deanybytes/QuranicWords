@@ -422,4 +422,16 @@
     <string name="learned_words_root_label">মূল: %1$s</string>
     <string name="widget_streak_value">%1$s দিন</string>
     <string name="widget_goal_value">%1$s / %2$s মি</string>
+    <string name="word_strength_new">নতুন</string>
+    <string name="word_strength_learning">শিখছি</string>
+    <string name="word_strength_familiar">পরিচিত</string>
+    <string name="word_strength_strong">মজবুত</string>
+    <string name="word_strength_mastered">আয়ত্ত</string>
+    <string name="a11y_word_strength">স্মৃতির শক্তি: %1$s</string>
+    <string name="home_daily_review_title">দৈনিক পুনরালোচনা</string>
+    <string name="home_daily_review_due">%1$sটি শব্দ পুনরালোচনার জন্য প্রস্তুত</string>
+    <string name="home_daily_review_subtitle">কয়েক মিনিটের নিয়মিত পুনরালোচনা শব্দগুলো ভুলে যেতে দেয় না।</string>
+    <string name="home_daily_review_action">শুরু করুন</string>
+    <string name="learned_words_subtitle_strength">%1$sটি মজবুত বা আয়ত্ত · %2$sটি অধ্যয়ন করা</string>
+    <string name="progress_word_strength_title">শব্দের শক্তি</string>
 </resources>

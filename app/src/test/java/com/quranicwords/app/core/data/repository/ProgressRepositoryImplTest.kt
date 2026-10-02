@@ -16,6 +16,11 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonSessionType
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.domain.srs.FsrsScheduler
+import com.quranicwords.app.core.domain.srs.MemoryState
+import com.quranicwords.app.core.domain.srs.WordMemoryRules
+import kotlinx.coroutines.flow.first
 import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -296,9 +301,9 @@ class ProgressRepositoryImplTest {
                 WordFrequencyEntity("word_c", "ت", 3, 80, mapOf("en" to "c"), null, 1)
             )
         )
-        database.exerciseAttemptDao().insert(
-            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, attemptedAtEpochMillis = 1L)
-        )
+        // Mistakes now come from spaced-repetition memory, which logAttempt maintains.
+        repository.logAttempt(userId, "word_a", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        repository.logAttempt(userId, "word_b", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
 
         val result = repository.getOpenPracticeExercises(userId, mode = "MISTAKES", batchSize = 18)
 
@@ -402,10 +407,118 @@ class ProgressRepositoryImplTest {
         assertEquals(listOf("word_1"), repository.getMissedItemIds(userId))
         assertEquals(emptyList<String>(), repository.getMasteredItemIds(userId))
 
-        // A later session's first try is what actually clears it.
+        // A later session's first try is what actually clears it - but one right answer doesn't
+        // make a word Strong (learned); only spaced recall over days does.
         repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
         assertEquals(emptyList<String>(), repository.getMissedItemIds(userId))
-        assertEquals(listOf("word_1"), repository.getMasteredItemIds(userId))
+        assertEquals(emptyList<String>(), repository.getMasteredItemIds(userId))
+    }
+
+    private fun repositoryAt(instant: String) = ProgressRepositoryImpl(
+        database,
+        StreakCalculator(Clock.fixed(Instant.parse(instant), ZoneOffset.UTC)),
+        Clock.fixed(Instant.parse(instant), ZoneOffset.UTC),
+        preferences,
+        ApplicationProvider.getApplicationContext()
+    )
+
+    @Test
+    fun `a first try writes word memory and a retry does not`() = runTest {
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, isFirstTry = false)
+        assertNull(database.wordMemoryDao().get(userId, "word_1"))
+
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        val memory = checkNotNull(database.wordMemoryDao().get(userId, "word_1"))
+        assertEquals(MemoryState.LEARNING, memory.state)
+        assertEquals("2026-08-22", memory.lastReviewLocalDate)
+        assertEquals(clock.millis() + FsrsScheduler.DAY_MILLIS, memory.dueAtEpochMillis)
+        assertEquals(2, database.exerciseAttemptDao().getAllForUser(userId).size)
+    }
+
+    @Test
+    fun `spaced correct answers over weeks make a word Strong`() = runTest {
+        val days = listOf("2026-08-22", "2026-08-23", "2026-08-27", "2026-09-08", "2026-10-05")
+        days.forEach { day ->
+            repositoryAt("${day}T10:00:00Z").logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+        }
+        val later = repositoryAt("2026-10-06T10:00:00Z")
+
+        assertEquals(listOf("word_1"), later.getMasteredItemIds(userId))
+        assertTrue(later.getWordStrengths(userId).getValue("word_1").isStrongOrBetter)
+        assertEquals(1, later.getStrengthCounts(userId).values.sum())
+    }
+
+    @Test
+    fun `due words come back most overdue first and the daily review respects its cap`() = runTest {
+        seedTree()
+        val now = clock.millis()
+        listOf("word_a" to now - 3 * FsrsScheduler.DAY_MILLIS, "word_b" to now - FsrsScheduler.DAY_MILLIS, "word_c" to now + FsrsScheduler.DAY_MILLIS)
+            .forEach { (id, due) ->
+                database.wordMemoryDao().upsert(
+                    WordMemoryEntity(userId, id, MemoryState.REVIEW, 1.0, 5.0, due, 2, 0, 3, now - 5 * FsrsScheduler.DAY_MILLIS, "2026-08-17")
+                )
+                seedExercise("ex_$id", id)
+            }
+
+        assertEquals(listOf("word_a", "word_b"), repository.getDueItemIds(userId, limit = 10))
+        assertEquals(2, repository.observeDueCount(userId).first())
+        val session = repository.getDailyReviewExercises(userId, limit = 1, listeningEnabled = false)
+        assertEquals(listOf("word_a"), session.map { it.practicedItemId })
+    }
+
+    @Test
+    fun `the first curriculum load turns hearts on only for a brand-new learner`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        assertTrue(checkNotNull(database.userStatsDao().get(userId)).heartsEnabled)
+
+        val upgrader = "upgrader"
+        database.exerciseAttemptDao().insert(
+            ExerciseAttemptEntity(userId = upgrader, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = 1L)
+        )
+        repository.ensureCurriculumStarted(upgrader)
+        assertEquals(false, database.userStatsDao().get(upgrader)?.heartsEnabled)
+    }
+
+    @Test
+    fun `existing attempt history is replayed into word memory once`() = runTest {
+        seedTree()
+        val history = listOf(
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = Instant.parse("2026-08-01T10:00:00Z").toEpochMilli()),
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = Instant.parse("2026-08-05T10:00:00Z").toEpochMilli()),
+            ExerciseAttemptEntity(userId = userId, itemId = "word_b", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, attemptedAtEpochMillis = Instant.parse("2026-08-02T10:00:00Z").toEpochMilli())
+        )
+        database.exerciseAttemptDao().insertAll(history)
+        preferences.setWordMemoryBackfilled(false) // DataStore outlives a single test's database
+
+        repository.ensureCurriculumStarted(userId)
+
+        val rows = database.wordMemoryDao().getAllForUser(userId).associateBy { it.itemId }
+        assertEquals(setOf("word_a", "word_b"), rows.keys)
+        assertTrue(rows.values.all { it.stability <= WordMemoryRules.BACKFILL_MAX_STABILITY_DAYS })
+        assertTrue(rows.values.all { it.dueAtEpochMillis - clock.millis() in 0 until 7 * FsrsScheduler.DAY_MILLIS })
+        assertEquals(listOf("word_b"), repository.getMissedItemIds(userId))
+
+        // A second load must not replay again over rows that live sessions have since changed.
+        database.wordMemoryDao().deleteForUser(userId)
+        repository.ensureCurriculumStarted(userId)
+        assertEquals(0, database.wordMemoryDao().countForUser(userId))
+    }
+
+    @Test
+    fun `resetProgress clears word memory but keeps the hearts setting`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        database.userStatsDao().get(userId)?.let { database.userStatsDao().upsert(it.copy(heartsEnabled = false, totalPoints = 99)) }
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        repository.resetProgress(userId)
+
+        assertEquals(0, database.wordMemoryDao().countForUser(userId))
+        val stats = checkNotNull(database.userStatsDao().get(userId))
+        assertEquals(0, stats.totalPoints)
+        assertEquals(false, stats.heartsEnabled)
     }
 
     @Test

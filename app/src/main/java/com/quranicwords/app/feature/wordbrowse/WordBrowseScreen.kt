@@ -62,7 +62,9 @@ import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.util.HighlightUtils
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -137,7 +139,7 @@ fun WordBrowseScreen(
                         .padding(24.dp)
                         .clickable(onClickLabel = flipLabel, role = Role.Button) { flippedByWordId[word.wordId] = !flipped }
                         .semantics { stateDescription = sideLabel },
-                    front = { WordCardFront(word) },
+                    front = { WordCardFront(word, uiState.strengths[word.wordId]) },
                     back = { WordCardBack(word, language) }
                 )
             }
@@ -146,7 +148,7 @@ fun WordBrowseScreen(
 }
 
 @Composable
-private fun WordCardFront(word: ExerciseContent.WordIntro) {
+private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrength?) {
     GlassSurface(
         modifier = Modifier.fillMaxSize(),
         shape = RoundedCornerShape(28.dp),
@@ -165,6 +167,9 @@ private fun WordCardFront(word: ExerciseContent.WordIntro) {
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.padding(top = 24.dp)
             )
+            if (strength != null && strength != WordStrength.NEW) {
+                WordStrengthMeter(strength = strength, modifier = Modifier.padding(top = 16.dp))
+            }
         }
     }
 }

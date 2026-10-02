@@ -414,4 +414,16 @@
     <string name="learned_words_root_label">Root: %1$s</string>
     <string name="widget_streak_value">%1$sd</string>
     <string name="widget_goal_value">%1$s / %2$sm</string>
+    <string name="word_strength_new">New</string>
+    <string name="word_strength_learning">Learning</string>
+    <string name="word_strength_familiar">Familiar</string>
+    <string name="word_strength_strong">Strong</string>
+    <string name="word_strength_mastered">Mastered</string>
+    <string name="a11y_word_strength">Memory strength: %1$s</string>
+    <string name="home_daily_review_title">Daily Review</string>
+    <string name="home_daily_review_due">%1$s words due</string>
+    <string name="home_daily_review_subtitle">A few minutes of spaced review keeps words from fading.</string>
+    <string name="home_daily_review_action">Review</string>
+    <string name="learned_words_subtitle_strength">%1$s strong or mastered · %2$s studied</string>
+    <string name="progress_word_strength_title">Word strength</string>
 </resources>

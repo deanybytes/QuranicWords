@@ -27,6 +27,10 @@ sealed interface Route {
     /** The dynamic Review session (see `LessonViewModel.isReviewSession`) - a distinct route
      * rather than a sentinel `lessonId` string, so it can never collide with a real lesson id. */
     @Serializable data object Review : Route
+    /** The spaced-repetition Daily Review of due words - shares the Review session's completion
+     * semantics, distinguished only by how `LessonViewModel` sources its exercises. Same
+     * `data class`-for-a-SavedStateHandle-marker shape as [OpenPractice]. */
+    @Serializable data class DailyReview(val isDailyReview: Boolean = true) : Route
     @Serializable data class LessonSummary(
         val lessonId: String,
         val correctCount: Int,

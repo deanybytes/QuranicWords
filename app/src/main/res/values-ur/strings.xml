@@ -422,4 +422,16 @@
     <string name="learned_words_root_label">مادہ: %1$s</string>
     <string name="widget_streak_value">%1$s دن</string>
     <string name="widget_goal_value">%1$s / %2$s منٹ</string>
+    <string name="word_strength_new">نیا</string>
+    <string name="word_strength_learning">سیکھ رہے ہیں</string>
+    <string name="word_strength_familiar">مانوس</string>
+    <string name="word_strength_strong">مضبوط</string>
+    <string name="word_strength_mastered">مہارت حاصل</string>
+    <string name="a11y_word_strength">یادداشت کی مضبوطی: %1$s</string>
+    <string name="home_daily_review_title">روزانہ دہرائی</string>
+    <string name="home_daily_review_due">%1$s الفاظ دہرائی کے لیے تیار</string>
+    <string name="home_daily_review_subtitle">چند منٹ کی وقفے وقفے سے دہرائی الفاظ کو بھولنے نہیں دیتی۔</string>
+    <string name="home_daily_review_action">دہرائیں</string>
+    <string name="learned_words_subtitle_strength">%1$s مضبوط یا مہارت یافتہ · %2$s زیرِ مطالعہ</string>
+    <string name="progress_word_strength_title">الفاظ کی مضبوطی</string>
 </resources>

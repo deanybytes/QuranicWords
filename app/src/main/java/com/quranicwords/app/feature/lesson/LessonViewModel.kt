@@ -27,6 +27,8 @@ import com.quranicwords.app.core.domain.model.practicedItemId
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.util.AudioPlayer
 import com.quranicwords.app.core.util.AppJson
 import com.quranicwords.app.core.util.SfxEffect
 import com.quranicwords.app.core.util.SessionTimer
@@ -76,7 +78,10 @@ data class LessonUiState(
     val result: LessonResult? = null,
     val newlyUnlockedAchievements: List<AchievementDef> = emptyList(),
     /** For the exercises' grammar-category badges - see `LocalWordCategories`. */
-    val wordCategories: Map<String, LemmaCategory> = emptyMap()
+    val wordCategories: Map<String, LemmaCategory> = emptyMap(),
+    /** Memory strength per word as of session start, for the teach step's strength meter - a
+     * snapshot, so the meter doesn't jump mid-lesson as answers update `word_memory`. */
+    val wordStrengths: Map<String, WordStrength> = emptyMap()
 ) {
     /** First-try correct answers only - see [LessonScoring]. */
     val correctCount: Int get() = scoring.correctCount
@@ -91,6 +96,7 @@ class LessonViewModel @Inject constructor(
     private val achievementRepository: AchievementRepository,
     private val userIdProvider: CurrentUserIdProvider,
     private val sfxPlayer: SfxPlayer,
+    private val audioPlayer: AudioPlayer,
     private val preferences: UserPreferencesDataStore,
     private val clock: Clock,
     savedStateHandle: androidx.lifecycle.SavedStateHandle
@@ -122,6 +128,10 @@ class LessonViewModel @Inject constructor(
      * null-[lessonId] convention). See [StreakRecovery]. */
     private val isStreakRecovery: Boolean = savedStateHandle["isStreakRecovery"] ?: false
 
+    /** True when reached via Route.DailyReview - the spaced-repetition session of due words. A
+     * Review session in every respect except where its exercises come from. */
+    private val isDailyReview: Boolean = savedStateHandle["isDailyReview"] ?: false
+
     /** True when reached via Route.Review rather than a real lesson - [init] then assembles its
      * exercise list from missed items instead of a fixed lesson, and [finishLesson] records the
      * result via `completeReviewSession` instead of `completeLesson`. False for Open Practice and
@@ -148,6 +158,9 @@ class LessonViewModel @Inject constructor(
             // repository call re-querying it itself; the non-review path never touches it, so it
             // stays fully concurrent with the other two reads exactly as before.
             val missedItemIdsDeferred = async { progressRepository.getMissedItemIds(userId).toSet() }
+            // Listening exercises need both a bundled clip (only authored for words with verified
+            // audio) and pronunciation audio switched on; without it they have no valid interaction.
+            val listeningEnabled = preferences.pronunciationAudioEnabledFlow.first()
             val exercisesDeferred = async {
                 when {
                     isStreakRecovery -> {
@@ -159,11 +172,17 @@ class LessonViewModel @Inject constructor(
                         val mode: String = savedStateHandle["mode"] ?: "RANDOM"
                         progressRepository.getOpenPracticeExercises(userId, mode = mode)
                     }
+                    isDailyReview -> progressRepository.getDailyReviewExercises(
+                        userId = userId,
+                        limit = preferences.dailyGoalLevelFlow.first().dailyReviewCap,
+                        listeningEnabled = listeningEnabled
+                    )
                     isReviewSession -> progressRepository.getReviewExercises(missedItemIdsDeferred.await().toList())
                     else -> contentRepository.getExercisesForLesson(checkNotNull(lessonId))
                 }
             }
             val categoriesDeferred = async { contentRepository.getWordCategories() }
+            val strengthsDeferred = async { progressRepository.getWordStrengths(userId) }
             val candidatesDeferred = async {
                 if (itemKind == ItemKind.WORD) contentRepository.getWordCandidates() else emptyList()
             }
@@ -183,7 +202,11 @@ class LessonViewModel @Inject constructor(
                 val candidatePool = WordCandidatePool.from(candidates)
                 val decoded = exercises
                     .map { AppJson.decodeFromString(ExerciseContent.serializer(), it.contentJson) }
-                    .filter { content -> content !is ExerciseContent.TapWhatYouHear && content !is ExerciseContent.ListenAndType }
+                    // ListenAndType has no authored content yet; TapWhatYouHear only with audio on.
+                    .filter { content ->
+                        content !is ExerciseContent.ListenAndType &&
+                            (listeningEnabled || content !is ExerciseContent.TapWhatYouHear)
+                    }
                 // Applied on decoded, pre-distractor content (see LessonContentRepeater's doc
                 // comment) so each repeated instance gets its own independent distractor/shuffle
                 // pass below, rather than N identical copies of the same regenerated exercise.
@@ -191,7 +214,7 @@ class LessonViewModel @Inject constructor(
                 // of the learner's stored LearningStyle - each batch is already freshly
                 // randomized, so repeating a word within one batch wouldn't add the same "extra
                 // reinforcement" it does for a fixed lesson's authored word set.
-                val repeatCount = if (isOpenPractice || isStreakRecovery) 1 else learningStyle.repeatCount
+                val repeatCount = if (isOpenPractice || isStreakRecovery || isDailyReview) 1 else learningStyle.repeatCount
                 val sequenced = AdaptiveSequencer.reorderForAdaptivePractice(decoded, missedItemIds)
                 LessonContentRepeater.apply(sequenced, repeatCount)
                     .map { content -> resolveCanonicalMeaning(content, candidatePool, wordIntros) }
@@ -202,7 +225,10 @@ class LessonViewModel @Inject constructor(
                     .filter { content -> isPlayable(content) }
             }
             val wordCategories = categoriesDeferred.await()
-            _uiState.update { it.copy(isLoading = false, contents = contents, wordCategories = wordCategories) }
+            val wordStrengths = strengthsDeferred.await()
+            _uiState.update {
+                it.copy(isLoading = false, contents = contents, wordCategories = wordCategories, wordStrengths = wordStrengths)
+            }
         }
     }
 
@@ -430,6 +456,7 @@ class LessonViewModel @Inject constructor(
         val content = state.currentContent ?: return
         val correct = when (content) {
             is ExerciseContent.MultipleChoice -> state.attempt.selectedOptionId == content.correctOptionId
+            is ExerciseContent.TapWhatYouHear -> state.attempt.selectedOptionId == content.correctOptionId
             is ExerciseContent.FillInTheBlank -> state.attempt.selectedOptionId == content.correctOptionId
             is ExerciseContent.WordOrderBuilder ->
                 state.attempt.orderedChipIds == content.orderedChips.map { it.id }
@@ -550,6 +577,7 @@ class LessonViewModel @Inject constructor(
         viewModelScope.launch { sfxPlayer.play(if (correct) SfxEffect.CORRECT else SfxEffect.WRONG) }
         val exerciseType = when (content) {
             is ExerciseContent.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE
+            is ExerciseContent.TapWhatYouHear -> ExerciseType.TAP_WHAT_YOU_HEAR
             is ExerciseContent.FillInTheBlank -> ExerciseType.FILL_IN_THE_BLANK
             is ExerciseContent.WordOrderBuilder -> ExerciseType.WORD_ORDER
             is ExerciseContent.TapWordInVerse -> ExerciseType.WORD_IN_VERSE_TAP
@@ -600,6 +628,15 @@ class LessonViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    /** Plays a bundled pronunciation clip; false (no throw) when it isn't bundled or pronunciation
+     * audio is off - the caller shows its "unavailable" note then. */
+    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
+
+    override fun onCleared() {
+        audioPlayer.release()
+        super.onCleared()
     }
 
     /** Called once the first exercise is actually on screen - starts the active-time clock. */

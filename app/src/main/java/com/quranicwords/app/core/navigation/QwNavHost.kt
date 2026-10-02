@@ -227,6 +227,7 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             QwBottomNavShell(
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) },
                 onOpenReview = { navController.navigate(Route.Review) },
+                onOpenDailyReview = { navController.navigate(Route.DailyReview()) },
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
@@ -292,6 +293,21 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             )
         }
         composable<Route.Review>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            LessonScreen(
+                onExit = { navController.popBackStack() },
+                onFinished = { summary ->
+                    navController.navigate(summary) {
+                        popUpTo(Route.Home)
+                    }
+                }
+            )
+        }
+        composable<Route.DailyReview>(
             enterTransition = t.immersiveEnter,
             exitTransition = t.immersiveExit,
             popEnterTransition = t.immersivePopEnter,

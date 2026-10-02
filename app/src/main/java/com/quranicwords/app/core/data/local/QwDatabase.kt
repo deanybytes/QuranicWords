@@ -16,6 +16,7 @@ import com.quranicwords.app.core.data.local.dao.SectionDao
 import com.quranicwords.app.core.data.local.dao.UserProgressDao
 import com.quranicwords.app.core.data.local.dao.UserStatsDao
 import com.quranicwords.app.core.data.local.dao.WordFrequencyDao
+import com.quranicwords.app.core.data.local.dao.WordMemoryDao
 import com.quranicwords.app.core.data.local.entity.AchievementEntity
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
@@ -26,6 +27,8 @@ import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
 
 // Schema v5 shipped in v1.0.0 and v1.0.1, so learner data now has a real installed base: every
 // later version needs a hand-written Migration in migration/Migrations.kt. Destructive fallback is
@@ -41,7 +44,9 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
         UserStatsEntity::class,
         ExerciseAttemptEntity::class,
         AchievementEntity::class,
-        DailyPracticeEntity::class
+        DailyPracticeEntity::class,
+        WordMemoryEntity::class,
+        DailyQuestEntity::class
     ],
     version = QwDatabase.VERSION,
     exportSchema = true
@@ -59,10 +64,11 @@ abstract class QwDatabase : RoomDatabase() {
     abstract fun achievementDao(): AchievementDao
     abstract fun dailyPracticeDao(): DailyPracticeDao
     abstract fun legacyMigrationDao(): LegacyMigrationDao
+    abstract fun wordMemoryDao(): WordMemoryDao
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"
-        const val VERSION = 6
+        const val VERSION = 7
 
         @Volatile
         private var INSTANCE: QwDatabase? = null

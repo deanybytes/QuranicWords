@@ -50,6 +50,8 @@ data class HomeUiState(
      * mistakes occur or get corrected in review sessions. */
     val hasReviewableItems: Boolean = false,
     val missedWordsCount: Int = 0,
+    /** Words whose spaced-repetition review is due now - drives the Daily Review hero card. */
+    val dueReviewCount: Int = 0,
     /** The chapter/section containing the learner's actual current lesson (first UNLOCKED-but-
      * not-COMPLETED one) - the collapse/expand tree auto-opens to here on load rather than
      * requiring a tap first, softening the collapse-by-default UX trade-off. Null/null when there
@@ -286,8 +288,9 @@ class HomeViewModel @Inject constructor(
                         practiceRangeFlow
                     ) { missedItemIds, goalLevel, rangeHistory ->
                         Triple(missedItemIds, goalLevel, rangeHistory)
-                    }
-                ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory) ->
+                    },
+                    progressRepository.observeDueCount(userId)
+                ) { (progress, stats, todayPractice), (missedItemIds, goalLevel, rangeHistory), dueCount ->
                     val progressByLessonId = progress.associateBy { it.lessonId }
                     val (currentChapterId, currentSectionId) = findCurrentPosition(chapters, progressByLessonId)
                     val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
@@ -308,6 +311,7 @@ class HomeViewModel @Inject constructor(
                         isLoading = false,
                         hasReviewableItems = missedItemIds.isNotEmpty(),
                         missedWordsCount = missedItemIds.size,
+                        dueReviewCount = dueCount,
                         initiallyExpandedChapterId = currentChapterId,
                         initiallyExpandedSectionId = currentSectionId,
                         currentLessonId = findCurrentLessonId(chapters, progressByLessonId),

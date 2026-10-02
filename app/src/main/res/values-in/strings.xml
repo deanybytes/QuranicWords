@@ -421,4 +421,16 @@
     <string name="learned_words_root_label">Akar: %1$s</string>
     <string name="widget_streak_value">%1$s hr</string>
     <string name="widget_goal_value">%1$s / %2$s mnt</string>
+    <string name="word_strength_new">Baru</string>
+    <string name="word_strength_learning">Sedang dipelajari</string>
+    <string name="word_strength_familiar">Akrab</string>
+    <string name="word_strength_strong">Kuat</string>
+    <string name="word_strength_mastered">Dikuasai</string>
+    <string name="a11y_word_strength">Kekuatan ingatan: %1$s</string>
+    <string name="home_daily_review_title">Ulasan Harian</string>
+    <string name="home_daily_review_due">%1$s kata perlu diulas</string>
+    <string name="home_daily_review_subtitle">Beberapa menit ulasan berkala menjaga kata tetap diingat.</string>
+    <string name="home_daily_review_action">Ulas</string>
+    <string name="learned_words_subtitle_strength">%1$s kuat atau dikuasai · %2$s dipelajari</string>
+    <string name="progress_word_strength_title">Kekuatan kata</string>
 </resources>

@@ -34,6 +34,10 @@ interface ExerciseAttemptDao {
      * where that latest row was wrong. Retries (`isFirstTry = 0`) are ignored on both sides, so an
      * item only drops out of this set when a later session answers it correctly first time - a
      * same-session "try again" can't clear a mistake.
+     *
+     * Since DB v7 the app reads mistakes and mastery from spaced-repetition memory instead
+     * ([WordMemoryDao.getWeakItemIds]/[WordMemoryDao.getItemIdsWithMinStability]); these
+     * attempt-history queries stay as the raw-history view of the same signal.
      */
     @Query(
         """
@@ -99,4 +103,9 @@ interface ExerciseAttemptDao {
      * actually studied. */
     @Query("SELECT DISTINCT itemId FROM exercise_attempts WHERE userId = :userId")
     suspend fun getAllPracticedItemIds(userId: String): List<String>
+
+    /** Whether [userId] has answered anything at all - distinguishes a brand-new learner (whose
+     * first stats row gets hearts on) from one who upgraded from a pre-v7 build. */
+    @Query("SELECT EXISTS(SELECT 1 FROM exercise_attempts WHERE userId = :userId)")
+    suspend fun hasAnyForUser(userId: String): Boolean
 }

@@ -82,6 +82,7 @@ import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -109,7 +110,11 @@ fun LearnedWordsScreen(
                         )
                         if (!uiState.isLoading) {
                             Text(
-                                text = stringResource(R.string.learned_words_subtitle, uiState.allLearnedWords.size),
+                                text = stringResource(
+                                    R.string.learned_words_subtitle_strength,
+                                    VerseReferenceFormatter.formatNumber(uiState.strongCount, language),
+                                    VerseReferenceFormatter.formatNumber(uiState.allLearnedWords.size, language)
+                                ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -264,6 +269,8 @@ private fun LearnedWordCard(
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                         )
                     }
+
+                    WordStrengthMeter(strength = word.strength)
 
                     // Occurrences in Quran badge
                     Surface(

@@ -396,4 +396,16 @@
     <string name="learned_words_root_label">ریشه: %1$s</string>
     <string name="widget_streak_value">%1$s روز</string>
     <string name="widget_goal_value">%1$s / %2$s دقیقه</string>
+    <string name="word_strength_new">جدید</string>
+    <string name="word_strength_learning">در حال یادگیری</string>
+    <string name="word_strength_familiar">آشنا</string>
+    <string name="word_strength_strong">قوی</string>
+    <string name="word_strength_mastered">مسلط</string>
+    <string name="a11y_word_strength">قدرت حافظه: %1$s</string>
+    <string name="home_daily_review_title">مرور روزانه</string>
+    <string name="home_daily_review_due">%1$s واژه آماده مرور</string>
+    <string name="home_daily_review_subtitle">چند دقیقه مرور فاصله‌دار واژه‌ها را از فراموشی حفظ می‌کند.</string>
+    <string name="home_daily_review_action">مرور</string>
+    <string name="learned_words_subtitle_strength">%1$s قوی یا مسلط · %2$s مطالعه‌شده</string>
+    <string name="progress_word_strength_title">قدرت واژه‌ها</string>
 </resources>

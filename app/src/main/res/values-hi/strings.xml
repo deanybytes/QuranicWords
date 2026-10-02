@@ -396,4 +396,16 @@
     <string name="learned_words_root_label">मूल: %1$s</string>
     <string name="widget_streak_value">%1$s दिन</string>
     <string name="widget_goal_value">%1$s / %2$s मि</string>
+    <string name="word_strength_new">नया</string>
+    <string name="word_strength_learning">सीख रहे हैं</string>
+    <string name="word_strength_familiar">परिचित</string>
+    <string name="word_strength_strong">मज़बूत</string>
+    <string name="word_strength_mastered">महारत</string>
+    <string name="a11y_word_strength">याददाश्त की मज़बूती: %1$s</string>
+    <string name="home_daily_review_title">दैनिक दोहराव</string>
+    <string name="home_daily_review_due">%1$s शब्द दोहराने के लिए तैयार</string>
+    <string name="home_daily_review_subtitle">कुछ मिनट का अंतराल पर दोहराव शब्दों को भूलने नहीं देता।</string>
+    <string name="home_daily_review_action">दोहराएँ</string>
+    <string name="learned_words_subtitle_strength">%1$s मज़बूत या महारत प्राप्त · %2$s पढ़े गए</string>
+    <string name="progress_word_strength_title">शब्दों की मज़बूती</string>
 </resources>

@@ -7,6 +7,8 @@ import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.domain.srs.MemoryState
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.QuranFontStyle
 import com.quranicwords.app.core.domain.model.ThemeMode
@@ -249,5 +251,48 @@ class BackupRepositoryImplTest {
 
         assertTrue(result.isFailure)
         assertEquals(300, database.userStatsDao().get(userId)?.totalPoints)
+    }
+
+    @Test
+    fun `word memory and gamification stats survive a round trip`() = runTest {
+        val userId = preferences.getOrCreateLocalUserId()
+        database.userStatsDao().upsert(
+            UserStatsEntity(userId, 120, 2, 2, "2026-09-30", hearts = 3, heartsUpdatedAtEpochMillis = 42L, bestCombo = 11, heartsEnabled = true)
+        )
+        val memory = WordMemoryEntity(userId, "word_1", MemoryState.REVIEW, 12.5, 4.2, 1_800_000_000_000L, 4, 1, 3, 1_700_000_000_000L, "2026-09-30")
+        database.wordMemoryDao().upsert(memory)
+
+        val out = ByteArrayOutputStream()
+        assertTrue(repository.exportBackup(out).isSuccess)
+        database.wordMemoryDao().deleteForUser(userId)
+        database.userStatsDao().deleteForUser(userId)
+
+        assertTrue(repository.importBackup(ByteArrayInputStream(out.toByteArray())).isSuccess)
+
+        assertEquals(memory, database.wordMemoryDao().get(userId, "word_1"))
+        val stats = checkNotNull(database.userStatsDao().get(userId))
+        assertEquals(3, stats.hearts)
+        assertEquals(11, stats.bestCombo)
+        assertTrue(stats.heartsEnabled)
+        assertTrue("v3 memory is exact - no replay needed", preferences.isWordMemoryBackfilled())
+    }
+
+    @Test
+    fun `a pre-v3 backup without word memory imports and re-arms the replay`() = runTest {
+        preferences.setWordMemoryBackfilled(true)
+        val oldBackup = """{"schemaVersion":2,"exportedAtEpochMillis":0,"userId":"old",""" +
+            """"stats":{"userId":"old","totalPoints":80,"currentStreak":1,"longestStreak":4,"lastActivityLocalDate":"2026-01-01"},""" +
+            """"progress":[],"attempts":[{"userId":"old","itemId":"w_1","itemKind":"WORD","exerciseType":"MULTIPLE_CHOICE","wasCorrect":true,"attemptedAtEpochMillis":1}],""" +
+            """"preferences":{"languageTag":null,"themeMode":"SYSTEM","fontStyle":"AMIRI","reduceMotion":false}}"""
+
+        assertTrue(repository.importBackup(ByteArrayInputStream(oldBackup.toByteArray())).isSuccess)
+
+        val userId = preferences.getOrCreateLocalUserId()
+        val stats = checkNotNull(database.userStatsDao().get(userId))
+        assertEquals(80, stats.totalPoints)
+        assertEquals(5, stats.hearts)
+        assertEquals(false, stats.heartsEnabled)
+        assertEquals(1, database.exerciseAttemptDao().getAllForUser(userId).size)
+        assertEquals(false, preferences.isWordMemoryBackfilled())
     }
 }

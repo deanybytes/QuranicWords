@@ -423,4 +423,16 @@
     <string name="learned_words_root_label">Racine : %1$s</string>
     <string name="widget_streak_value">%1$sj</string>
     <string name="widget_goal_value">%1$s / %2$s min</string>
+    <string name="word_strength_new">Nouveau</string>
+    <string name="word_strength_learning">En apprentissage</string>
+    <string name="word_strength_familiar">Familier</string>
+    <string name="word_strength_strong">Solide</string>
+    <string name="word_strength_mastered">Maîtrisé</string>
+    <string name="a11y_word_strength">Force de mémorisation : %1$s</string>
+    <string name="home_daily_review_title">Révision du jour</string>
+    <string name="home_daily_review_due">%1$s mots à revoir</string>
+    <string name="home_daily_review_subtitle">Quelques minutes de révision espacée empêchent les mots de s\'effacer.</string>
+    <string name="home_daily_review_action">Réviser</string>
+    <string name="learned_words_subtitle_strength">%1$s solides ou maîtrisés · %2$s étudiés</string>
+    <string name="progress_word_strength_title">Solidité des mots</string>
 </resources>

@@ -16,9 +16,10 @@ import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 
 /**
- * Listen-and-select exercise. Playback audio (male voice, per the app's Islamic-values
- * constraint) is a bundled content dependency not yet sourced for this increment - [onPlay]
- * returning false surfaces an "audio unavailable" note rather than failing silently.
+ * Listen-and-select exercise: plays the word's bundled pronunciation clip (only authored for
+ * words with verified audio) and the learner taps the Arabic word they heard. Only shown while
+ * pronunciation audio is on (see `LessonViewModel`); [onPlay] returning false still surfaces an
+ * "audio unavailable" note rather than failing silently.
  */
 @Composable
 fun TapWhatYouHearExerciseContent(
@@ -53,6 +54,9 @@ fun TapWhatYouHearExerciseContent(
                         isSelected = option.id == selectedOptionId,
                         isChecked = isChecked,
                         isCorrectOption = option.id == content.correctOptionId,
+                        // The learner matches a sound to its written word, so the options are
+                        // the Arabic words themselves, not their meanings.
+                        showArabic = true,
                         onClick = { onSelect(option.id) }
                     )
                 }

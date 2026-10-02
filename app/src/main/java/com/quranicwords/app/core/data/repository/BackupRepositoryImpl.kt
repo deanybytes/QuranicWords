@@ -40,6 +40,7 @@ class BackupRepositoryImpl @Inject constructor(
             attempts = database.exerciseAttemptDao().getAllForUser(userId),
             achievements = database.achievementDao().getAllForUserOnce(userId),
             dailyPractices = database.dailyPracticeDao().getAllForUserOnce(userId),
+            wordMemory = database.wordMemoryDao().getAllForUser(userId),
             preferences = BackupPreferences(
                 languageTag = preferences.languageFlow.first()?.tag,
                 themeMode = preferences.themeModeFlow.first().name,
@@ -77,6 +78,7 @@ class BackupRepositoryImpl @Inject constructor(
                 database.exerciseAttemptDao().deleteForUser(id)
                 database.achievementDao().deleteForUser(id)
                 database.dailyPracticeDao().deleteForUser(id)
+                database.wordMemoryDao().deleteForUser(id)
             }
 
             payload.stats?.copy(userId = targetUserId)?.let { database.userStatsDao().upsert(it) }
@@ -84,7 +86,11 @@ class BackupRepositoryImpl @Inject constructor(
             database.exerciseAttemptDao().insertAll(payload.attempts.map { it.copy(id = 0, userId = targetUserId) })
             database.achievementDao().insertAll(payload.achievements.map { it.copy(userId = targetUserId) })
             database.dailyPracticeDao().insertAll(payload.dailyPractices.map { it.copy(userId = targetUserId) })
+            database.wordMemoryDao().insertAll(payload.wordMemory.map { it.copy(userId = targetUserId) })
         }
+        // A pre-v3 backup has attempts but no memory: re-arm the one-time backfill so the next
+        // curriculum load replays the restored history (a v3 backup's rows are already exact).
+        preferences.setWordMemoryBackfilled(payload.wordMemory.isNotEmpty() || payload.attempts.isEmpty())
 
         val prefs = payload.preferences
         Language.fromTag(prefs.languageTag)?.let { preferences.setLanguage(it) }

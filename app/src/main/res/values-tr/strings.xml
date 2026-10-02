@@ -422,4 +422,16 @@
     <string name="learned_words_root_label">Kök: %1$s</string>
     <string name="widget_streak_value">%1$sg</string>
     <string name="widget_goal_value">%1$s / %2$s dk</string>
+    <string name="word_strength_new">Yeni</string>
+    <string name="word_strength_learning">Öğreniliyor</string>
+    <string name="word_strength_familiar">Tanıdık</string>
+    <string name="word_strength_strong">Güçlü</string>
+    <string name="word_strength_mastered">Ustalaşıldı</string>
+    <string name="a11y_word_strength">Hafıza gücü: %1$s</string>
+    <string name="home_daily_review_title">Günlük Tekrar</string>
+    <string name="home_daily_review_due">%1$s kelimenin tekrar zamanı geldi</string>
+    <string name="home_daily_review_subtitle">Birkaç dakikalık aralıklı tekrar kelimelerin unutulmasını önler.</string>
+    <string name="home_daily_review_action">Tekrarla</string>
+    <string name="learned_words_subtitle_strength">%1$s güçlü veya ustalaşılmış · %2$s çalışıldı</string>
+    <string name="progress_word_strength_title">Kelime gücü</string>
 </resources>
