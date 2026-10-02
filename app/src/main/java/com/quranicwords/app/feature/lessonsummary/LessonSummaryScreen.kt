@@ -113,7 +113,7 @@ fun LessonSummaryScreen(
     var continueClicked by remember { mutableStateOf(false) }
 
     val animatedPointsEarned by animateIntAsState(
-        targetValue = if (visible) route.pointsAwarded else 0,
+        targetValue = if (visible) route.pointsAwarded + route.questRewardXp else 0,
         animationSpec = MotionSpecs.countUp,
         label = "pointsEarned"
     )
