@@ -3,8 +3,10 @@ name: Android CI
 on:
   push:
     branches: [main]
+    paths-ignore: ["js/**", "css/**", "index.html", "data/**", "docs/**", "*.md", "tools/pipeline/**", "tools/web/**"]
   pull_request:
     branches: [main]
+    paths-ignore: ["js/**", "css/**", "index.html", "data/**", "docs/**", "*.md", "tools/pipeline/**", "tools/web/**"]
 
 permissions:
   contents: read
@@ -27,9 +29,8 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      # This repo has no Android SDK configured by default in a fresh environment (see CLAUDE.md's
-      # "Environment note") - explicitly provision one here rather than relying on whatever happens
-      # to be preinstalled on the runner image, and let it write local.properties for the Gradle build.
+      # Provision the Android SDK explicitly rather than relying on whatever the runner image has,
+      # and let it write local.properties for the Gradle build.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
@@ -48,7 +49,7 @@ jobs:
       # Stretch goal from QW-26: run assembleRelease (R8/ProGuard minification) in CI so a keep-rule
       # regression in the ExerciseContent polymorphic serialization hierarchy is caught early, not
       # just on a developer's machine right before a real release. No signing config exists in this
-      # repo by design (see SECURITY.md) - this produces an unsigned artifact, which is enough
+      # repo by design (see SECURITY.md) - this falls back to the debug key, which is enough
       # to exercise R8 without needing a real signing keystore as a CI secret.
       - name: Assemble release (R8 minification check)
         run: ./gradlew :app:assembleRelease --stacktrace

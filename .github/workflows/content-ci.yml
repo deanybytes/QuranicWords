@@ -1,0 +1,53 @@
+name: Content CI
+
+# Guards the vocabulary content: the pipeline's own tests, its validator, and a check that the
+# committed app assets are exactly what a fresh, pinned build produces (no hand edits, no drift).
+on:
+  push:
+    branches: [main]
+    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", ".github/workflows/content-ci.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", ".github/workflows/content-ci.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    name: Build, validate, reproduce
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with tags - the legacy progress map reads the released content)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test dependencies
+        run: pip install -r tools/pipeline/requirements.txt
+
+      - name: Cache pinned sources
+        uses: actions/cache@v4
+        with:
+          path: tools/pipeline/.cache
+          key: pipeline-sources-${{ hashFiles('tools/pipeline/pins.json') }}
+
+      - name: Pipeline tests (golden words, validator, determinism)
+        run: python -m pytest -q tools/pipeline/tests
+
+      - name: Rebuild content and web data
+        run: |
+          python tools/pipeline/run.py
+          python tools/export/build_web_data.py
+
+      - name: Committed assets must match a fresh build
+        run: git diff --exit-code --stat -- app/src/main/assets/content tools/pipeline/reports data
