@@ -69,9 +69,9 @@ interface ProgressRepository {
      * new attempt. */
     fun observeMissedItemIds(userId: String): Flow<List<String>>
 
-    /** "Strong+" words (memory stability of at least
-     * [com.quranicwords.app.core.domain.srs.WordStrength.STRONG_MIN_DAYS]) - the app's single
-     * definition of a learned word, used by Progress, the lesson summary and Learned Words. */
+    /** Learned words (memory stability of at least
+     * [com.quranicwords.app.core.domain.srs.WordStrength.LEARNED_MIN_DAYS]) - the app's single
+     * definition of a learned word, used by Progress, the lesson summary and the widget. */
     suspend fun getMasteredItemIds(userId: String): List<String>
 
     /** Live number of words whose review is due now - re-evaluated as time passes, not only when

@@ -262,7 +262,7 @@
     <string name="test_mode_random_desc">Ujian menyeluruh mencampurkan %1$s kata nama, kata kerja dan zarah al-Quran.</string>
     <string name="test_mode_random_progress">%1$s daripada %2$s perkataan selesai dalam kitaran ini</string>
     <string name="test_mode_frequency_title">Ujian Kekerapan Tertinggi</string>
-    <string name="test_mode_frequency_desc">Uji diri bermula daripada perkataan yang paling kerap berulang dalam al-Quran.</string>
+    <string name="test_mode_frequency_desc">Latih perkataan al-Quran mengikut kekerapan kemunculannya, yang paling kerap dahulu.</string>
     <string name="test_mode_frequency_progress">%1$s daripada %2$s perkataan telah diuji</string>
     <string name="test_mode_mistakes_title">Ulang Kaji Kesilapan</string>
     <string name="test_mode_mistakes_desc">Latih tubi perkataan yang anda pernah tersilap untuk mengukuhkan ingatan.</string>

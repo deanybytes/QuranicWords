@@ -87,13 +87,12 @@ Every word is shown via a non-scored `WordIntro` step immediately before its own
 
 ## 📊 Word-frequency-driven curriculum ordering & POS Categorization
 
-The curriculum covers all **4,709 Quranic vocabulary items** divided by Part of Speech (**Ḥarf**, **Fi'l**, **Ism**), with each part of speech ordered strictly by descending occurrence frequency in the Qur'an:
+The curriculum teaches **3,900 lemmas**, ordered within each part of speech by their real frequency in the Qur'an (Quranic Arabic Corpus lemma counts):
 
-- **Ḥarf (Particles)**: 173 particles (`wp_1` to `wp_173` or `w_1` to `w_173`), such as فِي, مِنْ, عَلَى, covering 24,651 occurrences (41.16% of Quranic text).
-- **Fi'l (Verbs)**: 1,479 verbs (`wv_1` to `wv_1479` or `w_174` to `w_1652`), from high-frequency verbs like قَالَ, كَانَ down to specialized verbal roots (13,491 occurrences).
-- **Ism (Nouns)**: 3,057 nouns (`wn_1` to `wn_3057` or `w_1653` to `w_4709`), including names, descriptors, and divine attributes (21,746 occurrences).
+- **Chapter 1, function words (72):** particles, plus closed-class nominals (pronouns, demonstratives, relatives). They make up 46.8% of the Qur'an's lexical segments.
+- **Verbs (1,144)** and **nouns (2,684)** come in alternating frequency-band chapters (2–10).
 
-`resolveCategoryFromWordId` (`core/ui/components/GrammarCategoryBadge.kt`) maps both legacy prefixed IDs (`wp_`, `wv_`, `wn_`) and canonical numeric IDs (`w_1..4709`) to their corresponding `LemmaCategory`.
+Word ids are content-derived and stable: `wp_`/`wv_`/`wn_` + the first 8 hex digits of the SHA-1 of the QAC lemma key. A word's grammatical category always comes from its own `WordIntro.lemmaCategory`, exposed through `ContentRepository.getWordCategories()`, never from its id or its lesson.
 
 ## 🧪 Dynamic Exercise Generation in Test Modes
 
@@ -113,7 +112,7 @@ flowchart TD
 2. **Reverse Verse Quizzing** (`TapWordInVerse`): Shows the localized translation and meaning highlight, prompting the learner to identify and tap the target Arabic word in the verse text.
 3. **Verse Completion** (`FillInTheBlank`): Blanks out the target word span in the verse, prompting the learner to choose the correct missing word.
 4. **Contextual Multiple Choice** (`MultipleChoice`): Displays the Arabic word along with its full Quranic verse citation, translation, and highlighted meaning.
-5. **Multilingual Prompts**: Automatically applies localized prompts across all 11 languages (`TAP_WORD_PROMPT`, `FILL_BLANK_PROMPT`, `MULTIPLE_CHOICE_PROMPT`).
+5. **Multilingual Prompts**: Automatically applies localized prompts in every interface language (`GeneratedExercisePrompts`).
 
 ## 🔢 Universal Digit Localization Algorithm
 

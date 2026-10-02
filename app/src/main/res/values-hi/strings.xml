@@ -262,7 +262,7 @@
     <string name="test_mode_random_desc">सभी %1$s शब्दों में संज्ञा, क्रिया और अव्यय का मिश्रित और यादृच्छिक परीक्षण।</string>
     <string name="test_mode_random_progress">इस चक्र में %2$s में से %1$s शब्द पूर्ण</string>
     <string name="test_mode_frequency_title">आवृत्ति आधारित टेस्ट</string>
-    <string name="test_mode_frequency_desc">क़ुरआन में सबसे अधिक आने वाले शब्दों का क्रमबद्ध परीक्षण।</string>
+    <string name="test_mode_frequency_desc">क़ुरआनी शब्दों का उनकी आवृत्ति के क्रम में अभ्यास करें, सबसे अधिक आने वाले पहले।</string>
     <string name="test_mode_frequency_progress">%2$s में से %1$s शब्द कवर किए गए</string>
     <string name="test_mode_mistakes_title">गलतियों की समीक्षा</string>
     <string name="test_mode_mistakes_desc">जिन शब्दों में पहले गलती हुई थी, उन पर महारत हासिल करने के लिए पुनः अभ्यास करें।</string>

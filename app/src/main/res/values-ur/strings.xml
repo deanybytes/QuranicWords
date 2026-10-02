@@ -276,7 +276,7 @@
     <string name="test_mode_random_desc">تمام %1$s قرآنی الفاظ (اسم، فعل، حرف) کا مشترکہ ٹیسٹ۔</string>
     <string name="test_mode_random_progress">اس چکر میں %2$s میں سے %1$s الفاظ مکمل</string>
     <string name="test_mode_frequency_title">تواتر کی ترتیب کا موڈ</string>
-    <string name="test_mode_frequency_desc">قرآن مجید میں کثرتِ استعمال کی ترتیب سے الفاظ کی مشق کریں (1 سے 4,709 تک)۔</string>
+    <string name="test_mode_frequency_desc">قرآنی الفاظ کی ان کے استعمال کی کثرت کی ترتیب سے مشق کریں، سب سے زیادہ آنے والے پہلے۔</string>
     <string name="test_mode_frequency_progress">%2$s الفاظ میں سے %1$s مکمل</string>
     <string name="test_mode_mistakes_title">غلط الفاظ کا جائزہ</string>
     <string name="test_mode_mistakes_desc">غلط ہونے والے الفاظ کی مشق کریں، درست ہونے پر غلطی کی فہرست سے خارج ہو جائیں گے۔</string>

@@ -262,7 +262,7 @@
     <string name="test_mode_random_desc">Gaurayar sunaye, ayyuka da haruffa daga kalmomi %1$s don gwaji mai faɗi.</string>
     <string name="test_mode_random_progress">An kammala kalmomi %1$s cikin %2$s a wannan zagayen</string>
     <string name="test_mode_frequency_title">Jarabawar Kalmomi Masu Yawa</string>
-    <string name="test_mode_frequency_desc">Gwada kanku daga kalmomin da suka fi yawa a Alƙur\'ani.</string>
+    <string name="test_mode_frequency_desc">Gwada kalmomin Alƙur\'ani bisa yawan aukuwarsu, mafi yawa da farko.</string>
     <string name="test_mode_frequency_progress">An gwada kalmomi %1$s cikin %2$s</string>
     <string name="test_mode_mistakes_title">Bitar Kuskure</string>
     <string name="test_mode_mistakes_desc">Yi bita kan kalmomin da kuka yi kuskure don ƙwarewa.</string>

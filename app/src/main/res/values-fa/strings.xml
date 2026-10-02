@@ -262,7 +262,7 @@
     <string name="test_mode_random_desc">آزمونی جامع و ترکیبی از %1$s اسم، فعل و حرف قرآن کریم.</string>
     <string name="test_mode_random_progress">%1$s از %2$s کلمه در این دور کامل شده است</string>
     <string name="test_mode_frequency_title">آزمون پرتکرارترین کلمات</string>
-    <string name="test_mode_frequency_desc">خود را با کلماتی که بیشترین بسامد تکرار را در قرآن دارند بیازمایید.</string>
+    <string name="test_mode_frequency_desc">واژه‌های قرآنی را به ترتیب بسامد، از پرکاربردترین تمرین کنید.</string>
     <string name="test_mode_frequency_progress">%1$s از %2$s کلمه مورد آزمون قرار گرفته است</string>
     <string name="test_mode_mistakes_title">مرور کلمات اشتباه</string>
     <string name="test_mode_mistakes_desc">کلماتی را که قبلاً در آنها اشتباه داشته‌اید دوباره تمرین کنید تا در حافظه ثبت شوند.</string>

@@ -273,7 +273,7 @@
     <string name="test_mode_random_desc">Tüm %1$s Kur\'an kelimesinden (اسم, فعل, حرف) dinamik karışık test.</string>
     <string name="test_mode_random_progress">Bu döngüde %2$s kelimeden %1$s tamamlandı</string>
     <string name="test_mode_frequency_title">Sıklık Sırasına Göre Mod</string>
-    <string name="test_mode_frequency_desc">Kur\'an\'da geçiş sıklığına göre kelime pratiği yapın (1\'den 4.709\'a kadar).</string>
+    <string name="test_mode_frequency_desc">Kur\'an kelimelerini geçme sıklığına göre, en sık geçenden başlayarak çalışın.</string>
     <string name="test_mode_frequency_progress">%2$s kelimeden %1$s tanesi tamamlandı</string>
     <string name="test_mode_mistakes_title">Yanlış Yapılan Kelimeleri Tekrarla</string>
     <string name="test_mode_mistakes_desc">Yanlış bildiğiniz kelimeleri tekrar edin; doğru yanıtlandığında listeden kalkar.</string>

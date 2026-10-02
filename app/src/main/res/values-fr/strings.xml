@@ -276,7 +276,7 @@
     <string name="test_mode_random_desc">Quiz mixte dynamique sur les %1$s mots du Coran (اسم, فعل, حرف).</string>
     <string name="test_mode_random_progress">%1$s sur %2$s mots complétés dans ce cycle</string>
     <string name="test_mode_frequency_title">Mode Ordre de Fréquence</string>
-    <string name="test_mode_frequency_desc">Entraînez-vous selon la fréquence d\'apparition dans le Coran (Rang 1 à 4 709).</string>
+    <string name="test_mode_frequency_desc">Entraînez-vous sur les mots du Coran par ordre de fréquence, les plus fréquents d\'abord.</string>
     <string name="test_mode_frequency_progress">%1$s sur %2$s mots couverts</string>
     <string name="test_mode_mistakes_title">Révision des Mots Incorrects</string>
     <string name="test_mode_mistakes_desc">Révisez les mots manqués. Une fois réussis, ils sont retirés des erreurs.</string>

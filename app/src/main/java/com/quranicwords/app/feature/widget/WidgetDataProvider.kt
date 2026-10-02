@@ -97,7 +97,7 @@ object WidgetDataProvider {
         val isStreakActive = streak > 0
 
         // Same definitions as the app: learned = Strong+ memory, missed = last first try wrong.
-        val masteredIds = database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.STRONG_MIN_DAYS)
+        val masteredIds = database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.LEARNED_MIN_DAYS)
         val missedIds = database.wordMemoryDao().getWeakItemIds(userId)
         val allPracticedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
 

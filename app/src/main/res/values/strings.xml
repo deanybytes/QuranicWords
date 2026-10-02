@@ -280,7 +280,7 @@
     <string name="test_mode_random_desc">Dynamic mixed quiz across all %1$s Qur\'an words (اسم, فعل, حرف) with category tagging.</string>
     <string name="test_mode_random_progress">%1$s of %2$s words completed in this cycle</string>
     <string name="test_mode_frequency_title">Frequency Order Mode</string>
-    <string name="test_mode_frequency_desc">Practice Quranic words in sequential order of occurrence frequency (Rank #1 to #4,709).</string>
+    <string name="test_mode_frequency_desc">Practice Qur\'anic words in order of how often they occur, most frequent first.</string>
     <string name="test_mode_frequency_progress">Covered %1$s of %2$s words</string>
     <string name="test_mode_mistakes_title">Mistaken Words Review</string>
     <string name="test_mode_mistakes_desc">Practice words you missed. Once answered correctly, they are marked mastered and removed from mistakes.</string>

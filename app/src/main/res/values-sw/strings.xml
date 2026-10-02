@@ -262,7 +262,7 @@
     <string name="test_mode_random_desc">Mtihani wa kina unaochanganya maneno %1$s: nomino, vitenzi na vihusishi.</string>
     <string name="test_mode_random_progress">Maneno %1$s kati ya %2$s yamekamilika katika mzunguko huu</string>
     <string name="test_mode_frequency_title">Mtihani wa Maneno ya Mara kwa Mara</string>
-    <string name="test_mode_frequency_desc">Jipime kwa maneno yanayotokea mara nyingi zaidi katika Kurani.</string>
+    <string name="test_mode_frequency_desc">Fanya mazoezi ya maneno ya Qur\'an kwa mpangilio wa jinsi yanavyojitokeza, yanayojitokeza zaidi kwanza.</string>
     <string name="test_mode_frequency_progress">Maneno %1$s kati ya %2$s yamejaribiwa</string>
     <string name="test_mode_mistakes_title">Marudio ya Makosa</string>
     <string name="test_mode_mistakes_desc">Fanyia mazoezi maneno uliyowahi kukosea ili kuyamudu vyema.</string>

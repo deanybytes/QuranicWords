@@ -273,7 +273,7 @@
     <string name="test_mode_random_desc">Kuis campuran dinamis dari seluruh %1$s kata Al-Qur\'an (اسم, فعل, حرف).</string>
     <string name="test_mode_random_progress">%1$s dari %2$s kata selesai dalam siklus ini</string>
     <string name="test_mode_frequency_title">Mode Urutan Frekuensi</string>
-    <string name="test_mode_frequency_desc">Latihan kosakata Al-Qur\'an berdasarkan frekuensi kemunculan (Peringkat 1 hingga 4.709).</string>
+    <string name="test_mode_frequency_desc">Latih kata-kata Al-Qur\'an menurut seberapa sering muncul, yang paling sering lebih dulu.</string>
     <string name="test_mode_frequency_progress">%1$s dari %2$s kata tercakup</string>
     <string name="test_mode_mistakes_title">Tinjau Kata yang Salah</string>
     <string name="test_mode_mistakes_desc">Latih kata yang salah dijawab. Setelah benar, kata akan dihapus dari daftar kesalahan.</string>

@@ -532,7 +532,7 @@ class ProgressRepositoryImpl @Inject constructor(
         database.wordMemoryDao().observeWeakItemIds(userId)
 
     override suspend fun getMasteredItemIds(userId: String): List<String> = withContext(Dispatchers.IO) {
-        database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.STRONG_MIN_DAYS)
+        database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.LEARNED_MIN_DAYS)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

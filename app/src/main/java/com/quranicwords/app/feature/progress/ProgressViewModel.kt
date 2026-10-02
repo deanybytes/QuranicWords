@@ -124,7 +124,7 @@ class ProgressViewModel @Inject constructor(
                 ) { stats, progress, goalLevel, dailyPractice, _ ->
                     val strengthCounts = progressRepository.getStrengthCounts(userId)
                     // "Words learned" is Strong+ - the same definition the summary and Learned Words use.
-                    val masteredCount = strengthCounts.filterKeys { it.isStrongOrBetter }.values.sum()
+                    val masteredCount = strengthCounts.filterKeys { it.isLearned }.values.sum()
                     val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
                     val goalMinutes = goalLevel.minutes
 
