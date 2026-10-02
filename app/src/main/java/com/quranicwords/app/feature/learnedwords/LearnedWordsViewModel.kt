@@ -7,6 +7,9 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.util.ArabicSearch
+import com.quranicwords.app.core.util.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -30,7 +33,8 @@ data class LearnedWordItem(
     val arabicWordStart: Int? = null,
     val arabicWordEnd: Int? = null,
     val meaningHighlight: LocalizedText = emptyMap(),
-    val polysemyEntries: List<ExerciseContent.PolysemyEntry> = emptyList()
+    val polysemyEntries: List<ExerciseContent.PolysemyEntry> = emptyList(),
+    val strength: WordStrength = WordStrength.NEW
 )
 
 data class LearnedWordsUiState(
@@ -39,13 +43,17 @@ data class LearnedWordsUiState(
     val filteredWords: List<LearnedWordItem> = emptyList(),
     val searchQuery: String = "",
     val selectedWordForDetail: LearnedWordItem? = null
-)
+) {
+    /** "Strong+" - the same learned-word definition Progress and the lesson summary count. */
+    val strongCount: Int get() = allLearnedWords.count { it.strength.isStrongOrBetter }
+}
 
 @HiltViewModel
 class LearnedWordsViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val contentRepository: ContentRepository,
-    private val userIdProvider: CurrentUserIdProvider
+    private val userIdProvider: CurrentUserIdProvider,
+    private val audioPlayer: AudioPlayer
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -62,12 +70,12 @@ class LearnedWordsViewModel @Inject constructor(
         val filtered = if (query.isBlank()) {
             words
         } else {
-            val q = query.trim().lowercase()
+            // Arabic is matched without its diacritics, so "كتب" finds "كَتَبَ".
             words.filter { item ->
-                item.arabicWord.contains(q, ignoreCase = true) ||
-                    item.meaning.values.any { it.lowercase().contains(q) } ||
-                    item.root?.lowercase()?.contains(q) == true ||
-                    item.exampleVerseReference?.contains(q) == true
+                ArabicSearch.matches(item.arabicWord, query) ||
+                    item.meaning.values.any { ArabicSearch.matches(it, query) } ||
+                    ArabicSearch.matches(item.root, query) ||
+                    item.exampleVerseReference?.contains(query.trim()) == true
             }
         }
         LearnedWordsUiState(
@@ -85,9 +93,10 @@ class LearnedWordsViewModel @Inject constructor(
             val allCandidates = contentRepository.getWordCandidates().associateBy { it.id }
             val wordIntros = contentRepository.getAllWordIntros()
 
-            progressRepository.observeMissedItemIds(userId).collect {
-                val masteredIds = progressRepository.getMasteredItemIds(userId)
-                val items = masteredIds.mapNotNull { wordId ->
+            // Every word with a memory, strongest first - each card shows its own strength, so the
+            // list doubles as a "what to firm up next" view rather than only listing Strong+ words.
+            progressRepository.observeWordStrengths(userId).collect { strengths ->
+                val items = strengths.mapNotNull { (wordId, strength) ->
                     val cand = allCandidates[wordId] ?: return@mapNotNull null
                     val intro = wordIntros[wordId]
                     LearnedWordItem(
@@ -104,14 +113,23 @@ class LearnedWordsViewModel @Inject constructor(
                         arabicWordStart = intro?.arabicWordStart,
                         arabicWordEnd = intro?.arabicWordEnd,
                         meaningHighlight = intro?.meaningHighlight ?: emptyMap(),
-                        polysemyEntries = intro?.polysemyEntries ?: emptyList()
+                        polysemyEntries = intro?.polysemyEntries ?: emptyList(),
+                        strength = strength
                     )
-                }.sortedBy { it.frequencyRank }
+                }.sortedWith(compareByDescending<LearnedWordItem> { it.strength.level }.thenBy { it.frequencyRank })
 
                 _learnedWords.value = items
                 _isLoading.value = false
             }
         }
+    }
+
+    /** False (no throw) when the clip isn't bundled or pronunciation audio is off. */
+    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
+
+    override fun onCleared() {
+        audioPlayer.release()
+        super.onCleared()
     }
 
     fun onSearchQueryChanged(query: String) {

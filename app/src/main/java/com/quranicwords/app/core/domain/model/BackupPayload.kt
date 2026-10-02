@@ -5,6 +5,7 @@ import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
 import kotlinx.serialization.Serializable
 
 /**
@@ -27,7 +28,10 @@ data class BackupPayload(
      * with no achievements key at all) decodable via [com.quranicwords.app.core.util.AppJson]'s
      * lenient/default-value handling. */
     val achievements: List<AchievementEntity> = emptyList(),
-    val dailyPractices: List<DailyPracticeEntity> = emptyList()
+    val dailyPractices: List<DailyPracticeEntity> = emptyList(),
+    /** Added in schema version 3 (spaced repetition). Absent from older files, in which case the
+     * restore re-derives memory from [attempts] - see `BackupRepositoryImpl.importBackup`. */
+    val wordMemory: List<WordMemoryEntity> = emptyList()
 )
 
 @Serializable
@@ -48,4 +52,4 @@ data class BackupPreferences(
     val requireExitConfirmation: Boolean? = null
 )
 
-const val BACKUP_SCHEMA_VERSION = 2
+const val BACKUP_SCHEMA_VERSION = 3

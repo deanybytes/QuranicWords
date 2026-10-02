@@ -62,7 +62,19 @@ import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.core.ui.components.QwPrimaryButton
+import com.quranicwords.app.core.ui.theme.QwShapes
+import com.quranicwords.app.feature.lesson.exercise.AudioPlayButton
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.util.HighlightUtils
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -101,8 +113,25 @@ fun WordBrowseScreen(
             return@Scaffold
         }
         if (uiState.words.isEmpty()) {
-            Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(stringResource(R.string.word_browse_empty))
+            Column(
+                modifier = Modifier.padding(padding).fillMaxSize().padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
+            ) {
+                Icon(
+                    Icons.AutoMirrored.Filled.MenuBook,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp)
+                )
+                Text(stringResource(R.string.word_browse_empty), style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
+                Text(
+                    stringResource(R.string.word_browse_empty_hint),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+                QwPrimaryButton(text = stringResource(R.string.action_back), onClick = onBack)
             }
             return@Scaffold
         }
@@ -112,7 +141,30 @@ fun WordBrowseScreen(
         // pager lands on a page it hasn't flipped yet, per the "story-fold" reveal rhythm.
         val flippedByWordId = remember { mutableStateMapOf<String, Boolean>() }
 
+        var query by rememberSaveable { mutableStateOf("") }
+        var noMatch by remember { mutableStateOf(false) }
+        LaunchedEffect(query) {
+            val match = viewModel.indexOfMatch(query)
+            noMatch = query.isNotBlank() && match == null
+            if (match != null) pagerState.animateScrollToPage(match)
+        }
+
         Column(modifier = Modifier.padding(padding).fillMaxSize()) {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                placeholder = { Text(stringResource(R.string.word_browse_search_placeholder)) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+                isError = noMatch,
+                supportingText = if (noMatch) {
+                    { Text(stringResource(R.string.word_browse_no_match)) }
+                } else {
+                    null
+                },
+                singleLine = true,
+                shape = QwShapes.medium,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)
+            )
             Text(
                 text = "${VerseReferenceFormatter.formatNumber(pagerState.currentPage + 1, language)} / " +
                     VerseReferenceFormatter.formatNumber(uiState.words.size, language),
@@ -137,7 +189,13 @@ fun WordBrowseScreen(
                         .padding(24.dp)
                         .clickable(onClickLabel = flipLabel, role = Role.Button) { flippedByWordId[word.wordId] = !flipped }
                         .semantics { stateDescription = sideLabel },
-                    front = { WordCardFront(word) },
+                    front = {
+                        WordCardFront(
+                            word = word,
+                            strength = uiState.strengths[word.wordId],
+                            onPlayAudio = word.audioAssetPath?.let { path -> { viewModel.playPronunciation(path) } }
+                        )
+                    },
                     back = { WordCardBack(word, language) }
                 )
             }
@@ -146,7 +204,7 @@ fun WordBrowseScreen(
 }
 
 @Composable
-private fun WordCardFront(word: ExerciseContent.WordIntro) {
+private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrength?, onPlayAudio: (() -> Boolean)?) {
     GlassSurface(
         modifier = Modifier.fillMaxSize(),
         shape = RoundedCornerShape(28.dp),
@@ -165,6 +223,12 @@ private fun WordCardFront(word: ExerciseContent.WordIntro) {
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.padding(top = 24.dp)
             )
+            if (strength != null && strength != WordStrength.NEW) {
+                WordStrengthMeter(strength = strength, modifier = Modifier.padding(top = 16.dp))
+            }
+            if (onPlayAudio != null) {
+                Box(modifier = Modifier.padding(top = 16.dp)) { AudioPlayButton(onPlay = onPlayAudio) }
+            }
         }
     }
 }

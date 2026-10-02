@@ -39,11 +39,14 @@ class StreakCalculator @Inject constructor(private val clock: Clock) {
             else -> 1
         }
 
-        val stats = UserStatsEntity(
+        // copy() rather than a fresh row, so columns this calculator doesn't own (hearts, best
+        // combo, the hearts setting) survive every lesson.
+        val base = previous ?: UserStatsEntity(userId, 0, 0, 0, null)
+        val stats = base.copy(
             userId = userId,
-            totalPoints = (previous?.totalPoints ?: 0) + pointsToAdd,
+            totalPoints = base.totalPoints + pointsToAdd,
             currentStreak = newStreak,
-            longestStreak = maxOf(previous?.longestStreak ?: 0, newStreak),
+            longestStreak = maxOf(base.longestStreak, newStreak),
             lastActivityLocalDate = (if (clockRolledBack) prevDate else today).toString()
         )
         return StreakUpdateResult(

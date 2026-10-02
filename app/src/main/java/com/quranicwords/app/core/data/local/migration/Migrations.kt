@@ -23,5 +23,41 @@ object Migrations {
         }
     }
 
-    val ALL: Array<Migration> = arrayOf(MIGRATION_5_6)
+    /**
+     * 6 → 7: spaced repetition and gamification in one bump. Purely additive - two new tables
+     * plus defaulted `user_stats` columns - so every existing row survives untouched.
+     * `heartsEnabled` defaults to 0 here on purpose: learners who upgrade keep playing without
+     * hearts unless they opt in, while a brand-new install's first stats row is created with it
+     * on. `word_memory` starts empty and is backfilled once from attempt history at runtime (see
+     * `ProgressRepositoryImpl.seedWordMemoryIfNeeded`) - replaying FSRS needs Kotlin, not SQL.
+     */
+    val MIGRATION_6_7 = object : Migration(6, 7) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS `word_memory` (`userId` TEXT NOT NULL, `itemId` TEXT NOT NULL, " +
+                    "`state` TEXT NOT NULL, `stability` REAL NOT NULL, `difficulty` REAL NOT NULL, " +
+                    "`dueAtEpochMillis` INTEGER NOT NULL, `reps` INTEGER NOT NULL, `lapses` INTEGER NOT NULL, " +
+                    "`lastGrade` INTEGER NOT NULL, `lastReviewedAtEpochMillis` INTEGER, `lastReviewLocalDate` TEXT, " +
+                    "PRIMARY KEY(`userId`, `itemId`))"
+            )
+            db.execSQL(
+                "CREATE INDEX IF NOT EXISTS `index_word_memory_userId_dueAtEpochMillis` ON `word_memory` (`userId`, `dueAtEpochMillis`)"
+            )
+            db.execSQL(
+                "CREATE INDEX IF NOT EXISTS `index_word_memory_userId_lastGrade` ON `word_memory` (`userId`, `lastGrade`)"
+            )
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS `daily_quests` (`userId` TEXT NOT NULL, `localDate` TEXT NOT NULL, " +
+                    "`questId` TEXT NOT NULL, `metric` TEXT NOT NULL, `target` INTEGER NOT NULL, " +
+                    "`progress` INTEGER NOT NULL, `rewardXp` INTEGER NOT NULL, `completedAtEpochMillis` INTEGER, " +
+                    "PRIMARY KEY(`userId`, `localDate`, `questId`))"
+            )
+            db.execSQL("ALTER TABLE `user_stats` ADD COLUMN `hearts` INTEGER NOT NULL DEFAULT 5")
+            db.execSQL("ALTER TABLE `user_stats` ADD COLUMN `heartsUpdatedAtEpochMillis` INTEGER NOT NULL DEFAULT 0")
+            db.execSQL("ALTER TABLE `user_stats` ADD COLUMN `bestCombo` INTEGER NOT NULL DEFAULT 0")
+            db.execSQL("ALTER TABLE `user_stats` ADD COLUMN `heartsEnabled` INTEGER NOT NULL DEFAULT 0")
+        }
+    }
+
+    val ALL: Array<Migration> = arrayOf(MIGRATION_5_6, MIGRATION_6_7)
 }

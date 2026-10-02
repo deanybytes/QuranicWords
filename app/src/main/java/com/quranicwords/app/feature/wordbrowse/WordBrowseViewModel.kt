@@ -5,7 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.domain.repository.ContentRepository
+import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.util.ArabicSearch
+import com.quranicwords.app.core.util.AudioPlayer
 import com.quranicwords.app.core.util.AppJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +22,9 @@ import javax.inject.Inject
 
 data class WordBrowseUiState(
     val isLoading: Boolean = true,
-    val words: List<ExerciseContent.WordIntro> = emptyList()
+    val words: List<ExerciseContent.WordIntro> = emptyList(),
+    /** Memory strength per word id; absent means the learner hasn't met the word yet. */
+    val strengths: Map<String, WordStrength> = emptyMap()
 )
 
 /**
@@ -31,6 +38,9 @@ data class WordBrowseUiState(
 @HiltViewModel
 class WordBrowseViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
+    private val progressRepository: ProgressRepository,
+    private val userIdProvider: CurrentUserIdProvider,
+    private val audioPlayer: AudioPlayer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -55,7 +65,23 @@ class WordBrowseViewModel @Inject constructor(
                     }
             }
 
-            _uiState.value = WordBrowseUiState(isLoading = false, words = words)
+            val strengths = progressRepository.getWordStrengths(userIdProvider.get())
+            _uiState.value = WordBrowseUiState(isLoading = false, words = words, strengths = strengths)
         }
+    }
+
+    /** First card matching [query] - Arabic without diacritics, or any meaning - or null. */
+    fun indexOfMatch(query: String): Int? {
+        if (query.isBlank()) return null
+        return _uiState.value.words.indexOfFirst { word ->
+            ArabicSearch.matches(word.arabicWord, query) || word.meaning.values.any { ArabicSearch.matches(it, query) }
+        }.takeIf { it >= 0 }
+    }
+
+    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
+
+    override fun onCleared() {
+        audioPlayer.release()
+        super.onCleared()
     }
 }

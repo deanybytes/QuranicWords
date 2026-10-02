@@ -16,6 +16,13 @@ import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.util.AppJson
+import com.quranicwords.app.core.domain.LevelCurve
+import com.quranicwords.app.core.domain.model.LessonSessionType
+import com.quranicwords.app.core.domain.requiresPassingScore
+import com.quranicwords.app.core.util.GamificationConfig
+import com.quranicwords.app.core.util.SfxEffect
+import com.quranicwords.app.core.util.SfxPlayer
+import com.quranicwords.app.core.util.StreakTiers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -53,7 +60,17 @@ data class LessonSummaryUiState(
     val nextLessonCategory: LemmaCategory? = null,
     val nextLessonKind: LessonKind? = null,
     val nextLessonWordCount: Int = 0,
-    val nextLessonSectionTitle: LocalizedText? = null
+    val nextLessonSectionTitle: LocalizedText? = null,
+    /** Words whose first try this session was wrong. */
+    val missedWords: List<WordSummaryItem> = emptyList()
+)
+
+/** The summary's celebration moments, derived once from the route. */
+data class SummaryCelebration(
+    /** The new level, when this session crossed a level boundary. */
+    val leveledUpTo: Int? = null,
+    /** 7, 30 or 100 when this session's streak day landed exactly on a milestone. */
+    val streakMilestone: Int? = null
 )
 
 @HiltViewModel
@@ -61,7 +78,8 @@ class LessonSummaryViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
     private val userIdProvider: CurrentUserIdProvider,
-    savedStateHandle: SavedStateHandle
+    private val sfxPlayer: SfxPlayer,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val route: Route.LessonSummary? = runCatching { savedStateHandle.toRoute<Route.LessonSummary>() }.getOrNull()
@@ -72,8 +90,28 @@ class LessonSummaryViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LessonSummaryUiState())
     val uiState: StateFlow<LessonSummaryUiState> = _uiState.asStateFlow()
 
+    val celebration: SummaryCelebration = route?.let { celebrationFor(it) } ?: SummaryCelebration()
+
     init {
         loadSummaryDetails()
+        playCompletionSoundOnce()
+    }
+
+    /** One sound for the biggest moment - a streak milestone outranks a level-up or exam pass,
+     * which outrank a plain completion. Once per summary (survives rotation via the handle). */
+    private fun playCompletionSoundOnce() {
+        val r = route ?: return
+        if (savedStateHandle.get<Boolean>(SOUND_PLAYED_KEY) == true) return
+        savedStateHandle[SOUND_PLAYED_KEY] = true
+        val passed = summaryPassed(r)
+        val examPassed = passed && r.lessonKind?.requiresPassingScore() == true
+        val effect = when {
+            celebration.streakMilestone != null -> SfxEffect.STREAK_MILESTONE
+            celebration.leveledUpTo != null || examPassed -> SfxEffect.EXAM_PASS
+            passed && r.totalCount > 0 -> SfxEffect.LESSON_COMPLETE
+            else -> null
+        } ?: return
+        viewModelScope.launch { sfxPlayer.play(effect) }
     }
 
     private fun loadSummaryDetails() {
@@ -146,6 +184,16 @@ class LessonSummaryViewModel @Inject constructor(
                         }
                     }
 
+                    val missedWords = route?.missedWordIds.orEmpty().distinct().let { ids ->
+                        if (ids.isEmpty()) emptyList() else {
+                            val candidates = contentRepository.getWordCandidates().associateBy { it.id }
+                            ids.mapNotNull { id ->
+                                val candidate = candidates[id] ?: return@mapNotNull null
+                                WordSummaryItem(id, candidate.arabicWord, candidate.meaning, wordCategories[id] ?: LemmaCategory.NOUN)
+                            }
+                        }
+                    }
+
                     // 2. Cumulative progress stats
                     val masteredWordIds = progressRepository.getMasteredItemIds(userId).toSet()
                     val allWords = contentRepository.getWordCandidates()
@@ -204,7 +252,8 @@ class LessonSummaryViewModel @Inject constructor(
                         nextLessonCategory = nextCategory,
                         nextLessonKind = nextKind,
                         nextLessonWordCount = nextWordCount,
-                        nextLessonSectionTitle = nextSectionTitle
+                        nextLessonSectionTitle = nextSectionTitle,
+                        missedWords = missedWords
                     )
                 }
 
@@ -215,4 +264,25 @@ class LessonSummaryViewModel @Inject constructor(
             }
         }
     }
+}
+
+private const val SOUND_PLAYED_KEY = "summarySoundPlayed"
+
+/** Same pass rule the screen and `ProgressRepository.completeLesson` use. */
+fun summaryPassed(route: Route.LessonSummary): Boolean =
+    if (route.sessionType == LessonSessionType.STREAK_RECOVERY) {
+        route.streakIncreased
+    } else {
+        route.lessonKind?.requiresPassingScore() != true ||
+            GamificationConfig.percentOf(route.correctCount, route.totalCount) >= GamificationConfig.PASSING_SCORE_PERCENT
+    }
+
+/** Pure: which celebration moments a finished session earned. */
+fun celebrationFor(route: Route.LessonSummary): SummaryCelebration {
+    val before = LevelCurve.levelFor(route.previousTotalPoints)
+    val after = LevelCurve.levelFor(route.newTotalPoints)
+    val milestone = route.currentStreak.takeIf {
+        route.streakIncreased && it in setOf(StreakTiers.BRONZE, StreakTiers.SILVER, StreakTiers.GOLD)
+    }
+    return SummaryCelebration(leveledUpTo = after.takeIf { it > before }, streakMilestone = milestone)
 }

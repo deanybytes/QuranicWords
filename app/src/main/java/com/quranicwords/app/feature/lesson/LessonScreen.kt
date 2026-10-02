@@ -17,6 +17,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +54,9 @@ import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.AnswerFeedbackOverlay
+import com.quranicwords.app.core.ui.components.ComboMeter
+import com.quranicwords.app.core.ui.components.HeartsBadge
+import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.ui.components.FeedbackBanner
 import com.quranicwords.app.core.ui.components.FeedbackType
 import com.quranicwords.app.core.ui.components.LocalWordCategories
@@ -66,6 +73,7 @@ import com.quranicwords.app.feature.lesson.exercise.ChapterIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MultipleChoiceExerciseContent
+import com.quranicwords.app.feature.lesson.exercise.TapWhatYouHearExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.TapWordInVerseExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordIntroExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordOrderBuilderExerciseContent
@@ -75,6 +83,7 @@ import com.quranicwords.app.feature.lesson.exercise.WordOrderBuilderExerciseCont
 fun LessonScreen(
     onExit: () -> Unit,
     onFinished: (Route.LessonSummary) -> Unit,
+    onPracticeToRefill: (RefillTarget) -> Unit = { onExit() },
     viewModel: LessonViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -136,7 +145,16 @@ fun LessonScreen(
                             is ExerciseContent.Matching -> content.pairs.mapNotNull { it.wordId }
                             else -> listOfNotNull(content.practicedItemId())
                         }
-                    }.distinct()
+                    }.distinct(),
+                    missedWordIds = uiState.scoring.missedItemIds.toList(),
+                    basePoints = result.basePoints,
+                    perfectBonus = result.perfectBonus,
+                    comboBonus = result.comboBonus,
+                    replayDeduction = result.replayDeduction,
+                    questRewardXp = result.questRewardXp,
+                    completedQuestCount = result.completedQuestIds.size,
+                    bestCombo = result.bestCombo,
+                    previousTotalPoints = result.previousTotalPoints
                 )
             )
         }
@@ -171,6 +189,18 @@ fun LessonScreen(
                             QwIconButton(onClick = { showExitDialog = true }) {
                                 Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.action_back))
                             }
+                        },
+                        actions = {
+                            Row(
+                                modifier = Modifier.padding(end = 8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                if (uiState.combo >= 2) {
+                                    ComboMeter(combo = uiState.combo, bonusActive = uiState.combo >= GamificationConfig.COMBO_TIER_ONE)
+                                }
+                                uiState.hearts?.takeIf { it.enabled }?.let { HeartsBadge(hearts = it.hearts) }
+                            }
                         }
                     )
                 }
@@ -194,15 +224,24 @@ fun LessonScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            Text(
-                                text = stringResource(R.string.lesson_empty_title),
-                                style = MaterialTheme.typography.titleMedium,
-                                color = MaterialTheme.colorScheme.onSurface
+                            val caughtUp = viewModel.isReviewLike
+                            Icon(
+                                if (caughtUp) Icons.Filled.CheckCircle else Icons.Filled.Info,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(48.dp)
                             )
                             Text(
-                                text = stringResource(R.string.lesson_empty_desc),
+                                text = stringResource(if (caughtUp) R.string.lesson_empty_review_title else R.string.lesson_empty_title),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = stringResource(if (caughtUp) R.string.lesson_empty_review_desc else R.string.lesson_empty_desc),
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center
                             )
                             QwPrimaryButton(
                                 text = stringResource(R.string.lesson_summary_back_to_dashboard),
@@ -221,8 +260,20 @@ fun LessonScreen(
                                     content = content,
                                     selectedOptionId = uiState.attempt.selectedOptionId,
                                     isChecked = uiState.isChecked,
-                                    onSelect = viewModel::selectOption
+                                    onSelect = viewModel::selectOption,
+                                    onPlayAudio = uiState.audioByWordId[content.wordId]?.let { path -> { viewModel.playPronunciation(path) } }
                                 )
+                                is ExerciseContent.TapWhatYouHear -> {
+                                    // Plays once on arrival - the exercise is unanswerable unheard.
+                                    LaunchedEffect(content.audioAssetPath) { viewModel.playPronunciation(content.audioAssetPath) }
+                                    TapWhatYouHearExerciseContent(
+                                        content = content,
+                                        selectedOptionId = uiState.attempt.selectedOptionId,
+                                        isChecked = uiState.isChecked,
+                                        onPlay = viewModel::playPronunciation,
+                                        onSelect = viewModel::selectOption
+                                    )
+                                }
                                 is ExerciseContent.Matching -> MatchingExerciseContent(
                                     content = content,
                                     matchedPairIds = uiState.attempt.matchedPairIds,
@@ -231,14 +282,23 @@ fun LessonScreen(
                                     onSelectLeft = viewModel::selectMatchingLeft,
                                     onSelectRight = viewModel::selectMatchingRight
                                 )
-                                is ExerciseContent.WordIntro -> WordIntroExerciseContent(
-                                    content = content,
-                                    selectedMeaningIndex = selectedMeaningIndex,
-                                    onMeaningSelected = {
-                                        selectedMeaningIndex = it
-                                        visitedSenses = visitedSenses + it
+                                is ExerciseContent.WordIntro -> {
+                                    val audioPath = content.audioAssetPath ?: uiState.audioByWordId[content.wordId]
+                                    // Hear the word as it's taught (a no-op when pronunciation audio is off).
+                                    if (audioPath != null) {
+                                        LaunchedEffect(audioPath) { viewModel.playPronunciation(audioPath) }
                                     }
-                                )
+                                    WordIntroExerciseContent(
+                                        content = content,
+                                        strength = uiState.wordStrengths[content.wordId],
+                                        onPlayAudio = audioPath?.let { path -> { viewModel.playPronunciation(path) } },
+                                        selectedMeaningIndex = selectedMeaningIndex,
+                                        onMeaningSelected = {
+                                            selectedMeaningIndex = it
+                                            visitedSenses = visitedSenses + it
+                                        }
+                                    )
+                                }
                                 is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
                                     content = content
                                 )
@@ -339,6 +399,7 @@ fun LessonScreen(
                                 }
                             }
                             uiState.currentContent is ExerciseContent.MultipleChoice ||
+                                uiState.currentContent is ExerciseContent.TapWhatYouHear ||
                                 uiState.currentContent is ExerciseContent.FillInTheBlank -> {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     if (uiState.currentIndex > 0) {
@@ -463,6 +524,14 @@ fun LessonScreen(
         }
     }
 
+    if (uiState.outOfHearts) {
+        OutOfHeartsSheet(
+            nextHeartAtMillis = uiState.hearts?.nextHeartAtMillis,
+            onPractice = { onPracticeToRefill(uiState.refillTarget) },
+            onBack = onExit
+        )
+    }
+
     if (showExitDialog) {
         AlertDialog(
             onDismissRequest = { showExitDialog = false },
@@ -484,6 +553,10 @@ fun LessonScreen(
 private fun correctAnswerLabel(content: ExerciseContent?, language: Language): String = when (content) {
     is ExerciseContent.MultipleChoice ->
         content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
+    is ExerciseContent.TapWhatYouHear ->
+        content.options.firstOrNull { it.id == content.correctOptionId }
+            ?.let { option -> option.labelArabic?.cleanArabicDisplay()?.takeIf { it.isNotBlank() } ?: option.localizedLabel(language) }
+            .orEmpty()
     // FillInTheBlank's options are the Arabic words themselves, so the answer is the Arabic word
     // (its meaning only as a fallback for an option with no Arabic label).
     is ExerciseContent.FillInTheBlank ->

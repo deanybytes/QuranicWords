@@ -56,6 +56,8 @@ import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
 import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -68,6 +70,9 @@ import com.quranicwords.app.core.util.VerseReferenceFormatter
 @Composable
 fun WordIntroExerciseContent(
     content: ExerciseContent.WordIntro,
+    strength: WordStrength? = null,
+    /** Plays the word's pronunciation clip; null when it has none. */
+    onPlayAudio: (() -> Boolean)? = null,
     selectedMeaningIndex: Int = 0,
     onMeaningSelected: (Int) -> Unit = {}
 ) {
@@ -105,6 +110,10 @@ fun WordIntroExerciseContent(
             ) {
                 // Grammatical Category Tag (Noun vs Verb vs Particle) at the top
                 com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
+                // Only once the word has a memory - a first meeting has nothing to report yet.
+                if (strength != null && strength != WordStrength.NEW) {
+                    WordStrengthMeter(strength = strength)
+                }
 
                 Text(
                     text = content.arabicWord.cleanArabicDisplay(),
@@ -114,6 +123,9 @@ fun WordIntroExerciseContent(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurface
                 )
+                if (onPlayAudio != null) {
+                    AudioPlayButton(onPlay = onPlayAudio)
+                }
 
                 AnimatedContent(
                     targetState = displayedMeaning,

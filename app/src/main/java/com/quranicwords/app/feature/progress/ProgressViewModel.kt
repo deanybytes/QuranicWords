@@ -9,6 +9,7 @@ import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.domain.srs.WordStrength
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -44,7 +45,9 @@ data class ProgressUiState(
     /** Oldest-first, one entry per of the last 28 days - [HeatmapChart] lays these out 7-per-row. */
     val practiceDaysLast28: List<Boolean> = List(28) { false },
     val daysPracticedLast28Count: Int = 0,
-    val goalMetDaysLast7: Int = 0
+    val goalMetDaysLast7: Int = 0,
+    /** Remembered words per strength bucket (NEW never counted) - see [WordStrength]. */
+    val strengthCounts: Map<WordStrength, Int> = emptyMap()
 )
 
 /** Pure, no DB access - one entry per day in [days], counting how many rows in [progress] have a
@@ -119,7 +122,9 @@ class ProgressViewModel @Inject constructor(
                     progressRepository.observePracticeHistoryForRange(userId, startDate, endDate),
                     progressRepository.observeMissedItemIds(userId)
                 ) { stats, progress, goalLevel, dailyPractice, _ ->
-                    val masteredCount = progressRepository.getMasteredItemIds(userId).size
+                    val strengthCounts = progressRepository.getStrengthCounts(userId)
+                    // "Words learned" is Strong+ - the same definition the summary and Learned Words use.
+                    val masteredCount = strengthCounts.filterKeys { it.isStrongOrBetter }.values.sum()
                     val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
                     val goalMinutes = goalLevel.minutes
 
@@ -134,7 +139,8 @@ class ProgressViewModel @Inject constructor(
                         last7Days = last7Days,
                         practiceDaysLast28 = practiceDaysGrid(dailyPractice, last28Days),
                         daysPracticedLast28Count = practiceDaysGrid(dailyPractice, last28Days).count { it },
-                        goalMetDaysLast7 = countGoalMetDays(dailyPractice, last7Days, goalMinutes)
+                        goalMetDaysLast7 = countGoalMetDays(dailyPractice, last7Days, goalMinutes),
+                        strengthCounts = strengthCounts
                     )
                 }
             }.collect { state ->

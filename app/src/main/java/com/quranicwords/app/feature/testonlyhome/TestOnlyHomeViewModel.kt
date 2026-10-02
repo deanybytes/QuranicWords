@@ -52,6 +52,9 @@ data class TestOnlyHomeUiState(
     val randomCoveredCount: Int = 0,
     val totalWordsCount: Int = 0,
     val missedWordsCount: Int = 0,
+    /** See [com.quranicwords.app.feature.home.HomeUiState.dueReviewCount]. */
+    val dueReviewCount: Int = 0,
+    val quests: List<com.quranicwords.app.core.data.local.entity.DailyQuestEntity> = emptyList(),
     val quranCoveragePercent: Double = 0.0,
     val last30DaysMinutes: List<Int> = emptyList(),
     val last30DaysActiveCount: Int = 0,
@@ -118,8 +121,9 @@ class TestOnlyHomeViewModel @Inject constructor(
                     },
                     combine(missedIdsFlow, practiceRangeFlow, chaptersFlow) { missed, range, chapters ->
                         Triple(missed, range, chapters)
-                    }
-                ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters) ->
+                    },
+                    combine(progressRepository.observeDueCount(userId), progressRepository.observeQuests(userId, today)) { due, quests -> due to quests }
+                ) { (stats, todayPractice, goalLevel), posCovered, (missedIds, rangeHistory, chapters), (dueCount, quests) ->
                     val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
                     val practiceMap = rangeHistory.associate { it.localDate to it.minutesPracticed }
                     val last30DaysMinutes = (29 downTo 0).map { offset ->
@@ -157,6 +161,8 @@ class TestOnlyHomeViewModel @Inject constructor(
                         randomCoveredCount = pools.coveredCount(posCovered.randomCovered, pools.all),
                         totalWordsCount = pools.all.size,
                         missedWordsCount = missedIds.size,
+                        dueReviewCount = dueCount,
+                        quests = quests,
                         quranCoveragePercent = coveragePercent,
                         last30DaysMinutes = last30DaysMinutes,
                         last30DaysActiveCount = active30DaysDays,

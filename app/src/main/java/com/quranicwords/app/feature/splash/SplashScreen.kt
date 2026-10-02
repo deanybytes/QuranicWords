@@ -74,13 +74,17 @@ fun SplashScreen(
 ) {
     val destination by viewModel.destination.collectAsStateWithLifecycle()
     val loadFailed by viewModel.loadFailed.collectAsStateWithLifecycle()
+    val playInvocation by viewModel.playInvocation.collectAsStateWithLifecycle()
     val reducedMotion = rememberReducedMotion()
     var invocationFinished by remember { mutableStateOf(false) }
-    val playsInvocationHere = destination == Route.Home
+    // Only on the first launch of the day (or every launch, if chosen in Settings) - not on
+    // every cold start, which made the app slow to reach for a quick review.
+    val playsInvocationHere = destination == Route.Home && playInvocation == true
 
-    LaunchedEffect(destination, invocationFinished) {
+    LaunchedEffect(destination, invocationFinished, playInvocation) {
         val dest = destination ?: return@LaunchedEffect
-        if (dest != Route.Home || invocationFinished) onNavigateTo(dest)
+        val decided = playInvocation ?: return@LaunchedEffect
+        if (dest != Route.Home || !decided || invocationFinished) onNavigateTo(dest)
     }
 
     if (playsInvocationHere && !invocationFinished) {

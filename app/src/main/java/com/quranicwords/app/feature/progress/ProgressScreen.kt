@@ -34,6 +34,10 @@ import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
 import com.quranicwords.app.core.ui.components.charts.MetricTile
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.core.ui.components.LevelProgressBar
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatPercent
@@ -47,6 +51,7 @@ import com.quranicwords.app.feature.achievements.AchievementsSection
 @Composable
 fun ProgressScreen(
     onOpenLearnedWords: () -> Unit = {},
+    onOpenAchievements: () -> Unit = {},
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -70,6 +75,10 @@ fun ProgressScreen(
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.semantics { heading() }
             )
+        }
+
+        item {
+            LevelProgressBar(totalXp = uiState.totalPoints)
         }
 
         item {
@@ -109,6 +118,12 @@ fun ProgressScreen(
                     label = stringResource(R.string.progress_goal_days_label),
                     modifier = Modifier.weight(1f)
                 )
+            }
+        }
+
+        if (uiState.strengthCounts.isNotEmpty()) {
+            item {
+                WordStrengthBreakdown(counts = uiState.strengthCounts, language = language)
             }
         }
 
@@ -153,7 +168,28 @@ fun ProgressScreen(
         }
 
         item {
-            AchievementsSection()
+            AchievementsSection(onOpenAll = onOpenAchievements)
+        }
+    }
+}
+
+/** One row per remembered strength bucket (Learning -> Mastered): its meter, name and count. */
+@Composable
+private fun WordStrengthBreakdown(counts: Map<WordStrength, Int>, language: Language) {
+    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.progress_word_strength_title), style = MaterialTheme.typography.titleMedium)
+        WordStrength.entries.filter { it != WordStrength.NEW }.forEach { strength ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                WordStrengthMeter(strength = strength)
+                Text(
+                    VerseReferenceFormatter.formatNumber(counts[strength] ?: 0, language),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
     }
 }

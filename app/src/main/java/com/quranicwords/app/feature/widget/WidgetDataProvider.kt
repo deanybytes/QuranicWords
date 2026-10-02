@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.QwDatabase
+import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
@@ -95,8 +96,9 @@ object WidgetDataProvider {
         val streak = DisplayedStreak.of(statsEntity, today)
         val isStreakActive = streak > 0
 
-        val masteredIds = database.exerciseAttemptDao().getMasteredItemIds(userId)
-        val missedIds = database.exerciseAttemptDao().getMissedItemIds(userId)
+        // Same definitions as the app: learned = Strong+ memory, missed = last first try wrong.
+        val masteredIds = database.wordMemoryDao().getItemIdsWithMinStability(userId, WordStrength.STRONG_MIN_DAYS)
+        val missedIds = database.wordMemoryDao().getWeakItemIds(userId)
         val allPracticedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
 
         val wordsLearnedCount = masteredIds.size

@@ -1,5 +1,20 @@
 package com.quranicwords.app.feature.onboarding.dailygoal
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Switch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,6 +53,29 @@ fun DailyGoalSelectScreen(
     onContinue: () -> Unit,
     viewModel: DailyGoalSelectViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val reminderEnabled by viewModel.reminderEnabled.collectAsStateWithLifecycle()
+    var permissionDenied by remember { mutableStateOf(false) }
+    // POST_NOTIFICATIONS is a runtime permission only on API 33+ - same handling as Settings.
+    val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        permissionDenied = !granted
+        if (granted) viewModel.setReminderEnabled(true)
+    }
+    fun onReminderToggled(enabled: Boolean) {
+        if (!enabled) {
+            viewModel.setReminderEnabled(false)
+            return
+        }
+        val granted = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        if (granted) {
+            permissionDenied = false
+            viewModel.setReminderEnabled(true)
+        } else {
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,6 +93,34 @@ fun DailyGoalSelectScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
         )
+
+        // Asked here, while the learner is choosing how much to practise - the moment a reminder
+        // makes most sense - rather than only deep in Settings.
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp)
+                .toggleable(value = reminderEnabled, role = Role.Switch, onValueChange = ::onReminderToggled),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(stringResource(R.string.onboarding_reminder_label), style = MaterialTheme.typography.titleSmall)
+                Text(
+                    stringResource(R.string.settings_streak_reminder_description),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Switch(checked = reminderEnabled, onCheckedChange = null)
+        }
+        if (permissionDenied) {
+            Text(
+                stringResource(R.string.settings_streak_reminder_permission_denied),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
+        }
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             itemsIndexed(DailyGoalLevel.entries) { index, level ->

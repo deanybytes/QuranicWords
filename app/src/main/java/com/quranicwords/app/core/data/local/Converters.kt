@@ -6,6 +6,7 @@ import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LocalizedText
+import com.quranicwords.app.core.domain.srs.MemoryState
 import com.quranicwords.app.core.util.AppJson
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -51,4 +52,12 @@ class Converters {
     @TypeConverter
     fun toLemmaCategory(value: String): com.quranicwords.app.core.domain.model.LemmaCategory =
         com.quranicwords.app.core.domain.model.LemmaCategory.valueOf(value)
+
+    @TypeConverter
+    fun fromMemoryState(value: MemoryState): String = value.name
+
+    /** Unknown names (a row written by a newer build) degrade to NEW rather than crashing a read. */
+    @TypeConverter
+    fun toMemoryState(value: String): MemoryState =
+        MemoryState.entries.find { it.name == value } ?: MemoryState.NEW
 }
