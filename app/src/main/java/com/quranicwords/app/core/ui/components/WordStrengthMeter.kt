@@ -62,7 +62,8 @@ fun WordStrengthMeter(strength: WordStrength, modifier: Modifier = Modifier, sho
         }
         if (showLabel) {
             Text(
-                text = label,
+                // "Memory strength: Familiar" - the bare level word alone did not say what it measures.
+                text = description,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = 4.dp)
