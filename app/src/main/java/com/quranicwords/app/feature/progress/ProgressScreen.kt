@@ -184,7 +184,7 @@ private fun WordStrengthBreakdown(counts: Map<WordStrength, Int>, language: Lang
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                WordStrengthMeter(strength = strength)
+                WordStrengthMeter(strength = strength, prefixed = false)
                 Text(
                     VerseReferenceFormatter.formatNumber(counts[strength] ?: 0, language),
                     style = MaterialTheme.typography.labelLarge

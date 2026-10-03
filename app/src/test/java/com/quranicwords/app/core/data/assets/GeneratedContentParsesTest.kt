@@ -57,6 +57,13 @@ class GeneratedContentParsesTest {
     }
 
     @Test
+    fun `the first-run tour quotes the current curriculum figures`() {
+        assertEquals(reported("words"), com.quranicwords.app.feature.walkthrough.TourFacts.WORDS)
+        val coverage = report.getValue("coverage_percent").jsonPrimitive.content.toDouble()
+        assertEquals(coverage.toInt(), com.quranicwords.app.feature.walkthrough.TourFacts.COVERAGE_PERCENT)
+    }
+
+    @Test
     fun `counts match the build report`() {
         assertEquals(reported("chapters"), AppJson.decodeFromString<ChaptersFile>(readAsset("chapters.json")).chapters.size)
         assertEquals(reported("sections"), AppJson.decodeFromString<SectionsFile>(readAsset("sections.json")).sections.size)

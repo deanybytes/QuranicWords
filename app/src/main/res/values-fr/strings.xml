@@ -139,8 +139,6 @@
     <string name="lesson_summary_title_pass">Alhamdulillah ! Bien joué !</string>
     <string name="lesson_summary_title_retry">In-Sha-Allah, la prochaine fois !</string>
     <string name="lesson_summary_title_complete">Alhamdulillah ! Leçon terminée</string>
-    <string name="lesson_summary_points_earned">+%d points</string>
-    <string name="lesson_summary_accuracy">%d%% correct</string>
     <string name="lesson_summary_streak_increased">Série prolongée ! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">Nouveau succès débloqué !</string>
     <string name="lesson_summary_continue">Continuer</string>
@@ -149,9 +147,6 @@
     <string name="lesson_summary_streak_restored">Série restaurée ! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Série non récupérée — nouveau départ</string>
     <string name="lesson_summary_alhamdulillah_title">Alhamdulillah ! Leçon terminée</string>
-    <string name="lesson_summary_words_covered">%d mots maîtrisés</string>
-    <string name="lesson_summary_flawless">Parfait ! 0 faute</string>
-    <string name="lesson_summary_mistakes_count">%d fautes</string>
     <string name="lesson_summary_cumulative_title">Progression Coranique Cumulative</string>
     <string name="lesson_summary_cumulative_desc">Vous avez maîtrisé %1$s mots du Saint Coran (%2$s du Coran).</string>
     <string name="lesson_summary_next_lesson_title">Aperçu de la prochaine leçon</string>
@@ -351,12 +346,6 @@
     <string name="settings_require_exit_confirmation_description">Afficher une invite de confirmation lorsque vous appuyez sur le bouton retour pour quitter l\'application.</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">Bienvenue sur QuranicWords</string>
-    <string name="walkthrough_page1_desc">Apprenez le vocabulaire coranique grâce à des exercices interactifs. Suivez notre parcours guidé pour maîtriser les mots les plus fréquents du Coran.</string>
-    <string name="walkthrough_page2_title">Exercices interactifs</string>
-    <string name="walkthrough_page2_desc">Entraînez-vous avec des quiz, des jeux d\'association et des révisions. Maintenez votre série quotidienne et gagnez des points au fil de vos leçons.</string>
-    <string name="walkthrough_page3_title">Suivez vos progrès</string>
-    <string name="walkthrough_page3_desc">Consultez vos réussites, vos objectifs quotidiens et découvrez quel pourcentage du Coran vous comprenez. Restez motivé et régulier !</string>
     <string name="walkthrough_back">Retour</string>
     <string name="walkthrough_next">Suivant</string>
     <string name="walkthrough_finish">Commencer</string>
@@ -499,4 +488,25 @@
     <string name="widget_due_count">%1$s à réviser</string>
     <string name="widget_word_facts">%1$s fois dans le Coran · rang n° %2$s</string>
     <string name="widget_preview_meaning">Livre</string>
+    <string name="walkthrough_skip">Passer</string>
+    <string name="walkthrough_step" formatted="true">Étape %1$s sur %2$s</string>
+    <string name="walkthrough_sample_meaning">et</string>
+    <string name="walkthrough_page1_title">Comprendre le Coran, mot à mot</string>
+    <string name="walkthrough_page1_desc" formatted="true">%1$s mots soigneusement choisis représentent %2$s de tout ce que vous lisez dans le Coran. Apprenez-les par ordre de fréquence, quelques minutes par jour.</string>
+    <string name="walkthrough_page2_title">Chaque mot dans son verset</string>
+    <string name="walkthrough_page2_desc">Chaque sens s\'accompagne d\'un verset complet. Seul le mot que vous apprenez est surligné, avec son sens exact dans la traduction.</string>
+    <string name="walkthrough_page3_title">Apprendre en pratiquant</string>
+    <string name="walkthrough_page3_desc">De courtes leçons mêlent QCM, textes à trous, mot à toucher et associations. Seule la première réponse compte : chaque point est mérité.</string>
+    <string name="walkthrough_page4_title">Réviser au bon moment</string>
+    <string name="walkthrough_page4_desc">La Révision du jour ramène chaque mot juste avant que vous ne l\'oubliiez. La jauge de mémoire indique votre niveau : Nouveau, En apprentissage, Familier, Solide, Maîtrisé.</string>
+    <string name="walkthrough_page5_title">Restez motivé</string>
+    <string name="walkthrough_page5_desc">Gardez votre série quotidienne, gagnez de l\'XP et des niveaux, accomplissez les quêtes du jour et préservez vos cœurs.</string>
+    <string name="walkthrough_page6_title">Lisez dans votre écriture préférée</string>
+    <string name="walkthrough_page6_desc" formatted="true">Choisissez parmi %1$s polices coraniques, dont le Moushaf de Médine, Nourani et Hafizi, et ajoutez un widget de mots à votre écran d\'accueil. Revoyez cette visite à tout moment depuis les Réglages.</string>
+    <string name="lesson_category_mixed">Leçon de mots-outils</string>
+    <string name="lesson_summary_label_words">Mots couverts</string>
+    <string name="lesson_summary_label_accuracy">Bonnes réponses</string>
+    <string name="lesson_summary_label_mistakes">Erreurs</string>
+    <string name="lesson_summary_label_flawless">Sans faute !</string>
+    <string name="lesson_summary_label_points">Points gagnés</string>
 </resources>

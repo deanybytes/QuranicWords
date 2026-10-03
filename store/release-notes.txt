@@ -1,0 +1,80 @@
+<en-US>
+What's new
+• Rebuilt curriculum: 3,833 verified words covering 97% of the Qur'an
+• Every meaning shown in a complete ayah – only the taught word highlighted
+• Daily Review (spaced repetition), memory strength, XP, quests & hearts
+• New home-screen widgets
+• 7 Qur'an fonts incl. Noorani & Hafezi, with ayah numbers
+• New guided tour and clearer lesson summary
+• References and grammar fully in your language
+</en-US>
+<bn-BD>
+নতুন যা আছে
+• নতুন পাঠ্যক্রম: যাচাইকৃত ৩,৮৩৩টি শব্দ, কুরআনের ৯৭%
+• প্রতিটি অর্থ সম্পূর্ণ আয়াতে – শুধু শেখানো শব্দটি হাইলাইট
+• দৈনিক রিভিশন, স্মৃতির শক্তি, XP, কোয়েস্ট ও হার্ট
+• নতুন হোম স্ক্রিন উইজেট
+• নূরানী ও হাফেজীসহ ৭টি কুরআনি ফন্ট, আয়াত নম্বরসহ
+• নতুন পরিচিতি গাইড ও স্পষ্ট পাঠ সারাংশ
+• রেফারেন্স ও ব্যাকরণ পুরোপুরি বাংলায়
+</bn-BD>
+<ur>
+نیا کیا ہے
+• نیا نصاب: ۳٬۸۳۳ تصدیق شدہ الفاظ، قرآن کا ۹۷٪
+• ہر معنی مکمل آیت میں – صرف سکھایا جانے والا لفظ نمایاں
+• روزانہ دہرائی، یادداشت کی مضبوطی، XP، کام اور دل
+• نئے ہوم اسکرین ویجیٹس
+• نورانی اور حافظی سمیت ۷ قرآنی فونٹس، آیت نمبر کے ساتھ
+• نیا تعارفی گائیڈ اور واضح سبق کا خلاصہ
+• حوالے اور گرامر مکمل طور پر اردو میں
+</ur>
+<hi-IN>
+नया क्या है
+• नया पाठ्यक्रम: 3,833 सत्यापित शब्द, क़ुरआन का 97%
+• हर अर्थ पूरी आयत में – सिर्फ़ सिखाया गया शब्द हाइलाइट
+• रोज़ाना दोहराई, याददाश्त की मज़बूती, XP, क्वेस्ट और दिल
+• नए होम स्क्रीन विजेट
+• नूरानी और हाफ़िज़ी सहित 7 क़ुरआनी फ़ॉन्ट, आयत नंबर के साथ
+• नया परिचय गाइड और साफ़ पाठ सारांश
+• हवाले और व्याकरण पूरी तरह हिंदी में
+</hi-IN>
+<id>
+Yang baru
+• Kurikulum baru: 3.833 kata terverifikasi, mencakup 97% Al-Qur'an
+• Setiap makna dalam ayat lengkap – hanya kata yang dipelajari disorot
+• Ulasan Harian, kekuatan ingatan, XP, misi, dan hati
+• Widget layar utama yang baru
+• 7 font Al-Qur'an termasuk Nurani & Hafizi, dengan nomor ayat
+• Tur panduan baru dan ringkasan pelajaran yang lebih jelas
+• Rujukan dan tata bahasa sepenuhnya dalam bahasa Anda
+</id>
+<tr-TR>
+Yenilikler
+• Yeni müfredat: 3.833 doğrulanmış kelime, Kur'an'ın %97'si
+• Her anlam eksiksiz bir ayette – yalnızca öğretilen kelime vurgulu
+• Günlük Tekrar, hafıza gücü, XP, görevler ve kalpler
+• Yeni ana ekran widget'ları
+• Nurani ve Hafızlık dahil 7 Kur'an yazı tipi, ayet numaralarıyla
+• Yeni tanıtım turu ve daha net ders özeti
+• Referanslar ve dil bilgisi tamamen Türkçe
+</tr-TR>
+<fa>
+تازه‌ها
+• برنامهٔ درسی نو: ۳٬۸۳۳ واژهٔ تأییدشده، ۹۷٪ قرآن
+• هر معنا در یک آیهٔ کامل – فقط واژهٔ آموزشی برجسته
+• مرور روزانه، قدرت حافظه، XP، مأموریت‌ها و قلب‌ها
+• ابزارک‌های جدید صفحهٔ اصلی
+• ۷ قلم قرآنی از جمله نورانی و حافظی، با شمارهٔ آیه
+• راهنمای آشنایی جدید و خلاصهٔ روشن‌تر درس
+• ارجاع‌ها و دستور زبان کاملاً به فارسی
+</fa>
+<fr-FR>
+Nouveautés
+• Nouveau programme : 3 833 mots vérifiés, 97 % du Coran
+• Chaque sens dans un verset complet – seul le mot étudié est surligné
+• Révision du jour, jauge de mémoire, XP, quêtes et cœurs
+• Nouveaux widgets pour l'écran d'accueil
+• 7 polices coraniques dont Nourani et Hafizi, avec numéros de versets
+• Nouvelle visite guidée et résumé de leçon plus clair
+• Références et grammaire entièrement dans votre langue
+</fr-FR>

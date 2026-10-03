@@ -139,8 +139,6 @@
     <string name="lesson_summary_title_pass">الحمدللہ! بہت خوب!</string>
     <string name="lesson_summary_title_retry">ان‌شاءاللہ، اگلی بار!</string>
     <string name="lesson_summary_title_complete">الحمدللہ! سبق مکمل ہوا</string>
-    <string name="lesson_summary_points_earned">‎+%d پوائنٹس</string>
-    <string name="lesson_summary_accuracy">%d%% درست</string>
     <string name="lesson_summary_streak_increased">تسلسل بڑھ گیا! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">نئی کامیابی حاصل ہوئی!</string>
     <string name="lesson_summary_continue">جاری رکھیں</string>
@@ -149,9 +147,6 @@
     <string name="lesson_summary_streak_restored">تسلسل بحال ہو گیا! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">تسلسل بحال نہیں ہوا — نئے سرے سے شروع</string>
     <string name="lesson_summary_alhamdulillah_title">الحمد لله! سبق مکمل ہو گیا</string>
-    <string name="lesson_summary_words_covered">%d الفاظ سیکھے گئے</string>
-    <string name="lesson_summary_flawless">بہترین! صفر غلطی</string>
-    <string name="lesson_summary_mistakes_count">%d غلطیاں ہوئیں</string>
     <string name="lesson_summary_cumulative_title">مجموعی قرآنی پیش رفت</string>
     <string name="lesson_summary_cumulative_desc">آپ نے قرآن مجید کے کل %1$s الفاظ مکمل یاد کر لیے ہیں (%2$s حصہ)۔</string>
     <string name="lesson_summary_next_lesson_title">اگلے سبق کا تعارف</string>
@@ -351,12 +346,6 @@
     <string name="settings_require_exit_confirmation_description">ایپ سے نکلنے کے لیے بیک بٹن دبانے پر تصدیقی پاپ اپ دکھائیں۔</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">قرآنی الفاظ میں خوش آمدید</string>
-    <string name="walkthrough_page1_desc">انٹرایکٹو مشقوں کے ذریعے قرآنی الفاظ سیکھیں۔ قرآن پاک کے سب سے زیادہ استعمال ہونے والے الفاظ پر عبور حاصل کرنے کے لیے ہمارے رہنمائی والے راستے پر چلیں۔</string>
-    <string name="walkthrough_page2_title">انٹرایکٹو مشقیں</string>
-    <string name="walkthrough_page2_desc">کوئزز، مماثلت والے کھیل اور دہرائی کے ساتھ مشق کریں۔ اسباق میں آگے بڑھتے ہوئے اپنا روزانہ کا تسلسل بنائیں اور پوائنٹس حاصل کریں۔</string>
-    <string name="walkthrough_page3_title">اپنی پیش رفت دیکھیں</string>
-    <string name="walkthrough_page3_desc">اپنی کامیابیاں، روزانہ کے اہداف اور یہ دیکھیں کہ آپ قرآن کا کتنا فیصد سمجھ سکتے ہیں۔ مسلسل مشق کریں اور پرعزم رہیں!</string>
     <string name="walkthrough_back">پیچھے</string>
     <string name="walkthrough_next">آگے</string>
     <string name="walkthrough_finish">شروع کریں</string>
@@ -498,4 +487,25 @@
     <string name="widget_due_count">%1$s باقی</string>
     <string name="widget_word_facts">قرآن میں %1$s بار · درجہ #%2$s</string>
     <string name="widget_preview_meaning">کتاب</string>
+    <string name="walkthrough_skip">چھوڑیں</string>
+    <string name="walkthrough_step" formatted="true">مرحلہ %1$s از %2$s</string>
+    <string name="walkthrough_sample_meaning">اور</string>
+    <string name="walkthrough_page1_title">قرآن کو لفظ بہ لفظ سمجھیں</string>
+    <string name="walkthrough_page1_desc" formatted="true">چنے ہوئے %1$s الفاظ قرآن میں آپ جو کچھ پڑھتے ہیں اس کا %2$s ہیں۔ انہیں کثرتِ استعمال کی ترتیب سے، روزانہ چند منٹ میں سیکھیں۔</string>
+    <string name="walkthrough_page2_title">ہر لفظ اپنی آیت میں</string>
+    <string name="walkthrough_page2_desc">ہر معنی کے ساتھ ایک مکمل آیت ہوتی ہے۔ صرف وہ لفظ نمایاں ہوتا ہے جو آپ سیکھ رہے ہیں، اور ترجمے میں اس کا بالکل وہی معنی۔</string>
+    <string name="walkthrough_page3_title">مشق سے سیکھیں</string>
+    <string name="walkthrough_page3_desc">مختصر اسباق میں کثیر انتخابی سوالات، خالی جگہ پُر کرنا، لفظ پر ٹیپ کرنا اور جوڑ ملانا شامل ہیں۔ صرف پہلا جواب شمار ہوتا ہے، اس لیے ہر پوائنٹ حقیقی ہے۔</string>
+    <string name="walkthrough_page4_title">صحیح وقت پر دہرائی</string>
+    <string name="walkthrough_page4_desc">روزانہ دہرائی ہر لفظ کو بھولنے سے عین پہلے واپس لاتی ہے۔ یادداشت کا پیمانہ بتاتا ہے کہ آپ اسے کتنا جانتے ہیں: نیا، سیکھ رہے ہیں، مانوس، مضبوط، مہارت حاصل۔</string>
+    <string name="walkthrough_page5_title">حوصلہ برقرار رکھیں</string>
+    <string name="walkthrough_page5_desc">روزانہ کا تسلسل قائم رکھیں، XP اور لیول حاصل کریں، روزانہ کے کام مکمل کریں اور اپنے دلوں کا خیال رکھیں۔</string>
+    <string name="walkthrough_page6_title">اپنے پسندیدہ رسم الخط میں پڑھیں</string>
+    <string name="walkthrough_page6_desc" formatted="true">مدینہ مصحف، نورانی اور حافظی سمیت %1$s قرآنی فونٹس میں سے انتخاب کریں اور ہوم اسکرین پر الفاظ کا ویجیٹ لگائیں۔ یہ تعارف سیٹنگز سے کبھی بھی دوبارہ دیکھ سکتے ہیں۔</string>
+    <string name="lesson_category_mixed">حروف و ضمائر کا سبق</string>
+    <string name="lesson_summary_label_words">سیکھے گئے الفاظ</string>
+    <string name="lesson_summary_label_accuracy">درست جوابات</string>
+    <string name="lesson_summary_label_mistakes">غلطیاں</string>
+    <string name="lesson_summary_label_flawless">بے غلطی!</string>
+    <string name="lesson_summary_label_points">حاصل کردہ پوائنٹس</string>
 </resources>

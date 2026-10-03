@@ -272,7 +272,7 @@ private fun LearnedWordCard(
                         )
                     }
 
-                    WordStrengthMeter(strength = word.strength)
+                    WordStrengthMeter(strength = word.strength, prefixed = false)
 
                     // Occurrences in Quran badge
                     Surface(

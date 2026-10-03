@@ -40,7 +40,13 @@ fun WordStrength.label(): String = stringResource(
  * accessibility node reading "Memory strength: Familiar".
  */
 @Composable
-fun WordStrengthMeter(strength: WordStrength, modifier: Modifier = Modifier, showLabel: Boolean = true) {
+fun WordStrengthMeter(
+    strength: WordStrength,
+    modifier: Modifier = Modifier,
+    showLabel: Boolean = true,
+    /** "Memory strength: Familiar" on its own; just "Familiar" in a list already titled "Word strength". */
+    prefixed: Boolean = true
+) {
     val label = strength.label()
     val description = stringResource(R.string.a11y_word_strength, label)
     Row(
@@ -63,7 +69,7 @@ fun WordStrengthMeter(strength: WordStrength, modifier: Modifier = Modifier, sho
         if (showLabel) {
             Text(
                 // "Memory strength: Familiar" - the bare level word alone did not say what it measures.
-                text = description,
+                text = if (prefixed) description else label,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = 4.dp)

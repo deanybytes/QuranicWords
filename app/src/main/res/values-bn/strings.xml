@@ -144,8 +144,6 @@
     <string name="lesson_summary_title_pass">আলহামদুলিল্লাহ! চমৎকার হয়েছে!</string>
     <string name="lesson_summary_title_retry">ইনশাআল্লাহ, পরের বার হবে!</string>
     <string name="lesson_summary_title_complete">আলহামদুলিল্লাহ! পাঠ সম্পন্ন</string>
-    <string name="lesson_summary_points_earned">+%d পয়েন্ট</string>
-    <string name="lesson_summary_accuracy">%d%% সঠিক</string>
     <string name="lesson_summary_streak_increased">স্ট্রিক বেড়েছে! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">নতুন অর্জন আনলক হয়েছে!</string>
     <string name="lesson_summary_continue">চালিয়ে যান</string>
@@ -154,9 +152,6 @@
     <string name="lesson_summary_streak_restored">স্ট্রিক পুনরুদ্ধার হয়েছে! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">স্ট্রিক পুনরুদ্ধার হয়নি — নতুন করে শুরু হচ্ছে</string>
     <string name="lesson_summary_alhamdulillah_title">আলহামদুলিল্লাহ! পাঠ সম্পন্ন হয়েছে</string>
-    <string name="lesson_summary_words_covered">%dটি শব্দ আয়ত্ত হয়েছে</string>
-    <string name="lesson_summary_flawless">নিখুঁত! কোনো ভুল নেই</string>
-    <string name="lesson_summary_mistakes_count">%dটি ভুল হয়েছে</string>
     <string name="lesson_summary_cumulative_title">মোট অর্জিত কুরআনিক অগ্রগতি</string>
     <string name="lesson_summary_cumulative_desc">আপনি পবিত্র কুরআনের মোট %1$sটি শব্দ আয়ত্ত করেছেন (%2$s অংশ)।</string>
     <string name="lesson_summary_next_lesson_title">পরবর্তী পাঠের পরিচিতি</string>
@@ -351,12 +346,6 @@
     <string name="settings_require_exit_confirmation_description">অ্যাপ থেকে বের হওয়ার সময় ব্যাক বোতাম চাপলে নিশ্চিতকরণ পপআপ দেখান।</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">কুরআনিক ওয়ার্ডস-এ স্বাগতম</string>
-    <string name="walkthrough_page1_desc">ইন্টারঅ্যাক্টিভ অনুশীলনের মাধ্যমে কুরআনের শব্দভাণ্ডার শিখুন। কুরআনের সর্বাধিক ব্যবহৃত শব্দগুলো সহজে আয়ত্ত করতে আমাদের নির্দেশিত পথ অনুসরণ করুন।</string>
-    <string name="walkthrough_page2_title">ইন্টারঅ্যাক্টিভ অনুশীলন</string>
-    <string name="walkthrough_page2_desc">কুইজ, শব্দ মিলকরণ এবং পুনরাবৃত্তির মাধ্যমে অনুশীলন করুন। পাঠ শেষ করার সাথে সাথে প্রতিদিনের ধারাবাহিকতা ধরে রাখুন ও পয়েন্ট অর্জন করুন।</string>
-    <string name="walkthrough_page3_title">আপনার অগ্রগতি পর্যবেক্ষণ করুন</string>
-    <string name="walkthrough_page3_desc">আপনার অর্জন, দৈনিক লক্ষ্য এবং আপনি কুরআনের কত শতাংশ বুঝতে পারছেন তা দেখুন। নিয়মিত অনুশীলন করুন ও উদ্বুদ্ধ থাকুন!</string>
     <string name="walkthrough_back">পূর্ববর্তী</string>
     <string name="walkthrough_next">পরবর্তী</string>
     <string name="walkthrough_finish">শুরু করুন</string>
@@ -498,4 +487,25 @@
     <string name="widget_due_count">%1$sটি বাকি</string>
     <string name="widget_word_facts">কুরআনে %1$s বার · র‍্যাংক #%2$s</string>
     <string name="widget_preview_meaning">গ্রন্থ</string>
+    <string name="walkthrough_skip">এড়িয়ে যান</string>
+    <string name="walkthrough_step" formatted="true">ধাপ %1$s / %2$s</string>
+    <string name="walkthrough_sample_meaning">এবং</string>
+    <string name="walkthrough_page1_title">শব্দে শব্দে কুরআন বুঝুন</string>
+    <string name="walkthrough_page1_desc" formatted="true">বাছাই করা %1$sটি শব্দ কুরআনে আপনি যা পড়েন তার %2$s জুড়ে আছে। দিনে কয়েক মিনিটে, বারবার আসা শব্দগুলো আগে শিখুন।</string>
+    <string name="walkthrough_page2_title">প্রতিটি শব্দ তার আয়াতে</string>
+    <string name="walkthrough_page2_desc">প্রতিটি অর্থের সাথে থাকে সম্পূর্ণ একটি আয়াত। শুধু আপনি যে শব্দটি শিখছেন সেটি হাইলাইট হয়, অনুবাদে তার হুবহু অর্থসহ।</string>
+    <string name="walkthrough_page3_title">অনুশীলনে শিখুন</string>
+    <string name="walkthrough_page3_desc">ছোট পাঠে আছে বহুনির্বাচনী, শূন্যস্থান পূরণ, শব্দ চিহ্নিত করা ও মিলকরণ। শুধু প্রথম উত্তরই গণনা হয়, তাই প্রতিটি পয়েন্ট সত্যিকারের অর্জন।</string>
+    <string name="walkthrough_page4_title">সঠিক সময়ে রিভিশন</string>
+    <string name="walkthrough_page4_desc">দৈনিক রিভিশন প্রতিটি শব্দ ভুলে যাওয়ার ঠিক আগে ফিরিয়ে আনে। স্মৃতির শক্তি দেখায় শব্দটি কতটা জানেন: নতুন, শিখছি, পরিচিত, মজবুত, আয়ত্ত।</string>
+    <string name="walkthrough_page5_title">উৎসাহ ধরে রাখুন</string>
+    <string name="walkthrough_page5_desc">প্রতিদিনের ধারাবাহিকতা বজায় রাখুন, XP ও লেভেল অর্জন করুন, দৈনিক কোয়েস্ট সম্পন্ন করুন এবং হার্ট বাঁচিয়ে রাখুন।</string>
+    <string name="walkthrough_page6_title">পছন্দের লিপিতে পড়ুন</string>
+    <string name="walkthrough_page6_desc" formatted="true">মদিনা মুসহাফ, নূরানী ও হাফেজীসহ %1$sটি কুরআনি ফন্ট থেকে বেছে নিন এবং হোম স্ক্রিনে শব্দের উইজেট যোগ করুন। সেটিংস থেকে যেকোনো সময় এই পরিচিতি আবার দেখতে পারবেন।</string>
+    <string name="lesson_category_mixed">কার্যবাচক শব্দের পাঠ</string>
+    <string name="lesson_summary_label_words">শব্দ শেখা হলো</string>
+    <string name="lesson_summary_label_accuracy">সঠিক উত্তর</string>
+    <string name="lesson_summary_label_mistakes">ভুল</string>
+    <string name="lesson_summary_label_flawless">নির্ভুল!</string>
+    <string name="lesson_summary_label_points">অর্জিত পয়েন্ট</string>
 </resources>

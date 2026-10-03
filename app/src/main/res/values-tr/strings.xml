@@ -136,8 +136,6 @@
     <string name="lesson_summary_title_pass">Elhamdülillah! Aferin!</string>
     <string name="lesson_summary_title_retry">İnşaallah, bir dahaki sefere!</string>
     <string name="lesson_summary_title_complete">Elhamdülillah! Ders tamamlandı</string>
-    <string name="lesson_summary_points_earned">+%d puan</string>
-    <string name="lesson_summary_accuracy">%%%d doğru</string>
     <string name="lesson_summary_streak_increased">Seri uzadı! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">Yeni başarı kilidi açıldı!</string>
     <string name="lesson_summary_continue">Devam et</string>
@@ -146,9 +144,6 @@
     <string name="lesson_summary_streak_restored">Seri Geri Yüklendi! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Seri kurtarılamadı — yeniden başlıyor</string>
     <string name="lesson_summary_alhamdulillah_title">Elhamdülillah! Ders Tamamlandı</string>
-    <string name="lesson_summary_words_covered">%d Kelime Öğrenildi</string>
-    <string name="lesson_summary_flawless">Kusursuz! 0 Hata</string>
-    <string name="lesson_summary_mistakes_count">%d Hata Yapıldı</string>
     <string name="lesson_summary_cumulative_title">Kümülatif Kur\'an İlerlemesi</string>
     <string name="lesson_summary_cumulative_desc">Kur\'an-ı Kerim\'den toplam %1$s kelime öğrendiniz (Kur\'an\'ın %2$s\'i).</string>
     <string name="lesson_summary_next_lesson_title">Sonraki Ders Önizlemesi</string>
@@ -352,12 +347,6 @@
     <string name="settings_require_exit_confirmation_description">Uygulamadan çıkmak için geri düğmesine basıldığında onay penceresi göster.</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">QuranicWords\'e Hoş Geldiniz</string>
-    <string name="walkthrough_page1_desc">Etkileşimli alıştırmalarla Kur\'an kelime dağarcığını öğrenin. Kur\'an\'da en sık geçen kelimeleri öğrenmek için rehberli öğrenme yolumuzu takip edin.</string>
-    <string name="walkthrough_page2_title">Etkileşimli Alıştırmalar</string>
-    <string name="walkthrough_page2_desc">Testler, eşleştirme oyunları ve tekrarlarla pratik yapın. Derslerde ilerledikçe günlük serinizi oluşturun ve puan kazanın.</string>
-    <string name="walkthrough_page3_title">İlerlemenizi Takip Edin</string>
-    <string name="walkthrough_page3_desc">Başarılarınızı, günlük hedeflerinizi ve Kur\'an\'ın yüzde kaçını anlayabildiğinizi görün. Motivasyonunuzu koruyun ve düzenli çalışın!</string>
     <string name="walkthrough_back">Geri</string>
     <string name="walkthrough_next">İleri</string>
     <string name="walkthrough_finish">Başlayın</string>
@@ -499,4 +488,25 @@
     <string name="widget_due_count">%1$s tekrar</string>
     <string name="widget_word_facts">Kur\'an\'da %1$s kez · sıra #%2$s</string>
     <string name="widget_preview_meaning">Kitap</string>
+    <string name="walkthrough_skip">Atla</string>
+    <string name="walkthrough_step" formatted="true">Adım %1$s / %2$s</string>
+    <string name="walkthrough_sample_meaning">ve</string>
+    <string name="walkthrough_page1_title">Kur\'an\'ı kelime kelime anlayın</string>
+    <string name="walkthrough_page1_desc" formatted="true">Özenle seçilmiş %1$s kelime, Kur\'an\'da okuduğunuz her şeyin %2$s kadarını oluşturur. Bunları sıklık sırasıyla, günde birkaç dakikada öğrenin.</string>
+    <string name="walkthrough_page2_title">Her kelime kendi ayetinde</string>
+    <string name="walkthrough_page2_desc">Her anlam eksiksiz bir ayetle gelir. Yalnızca öğrendiğiniz kelime vurgulanır; mealdeki birebir karşılığıyla birlikte.</string>
+    <string name="walkthrough_page3_title">Yaparak öğrenin</string>
+    <string name="walkthrough_page3_desc">Kısa dersler çoktan seçmeli, boşluk doldurma, kelimeye dokunma ve eşleştirmeyi bir araya getirir. Yalnızca ilk cevabınız sayılır; her puan gerçek bir kazanımdır.</string>
+    <string name="walkthrough_page4_title">Doğru zamanda tekrar</string>
+    <string name="walkthrough_page4_desc">Günlük Tekrar her kelimeyi tam unutmadan önce geri getirir. Hafıza göstergesi kelimeyi ne kadar bildiğinizi gösterir: Yeni, Öğreniliyor, Tanıdık, Güçlü, Ustalaşıldı.</string>
+    <string name="walkthrough_page5_title">Motivasyonunuzu koruyun</string>
+    <string name="walkthrough_page5_desc">Günlük serinizi sürdürün, XP ve seviye kazanın, günlük görevleri tamamlayın ve kalplerinizi koruyun.</string>
+    <string name="walkthrough_page6_title">Sevdiğiniz hatla okuyun</string>
+    <string name="walkthrough_page6_desc" formatted="true">Medine Mushafı, Nurani ve Hafızlık hattı dahil %1$s Kur\'an yazı tipinden birini seçin ve ana ekranınıza kelime widget\'ı ekleyin. Bu turu Ayarlar\'dan istediğiniz zaman yeniden izleyebilirsiniz.</string>
+    <string name="lesson_category_mixed">Edat ve Zamir Dersi</string>
+    <string name="lesson_summary_label_words">Öğrenilen kelime</string>
+    <string name="lesson_summary_label_accuracy">Doğru cevap</string>
+    <string name="lesson_summary_label_mistakes">Hata</string>
+    <string name="lesson_summary_label_flawless">Kusursuz!</string>
+    <string name="lesson_summary_label_points">Kazanılan puan</string>
 </resources>

@@ -130,8 +130,6 @@
     <string name="lesson_summary_title_pass">अलहम्दुलिल्लाह! बहुत बढ़िया!</string>
     <string name="lesson_summary_title_retry">इन्शाअल्लाह, अगली बार!</string>
     <string name="lesson_summary_title_complete">अलहम्दुलिल्लाह! पाठ पूरा हुआ</string>
-    <string name="lesson_summary_points_earned">+%d अंक</string>
-    <string name="lesson_summary_accuracy">%d%% सही</string>
     <string name="lesson_summary_streak_increased">स्ट्रीक बढ़ गई! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">नई उपलब्धि अनलॉक हुई!</string>
     <string name="lesson_summary_continue">जारी रखें</string>
@@ -140,9 +138,6 @@
     <string name="lesson_summary_streak_restored">आपकी स्ट्रीक पुनर्स्थापित कर दी गई है! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">स्ट्रीक पुनर्प्राप्त नहीं हुई — नई शुरुआत</string>
     <string name="lesson_summary_alhamdulillah_title">अलहम्दुलिल्लाह!</string>
-    <string name="lesson_summary_words_covered">%d शब्द पूरे किए</string>
-    <string name="lesson_summary_flawless">शानदार! 0 गलतियाँ</string>
-    <string name="lesson_summary_mistakes_count">%d गलतियाँ</string>
     <string name="lesson_summary_cumulative_title">कुल क़ुरआन ज्ञान</string>
     <string name="lesson_summary_cumulative_desc">आपने %1$s शब्दों पर महारत हासिल कर ली है (पवित्र क़ुरआन का %2$s)।</string>
     <string name="lesson_summary_next_lesson_title">अगला पाठ</string>
@@ -327,12 +322,6 @@
     <string name="settings_require_exit_confirmation_description">ऐप से बाहर निकलने के लिए बैक बटन दबाने पर पुष्टि पॉपअप दिखाएं।</string>
 
     <!-- Walkthrough -->
-    <string name="walkthrough_page1_title">क़ुरआनिक वर्ड्स में आपका स्वागत है</string>
-    <string name="walkthrough_page1_desc">इंटरैक्टिव अभ्यासों के माध्यम से क़ुरआन के शब्द सीखें। क़ुरआन में सबसे अधिक आने वाले शब्दों में महारत हासिल करने के लिए हमारे मार्गदर्शक पथ का पालन करें।</string>
-    <string name="walkthrough_page2_title">इंटरैक्टिव अभ्यास</string>
-    <string name="walkthrough_page2_desc">क्विज़, मिलान खेल और पुनरावृत्ति के साथ अभ्यास करें। पाठों में आगे बढ़ते हुए अपनी दैनिक निरंतरता (स्ट्रीक) बनाएं और अंक अर्जित करें।</string>
-    <string name="walkthrough_page3_title">अपनी प्रगति ट्रैक करें</string>
-    <string name="walkthrough_page3_desc">अपनी उपलब्धियाँ, दैनिक लक्ष्य और देखें कि आप क़ुरआन का कितना प्रतिशत समझ सकते हैं। प्रेरित और निरंतर रहें!</string>
     <string name="walkthrough_back">पीछे</string>
     <string name="walkthrough_next">आगे</string>
     <string name="walkthrough_finish">शुरू करें</string>
@@ -474,4 +463,25 @@
     <string name="widget_due_count">%1$s बाकी</string>
     <string name="widget_word_facts">क़ुरआन में %1$s बार · रैंक #%2$s</string>
     <string name="widget_preview_meaning">किताब</string>
+    <string name="walkthrough_skip">छोड़ें</string>
+    <string name="walkthrough_step" formatted="true">चरण %1$s / %2$s</string>
+    <string name="walkthrough_sample_meaning">और</string>
+    <string name="walkthrough_page1_title">क़ुरआन को शब्द-दर-शब्द समझें</string>
+    <string name="walkthrough_page1_desc" formatted="true">चुने हुए %1$s शब्द क़ुरआन में आप जो कुछ पढ़ते हैं उसका %2$s हैं। इन्हें बार-बार आने के क्रम में, रोज़ कुछ मिनट में सीखें।</string>
+    <string name="walkthrough_page2_title">हर शब्द अपनी आयत में</string>
+    <string name="walkthrough_page2_desc">हर अर्थ के साथ एक पूरी आयत होती है। सिर्फ़ वही शब्द हाइलाइट होता है जो आप सीख रहे हैं, और अनुवाद में उसका बिल्कुल वही अर्थ।</string>
+    <string name="walkthrough_page3_title">अभ्यास से सीखें</string>
+    <string name="walkthrough_page3_desc">छोटे पाठों में बहुविकल्पी प्रश्न, रिक्त स्थान भरना, शब्द पर टैप करना और मिलान शामिल हैं। सिर्फ़ पहला जवाब गिना जाता है, इसलिए हर अंक सच्चा है।</string>
+    <string name="walkthrough_page4_title">सही समय पर दोहराएँ</string>
+    <string name="walkthrough_page4_desc">रोज़ाना दोहराई हर शब्द को भूलने से ठीक पहले वापस लाती है। याददाश्त का मीटर बताता है कि आप उसे कितना जानते हैं: नया, सीख रहे हैं, परिचित, मज़बूत, महारत।</string>
+    <string name="walkthrough_page5_title">प्रेरित रहें</string>
+    <string name="walkthrough_page5_desc">रोज़ का सिलसिला बनाए रखें, XP और लेवल कमाएँ, रोज़ाना के क्वेस्ट पूरे करें और अपने दिलों का ध्यान रखें।</string>
+    <string name="walkthrough_page6_title">अपनी पसंदीदा लिपि में पढ़ें</string>
+    <string name="walkthrough_page6_desc" formatted="true">मदीना मुसहफ़, नूरानी और हाफ़िज़ी सहित %1$s क़ुरआनी फ़ॉन्ट में से चुनें और होम स्क्रीन पर शब्द विजेट जोड़ें। यह परिचय सेटिंग्स से कभी भी दोबारा देख सकते हैं।</string>
+    <string name="lesson_category_mixed">कार्य-शब्दों का पाठ</string>
+    <string name="lesson_summary_label_words">सीखे गए शब्द</string>
+    <string name="lesson_summary_label_accuracy">सही जवाब</string>
+    <string name="lesson_summary_label_mistakes">ग़लतियाँ</string>
+    <string name="lesson_summary_label_flawless">बेदाग़!</string>
+    <string name="lesson_summary_label_points">अर्जित अंक</string>
 </resources>

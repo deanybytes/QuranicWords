@@ -242,14 +242,14 @@ fun LessonSummaryScreen(
                     ) {
                         SummaryMetricCard(
                             icon = Icons.Filled.AutoStories,
-                            title = stringResource(R.string.lesson_summary_words_covered, wordsCount),
+                            title = stringResource(R.string.lesson_summary_label_words),
                             value = localizedWordsCovered,
                             accentColor = BrandGreen,
                             modifier = Modifier.weight(1f)
                         )
                         SummaryMetricCard(
                             icon = Icons.Filled.CheckCircle,
-                            title = stringResource(R.string.lesson_summary_accuracy, route.accuracyPercent),
+                            title = stringResource(R.string.lesson_summary_label_accuracy),
                             value = localizedAccuracy,
                             accentColor = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.weight(1f)
@@ -262,14 +262,14 @@ fun LessonSummaryScreen(
                     ) {
                         SummaryMetricCard(
                             icon = if (mistakeCount == 0) Icons.Filled.Stars else Icons.Filled.ErrorOutline,
-                            title = if (mistakeCount == 0) stringResource(R.string.lesson_summary_flawless) else stringResource(R.string.lesson_summary_mistakes_count, mistakeCount),
+                            title = if (mistakeCount == 0) stringResource(R.string.lesson_summary_label_flawless) else stringResource(R.string.lesson_summary_label_mistakes),
                             value = localizedMistakes,
                             accentColor = if (mistakeCount == 0) BrandGold else MaterialTheme.colorScheme.error,
                             modifier = Modifier.weight(1f)
                         )
                         SummaryMetricCard(
                             icon = Icons.AutoMirrored.Filled.TrendingUp,
-                            title = stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
+                            title = stringResource(R.string.lesson_summary_label_points),
                             value = "+" + VerseReferenceFormatter.formatNumber(animatedPointsEarned, language),
                             accentColor = BrandGold,
                             modifier = Modifier.weight(1f)
@@ -495,6 +495,7 @@ fun LessonSummaryScreen(
                                             text = when (uiState.nextLessonCategory) {
                                                 LemmaCategory.VERB -> stringResource(R.string.lesson_category_verb)
                                                 LemmaCategory.PARTICLE -> stringResource(R.string.lesson_category_particle)
+                                                LemmaCategory.MIXED -> stringResource(R.string.lesson_category_mixed)
                                                 else -> stringResource(R.string.lesson_category_noun)
                                             },
                                             style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),

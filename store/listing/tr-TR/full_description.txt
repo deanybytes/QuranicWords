@@ -1,0 +1,45 @@
+Kur'an'ı kelime kelime anlayın.
+
+QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okuduğunuz her şeyin %97'sini oluşturan 3.833 kelime. Kısa dersler kelimelerin geçme sıklığına göre sıralanır; böylece en sık geçen Kur'an Arapçası kelimelerini önce öğrenir, birkaç gün içinde namazda ve tilavette okuduklarınızı anlamaya başlarsınız.
+
+★ HER KELİME KENDİ AYETİNDE
+• Her anlam Kur'an'dan eksiksiz bir ayetle gelir
+• Yalnızca öğrendiğiniz kelime vurgulanır; mealdeki birebir karşılığıyla birlikte
+• Birden fazla anlamı olan kelimelerde her anlam ayrı ve kendi ayetiyle gösterilir
+• Güvenilir yayımlanmış kaynaklardan kelime meali ve tam meal
+
+★ YAPARAK ÖĞRENİN
+• Çoktan seçmeli, boşluk doldurma, kelimeye dokunma ve eşleştirme
+• Aralıklı tekrar ile Günlük Tekrar: her kelime tam unutmadan önce yeniden karşınıza çıkar
+• Her kelime için hafıza gücü: Yeni, Öğreniliyor, Tanıdık, Güçlü, Ustalaşıldı
+• Hatalarınızı istediğiniz zaman tekrar edin
+
+★ MOTİVASYONUNUZU KORUYUN
+• XP, seviyeler ve günlük seri
+• Günlük görevler, kombo bonusları ve kalpler
+• 27 başarım ve ne kadarını anlayabildiğinizi gösteren Kur'an kapsama göstergesi
+
+★ ANA EKRAN WİDGET'LARI
+• Anlık kelime, anlamı ve hafıza gücüyle birlikte
+• Seri, günlük hedef halkası, seviye ve görevler tek bakışta
+• Anlamı görmek için dokunun – ana ekrandan kendinizi sınayın
+
+★ SİZİN DİLİNİZ, SİZİN HATTINIZ
+• 8 dilde anlamlar: Türkçe, English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, فارسی ve Français
+• Ayet referansları tamamen sizin dilinizde (ör. Sure Bakara 2:30)
+• 7 Kur'an yazı tipi: Medine Mushafı (KFGQPC Osmanlı Hafs), Nurani ve Hafızlık (Hint-Pak), Amiri, Scheherazade New, Noto Naskh ve Lateef
+• Basılı mushaftaki gibi ayet numaraları ve vakıf işaretleri
+• Şık açık ve koyu temalar
+
+★ DOĞRULUK İÇİN TASARLANDI
+• Quranic Arabic Corpus ve doğrulanmış kelime meallerinden hazırlandı
+• Her örnek ayet Kur'an'ın tam metniyle karşılaştırıldı
+• Her kelimenin dil bilgisi: harf, fiil veya isim, bab ve kök
+
+★ GİZLİ VE ÜCRETSİZ
+• %100 çevrimdışı – hesap yok, reklam yok, izleme yok
+• Sonsuza dek ücretsiz ve açık kaynak (GPL-3.0)
+
+Kimler için? Kur'an öğrencileri, hafızlık öğrencileri, yeni Müslümanlar, anne babalar ve çocuklar, öğretmenler – namazda okuduğunu anlamak isteyen herkes.
+
+Bugün beş kelimeyle başlayın. Birkaç hafta içinde Kur'an'ın her sayfasındaki kelimelerin çoğunu tanıyacaksınız.

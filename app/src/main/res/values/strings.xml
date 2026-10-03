@@ -143,8 +143,6 @@
     <string name="lesson_summary_title_pass">Alhamdulillah! Well done!</string>
     <string name="lesson_summary_title_retry">In-Sha-Allah, next time!</string>
     <string name="lesson_summary_title_complete">Alhamdulillah! Lesson complete</string>
-    <string name="lesson_summary_points_earned">+%d points</string>
-    <string name="lesson_summary_accuracy">%d%% correct</string>
     <string name="lesson_summary_streak_increased">Streak extended! 🔥</string>
     <string name="lesson_summary_achievement_unlocked">New achievement unlocked!</string>
     <string name="lesson_summary_continue">Continue</string>
@@ -153,9 +151,6 @@
     <string name="lesson_summary_streak_restored">Streak Restored! 🔥</string>
     <string name="lesson_summary_streak_recovery_failed">Streak not recovered — starting fresh</string>
     <string name="lesson_summary_alhamdulillah_title">Alhamdulillah! Lesson Completed</string>
-    <string name="lesson_summary_words_covered">%d Words Covered</string>
-    <string name="lesson_summary_flawless">Flawless! 0 Mistakes</string>
-    <string name="lesson_summary_mistakes_count">%d Mistakes</string>
     <string name="lesson_summary_cumulative_title">Cumulative Qur\'an Progress</string>
     <string name="lesson_summary_cumulative_desc">You have mastered %1$s words (%2$s of the Holy Qur\'an).</string>
     <string name="lesson_summary_next_lesson_title">Next Lesson Preview</string>
@@ -344,12 +339,6 @@
     <string name="app_exit_confirm_cancel">Cancel</string>
     <string name="settings_require_exit_confirmation_label">Require Exit Confirmation</string>
     <string name="settings_require_exit_confirmation_description">Show a confirmation popup when pressing the back button to exit the app.</string>
-    <string name="walkthrough_page1_title">Welcome to QuranicWords</string>
-    <string name="walkthrough_page1_desc">Learn Quranic vocabulary through interactive exercises. Follow our guided learning path to master the most frequent words in the Quran.</string>
-    <string name="walkthrough_page2_title">Interactive Exercises</string>
-    <string name="walkthrough_page2_desc">Practice with quizzes, matching games, and reviews. Build your daily streak and earn points as you progress through the lessons.</string>
-    <string name="walkthrough_page3_title">Track Your Progress</string>
-    <string name="walkthrough_page3_desc">View your achievements, daily goals, and see what percentage of the Quran you can understand. Stay motivated and consistent!</string>
     <string name="walkthrough_back">Back</string>
     <string name="walkthrough_next">Next</string>
     <string name="walkthrough_finish">Get Started</string>
@@ -491,4 +480,25 @@
     <string name="widget_due_count">%1$s due</string>
     <string name="widget_word_facts">%1$s times in the Qur\'an · rank #%2$s</string>
     <string name="widget_preview_meaning">Book</string>
+    <string name="walkthrough_skip">Skip</string>
+    <string name="walkthrough_step" formatted="true">Step %1$s of %2$s</string>
+    <string name="walkthrough_sample_meaning">and</string>
+    <string name="walkthrough_page1_title">Understand the Qur\'an, word by word</string>
+    <string name="walkthrough_page1_desc" formatted="true">%1$s carefully chosen words make up %2$s of everything you read in the Qur\'an. You learn them in order of frequency, a few minutes a day.</string>
+    <string name="walkthrough_page2_title">Every word in its ayah</string>
+    <string name="walkthrough_page2_desc">Each meaning comes with a complete ayah. Only the word you are learning is highlighted, together with its exact meaning in the translation.</string>
+    <string name="walkthrough_page3_title">Learn by doing</string>
+    <string name="walkthrough_page3_desc">Short lessons mix multiple choice, fill-in-the-blank, tap-the-word and matching. Only your first answer counts, so every point is earned.</string>
+    <string name="walkthrough_page4_title">Review at the right time</string>
+    <string name="walkthrough_page4_desc">Daily Review brings each word back just before you would forget it. The memory meter shows how well you know it: New, Learning, Familiar, Strong, Mastered.</string>
+    <string name="walkthrough_page5_title">Stay motivated</string>
+    <string name="walkthrough_page5_desc">Keep your daily streak, earn XP and levels, finish daily quests and look after your hearts.</string>
+    <string name="walkthrough_page6_title">Read in your favourite script</string>
+    <string name="walkthrough_page6_desc" formatted="true">Choose from %1$s Qur\'an fonts, including Madinah Mushaf, Noorani and Hafezi, and add a word widget to your home screen. You can replay this tour any time from Settings.</string>
+    <string name="lesson_category_mixed">Function Words Lesson</string>
+    <string name="lesson_summary_label_words">Words covered</string>
+    <string name="lesson_summary_label_accuracy">Correct answers</string>
+    <string name="lesson_summary_label_mistakes">Mistakes</string>
+    <string name="lesson_summary_label_flawless">Flawless!</string>
+    <string name="lesson_summary_label_points">Points earned</string>
 </resources>
