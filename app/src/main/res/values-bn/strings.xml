@@ -312,28 +312,6 @@
     <string name="lesson_kind_section_flashback">বিভাগ পর্যালোচনা</string>
     <string name="lesson_kind_chapter_exam">অধ্যায় চূড়ান্ত পরীক্ষা</string>
     <string name="lesson_kind_chapter_flashback">প্রধান পর্যালোচনা</string>
-
-    <string name="widget_combined_name">মাস্টার কম্বাইন্ড উইজেট</string>
-    <string name="widget_combined_description">আপনার শেখার ধারাবাহিকতা ও পরিসংখ্যানের সাথে কুরআনিক শব্দসমূহ প্রদর্শন করে।</string>
-    <string name="widget_stats_name">পরিসংখ্যান ও ধারাবাহিকতা</string>
-    <string name="widget_stats_description">আপনার কুরআনিক শিক্ষার ধারাবাহিকতা, আয়ত্তকৃত শব্দ এবং দৈনিক লক্ষ্যের অগ্রগতি দেখুন।</string>
-    <string name="widget_word_name">মুহূর্তের কুরআনিক শব্দ</string>
-    <string name="widget_word_description">অর্থ, কুরআনে পুনরাবৃত্তি এবং আয়াতের উদাহরণ সহ প্রতি ৩ মিনিটে শব্দ পরিবর্তন করে।</string>
-    <string name="widget_empty_words_title">আপনার যাত্রা শুরু করুন</string>
-    <string name="widget_empty_words_desc">এখানে শেখা শব্দগুলো দেখতে কুরআনিক ওয়ার্ডস-এ আপনার প্রথম পাঠ সম্পন্ন করুন!</string>
-    <string name="widget_streak_days">%d দিনের ধারাবাহিকতা</string>
-    <string name="widget_streak_zero">০ দিনের ধারাবাহিকতা</string>
-    <string name="widget_mastered_badge">আয়ত্তকৃত</string>
-    <string name="widget_mistake_badge">পুনরাবৃত্তি প্রয়োজন</string>
-    <string name="widget_words_learned_label">অর্জিত শব্দ</string>
-    <string name="widget_daily_goal_label">দৈনিক লক্ষ্য</string>
-    <string name="widget_accuracy_label">সঠিকতা</string>
-    <string name="widget_review_label">রিভিউ</string>
-    <string name="widget_occurrences_format">%d বার উল্লেখ</string>
-    <string name="widget_rank_format">র‍্যাংক #%d</string>
-    <string name="widget_quran_pct_format">কুরআনের %.2f%%</string>
-    <string name="widget_refresh">রিফ্রেশ</string>
-
     <string name="lesson_category_noun">বিশেষ্য (اسم) পাঠ</string>
     <string name="lesson_category_verb">ক্রিয়া (فعل) পাঠ</string>
     <string name="lesson_category_particle">হরফ (حرف) পাঠ</string>
@@ -413,8 +391,6 @@
     <string name="a11y_collapse">সংকুচিত করুন</string>
     <string name="lesson_locked_hint">আগে আগের পাঠটি সম্পন্ন করুন</string>
     <string name="learned_words_root_label">মূল: %1$s</string>
-    <string name="widget_streak_value">%1$s দিন</string>
-    <string name="widget_goal_value">%1$s / %2$s মি</string>
     <string name="word_strength_new">নতুন</string>
     <string name="word_strength_learning">শিখছি</string>
     <string name="word_strength_familiar">পরিচিত</string>
@@ -486,4 +462,39 @@
     <string name="word_browse_no_match">এই অংশে কোনো মিল পাওয়া যায়নি।</string>
     <string name="lesson_empty_review_title">সব সম্পন্ন</string>
     <string name="lesson_empty_review_desc">এখন পুনরালোচনার কিছু নেই। সময় হলে শব্দগুলো এখানে ফিরে আসবে।</string>
+    <!-- Home-screen widgets -->
+    <string name="widget_word_name">মুহূর্তের কুরআনিক শব্দ</string>
+    <string name="widget_word_description">পুনরালোচনার সময় হওয়া শব্দ আগে, নইলে আপনার শেখা কোনো শব্দ — অর্থ, শক্তি ও শ্রেণিসহ।</string>
+    <string name="widget_stats_name">অগ্রগতি</string>
+    <string name="widget_stats_description">ধারাবাহিকতা, আজকের লক্ষ্য, লেভেল, হার্ট, কোয়েস্ট এবং পুনরালোচনার শব্দ এক নজরে।</string>
+    <string name="widget_combined_name">শব্দ ও অগ্রগতি</string>
+    <string name="widget_combined_description">মুহূর্তের শব্দ আর আজকের অগ্রগতি একসাথে, একটি ছোট উইজেটে।</string>
+    <string name="widget_status_due">পুনরালোচনার সময়</string>
+    <string name="widget_status_learned">শেখা হয়েছে</string>
+    <string name="widget_status_new">নতুন শব্দ</string>
+    <string name="widget_tap_to_reveal">অর্থ দেখতে ট্যাপ করুন</string>
+    <string name="widget_tap_to_reveal_short">অর্থ দেখুন</string>
+    <string name="widget_next_word">পরের শব্দ</string>
+    <string name="widget_review_now">এখনই পুনরালোচনা করুন</string>
+    <string name="widget_review_count">%1$sটি পুনরালোচনা করুন</string>
+    <string name="widget_practice_word">এই শব্দটি অনুশীলন করুন</string>
+    <string name="widget_start_learning">শেখা শুরু করুন</string>
+    <string name="widget_continue_learning">শেখা চালিয়ে যান</string>
+    <string name="widget_open_app">অ্যাপ খুলুন</string>
+    <string name="widget_not_ready_title">প্রায় প্রস্তুত</string>
+    <string name="widget_not_ready_desc">শব্দগুলো প্রস্তুত করতে একবার QuranicWords খুলুন।</string>
+    <string name="widget_streak_label">দিনের ধারাবাহিকতা</string>
+    <string name="widget_a11y_streak">%1$s দিনের ধারাবাহিকতা</string>
+    <string name="widget_daily_goal_label">দৈনিক লক্ষ্য</string>
+    <string name="widget_goal_of">%1$s মিনিটের মধ্যে</string>
+    <string name="widget_goal_done">লক্ষ্য পূরণ হয়েছে</string>
+    <string name="widget_goal_value">%1$s / %2$s মিনিট</string>
+    <string name="widget_a11y_goal">দৈনিক লক্ষ্য: %2$s মিনিটের মধ্যে %1$s মিনিট</string>
+    <string name="widget_quests_value">আজকের কোয়েস্ট: %1$s/%2$s</string>
+    <string name="widget_level_word">লেভেল</string>
+    <string name="widget_words_learned_label">শেখা শব্দ</string>
+    <string name="widget_review_label">পুনরালোচনা বাকি</string>
+    <string name="widget_due_count">%1$sটি বাকি</string>
+    <string name="widget_word_facts">কুরআনে %1$s বার · র‍্যাংক #%2$s</string>
+    <string name="widget_preview_meaning">গ্রন্থ</string>
 </resources>

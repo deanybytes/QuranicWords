@@ -312,28 +312,6 @@
     <string name="lesson_kind_section_flashback">سیکشن جائزہ</string>
     <string name="lesson_kind_chapter_exam">باب امتحان</string>
     <string name="lesson_kind_chapter_flashback">جامع جائزہ</string>
-
-    <string name="widget_combined_name">مشترکہ ماسٹر وجٹ</string>
-    <string name="widget_combined_description">آپ کے سیکھنے کے تسلسل اور اعداد و شمار کے ساتھ قرآنی الفاظ اور مثالیں دکھاتا ہے۔</string>
-    <string name="widget_stats_name">اعداد و شمار اور تسلسل</string>
-    <string name="widget_stats_description">اپنے قرآنی الفاظ کا تسلسل، سیکھے گئے الفاظ اور روزانہ کا ہدف دیکھیں۔</string>
-    <string name="widget_word_name">اس لمحے کا قرآنی لفظ</string>
-    <string name="widget_word_description">معانی، قرآنی تکرار اور آیت کی مثال کے ساتھ ہر ۳ منٹ بعد لفظ تبدیل ہوتا ہے۔</string>
-    <string name="widget_empty_words_title">اپنا سفر شروع کریں</string>
-    <string name="widget_empty_words_desc">یہاں سیکھے ہوئے الفاظ دیکھنے کے لیے قرآنی ورڈز میں اپنا پہلا سبق مکمل کریں!</string>
-    <string name="widget_streak_days">%d دن کا تسلسل</string>
-    <string name="widget_streak_zero">0 دن کا تسلسل</string>
-    <string name="widget_mastered_badge">مکمل یاد</string>
-    <string name="widget_mistake_badge">دہرائی درکار</string>
-    <string name="widget_words_learned_label">سیکھے گئے الفاظ</string>
-    <string name="widget_daily_goal_label">روزانہ کا ہدف</string>
-    <string name="widget_accuracy_label">درستگی</string>
-    <string name="widget_review_label">دہرائی</string>
-    <string name="widget_occurrences_format">%d بار آیا ہے</string>
-    <string name="widget_rank_format">درجہ #%d</string>
-    <string name="widget_quran_pct_format">قرآن کا %.2f%%</string>
-    <string name="widget_refresh">ریفریش کریں</string>
-
     <string name="lesson_category_noun">اسم (اسم) کا سبق</string>
     <string name="lesson_category_verb">فعل (فعل) کا سبق</string>
     <string name="lesson_category_particle">حرف (حرف) کا سبق</string>
@@ -413,8 +391,6 @@
     <string name="a11y_collapse">سمیٹیں</string>
     <string name="lesson_locked_hint">پہلے پچھلا سبق مکمل کریں</string>
     <string name="learned_words_root_label">مادہ: %1$s</string>
-    <string name="widget_streak_value">%1$s دن</string>
-    <string name="widget_goal_value">%1$s / %2$s منٹ</string>
     <string name="word_strength_new">نیا</string>
     <string name="word_strength_learning">سیکھ رہے ہیں</string>
     <string name="word_strength_familiar">مانوس</string>
@@ -486,4 +462,39 @@
     <string name="word_browse_no_match">اس حصے میں کوئی لفظ نہیں ملا۔</string>
     <string name="lesson_empty_review_title">سب مکمل ہے</string>
     <string name="lesson_empty_review_desc">ابھی دہرانے کو کچھ نہیں۔ وقت آنے پر الفاظ یہاں واپس آئیں گے۔</string>
+    <!-- Home-screen widgets -->
+    <string name="widget_word_name">اس لمحے کا قرآنی لفظ</string>
+    <string name="widget_word_description">پہلے وہ لفظ جس کی دہرائی کا وقت ہو گیا ہو، ورنہ آپ کا سیکھا ہوا لفظ — معنی، مضبوطی اور قسم کے ساتھ۔</string>
+    <string name="widget_stats_name">پیش رفت</string>
+    <string name="widget_stats_description">تسلسل، آج کا ہدف، لیول، دل، مشن اور دہرائی والے الفاظ ایک نظر میں۔</string>
+    <string name="widget_combined_name">لفظ اور پیش رفت</string>
+    <string name="widget_combined_description">اس لمحے کا لفظ اور آج کی پیش رفت ایک ہی مختصر وجٹ میں۔</string>
+    <string name="widget_status_due">دہرائی کا وقت</string>
+    <string name="widget_status_learned">سیکھا ہوا</string>
+    <string name="widget_status_new">نیا لفظ</string>
+    <string name="widget_tap_to_reveal">معنی دیکھنے کے لیے تھپتھپائیں</string>
+    <string name="widget_tap_to_reveal_short">معنی دیکھیں</string>
+    <string name="widget_next_word">اگلا لفظ</string>
+    <string name="widget_review_now">ابھی دہرائیں</string>
+    <string name="widget_review_count">%1$s دہرائیں</string>
+    <string name="widget_practice_word">اس لفظ کی مشق کریں</string>
+    <string name="widget_start_learning">سیکھنا شروع کریں</string>
+    <string name="widget_continue_learning">سیکھنا جاری رکھیں</string>
+    <string name="widget_open_app">ایپ کھولیں</string>
+    <string name="widget_not_ready_title">تقریباً تیار</string>
+    <string name="widget_not_ready_desc">اپنے الفاظ تیار کرنے کے لیے ایک بار QuranicWords کھولیں۔</string>
+    <string name="widget_streak_label">دن کا تسلسل</string>
+    <string name="widget_a11y_streak">%1$s دن کا تسلسل</string>
+    <string name="widget_daily_goal_label">روزانہ کا ہدف</string>
+    <string name="widget_goal_of">%1$s منٹ میں سے</string>
+    <string name="widget_goal_done">ہدف پورا</string>
+    <string name="widget_goal_value">%1$s / %2$s منٹ</string>
+    <string name="widget_a11y_goal">روزانہ کا ہدف: %2$s میں سے %1$s منٹ</string>
+    <string name="widget_quests_value">آج کے مشن: %1$s/%2$s</string>
+    <string name="widget_level_word">لیول</string>
+    <string name="widget_words_learned_label">سیکھے گئے الفاظ</string>
+    <string name="widget_review_label">دہرائی باقی</string>
+    <string name="widget_due_count">%1$s باقی</string>
+    <string name="widget_word_facts">قرآن میں %1$s بار · درجہ #%2$s</string>
+    <string name="widget_preview_meaning">کتاب</string>
 </resources>

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Progress widget: streak, daily goal, level, hearts, quests and the review call to action.
+     See widget_word_info.xml for the sizing and refresh notes. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/widget_stats_description"
-    android:initialKeyguardLayout="@layout/widget_stats"
-    android:initialLayout="@layout/widget_stats"
-    android:minWidth="140dp"
+    android:initialLayout="@layout/widget_loading"
+    android:minWidth="250dp"
     android:minHeight="110dp"
-    android:minResizeWidth="120dp"
-    android:minResizeHeight="90dp"
-    android:previewImage="@drawable/ic_qw_mark"
-    android:previewLayout="@layout/widget_stats"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:maxResizeWidth="530dp"
+    android:maxResizeHeight="450dp"
+    android:previewImage="@drawable/widget_preview_stats"
+    android:previewLayout="@layout/widget_stats_medium"
     android:resizeMode="horizontal|vertical"
-    android:targetCellWidth="2"
+    android:targetCellWidth="4"
     android:targetCellHeight="2"
-    android:updatePeriodMillis="180000"
-    android:widgetCategory="home_screen|keyguard" />
+    android:updatePeriodMillis="10800000"
+    android:widgetCategory="home_screen" />

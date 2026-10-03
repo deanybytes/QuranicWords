@@ -84,9 +84,26 @@
             android:name=".feature.widget.WidgetAlarmReceiver"
             android:exported="false" />
 
+        <!-- "Next word" / "reveal meaning" taps - explicit PendingIntents from our own widgets only. -->
         <receiver
-            android:name=".feature.widget.WidgetRefreshReceiver"
+            android:name=".feature.widget.WidgetActionReceiver"
             android:exported="false" />
+
+        <!-- Day rollover, clock/timezone and language changes, and app updates: refresh widgets so
+             the streak, today's goal and strings are right. All are system-protected broadcasts;
+             DATE_CHANGED only reaches manifest receivers before API 26, where the midnight alarm
+             in WidgetUpdateScheduler covers it. -->
+        <receiver
+            android:name=".feature.widget.WidgetSystemEventReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

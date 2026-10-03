@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Picker preview before API 31 (API 31+ renders previewLayout instead): the widget's own
+     surface with the brand mark, drawn from resources so it follows the system theme. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="180dp"
+        android:height="110dp"
+        android:drawable="@drawable/widget_bg" />
+    <item
+        android:width="44dp"
+        android:height="44dp"
+        android:drawable="@mipmap/ic_launcher_round"
+        android:gravity="center" />
+</layer-list>

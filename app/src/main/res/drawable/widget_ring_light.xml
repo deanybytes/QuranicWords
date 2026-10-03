@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:innerRadiusRatio="2.6"
+            android:shape="ring"
+            android:thicknessRatio="9"
+            android:useLevel="false">
+            <solid android:color="@color/wg_light_track" />
+            <size
+                android:width="96dp"
+                android:height="96dp" />
+        </shape>
+    </item>
+    <item>
+        <rotate
+            android:fromDegrees="-90"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="-90">
+            <shape
+                android:innerRadiusRatio="2.6"
+                android:shape="ring"
+                android:thicknessRatio="9"
+                android:useLevel="true">
+                <solid android:color="@color/wg_light_fill" />
+                <size
+                    android:width="96dp"
+                    android:height="96dp" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

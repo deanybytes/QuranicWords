@@ -1,6 +1,7 @@
 package com.quranicwords.app
 
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.res.AssetManager
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -36,6 +37,8 @@ import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontStyle
 import com.quranicwords.app.core.ui.theme.QuranicWordsTheme
 import com.quranicwords.app.core.ui.theme.toFontFamily
+import com.quranicwords.app.feature.widget.WidgetDeepLink
+import com.quranicwords.app.feature.widget.WidgetUpdateScheduler
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // A widget tap's destination; a restored activity already handled its launch intent.
+        if (savedInstanceState == null) WidgetDeepLink.offer(intent)
 
         setContent {
             val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
@@ -124,5 +129,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        WidgetDeepLink.offer(intent)
+    }
+
+    /** Leaving the app is when the home-screen widgets become visible again - bring them up to
+     * date with anything changed in-app that has no refresh hook of its own (e.g. the Qur'an font). */
+    override fun onStop() {
+        super.onStop()
+        if (!isChangingConfigurations) WidgetUpdateScheduler.refreshInBackground(applicationContext)
     }
 }
