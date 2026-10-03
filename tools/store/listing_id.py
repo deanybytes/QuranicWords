@@ -1,5 +1,5 @@
 TITLE = "QuranicWords: Kosakata Quran"
-SHORT = "Belajar kosakata Al-Qur'an kata demi kata – 3.833 kata, setiap ayat, offline"
+SHORT = "Pelajari kosakata Al-Qur'an kata demi kata, setiap kata dalam ayatnya"
 FULL = """Pahami Al-Qur'an kata demi kata.
 
 QuranicWords mengajarkan kosakata Al-Qur'an: 3.833 kata yang membentuk 97% dari semua yang Anda baca dalam Al-Qur'an. Pelajaran singkat disusun menurut seberapa sering setiap kata muncul, sehingga Anda mempelajari kata-kata bahasa Arab Al-Qur'an yang paling sering lebih dulu dan mulai memahami salat dan tilawah dalam hitungan hari.
@@ -38,9 +38,9 @@ QuranicWords mengajarkan kosakata Al-Qur'an: 3.833 kata yang membentuk 97% dari 
 • Setiap ayat contoh dicocokkan dengan teks lengkap Al-Qur'an
 • Tata bahasa setiap kata: huruf, fi'il atau isim, wazan, dan akar kata
 
-★ PRIVAT DAN GRATIS
-• 100% offline – tanpa akun, tanpa iklan, tanpa pelacakan
-• Gratis selamanya dan sumber terbuka (GPL-3.0)
+★ PRIVASI TERJAGA
+• 100% offline – tanpa akun, tanpa pelacakan
+• Sumber terbuka (GPL-3.0)
 
 Untuk siapa? Pelajar Al-Qur'an, santri tahfiz, mualaf, orang tua dan anak, guru – siapa saja yang ingin memahami bacaan dalam salatnya.
 

@@ -1,5 +1,5 @@
 TITLE = "QuranicWords : mots du Coran"
-SHORT = "Le vocabulaire du Coran mot à mot – 3 833 mots, chaque verset, hors ligne"
+SHORT = "Apprenez le vocabulaire du Coran mot à mot, chaque mot dans son verset"
 FULL = """Comprenez le Coran, mot à mot.
 
 QuranicWords vous enseigne le vocabulaire du Saint Coran : les 3 833 mots qui représentent 97 % de tout ce que vous lisez. De courtes leçons suivent la fréquence de chaque mot ; vous apprenez d'abord les mots arabes coraniques les plus courants et commencez à comprendre votre prière et votre récitation en quelques jours.
@@ -38,9 +38,9 @@ QuranicWords vous enseigne le vocabulaire du Saint Coran : les 3 833 mots qui re
 • Chaque verset d'exemple est vérifié avec le texte complet du Coran
 • La grammaire de chaque mot : particule, verbe ou nom, forme verbale et racine
 
-★ PRIVÉ ET GRATUIT
-• 100 % hors ligne – sans compte, sans publicité, sans pistage
-• Gratuit pour toujours et open source (GPL-3.0)
+★ VIE PRIVÉE RESPECTÉE
+• 100 % hors ligne – sans compte, sans pistage
+• Open source (GPL-3.0)
 
 Pour qui ? Étudiants du Coran, apprenants du hifz, nouveaux musulmans, parents et enfants, enseignants – toute personne qui veut comprendre ce qu'elle récite dans la prière.
 

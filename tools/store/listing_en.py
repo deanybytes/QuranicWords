@@ -1,5 +1,5 @@
 TITLE = "QuranicWords: Quran Vocabulary"
-SHORT = "Learn Quran Arabic word by word – 3,833 words, every ayah, 8 languages, offline"
+SHORT = "Learn the vocabulary of the Qur'an word by word, with every word in its ayah"
 FULL = """Understand the Qur'an, word by word.
 
 QuranicWords teaches you the vocabulary of the Holy Qur'an: the 3,833 words that make up 97% of everything you read. Short, focused lessons follow how often each word appears, so you learn the most frequent Quranic Arabic words first and start understanding your salah and recitation within days.
@@ -38,9 +38,9 @@ QuranicWords teaches you the vocabulary of the Holy Qur'an: the 3,833 words that
 • Every example verse is checked against the complete text of the Qur'an
 • Grammar for every word: particle, verb or noun, verb form and root
 
-★ PRIVATE AND FREE
-• 100% offline – no account, no ads, no tracking
-• Free forever and open source (GPL-3.0)
+★ PRIVATE BY DESIGN
+• 100% offline – no account, no tracking
+• Open source (GPL-3.0)
 
 Who is it for? Students of the Qur'an, hifz students, new Muslims, parents and children, teachers – anyone who wants to understand what they recite in prayer.
 

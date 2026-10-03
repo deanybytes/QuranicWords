@@ -1,5 +1,5 @@
 TITLE = "QuranicWords: Kuran Kelimeleri"
-SHORT = "Kur'an'ı kelime kelime öğrenin – 3.833 kelime, her biri ayetiyle, çevrimdışı"
+SHORT = "Kur'an kelimelerini kelime kelime öğrenin, her kelime kendi ayetinde"
 FULL = """Kur'an'ı kelime kelime anlayın.
 
 QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okuduğunuz her şeyin %97'sini oluşturan 3.833 kelime. Kısa dersler kelimelerin geçme sıklığına göre sıralanır; böylece en sık geçen Kur'an Arapçası kelimelerini önce öğrenir, birkaç gün içinde namazda ve tilavette okuduklarınızı anlamaya başlarsınız.
@@ -38,9 +38,9 @@ QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okud
 • Her örnek ayet Kur'an'ın tam metniyle karşılaştırıldı
 • Her kelimenin dil bilgisi: harf, fiil veya isim, bab ve kök
 
-★ GİZLİ VE ÜCRETSİZ
-• %100 çevrimdışı – hesap yok, reklam yok, izleme yok
-• Sonsuza dek ücretsiz ve açık kaynak (GPL-3.0)
+★ GİZLİLİK ÖNCELİKLİ
+• %100 çevrimdışı – hesap yok, izleme yok
+• Açık kaynak (GPL-3.0)
 
 Kimler için? Kur'an öğrencileri, hafızlık öğrencileri, yeni Müslümanlar, anne babalar ve çocuklar, öğretmenler – namazda okuduğunu anlamak isteyen herkes.
 

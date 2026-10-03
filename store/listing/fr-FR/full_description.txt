@@ -36,9 +36,9 @@ QuranicWords vous enseigne le vocabulaire du Saint Coran : les 3 833 mots qui re
 • Chaque verset d'exemple est vérifié avec le texte complet du Coran
 • La grammaire de chaque mot : particule, verbe ou nom, forme verbale et racine
 
-★ PRIVÉ ET GRATUIT
-• 100 % hors ligne – sans compte, sans publicité, sans pistage
-• Gratuit pour toujours et open source (GPL-3.0)
+★ VIE PRIVÉE RESPECTÉE
+• 100 % hors ligne – sans compte, sans pistage
+• Open source (GPL-3.0)
 
 Pour qui ? Étudiants du Coran, apprenants du hifz, nouveaux musulmans, parents et enfants, enseignants – toute personne qui veut comprendre ce qu'elle récite dans la prière.
 

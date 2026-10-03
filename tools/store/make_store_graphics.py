@@ -45,7 +45,7 @@ SLIDES = {
         ("07-quran-fonts", "7 Qur'an fonts",
          "Madinah Mushaf, Noorani, Hafezi, Amiri & more", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "Beautiful in dark mode",
-         "100% offline · ad-free · free forever", ["dark_teach", "about"]),
+         "100% offline · no account · open source", ["dark_teach", "about"]),
     ],
     "bn": [
         ("01-learn-the-quran", "শব্দে শব্দে\nকুরআন বুঝুন",
@@ -63,7 +63,7 @@ SLIDES = {
         ("07-quran-fonts", "৭টি কুরআনি ফন্ট",
          "মদিনা মুসহাফ, নূরানী, হাফেজী, আমিরী ও আরও", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "ডার্ক মোডেও সুন্দর",
-         "১০০% অফলাইন · বিজ্ঞাপনমুক্ত · সম্পূর্ণ ফ্রি", ["dark_teach", "about"]),
+         "১০০% অফলাইন · অ্যাকাউন্ট লাগে না · ওপেন সোর্স", ["dark_teach", "about"]),
     ],
     "fr": [
         ("01-learn-the-quran", "Comprendre le Coran,\nmot à mot",
@@ -81,7 +81,7 @@ SLIDES = {
         ("07-quran-fonts", "7 polices coraniques",
          "Moushaf de Médine, Nourani, Hafizi, Amiri et plus", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "Superbe en mode sombre",
-         "100 % hors ligne · sans pub · gratuit pour toujours", ["dark_teach", "about"]),
+         "100 % hors ligne · sans compte · open source", ["dark_teach", "about"]),
     ],
     "tr": [
         ("01-learn-the-quran", "Kur'an'ı\nkelime kelime anlayın",
@@ -99,7 +99,7 @@ SLIDES = {
         ("07-quran-fonts", "7 Kur'an yazı tipi",
          "Medine Mushafı, Nurani, Hafızlık, Amiri ve dahası", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "Koyu temada da şık",
-         "%100 çevrimdışı · reklamsız · tamamen ücretsiz", ["dark_teach", "about"]),
+         "%100 çevrimdışı · hesap gerekmez · açık kaynak", ["dark_teach", "about"]),
     ],
     "id": [
         ("01-learn-the-quran", "Pahami Al-Qur'an\nkata demi kata",
@@ -117,7 +117,7 @@ SLIDES = {
         ("07-quran-fonts", "7 font Al-Qur'an",
          "Mushaf Madinah, Nurani, Hafizi, Amiri, dan lainnya", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "Indah dalam mode gelap",
-         "100% offline · tanpa iklan · gratis selamanya", ["dark_teach", "about"]),
+         "100% offline · tanpa akun · sumber terbuka", ["dark_teach", "about"]),
     ],
     "hi": [
         ("01-learn-the-quran", "क़ुरआन को\nशब्द-दर-शब्द समझें",
@@ -135,7 +135,7 @@ SLIDES = {
         ("07-quran-fonts", "7 क़ुरआनी फ़ॉन्ट",
          "मदीना मुसहफ़, नूरानी, हाफ़िज़ी, अमीरी और भी", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "डार्क मोड में भी सुंदर",
-         "100% ऑफ़लाइन · विज्ञापन-मुक्त · हमेशा मुफ़्त", ["dark_teach", "about"]),
+         "100% ऑफ़लाइन · बिना अकाउंट · ओपन सोर्स", ["dark_teach", "about"]),
     ],
     "ur": [
         ("01-learn-the-quran", "قرآن کو\nلفظ بہ لفظ سمجھیں",
@@ -153,7 +153,7 @@ SLIDES = {
         ("07-quran-fonts", "۷ قرآنی فونٹس",
          "مدینہ مصحف، نورانی، حافظی، امیری اور مزید", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "ڈارک موڈ میں بھی خوبصورت",
-         "۱۰۰٪ آف لائن، اشتہارات سے پاک، ہمیشہ مفت", ["dark_teach", "about"]),
+         "۱۰۰٪ آف لائن، اکاؤنٹ کے بغیر، اوپن سورس", ["dark_teach", "about"]),
     ],
     "fa": [
         ("01-learn-the-quran", "قرآن را\nواژه به واژه بفهمید",
@@ -171,7 +171,7 @@ SLIDES = {
         ("07-quran-fonts", "۷ قلم قرآنی",
          "مصحف مدینه، نورانی، حافظی، امیری و بیشتر", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "زیبا در حالت تیره",
-         "۱۰۰٪ آفلاین، بدون تبلیغ، همیشه رایگان", ["dark_teach", "about"]),
+         "۱۰۰٪ آفلاین، بدون حساب، متن‌باز", ["dark_teach", "about"]),
     ],
 }
 
