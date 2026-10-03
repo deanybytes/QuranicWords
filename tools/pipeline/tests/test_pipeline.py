@@ -151,3 +151,39 @@ def test_complete_ayah_check_catches_a_truncated_verse():
     assert validate.check_complete_ayahs(ok, ref) == []
     cut = {"20:34": {"ar": "وَنَذۡكُرَكَ"}}
     assert validate.check_complete_ayahs(cut, ref) == ["verse 20:34: 1 words, the complete ayah has 2"]
+
+
+def by_word(built, text):
+    return [e["content"] for e in built[0]["exercises"]["exercises"]
+            if e["exerciseType"] == "WORD_INTRO" and e["content"]["arabicWord"] == text]
+
+
+def test_negated_occurrences_never_label_a_verb(built):
+    """فَلَا صَدَّقَ وَلَا صَلَّىٰ: Turkish word-by-word folds لَا into the verb ("kılmadı" = did not
+    pray). Such occurrences are skipped, so صَلَّىٰ means "prays", never its negation."""
+    (c,) = by_word(built, "صَلَّىٰ")
+    assert "kılmadı" not in c["meaning"]["tr"]
+    assert "نہیں" not in c["meaning"]["ur"] and "না" not in c["meaning"]["bn"].split()
+
+
+def test_function_words_use_only_reviewed_senses(built):
+    """مِنْ was "hiçbir" in Turkish and لَمْ was "*" before function words became reviewed-only."""
+    (c,) = by_word(built, "مِنْ")
+    assert c["meaning"]["tr"] != "hiçbir"
+    assert not by_word(built, "لَمْ"), "لَمْ has no free-standing word in tr/fa: it must not ship"
+    for c in [x for e in ("كَلَّا", "عَنْ", "إِيَّا") for x in by_word(built, e)]:
+        for lang, items in c["senses"].items():
+            assert len({it["meaning"] for it in items}) == len(items)
+    (k,) = by_word(built, "كَلَّا")
+    assert k["meaning"]["fr"].lower() == "non, pas du tout"
+
+
+def test_clause_words_are_not_part_of_a_meaning():
+    assert glosses.clean("তারা অতঃপর পান করল", "bn", "V") == "পান করল"
+    assert glosses.clean("কিন্তু সে উদ্ধত্য প্রকাশ করলো", "bn", "V") == "উদ্ধত্য প্রকাশ করলো"
+    assert glosses.clean("increased him", "en", "V") == "increased"
+    assert glosses.clean("انہوں نے خرچ کیا", "ur", "V") == "خرچ کیا"
+    assert glosses.clean("ज़मीन में", "hi", "N") == "ज़मीन"
+    assert glosses.clean("mereka kekal", "in", "N") == "kekal"
+    assert glosses.clean("آنان که", "fa", "N", function=True) == "آنان که"   # those who
+    assert glosses.clean("ہم عمر", "ur", "N") == "ہم عمر"                     # one word: same age

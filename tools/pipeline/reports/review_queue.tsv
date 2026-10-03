@@ -1,13 +1,19 @@
 word_id	arabic	lang	meaning	support	total	method
-wp_7e43b752	لَعَلَّ	in	barang kali	1	1	example
-wv_b5341e95	عَبَدَ	en	have worshipped	1	1	example
-wv_b5341e95	عَبَدَ	bn	ইবাদাত করতাম	1	1	example
+wn_f23becd8	ٱلَّذِي	tr	o kimse ki / onlar ki	1	45	example
+wp_5b3e2ac4	مَا	tr	değil	1	1	example
+wp_614fc402	عَنْ	tr	hakkında / den	1	5	example
+wp_7d996b31	أَمْ	fr	ou bien	1	1	example
+wp_283da847	لَٰكِنَّ	fa	ولی	1	1	example
+wp_7e43b752	لَعَلَّ	bn	সম্ভবত	1	1	example
+wv_b5341e95	عَبَدَ	en	worship	1	1	example
+wv_b5341e95	عَبَدَ	bn	ইবাদাত করেছ	1	1	example
 wv_b5341e95	عَبَدَ	ur	بندگی کی	1	1	example
-wv_b5341e95	عَبَدَ	hi	इबादत करते	1	1	example
-wv_b5341e95	عَبَدَ	in	menyembah	1	1	example
+wv_b5341e95	عَبَدَ	hi	इबादत की	1	1	example
+wv_b5341e95	عَبَدَ	in	penyembah	1	1	example
 wv_b5341e95	عَبَدَ	tr	tapanlar	1	1	example
-wv_b5341e95	عَبَدَ	fa	*	1	1	example
-wv_b5341e95	عَبَدَ	fr	aurions adoré	1	1	example
+wv_b5341e95	عَبَدَ	fa	می‌پرستید	1	1	example
+wv_b5341e95	عَبَدَ	fr	avez adoré	1	1	example
+wp_d0c7488e	لَنْ	bn	কখনো না	1	1	example
 wv_ddf0a703	سَأَلَ	bn	চেয়েছ	1	1	example
 wv_ddf0a703	سَأَلَ	hi	पूछी जाएगी	1	1	example
 wv_ddf0a703	سَأَلَ	tr	istedikleri	1	1	example
@@ -24,6 +30,7 @@ wv_cc30127d	رَجَعَ	bn	প্রত্যাবর্তন করলো	1	
 wv_cc30127d	رَجَعَ	hi	पलटा	1	1	example
 wv_cc30127d	رَجَعَ	tr	bunun üzerine döndü	1	1	example
 wv_cc30127d	رَجَعَ	fr	Est donc retourné	1	1	example
+wp_75561bb6	لَوْلَا	ur	اگر نہ ہوتا / کیوں نہیں	1	21	example
 wv_4e5bc56b	غَفَرَ	bn	ক্ষমা করলেন	1	1	example
 wv_4e5bc56b	غَفَرَ	hi	पस बख़्श दिया	1	1	example
 wv_4e5bc56b	غَفَرَ	tr	affederse	1	1	example
@@ -37,8 +44,10 @@ wn_3998abc6	آباء	in	ayah-ayah	1	1	example
 wn_3998abc6	آباء	tr	babaları	1	1	example
 wn_3998abc6	آباء	fa	پدران	1	1	example
 wn_3998abc6	آباء	fr	pères	1	1	example
-wv_39f0e9df	أَصَابَ	bn	আপতিত	1	1	example
+wv_39f0e9df	أَصَابَ	en	befalls	1	1	example
+wv_39f0e9df	أَصَابَ	bn	আপতিত হয়েছিলো	1	1	example
 wv_39f0e9df	أَصَابَ	tr	başlarına gelen	1	1	example
+wv_39f0e9df	أَصَابَ	fa	آنگاه برسد به آن	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	en	love	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	bn	ভালবাসো	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	ur	نے ترجیح دی	1	1	example
@@ -47,6 +56,9 @@ wv_4ea0b9d1	أَحْبَبْ	in	cintai	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	tr	sevdiğin	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	fa	برگزیدم	1	1	example
 wv_4ea0b9d1	أَحْبَبْ	fr	ai préféré	1	1	example
+wn_75615a0d	هِيَ	en	She / it	1	37	example
+wn_75615a0d	هِيَ	bn	সে	1	1	example
+wn_75615a0d	هِيَ	fa	او	1	1	example
 wv_2afed9e0	رَزَقَ	en	are provided	1	1	example
 wv_2afed9e0	رَزَقَ	bn	আমাদের রিযক দেওয়া হয়েছিল	1	1	example
 wv_2afed9e0	رَزَقَ	ur	رزق دیئے جائیں گے	1	1	example
@@ -73,9 +85,7 @@ wv_c51ab0ed	جَرَيْ	in	meluncur	1	1	example
 wv_c51ab0ed	جَرَيْ	tr	yürüttüğü	1	1	example
 wv_c51ab0ed	جَرَيْ	fa	روان شدند	1	1	example
 wv_c51ab0ed	جَرَيْ	fr	naviguent	1	1	example
-wp_ae3df72f	أَمَّا	bn	এ প্রসঙ্গে	1	1	example
-wp_ae3df72f	أَمَّا	tr	ama	1	1	example
-wv_6efd46c7	قَٰتَلَ	fa	*	1	1	example
+wv_6efd46c7	قَٰتَلَ	fa	با شما جنگیدند	1	1	example
 wv_66de5541	أَحْيَا	bn	অতপর জীবিত করেন	1	1	example
 wv_10dfd764	تَذَكَّرَ	en	receives admonition	1	1	example
 wv_10dfd764	تَذَكَّرَ	bn	শিক্ষা নিতে	1	1	example
@@ -87,6 +97,7 @@ wv_10dfd764	تَذَكَّرَ	fa	پند پذیرد	1	1	example
 wv_10dfd764	تَذَكَّرَ	fr	se rappelle	1	1	example
 wv_56304863	زَادَ	en	increased	1	1	example
 wv_56304863	زَادَ	bn	বেশি দিয়েছেন	1	1	example
+wv_56304863	زَادَ	ur	اضافہ کرتا ہے	1	1	example
 wv_56304863	زَادَ	hi	ज़्यादा दी है	1	1	example
 wv_56304863	زَادَ	in	menambah	1	1	example
 wv_56304863	زَادَ	tr	onun artırdı	1	1	example
@@ -102,7 +113,7 @@ wv_714542c9	نَبَّأَ	ur	خبر دی	1	1	example
 wv_714542c9	نَبَّأَ	hi	ख़बर दे दी	1	1	example
 wv_714542c9	نَبَّأَ	in	ia memberitakan	1	1	example
 wv_714542c9	نَبَّأَ	tr	haber verdi	1	1	example
-wv_714542c9	نَبَّأَ	fa	*	1	1	example
+wv_714542c9	نَبَّأَ	fa	خبر داده می شود	1	1	example
 wv_714542c9	نَبَّأَ	fr	a informé	1	1	example
 wn_63d80f69	أَب	fa	ابی لهب	1	1	example
 wv_c9041189	حَكَمَ	bn	ফয়সালা কর	1	1	example
@@ -113,7 +124,7 @@ wv_c9041189	حَكَمَ	fa	داوری کرده است	1	1	example
 wv_c9041189	حَكَمَ	fr	a jugé	1	1	example
 wv_c7dcd7af	أَنذَرَ	ur	خبر دار کیے گئے	1	1	example
 wv_c7dcd7af	أَنذَرَ	in	di beri peringatan	1	1	example
-wv_c7dcd7af	أَنذَرَ	fa	*	1	1	example
+wv_c7dcd7af	أَنذَرَ	fa	به آن بیم داده شدند	1	1	example
 wv_76fe5633	مَلَكَتْ	tr	altında bulunan	1	1	example
 wv_b0d3c5b2	سَبَّحَ	bn	তসবীহ করে	1	1	example
 wv_b0d3c5b2	سَبَّحَ	tr	tesbih eder	1	1	example
@@ -123,6 +134,7 @@ wv_24e4f4c4	أُدْخِلَ	ur	داخل کئے جائیں گے	1	1	example
 wv_24e4f4c4	أُدْخِلَ	hi	दाख़िल कर दिया गया	1	1	example
 wv_24e4f4c4	أُدْخِلَ	fa	داخل شدند	1	1	example
 wv_24e4f4c4	أُدْخِلَ	fr	est mis à entrer	1	1	example
+wp_919337f2	سَوْفَ	en	will	1	1	example
 wv_523e89b0	حَمَلَ	tr	taşıdıklarımız	1	1	example
 wv_84bcefb1	عَذَّبَ	en	punished	1	1	example
 wv_84bcefb1	عَذَّبَ	bn	শাস্তি দিলেন	1	1	example
@@ -145,6 +157,7 @@ wv_f0b09595	ٱسْتَغْفَرَ	ur	بخشش مانگتا	1	1	example
 wv_f0b09595	ٱسْتَغْفَرَ	tr	bağışlanma dileseler	1	1	example
 wv_f0b09595	ٱسْتَغْفَرَ	fa	آمرزش خواست	1	1	example
 wv_f0b09595	ٱسْتَغْفَرَ	fr	a ensuite demandé pardon	1	1	example
+wp_1b2ee54c	أَلَا	bn	জেনে রাখ	1	1	example
 wv_25ee2cca	بُشِّرَ	bn	সুখবর দেয়া হয়	1	1	example
 wv_25ee2cca	بُشِّرَ	ur	خوش خبری دی جاتی ہے	1	1	example
 wv_25ee2cca	بُشِّرَ	tr	müjdelendiği	1	1	example
@@ -154,7 +167,7 @@ wv_19cf20e7	حَشَرَ	tr	araya toplandığı	1	1	example
 wv_19cf20e7	حَشَرَ	fa	محشور شوند	1	1	example
 wv_19cf20e7	حَشَرَ	fr	a ensuite assemblé	1	1	example
 wn_c4371bf4	ذَنب	bn	অভিযোগ	1	1	example
-wv_ed3df04a	رَدَّ	fa	*	1	1	example
+wv_ed3df04a	رَدَّ	fa	باز گرداند شده است	1	1	example
 wv_fa8ef53d	ذاقُ	tr	taddı	1	1	example
 wv_99572ef6	ذَهَبَ	bn	কেটে গেছে	1	1	example
 wv_d0399eb5	بَيَّنُ	ur	بیان کردیا	1	1	example
@@ -164,6 +177,7 @@ wv_7a7e35f9	ٱبْتَغَىٰ	hi	चाहा	1	1	example
 wv_7a7e35f9	ٱبْتَغَىٰ	in	ia mencari	1	1	example
 wv_7a7e35f9	ٱبْتَغَىٰ	tr	ararsa	1	1	example
 wv_299f8504	قَامَ	tr	dikilip kalırlar	1	1	example
+wp_56618f49	كَلَّا	fa	هرگز چنین نیست	1	1	example
 wv_0475336c	نَفَعَ	en	benefits	1	1	example
 wv_0475336c	نَفَعَ	bn	কল্যাণকর হয়	1	1	example
 wv_0475336c	نَفَعَ	ur	فائدہ دے	1	1	example
@@ -185,20 +199,35 @@ wv_82ed5cdd	أَبْصَرَ	fr	avons vu	1	1	example
 wv_ee360106	رَحِمَ	in	diberi rahmat	1	1	example
 wv_ee360106	رَحِمَ	tr	acıdığı	1	1	example
 wv_ee360106	رَحِمَ	fa	بر او رحم کند	1	1	example
-wv_f135f285	أَغْنَتْ	en	availed	1	1	example
-wv_f135f285	أَغْنَتْ	bn	কাজে লাগলো	1	1	example
-wv_f135f285	أَغْنَتْ	ur	کام آئے	1	1	example
-wv_f135f285	أَغْنَتْ	hi	काम आए	1	1	example
-wv_f135f285	أَغْنَتْ	in	bermanfaat	1	1	example
-wv_f135f285	أَغْنَتْ	tr	fayda vermiyor	1	1	example
-wv_f135f285	أَغْنَتْ	fa	*	1	1	example
-wv_f135f285	أَغْنَتْ	fr	ont servi	1	1	example
+wv_f135f285	أَغْنَتْ	en	avail	1	1	example
+wv_f135f285	أَغْنَتْ	bn	অভাবমুক্ত করবেন	1	1	example
+wv_f135f285	أَغْنَتْ	ur	بےپرواہ کردے گی	1	1	example
+wv_f135f285	أَغْنَتْ	hi	काम आता	1	1	example
+wv_f135f285	أَغْنَتْ	in	akan memberi kecukupan	1	1	example
+wv_f135f285	أَغْنَتْ	tr	kendisine yeter	1	1	example
+wv_f135f285	أَغْنَتْ	fa	بی نیاز می گرداند	1	1	example
+wv_f135f285	أَغْنَتْ	fr	enrichira	1	1	example
 wv_a9248df1	أَفْلَحَ	bn	সফল হবে	1	1	example
 wv_a9248df1	أَفْلَحَ	tr	başarmıştır	1	1	example
 wv_a9248df1	أَفْلَحَ	fa	رستگار شد	1	1	example
-wv_555a4713	قَدَرَ	en	appraise	1	1	example
+wn_5bf24dbd	مَاذَا	bn	কী	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	en	perceive	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	bn	অনুভব করো	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	ur	شعور سے کام لو	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	hi	शऊर रखते	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	in	menyadari	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	tr	düşünürseniz	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	fa	در یابید	1	1	example
+wv_ea5ac5d7	يَشْعُرُ	fr	remarquerez	1	1	example
+wn_d498926b	بَأْس	fa	آسیب	1	1	example
+wv_555a4713	قَدَرَ	en	is restricted	1	1	example
+wv_555a4713	قَدَرَ	bn	ক্ষমতাবান	1	1	example
+wv_555a4713	قَدَرَ	ur	اندازہ کیا	1	1	example
+wv_555a4713	قَدَرَ	hi	अंदाज़ा किया	1	1	example
 wv_555a4713	قَدَرَ	in	ditentukan	1	1	example
 wv_555a4713	قَدَرَ	tr	biçimlendirdik	1	1	example
+wv_555a4713	قَدَرَ	fa	باز اندازه گرفتیم	1	1	example
+wv_555a4713	قَدَرَ	fr	a été déterminée	1	1	example
 wv_55f63041	بَغَىٰ	en	has wronged	1	1	example
 wv_55f63041	بَغَىٰ	bn	উদ্ধত্য প্রকাশ করলো	1	1	example
 wv_55f63041	بَغَىٰ	ur	زیادتی کرے	1	1	example
@@ -210,19 +239,23 @@ wv_c1154a7d	جادَلُ	bn	ঝগড়া করেছ	1	1	example
 wv_c1154a7d	جادَلُ	in	berdebat	1	1	example
 wv_c1154a7d	جادَلُ	tr	savundunuz	1	1	example
 wv_c1154a7d	جادَلُ	fa	دفاع کرده اید	1	1	example
+wn_6e0e0102	إِيَّا	tr	yalnız	1	1	example
+wn_6e0e0102	إِيَّا	fr	Lui seul	1	1	example
 wn_b91ca86d	وَراء	tr	ardına	1	1	example
+wp_da469b5f	إِمَّا	hi	या तो	1	1	example
 wv_5838f67e	بَدَّلَ	bn	পরিবর্তন করল	1	1	example
 wv_7d202a62	لَعَنَ	bn	অভিশপ্ত	1	1	example
 wn_45096af9	خَلْف	bn	উত্তরপুরুষরা	1	1	example
 wn_45096af9	خَلْف	ur	نااہل وارث	1	1	example
 wn_45096af9	خَلْف	hi	नाख़ल्फ़	1	1	example
 wn_45096af9	خَلْف	tr	yerlerine geçip	1	1	example
+wp_df3384ce	بَلَىٰ	en	Yes indeed	1	1	example
 wv_2e4af30f	أَسْلَمَ	bn	আত্মসমর্পণ করছি	1	1	example
-wv_2e4af30f	أَسْلَمَ	fa	*	1	1	example
+wv_2e4af30f	أَسْلَمَ	fa	اسلام آورده ایم	1	1	example
 wv_9c4e94c1	جَمَعَ	en	are joined	1	1	example
 wv_9c4e94c1	جَمَعَ	tr	araya getirildi	1	1	example
 wv_9c4e94c1	جَمَعَ	fa	جمع شوند	1	1	example
-wn_7e477979	لَدَىٰ	in	depan	1	1	example
+wn_7e477979	لَدَىٰ	tr	yanında	1	1	example
 wv_dfce1598	أَذَاقَ	en	cause men to taste	1	1	example
 wv_d4532bda	مَشَ	en	walk	1	1	example
 wv_d4532bda	مَشَ	bn	চলে	1	1	example
@@ -267,15 +300,20 @@ wv_d15b2b25	قَصَّ	bn	উল্লেখ করেছি	1	1	example
 wv_d15b2b25	قَصَّ	tr	anlattık	1	1	example
 wv_d15b2b25	قَصَّ	fa	باز گفت	1	1	example
 wv_ffed929e	سَبَقَ	bn	অতীতে সিদ্ধান্ত করা হতো	1	1	example
+wv_3d835bae	يَضُرَّ	en	harm	1	1	example
+wv_3d835bae	يَضُرَّ	bn	ক্ষতি করতে পারে	1	1	example
+wv_3d835bae	يَضُرَّ	ur	نقصان دیتے ہیں	1	1	example
+wv_3d835bae	يَضُرَّ	hi	नुक़्सान देते हैं	1	1	example
+wv_3d835bae	يَضُرَّ	in	memberi mudarat	1	1	example
 wv_3d835bae	يَضُرَّ	tr	zarar verebiliyorlar	1	1	example
-wv_3d835bae	يَضُرَّ	fr	causera du mal	1	1	example
+wv_3d835bae	يَضُرَّ	fa	زیان می زنند؟	1	1	example
+wv_3d835bae	يَضُرَّ	fr	font du mal	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	en	were asking it to be hastened	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	bn	তাড়াতাড়ি চেয়েছিলে	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	ur	جلدی مچا رہے ہو	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	hi	जल्दी मचा रहे थे	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	in	minta disegerakan	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	tr	sizin acele gelmesini istediğinizdir	1	1	example
-wv_8f1d471a	اسْتَعْجَلَ	fa	*	1	1	example
 wv_8f1d471a	اسْتَعْجَلَ	fr	avez cherché d’être hâté	1	1	example
 wv_d0ae996a	أَوْفَىٰ	en	fulfills	1	1	example
 wv_d0ae996a	أَوْفَىٰ	bn	পুর্ণ করবে	1	1	example
@@ -331,7 +369,7 @@ wn_2750d3c9	حَوْل	in	dua tahun	1	1	example
 wn_2750d3c9	حَوْل	tr	iki yıl	1	1	example
 wn_2750d3c9	حَوْل	fa	اطراف	1	1	example
 wn_2750d3c9	حَوْل	fr	année	1	1	example
-wv_e4dee28a	أَحَاطَ	fa	*	1	1	example
+wv_e4dee28a	أَحَاطَ	fa	آگاهی یافته ام	1	1	example
 wv_fb0dcfb7	ٱنقَلَبَ	ur	لوٹ جاؤ گے	1	1	example
 wv_fb0dcfb7	ٱنقَلَبَ	hi	पलट कर जाते	1	1	example
 wn_6bc6703c	بَطْن	tr	karınları	1	1	example
@@ -348,7 +386,7 @@ wv_da06801d	أَتَمَّ	fr	ai accompli	1	1	example
 wn_6c3f9f97	هُمَا	en	they both	1	1	example
 wn_6c3f9f97	هُمَا	bn	তারা দু'জনে	1	1	example
 wn_6c3f9f97	هُمَا	ur	وہ دونوں	1	1	example
-wn_6c3f9f97	هُمَا	hi	जब वो दोनों	1	1	example
+wn_6c3f9f97	هُمَا	hi	वो दोनों	1	1	example
 wn_6c3f9f97	هُمَا	in	keduanya	1	1	example
 wn_6c3f9f97	هُمَا	tr	ikisi	1	1	example
 wn_6c3f9f97	هُمَا	fa	آن دو	1	1	example
@@ -393,7 +431,6 @@ wv_d8a3043c	ٱسْتَمَعَ	ur	غور سے سنا	1	1	example
 wv_d8a3043c	ٱسْتَمَعَ	hi	ग़ौर से सुना	1	1	example
 wv_d8a3043c	ٱسْتَمَعَ	in	mendengarkan	1	1	example
 wv_d8a3043c	ٱسْتَمَعَ	tr	dinledikleri	1	1	example
-wv_d8a3043c	ٱسْتَمَعَ	fa	*	1	1	example
 wv_d8a3043c	ٱسْتَمَعَ	fr	ont écouté attentivement	1	1	example
 wv_3b58cd1a	قَرَأَ	bn	তিলাওয়াত করা হয়	1	1	example
 wv_3b58cd1a	قَرَأَ	ur	پڑھا جائے	1	1	example
@@ -415,7 +452,7 @@ wv_c569e9c0	شَرِبَ	fa	بنو شد	1	1	example
 wv_c569e9c0	شَرِبَ	fr	boit	1	1	example
 wv_a321b2b1	ٱعْتَدَىٰ	bn	বাড়াবাড়ি করবে	1	1	example
 wv_a321b2b1	ٱعْتَدَىٰ	tr	haddi aşarsa	1	1	example
-wv_a321b2b1	ٱعْتَدَىٰ	fa	*	1	1	example
+wv_a321b2b1	ٱعْتَدَىٰ	fa	از اندازه بگذرد	1	1	example
 wv_cf4e3808	صَدَقَ	en	are true	1	1	example
 wv_cf4e3808	صَدَقَ	tr	demek doğru söylemiş	1	1	example
 wv_4f20a23a	وَعَظْ	en	are admonished	1	1	example
@@ -458,12 +495,21 @@ wn_a85cd317	رِجْل	in	dua kakinya	1	1	example
 wn_a85cd317	رِجْل	tr	ayakları	1	1	example
 wn_a85cd317	رِجْل	fa	دوپای	1	1	example
 wn_a85cd317	رِجْل	fr	deux pieds	1	1	example
+wv_ae57622a	أَغْنَىٰ	en	enriches	1	1	example
+wv_ae57622a	أَغْنَىٰ	bn	অভাব দূর করেন	1	1	example
+wv_ae57622a	أَغْنَىٰ	ur	غنی کردیا	1	1	example
+wv_ae57622a	أَغْنَىٰ	hi	ग़नी कर दिया	1	1	example
+wv_ae57622a	أَغْنَىٰ	in	memberi kecukupan	1	1	example
+wv_ae57622a	أَغْنَىٰ	tr	zengin eden	1	1	example
+wv_ae57622a	أَغْنَىٰ	fa	بی نیاز کرد	1	1	example
 wv_ae57622a	أَغْنَىٰ	fr	a enrichi	1	1	example
 wv_8b8d339d	لَقُ	bn	দু'জনে দেখা পেলো	1	1	example
-wn_14805ec0	خاشِع	fa	خاشع	1	1	example
+wn_14805ec0	خاشِع	fa	حالی که فروتنان اند	1	1	example
+wn_16d2a0da	عَدْل	fa	برابر	1	1	example
 wv_cf94f7c2	أَخْلَفُ	bn	ভঙ্গ করেছ	1	1	example
+wv_cf94f7c2	أَخْلَفُ	in	memungkiri	1	1	example
 wv_cf94f7c2	أَخْلَفُ	tr	bu yüzden caydınız	1	1	example
-wv_cf94f7c2	أَخْلَفُ	fa	*	1	1	example
+wv_cf94f7c2	أَخْلَفُ	fa	خلاف کردند	1	1	example
 wv_cf94f7c2	أَخْلَفُ	fr	avez manqué	1	1	example
 wv_f95fc4b5	نَكَحَ	en	married	1	1	example
 wv_f95fc4b5	نَكَحَ	bn	বিবাহ করেছে	1	1	example
@@ -498,6 +544,7 @@ wv_cf669bcf	صَرَفَ	tr	savdı	1	1	example
 wv_cf669bcf	صَرَفَ	fa	بازداشت	1	1	example
 wv_cf669bcf	صَرَفَ	fr	a donc détourné	1	1	example
 wv_f4bd61dd	عَدَلَ	en	ascribe equals	1	1	example
+wv_f4bd61dd	عَدَلَ	ur	انصاف کرتے تھے	1	1	example
 wn_851b7aa9	أُخْت	bn	এক বোন	1	1	example
 wn_98d88a61	أَثَر	bn	কীর্তিতে	1	1	example
 wv_b1e83390	كَشَفَ	bn	উঠালো	1	1	example
@@ -518,7 +565,7 @@ wv_41a070af	تَرَبَّصْ	tr	beklediniz	1	1	example
 wv_41a070af	تَرَبَّصْ	fa	انتظار بردید	1	1	example
 wv_41a070af	تَرَبَّصْ	fr	avez attendu	1	1	example
 wv_5297bc88	غَشِيَ	tr	baygınlığı	1	1	example
-wn_33f76213	غالِب	fa	*	1	1	example
+wn_33f76213	غالِب	fa	غالبیم	1	1	example
 wv_d1e848f3	يَصْلَى	in	akan masuk	1	1	example
 wv_d1e848f3	يَصْلَى	tr	girecektir	1	1	example
 wv_86a0f3a4	وَرِثَ	bn	উত্তরাধিকারী হয়েছিলো	1	1	example
@@ -542,12 +589,16 @@ wv_bc887734	مَكَّ	ur	اقتدار دیا	1	1	example
 wv_bc887734	مَكَّ	tr	güçlü kıldık	1	1	example
 wv_bc887734	مَكَّ	fa	توانمندی دادیم	1	1	example
 wv_b7ce7031	يَصِفُ	tr	anlattığınızın	1	1	example
+wv_9ced2c20	أَسْمَعَ	en	cause the deaf to hear	1	1	example
+wv_9ced2c20	أَسْمَعَ	in	dapat menjadikan mendengar	1	1	example
+wv_9ced2c20	أَسْمَعَ	tr	duyurabilecek misin	1	1	example
+wv_9ced2c20	أَسْمَعَ	fr	fait entendre	1	1	example
 wv_25138216	قُطِعَ	en	cut down	1	1	example
 wv_25138216	قُطِعَ	bn	উচ্ছেদ করা হলো	1	1	example
 wv_25138216	قُطِعَ	ur	کاٹ دی	1	1	example
 wv_25138216	قُطِعَ	hi	काट दी	1	1	example
 wv_25138216	قُطِعَ	tr	kesildi	1	1	example
-wv_25138216	قُطِعَ	fa	*	1	1	example
+wv_25138216	قُطِعَ	fa	بریده شد	1	1	example
 wv_25138216	قُطِعَ	fr	A donc été anéanti	1	1	example
 wv_57336497	سَقَىٰ	bn	পানি পান করালো	1	1	example
 wv_57336497	سَقَىٰ	ur	تونے پلایا	1	1	example
@@ -569,11 +620,17 @@ wv_ed5b99a6	أَعْلَن	in	nyatakan	1	1	example
 wv_ed5b99a6	أَعْلَن	tr	açıktan söyledim	1	1	example
 wv_ed5b99a6	أَعْلَن	fa	آشکار ساختم	1	1	example
 wv_ed5b99a6	أَعْلَن	fr	ai annoncé manifestement	1	1	example
-wv_6f395f8c	مَنَعَ	tr	alıkoyan	1	1	example
-wv_6f395f8c	مَنَعَ	fr	a empêché	1	1	example
+wv_6f395f8c	مَنَعَ	en	Has been denied	1	1	example
+wv_6f395f8c	مَنَعَ	bn	বন্ধ করা হয়েছে	1	1	example
+wv_6f395f8c	مَنَعَ	ur	روکا گیا	1	1	example
+wv_6f395f8c	مَنَعَ	hi	मना करे	1	1	example
+wv_6f395f8c	مَنَعَ	in	dicegah	1	1	example
+wv_6f395f8c	مَنَعَ	tr	men eden	1	1	example
+wv_6f395f8c	مَنَعَ	fa	باز دارد	1	1	example
+wv_6f395f8c	مَنَعَ	fr	A été empêchée	1	1	example
 wv_e28f18dd	زَكَّىٰ	bn	পবিত্র করে দেন	1	1	example
 wv_e28f18dd	زَكَّىٰ	tr	arındırır	1	1	example
-wv_e28f18dd	زَكَّىٰ	fa	*	1	1	example
+wv_e28f18dd	زَكَّىٰ	fa	به پاکی می ستایند	1	1	example
 wv_86c570ec	ٱصْطَفَىٰ	tr	seçip üstün kıldı	1	1	example
 wv_68c15a8a	يُنظَرُ	tr	fırsat verilmeyecektir	1	1	example
 wn_c56bc84d	أَرْحام	tr	rahim	1	1	example
@@ -581,11 +638,14 @@ wv_efe52d64	يَحْذَرُ	ur	بچیں	1	1	example
 wv_efe52d64	يَحْذَرُ	hi	डरता है	1	1	example
 wv_efe52d64	يَحْذَرُ	in	ia takut	1	1	example
 wv_efe52d64	يَحْذَرُ	tr	korkan	1	1	example
-wv_efe52d64	يَحْذَرُ	fa	*	1	1	example
+wv_efe52d64	يَحْذَرُ	fa	بترسند	1	1	example
 wv_efe52d64	يَحْذَرُ	fr	méfiez avec peur	1	1	example
-wv_92dded11	صَلَّىٰ	bn	নামায পড়ল	1	1	example
+wv_92dded11	صَلَّىٰ	bn	সালাত পড়ল	1	1	example
+wv_92dded11	صَلَّىٰ	ur	نماز پڑھتا ہے	1	1	example
+wv_92dded11	صَلَّىٰ	hi	नमाज़ पढ़ता है	1	1	example
 wv_92dded11	صَلَّىٰ	in	mendirikan sholat	1	1	example
-wv_92dded11	صَلَّىٰ	tr	namaz da kılmadı	1	1	example
+wv_92dded11	صَلَّىٰ	tr	namaz kılan	1	1	example
+wv_92dded11	صَلَّىٰ	fa	نماز گزارد	1	1	example
 wn_bbf57a53	طِين	tr	çamur olarak	1	1	example
 wv_f41f6969	قَعَدَ	en	sat	1	1	example
 wv_f41f6969	قَعَدَ	bn	বসে ছিল	1	1	example
@@ -597,7 +657,7 @@ wv_f41f6969	قَعَدَ	fa	نشستند	1	1	example
 wv_f41f6969	قَعَدَ	fr	se sont assis	1	1	example
 wv_33a354c7	أَخْزَيْ	en	disgrace	1	1	example
 wv_33a354c7	أَخْزَيْ	tr	aşağılatıcı	1	1	example
-wv_33a354c7	أَخْزَيْ	fa	*	1	1	example
+wv_33a354c7	أَخْزَيْ	fa	را رسوا گرداند	1	1	example
 wn_c281bdc3	صاحِب	en	companion	1	1	example
 wn_c281bdc3	صاحِب	bn	সাথী	1	1	example
 wn_c281bdc3	صاحِب	ur	ساتھی	1	1	example
@@ -623,6 +683,7 @@ wv_558e479c	قَطَّعَ	tr	biçildi	1	1	example
 wv_15c54fa8	جَحَدُ	bn	অস্বীকার করেছিল	1	1	example
 wv_15c54fa8	جَحَدُ	ur	انکار کیا	1	1	example
 wv_15c54fa8	جَحَدُ	tr	inkar etti	1	1	example
+wn_522fb52e	مُعْجِز	fa	عاجز کنندگان	1	1	example
 wv_6cee1c28	أَوْرَثَ	bn	উত্তরাধিকার বানিয়েছি	1	1	example
 wv_6cee1c28	أَوْرَثَ	hi	वारिस बना दिया	1	1	example
 wv_6cee1c28	أَوْرَثَ	tr	miras kıldık	1	1	example
@@ -657,15 +718,12 @@ wv_58fdfcb9	عَرَضَ	in	dipalingkan	1	1	example
 wv_58fdfcb9	عَرَضَ	tr	göstereceğiz	1	1	example
 wv_58fdfcb9	عَرَضَ	fa	عرضه داشتیم	1	1	example
 wv_58fdfcb9	عَرَضَ	fr	avons présenté	1	1	example
+wv_c971f3b2	لَبَسْ	en	are obscuring	1	1	example
 wv_c971f3b2	لَبَسْ	bn	পরানো হবে	1	1	example
-wv_c971f3b2	لَبَسْ	tr	bulamayanlar	1	1	example
-wv_c971f3b2	لَبَسْ	fa	*	1	1	example
-wv_c971f3b2	لَبَسْ	fr	mélangez	1	1	example
-wn_31d7be01	بَغْي	fa	از راه سرکشی	1	1	example
-wv_8c4eafe5	يَنالُ	ur	لیا	1	1	example
-wv_8c4eafe5	يَنالُ	hi	नहीं पहुँचेगा	1	1	example
-wv_8c4eafe5	يَنالُ	in	akan sampai kepada-Nya	1	1	example
-wv_8c4eafe5	يَنالُ	tr	eremezsiniz	1	1	example
+wv_c971f3b2	لَبَسْ	tr	giyerler	1	1	example
+wv_c971f3b2	لَبَسْ	fa	درمی آمیزید	1	1	example
+wv_c971f3b2	لَبَسْ	fr	mélangez-vous	1	1	example
+wn_31d7be01	بَغْي	fa	ازروی حسد و زیاده خواهی	1	1	example
 wv_69b66c99	وَصَّىٰ	bn	আদেশ দিয়েছি	1	1	example
 wn_56d85678	مُخْلِص	fa	اخلاص ورزانیم	1	1	example
 wv_7503dc55	تَمَتَّعَ	en	took advantage	1	1	example
@@ -695,7 +753,7 @@ wn_289f3810	قَدَر	bn	নির্ধারিত সময়ের	1	1	exa
 wn_289f3810	قَدَر	hi	अंदाज़ा	1	1	example
 wn_289f3810	قَدَر	in	ketentuan	1	1	example
 wn_289f3810	قَدَر	tr	kaderdir	1	1	example
-wn_289f3810	قَدَر	fa	اندازه ای	1	1	example
+wn_289f3810	قَدَر	fa	اندازه	1	1	example
 wn_289f3810	قَدَر	fr	décision	1	1	example
 wn_4253ae86	إِحْدَى	bn	একজনকে	1	1	example
 wn_d1068c0c	نَجْوَى	tr	aralarındaki konuşmayı	1	1	example
@@ -722,7 +780,9 @@ wv_75441a79	بَنَىٰ	fa	بنا نهاده اند	1	1	example
 wv_75441a79	بَنَىٰ	fr	avons construit	1	1	example
 wv_ad155aec	أَنَابَ	bn	অনুরাগী হয়	1	1	example
 wv_ad155aec	أَنَابَ	fa	باز گردد	1	1	example
+wv_686c9ad1	يَصِلُ	bn	অক্ষুন্ন রাখতে	1	1	example
 wv_686c9ad1	يَصِلُ	tr	bitiştirirler	1	1	example
+wv_686c9ad1	يَصِلُ	fa	بپیوندند	1	1	example
 wn_2edb1893	خَطِيئَة	en	fault	1	1	example
 wn_2edb1893	خَطِيئَة	bn	অন্যায়	1	1	example
 wn_2edb1893	خَطِيئَة	ur	خطا	1	1	example
@@ -744,11 +804,12 @@ wv_21a1af84	نَّبَذَ	tr	attılar	1	1	example
 wv_21a1af84	نَّبَذَ	fa	دور اندا ختند	1	1	example
 wv_21a1af84	نَّبَذَ	fr	a jeté en pensant sans valeur	1	1	example
 wv_e125f5fe	تَقَبَّلَ	en	was accepted	1	1	example
-wv_e125f5fe	تَقَبَّلَ	bn	গ্রহণ করা হবে	1	1	example
+wv_e125f5fe	تَقَبَّلَ	bn	গ্রহণ করা হলো	1	1	example
 wv_e125f5fe	تَقَبَّلَ	ur	قبول کرلی گئی	1	1	example
 wv_e125f5fe	تَقَبَّلَ	hi	क़ुबूल कर ली गई	1	1	example
+wv_e125f5fe	تَقَبَّلَ	in	diterima	1	1	example
 wv_e125f5fe	تَقَبَّلَ	tr	kabul edilmiş	1	1	example
-wv_e125f5fe	تَقَبَّلَ	fa	*	1	1	example
+wv_e125f5fe	تَقَبَّلَ	fa	پذیر فته شد	1	1	example
 wv_e125f5fe	تَقَبَّلَ	fr	a ensuite été accepté	1	1	example
 wv_c8093994	أَضاعُ	en	neglected	1	1	example
 wv_c8093994	أَضاعُ	bn	নষ্ট করলো	1	1	example
@@ -760,7 +821,6 @@ wv_c8093994	أَضاعُ	fa	ضایع کردند	1	1	example
 wv_c8093994	أَضاعُ	fr	ont négligé	1	1	example
 wn_df20a55a	قَتْل	tr	öldürmeye	1	1	example
 wn_0c53393d	أَحَقّ	tr	daha doğrudur	1	1	example
-wn_646aff98	فِئَة	fa	*	1	1	example
 wv_cd690393	ثَبَّتْ	bn	প্রতিষ্ঠিত করেন	1	1	example
 wv_cd690393	ثَبَّتْ	ur	ثابت رکھتا ہے	1	1	example
 wv_cd690393	ثَبَّتْ	hi	जमा दे	1	1	example
@@ -775,7 +835,7 @@ wn_23db4231	سَعْي	ur	دوڑ دھوپ	1	1	example
 wn_23db4231	سَعْي	hi	दौड़ धूप	1	1	example
 wn_23db4231	سَعْي	in	berusaha	1	1	example
 wn_23db4231	سَعْي	tr	koşarak	1	1	example
-wn_23db4231	سَعْي	fa	به حدّ تلاش	1	1	example
+wn_23db4231	سَعْي	fa	حدّ تلاش	1	1	example
 wn_23db4231	سَعْي	fr	hâte	1	1	example
 wv_37455b38	نَزَعَ	ur	باہر نکالا	1	1	example
 wv_37455b38	نَزَعَ	hi	खींच लिया	1	1	example
@@ -788,6 +848,8 @@ wv_e7804003	أَمَدَّ	in	berikan bantuan	1	1	example
 wv_e7804003	أَمَدَّ	tr	uzatırız	1	1	example
 wv_e7804003	أَمَدَّ	fa	یاری می رسانیم	1	1	example
 wv_e7804003	أَمَدَّ	fr	étendons	1	1	example
+wp_37c98fb6	كَيْ	bn	যাতে	1	1	example
+wp_37c98fb6	كَيْ	tr	için	1	1	example
 wv_2d82a577	ٱجْتَبَىٰ	tr	onu seçmiş	1	1	example
 wv_2d82a577	ٱجْتَبَىٰ	fa	باز برگزید	1	1	example
 wv_2d82a577	ٱجْتَبَىٰ	fr	a choisi	1	1	example
@@ -814,15 +876,16 @@ wv_952444ae	أَحْصَىٰ	tr	onu saymıştır	1	1	example
 wv_952444ae	أَحْصَىٰ	fa	آمار گرفته است	1	1	example
 wv_952444ae	أَحْصَىٰ	fr	a compté jusqu’à la dernière	1	1	example
 wv_9f3f4877	صَدَّقَ	bn	সত্য করেছো	1	1	example
-wv_9f3f4877	صَدَّقَ	fa	*	1	1	example
+wv_9f3f4877	صَدَّقَ	fa	تحقق بخشید	1	1	example
 wn_b01fba2a	طُغْيان	bn	অবাধ্যতা	1	1	example
-wn_b01fba2a	طُغْيان	fa	بر سرکشی	1	1	example
 wn_2accf9b3	ضَلالَة	bn	পথ ভ্রষ্টতা	1	1	example
 wv_31cd53e1	تَبِعَ	bn	অনুসরণ করবে	1	1	example
-wv_31cd53e1	تَبِعَ	ur	پیروی کریں گے	1	1	example
+wv_31cd53e1	تَبِعَ	ur	پیروی کرے	1	1	example
 wv_31cd53e1	تَبِعَ	hi	पैरवी करे	1	1	example
-wv_31cd53e1	تَبِعَ	tr	uyacak	1	1	example
+wv_31cd53e1	تَبِعَ	tr	uyan	1	1	example
+wv_58c36bfd	يَقْبَلُ	bn	কবুল করেন	1	1	example
 wv_58c36bfd	يَقْبَلُ	tr	kabul eden	1	1	example
+wv_58c36bfd	يَقْبَلُ	fa	قبول می کند	1	1	example
 wv_a685a002	أَيَّدَ	bn	শক্তিশালী করলেন	1	1	example
 wv_a685a002	أَيَّدَ	ur	تائید کی	1	1	example
 wv_a685a002	أَيَّدَ	hi	क़ुव्वत दी	1	1	example
@@ -839,10 +902,9 @@ wv_a498c93a	طَهَّرَ	bn	পবিত্র করবেন	1	1	example
 wv_a498c93a	طَهَّرَ	ur	پاک کرے	1	1	example
 wv_a498c93a	طَهَّرَ	hi	पाक करे	1	1	example
 wv_a498c93a	طَهَّرَ	in	membersihkan diri	1	1	example
-wv_a498c93a	طَهَّرَ	fa	*	1	1	example
+wv_a498c93a	طَهَّرَ	fa	پاک کن	1	1	example
 wv_a498c93a	طَهَّرَ	fr	purifie	1	1	example
 wn_165adba5	حُبّ	tr	aşırı düşkünlük	1	1	example
-wn_165adba5	حُبّ	fa	به مهر	1	1	example
 wn_33a976e8	صِيام	bn	একটি সাওমের	1	1	example
 wn_4fae1a42	أَذًى	tr	eziyet	1	1	example
 wv_5cfc7a53	يُؤاخِذُ	en	punish	1	1	example
@@ -863,10 +925,14 @@ wv_f77b9296	ٱطْمَأَنَّ	fr	atteint la tranquillité	1	1	example
 wv_89bb50a8	ٱرْتَابَ	bn	সন্দেহ কর	1	1	example
 wv_89bb50a8	ٱرْتَابَ	hi	शक करते हैं	1	1	example
 wv_89bb50a8	ٱرْتَابَ	tr	kuşkulandınız	1	1	example
+wn_ddbe387b	هُنَالِكَ	ur	وہاں	1	1	example
+wn_ddbe387b	هُنَالِكَ	hi	वहाँ	1	1	example
+wn_ddbe387b	هُنَالِكَ	in	di sana	1	1	example
 wn_1c8af786	عِوَج	tr	eğri	1	1	example
 wv_d2d5d735	أَمْلَىٰ	tr	biraz süre vermişimdir	1	1	example
 wv_41f597f6	يَتَساءَلُ	bn	জিজ্ঞাসাবাদ করবে	1	1	example
 wv_41f597f6	يَتَساءَلُ	ur	ایک دوسرے سے سوال کرتے ہو	1	1	example
+wv_41f597f6	يَتَساءَلُ	fa	از هم می پرسند	1	1	example
 wv_bb94509b	اجْتَنَبُ	en	avoid	1	1	example
 wv_bb94509b	اجْتَنَبُ	bn	দূরে থাকে	1	1	example
 wv_bb94509b	اجْتَنَبُ	ur	اجتناب کیا	1	1	example
@@ -878,10 +944,12 @@ wv_bb94509b	اجْتَنَبُ	fr	évitent	1	1	example
 wn_068a7a95	جُلُود	bn	চামড়াগুলো	1	1	example
 wn_068a7a95	جُلُود	hi	खालें	1	1	example
 wn_068a7a95	جُلُود	fa	پوست	1	1	example
-wv_5e74cc95	رَمَىٰ	ur	نے پھینکا	1	1	example
-wv_5e74cc95	رَمَىٰ	hi	फेंका आपने	1	1	example
+wv_5e74cc95	رَمَىٰ	bn	নিক্ষেপ করেছিলে	1	1	example
+wv_5e74cc95	رَمَىٰ	ur	نے پھینکا تھا	1	1	example
+wv_5e74cc95	رَمَىٰ	hi	फेंका था	1	1	example
 wv_5e74cc95	رَمَىٰ	tr	attı	1	1	example
-wv_5e74cc95	رَمَىٰ	fa	*	1	1	example
+wv_5e74cc95	رَمَىٰ	fa	تیر انداخت	1	1	example
+wv_5e74cc95	رَمَىٰ	fr	a jeté	1	1	example
 wv_9442a029	خاضُ	en	indulge	1	1	example
 wv_9442a029	خاضُ	bn	আলাপ-আলোচনা করেছে	1	1	example
 wv_9442a029	خاضُ	in	mempercakapkan	1	1	example
@@ -889,8 +957,6 @@ wv_9442a029	خاضُ	tr	dalanlar	1	1	example
 wv_9442a029	خاضُ	fa	فرو رفتند	1	1	example
 wv_9442a029	خاضُ	fr	se sont plongés	1	1	example
 wn_d0ce58c5	مَبْعُوث	bn	আবার ওঠানো হবে	1	1	example
-wn_d0ce58c5	مَبْعُوث	ur	اٹھائے جانے والے	1	1	example
-wn_d0ce58c5	مَبْعُوث	hi	उठाए जाने वाले	1	1	example
 wn_d0ce58c5	مَبْعُوث	in	orang yang dibangkitkan	1	1	example
 wn_d0ce58c5	مَبْعُوث	tr	diriltileceksiniz	1	1	example
 wn_d0ce58c5	مَبْعُوث	fa	برانگیخته شوند	1	1	example
@@ -909,7 +975,7 @@ wv_3f6422f6	رَكِبَ	fa	سوار شدند	1	1	example
 wv_3f6422f6	رَكِبَ	fr	montent	1	1	example
 wv_9006f015	وَلَدَ	bn	জন্ম দিয়েছেন	1	1	example
 wv_9006f015	وَلَدَ	tr	doğduğu	1	1	example
-wv_9006f015	وَلَدَ	fa	*	1	1	example
+wv_9006f015	وَلَدَ	fa	زاده شد	1	1	example
 wv_9006f015	وَلَدَ	fr	A donné naissance	1	1	example
 wv_ba80df40	ظَلَّ	en	becomes	1	1	example
 wv_ba80df40	ظَلَّ	hi	रह जाओ	1	1	example
@@ -919,7 +985,7 @@ wv_4b7a42eb	ٱنطَلَقَ	bn	চলবে	1	1	example
 wv_da1e3500	قَذَفَ	in	memasukkan	1	1	example
 wv_da1e3500	قَذَفَ	tr	düşürdü	1	1	example
 wv_da1e3500	قَذَفَ	fa	افکند	1	1	example
-wv_3e0a580c	يَنطِقُ	tr	konuşmaz	1	1	example
+wv_3e0a580c	يَنطِقُ	tr	konuşmazlar	1	1	example
 wn_55ddf801	صاعِقَة	bn	গর্জনকারী বজ্রসমূহ	1	1	example
 wv_faa2fe91	يَهْبِطُ	en	fall down	1	1	example
 wv_faa2fe91	يَهْبِطُ	bn	ধসে পড়ে	1	1	example
@@ -959,6 +1025,7 @@ wn_63b3a6dd	قانِت	ur	اطاعت گزار	1	1	example
 wn_63b3a6dd	قانِت	tr	boyun eğmiştir	1	1	example
 wn_63b3a6dd	قانِت	fa	عبادت کننده	1	1	example
 wv_db1a5113	ٱبْتَلَىٰ	tr	denenmişti	1	1	example
+wv_db1a5113	ٱبْتَلَىٰ	fa	آزمایش شدند	1	1	example
 wv_db1a5113	ٱبْتَلَىٰ	fr	a testé sévèrement et visiblement	1	1	example
 wv_07b30160	أُجِيبَت	en	did you answer	1	1	example
 wv_07b30160	أُجِيبَت	bn	উত্তর দেয়া হয়েছিলো	1	1	example
@@ -972,11 +1039,6 @@ wn_ccd9ed21	مِيقات	en	appointed time	1	1	example
 wn_ccd9ed21	مِيقات	bn	নির্দিষ্ট	1	1	example
 wn_ccd9ed21	مِيقات	ur	اوقات کا مقرر کرنا	1	1	example
 wn_ccd9ed21	مِيقات	tr	buluşma vakti	1	1	example
-wv_acce1bee	زالَت	bn	চলতে থাকে	1	1	example
-wv_acce1bee	زالَت	ur	رہے	1	1	example
-wv_acce1bee	زالَت	hi	मुसलसल रही	1	1	example
-wv_acce1bee	زالَت	tr	geri durmadınız	1	1	example
-wv_acce1bee	زالَت	fr	avez arrêté	1	1	example
 wv_54402433	ٱرْتَدَّ	en	return	1	1	example
 wv_54402433	ٱرْتَدَّ	bn	দু'জনে ফিরে চললো	1	1	example
 wv_54402433	ٱرْتَدَّ	ur	دونوں پلٹے	1	1	example
@@ -1008,16 +1070,20 @@ wv_6cb4b2d5	اخْتَصَمُ	fa	خصومت کردند	1	1	example
 wv_6cb4b2d5	اخْتَصَمُ	fr	se sont disputés	1	1	example
 wv_0fbfcfd6	ازْدادُ	hi	ज़्यादा कर दिए	1	1	example
 wv_0fbfcfd6	ازْدادُ	fr	ont augmentés	1	1	example
+wv_b13fdf87	تَفَرَّقَ	en	became divided	1	1	example
 wv_b13fdf87	تَفَرَّقَ	bn	বিচ্ছিন্ন হয়েছিল	1	1	example
-wv_b13fdf87	تَفَرَّقَ	hi	तफ़रक़ा किया	1	1	example
+wv_b13fdf87	تَفَرَّقَ	ur	تفرقہ کیا	1	1	example
+wv_b13fdf87	تَفَرَّقَ	hi	फ़िरक़ा-फ़िरक़ा बन गए	1	1	example
 wv_b13fdf87	تَفَرَّقَ	in	bercerai-berai	1	1	example
+wv_b13fdf87	تَفَرَّقَ	tr	bölünüp	1	1	example
+wv_b13fdf87	تَفَرَّقَ	fa	پراکنده شدند	1	1	example
+wv_b13fdf87	تَفَرَّقَ	fr	se sont divisés	1	1	example
 wv_b9644035	هَمَّ	in	berkehendak	1	1	example
 wv_b9644035	هَمَّ	tr	da arzu etmişti	1	1	example
 wv_b9644035	هَمَّ	fa	آهنگ کردند	1	1	example
 wv_b69b3fb1	كَبُرَ	en	difficult	1	1	example
 wv_b69b3fb1	كَبُرَ	bn	অতিশয়	1	1	example
-wv_b69b3fb1	كَبُرَ	fa	*	1	1	example
-wn_69a10439	مُحْصَنَة	fa	با زنان پاکدامن	1	1	example
+wv_b69b3fb1	كَبُرَ	fa	بزرگ	1	1	example
 wn_335a6e89	قَرِين	tr	arkadaş	1	1	example
 wv_172d9be3	نَفَرَ	en	go forth	1	1	example
 wv_172d9be3	نَفَرَ	bn	বের হলো	1	1	example
@@ -1025,13 +1091,13 @@ wv_172d9be3	نَفَرَ	ur	نکلی	1	1	example
 wv_172d9be3	نَفَرَ	hi	निकली	1	1	example
 wv_172d9be3	نَفَرَ	in	keluar	1	1	example
 wv_172d9be3	نَفَرَ	tr	geri kalmaları	1	1	example
-wv_172d9be3	نَفَرَ	fa	*	1	1	example
+wv_172d9be3	نَفَرَ	fa	بیرون روید	1	1	example
 wv_172d9be3	نَفَرَ	fr	part	1	1	example
 wn_7548de51	مَوَدَّة	bn	কোন সম্পর্ক	1	1	example
 wv_a23456fb	كَفَّ	bn	ঠেকিয়ে দিয়েছেন	1	1	example
 wv_a23456fb	كَفَّ	tr	savmıştım	1	1	example
 wv_de7fcddb	يَئِسَ	tr	kesilenler	1	1	example
-wv_de7fcddb	يَئِسَ	fa	*	1	1	example
+wv_de7fcddb	يَئِسَ	fa	ناامید شدند	1	1	example
 wn_b3481852	ظاهِر	tr	açığını	1	1	example
 wn_b3481852	ظاهِر	fa	اوست آشکار	1	1	example
 wv_f863b633	يَنتَظِرُ	en	awaits	1	1	example
@@ -1142,7 +1208,7 @@ wv_5d2340d5	طَافَ	fa	دور زد	1	1	example
 wv_5d2340d5	طَافَ	fr	A donc visité	1	1	example
 wn_c1bbaee1	سَفِيه	tr	aklı ermez	1	1	example
 wv_ac5bcd66	يَعْمَهُ	bn	উদভ্রান্ত হয়ে ফিরছিলো	1	1	example
-wn_7f13960b	كَبِيرَة	fa	از گناهان	1	1	example
+wn_7f13960b	كَبِيرَة	fa	بزرگی	1	1	example
 wv_2f9bf241	أَنسَىٰ	en	made him forget	1	1	example
 wv_2f9bf241	أَنسَىٰ	bn	ভুলিয়েছিলো	1	1	example
 wv_2f9bf241	أَنسَىٰ	ur	بھلا دیا	1	1	example
@@ -1152,23 +1218,21 @@ wv_2f9bf241	أَنسَىٰ	tr	ona unutturdu	1	1	example
 wv_2f9bf241	أَنسَىٰ	fa	فراموش گردانید	1	1	example
 wv_2f9bf241	أَنسَىٰ	fr	a fait oublier	1	1	example
 wn_e3437bc9	عاكِف	bn	ইতিকাফকারীদের	1	1	example
-wn_e3437bc9	عاكِف	ur	اعتکاف کرنے والے	1	1	example
 wn_e3437bc9	عاكِف	tr	ibadete	1	1	example
 wn_e3437bc9	عاكِف	fa	معتکفان	1	1	example
-wv_5595840a	اضْطُرَّ	bn	নিরুপায় হ'লে	1	1	example
+wv_5595840a	اضْطُرَّ	bn	নিরুপায় হয়ে	1	1	example
 wv_5595840a	اضْطُرَّ	fa	باگزیر شود	1	1	example
 wv_6e764be3	حَضَرَ	ur	آرہی تھی	1	1	example
 wv_6e764be3	حَضَرَ	hi	आ जाए	1	1	example
 wn_a03e8cb8	قِبْلَة	hi	इस क़िबले	1	1	example
 wn_a03e8cb8	قِبْلَة	tr	ibadethane	1	1	example
-wn_a03e8cb8	قِبْلَة	fa	به قبله ای	1	1	example
 wn_c7a946d2	حُجَّة	bn	কোন প্রমাণ	1	1	example
 wn_c7a946d2	حُجَّة	tr	bahaneleri	1	1	example
-wn_c7a946d2	حُجَّة	fa	*	1	1	example
-wn_cf17fcc7	اخْتِلاف	fa	اختلافی	1	1	example
+wn_c7a946d2	حُجَّة	fa	حجتی	1	1	example
+wn_cf17fcc7	اخْتِلاف	fa	آمدوشد	1	1	example
 wn_e944ccdb	حَسْرَة	bn	অাক্ষেপ	1	1	example
 wn_e944ccdb	حَسْرَة	hi	हसरत	1	1	example
-wn_e944ccdb	حَسْرَة	fa	از روی حسرت ها	1	1	example
+wn_e944ccdb	حَسْرَة	fa	حسرت	1	1	example
 wn_2ef4d541	فَحْشاء	tr	fuhşu	1	1	example
 wn_2ef4d541	فَحْشاء	fa	بی حیایی	1	1	example
 wn_becb09fc	سائِل	en	him who asks	1	1	example
@@ -1182,7 +1246,7 @@ wv_33228567	أَفَاضَ	bn	জড়িয়ে পড়েছিলে	1	1
 wv_33228567	أَفَاضَ	ur	پلٹتے ہیں	1	1	example
 wv_33228567	أَفَاضَ	hi	पड़ गए थे	1	1	example
 wv_33228567	أَفَاضَ	tr	akın ettiği	1	1	example
-wv_33228567	أَفَاضَ	fa	*	1	1	example
+wv_33228567	أَفَاضَ	fa	باز گردید	1	1	example
 wv_33228567	أَفَاضَ	fr	partent	1	1	example
 wv_570c0fb7	أَشْهَدَ	en	call Allah to witness	1	1	example
 wv_570c0fb7	أَشْهَدَ	bn	সাক্ষী করছি	1	1	example
@@ -1219,11 +1283,9 @@ wv_ccdaa2f7	ٱفْتَدَىٰ	in	menebus diri	1	1	example
 wv_ccdaa2f7	ٱفْتَدَىٰ	tr	fidye	1	1	example
 wv_ccdaa2f7	ٱفْتَدَىٰ	fa	زن فد یه دهد	1	1	example
 wv_ccdaa2f7	ٱفْتَدَىٰ	fr	se rachète	1	1	example
-wv_516418ed	يُكَلِّفُ	bn	কষ্ট দেন	1	1	example
-wv_516418ed	يُكَلِّفُ	tr	teklif etmeyiz	1	1	example
 wn_cd075117	وارِث	tr	gerçek varis olan	1	1	example
 wn_e83756c0	بَيْع	bn	কেনা-বেচা হবে	1	1	example
-wn_e83756c0	بَيْع	fa	*	1	1	example
+wn_e83756c0	بَيْع	fa	خرید و فروش	1	1	example
 wn_b757d894	أُكُل	en	fruit	1	1	example
 wn_b757d894	أُكُل	bn	ফল-মূল	1	1	example
 wn_b757d894	أُكُل	ur	میوے	1	1	example
@@ -1282,6 +1344,10 @@ wv_a21c74be	طَّلَعَ	fr	avais descendu ton regard	1	1	example
 wv_3bf6d6a6	عَمِىَ	bn	অন্ধ করে দিয়েছেন	1	1	example
 wv_3bf6d6a6	عَمِىَ	tr	kör	1	1	example
 wv_3bf6d6a6	عَمِىَ	fr	a rendu aveugles	1	1	example
+wv_e39001b7	يَزِرُ	en	bear	1	1	example
+wv_e39001b7	يَزِرُ	ur	بوجھ اٹھائے ہوئے ہوں گے	1	1	example
+wv_e39001b7	يَزِرُ	hi	बोझ वो उठा रहे हैं	1	1	example
+wv_e39001b7	يَزِرُ	tr	yüklenip taşıyorlar	1	1	example
 wn_5ffa336b	جَناح	en	having wings	1	1	example
 wn_5ffa336b	جَناح	ur	بازو	1	1	example
 wn_5ffa336b	جَناح	hi	परों वाले	1	1	example
@@ -1311,13 +1377,15 @@ wn_28945cfb	كارِه	fa	نا خوش می داشتید	1	1	example
 wn_8441ba1d	حَمْل	en	burden	1	1	example
 wn_8441ba1d	حَمْل	ur	بوجھ	1	1	example
 wn_8441ba1d	حَمْل	hi	बोझ	1	1	example
+wn_8441ba1d	حَمْل	fa	باری	1	1	example
 wn_8441ba1d	حَمْل	fr	femme enceinte	1	1	example
-wv_2419bab7	يُنقَصُ	en	decrease	1	1	example
-wv_2419bab7	يُنقَصُ	bn	কম করো	1	1	example
-wv_2419bab7	يُنقَصُ	ur	کم کرکے دو	1	1	example
+wv_2419bab7	يُنقَصُ	en	diminishes	1	1	example
+wv_2419bab7	يُنقَصُ	bn	ক্ষয় করে	1	1	example
+wv_2419bab7	يُنقَصُ	ur	کمی کرتی ہے	1	1	example
 wv_2419bab7	يُنقَصُ	hi	कम करती है	1	1	example
-wv_2419bab7	يُنقَصُ	in	dikurangi	1	1	example
-wv_2419bab7	يُنقَصُ	tr	azaltılmaz	1	1	example
+wv_2419bab7	يُنقَصُ	in	merusak	1	1	example
+wv_2419bab7	يُنقَصُ	tr	eksilttiğini	1	1	example
+wv_2419bab7	يُنقَصُ	fa	می کاهد	1	1	example
 wv_2419bab7	يُنقَصُ	fr	diminue	1	1	example
 wv_e321e766	ضَاقَ	tr	dar gelmişti	1	1	example
 wv_823efef0	ضَحِكَتْ	en	laughed	1	1	example
@@ -1332,24 +1400,17 @@ wn_e6e43c16	سابِق	tr	geçip gidecek	1	1	example
 wn_e6e43c16	سابِق	fa	سبقت گیرنده	1	1	example
 wn_958f48a1	بُنْيان	bn	প্রাচীর	1	1	example
 wn_9cbfd57b	عُمُر	fa	روزگار	1	1	example
+wn_158cf650	تَبْدِيل	fa	جایگزین کردنی	1	1	example
 wn_9b196140	مُرِيب	tr	derin	1	1	example
 wn_b5fef64a	مُنِيب	bn	অভিমূখী	1	1	example
-wn_b5fef64a	مُنِيب	fa	*	1	1	example
-wn_bf0cffb4	رُءْيا	tr	rü'yayı	1	1	example
+wn_b5fef64a	مُنِيب	fa	باز گردانده	1	1	example
 wn_53ffbcfc	هاد	in	memberi petunjuk	1	1	example
 wv_31aa906b	عَدَّ	ur	شمار کرتے ہو	1	1	example
 wv_31aa906b	عَدَّ	hi	गिन रहे हैं	1	1	example
 wv_31aa906b	عَدَّ	tr	saymak isteseniz	1	1	example
 wn_fa430759	واد	tr	vadide	1	1	example
-wn_fa430759	واد	fa	*	1	1	example
-wv_26228a92	تَنَزَّلَتْ	en	have brought it down	1	1	example
-wv_26228a92	تَنَزَّلَتْ	bn	অবতীর্ণ করেছে	1	1	example
-wv_26228a92	تَنَزَّلَتْ	ur	اترے	1	1	example
-wv_26228a92	تَنَزَّلَتْ	hi	उतरे	1	1	example
-wv_26228a92	تَنَزَّلَتْ	in	turun	1	1	example
-wv_26228a92	تَنَزَّلَتْ	tr	indirmedi	1	1	example
-wv_26228a92	تَنَزَّلَتْ	fa	*	1	1	example
-wv_26228a92	تَنَزَّلَتْ	fr	sont pas descendus	1	1	example
+wn_fa430759	واد	fa	درّه	1	1	example
+wn_dafc39ed	كُبْرَى	fa	بزرگ	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	en	defend themselves	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	ur	بدلہ لیا	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	hi	बदला लिया	1	1	example
@@ -1357,6 +1418,7 @@ wv_75dda4ad	ٱنتَصَرَ	in	mendapat pertolongan	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	tr	kendini savunursa	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	fa	انتقام کشد	1	1	example
 wv_75dda4ad	ٱنتَصَرَ	fr	se défend	1	1	example
+wn_29fe8042	مُتَشابِه	fa	درحالی که همگون	1	1	example
 wv_bf97194d	نَقَضَتْ	en	untwists	1	1	example
 wv_bf97194d	نَقَضَتْ	bn	কেটেছে	1	1	example
 wv_bf97194d	نَقَضَتْ	ur	توڑ ڈالا	1	1	example
@@ -1373,19 +1435,19 @@ wn_53340ad7	جاعِل	fr	Celui qui fait	1	1	example
 wn_ad751d89	سَبْت	tr	cumartesi	1	1	example
 wn_35ba8b43	أُمْنِيَّت	bn	আকাঙ্ক্ষা	1	1	example
 wn_35ba8b43	أُمْنِيَّت	tr	kuruntular	1	1	example
-wn_35ba8b43	أُمْنِيَّت	fa	آرزوها	1	1	example
+wn_35ba8b43	أُمْنِيَّت	fa	آررزو های	1	1	example
 wn_35ba8b43	أُمْنِيَّت	fr	espoirs	1	1	example
 wn_63526c2b	إِخْراج	en	bringing forth	1	1	example
 wn_63526c2b	إِخْراج	ur	نکالنا	1	1	example
 wn_63526c2b	إِخْراج	in	mengeluarkan	1	1	example
 wn_63526c2b	إِخْراج	tr	mükemmel çıkarışla	1	1	example
-wv_b5c5a6dc	يَتَمَنَّ	en	covet	1	1	example
+wv_b5c5a6dc	يَتَمَنَّ	en	wish	1	1	example
 wv_b5c5a6dc	يَتَمَنَّ	bn	কামনা করছিলে	1	1	example
 wv_b5c5a6dc	يَتَمَنَّ	ur	تمنا کرتے	1	1	example
 wv_b5c5a6dc	يَتَمَنَّ	hi	तमन्ना करते	1	1	example
-wv_b5c5a6dc	يَتَمَنَّ	in	berangan-angan	1	1	example
+wv_b5c5a6dc	يَتَمَنَّ	in	mengharapkan	1	1	example
 wv_b5c5a6dc	يَتَمَنَّ	tr	arzuluyordunuz	1	1	example
-wv_b5c5a6dc	يَتَمَنَّ	fr	souhaitez	1	1	example
+wv_b5c5a6dc	يَتَمَنَّ	fr	souhaitiez	1	1	example
 wn_82f878a3	خَلاق	in	bagian	1	1	example
 wn_82f878a3	خَلاق	tr	nasibi	1	1	example
 wv_134ed894	عَهِدَ	bn	অঙ্গীকার করেছে	1	1	example
@@ -1398,7 +1460,7 @@ wn_e6da65ba	دَعْوَة	in	doa	1	1	example
 wn_e6da65ba	دَعْوَة	tr	du'a	1	1	example
 wn_e6da65ba	دَعْوَة	fa	خواندنی	1	1	example
 wn_74a0fdaf	مُعْتَدي	tr	aşırı gidenleri	1	1	example
-wn_74a0fdaf	مُعْتَدي	fa	از اندازه در گذرند گان	1	1	example
+wn_74a0fdaf	مُعْتَدي	fa	اندازه در گذرند گان	1	1	example
 wv_8bf04cd3	ثُقِفُ	bn	পাওয়া গিয়েছে	1	1	example
 wv_8bf04cd3	ثُقِفُ	hi	पाए गए	1	1	example
 wv_8bf04cd3	ثُقِفُ	in	berdiam	1	1	example
@@ -1419,7 +1481,7 @@ wv_5cac1462	أَقْرَضُ	tr	borç verenler	1	1	example
 wv_5cac1462	أَقْرَضُ	fa	وام دادند	1	1	example
 wv_5cac1462	أَقْرَضُ	fr	prêtent	1	1	example
 wn_ffea0950	سَعَة	tr	bolluk	1	1	example
-wn_ffea0950	سَعَة	fa	*	1	1	example
+wn_ffea0950	سَعَة	fa	توانگران	1	1	example
 wn_2290d1d5	سَكِينَة	tr	huzur	1	1	example
 wv_093fb2af	وَسِعَ	bn	ঘিরে রেখেছে	1	1	example
 wn_2d28b3b3	رُشْد	en	right	1	1	example
@@ -1433,10 +1495,6 @@ wv_7e9fb49a	تَصَدَّقَ	in	bersedekah	1	1	example
 wv_7e9fb49a	تَصَدَّقَ	tr	bağışlarsa	1	1	example
 wv_7e9fb49a	تَصَدَّقَ	fa	ببخشد	1	1	example
 wv_7e9fb49a	تَصَدَّقَ	fr	fait de la charité	1	1	example
-wv_2257b9ce	يَخْفَى	ur	پوشیدہ	1	1	example
-wv_2257b9ce	يَخْفَى	hi	छुप सकती	1	1	example
-wv_2257b9ce	يَخْفَى	tr	gizli	1	1	example
-wv_2257b9ce	يَخْفَى	fr	est caché	1	1	example
 wn_eab3808f	مِيعاد	bn	অঙ্গীকার	1	1	example
 wn_c13bb4fa	عِبْرَة	en	lesson	1	1	example
 wn_c13bb4fa	عِبْرَة	bn	শিক্ষা	1	1	example
@@ -1485,38 +1543,39 @@ wv_6bea66ec	أَدْرَكَ	fr	a atteint	1	1	example
 wn_e209eaf3	تَحِيَّة	en	greeting	1	1	example
 wn_e209eaf3	تَحِيَّة	hi	तोहफ़ा	1	1	example
 wn_e209eaf3	تَحِيَّة	tr	dileğiyle	1	1	example
-wn_e209eaf3	تَحِيَّة	fa	با درود	1	1	example
+wn_e209eaf3	تَحِيَّة	fa	درود	1	1	example
 wn_e209eaf3	تَحِيَّة	fr	avec une salutation	1	1	example
 wv_6caa44fe	غَضِبَ	bn	অভিশাপ দিয়েছেন	1	1	example
 wv_180fcd71	يَسْتَفْتُ	en	both inquire	1	1	example
-wv_180fcd71	يَسْتَفْتُ	bn	জিজ্ঞেস করবে	1	1	example
+wv_180fcd71	يَسْتَفْتُ	bn	দু'জনে জানতে চেয়েছো	1	1	example
 wv_180fcd71	يَسْتَفْتُ	ur	دونوں جواب مانگتے ہو	1	1	example
 wv_180fcd71	يَسْتَفْتُ	hi	दोनों पूछते हो	1	1	example
 wv_180fcd71	يَسْتَفْتُ	in	berdua menanyakan kepadaku	1	1	example
 wv_180fcd71	يَسْتَفْتُ	tr	sorduğunuz	1	1	example
-wv_180fcd71	يَسْتَفْتُ	fa	*	1	1	example
+wv_180fcd71	يَسْتَفْتُ	fa	نظر می خواستید	1	1	example
 wv_180fcd71	يَسْتَفْتُ	fr	demandez un jugement	1	1	example
 wn_164ecbcd	أَسْفَل	bn	অতি নীচে	1	1	example
 wn_164ecbcd	أَسْفَل	ur	سب سے زیادہ نچلا	1	1	example
 wn_164ecbcd	أَسْفَل	hi	नीचे	1	1	example
 wn_164ecbcd	أَسْفَل	tr	alt tarafınızdan	1	1	example
-wn_164ecbcd	أَسْفَل	fa	*	1	1	example
+wn_164ecbcd	أَسْفَل	fa	فروتر از	1	1	example
 wn_75bac1a6	خِلاف	tr	geride kalanlar	1	1	example
-wv_db20969b	بَلَّغْ	en	conveyed	1	1	example
-wv_db20969b	بَلَّغْ	bn	প্রচার করলে	1	1	example
-wv_db20969b	بَلَّغْ	ur	پہنچایا	1	1	example
-wv_db20969b	بَلَّغْ	hi	पहुँचाया आपने	1	1	example
+wn_75bac1a6	خِلاف	fa	خلاف	1	1	example
+wv_db20969b	بَلَّغْ	en	convey	1	1	example
+wv_db20969b	بَلَّغْ	bn	পৌঁছায়	1	1	example
+wv_db20969b	بَلَّغْ	ur	پہنچاتے ہیں	1	1	example
+wv_db20969b	بَلَّغْ	hi	पहुँचाते हैं	1	1	example
 wv_db20969b	بَلَّغْ	in	menyampaikan	1	1	example
 wv_db20969b	بَلَّغْ	tr	duyururlar	1	1	example
-wv_db20969b	بَلَّغْ	fa	*	1	1	example
-wv_db20969b	بَلَّغْ	fr	as transmis	1	1	example
+wv_db20969b	بَلَّغْ	fa	می رسانند	1	1	example
+wv_db20969b	بَلَّغْ	fr	transmettaient	1	1	example
 wn_57868583	بالِغ	en	accomplish	1	1	example
 wn_57868583	بالِغ	bn	অর্জনকারী	1	1	example
 wn_57868583	بالِغ	ur	پہنچنے والا	1	1	example
 wn_57868583	بالِغ	hi	पहुँचने वाली	1	1	example
 wn_57868583	بالِغ	in	menyampaikan	1	1	example
 wn_57868583	بالِغ	tr	varacak	1	1	example
-wn_57868583	بالِغ	fa	به انجام می رساند	1	1	example
+wn_57868583	بالِغ	fa	انجام می رساند	1	1	example
 wn_57868583	بالِغ	fr	transmise	1	1	example
 wv_031c07ea	قَلَّبُ	en	had upset	1	1	example
 wv_031c07ea	قَلَّبُ	bn	উল্টাপাল্টা করেছে	1	1	example
@@ -1549,9 +1608,6 @@ wn_50d2ccf7	ناصِح	en	adviser	1	1	example
 wn_50d2ccf7	ناصِح	bn	উপদেশকারীদেরকে	1	1	example
 wn_50d2ccf7	ناصِح	hi	अलबत्ता ख़ैरख़्वाहों में से हूँ	1	1	example
 wn_50d2ccf7	ناصِح	tr	öğüt verecek	1	1	example
-wv_7eaa5d13	يَسْتَأْخِرُ	ur	تاخیر کرسکتی ہے	1	1	example
-wv_7eaa5d13	يَسْتَأْخِرُ	hi	नहीं वो पीछे हो सकते	1	1	example
-wv_7eaa5d13	يَسْتَأْخِرُ	tr	geri kalamaz	1	1	example
 wn_64998d09	ضُحًى	en	daylight	1	1	example
 wn_64998d09	ضُحًى	bn	দিনের বেলায়	1	1	example
 wn_64998d09	ضُحًى	ur	دن چڑھے	1	1	example
@@ -1568,7 +1624,7 @@ wn_6a96655a	خَبِيثَة	hi	ख़बीस औरतें	1	1	example
 wn_4341abcf	واقِع	en	befall	1	1	example
 wn_4341abcf	واقِع	bn	পড়বে	1	1	example
 wn_4341abcf	واقِع	tr	başlarına inerken	1	1	example
-wn_4341abcf	واقِع	fa	*	1	1	example
+wn_4341abcf	واقِع	fa	فروافتادنی	1	1	example
 wn_4341abcf	واقِع	fr	arrivante	1	1	example
 wn_9e71829e	غاوي	bn	পথভ্রষ্ট	1	1	example
 wn_9e71829e	غاوي	tr	azgınlar	1	1	example
@@ -1579,16 +1635,16 @@ wv_47e04c27	ظاهَرُ	in	membantu	1	1	example
 wv_47e04c27	ظاهَرُ	tr	yardım eden	1	1	example
 wv_47e04c27	ظاهَرُ	fa	پشتیبانی یکدیگر کردند	1	1	example
 wv_47e04c27	ظاهَرُ	fr	ont donné du support	1	1	example
-wv_56df7ce1	يُجِيرُ	en	be protected	1	1	example
-wv_56df7ce1	يُجِيرُ	bn	আশ্রয় দিতে পারে কেউ	1	1	example
-wv_56df7ce1	يُجِيرُ	ur	پناہ دی جاتی	1	1	example
-wv_56df7ce1	يُجِيرُ	hi	पनाह दी जा सकती	1	1	example
-wv_56df7ce1	يُجِيرُ	in	dilindungi	1	1	example
-wv_56df7ce1	يُجِيرُ	tr	korunup kollanmayan	1	1	example
-wv_56df7ce1	يُجِيرُ	fa	*	1	1	example
+wv_56df7ce1	يُجِيرُ	en	protect	1	1	example
+wv_56df7ce1	يُجِيرُ	bn	আশ্রয় দেন	1	1	example
+wv_56df7ce1	يُجِيرُ	ur	پناہ دیتا ہے	1	1	example
+wv_56df7ce1	يُجِيرُ	hi	पनाह देगा	1	1	example
+wv_56df7ce1	يُجِيرُ	in	melindungi	1	1	example
+wv_56df7ce1	يُجِيرُ	tr	koruyup kollayan	1	1	example
+wv_56df7ce1	يُجِيرُ	fa	پناه دهد	1	1	example
 wv_56df7ce1	يُجِيرُ	fr	donne de la protection	1	1	example
 wn_72c26ebd	قَبْر	tr	kabirler	1	1	example
-wn_72c26ebd	قَبْر	fa	*	1	1	example
+wn_72c26ebd	قَبْر	fa	قبرهاست	1	1	example
 wv_0319a723	بايَعْ	en	have contracted	1	1	example
 wv_0319a723	بايَعْ	bn	কেনাবেচা করছো	1	1	example
 wv_0319a723	بايَعْ	ur	سودا کیا تم نے ساتھ	1	1	example
@@ -1600,8 +1656,9 @@ wv_0319a723	بايَعْ	fr	avez acheté	1	1	example
 wv_b91ab9a4	زَاغَ	en	deviated	1	1	example
 wv_b91ab9a4	زَاغَ	bn	বক্রতা অবলম্বন করল	1	1	example
 wv_b91ab9a4	زَاغَ	hi	कज हो गईं	1	1	example
+wv_b91ab9a4	زَاغَ	in	berobah	1	1	example
 wv_b91ab9a4	زَاغَ	tr	eğrildiği	1	1	example
-wv_b91ab9a4	زَاغَ	fa	*	1	1	example
+wv_b91ab9a4	زَاغَ	fa	بگردیده است	1	1	example
 wv_b91ab9a4	زَاغَ	fr	ont dévié	1	1	example
 wn_14475f8c	خُلْد	fa	جاودان	1	1	example
 wv_e87c445f	شَدَدْ	bn	সুদৃঢ় করেছি	1	1	example
@@ -1612,7 +1669,7 @@ wv_e87c445f	شَدَدْ	fa	استوار داشتیم	1	1	example
 wn_cb5378b8	كَنز	bn	কোন ধনভান্ডার	1	1	example
 wn_c0febbc6	وَحْى	ur	وحی	1	1	example
 wn_c0febbc6	وَحْى	hi	वही	1	1	example
-wn_c0febbc6	وَحْى	fa	به وحی	1	1	example
+wn_c0febbc6	وَحْى	fa	وحی	1	1	example
 wv_4628fd4c	أَسْرَىٰ	en	took	1	1	example
 wv_4628fd4c	أَسْرَىٰ	bn	ভ্রমণ করালেন	1	1	example
 wv_4628fd4c	أَسْرَىٰ	ur	لے گیا	1	1	example
@@ -1632,13 +1689,15 @@ wn_4e2c5ea5	مَرَدّ	bn	টলে যাওয়ার	1	1	example
 wn_4e2c5ea5	مَرَدّ	ur	انجام	1	1	example
 wn_4e2c5ea5	مَرَدّ	in	dapat menolak	1	1	example
 wn_4e2c5ea5	مَرَدّ	tr	geri çevirecek	1	1	example
+wn_4e2c5ea5	مَرَدّ	fa	باز گشتن	1	1	example
 wn_7dd2bdc4	وَعِيد	en	My Threat	1	1	example
 wn_7dd2bdc4	وَعِيد	bn	আমার ভীতিপ্রদর্শন	1	1	example
 wn_7dd2bdc4	وَعِيد	ur	تنبیہات	1	1	example
 wn_7dd2bdc4	وَعِيد	hi	वईद मेरी	1	1	example
 wn_7dd2bdc4	وَعِيد	tr	kendisine karşı uyarılan	1	1	example
-wn_7dd2bdc4	وَعِيد	fa	*	1	1	example
+wn_7dd2bdc4	وَعِيد	fa	وعدۂ عذاب	1	1	example
 wn_eb6f4af7	طَرْف	in	maka	1	1	example
+wn_eb6f4af7	طَرْف	fa	نگاهی	1	1	example
 wn_7d4c3a3f	ثَقَل	en	burdens	1	1	example
 wn_7d4c3a3f	ثَقَل	bn	দুই ভার	1	1	example
 wn_7d4c3a3f	ثَقَل	ur	بوجھ	1	1	example
@@ -1674,7 +1733,13 @@ wv_49ecef94	نَزَلَ	en	descended	1	1	example
 wv_49ecef94	نَزَلَ	tr	inananlar	1	1	example
 wv_49ecef94	نَزَلَ	fa	فروآمده است	1	1	example
 wn_23f79983	كَهْف	tr	Kehf	1	1	example
-wv_094d4fa7	يَنۢبَغِي	en	belong	1	1	example
+wv_094d4fa7	يَنۢبَغِي	en	is permitted	1	1	example
+wv_094d4fa7	يَنۢبَغِي	bn	উচিত	1	1	example
+wv_094d4fa7	يَنۢبَغِي	ur	جائز	1	1	example
+wv_094d4fa7	يَنۢبَغِي	hi	जायज़	1	1	example
+wv_094d4fa7	يَنۢبَغِي	tr	mümkün olur	1	1	example
+wv_094d4fa7	يَنۢبَغِي	fa	سزا وار	1	1	example
+wv_094d4fa7	يَنۢبَغِي	fr	est convenable	1	1	example
 wv_0605e6d0	لَقَّىٰ	en	will be met	1	1	example
 wv_0605e6d0	لَقَّىٰ	bn	পাবে	1	1	example
 wv_0605e6d0	لَقَّىٰ	ur	حاصل کریں گے	1	1	example
@@ -1701,13 +1766,7 @@ wv_20e5209e	خَتَمَ	fa	مهر نهاده	1	1	example
 wn_4606e72e	مُصْلِح	in	mengadakan perbaikan	1	1	example
 wn_4606e72e	مُصْلِح	tr	düzelticileriz	1	1	example
 wn_4606e72e	مُصْلِح	fa	اصلاح کنندگان	1	1	example
-wv_c7c6d526	يَرْكَعُ	en	bow	1	1	example
-wv_c7c6d526	يَرْكَعُ	bn	অবনত হয়	1	1	example
-wv_c7c6d526	يَرْكَعُ	ur	رکوع کرسکیں گے	1	1	example
-wv_c7c6d526	يَرْكَعُ	hi	नहीं वो रुकूअ करते	1	1	example
-wv_c7c6d526	يَرْكَعُ	in	tunduk	1	1	example
-wv_c7c6d526	يَرْكَعُ	fa	*	1	1	example
-wv_c7c6d526	يَرْكَعُ	fr	s’inclinent	1	1	example
+wv_c7c6d526	يَرْكَعُ	bn	অবনত হও	1	1	example
 wv_8ca86e81	فَرَقْ	en	parted	1	1	example
 wv_8ca86e81	فَرَقْ	bn	বিভক্ত করেছিলাম	1	1	example
 wv_8ca86e81	فَرَقْ	ur	پھاڑا	1	1	example
@@ -1728,8 +1787,8 @@ wv_b1960c32	ذُبِحَ	fa	سر بریده شده	1	1	example
 wv_b1960c32	ذُبِحَ	fr	a été égorgé	1	1	example
 wn_6577c1f5	ناظِر	en	awaiting	1	1	example
 wn_6577c1f5	ناظِر	bn	অপেক্ষাকারী	1	1	example
-wn_6577c1f5	ناظِر	ur	انتظار کرنے والے ہو	1	1	example
-wn_6577c1f5	ناظِر	hi	इन्तिज़ार करने वाले हो	1	1	example
+wn_6577c1f5	ناظِر	ur	انتظار کرنے والے	1	1	example
+wn_6577c1f5	ناظِر	hi	इन्तिज़ार करने वाले	1	1	example
 wn_6577c1f5	ناظِر	in	menunggu-nunggu	1	1	example
 wn_6577c1f5	ناظِر	tr	bakanlara	1	1	example
 wn_6577c1f5	ناظِر	fa	بینند گان	1	1	example
@@ -1748,6 +1807,7 @@ wv_37c8e009	يُعَمَّرُ	bn	আয়ু দেয়া হত	1	1	exampl
 wv_37c8e009	يُعَمَّرُ	ur	عمر دیا جائے	1	1	example
 wv_37c8e009	يُعَمَّرُ	in	diberi umur	1	1	example
 wv_37c8e009	يُعَمَّرُ	tr	yaşaması	1	1	example
+wv_37c8e009	يُعَمَّرُ	fa	عمر داده شود	1	1	example
 wv_37c8e009	يُعَمَّرُ	fr	reçoive une longue vie	1	1	example
 wn_f68dc294	تَقَلُّب	en	movement	1	1	example
 wn_f68dc294	تَقَلُّب	bn	চলাফেরা	1	1	example
@@ -1825,12 +1885,14 @@ wn_a4edef5e	حِمار	tr	eşeklerin	1	1	example
 wn_4588315e	حَبَّة	bn	একটা শস্যদানা	1	1	example
 wn_5e96e852	كَفّار	hi	बड़ा नाशुक्रा	1	1	example
 wn_5e96e852	كَفّار	tr	inkarcı	1	1	example
-wv_927dc422	يَبْخَسْ	bn	কম করবে	1	1	example
-wv_927dc422	يَبْخَسْ	hi	कम कर के दो	1	1	example
-wv_927dc422	يَبْخَسْ	tr	eksik vermeyin	1	1	example
+wv_9ef6e079	يُؤَدِّ	en	render	1	1	example
+wv_9ef6e079	يُؤَدِّ	bn	ফেরত দেবে	1	1	example
 wv_9ef6e079	يُؤَدِّ	ur	ادا کردے گا	1	1	example
 wv_9ef6e079	يُؤَدِّ	hi	अदा कर देगा	1	1	example
+wv_9ef6e079	يُؤَدِّ	in	ia mengembalikannya	1	1	example
 wv_9ef6e079	يُؤَدِّ	tr	onu öder	1	1	example
+wv_9ef6e079	يُؤَدِّ	fa	باز پس می دهد	1	1	example
+wv_9ef6e079	يُؤَدِّ	fr	délivrer	1	1	example
 wv_cd6017e3	حُمِّلَ	en	placed on	1	1	example
 wv_cd6017e3	حُمِّلَ	bn	আমাদের উপর চাপানো হয়েছিলো	1	1	example
 wv_cd6017e3	حُمِّلَ	in	dibebankan	1	1	example
@@ -1838,6 +1900,7 @@ wv_cd6017e3	حُمِّلَ	tr	bize yükletilmişti	1	1	example
 wv_cd6017e3	حُمِّلَ	fa	بر ما نهادند	1	1	example
 wv_cd6017e3	حُمِّلَ	fr	a été mis à porter	1	1	example
 wn_bf689d49	خَيْل	tr	atlar	1	1	example
+wn_bf689d49	خَيْل	fa	اسبان	1	1	example
 wn_4c6a4ddd	يَحْيَى	tr	Yahya'dır	1	1	example
 wv_d5a60825	دَرَسُ	en	have studied	1	1	example
 wv_d5a60825	دَرَسُ	bn	অধ্যয়ন করেছে	1	1	example
@@ -1862,15 +1925,15 @@ wn_7a0b21ad	طَرَف	ur	دونوں کناروں	1	1	example
 wn_7a0b21ad	طَرَف	hi	किनारों	1	1	example
 wn_7a0b21ad	طَرَف	in	di ujung	1	1	example
 wn_7a0b21ad	طَرَف	tr	iki tarafında	1	1	example
-wn_7a0b21ad	طَرَف	fa	در لحظه های	1	1	example
+wn_7a0b21ad	طَرَف	fa	دو طرف	1	1	example
 wn_7a0b21ad	طَرَف	fr	deux extrémités	1	1	example
-wv_c081f863	وَهَنَ	en	lost heart	1	1	example
+wv_c081f863	وَهَنَ	en	weakened	1	1	example
 wv_c081f863	وَهَنَ	bn	নরম হয়েছে	1	1	example
-wv_c081f863	وَهَنَ	ur	سستی دکھائی	1	1	example
+wv_c081f863	وَهَنَ	ur	کمزور ہوگئیں	1	1	example
 wv_c081f863	وَهَنَ	hi	कमज़ोर हो गईं	1	1	example
-wv_c081f863	وَهَنَ	in	menjadi lemah	1	1	example
+wv_c081f863	وَهَنَ	in	telah lemah	1	1	example
 wv_c081f863	وَهَنَ	tr	gevşedi	1	1	example
-wv_c081f863	وَهَنَ	fa	*	1	1	example
+wv_c081f863	وَهَنَ	fa	سست شده	1	1	example
 wv_c081f863	وَهَنَ	fr	sont devenus faibles avec paresse	1	1	example
 wv_71676085	غَلَّ	en	Are chained	1	1	example
 wv_71676085	غَلَّ	bn	খিয়ানত করেছিল	1	1	example
@@ -1878,7 +1941,7 @@ wv_71676085	غَلَّ	ur	باندھ دیے گئے	1	1	example
 wv_71676085	غَلَّ	hi	ख़यानत की	1	1	example
 wv_71676085	غَلَّ	in	dikhianatinya	1	1	example
 wv_71676085	غَلَّ	tr	bağlandı	1	1	example
-wv_71676085	غَلَّ	fa	*	1	1	example
+wv_71676085	غَلَّ	fa	بسته باد	1	1	example
 wv_71676085	غَلَّ	fr	a pris par escroquerie	1	1	example
 wv_1aeb0703	دَفَعْ	en	deliver	1	1	example
 wv_1aeb0703	دَفَعْ	bn	সমর্পণ কর	1	1	example
@@ -1971,10 +2034,12 @@ wv_52cc8c0f	يَمْتَرُ	in	adakan	1	1	example
 wv_52cc8c0f	يَمْتَرُ	tr	kuşkulanmış	1	1	example
 wv_52cc8c0f	يَمْتَرُ	fr	mettez en doute	1	1	example
 wv_d9aa7444	فَرَّط	bn	অন্যায় করেছো	1	1	example
+wv_d9aa7444	فَرَّط	ur	نے کمی کی	1	1	example
 wv_d9aa7444	فَرَّط	hi	कमी	1	1	example
-wv_d9aa7444	فَرَّط	in	alpakan	1	1	example
+wv_d9aa7444	فَرَّط	in	kelalaian	1	1	example
 wv_d9aa7444	فَرَّط	tr	kusurunuz	1	1	example
-wv_d9aa7444	فَرَّط	fa	*	1	1	example
+wv_d9aa7444	فَرَّط	fa	کوتا هی ای کردید	1	1	example
+wv_d9aa7444	فَرَّط	fr	ai manqué	1	1	example
 wn_6c29edc1	طائِر	en	bird	1	1	example
 wn_6c29edc1	طائِر	bn	পাখি	1	1	example
 wn_6c29edc1	طائِر	ur	پرندہ	1	1	example
@@ -1987,7 +2052,7 @@ wn_3606ba90	أَصْنام	bn	প্রতিমাদের	1	1	example
 wn_2071c5aa	مُوقِن	en	certain	1	1	example
 wn_2071c5aa	مُوقِن	bn	দৃঢ় বিশ্বাসী	1	1	example
 wn_2071c5aa	مُوقِن	tr	gerçekten inanan kimseler	1	1	example
-wn_2071c5aa	مُوقِن	fa	*	1	1	example
+wn_2071c5aa	مُوقِن	fa	یقین داران	1	1	example
 wn_2071c5aa	مُوقِن	fr	certains	1	1	example
 wn_db62f532	كَوْكَب	bn	একটি তারা	1	1	example
 wn_80b6ae75	تَقْدِير	bn	নির্দিষ্ট	1	1	example
@@ -2018,13 +2083,12 @@ wv_5ff127b2	ٱسْتَخْلَفَ	fa	جانشین ساخته بود	1	1	example
 wv_5ff127b2	ٱسْتَخْلَفَ	fr	a rendu successeurs	1	1	example
 wn_903aec24	حِجْر	bn	আড়াল	1	1	example
 wn_903aec24	حِجْر	ur	بند	1	1	example
-wn_903aec24	حِجْر	hi	अक़्ल वालों के लिए	1	1	example
 wn_903aec24	حِجْر	tr	akıl	1	1	example
-wn_903aec24	حِجْر	fa	*	1	1	example
+wn_903aec24	حِجْر	fa	حِجر	1	1	example
 wn_903aec24	حِجْر	fr	Al-Ḥijr	1	1	example
 wn_714b3342	تَفْصِيل	bn	বিশদ বর্ণনা	1	1	example
 wn_714b3342	تَفْصِيل	tr	açık açık	1	1	example
-wn_714b3342	تَفْصِيل	fa	*	1	1	example
+wn_714b3342	تَفْصِيل	fa	بیان روشن	1	1	example
 wn_a920a2a7	صاغِر	en	abased	1	1	example
 wn_a920a2a7	صاغِر	bn	অধমদের	1	1	example
 wn_a920a2a7	صاغِر	ur	ذلیل ہونے والوں	1	1	example
@@ -2064,7 +2128,7 @@ wv_212af8c2	عَجِلَ	in	lebih cepat	1	1	example
 wv_212af8c2	عَجِلَ	tr	acele ettim	1	1	example
 wv_212af8c2	عَجِلَ	fa	شتافتم	1	1	example
 wv_212af8c2	عَجِلَ	fr	me suis hâté	1	1	example
-wn_d323921a	حُوت	fa	*	1	1	example
+wn_d323921a	حُوت	fa	ماهی	1	1	example
 wn_83811f41	مُبْطِل	in	orang-orang yang berpegang pada yang bathil	1	1	example
 wn_83811f41	مُبْطِل	tr	batılda olanlar	1	1	example
 wn_3a9fd95a	كَلْب	en	dog	1	1	example
@@ -2077,7 +2141,7 @@ wn_3a9fd95a	كَلْب	fa	سگ	1	1	example
 wn_3a9fd95a	كَلْب	fr	chien	1	1	example
 wv_9f4f7ddb	ٱقْتَرَبَ	en	approached	1	1	example
 wv_9f4f7ddb	ٱقْتَرَبَ	hi	क़रीब आ गई	1	1	example
-wv_9f4f7ddb	ٱقْتَرَبَ	fa	*	1	1	example
+wv_9f4f7ddb	ٱقْتَرَبَ	fa	نزدیک است	1	1	example
 wv_9f4f7ddb	ٱقْتَرَبَ	fr	approché	1	1	example
 wv_6ed0a18f	بَطَشْ	ur	پکڑتے ہو	1	1	example
 wv_6ed0a18f	بَطَشْ	tr	yakaladığınız	1	1	example
@@ -2098,16 +2162,18 @@ wv_3533b650	خانُ	in	berkhianat	1	1	example
 wv_3533b650	خانُ	tr	hainlik yapmışlardı	1	1	example
 wv_3533b650	خانُ	fa	خیانت کرده بودند	1	1	example
 wv_3533b650	خانُ	fr	ont essayé de tromper	1	1	example
-wv_41d2e420	يَعْتَذِرُ	ur	عذر کرو	1	1	example
-wv_41d2e420	يَعْتَذِرُ	tr	özür dilemeyin	1	1	example
+wv_41d2e420	يَعْتَذِرُ	en	to make excuses	1	1	example
+wv_41d2e420	يَعْتَذِرُ	bn	অজুহাত পেশ করবে	1	1	example
+wv_41d2e420	يَعْتَذِرُ	ur	عذر کریں گے	1	1	example
+wv_41d2e420	يَعْتَذِرُ	hi	उज़र पेश करेंगे	1	1	example
+wv_41d2e420	يَعْتَذِرُ	in	maka	1	1	example
+wv_41d2e420	يَعْتَذِرُ	tr	özür dilerler	1	1	example
+wv_41d2e420	يَعْتَذِرُ	fa	عذر می آورند	1	1	example
 wv_41d2e420	يَعْتَذِرُ	fr	donneront des excuses	1	1	example
 wn_65dd1032	مُنافِقَة	bn	মুনাফিক নারীদের	1	1	example
-wv_fe3763b8	بَكَتْ	en	wept	1	1	example
-wv_fe3763b8	بَكَتْ	bn	কাঁদলো	1	1	example
-wv_fe3763b8	بَكَتْ	ur	رویا	1	1	example
-wv_fe3763b8	بَكَتْ	hi	रोए	1	1	example
-wv_fe3763b8	بَكَتْ	in	menangis	1	1	example
-wv_fe3763b8	بَكَتْ	fa	*	1	1	example
+wv_fe3763b8	بَكَتْ	bn	কাঁদতে কাঁদতে	1	1	example
+wv_fe3763b8	بَكَتْ	ur	روتے پیٹتے	1	1	example
+wv_fe3763b8	بَكَتْ	fa	در حالی که گریه می کنند	1	1	example
 wv_fe3763b8	بَكَتْ	fr	pleuraient	1	1	example
 wn_54af30b9	عَجَب	in	aneh	1	1	example
 wn_54af30b9	عَجَب	tr	harikulade güzel	1	1	example
@@ -2121,12 +2187,14 @@ wv_019470a7	عَجَّلَ	fr	a hâté	1	1	example
 wv_1875a49c	سُيِّرَتْ	en	are moved	1	1	example
 wv_1875a49c	سُيِّرَتْ	bn	গতিশীল করা যেতো	1	1	example
 wv_1875a49c	سُيِّرَتْ	fa	روان شود	1	1	example
-wv_33ba9f87	يَرْهَقُ	en	cover	1	1	example
-wv_33ba9f87	يَرْهَقُ	ur	چھائے گی	1	1	example
+wv_33ba9f87	يَرْهَقُ	en	Will cover	1	1	example
+wv_33ba9f87	يَرْهَقُ	bn	আচ্ছন্ন করবে	1	1	example
+wv_33ba9f87	يَرْهَقُ	ur	ڈھانکے گی	1	1	example
 wv_33ba9f87	يَرْهَقُ	hi	छा रही होगी	1	1	example
 wv_33ba9f87	يَرْهَقُ	in	menutupinya	1	1	example
 wv_33ba9f87	يَرْهَقُ	tr	onları bürümüş	1	1	example
-wv_33ba9f87	يَرْهَقُ	fa	*	1	1	example
+wv_33ba9f87	يَرْهَقُ	fa	فرو گیرد	1	1	example
+wv_33ba9f87	يَرْهَقُ	fr	couvrira	1	1	example
 wv_11319e8e	أُكْرِهَ	en	is forced	1	1	example
 wv_11319e8e	أُكْرِهَ	bn	বাধ্য করা হয়েছে	1	1	example
 wv_11319e8e	أُكْرِهَ	ur	مجبور کیا گیا	1	1	example
@@ -2208,10 +2276,11 @@ wn_b02cd0b1	مُتْرَف	fr	aisés	1	1	example
 wn_54d141c0	مَلُوم	ur	لائق ملامت	1	1	example
 wn_54d141c0	مَلُوم	hi	मलामत किए गए	1	1	example
 wn_54d141c0	مَلُوم	tr	kınanacak	1	1	example
+wn_54d141c0	مَلُوم	fa	تکوهیدۂ	1	1	example
 wn_3002764c	مَسْئُول	tr	sorguya çekileceklerdir	1	1	example
-wn_3002764c	مَسْئُول	fa	*	1	1	example
+wn_3002764c	مَسْئُول	fa	بازخواست شدنی	1	1	example
 wn_51389bae	نُفُور	tr	kaçarlar	1	1	example
-wn_51389bae	نُفُور	fa	*	1	1	example
+wn_51389bae	نُفُور	fa	حالت رمیدگی	1	1	example
 wn_426d4a36	رَشَد	bn	কল্যাণ	1	1	example
 wn_426d4a36	رَشَد	tr	akıl	1	1	example
 wn_45ae7543	أَرائِك	bn	উঁচু আসনের	1	1	example
@@ -2219,13 +2288,15 @@ wn_d8ff4eb4	سَوِيّ	ur	اچھا بھلا ہوئے بھی	1	1	example
 wn_d8ff4eb4	سَوِيّ	fa	درحالی که تندرست باشی	1	1	example
 wv_50d25e76	تَقَرَّ	in	dingin	1	1	example
 wv_50d25e76	تَقَرَّ	tr	aydın olması	1	1	example
+wv_50d25e76	تَقَرَّ	fa	روشن می دار	1	1	example
 wv_29365f59	ٱنشَقَّ	en	has split	1	1	example
 wv_29365f59	ٱنشَقَّ	bn	ছিঁড়েফেটে	1	1	example
 wn_4ac2ff22	طَرِيقَة	en	conduct	1	1	example
 wn_4ac2ff22	طَرِيقَة	bn	পথ	1	1	example
 wn_4ac2ff22	طَرِيقَة	tr	tabaka	1	1	example
+wn_4ac2ff22	طَرِيقَة	fa	راه راست	1	1	example
 wn_19970cfe	غَفّار	ur	بخشش فرمانے والا	1	1	example
-wn_19970cfe	غَفّار	fa	*	1	1	example
+wn_19970cfe	غَفّار	fa	آمرز گار	1	1	example
 wn_a6ee6c1a	مُكْرَم	ur	باعزت لوگوں	1	1	example
 wn_a6ee6c1a	مُكْرَم	hi	इज़्ज़त दिए गए	1	1	example
 wn_f44e079a	عَلَقَة	tr	alaka	1	1	example
@@ -2270,7 +2341,7 @@ wv_b8f730d4	اسْتَعِينُ	fr	demandons de l’aide	1	1	example
 wn_9189a2e2	وَقُود	hi	ईंधन	1	1	example
 wn_9189a2e2	وَقُود	in	bahan bakar	1	1	example
 wn_9189a2e2	وَقُود	tr	tutuşturulmuş yakıt	1	1	example
-wn_9189a2e2	وَقُود	fa	*	1	1	example
+wn_9189a2e2	وَقُود	fa	هیزم	1	1	example
 wv_78631579	تَلَقَّىٰٓ	en	received	1	1	example
 wv_78631579	تَلَقَّىٰٓ	bn	শিখে নিল	1	1	example
 wv_78631579	تَلَقَّىٰٓ	ur	سیکھ لئے	1	1	example
@@ -2319,11 +2390,8 @@ wv_69fd54e9	شَرَ	ur	بیچ ڈالا	1	1	example
 wv_69fd54e9	شَرَ	hi	बेच डाला	1	1	example
 wv_69fd54e9	شَرَ	in	menukar	1	1	example
 wv_69fd54e9	شَرَ	tr	sattıkları	1	1	example
-wv_69fd54e9	شَرَ	fa	*	1	1	example
+wv_69fd54e9	شَرَ	fa	می فروشد	1	1	example
 wv_69fd54e9	شَرَ	fr	ont vendu	1	1	example
-wn_72fa8ade	ثَمَّ	en	and	1	1	example
-wn_72fa8ade	ثَمَّ	in	di sana	1	1	example
-wn_72fa8ade	ثَمَّ	tr	buraya	1	1	example
 wn_c6c36da3	طائِف	en	evil thought	1	1	example
 wn_c6c36da3	طائِف	bn	কুচিন্তা	1	1	example
 wn_c6c36da3	طائِف	ur	خیال	1	1	example
@@ -2340,11 +2408,11 @@ wn_a6564c16	مَنسَك	tr	ibadet şekli	1	1	example
 wn_a6564c16	مَنسَك	fa	آیین عبادتی	1	1	example
 wv_0d3c79ec	يَرْغَبُ	en	desire	1	1	example
 wv_0d3c79ec	يَرْغَبُ	bn	আগ্রহ কর তোমরা	1	1	example
-wv_0d3c79ec	يَرْغَبُ	ur	بےپرواہ ہوں	1	1	example
+wv_0d3c79ec	يَرْغَبُ	ur	رغبت رکھتے ہو	1	1	example
 wv_0d3c79ec	يَرْغَبُ	hi	मुँह मोड़े	1	1	example
-wv_0d3c79ec	يَرْغَبُ	in	lebih mencintai	1	1	example
+wv_0d3c79ec	يَرْغَبُ	in	membenci	1	1	example
 wv_0d3c79ec	يَرْغَبُ	tr	istiyorsunuz	1	1	example
-wv_0d3c79ec	يَرْغَبُ	fa	*	1	1	example
+wv_0d3c79ec	يَرْغَبُ	fa	روی برمی تابد	1	1	example
 wv_0d3c79ec	يَرْغَبُ	fr	abandonnera	1	1	example
 wn_a5175f9c	شَعائِر	bn	নিদর্শনসমূহকে	1	1	example
 wn_a5175f9c	شَعائِر	tr	işaretlerine	1	1	example
@@ -2355,7 +2423,7 @@ wn_e5397ea4	قِبَل	ur	طاقت	1	1	example
 wn_e5397ea4	قِبَل	hi	तरफ़	1	1	example
 wn_e5397ea4	قِبَل	in	kearah	1	1	example
 wn_e5397ea4	قِبَل	tr	karşı koyamayacakları	1	1	example
-wn_e5397ea4	قِبَل	fa	*	1	1	example
+wn_e5397ea4	قِبَل	fa	سوی	1	1	example
 wn_e5397ea4	قِبَل	fr	faire face	1	1	example
 wn_927233d9	بَأْساء	en	adversity	1	1	example
 wn_927233d9	بَأْساء	bn	অভাব-অনটন	1	1	example
@@ -2394,15 +2462,24 @@ wv_fb568781	يُحافِظُ	bn	যত্ন করে	1	1	example
 wv_4f795fd1	جَاوَزَ	en	crossed	1	1	example
 wv_4f795fd1	جَاوَزَ	hi	दोनों आगे बढ़े	1	1	example
 wv_4f795fd1	جَاوَزَ	fa	گذراندیم	1	1	example
-wv_6954c930	ٱقْتَتَلَ	bn	একে অপরে লড়ত	1	1	example
+wv_6954c930	ٱقْتَتَلَ	en	fight	1	1	example
+wv_6954c930	ٱقْتَتَلَ	bn	পরস্পরে যুদ্ধে লিপ্ত হয়	1	1	example
+wv_6954c930	ٱقْتَتَلَ	ur	باہم لڑ پڑیں	1	1	example
+wv_6954c930	ٱقْتَتَلَ	hi	बाहम लड़ पड़ें	1	1	example
+wv_6954c930	ٱقْتَتَلَ	in	berperang	1	1	example
 wv_6954c930	ٱقْتَتَلَ	tr	vuruşurlarsa	1	1	example
+wv_6954c930	ٱقْتَتَلَ	fa	باهم جنگ کنند	1	1	example
 wv_6954c930	ٱقْتَتَلَ	fr	se battent entre eux	1	1	example
 wn_a9ccee01	غَيّ	bn	কুকর্মের	1	1	example
 wn_a9ccee01	غَيّ	tr	azgınlık	1	1	example
-wv_3622e90b	يُبْطِلَ	en	make vain	1	1	example
+wv_3622e90b	يُبْطِلَ	en	prove false	1	1	example
 wv_3622e90b	يُبْطِلَ	bn	অসত্যে পরিণত করেন	1	1	example
-wv_3622e90b	يُبْطِلَ	hi	ना तुम ज़ाया करो	1	1	example
-wv_3622e90b	يُبْطِلَ	tr	boşa çıkarmayın	1	1	example
+wv_3622e90b	يُبْطِلَ	ur	باطل کردے	1	1	example
+wv_3622e90b	يُبْطِلَ	hi	बातिल कर दे	1	1	example
+wv_3622e90b	يُبْطِلَ	in	membatalkan	1	1	example
+wv_3622e90b	يُبْطِلَ	tr	ortadan kaldırsın	1	1	example
+wv_3622e90b	يُبْطِلَ	fa	نابود کند	1	1	example
+wv_3622e90b	يُبْطِلَ	fr	anéantisse	1	1	example
 wv_592a0448	نَذَرْ	en	have vowed	1	1	example
 wv_592a0448	نَذَرْ	bn	উৎসর্গ করেছি	1	1	example
 wv_592a0448	نَذَرْ	ur	نذر مانو	1	1	example
@@ -2431,7 +2508,7 @@ wn_5648afd0	دَأْب	fr	comportement habituel	1	1	example
 wn_ecdb3454	أَمَد	bn	দীর্ঘ মেয়াদ	1	1	example
 wn_ecdb3454	أَمَد	in	ada masa	1	1	example
 wn_ecdb3454	أَمَد	tr	mesafe	1	1	example
-wn_ecdb3454	أَمَد	fa	*	1	1	example
+wn_ecdb3454	أَمَد	fa	روزگار	1	1	example
 wn_05a1426e	مِحْراب	bn	কক্ষে	1	1	example
 wn_05a1426e	مِحْراب	tr	mabed	1	1	example
 wn_d949c81b	قَلَم	en	pens	1	1	example
@@ -2445,7 +2522,7 @@ wn_d949c81b	قَلَم	fr	calames	1	1	example
 wn_b17c6ff7	طَوْع	in	dengan suka	1	1	example
 wn_c71c56ad	تَقِيّ	ur	متقی	1	1	example
 wn_c71c56ad	تَقِيّ	tr	korkuyor	1	1	example
-wn_c71c56ad	تَقِيّ	fa	*	1	1	example
+wn_c71c56ad	تَقِيّ	fa	پرهیز گار	1	1	example
 wv_0e9b2543	أَنقَذَ	en	save	1	1	example
 wv_0e9b2543	أَنقَذَ	bn	উদ্ধার করতে পারবে	1	1	example
 wv_0e9b2543	أَنقَذَ	ur	بچائے جاسکتے ہیں	1	1	example
@@ -2459,7 +2536,7 @@ wn_1ba41611	مَقْعَد	ur	بیٹھنے کی جگہوں	1	1	example
 wn_1ba41611	مَقْعَد	hi	जगह	1	1	example
 wn_1ba41611	مَقْعَد	in	beberapa tempat	1	1	example
 wn_1ba41611	مَقْعَد	tr	oturma yerlerinde	1	1	example
-wn_1ba41611	مَقْعَد	fa	*	1	1	example
+wn_1ba41611	مَقْعَد	fa	جایگاه هایی	1	1	example
 wn_1ba41611	مَقْعَد	fr	positions	1	1	example
 wv_80f08c5c	فَشِلْ	en	lost courage	1	1	example
 wv_80f08c5c	فَشِلْ	bn	দূর্বলতা দেখালে	1	1	example
@@ -2475,7 +2552,7 @@ wn_ffc03653	أَذِلَّة	ur	ذلت کے ساتھ	1	1	example
 wn_ffc03653	أَذِلَّة	hi	कमज़ोर थे	1	1	example
 wn_ffc03653	أَذِلَّة	in	hina	1	1	example
 wn_ffc03653	أَذِلَّة	tr	alçak gönüllüdürler	1	1	example
-wn_ffc03653	أَذِلَّة	fa	با ذّلت	1	1	example
+wn_ffc03653	أَذِلَّة	fa	ذلیلان	1	1	example
 wn_8ea712aa	عَرْض	en	display	1	1	example
 wn_8ea712aa	عَرْض	bn	প্রত্যক্ষভাবে	1	1	example
 wn_8ea712aa	عَرْض	ur	پیش کرنا	1	1	example
@@ -2506,7 +2583,7 @@ wn_350fa0f1	جُنُب	en	distance	1	1	example
 wn_350fa0f1	جُنُب	bn	অপবিত্র	1	1	example
 wn_350fa0f1	جُنُب	ur	اجنبی	1	1	example
 wn_350fa0f1	جُنُب	tr	cünüp	1	1	example
-wn_350fa0f1	جُنُب	fa	*	1	1	example
+wn_350fa0f1	جُنُب	fa	بیگانه	1	1	example
 wn_c1bb2fee	فَخُور	hi	फ़ख़्र करने वाला	1	1	example
 wn_c1bb2fee	فَخُور	fa	خودستا	1	1	example
 wv_6eeb2161	لَمَسُ	en	have touched	1	1	example
@@ -2533,6 +2610,7 @@ wv_163bcde0	بَيَّتَ	fa	شبانه چاره می اندیشند	1	1	exampl
 wv_163bcde0	بَيَّتَ	fr	fait pendant la nuit	1	1	example
 wn_3651907c	كِفْل	hi	ज़ुल किफ़्ल	1	1	example
 wn_3651907c	كِفْل	tr	iki pay	1	1	example
+wn_3651907c	كِفْل	fa	دو بهره	1	1	example
 wv_1640524b	حَيَّ	en	are greeted	1	1	example
 wv_1640524b	حَيَّ	bn	সালাম করা হয়	1	1	example
 wv_1640524b	حَيَّ	ur	دعا دیے جاؤ	1	1	example
@@ -2544,12 +2622,13 @@ wv_1640524b	حَيَّ	fr	êtes salués	1	1	example
 wn_4615da22	مَغانِم	bn	গণিমতের মাল	1	1	example
 wv_1e0afb19	يُغَيِّرُ	ur	بدل دیں	1	1	example
 wv_1e0afb19	يُغَيِّرُ	hi	तब्दील कर दें	1	1	example
-wv_1e0afb19	يُغَيِّرُ	fa	*	1	1	example
+wv_1e0afb19	يُغَيِّرُ	in	merobah	1	1	example
+wv_1e0afb19	يُغَيِّرُ	fa	تغییر دهند	1	1	example
 wn_f370d74b	قِيل	en	saying	1	1	example
 wn_f370d74b	قِيل	bn	কথায়	1	1	example
 wn_f370d74b	قِيل	hi	कहना	1	1	example
 wn_f370d74b	قِيل	tr	denilir	1	1	example
-wn_f370d74b	قِيل	fa	به گفتار	1	1	example
+wn_f370d74b	قِيل	fa	درگفتار؟	1	1	example
 wn_6284b22a	خَلِيل	in	kesayangan	1	1	example
 wn_5c862bdd	أَكْل	en	devouring	1	1	example
 wn_5c862bdd	أَكْل	bn	খাওয়া	1	1	example
@@ -2559,11 +2638,13 @@ wn_5c862bdd	أَكْل	in	dengan makan	1	1	example
 wn_5c862bdd	أَكْل	tr	yiyişle	1	1	example
 wn_5c862bdd	أَكْل	fa	خوردنی	1	1	example
 wn_5c862bdd	أَكْل	fr	consommation	1	1	example
-wn_eb8d2f9b	عَشَر	en	eleven	1	1	example
-wn_eb8d2f9b	عَشَر	bn	উনিশ	1	1	example
+wv_98c05186	تَأْسَ	en	grieve	1	1	example
 wv_98c05186	تَأْسَ	bn	আক্ষেপ করবো	1	1	example
-wv_98c05186	تَأْسَ	in	berduka-cita	1	1	example
+wv_98c05186	تَأْسَ	ur	افسوس کروں	1	1	example
+wv_98c05186	تَأْسَ	hi	अफ़सोस करूँ	1	1	example
+wv_98c05186	تَأْسَ	in	bersedih hati	1	1	example
 wv_98c05186	تَأْسَ	tr	acırım	1	1	example
+wv_98c05186	تَأْسَ	fa	اندوه خورم	1	1	example
 wv_98c05186	تَأْسَ	fr	pourrais-je être en deuil	1	1	example
 wn_bdc9718c	باسِط	en	stretched	1	1	example
 wn_bdc9718c	باسِط	bn	প্রসারিত করে	1	1	example
@@ -2602,11 +2683,6 @@ wn_49df1262	أَحْبار	en	rabbis	1	1	example
 wn_49df1262	أَحْبار	in	para pendeta	1	1	example
 wn_49df1262	أَحْبار	tr	alimlere	1	1	example
 wn_49df1262	أَحْبار	fa	دانشمندان	1	1	example
-wv_dea97193	نَقَمُ	en	resented	1	1	example
-wv_dea97193	نَقَمُ	bn	প্রতিশোধ নিচ্ছে	1	1	example
-wv_dea97193	نَقَمُ	in	mencela	1	1	example
-wv_dea97193	نَقَمُ	tr	öc almadılar	1	1	example
-wv_dea97193	نَقَمُ	fr	ont eu à reprocher	1	1	example
 wn_4af002be	عَلّام	bn	খুব অবহিত	1	1	example
 wn_68850c56	غُيُوب	bn	অদৃশ্য সম্বন্ধে	1	1	example
 wn_8c53db5c	أَكِنَّة	tr	engel olan örtüler	1	1	example
@@ -2658,7 +2734,7 @@ wv_d5abada1	اقْتَرَفْ	ur	کمائی کرتے	1	1	example
 wv_d5abada1	اقْتَرَفْ	hi	कमाई करते	1	1	example
 wv_d5abada1	اقْتَرَفْ	in	mengerjakan	1	1	example
 wv_d5abada1	اقْتَرَفْ	tr	yaparsa	1	1	example
-wv_d5abada1	اقْتَرَفْ	fa	*	1	1	example
+wv_d5abada1	اقْتَرَفْ	fa	انجام دهد	1	1	example
 wv_d5abada1	اقْتَرَفْ	fr	commet	1	1	example
 wv_0d5fa744	تَمَّ	en	fulfilled	1	1	example
 wv_0d5fa744	تَمَّ	tr	tam yerine geldi	1	1	example
@@ -2668,11 +2744,6 @@ wv_9c4ceb3d	يَخْرُصُ	fa	به تخمین سخن می‌گویند	1	1	exa
 wv_b1362f14	ثَقُلَتْ	fa	سنگین باشد	1	1	example
 wv_6cb6deea	وَسْوَسَ	bn	কুমন্ত্রণা দিলো	1	1	example
 wv_6cb6deea	وَسْوَسَ	tr	derken fısıldadı	1	1	example
-wv_aa539b4e	يَسْتَقْدِمُ	en	can advance	1	1	example
-wv_aa539b4e	يَسْتَقْدِمُ	bn	আগে নিয়ে যেতে পারবে	1	1	example
-wv_aa539b4e	يَسْتَقْدِمُ	ur	آگے بڑھ سکتے	1	1	example
-wv_aa539b4e	يَسْتَقْدِمُ	in	dapat memajukan	1	1	example
-wv_aa539b4e	يَسْتَقْدِمُ	tr	geriye bırakılırlar	1	1	example
 wv_c294241a	أُغْشِيَتْ	en	had been covered	1	1	example
 wv_c294241a	أُغْشِيَتْ	bn	ঢেকে ফেলেছে	1	1	example
 wv_c294241a	أُغْشِيَتْ	ur	ڈھانپ دیے گئے ہیں	1	1	example
@@ -2708,7 +2779,7 @@ wv_4ede625d	نَّزَغَ	ur	وسوسہ	1	1	example
 wv_4ede625d	نَّزَغَ	hi	फ़साद डाला	1	1	example
 wv_4ede625d	نَّزَغَ	in	mengganggu	1	1	example
 wv_4ede625d	نَّزَغَ	tr	girer	1	1	example
-wv_4ede625d	نَّزَغَ	fa	*	1	1	example
+wv_4ede625d	نَّزَغَ	fa	تباهی می افکند	1	1	example
 wv_4ede625d	نَّزَغَ	fr	ait causé la corruption	1	1	example
 wv_229867c2	اسْتَعِذْ	ur	پناہ طلب کرو	1	1	example
 wn_6a9aff05	مُبْصِر	bn	উজ্জ্বল	1	1	example
@@ -2734,18 +2805,12 @@ wv_ab8d1a60	مَضَىٰ	ur	گزر چکی	1	1	example
 wv_ab8d1a60	مَضَىٰ	in	berlalu	1	1	example
 wv_ab8d1a60	مَضَىٰ	tr	geçerlidir	1	1	example
 wv_ab8d1a60	مَضَىٰ	fa	گذشت	1	1	example
-wv_28118b02	يُعْجِزَ	en	escape	1	1	example
-wv_28118b02	يُعْجِزَ	bn	অক্ষম করতে পারবে	1	1	example
-wv_28118b02	يُعْجِزَ	hi	आजिज़ कर सकते	1	1	example
-wv_28118b02	يُعْجِزَ	tr	aciz bırakamayacağımızı	1	1	example
-wv_28118b02	يُعْجِزَ	fa	*	1	1	example
-wv_28118b02	يُعْجِزَ	fr	rendrons incapable	1	1	example
 wn_c1fbdfca	ضَعْف	bn	দুর্বল	1	1	example
 wv_8204a8e6	عَمَرُ	en	maintain	1	1	example
 wv_8204a8e6	عَمَرُ	ur	آباد کرتے ہیں	1	1	example
 wv_8204a8e6	عَمَرُ	hi	आबाद करता है	1	1	example
 wv_8204a8e6	عَمَرُ	tr	imar ederler	1	1	example
-wv_8204a8e6	عَمَرُ	fa	*	1	1	example
+wv_8204a8e6	عَمَرُ	fa	آباد می کند	1	1	example
 wv_8204a8e6	عَمَرُ	fr	maintiennent	1	1	example
 wn_7a7bd5ed	فائِز	tr	kazananlar	1	1	example
 wv_9c2e0670	اسْتَحَبُّ	bn	অধিক ভালবাসে	1	1	example
@@ -2810,10 +2875,14 @@ wn_00e72dc5	مَجِيد	in	agung	1	1	example
 wn_00e72dc5	مَجِيد	tr	lütfu bol olandır	1	1	example
 wv_a3eb8ed1	ارْتَقِبْ	bn	অপেক্ষা করো	1	1	example
 wv_a3eb8ed1	ارْتَقِبْ	tr	biraz bekle	1	1	example
-wv_aac220ea	يَتَكَلَّمُ	bn	কথা বলতে পারবে	1	1	example
+wv_aac220ea	يَتَكَلَّمُ	en	speak	1	1	example
+wv_aac220ea	يَتَكَلَّمُ	bn	কথা বলবো আমরা	1	1	example
 wv_aac220ea	يَتَكَلَّمُ	ur	بولیں	1	1	example
 wv_aac220ea	يَتَكَلَّمُ	hi	कलाम करें	1	1	example
+wv_aac220ea	يَتَكَلَّمُ	in	berbicara	1	1	example
 wv_aac220ea	يَتَكَلَّمُ	tr	söylüyor	1	1	example
+wv_aac220ea	يَتَكَلَّمُ	fa	سخن گوید	1	1	example
+wv_aac220ea	يَتَكَلَّمُ	fr	parle	1	1	example
 wn_ee3af503	شَقِيّ	hi	कभी नामुराद	1	1	example
 wn_ee3af503	شَقِيّ	fa	بد بخت	1	1	example
 wv_9f2f7a72	شَقُ	en	were wretched	1	1	example
@@ -2889,14 +2958,14 @@ wv_a320bd95	قَنَطُ	ur	مایوس ہوگئے	1	1	example
 wv_a320bd95	قَنَطُ	hi	मायूस हो गए	1	1	example
 wv_a320bd95	قَنَطُ	in	berputus asa	1	1	example
 wv_a320bd95	قَنَطُ	tr	umut keser	1	1	example
-wv_a320bd95	قَنَطُ	fa	*	1	1	example
+wv_a320bd95	قَنَطُ	fa	ناامید شود	1	1	example
 wv_a320bd95	قَنَطُ	fr	aient désespérés	1	1	example
 wn_f483d6b0	أَيْكَة	hi	असहाबे ऐका	1	1	example
 wn_a7104404	سَقْف	bn	ছাদ	1	1	example
 wn_a7104404	سَقْف	fa	سقف	1	1	example
 wn_ba85c113	داخِر	en	humble	1	1	example
 wn_ba85c113	داخِر	bn	অপমানিত হবে	1	1	example
-wn_ba85c113	داخِر	ur	ذلیل و خوار ہونے والے ہو	1	1	example
+wn_ba85c113	داخِر	ur	ذلیل و خوار ہونے والے	1	1	example
 wn_ba85c113	داخِر	hi	आजिज़ करने वाले	1	1	example
 wn_ba85c113	داخِر	in	keadaan hina	1	1	example
 wn_ba85c113	داخِر	tr	aşağılanacaksınız	1	1	example
@@ -2904,18 +2973,18 @@ wn_ba85c113	داخِر	fa	ذلیل باشید	1	1	example
 wv_2bf0b291	يَسْتَعْتِبُ	en	ask for favor	1	1	example
 wv_2bf0b291	يَسْتَعْتِبُ	bn	অনুগ্রহ করতে চায়ও	1	1	example
 wv_2bf0b291	يَسْتَعْتِبُ	tr	affedilmek isterlerse	1	1	example
-wv_2bf0b291	يَسْتَعْتِبُ	fa	*	1	1	example
-wv_3588c504	نَفِدَ	en	would be exhausted	1	1	example
+wv_2bf0b291	يَسْتَعْتِبُ	fa	خشنودی خواسته شود	1	1	example
+wv_3588c504	نَفِدَ	en	exhausted	1	1	example
 wv_3588c504	نَفِدَ	bn	শেষ হবে	1	1	example
-wv_3588c504	نَفِدَ	ur	ختم ہوں	1	1	example
-wv_3588c504	نَفِدَ	hi	ख़त्म होंगे	1	1	example
-wv_3588c504	نَفِدَ	in	habis	1	1	example
+wv_3588c504	نَفِدَ	ur	ختم ہوجائے گا	1	1	example
+wv_3588c504	نَفِدَ	hi	ख़तम हो जाएगा	1	1	example
+wv_3588c504	نَفِدَ	in	akan lenyap	1	1	example
 wv_3588c504	نَفِدَ	tr	tükenir	1	1	example
-wv_3588c504	نَفِدَ	fa	*	1	1	example
+wv_3588c504	نَفِدَ	fa	پایان پذیرد	1	1	example
 wv_3588c504	نَفِدَ	fr	sera épuisé	1	1	example
 wn_31aea745	عُلُوّ	bn	অহংকারবশত	1	1	example
 wn_31aea745	عُلُوّ	tr	böbürlenmeleri yüzünden	1	1	example
-wn_31aea745	عُلُوّ	fa	*	1	1	example
+wn_31aea745	عُلُوّ	fa	برتری جویی	1	1	example
 wn_81208a45	حاصِب	bn	কংকর বর্ষণকারী ঝড়ো হাওয়া	1	1	example
 wn_81208a45	حاصِب	tr	fırtına	1	1	example
 wn_1e76870b	كِسَف	bn	এক টুকরো	1	1	example
@@ -2924,7 +2993,7 @@ wn_1e76870b	كِسَف	hi	टुकड़ा	1	1	example
 wn_1e76870b	كِسَف	in	berkeping-keping	1	1	example
 wn_f3af4096	فِرار	ur	بھاگتے ہوئے	1	1	example
 wn_f3af4096	فِرار	hi	फ़रार	1	1	example
-wn_f3af4096	فِرار	fa	به طریق گریختن	1	1	example
+wn_f3af4096	فِرار	fa	رمیدن	1	1	example
 wv_128ffb8b	حُلُّ	en	will be adorned	1	1	example
 wv_128ffb8b	حُلُّ	bn	অলংকার	1	1	example
 wv_128ffb8b	حُلُّ	ur	پہنائے جائیں گے	1	1	example
@@ -2938,7 +3007,7 @@ wn_0590f4da	مُنتَصِر	en	help themselves	1	1	example
 wn_0590f4da	مُنتَصِر	bn	আত্মরক্ষা করতে সক্ষম	1	1	example
 wn_0590f4da	مُنتَصِر	in	dapat menolong	1	1	example
 wn_0590f4da	مُنتَصِر	tr	kendisinine yardım edilen	1	1	example
-wn_0590f4da	مُنتَصِر	fa	*	1	1	example
+wn_0590f4da	مُنتَصِر	fa	انتقام گیرنده	1	1	example
 wn_0590f4da	مُنتَصِر	fr	ceux qui peuvent se défendre	1	1	example
 wn_bb352470	مُقْتَدِر	en	All Able	1	1	example
 wn_bb352470	مُقْتَدِر	bn	পূর্ণ ক্ষমতাবান	1	1	example
@@ -2971,14 +3040,14 @@ wv_63562955	صَبَّ	in	menimpakan	1	1	example
 wv_63562955	صَبَّ	tr	bu yüzden çarptı	1	1	example
 wv_63562955	صَبَّ	fa	ریختیم	1	1	example
 wv_63562955	صَبَّ	fr	a donc versé	1	1	example
-wn_0c94bddb	زُور	fa	*	1	1	example
+wn_0c94bddb	زُور	fa	ناراست	1	1	example
 wn_83a18150	عَقِيم	fa	نازا	1	1	example
 wn_0e63e6a0	مَعِين	en	flowing	1	1	example
 wn_0e63e6a0	مَعِين	bn	ঝর্ণা	1	1	example
 wn_0e63e6a0	مَعِين	ur	بہتا	1	1	example
 wn_0e63e6a0	مَعِين	hi	बहता हुआ	1	1	example
 wn_0e63e6a0	مَعِين	tr	akar	1	1	example
-wn_0e63e6a0	مَعِين	fa	*	1	1	example
+wn_0e63e6a0	مَعِين	fa	آبی روان	1	1	example
 wv_bb316d2b	يَغُضُّ	bn	নিচু রাখে	1	1	example
 wv_bb316d2b	يَغُضُّ	ur	بچا کر رکھیں	1	1	example
 wn_f4dd88c2	عَوْرَة	en	exposed	1	1	example
@@ -3002,7 +3071,7 @@ wn_91a2e7f0	ساق	fa	ساق	1	1	example
 wn_91a2e7f0	ساق	fr	affaire sévère	1	1	example
 wn_31f91969	مُرْسِل	in	mengirimkan	1	1	example
 wn_31f91969	مُرْسِل	tr	elçi göndericiyiz	1	1	example
-wn_31f91969	مُرْسِل	fa	*	1	1	example
+wn_31f91969	مُرْسِل	fa	فرستند گان	1	1	example
 wn_67eac45c	قارُون	bn	কারূনের	1	1	example
 wn_9356dec5	مَهِين	en	despicable	1	1	example
 wn_9356dec5	مَهِين	tr	aşağılık	1	1	example
@@ -3107,7 +3176,6 @@ wv_310aac8b	يُذَبِّحُ	hi	ख़ूब ज़िबाह करते �
 wv_310aac8b	يُذَبِّحُ	tr	boğazlayıp	1	1	example
 wn_d22da760	جَهْرَة	hi	ऐलानिया	1	1	example
 wn_25b28c9c	سَلْوَى	fa	بلدرچین	1	1	example
-wn_c52320cd	عَشْرَة	bn	বারো	1	1	example
 wn_45b8eb4f	مَشْرَب	en	drinks	1	1	example
 wn_45b8eb4f	مَشْرَب	bn	পানীয়	1	1	example
 wn_45b8eb4f	مَشْرَب	ur	پینے کی چیزیں	1	1	example
@@ -3130,7 +3198,7 @@ wn_72f2fb07	نَكال	ur	عبرت	1	1	example
 wn_72f2fb07	نَكال	hi	अज़ाब	1	1	example
 wn_72f2fb07	نَكال	in	peringatan	1	1	example
 wn_72f2fb07	نَكال	tr	azabıyle	1	1	example
-wn_72f2fb07	نَكال	fa	به عذاب	1	1	example
+wn_72f2fb07	نَكال	fa	عبرتی	1	1	example
 wn_9de4c547	بِكْر	bn	কুমারী	1	1	example
 wn_9de4c547	بِكْر	ur	جوان	1	1	example
 wn_9de4c547	بِكْر	hi	कुँवारियाँ	1	1	example
@@ -3171,12 +3239,13 @@ wn_382bc12f	جِبْرِيل	bn	জিবরাঈল	1	1	example
 wn_382bc12f	جِبْرِيل	ur	اورجبرئیل	1	1	example
 wn_382bc12f	جِبْرِيل	hi	जिबराईल	1	1	example
 wn_382bc12f	جِبْرِيل	tr	Cebrail'e	1	1	example
+wv_8a274b97	يَتَبَدَّلِ	en	exchange	1	1	example
 wv_8a274b97	يَتَبَدَّلِ	bn	পরিবর্তন করবে	1	1	example
 wv_8a274b97	يَتَبَدَّلِ	ur	آپ بدل ڈالیں	1	1	example
-wv_8a274b97	يَتَبَدَّلِ	hi	तब्दील करो	1	1	example
+wv_8a274b97	يَتَبَدَّلِ	hi	बदल लें	1	1	example
 wv_8a274b97	يَتَبَدَّلِ	in	boleh kamu mengganti	1	1	example
 wv_8a274b97	يَتَبَدَّلِ	tr	değiştirirse	1	1	example
-wv_8a274b97	يَتَبَدَّلِ	fa	*	1	1	example
+wv_8a274b97	يَتَبَدَّلِ	fa	جا یگز ین کند	1	1	example
 wv_8a274b97	يَتَبَدَّلِ	fr	prennes en échange	1	1	example
 wn_76874194	خائِف	en	fearful	1	1	example
 wn_76874194	خائِف	bn	ভীত অবস্থায়	1	1	example
@@ -3186,7 +3255,7 @@ wn_46e2934e	قَواعِد	ur	بنیادوں	1	1	example
 wn_46e2934e	قَواعِد	hi	बुनियादें	1	1	example
 wn_46e2934e	قَواعِد	tr	oturan	1	1	example
 wn_b1c3a1c1	مُسْلِمَة	bn	অনুগত	1	1	example
-wn_b1c3a1c1	مُسْلِمَة	ur	فرماں بردار ہو	1	1	example
+wn_b1c3a1c1	مُسْلِمَة	ur	فرماں بردار	1	1	example
 wn_b1c3a1c1	مُسْلِمَة	hi	फ़रमाबरदार	1	1	example
 wn_b1c3a1c1	مُسْلِمَة	in	muslimat	1	1	example
 wn_b1c3a1c1	مُسْلِمَة	tr	müslüman kadınlar	1	1	example
@@ -3227,13 +3296,13 @@ wv_caeaf77e	زُلْزِلُ	fa	به لرزه انداخته شود	1	1	example
 wn_9153a05a	كُرْه	bn	অপ্রিয়	1	1	example
 wn_9153a05a	كُرْه	ur	تکلیف	1	1	example
 wn_d3b7b8bb	مَيْسِر	ur	جوئے	1	1	example
-wv_1ab4e863	تُنكِحُ	en	give in marriage	1	1	example
-wv_1ab4e863	تُنكِحُ	bn	বিয়ে দিও	1	1	example
-wv_1ab4e863	تُنكِحُ	ur	نکاح کر کے دو	1	1	example
-wv_1ab4e863	تُنكِحُ	hi	निकाह करके दो	1	1	example
-wv_1ab4e863	تُنكِحُ	in	menikahkan	1	1	example
+wv_1ab4e863	تُنكِحُ	en	marry	1	1	example
+wv_1ab4e863	تُنكِحُ	bn	বিয়ে দাও	1	1	example
+wv_1ab4e863	تُنكِحُ	ur	نکاح کردو	1	1	example
+wv_1ab4e863	تُنكِحُ	hi	निकाह कर दो	1	1	example
+wv_1ab4e863	تُنكِحُ	in	nikahkanlah	1	1	example
 wv_1ab4e863	تُنكِحُ	tr	evlendirin	1	1	example
-wv_1ab4e863	تُنكِحُ	fa	*	1	1	example
+wv_1ab4e863	تُنكِحُ	fa	به همسری دهید	1	1	example
 wv_1ab4e863	تُنكِحُ	fr	donnez en mariage	1	1	example
 wn_b326c31a	مَحِيض	bn	কালে	1	1	example
 wn_b326c31a	مَحِيض	tr	adet	1	1	example
@@ -3277,7 +3346,7 @@ wn_4ac2304d	بَقِيَّت	en	remains	1	1	example
 wn_4ac2304d	بَقِيَّت	ur	باقی مانندہ	1	1	example
 wn_4ac2304d	بَقِيَّت	hi	अन्जाम पर नज़र रखने वाले	1	1	example
 wn_4ac2304d	بَقِيَّت	tr	bıraktıkları	1	1	example
-wn_4ac2304d	بَقِيَّت	fa	*	1	1	example
+wn_4ac2304d	بَقِيَّت	fa	باز ماندۂ	1	1	example
 wn_e16318c1	جالُوت	en	Jalut	1	1	example
 wn_e16318c1	جالُوت	bn	জালুতকে	1	1	example
 wn_e16318c1	جالُوت	ur	جالوت	1	1	example
@@ -3321,13 +3390,12 @@ wn_179bb21d	رِئاء	en	be seen	1	1	example
 wn_179bb21d	رِئاء	ur	دکھاتے ہوئے	1	1	example
 wn_179bb21d	رِئاء	fa	برای نشان دادن	1	1	example
 wn_b8c5c9db	وابِل	tr	bol yağmur	1	1	example
-wv_6cd66e69	تَيَمَّمُ	en	aim at	1	1	example
-wv_6cd66e69	تَيَمَّمُ	bn	সংকল্প করো	1	1	example
-wv_6cd66e69	تَيَمَّمُ	ur	ارادہ کرو	1	1	example
-wv_6cd66e69	تَيَمَّمُ	hi	इरादा करो	1	1	example
-wv_6cd66e69	تَيَمَّمُ	in	memilih	1	1	example
-wv_6cd66e69	تَيَمَّمُ	fa	*	1	1	example
-wv_6cd66e69	تَيَمَّمُ	fr	visez	1	1	example
+wv_6cd66e69	تَيَمَّمُ	en	do tayammum	1	1	example
+wv_6cd66e69	تَيَمَّمُ	bn	তায়াম্মুম কর	1	1	example
+wv_6cd66e69	تَيَمَّمُ	ur	تیمم کرلو	1	1	example
+wv_6cd66e69	تَيَمَّمُ	hi	तयम्मुम कर लो	1	1	example
+wv_6cd66e69	تَيَمَّمُ	in	bertayamumlah	1	1	example
+wv_6cd66e69	تَيَمَّمُ	fa	آنگاه آهنگ	1	1	example
 wn_5bc35f59	آخِذ	en	has grasp	1	1	example
 wn_5bc35f59	آخِذ	bn	গ্রহণকারী হয়ে	1	1	example
 wn_5bc35f59	آخِذ	ur	لینے والے ہوں گے	1	1	example
@@ -3352,22 +3420,15 @@ wn_40dead6f	ضَرْب	tr	darbe indirdi	1	1	example
 wn_40dead6f	ضَرْب	fa	بزنید	1	1	example
 wn_40dead6f	ضَرْب	fr	coup	1	1	example
 wv_e01edba3	بَقِىَ	en	remained	1	1	example
-wv_e01edba3	بَقِىَ	bn	অবশিষ্ট রেখেছেন	1	1	example
-wv_e01edba3	بَقِىَ	ur	باقی چھوڑا	1	1	example
-wv_e01edba3	بَقِىَ	hi	बाक़ी छोड़ा	1	1	example
+wv_e01edba3	بَقِىَ	bn	বকেয়া আছে	1	1	example
+wv_e01edba3	بَقِىَ	ur	باقی ہو	1	1	example
+wv_e01edba3	بَقِىَ	hi	बाक़ी रह गया हो	1	1	example
 wv_e01edba3	بَقِىَ	in	tersisa	1	1	example
 wv_e01edba3	بَقِىَ	tr	geri kalan	1	1	example
-wv_e01edba3	بَقِىَ	fa	*	1	1	example
-wv_e01edba3	بَقِىَ	fr	a laissé rester	1	1	example
-wv_e71c3f8e	يَسْأَمُ	en	get tired	1	1	example
-wv_e71c3f8e	يَسْأَمُ	ur	تھکتا	1	1	example
-wv_e71c3f8e	يَسْأَمُ	hi	उकताहट महसूस करो	1	1	example
-wv_e71c3f8e	يَسْأَمُ	tr	usanmazlar	1	1	example
-wv_e71c3f8e	يَسْأَمُ	fr	lassez	1	1	example
-wn_4dcea12e	صَغِير	ur	بچپن	1	1	example
-wn_4dcea12e	صَغِير	hi	छोटा	1	1	example
+wv_e01edba3	بَقِىَ	fa	مانده است	1	1	example
+wv_e01edba3	بَقِىَ	fr	reste	1	1	example
 wn_4dcea12e	صَغِير	tr	az olsun	1	1	example
-wn_4dcea12e	صَغِير	fa	در خردسالی	1	1	example
+wn_4dcea12e	صَغِير	fa	خردسالی	1	1	example
 wn_2ee5847d	آثِم	en	any sinner	1	1	example
 wn_2ee5847d	آثِم	bn	পাপিষ্ঠ	1	1	example
 wn_2ee5847d	آثِم	ur	کسی گناہ گار	1	1	example
@@ -3390,7 +3451,7 @@ wn_0ac6aeff	جامِع	bn	একত্রিতকারী	1	1	example
 wn_0ac6aeff	جامِع	tr	bütün	1	1	example
 wn_5c08affe	شَهَوَة	en	desire	1	1	example
 wn_5c08affe	شَهَوَة	in	hawa nafsu	1	1	example
-wn_5c08affe	شَهَوَة	fa	از خواهش های خویش	1	1	example
+wn_5c08affe	شَهَوَة	fa	خواسته های	1	1	example
 wn_373974df	قِنطار	en	heap	1	1	example
 wn_373974df	قِنطار	bn	অগাধ সম্পদ	1	1	example
 wn_373974df	قِنطار	ur	خزانے	1	1	example
@@ -3423,9 +3484,9 @@ wv_09f236a2	أَحَسَّ	in	menyadari	1	1	example
 wv_09f236a2	أَحَسَّ	tr	hissettikleri	1	1	example
 wv_09f236a2	أَحَسَّ	fa	احساس کرد	1	1	example
 wv_09f236a2	أَحَسَّ	fr	a ressenti	1	1	example
-wv_c0184f55	يَلْ	bn	ফিরে তাকাচ্ছিলে	1	1	example
+wv_c0184f55	يَلْ	bn	মন রাখা কথা বল	1	1	example
 wv_c0184f55	يَلْ	ur	موڑ دو گے	1	1	example
-wv_c0184f55	يَلْ	hi	मुड़कर देखते थे	1	1	example
+wv_c0184f55	يَلْ	hi	मोड़ दोगे	1	1	example
 wv_c0184f55	يَلْ	in	memutar balikkan	1	1	example
 wv_c0184f55	يَلْ	tr	eğip bükerler	1	1	example
 wv_c0184f55	يَلْ	fa	زبان بپیچانید	1	1	example
@@ -3443,15 +3504,14 @@ wv_675d8519	ابْيَضَّتْ	fa	سفید شد	1	1	example
 wv_675d8519	ابْيَضَّتْ	fr	seront devenus blancs	1	1	example
 wn_06355d03	آناء	bn	কিছু অংশে	1	1	example
 wn_06355d03	آناء	in	bagian	1	1	example
-wn_06355d03	آناء	tr	sa'atlerinde	1	1	example
-wn_06355d03	آناء	fa	در اوقات	1	1	example
+wn_06355d03	آناء	fa	اوقات	1	1	example
 wv_84b84624	عَنِ	en	distresses you	1	1	example
 wv_84b84624	عَنِ	bn	অসুবিধায় পড়	1	1	example
 wv_84b84624	عَنِ	ur	ضرر پہنچائے	1	1	example
 wv_84b84624	عَنِ	hi	मशक़्कत में पड़ो	1	1	example
 wv_84b84624	عَنِ	in	derita	1	1	example
 wv_84b84624	عَنِ	tr	size sıkıntı verecek	1	1	example
-wv_84b84624	عَنِ	fa	*	1	1	example
+wv_84b84624	عَنِ	fa	بدرنج افتید شما	1	1	example
 wv_b3bd1e5a	غَدَ	en	left early morning	1	1	example
 wv_b3bd1e5a	غَدَ	bn	চললো	1	1	example
 wv_b3bd1e5a	غَدَ	ur	صبح سویرے نکلے	1	1	example
@@ -3494,7 +3554,7 @@ wn_8501c374	قُرْبان	ur	تقرب کے لیے	1	1	example
 wn_8501c374	قُرْبان	hi	क़ुर्बानी करना	1	1	example
 wn_8501c374	قُرْبان	in	korban	1	1	example
 wn_8501c374	قُرْبان	tr	birer kurban	1	1	example
-wn_8501c374	قُرْبان	fa	از برای تقرب	1	1	example
+wn_8501c374	قُرْبان	fa	برای تقرب	1	1	example
 wn_8501c374	قُرْبان	fr	rapprochement	1	1	example
 wv_307ded76	فَازَ	en	has attained	1	1	example
 wv_307ded76	فَازَ	bn	সফল হবে	1	1	example
@@ -3504,11 +3564,12 @@ wv_307ded76	فَازَ	tr	ermiş olur	1	1	example
 wv_307ded76	فَازَ	fa	رستگار شده است	1	1	example
 wv_6e7fe6c4	تُقْسِطُ	en	deal justly	1	1	example
 wv_6e7fe6c4	تُقْسِطُ	bn	ন্যায় বিচার কর	1	1	example
-wv_6e7fe6c4	تُقْسِطُ	ur	انصاف کرسکو گے	1	1	example
-wv_6e7fe6c4	تُقْسِطُ	hi	इन्साफ़ कर सकोगे	1	1	example
+wv_6e7fe6c4	تُقْسِطُ	ur	انصاف کرو	1	1	example
+wv_6e7fe6c4	تُقْسِطُ	hi	इन्साफ़ करो	1	1	example
+wv_6e7fe6c4	تُقْسِطُ	in	berlaku adil	1	1	example
 wv_6e7fe6c4	تُقْسِطُ	tr	adaletli davranmaktan	1	1	example
-wv_6e7fe6c4	تُقْسِطُ	fa	*	1	1	example
-wv_6e7fe6c4	تُقْسِطُ	fr	serez justes	1	1	example
+wv_6e7fe6c4	تُقْسِطُ	fa	دادگری کنید	1	1	example
+wv_6e7fe6c4	تُقْسِطُ	fr	soyez justes	1	1	example
 wv_992cfc71	طَابَ	en	have done well	1	1	example
 wv_992cfc71	طَابَ	bn	ছেড়ে দেয়	1	1	example
 wv_992cfc71	طَابَ	ur	خوشحال ہوئے	1	1	example
@@ -3517,21 +3578,13 @@ wv_992cfc71	طَابَ	in	baik	1	1	example
 wv_992cfc71	طَابَ	tr	bağışlarlarsa	1	1	example
 wv_992cfc71	طَابَ	fa	بخشیدند	1	1	example
 wv_992cfc71	طَابَ	fr	avez bien fait	1	1	example
-wn_ca81fa46	مَثْنَى	bn	দু'টি	1	1	example
+wn_ca81fa46	مَثْنَى	bn	দুই	1	1	example
 wn_ca81fa46	مَثْنَى	in	berdua	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	en	modestly refrain	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	bn	বিরত থাকে তারা	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	ur	پاکیزگی اختیار کریں	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	hi	एहतियात बरतें	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	in	berlaku sopan	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	tr	sakınmaları	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	fa	*	1	1	example
-wv_e0ac0b3e	يَسْتَعْفِفْ	fr	s’abstiennent	1	1	example
 wn_1433f903	قِسْمَة	ur	تقسیم	1	1	example
 wn_1433f903	قِسْمَة	hi	तक़सीम	1	1	example
 wn_1433f903	قِسْمَة	in	pembagian	1	1	example
 wn_1433f903	قِسْمَة	tr	paylaştırılacağını	1	1	example
-wn_1433f903	قِسْمَة	fa	به هنگام تقسیم	1	1	example
+wn_1433f903	قِسْمَة	fa	تقسیم شده	1	1	example
 wn_0402e6b1	سُدُس	tr	altıda bir düşer	1	1	example
 wn_d5f72bd2	طَوْل	en	afford	1	1	example
 wn_d5f72bd2	طَوْل	bn	অনুগ্রহের	1	1	example
@@ -3539,12 +3592,14 @@ wn_d5f72bd2	طَوْل	ur	فضل	1	1	example
 wn_d5f72bd2	طَوْل	hi	बड़े फ़ज़ल वाला	1	1	example
 wn_d5f72bd2	طَوْل	in	karunia	1	1	example
 wn_d5f72bd2	طَوْل	tr	lutuf	1	1	example
+wn_d5f72bd2	طَوْل	fa	روی توانگری	1	1	example
 wn_1f327bcd	مُتَّخِذ	en	One to take	1	1	example
 wn_1f327bcd	مُتَّخِذ	bn	গ্রহণকারিনী	1	1	example
 wn_1f327bcd	مُتَّخِذ	ur	بنانے والا	1	1	example
 wn_1f327bcd	مُتَّخِذ	hi	बनाने वाला	1	1	example
 wn_1f327bcd	مُتَّخِذ	in	mengambil	1	1	example
 wn_1f327bcd	مُتَّخِذ	tr	edinmiş	1	1	example
+wn_1f327bcd	مُتَّخِذ	fa	گیرند گان	1	1	example
 wn_1f327bcd	مُتَّخِذ	fr	preneur	1	1	example
 wv_cf784ef0	يَمِيلُ	en	assault	1	1	example
 wv_cf784ef0	يَمِيلُ	bn	আক্রমণ করবে	1	1	example
@@ -3552,10 +3607,11 @@ wv_cf784ef0	يَمِيلُ	ur	جھک جاؤ	1	1	example
 wv_cf784ef0	يَمِيلُ	hi	झुक जाओ	1	1	example
 wv_cf784ef0	يَمِيلُ	in	akan menyerbu	1	1	example
 wv_cf784ef0	يَمِيلُ	tr	birden yapsalar	1	1	example
+wv_cf784ef0	يَمِيلُ	fa	بتا زند	1	1	example
 wv_cf784ef0	يَمِيلُ	fr	attaqueraient donc	1	1	example
 wn_e35247d3	مُدْخَل	bn	প্রবেশ করা	1	1	example
 wn_e35247d3	مُدْخَل	ur	داخل کرنا	1	1	example
-wn_e35247d3	مُدْخَل	fa	به جایگاهی	1	1	example
+wn_e35247d3	مُدْخَل	fa	آوردنی	1	1	example
 wn_e35247d3	مُدْخَل	fr	endroit où l’on fait entrer	1	1	example
 wn_e0283e92	مَوالِي	en	heirs	1	1	example
 wn_e0283e92	مَوالِي	bn	আমার স্বগোত্রদের	1	1	example
@@ -3563,7 +3619,7 @@ wn_e0283e92	مَوالِي	ur	اپنے بھائی بندوں	1	1	example
 wn_e0283e92	مَوالِي	hi	वारिस	1	1	example
 wn_e0283e92	مَوالِي	in	kaum keluargaku	1	1	example
 wn_e0283e92	مَوالِي	tr	varisler	1	1	example
-wn_e0283e92	مَوالِي	fa	از خویشاوندان	1	1	example
+wn_e0283e92	مَوالِي	fa	خویشاوندان	1	1	example
 wn_55a5d92d	قَوّام	en	custodians	1	1	example
 wn_55a5d92d	قَوّام	bn	অবিচল	1	1	example
 wn_55a5d92d	قَوّام	ur	قائم رہنے والے	1	1	example
@@ -3607,21 +3663,23 @@ wv_a9a72db3	يَأْلَمُ	bn	যন্ত্রণা	1	1	example
 wv_a9a72db3	يَأْلَمُ	ur	بھی تکلیف اٹھاتے ہیں	1	1	example
 wv_a9a72db3	يَأْلَمُ	hi	तकलीफ़ उठाते	1	1	example
 wv_a9a72db3	يَأْلَمُ	tr	acı çekiyorsanuz	1	1	example
-wv_a9a72db3	يَأْلَمُ	fa	*	1	1	example
+wv_a9a72db3	يَأْلَمُ	fa	آسیب دیده و دردمند می شوند	1	1	example
 wn_d7931c20	خائِن	en	betrayers	1	1	example
 wn_d7931c20	خائِن	bn	বিশ্বাসঘাতকদের	1	1	example
 wn_d7931c20	خائِن	ur	خیانت کاروں	1	1	example
 wn_d7931c20	خائِن	tr	hainleri	1	1	example
-wv_f601f4fc	يَسْتَخْفُ	en	hide	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	en	seek to hide	1	1	example
 wv_f601f4fc	يَسْتَخْفُ	bn	লুকাতে চায়	1	1	example
-wv_f601f4fc	يَسْتَخْفُ	ur	چھپ سکتے ہیں	1	1	example
-wv_f601f4fc	يَسْتَخْفُ	hi	छुप सकते	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	ur	چھپتے ہیں	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	hi	छुप सकते हैं	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	in	bersembunyi	1	1	example
 wv_f601f4fc	يَسْتَخْفُ	tr	gizleniyorlar	1	1	example
-wv_f601f4fc	يَسْتَخْفُ	fa	*	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	fa	پنهان می دارند	1	1	example
+wv_f601f4fc	يَسْتَخْفُ	fr	cherchent à se cacher	1	1	example
 wv_b3270182	ٱحْتَمَلَ	en	bear	1	1	example
 wv_b3270182	ٱحْتَمَلَ	bn	বহন করবে	1	1	example
 wv_b3270182	ٱحْتَمَلَ	tr	taşıdı	1	1	example
-wv_b3270182	ٱحْتَمَلَ	fa	*	1	1	example
+wv_b3270182	ٱحْتَمَلَ	fa	بر دوش گرفته اند	1	1	example
 wv_b3270182	ٱحْتَمَلَ	fr	porte ensuite	1	1	example
 wn_95d5e692	خُسْران	ur	خسارا	1	1	example
 wn_95d5e692	خُسْران	tr	ziyan	1	1	example
@@ -3641,13 +3699,14 @@ wv_2441f578	حَرَصْ	in	ingin sekali	1	1	example
 wv_2441f578	حَرَصْ	tr	isteseniz	1	1	example
 wv_2441f578	حَرَصْ	fa	آزمند باشید	1	1	example
 wv_2441f578	حَرَصْ	fr	désirerais ardemment	1	1	example
-wv_87f192d1	يَعْدُ	en	pass beyond	1	1	example
-wv_87f192d1	يَعْدُ	bn	ফিরিয়ে নিও	1	1	example
+wv_87f192d1	يَعْدُ	en	transgressed	1	1	example
+wv_87f192d1	يَعْدُ	bn	সীমালঙ্ঘন করতো	1	1	example
 wv_87f192d1	يَعْدُ	ur	زیادتی کرتے تھے	1	1	example
 wv_87f192d1	يَعْدُ	hi	ज़्यादती करते थे	1	1	example
-wv_87f192d1	يَعْدُ	in	melanggar	1	1	example
+wv_87f192d1	يَعْدُ	in	melanggar aturan	1	1	example
 wv_87f192d1	يَعْدُ	tr	haddi aşıyorlardı	1	1	example
-wv_87f192d1	يَعْدُ	fr	détache	1	1	example
+wv_87f192d1	يَعْدُ	fa	تجاوز می کردند	1	1	example
+wv_87f192d1	يَعْدُ	fr	ont transgressé	1	1	example
 wn_cbcf3993	زَبُور	bn	যাবুর	1	1	example
 wv_57dc0c79	اسْتَنكَفُ	en	disdained	1	1	example
 wv_57dc0c79	اسْتَنكَفُ	bn	হেয় জ্ঞান করলো	1	1	example
@@ -3671,7 +3730,7 @@ wn_cba795d1	فِسْق	ur	فسق	1	1	example
 wn_cba795d1	فِسْق	hi	गुनाह	1	1	example
 wn_cba795d1	فِسْق	in	fasik	1	1	example
 wn_cba795d1	فِسْق	tr	fısk	1	1	example
-wn_cba795d1	فِسْق	fa	به نافرمانی	1	1	example
+wn_cba795d1	فِسْق	fa	نافرمانی	1	1	example
 wn_cba795d1	فِسْق	fr	acte immoral	1	1	example
 wn_c66feeb9	قاسِيَة	en	hard	1	1	example
 wn_c66feeb9	قاسِيَة	bn	কঠিন	1	1	example
@@ -3687,7 +3746,7 @@ wn_c2c8ebb2	سارِق	in	orang-orang yang mencuri	1	1	example
 wn_c2c8ebb2	سارِق	tr	hırsız	1	1	example
 wn_c2c8ebb2	سارِق	fa	دزدان	1	1	example
 wn_c2c8ebb2	سارِق	fr	voleur	1	1	example
-wn_ca082949	سُحْت	fa	*	1	1	example
+wn_ca082949	سُحْت	fa	حرام	1	1	example
 wn_9e126f46	مُقْسِط	bn	ন্যায়বিচারকারিদের	1	1	example
 wn_aa82a7bb	دائِرَة	tr	bela başına gelsin	1	1	example
 wn_aa82a7bb	دائِرَة	fa	حادثه بدی	1	1	example
@@ -3708,7 +3767,7 @@ wn_addd4ea6	كاشِف	bn	অপসারণকারী	1	1	example
 wn_addd4ea6	كاشِف	ur	دور کرنے والا	1	1	example
 wn_addd4ea6	كاشِف	hi	दूर करने वाला	1	1	example
 wn_addd4ea6	كاشِف	tr	açacak	1	1	example
-wn_addd4ea6	كاشِف	fa	*	1	1	example
+wn_addd4ea6	كاشِف	fa	بردارنده ای	1	1	example
 wn_addd4ea6	كاشِف	fr	enleveurs	1	1	example
 wn_4043eec8	قاهِر	ur	غالب	1	1	example
 wn_4043eec8	قاهِر	hi	ग़लबा रखने वाला	1	1	example
@@ -3723,12 +3782,13 @@ wv_9ad04a74	نََٔا	fr	s’éloigne	1	1	example
 wv_b40f2927	وُقِفُ	en	are made to stand	1	1	example
 wv_b40f2927	وُقِفُ	bn	দাঁড় করান হবে	1	1	example
 wn_1b8a1bc3	مُبَدِّل	en	can change	1	1	example
-wn_1b8a1bc3	مُبَدِّل	fa	*	1	1	example
+wn_1b8a1bc3	مُبَدِّل	fa	دگرگون کننده ای	1	1	example
 wv_1daa9fbe	يَتَضَرَّعُ	en	humble	1	1	example
-wv_1daa9fbe	يَتَضَرَّعُ	bn	কাতর প্রার্থনা করলো	1	1	example
-wv_1daa9fbe	يَتَضَرَّعُ	ur	عاجزی کرنے والے ہیں	1	1	example
+wv_1daa9fbe	يَتَضَرَّعُ	bn	নতি স্বীকার করে	1	1	example
+wv_1daa9fbe	يَتَضَرَّعُ	ur	عاجزی کریں	1	1	example
 wv_1daa9fbe	يَتَضَرَّعُ	hi	आजिज़ी करें	1	1	example
-wv_1daa9fbe	يَتَضَرَّعُ	tr	O'na yalvarmıyorlar	1	1	example
+wv_1daa9fbe	يَتَضَرَّعُ	in	merendahkan diri	1	1	example
+wv_1daa9fbe	يَتَضَرَّعُ	tr	yalvarıp yakarsınlar	1	1	example
 wn_2ed52a2c	مَفاتِح	en	keys	1	1	example
 wn_2ed52a2c	مَفاتِح	bn	চাবিসমূহ	1	1	example
 wn_2ed52a2c	مَفاتِح	ur	کنجیاں	1	1	example
@@ -3777,7 +3837,7 @@ wn_d92b1b34	دانِيَة	bn	ঝুলন্ত	1	1	example
 wn_d92b1b34	دانِيَة	ur	جھکے پڑ رہے ہوں گے	1	1	example
 wn_d92b1b34	دانِيَة	hi	क़रीब होंगे	1	1	example
 wn_d92b1b34	دانِيَة	tr	aşağıya sarkmış	1	1	example
-wn_d92b1b34	دانِيَة	fa	در دسترس	1	1	example
+wn_d92b1b34	دانِيَة	fa	دسترس	1	1	example
 wn_21ae7398	رُمّان	bn	আনার	1	1	example
 wn_e00c271a	قُبُل	en	before	1	1	example
 wn_e00c271a	قُبُل	in	berhadap-hadapan	1	1	example
@@ -3851,7 +3911,7 @@ wv_d263d79e	ٱدَّٰرَكَ	ur	فنا ہوگیا	1	1	example
 wv_d263d79e	ٱدَّٰرَكَ	hi	गुम हो गया	1	1	example
 wv_d263d79e	ٱدَّٰرَكَ	in	mendapatkannya	1	1	example
 wv_d263d79e	ٱدَّٰرَكَ	tr	ardarda geldi	1	1	example
-wv_d263d79e	ٱدَّٰرَكَ	fa	*	1	1	example
+wv_d263d79e	ٱدَّٰرَكَ	fa	به پایان رسیده	1	1	example
 wv_d263d79e	ٱدَّٰرَكَ	fr	a englobé	1	1	example
 wv_bc25e394	يَلِجَ	bn	ঢোকে	1	1	example
 wv_bc25e394	يَلِجَ	tr	geçinceye	1	1	example
@@ -3872,7 +3932,7 @@ wn_6db048bc	تِلْقاء	in	arah	1	1	example
 wn_6db048bc	تِلْقاء	fr	direction	1	1	example
 wn_097a8c3c	مُسَخَّرَة	bn	অধীন হয়েছে	1	1	example
 wn_097a8c3c	مُسَخَّرَة	tr	boyun eğdirilmiştir	1	1	example
-wn_097a8c3c	مُسَخَّرَة	fa	در حالی که رام شده اند	1	1	example
+wn_097a8c3c	مُسَخَّرَة	fa	حالی که رام شده اند	1	1	example
 wn_4fbac88f	بُشْر	bn	সু-সংবাদ স্বরুপ	1	1	example
 wn_4fbac88f	بُشْر	ur	خوش خبری بنا کر	1	1	example
 wn_4fbac88f	بُشْر	hi	ख़ुशख़बरी बना कर	1	1	example
@@ -3919,7 +3979,7 @@ wv_a6df7b1a	اطَّيَّرْ	fa	به فال بد گرفتیم	1	1	example
 wn_a802d027	دَكّ	en	crumbled to dust	1	1	example
 wn_a802d027	دَكّ	bn	চূর্ণ	1	1	example
 wn_a802d027	دَكّ	ur	خوب ریزہ	1	1	example
-wn_a802d027	دَكّ	fa	به شدّت	1	1	example
+wn_a802d027	دَكّ	fa	خرد	1	1	example
 wn_6634c857	مَعْذِرَة	en	To be absolved	1	1	example
 wn_6634c857	مَعْذِرَة	bn	অজুহাত পেশ	1	1	example
 wn_6634c857	مَعْذِرَة	ur	معذرت پیش کرنے کے لیے	1	1	example
@@ -3967,9 +4027,6 @@ wv_26281ebf	يَتَخَطَّفَ	in	disambar petir	1	1	example
 wv_26281ebf	يَتَخَطَّفَ	tr	atılırız	1	1	example
 wv_26281ebf	يَتَخَطَّفَ	fa	ربوده می شوند	1	1	example
 wv_26281ebf	يَتَخَطَّفَ	fr	serions saisis avec force	1	1	example
-wv_9ff7c057	يَرْقُبُ	ur	لحاظ کرتے	1	1	example
-wv_9ff7c057	يَرْقُبُ	hi	नहीं वो लिहाज़ करते	1	1	example
-wv_9ff7c057	يَرْقُبُ	tr	gözetirlerdi	1	1	example
 wn_f2ff89fa	أَعْظَم	bn	অতি বড়	1	1	example
 wn_f2ff89fa	أَعْظَم	fa	برترند	1	1	example
 wn_9820c151	أَحَبّ	in	lebih aku sukai	1	1	example
@@ -3984,7 +4041,7 @@ wv_d112c0a3	كَنَزْ	tr	yığdıklarınız	1	1	example
 wv_d112c0a3	كَنَزْ	fa	می انباشتید	1	1	example
 wv_d112c0a3	كَنَزْ	fr	avez amassés	1	1	example
 wn_6b513043	عُلْيا	tr	yüce	1	1	example
-wn_6b513043	عُلْيا	fa	بر ترین	1	1	example
+wn_6b513043	عُلْيا	fa	بلندتر	1	1	example
 wn_f42a8588	مُتَرَبِّص	in	menunggu	1	1	example
 wn_f42a8588	مُتَرَبِّص	tr	gözetenleriz	1	1	example
 wn_f42a8588	مُتَرَبِّص	fa	انتظار برانیم	1	1	example
@@ -4003,9 +4060,10 @@ wn_713ea37b	مَلْجَإ	tr	sığınacak bir yer	1	1	example
 wv_1ecc0d34	يَلْمِزُ	en	criticize	1	1	example
 wv_1ecc0d34	يَلْمِزُ	bn	দোষারোপ করে	1	1	example
 wv_1ecc0d34	يَلْمِزُ	ur	الزام دیتے ہیں	1	1	example
-wv_1ecc0d34	يَلْمِزُ	hi	ऐब लगाओ	1	1	example
-wv_1ecc0d34	يَلْمِزُ	tr	kusur aramayın	1	1	example
-wv_1ecc0d34	يَلْمِزُ	fa	*	1	1	example
+wv_1ecc0d34	يَلْمِزُ	hi	ताना देते हैं	1	1	example
+wv_1ecc0d34	يَلْمِزُ	in	mencela	1	1	example
+wv_1ecc0d34	يَلْمِزُ	tr	çekiştiren	1	1	example
+wv_1ecc0d34	يَلْمِزُ	fa	عیب جویی می کنند	1	1	example
 wv_1ecc0d34	يَلْمِزُ	fr	critiquent	1	1	example
 wn_069b0d94	راغِب	en	turn devoutly	1	1	example
 wn_069b0d94	راغِب	bn	অনুরক্ত	1	1	example
@@ -4022,11 +4080,10 @@ wn_2cb28b37	نِفاق	bn	কপটতায়	1	1	example
 wn_2cb28b37	نِفاق	tr	iki yüzlülük	1	1	example
 wn_b6f250f2	حَرّ	bn	গরম	1	1	example
 wn_b6f250f2	حَرّ	tr	sıcaktan	1	1	example
-wn_b6f250f2	حَرّ	fa	از جهت گرما	1	1	example
 wn_be0e4ea2	حَزَن	bn	দুঃখে	1	1	example
 wn_be0e4ea2	حَزَن	in	duka-cita	1	1	example
 wn_be0e4ea2	حَزَن	tr	başlarına derd	1	1	example
-wn_be0e4ea2	حَزَن	fa	از روی غم	1	1	example
+wn_be0e4ea2	حَزَن	fa	اندوهی	1	1	example
 wn_91fcff06	مَغْرَم	bn	জরিমানা	1	1	example
 wn_91fcff06	مَغْرَم	tr	angarya	1	1	example
 wn_91fcff06	مَغْرَم	fa	زیان	1	1	example
@@ -4035,45 +4092,29 @@ wv_a8cf696e	اعْتَرَفُ	ur	اعتراف کرلیا	1	1	example
 wv_a8cf696e	اعْتَرَفُ	hi	एतराफ़ कर लिया	1	1	example
 wv_a8cf696e	اعْتَرَفُ	fa	اقرار کردند	1	1	example
 wv_a8cf696e	اعْتَرَفُ	fr	avons ensuite reconnu	1	1	example
-wv_f6b34cbd	يَطَأُ	en	step	1	1	example
-wv_f6b34cbd	يَطَأُ	bn	পদক্ষেপ নেয়	1	1	example
-wv_f6b34cbd	يَطَأُ	ur	لتاڑا	1	1	example
-wv_f6b34cbd	يَطَأُ	hi	रौंदते	1	1	example
-wv_f6b34cbd	يَطَأُ	in	menginjak	1	1	example
-wv_f6b34cbd	يَطَأُ	tr	ayak basmaları	1	1	example
-wv_f6b34cbd	يَطَأُ	fa	*	1	1	example
-wv_f6b34cbd	يَطَأُ	fr	marchent	1	1	example
 wv_10cffc10	يَغِيظُ	en	angers	1	1	example
 wv_10cffc10	يَغِيظُ	ur	غصہ دلائے	1	1	example
 wv_10cffc10	يَغِيظُ	hi	ग़ुस्सा दिलाए	1	1	example
 wv_10cffc10	يَغِيظُ	in	menerbitkan marah	1	1	example
 wv_10cffc10	يَغِيظُ	tr	öfkelendirecek	1	1	example
-wv_10cffc10	يَغِيظُ	fa	*	1	1	example
+wv_10cffc10	يَغِيظُ	fa	به خشم آورد	1	1	example
 wn_0450b574	ضِياء	en	light	1	1	example
 wn_0450b574	ضِياء	bn	আলো	1	1	example
 wn_0450b574	ضِياء	ur	روشن	1	1	example
 wn_0450b574	ضِياء	hi	रोशन	1	1	example
 wn_0450b574	ضِياء	in	bersinar	1	1	example
-wn_0450b574	ضِياء	fa	در حالی که روشنایی	1	1	example
+wn_0450b574	ضِياء	fa	حالی که روشنایی	1	1	example
 wn_eaeb9fad	عاصِم	tr	kurtaracak kimse	1	1	example
-wn_eaeb9fad	عاصِم	fa	*	1	1	example
-wn_b678de45	رادّ	en	repeller	1	1	example
-wn_b678de45	رادّ	bn	রদকারী	1	1	example
-wn_b678de45	رادّ	ur	پھیرنے والا	1	1	example
-wn_b678de45	رادّ	hi	फेरने वाला	1	1	example
-wn_b678de45	رادّ	in	menolak	1	1	example
-wn_b678de45	رادّ	tr	geri çevirecek	1	1	example
-wn_b678de45	رادّ	fa	*	1	1	example
-wn_b678de45	رادّ	fr	être qui peut repousser	1	1	example
+wn_eaeb9fad	عاصِم	fa	نگهدار نده ای	1	1	example
 wn_cb74f95c	يَئُوس	en	despair	1	1	example
 wn_cb74f95c	يَئُوس	ur	بہت مایوس	1	1	example
 wn_cb74f95c	يَئُوس	hi	निहायत मायूस	1	1	example
 wn_cb74f95c	يَئُوس	in	berputus asa	1	1	example
 wn_cb74f95c	يَئُوس	tr	hemen üzülür	1	1	example
-wn_cb74f95c	يَئُوس	fa	به کلی ناامید	1	1	example
+wn_cb74f95c	يَئُوس	fa	ناامید	1	1	example
 wn_cc922fd6	تارِك	en	give up	1	1	example
 wn_cc922fd6	تارِك	bn	পরিত্যাগকারী	1	1	example
-wn_cc922fd6	تارِك	ur	چھوڑنے والے ہو	1	1	example
+wn_cc922fd6	تارِك	ur	چھوڑنے والے	1	1	example
 wn_cc922fd6	تارِك	hi	छोड़ने वाले	1	1	example
 wn_cc922fd6	تارِك	in	meninggalkan	1	1	example
 wn_cc922fd6	تارِك	tr	bırakacaksın	1	1	example
@@ -4102,7 +4143,7 @@ wv_de4ee332	أَوْجَسَ	fr	A donc ressenti	1	1	example
 wn_988846f7	ذَرْع	bn	রক্ষা করতে	1	1	example
 wn_988846f7	ذَرْع	in	dada	1	1	example
 wn_988846f7	ذَرْع	tr	huzursuzca	1	1	example
-wn_988846f7	ذَرْع	fa	*	1	1	example
+wn_988846f7	ذَرْع	fa	جهت توانایی	1	1	example
 wn_d5c80df3	رَشِيد	bn	সদাচারী	1	1	example
 wn_d5c80df3	رَشِيد	ur	راست باز	1	1	example
 wn_d5c80df3	رَشِيد	tr	aklı başında	1	1	example
@@ -4153,7 +4194,7 @@ wv_b033c68c	أُتْرِفُ	fa	آسودگی داده شد به شما	1	1	examp
 wv_b033c68c	أُتْرِفُ	fr	avez reçu du confort	1	1	example
 wn_b7346ac8	وارِد	en	will come	1	1	example
 wn_b7346ac8	وارِد	bn	প্রবেশকারী	1	1	example
-wn_b7346ac8	وارِد	ur	وارد ہونے والے ہو	1	1	example
+wn_b7346ac8	وارِد	ur	وارد ہونے والے	1	1	example
 wn_b7346ac8	وارِد	hi	वारिद	1	1	example
 wn_b7346ac8	وارِد	in	datang	1	1	example
 wn_b7346ac8	وارِد	tr	gireceksiniz	1	1	example
@@ -4174,8 +4215,7 @@ wn_ab374664	ضِغْث	in	campur aduk	1	1	example
 wn_ab374664	ضِغْث	fa	خواب های	1	1	example
 wn_6401de83	مُنكِر	en	knew him not	1	1	example
 wn_6401de83	مُنكِر	bn	অপরিচিত-অজ্ঞাত	1	1	example
-wn_6401de83	مُنكِر	ur	انکار کرنے والے تھے	1	1	example
-wn_6401de83	مُنكِر	hi	इन्कार करने वाले हो	1	1	example
+wn_6401de83	مُنكِر	hi	इन्कार करने वाले	1	1	example
 wn_6401de83	مُنكِر	in	memungkiri	1	1	example
 wn_6401de83	مُنكِر	tr	inkar	1	1	example
 wn_6401de83	مُنكِر	fa	انکار می کنند؟	1	1	example
@@ -4201,17 +4241,12 @@ wn_60e22919	حاجَة	tr	arzuya	1	1	example
 wn_60e22919	حاجَة	fa	احساس نیازی	1	1	example
 wn_82c63fd1	عِير	ur	اہل قافلہ	1	1	example
 wn_82c63fd1	عِير	hi	ऐ क़ाफ़िले वालो	1	1	example
-wn_82c63fd1	عِير	fa	از کاروانی	1	1	example
+wn_82c63fd1	عِير	fa	کاروان	1	1	example
 wn_0840c460	حِمْل	bn	বোঝা	1	1	example
 wn_0840c460	حِمْل	ur	بوجھ	1	1	example
 wn_0840c460	حِمْل	hi	बोझ	1	1	example
 wn_0840c460	حِمْل	tr	yüktür	1	1	example
 wn_5c269619	وِعاء	tr	yükünden	1	1	example
-wv_eacfe7d9	أَبْرَحَ	bn	ছেড়ে যাবো	1	1	example
-wv_eacfe7d9	أَبْرَحَ	ur	ٹلوں گا	1	1	example
-wv_eacfe7d9	أَبْرَحَ	hi	टलूँगा	1	1	example
-wv_eacfe7d9	أَبْرَحَ	in	akan meninggalkan	1	1	example
-wv_eacfe7d9	أَبْرَحَ	tr	ayrılmayacağım	1	1	example
 wn_1f293aca	كَظِيم	en	filled with grief	1	1	example
 wn_1f293aca	كَظِيم	bn	উত্তেজনা প্রশমনকারী	1	1	example
 wn_1f293aca	كَظِيم	ur	سخت غمگین تھے	1	1	example
@@ -4222,7 +4257,6 @@ wn_1f293aca	كَظِيم	fa	خشم خود را فرومی خورد	1	1	example
 wn_d2f75562	رَوْح	tr	rahatlık	1	1	example
 wn_6b1b8900	قَدِيم	bn	পুরনো	1	1	example
 wn_6b1b8900	قَدِيم	ur	پرانا	1	1	example
-wn_6b1b8900	قَدِيم	hi	पुराना	1	1	example
 wn_6b1b8900	قَدِيم	in	dahulu	1	1	example
 wn_6b1b8900	قَدِيم	fa	دیرینۂ خودی	1	1	example
 wn_6b1b8900	قَدِيم	fr	ancien	1	1	example
@@ -4250,7 +4284,7 @@ wn_b556ee23	مُهْطِع	ur	تیزی سے دوڑنے والے ہوں گے	1	1	
 wn_b556ee23	مُهْطِع	hi	तेज़ी से दौड़ने वाले	1	1	example
 wn_b556ee23	مُهْطِع	in	bergegas	1	1	example
 wn_b556ee23	مُهْطِع	tr	koşarlar	1	1	example
-wn_b556ee23	مُهْطِع	fa	در حالی که شتابان	1	1	example
+wn_b556ee23	مُهْطِع	fa	حالی که شتابان	1	1	example
 wv_6b4f6a7c	زالَ	en	should cease	1	1	example
 wv_6b4f6a7c	زالَ	bn	কক্ষচ্যুত হয়	1	1	example
 wv_6b4f6a7c	زالَ	ur	دونوں ٹل جائیں	1	1	example
@@ -4274,11 +4308,13 @@ wv_683160d0	اخْفِضْ	hi	झुका दीजिए	1	1	example
 wv_daf511b4	تَمِيدَ	bn	ঢলে পড়ে	1	1	example
 wv_daf511b4	تَمِيدَ	ur	ڈگمگا جائے گی	1	1	example
 wv_daf511b4	تَمِيدَ	hi	ढुलक जाए	1	1	example
+wv_daf511b4	تَمِيدَ	fa	نلرزاند	1	1	example
 wv_9c8115e9	يَجْأَرُ	bn	চিৎকার করে উঠবে	1	1	example
 wv_9c8115e9	يَجْأَرُ	ur	فریاد کرتے ہو	1	1	example
 wv_9c8115e9	يَجْأَرُ	hi	चिल्लाने लगेंगे	1	1	example
+wv_9c8115e9	يَجْأَرُ	in	berteriak	1	1	example
 wv_9c8115e9	يَجْأَرُ	tr	feryada başlarlar	1	1	example
-wv_9c8115e9	يَجْأَرُ	fa	*	1	1	example
+wv_9c8115e9	يَجْأَرُ	fa	فریاد می کنند	1	1	example
 wv_9c8115e9	يَجْأَرُ	fr	implorerons l’aide en criant	1	1	example
 wn_e8f2ef73	إِيتاء	bn	আদায় করতে	1	1	example
 wn_e8f2ef73	إِيتاء	hi	अदा करना	1	1	example
@@ -4286,7 +4322,7 @@ wn_e8f2ef73	إِيتاء	in	membayarkan	1	1	example
 wn_3759d40f	أَعْجَمِيّ	bn	অ-আরবি	1	1	example
 wn_3759d40f	أَعْجَمِيّ	in	bahasa ajam	1	1	example
 wn_3759d40f	أَعْجَمِيّ	tr	a'cemi	1	1	example
-wn_3759d40f	أَعْجَمِيّ	fa	به غیر عربی	1	1	example
+wn_3759d40f	أَعْجَمِيّ	fa	عجمی	1	1	example
 wn_3759d40f	أَعْجَمِيّ	fr	en langue étrangère	1	1	example
 wn_0a9e7203	أَقْصا	bn	আকসা	1	1	example
 wn_0a9e7203	أَقْصا	ur	اقصی	1	1	example
@@ -4301,7 +4337,7 @@ wn_d09b6caf	عاجِلَة	in	cepat	1	1	example
 wn_d09b6caf	عاجِلَة	tr	acele olanı	1	1	example
 wn_d09b6caf	عاجِلَة	fa	جهان زود گذر	1	1	example
 wn_1892b637	مَذْمُوم	hi	मज़म्मत किया हुआ	1	1	example
-wn_1892b637	مَذْمُوم	fa	*	1	1	example
+wn_1892b637	مَذْمُوم	fa	نکو هیدۂ	1	1	example
 wn_7a4fd590	ذُلّ	en	disgrace	1	1	example
 wn_7a4fd590	ذُلّ	bn	অপমানের	1	1	example
 wn_7a4fd590	ذُلّ	hi	आजिज़ी	1	1	example
@@ -4313,7 +4349,7 @@ wn_d4ead2e3	تَحْوِيل	ur	بدلنے	1	1	example
 wn_d4ead2e3	تَحْوِيل	hi	तब्दीली	1	1	example
 wn_d4ead2e3	تَحْوِيل	in	memindahkan	1	1	example
 wn_d4ead2e3	تَحْوِيل	tr	değişiklik	1	1	example
-wn_d4ead2e3	تَحْوِيل	fa	*	1	1	example
+wn_d4ead2e3	تَحْوِيل	fa	هیچ تغییری	1	1	example
 wv_4998f292	يَسْتَفِزَّ	en	incite	1	1	example
 wv_4998f292	يَسْتَفِزَّ	bn	পদস্খলিত করো	1	1	example
 wv_4998f292	يَسْتَفِزَّ	ur	بہکالے	1	1	example
@@ -4366,6 +4402,7 @@ wn_00f092d4	نُكْر	fa	سخت	1	1	example
 wn_f99a2e57	هَيِّن	en	easy	1	1	example
 wn_f99a2e57	هَيِّن	bn	তুচ্ছ	1	1	example
 wn_189a6812	أَيْمَن	hi	तूर की दाईं जानिब	1	1	example
+wn_189a6812	أَيْمَن	fa	کوه طور	1	1	example
 wv_299345ec	اصْطَبِرْ	en	be constant	1	1	example
 wv_299345ec	اصْطَبِرْ	bn	দৃঢ় থাকো	1	1	example
 wv_299345ec	اصْطَبِرْ	hi	क़ायम रहिए	1	1	example
@@ -4405,10 +4442,10 @@ wv_dc4f21d4	غَوَىٰ	en	erred	1	1	example
 wv_dc4f21d4	غَوَىٰ	bn	পথভ্রষ্ট হয়েছিলাম আমরা	1	1	example
 wv_dc4f21d4	غَوَىٰ	ur	بھٹک گئے	1	1	example
 wv_dc4f21d4	غَوَىٰ	hi	गुमराह हुए	1	1	example
-wv_dc4f21d4	غَوَىٰ	in	keliru	1	1	example
-wv_dc4f21d4	غَوَىٰ	tr	azmadı	1	1	example
-wv_dc4f21d4	غَوَىٰ	fa	*	1	1	example
-wv_dc4f21d4	غَوَىٰ	fr	sommes égarés du droit chemin	1	1	example
+wv_dc4f21d4	غَوَىٰ	in	sesat	1	1	example
+wv_dc4f21d4	غَوَىٰ	tr	kendimiz azdığımız	1	1	example
+wv_dc4f21d4	غَوَىٰ	fa	به بیراهه رفت	1	1	example
+wv_dc4f21d4	غَوَىٰ	fr	s’est donc égaré du droit chemin	1	1	example
 wn_8c4d34d5	مَعِيشَة	en	life	1	1	example
 wn_8c4d34d5	مَعِيشَة	bn	জীবন যাপন	1	1	example
 wn_8c4d34d5	مَعِيشَة	ur	گزران	1	1	example
@@ -4417,12 +4454,13 @@ wn_8c4d34d5	مَعِيشَة	in	penghidupan	1	1	example
 wn_8c4d34d5	مَعِيشَة	tr	geçim	1	1	example
 wn_8c4d34d5	مَعِيشَة	fa	زندگی ای	1	1	example
 wn_8c4d34d5	مَعِيشَة	fr	vie	1	1	example
-wv_9ecdb5cb	يَرْكُضُ	en	Flee not	1	1	example
+wv_9ecdb5cb	يَرْكُضُ	en	were fleeing	1	1	example
 wv_9ecdb5cb	يَرْكُضُ	bn	পালাতে লাগলো	1	1	example
 wv_9ecdb5cb	يَرْكُضُ	ur	دوڑتے تھے	1	1	example
-wv_9ecdb5cb	يَرْكُضُ	hi	ना तुम भागो	1	1	example
+wv_9ecdb5cb	يَرْكُضُ	hi	भागने लगे	1	1	example
+wv_9ecdb5cb	يَرْكُضُ	in	lari tergesa-gesa	1	1	example
 wv_9ecdb5cb	يَرْكُضُ	tr	kaçıyorlardı	1	1	example
-wv_9ecdb5cb	يَرْكُضُ	fa	*	1	1	example
+wv_9ecdb5cb	يَرْكُضُ	fa	می گریختند	1	1	example
 wv_9ecdb5cb	يَرْكُضُ	fr	s’enfuient en frappant des pieds	1	1	example
 wn_a46ff1ba	لاعِب	en	play	1	1	example
 wn_a46ff1ba	لاعِب	bn	কৌতুককারীদের	1	1	example
@@ -4486,7 +4524,7 @@ wn_0d1fe205	نَسَب	bn	আত্মীয়তার বন্ধন	1	1	exa
 wn_0d1fe205	نَسَب	ur	رخنہ	1	1	example
 wn_0d1fe205	نَسَب	hi	नसब	1	1	example
 wn_0d1fe205	نَسَب	in	keturunan	1	1	example
-wn_0d1fe205	نَسَب	fa	به صورت نسب	1	1	example
+wn_0d1fe205	نَسَب	fa	صورت نسب	1	1	example
 wn_0d1fe205	نَسَب	fr	relation	1	1	example
 wn_c4513408	زانِيَة	ur	زانیہ	1	1	example
 wn_c4513408	زانِيَة	tr	zina eden kadın	1	1	example
@@ -4508,7 +4546,7 @@ wn_d1d24a63	مُقام	in	tempat	1	1	example
 wn_d1d24a63	مُقام	fa	اقامتگاهی	1	1	example
 wn_41c46567	قُرَّة	bn	প্রশান্তি	1	1	example
 wn_41c46567	قُرَّة	tr	aydınlığı	1	1	example
-wn_0a653b86	شِرْب	fa	در بهرۂ آب خود	1	1	example
+wn_0a653b86	شِرْب	fa	بهرۂ آب خود	1	1	example
 wv_a12b068e	يُوزَعُ	en	set in rows	1	1	example
 wv_a12b068e	يُوزَعُ	bn	নানা দলে ভাগ করা হবে	1	1	example
 wv_a12b068e	يُوزَعُ	ur	جمع کیے جائیں گے	1	1	example
@@ -4536,6 +4574,7 @@ wv_f16e65b3	فَزِعَ	fa	به هراس افتند	1	1	example
 wv_f16e65b3	فَزِعَ	fr	a alors été terrifié	1	1	example
 wv_b1b68e73	يُبْدِئُ	bn	অস্তিত্ব দান করেন	1	1	example
 wv_b1b68e73	يُبْدِئُ	ur	ابتدا کرتا ہے	1	1	example
+wv_b1b68e73	يُبْدِئُ	hi	इब्तिदा करता है	1	1	example
 wv_b1b68e73	يُبْدِئُ	tr	başlatıyor	1	1	example
 wv_b1b68e73	يُبْدِئُ	fr	crée à l’origine	1	1	example
 wn_19c69578	نَشْأَة	bn	উঠানোর	1	1	example
@@ -4600,7 +4639,7 @@ wn_06f9d9ff	خِطاب	bn	কথা বলতে	1	1	example
 wn_06f9d9ff	خِطاب	ur	بات	1	1	example
 wn_06f9d9ff	خِطاب	hi	गुफ़्तगू	1	1	example
 wn_06f9d9ff	خِطاب	tr	konuşma	1	1	example
-wn_06f9d9ff	خِطاب	fa	*	1	1	example
+wn_06f9d9ff	خِطاب	fa	هیچ سخنی	1	1	example
 wn_8d72f300	أَتْراب	tr	hep yaşıt	1	1	example
 wn_8d72f300	أَتْراب	fa	نارپستان هم سال	1	1	example
 wv_8540503b	كُوِّرَتْ	en	is wrapped up	1	1	example
@@ -4612,7 +4651,7 @@ wv_8540503b	كُوِّرَتْ	tr	büzüldüğü	1	1	example
 wv_8540503b	كُوِّرَتْ	fa	درهم پیچیده شود	1	1	example
 wv_8540503b	كُوِّرَتْ	fr	sera enroulé	1	1	example
 wn_e795c611	حُطام	tr	kuru bir çöp	1	1	example
-wn_e795c611	حُطام	fa	*	1	1	example
+wn_e795c611	حُطام	fa	ریز ریز	1	1	example
 wn_1c39c708	صُورَة	en	form	1	1	example
 wn_1c39c708	صُورَة	bn	আকৃতিতে	1	1	example
 wn_1c39c708	صُورَة	ur	شکل	1	1	example
@@ -4630,7 +4669,7 @@ wn_62d2ad95	جَوار	ur	جہاز	1	1	example
 wn_62d2ad95	جَوار	hi	कश्तियाँ	1	1	example
 wn_62d2ad95	جَوار	tr	akıp gidenlere	1	1	example
 wn_62d2ad95	جَوار	fa	روندگان	1	1	example
-wn_ed36ef3b	بَطْش	fa	*	1	1	example
+wn_ed36ef3b	بَطْش	fa	جهت زور مندی	1	1	example
 wv_56df9987	يُلاقُ	bn	দেখা পায়	1	1	example
 wv_56df9987	يُلاقُ	ur	آ ملیں	1	1	example
 wv_56df9987	يُلاقُ	fa	دیدار کنند	1	1	example
@@ -4640,7 +4679,7 @@ wn_ae8fa543	رَجْع	ur	پلٹنا	1	1	example
 wn_ae8fa543	رَجْع	hi	पलटना	1	1	example
 wn_ae8fa543	رَجْع	in	air	1	1	example
 wn_ae8fa543	رَجْع	tr	dönüştür	1	1	example
-wn_ae8fa543	رَجْع	fa	*	1	1	example
+wn_ae8fa543	رَجْع	fa	باز گشتی	1	1	example
 wn_c4a1e1c1	مُعْتَد	bn	সীমা লংঘনকারী	1	1	example
 wn_c4a1e1c1	مُعْتَد	fa	تجاوز کنندۂ	1	1	example
 wn_42a6b2d1	جارِيَة	en	flowing	1	1	example
@@ -4657,7 +4696,7 @@ wn_55f9b7ca	مُنتَهَى	ur	المنتہی	1	1	example
 wn_55f9b7ca	مُنتَهَى	hi	इन्तिहा	1	1	example
 wn_55f9b7ca	مُنتَهَى	in	akhir tujuan	1	1	example
 wn_55f9b7ca	مُنتَهَى	tr	Müntehâ'nın	1	1	example
-wn_55f9b7ca	مُنتَهَى	fa	*	1	1	example
+wn_55f9b7ca	مُنتَهَى	fa	پایان	1	1	example
 wv_a3706687	يُمْنَى	en	emit	1	1	example
 wv_a3706687	يُمْنَى	bn	নির্গত	1	1	example
 wv_a3706687	يُمْنَى	ur	نطفہ تم ٹپکاتے ہو	1	1	example
@@ -4671,16 +4710,18 @@ wn_43a6a8ef	عَصْف	ur	بھس	1	1	example
 wn_43a6a8ef	عَصْف	hi	तेज़ चलना	1	1	example
 wn_43a6a8ef	عَصْف	in	keras	1	1	example
 wn_43a6a8ef	عَصْف	tr	savuranlara	1	1	example
-wn_43a6a8ef	عَصْف	fa	*	1	1	example
+wn_43a6a8ef	عَصْف	fa	توفیدنی	1	1	example
 wn_43a6a8ef	عَصْف	fr	foin	1	1	example
-wv_b3a87cc6	تَنفُذُ	en	pass	1	1	example
+wv_b3a87cc6	تَنفُذُ	en	pass beyond	1	1	example
 wv_b3a87cc6	تَنفُذُ	bn	অতিক্রম করে পালাও	1	1	example
-wv_b3a87cc6	تَنفُذُ	ur	بھاگ سکتے	1	1	example
-wv_b3a87cc6	تَنفُذُ	hi	नहीं तुम निकल सकते	1	1	example
+wv_b3a87cc6	تَنفُذُ	ur	نکل بھاگو	1	1	example
+wv_b3a87cc6	تَنفُذُ	hi	निकल जाओ	1	1	example
 wv_b3a87cc6	تَنفُذُ	in	menembus	1	1	example
 wv_b3a87cc6	تَنفُذُ	tr	geçin gidin	1	1	example
+wv_b3a87cc6	تَنفُذُ	fa	نفوذ کنید	1	1	example
 wv_b3a87cc6	تَنفُذُ	fr	passer à travers	1	1	example
 wn_9a42aa3a	مَيْمَنَة	bn	ডান দিকের	1	1	example
+wn_9a42aa3a	مَيْمَنَة	fa	بختان	1	1	example
 wn_a804df36	مَرْفُوعَة	en	Exalted	1	1	example
 wn_a804df36	مَرْفُوعَة	hi	ऊँची	1	1	example
 wn_a804df36	مَرْفُوعَة	fa	برافراشته	1	1	example
@@ -4697,6 +4738,7 @@ wn_7cb7e3df	لَهَب	ur	آگ کی لپٹ	1	1	example
 wn_7cb7e3df	لَهَب	hi	अबू लहब	1	1	example
 wn_7cb7e3df	لَهَب	in	begejolak	1	1	example
 wn_7cb7e3df	لَهَب	tr	Leheb'in	1	1	example
+wn_7cb7e3df	لَهَب	fa	زبانۂ آتش	1	1	example
 wn_7cb7e3df	لَهَب	fr	flamberie avec flamme	1	1	example
 wn_793fd2b7	أَشْقَى	en	most wretched	1	1	example
 wn_793fd2b7	أَشْقَى	bn	নিতান্ত হতভাগ্য	1	1	example
@@ -4716,21 +4758,23 @@ wn_f2b3263f	مُسْتَهْزِء	ur	مذاق اڑانے والوں	1	1	example
 wn_f2b3263f	مُسْتَهْزِء	hi	मज़ाक़ उड़ाने वाले	1	1	example
 wn_f2b3263f	مُسْتَهْزِء	in	orang-orang yang berolok-olok	1	1	example
 wn_f2b3263f	مُسْتَهْزِء	tr	alay edenler	1	1	example
-wn_f2b3263f	مُسْتَهْزِء	fa	از ریشخند کنندگان	1	1	example
+wn_f2b3263f	مُسْتَهْزِء	fa	ریشخند کنندگان	1	1	example
 wn_8f0b1f90	رَعْد	bn	গর্জন	1	1	example
 wn_8f0b1f90	رَعْد	hi	कड़क	1	1	example
 wn_8f0b1f90	رَعْد	tr	gök gürlemesi	1	1	example
 wn_8f0b1f90	رَعْد	fa	رعد	1	1	example
 wn_81c6108d	حَذَر	ur	ڈر	1	1	example
-wn_81c6108d	حَذَر	fa	از ترس	1	1	example
+wn_81c6108d	حَذَر	fa	ترس	1	1	example
 wn_cc8bfa9d	بِناء	bn	ছাদ	1	1	example
 wn_cc8bfa9d	بِناء	in	atap	1	1	example
 wn_cc8bfa9d	بِناء	fa	بنایی	1	1	example
 wv_55fe0225	يَسْفِكُ	en	will shed	1	1	example
-wv_55fe0225	يَسْفِكُ	ur	بہاؤ گے	1	1	example
-wv_55fe0225	يَسْفِكُ	hi	ना तुम बहाओगे	1	1	example
+wv_55fe0225	يَسْفِكُ	bn	ঝরাবে	1	1	example
+wv_55fe0225	يَسْفِكُ	ur	بہائے گا	1	1	example
+wv_55fe0225	يَسْفِكُ	hi	बहाएगा	1	1	example
+wv_55fe0225	يَسْفِكُ	in	menumpahkan	1	1	example
 wv_55fe0225	يَسْفِكُ	tr	döken	1	1	example
-wv_55fe0225	يَسْفِكُ	fa	*	1	1	example
+wv_55fe0225	يَسْفِكُ	fa	ریز د	1	1	example
 wv_55fe0225	يَسْفِكُ	fr	fera couler	1	1	example
 wv_59597bce	ظَلَّلْ	bn	ছায়া করলাম	1	1	example
 wv_59597bce	ظَلَّلْ	in	naungi	1	1	example
@@ -4764,7 +4808,7 @@ wn_a242d8a9	مَسْكَنَة	fr	extrême pauvreté	1	1	example
 wn_57bc32ae	ذَلُول	en	subservient	1	1	example
 wn_57bc32ae	ذَلُول	bn	অধীন	1	1	example
 wn_57bc32ae	ذَلُول	ur	تابع	1	1	example
-wn_57bc32ae	ذَلُول	hi	जोती हुई हो	1	1	example
+wn_57bc32ae	ذَلُول	hi	जोती हुई	1	1	example
 wn_57bc32ae	ذَلُول	in	mudah dipergunakan	1	1	example
 wn_57bc32ae	ذَلُول	tr	boynu eğik	1	1	example
 wn_57bc32ae	ذَلُول	fr	entraînée	1	1	example
@@ -4800,7 +4844,7 @@ wv_082c0e7d	يَنسَخُ	ur	منسوخ کرتے ہیں	1	1	example
 wv_082c0e7d	يَنسَخُ	hi	पस मिटा देता है	1	1	example
 wv_082c0e7d	يَنسَخُ	in	hapuskan	1	1	example
 wv_082c0e7d	يَنسَخُ	tr	neshedersek	1	1	example
-wv_082c0e7d	يَنسَخُ	fa	*	1	1	example
+wv_082c0e7d	يَنسَخُ	fa	زائل می گرداند	1	1	example
 wv_082c0e7d	يَنسَخُ	fr	annule	1	1	example
 wn_3c861561	بَدِيع	bn	তিনি স্রষ্টা	1	1	example
 wn_3c861561	بَدِيع	hi	ईजाद करने वाला	1	1	example
@@ -4825,13 +4869,12 @@ wn_dea04693	تَصْرِيف	ur	نیز گردش	1	1	example
 wn_dea04693	تَصْرِيف	hi	गर्दिश	1	1	example
 wn_dea04693	تَصْرِيف	in	pergerakan	1	1	example
 wn_dea04693	تَصْرِيف	tr	estirmesinde	1	1	example
-wn_dea04693	تَصْرِيف	fa	در گردانیدن	1	1	example
 wn_fdeaea44	نِداء	en	call	1	1	example
 wn_fdeaea44	نِداء	bn	আওয়াজ	1	1	example
 wn_fdeaea44	نِداء	ur	آواز	1	1	example
 wn_fdeaea44	نِداء	hi	आवाज़	1	1	example
 wn_fdeaea44	نِداء	tr	bağırtıdan	1	1	example
-wn_fdeaea44	نِداء	fa	به ندایی	1	1	example
+wn_fdeaea44	نِداء	fa	ندایی	1	1	example
 wn_fdeaea44	نِداء	fr	appel	1	1	example
 wn_7ed9a77e	حُرّ	en	freeman	1	1	example
 wn_7ed9a77e	حُرّ	bn	স্বাধীন ব্যাক্তি	1	1	example
@@ -4867,7 +4910,7 @@ wv_50048cda	يَخْتانُ	ur	خیانت کرتے	1	1	example
 wv_50048cda	يَخْتانُ	hi	ख़यानत करते	1	1	example
 wv_50048cda	يَخْتانُ	in	khianat	1	1	example
 wv_50048cda	يَخْتانُ	tr	hainlik eden	1	1	example
-wv_50048cda	يَخْتانُ	fa	*	1	1	example
+wv_50048cda	يَخْتانُ	fa	خیانت می کنند	1	1	example
 wv_50048cda	يَخْتانُ	fr	trompent	1	1	example
 wn_ff28eb52	خَيْط	ur	دھاگہ	1	1	example
 wn_ff28eb52	خَيْط	hi	धागा	1	1	example
@@ -4919,7 +4962,7 @@ wn_78cd16d7	كامِلَة	en	full	1	1	example
 wn_78cd16d7	كامِلَة	bn	পূর্ণ	1	1	example
 wn_78cd16d7	كامِلَة	ur	پورے	1	1	example
 wn_78cd16d7	كامِلَة	tr	tam olarak	1	1	example
-wn_78cd16d7	كامِلَة	fa	به تمامی	1	1	example
+wn_78cd16d7	كامِلَة	fa	تمامی	1	1	example
 wn_78cd16d7	كامِلَة	fr	complets	1	1	example
 wn_08d7bf10	مَعْلُومَة	en	known	1	1	example
 wn_08d7bf10	مَعْلُومَة	bn	নির্দিষ্ট	1	1	example
@@ -5050,7 +5093,7 @@ wn_afcce4b0	تَثْبِيت	ur	اورپختگی	1	1	example
 wn_afcce4b0	تَثْبِيت	hi	पुख़्तगी के लिए	1	1	example
 wn_afcce4b0	تَثْبِيت	in	menguatkan	1	1	example
 wn_afcce4b0	تَثْبِيت	tr	kökleştirmek için	1	1	example
-wn_afcce4b0	تَثْبِيت	fa	*	1	1	example
+wn_afcce4b0	تَثْبِيت	fa	واستواری	1	1	example
 wn_6302e305	مَسّ	bn	স্পর্শ	1	1	example
 wn_6302e305	مَسّ	ur	لپٹنا	1	1	example
 wn_6302e305	مَسّ	hi	छू कर	1	1	example
@@ -5078,7 +5121,7 @@ wn_8bddf0ef	عُسْرَة	ur	تنگی	1	1	example
 wn_8bddf0ef	عُسْرَة	hi	तंगदस्त	1	1	example
 wn_8bddf0ef	عُسْرَة	in	kesukaran	1	1	example
 wn_8bddf0ef	عُسْرَة	tr	darlık	1	1	example
-wn_8bddf0ef	عُسْرَة	fa	*	1	1	example
+wn_8bddf0ef	عُسْرَة	fa	تنگی و مشکل	1	1	example
 wv_cffe1b7f	اسْتَشْهِدُ	en	call for evidence	1	1	example
 wv_cffe1b7f	اسْتَشْهِدُ	bn	সাক্ষী চাও	1	1	example
 wv_cffe1b7f	اسْتَشْهِدُ	ur	گواہ بنا لو	1	1	example
@@ -5138,7 +5181,7 @@ wn_cd0feb9b	رَأْى	ur	دیکھنا	1	1	example
 wn_cd0feb9b	رَأْى	hi	देखना	1	1	example
 wn_cd0feb9b	رَأْى	in	pandangan	1	1	example
 wn_cd0feb9b	رَأْى	tr	görüşlü	1	1	example
-wn_cd0feb9b	رَأْى	fa	به دیدن	1	1	example
+wn_cd0feb9b	رَأْى	fa	دیدن	1	1	example
 wn_cd0feb9b	رَأْى	fr	perception	1	1	example
 wn_c32a40ca	إِبْكار	bn	প্রভাতে	1	1	example
 wn_c32a40ca	إِبْكار	ur	صبح	1	1	example
@@ -5208,7 +5251,7 @@ wn_454af817	خَبال	ur	فساد	1	1	example
 wn_454af817	خَبال	hi	किसी ख़राबी	1	1	example
 wn_454af817	خَبال	in	kerusakan	1	1	example
 wn_454af817	خَبال	tr	bozgunculuktan	1	1	example
-wn_454af817	خَبال	fa	از هیچ تباهی ای	1	1	example
+wn_454af817	خَبال	fa	تباهی	1	1	example
 wv_75fde8f6	عَضُّ	en	bite	1	1	example
 wv_75fde8f6	عَضُّ	bn	কামড়ায়	1	1	example
 wv_75fde8f6	عَضُّ	ur	کاٹتے ہیں	1	1	example
@@ -5223,7 +5266,7 @@ wn_91d2c56f	مُنزَل	ur	اتارنے کی جگہ	1	1	example
 wn_91d2c56f	مُنزَل	hi	उतारने की जगह	1	1	example
 wn_91d2c56f	مُنزَل	in	diturunkan	1	1	example
 wn_91d2c56f	مُنزَل	tr	indirilmiş	1	1	example
-wn_91d2c56f	مُنزَل	fa	در جایی	1	1	example
+wn_91d2c56f	مُنزَل	fa	جایی	1	1	example
 wn_91d2c56f	مُنزَل	fr	endroit de descente	1	1	example
 wn_0352df6a	سَرّاء	bn	খুশীর	1	1	example
 wn_0352df6a	سَرّاء	ur	خوشحالی	1	1	example
@@ -5235,33 +5278,28 @@ wn_ff43d423	كاظِم	ur	خارش	1	1	example
 wn_ff43d423	كاظِم	hi	ग़म से भरे हुए	1	1	example
 wn_ff43d423	كاظِم	in	menahan kesedihan	1	1	example
 wn_ff43d423	كاظِم	tr	yutkunur dururlar	1	1	example
-wn_ff43d423	كاظِم	fa	وفروخورندگان اند	1	1	example
+wn_ff43d423	كاظِم	fa	حالی که فرو برندگان خشم باشند	1	1	example
 wn_ff43d423	كاظِم	fr	ceux qui restreignent	1	1	example
 wn_e5cadf83	أَعْلَوْن	bn	বিজয়ী	1	1	example
-wn_e5cadf83	أَعْلَوْن	ur	بلند ہو	1	1	example
-wn_e5cadf83	أَعْلَوْن	hi	ग़ालिब रहने वाले हो	1	1	example
+wn_e5cadf83	أَعْلَوْن	ur	بلند	1	1	example
+wn_e5cadf83	أَعْلَوْن	hi	ग़ालिब रहने वाले	1	1	example
 wn_e5cadf83	أَعْلَوْن	in	diatas	1	1	example
 wn_e5cadf83	أَعْلَوْن	tr	galip durumda	1	1	example
 wv_19b5b759	ضَعُفَ	en	weak	1	1	example
 wv_19b5b759	ضَعُفَ	bn	দুর্বল	1	1	example
 wv_19b5b759	ضَعُفَ	ur	کتنا کمزور ہے	1	1	example
-wv_19b5b759	ضَعُفَ	hi	कमज़ोर पड़े	1	1	example
+wv_19b5b759	ضَعُفَ	hi	कितना कमज़ोर है	1	1	example
+wv_19b5b759	ضَعُفَ	in	lemah	1	1	example
 wv_19b5b759	ضَعُفَ	tr	aciz	1	1	example
-wv_19b5b759	ضَعُفَ	fa	ناتوان نشدند	1	1	example
-wv_19b5b759	ضَعُفَ	fr	sont devenus faibles	1	1	example
-wv_9ff88b4f	اسْتَكانُ	en	gave in	1	1	example
-wv_9ff88b4f	اسْتَكانُ	bn	বিনত হলো	1	1	example
-wv_9ff88b4f	اسْتَكانُ	ur	دبے	1	1	example
-wv_9ff88b4f	اسْتَكانُ	hi	आजिज़ी की	1	1	example
-wv_9ff88b4f	اسْتَكانُ	in	tidak tunduk	1	1	example
-wv_9ff88b4f	اسْتَكانُ	tr	boyun eğmediler	1	1	example
+wv_19b5b759	ضَعُفَ	fa	چه ناتواں اند	1	1	example
+wv_19b5b759	ضَعُفَ	fr	Sont faibles	1	1	example
 wn_5a65d9e4	إِسْراف	en	extravagantly	1	1	example
 wn_5a65d9e4	إِسْراف	bn	সীমালঙ্ঘন করে	1	1	example
 wn_5a65d9e4	إِسْراف	ur	اسراف کرتے ہوئے	1	1	example
 wn_5a65d9e4	إِسْراف	hi	इसराफ़ करते हुए	1	1	example
 wn_5a65d9e4	إِسْراف	in	lebih dari batas	1	1	example
 wn_5a65d9e4	إِسْراف	tr	israf	1	1	example
-wn_5a65d9e4	إِسْراف	fa	به اسراف	1	1	example
+wn_5a65d9e4	إِسْراف	fa	اسراف	1	1	example
 wn_5a65d9e4	إِسْراف	fr	gaspillage	1	1	example
 wn_5743dd44	أَمَنَة	bn	নিরাপত্তার জন্যে	1	1	example
 wn_5743dd44	أَمَنَة	hi	अमन	1	1	example
@@ -5283,11 +5321,6 @@ wv_20e11e04	لِن	fr	as été doux	1	1	example
 wv_6aaf0c36	نافَقُ	bn	মুনাফিকি করেছে	1	1	example
 wv_6aaf0c36	نافَقُ	tr	iki yüzlülük eden	1	1	example
 wv_6aaf0c36	نافَقُ	fr	ont été hypocrites	1	1	example
-wv_9a661303	يَلْحَقُ	en	joined	1	1	example
-wv_9a661303	يَلْحَقُ	bn	মিলিত হয়	1	1	example
-wv_9a661303	يَلْحَقُ	tr	katılmayan	1	1	example
-wv_9a661303	يَلْحَقُ	fa	نپیوسته اند	1	1	example
-wv_9a661303	يَلْحَقُ	fr	rejoignent	1	1	example
 wv_642f02be	يَمِيزَ	en	separates	1	1	example
 wv_642f02be	يَمِيزَ	bn	পৃথক করবেন	1	1	example
 wv_642f02be	يَمِيزَ	ur	چھانٹ دے	1	1	example
@@ -5344,10 +5377,9 @@ wn_698f0724	صُلْب	fa	پشت	1	1	example
 wn_698f0724	صُلْب	fr	colonne vertébrale	1	1	example
 wn_fbacbd49	مُحْصِن	en	being chaste	1	1	example
 wn_fbacbd49	مُحْصِن	bn	বিবাহকারী হিসেবে	1	1	example
-wn_fbacbd49	مُحْصِن	hi	निकाह में लाने वाले	1	1	example
 wn_fbacbd49	مُحْصِن	in	mengawininya	1	1	example
 wn_fbacbd49	مُحْصِن	tr	iffetli kişiler olarak	1	1	example
-wn_fbacbd49	مُحْصِن	fa	از روی پاکدامنی	1	1	example
+wn_fbacbd49	مُحْصِن	fa	حالی پاکدامنان باشید	1	1	example
 wn_7a4388f1	أَخْدان	bn	উপ-পতি	1	1	example
 wn_7a4388f1	أَخْدان	in	gendak	1	1	example
 wn_7a4388f1	أَخْدان	tr	dost	1	1	example
@@ -5378,7 +5410,7 @@ wn_60790db0	نَقِير	en	speck on a date seed	1	1	example
 wn_60790db0	نَقِير	bn	এক কপর্দকও	1	1	example
 wn_60790db0	نَقِير	hi	खजूर की गुठली में सुराख़ बराबर	1	1	example
 wn_60790db0	نَقِير	tr	zerre kadar	1	1	example
-wn_60790db0	نَقِير	fa	به اندازه گودی پشت هسته خرمایی	1	1	example
+wn_60790db0	نَقِير	fa	اندازه گودی پشت هسته خرمایی	1	1	example
 wn_60790db0	نَقِير	fr	creux de noyau de datte	1	1	example
 wn_7a4626cc	ظَلِيل	en	cool shade	1	1	example
 wn_7a4626cc	ظَلِيل	bn	ঘন	1	1	example
@@ -5450,7 +5482,7 @@ wn_e7636bd9	ظالِمِي	bn	অত্যাচারী অবস্থায�
 wn_e7636bd9	ظالِمِي	ur	ظلم کرنے والے	1	1	example
 wn_e7636bd9	ظالِمِي	in	dalam keadaan zalim	1	1	example
 wn_e7636bd9	ظالِمِي	tr	yazık eden kimselere	1	1	example
-wn_e7636bd9	ظالِمِي	fa	در حالی که ستمکار بوده اند	1	1	example
+wn_e7636bd9	ظالِمِي	fa	حالی که ستمکار بوده اند	1	1	example
 wn_3f8d391c	خَوّان	bn	খিয়ানতকারী	1	1	example
 wn_3f8d391c	خَوّان	hi	बहुत ख़ाइन	1	1	example
 wn_3f8d391c	خَوّان	tr	hain	1	1	example
@@ -5471,7 +5503,6 @@ wn_1c4f63a1	صُلْح	bn	আপোষ নিষ্পত্তি	1	1	example
 wn_1c4f63a1	صُلْح	ur	صلح	1	1	example
 wn_1c4f63a1	صُلْح	in	perdamaian	1	1	example
 wn_1c4f63a1	صُلْح	tr	anlaşma	1	1	example
-wn_1c4f63a1	صُلْح	fa	آشتی	1	1	example
 wv_736400ee	ٱسْتَحْوَذَ	en	Has overcome	1	1	example
 wv_736400ee	ٱسْتَحْوَذَ	bn	প্রভুত্ব বিস্তার করেছে	1	1	example
 wv_736400ee	ٱسْتَحْوَذَ	ur	غالب آگیا	1	1	example
@@ -5484,7 +5515,7 @@ wn_7da18d9c	كُسالَى	en	lazily	1	1	example
 wn_7da18d9c	كُسالَى	bn	অলস	1	1	example
 wn_7da18d9c	كُسالَى	ur	سست ہوتے	1	1	example
 wn_7da18d9c	كُسالَى	hi	इन्तिहाई सुस्ती	1	1	example
-wn_7da18d9c	كُسالَى	fa	با کسالت	1	1	example
+wn_7da18d9c	كُسالَى	fa	پژمرده دلان اند	1	1	example
 wv_e6841d1c	يُراءُ	en	make show	1	1	example
 wv_e6841d1c	يُراءُ	bn	দেখানোর	1	1	example
 wv_e6841d1c	يُراءُ	hi	दिखावा करते हैं	1	1	example
@@ -5516,10 +5547,10 @@ wv_7f02366e	تَعاوَنُ	en	help one another	1	1	example
 wv_7f02366e	تَعاوَنُ	bn	সহযোগিতা করবে	1	1	example
 wv_7f02366e	تَعاوَنُ	ur	تعاون کرو	1	1	example
 wv_7f02366e	تَعاوَنُ	hi	तआवुन करो	1	1	example
-wv_7f02366e	تَعاوَنُ	in	tolong menolong	1	1	example
+wv_7f02366e	تَعاوَنُ	in	tolong menolonglah	1	1	example
 wv_7f02366e	تَعاوَنُ	tr	yardımlaşın	1	1	example
-wv_7f02366e	تَعاوَنُ	fa	*	1	1	example
-wv_7f02366e	تَعاوَنُ	fr	entraidez	1	1	example
+wv_7f02366e	تَعاوَنُ	fa	ویاری کنید همد یگر را	1	1	example
+wv_7f02366e	تَعاوَنُ	fr	entraidez-vous	1	1	example
 wn_bca93218	أَزْلام	en	divining arrows	1	1	example
 wn_bca93218	أَزْلام	bn	ভাগ্য নির্ধারক তীরগুলো	1	1	example
 wn_bca93218	أَزْلام	ur	بانسے	1	1	example
@@ -5620,7 +5651,6 @@ wv_33ac6244	تَفِيضُ	fr	débordaient	1	1	example
 wn_2d51c483	كَعْبَة	bn	ক্বাবা	1	1	example
 wn_2d51c483	كَعْبَة	hi	काबा	1	1	example
 wn_2d51c483	كَعْبَة	tr	Ka'be'ye	1	1	example
-wn_2d51c483	كَعْبَة	fa	به کعبه	1	1	example
 wn_59ce127f	كَثْرَة	en	abundance	1	1	example
 wn_59ce127f	كَثْرَة	bn	আধিক্য	1	1	example
 wn_59ce127f	كَثْرَة	ur	کثرت	1	1	example
@@ -5734,20 +5764,20 @@ wn_5b292f18	مُسْتَوْدَع	fa	سپردنگاهی	1	1	example
 wn_5b292f18	مُسْتَوْدَع	fr	lieu de dépôt	1	1	example
 wv_87159069	أَثْمَرَ	tr	meyva verdiği	1	1	example
 wv_87159069	أَثْمَرَ	fa	بار دهد	1	1	example
-wv_f9c12285	يَسُبُّ	en	insult	1	1	example
-wv_f9c12285	يَسُبُّ	bn	গালি দিও	1	1	example
-wv_f9c12285	يَسُبُّ	ur	گالی دو	1	1	example
+wv_f9c12285	يَسُبُّ	en	lest they insult	1	1	example
+wv_f9c12285	يَسُبُّ	bn	গালি দিবে	1	1	example
+wv_f9c12285	يَسُبُّ	ur	گالی دیں گے	1	1	example
 wv_f9c12285	يَسُبُّ	hi	गाली देंगे	1	1	example
 wv_f9c12285	يَسُبُّ	in	akan memaki	1	1	example
 wv_f9c12285	يَسُبُّ	tr	da sövmesinler	1	1	example
-wv_f9c12285	يَسُبُّ	fa	*	1	1	example
+wv_f9c12285	يَسُبُّ	fa	دشنام دهند	1	1	example
 wv_f9c12285	يَسُبُّ	fr	car ils insulteraient alors	1	1	example
 wn_39f7b3be	عَدْو	bn	শত্রুতাবশতঃ	1	1	example
 wn_39f7b3be	عَدْو	ur	زیادتی کرکے	1	1	example
 wn_39f7b3be	عَدْو	hi	ज़्यादती	1	1	example
 wn_39f7b3be	عَدْو	in	melampaui batas	1	1	example
 wn_39f7b3be	عَدْو	tr	düşmanlıkla	1	1	example
-wn_39f7b3be	عَدْو	fa	از روی ستم	1	1	example
+wn_39f7b3be	عَدْو	fa	دشمنی	1	1	example
 wv_c1ff30d1	صَغَتْ	en	inclined	1	1	example
 wv_c1ff30d1	صَغَتْ	bn	ঝুঁকেছিল	1	1	example
 wv_c1ff30d1	صَغَتْ	ur	جھک پڑے	1	1	example
@@ -5769,7 +5799,7 @@ wv_05dfa53b	أَجَّلَ	tr	ertelenmiştir	1	1	example
 wv_05dfa53b	أَجَّلَ	fa	تعین وقت شده است	1	1	example
 wv_05dfa53b	أَجَّلَ	fr	as déterminé	1	1	example
 wn_69c6e374	افْتِراء	en	inventing	1	1	example
-wn_69c6e374	افْتِراء	fa	از روی بهتان	1	1	example
+wn_69c6e374	افْتِراء	fa	روی بهتان	1	1	example
 wn_f11fc468	إِبِل	bn	উট	1	1	example
 wn_f11fc468	إِبِل	hi	ऊँट	1	1	example
 wn_f11fc468	إِبِل	tr	deveden	1	1	example
@@ -5811,7 +5841,7 @@ wv_6491f3b5	يَتَكَبَّرُ	ur	تکبر کرتے ہیں	1	1	example
 wv_6491f3b5	يَتَكَبَّرُ	hi	तकब्बुर करते हैं	1	1	example
 wv_6491f3b5	يَتَكَبَّرُ	in	menyombongkan	1	1	example
 wv_6491f3b5	يَتَكَبَّرُ	tr	büyüklenenleri	1	1	example
-wv_6491f3b5	يَتَكَبَّرُ	fa	*	1	1	example
+wv_6491f3b5	يَتَكَبَّرُ	fa	کبرمی ورزند	1	1	example
 wv_6491f3b5	يَتَكَبَّرُ	fr	sois orgueilleux	1	1	example
 wn_8259f316	شَمائِل	en	to the left	1	1	example
 wn_8259f316	شَمائِل	bn	বাম	1	1	example
@@ -5863,7 +5893,7 @@ wv_95be2d22	يَعْرِشُ	ur	چڑھاتے ہیں	1	1	example
 wv_95be2d22	يَعْرِشُ	hi	ऊपर चढ़ाते हैं	1	1	example
 wv_95be2d22	يَعْرِشُ	in	bangun	1	1	example
 wv_95be2d22	يَعْرِشُ	tr	kurdukları çardaklardan	1	1	example
-wv_95be2d22	يَعْرِشُ	fa	*	1	1	example
+wv_95be2d22	يَعْرِشُ	fa	می سازند	1	1	example
 wv_95be2d22	يَعْرِشُ	fr	construisaient	1	1	example
 wv_05b32e7b	تَجَلَّىٰ	en	shines in brightness	1	1	example
 wv_05b32e7b	تَجَلَّىٰ	bn	আলোকিত হয়	1	1	example
@@ -5921,7 +5951,7 @@ wv_cf007315	ٱنسَلَخَ	hi	गुज़र जाऐं	1	1	example
 wv_cf007315	ٱنسَلَخَ	in	melepaskan diri	1	1	example
 wv_cf007315	ٱنسَلَخَ	tr	geçtiği	1	1	example
 wv_cf007315	ٱنسَلَخَ	fa	بگذرد	1	1	example
-wv_cf007315	ٱنسَلَخَ	fr	sont passés	1	1	example
+wv_cf007315	ٱنسَلَخَ	fr	s’est ensuite complètement séparé	1	1	example
 wv_f84666c3	أَخْلَدَ	en	adhered	1	1	example
 wv_f84666c3	أَخْلَدَ	bn	অমর করবে	1	1	example
 wv_f84666c3	أَخْلَدَ	ur	جھک گیا	1	1	example
@@ -6065,10 +6095,6 @@ wn_dbede30c	سِقايَة	in	pemberi minum	1	1	example
 wn_dbede30c	سِقايَة	tr	su tasını	1	1	example
 wn_dbede30c	سِقايَة	fa	آب دادن	1	1	example
 wn_dbede30c	سِقايَة	fr	fait de donner à boire	1	1	example
-wv_247b00cb	رَحُبَتْ	en	was vast	1	1	example
-wv_247b00cb	رَحُبَتْ	bn	প্রশস্ত ছিলো	1	1	example
-wv_247b00cb	رَحُبَتْ	ur	کشادہ ہے	1	1	example
-wv_247b00cb	رَحُبَتْ	tr	bütün genişliğine	1	1	example
 wn_b886fa22	زِيادَة	en	increase	1	1	example
 wn_b886fa22	زِيادَة	bn	আরও বেশি	1	1	example
 wn_b886fa22	زِيادَة	ur	اضافہ	1	1	example
@@ -6083,7 +6109,7 @@ wn_dddf4d23	ثانِي	ur	دو	1	1	example
 wn_dddf4d23	ثانِي	hi	दूसरा	1	1	example
 wn_dddf4d23	ثانِي	in	bengkok	1	1	example
 wn_dddf4d23	ثانِي	tr	ikincisiydi	1	1	example
-wn_dddf4d23	ثانِي	fa	در حالی که دومین	1	1	example
+wn_dddf4d23	ثانِي	fa	حالی که دومین	1	1	example
 wn_dddf4d23	ثانِي	fr	deuxième	1	1	example
 wv_233d7028	بَعُدَتْ	en	was long	1	1	example
 wv_233d7028	بَعُدَتْ	bn	দীর্ঘ লাগলো	1	1	example
@@ -6132,7 +6158,7 @@ wn_02b78b00	قِطَع	ur	ٹکڑوں	1	1	example
 wn_02b78b00	قِطَع	hi	टुकड़े	1	1	example
 wn_02b78b00	قِطَع	in	bagian-bagian	1	1	example
 wn_02b78b00	قِطَع	tr	kıt'alar	1	1	example
-wn_02b78b00	قِطَع	fa	به پاره هایی	1	1	example
+wn_02b78b00	قِطَع	fa	قطعه هایی	1	1	example
 wn_02b78b00	قِطَع	fr	lambeaux	1	1	example
 wn_eb5d6b6f	مُظْلِم	en	those in darkness	1	1	example
 wn_eb5d6b6f	مُظْلِم	bn	অন্ধকার	1	1	example
@@ -6164,11 +6190,6 @@ wv_5fc422c6	يَتَعارَفُ	tr	tanışırlar	1	1	example
 wv_5fc422c6	يَتَعارَفُ	fa	می شناسند	1	1	example
 wv_5fc422c6	يَتَعارَفُ	fr	se reconnaîtront	1	1	example
 wn_908b48d1	نَدامَة	hi	नदामत	1	1	example
-wv_bfde6657	يَعْزُبُ	bn	অগোচরে থাকে	1	1	example
-wv_bfde6657	يَعْزُبُ	ur	چھپا ہوا	1	1	example
-wv_bfde6657	يَعْزُبُ	hi	छुपता	1	1	example
-wv_bfde6657	يَعْزُبُ	in	luput	1	1	example
-wv_bfde6657	يَعْزُبُ	tr	gizli	1	1	example
 wn_441ad1bb	أَصْغَر	tr	daha küçüğü	1	1	example
 wn_441ad1bb	أَصْغَر	fa	خر دتر	1	1	example
 wn_441ad1bb	أَصْغَر	fr	plus petit	1	1	example
@@ -6251,11 +6272,6 @@ wv_bc09f987	يُهْرَعُ	hi	तेज़ दौड़ते हुए	1	1	ex
 wv_bc09f987	يُهْرَعُ	in	bergegas-gegas	1	1	example
 wv_bc09f987	يُهْرَعُ	tr	koşarak	1	1	example
 wv_bc09f987	يُهْرَعُ	fa	به شتاب می دویدند	1	1	example
-wv_0cc27a6d	يَلْتَفِتْ	en	let look back	1	1	example
-wv_0cc27a6d	يَلْتَفِتْ	bn	তাকাবে	1	1	example
-wv_0cc27a6d	يَلْتَفِتْ	ur	التفات کرے	1	1	example
-wv_0cc27a6d	يَلْتَفِتْ	hi	पलट कर देखे	1	1	example
-wv_0cc27a6d	يَلْتَفِتْ	tr	geriye dönüp bakmasın	1	1	example
 wn_654e80d1	مَنضُود	en	layered	1	1	example
 wn_654e80d1	مَنضُود	bn	একটানা	1	1	example
 wn_654e80d1	مَنضُود	hi	तह -ब-तह	1	1	example
@@ -6288,7 +6304,7 @@ wn_2fe31b06	وِرْد	ur	وارد ہونے والا	1	1	example
 wn_2fe31b06	وِرْد	hi	घाट	1	1	example
 wn_2fe31b06	وِرْد	in	keadaan dahaga	1	1	example
 wn_2fe31b06	وِرْد	tr	yaya ve susuz olarak	1	1	example
-wn_2fe31b06	وِرْد	fa	تشنه کام	1	1	example
+wn_2fe31b06	وِرْد	fa	آیندی	1	1	example
 wn_2fe31b06	وِرْد	fr	arrivée à l’eau des animaux	1	1	example
 wn_89b26e4e	مَجْمُوع	en	be gathered	1	1	example
 wn_89b26e4e	مَجْمُوع	bn	একত্র করার	1	1	example
@@ -6314,10 +6330,10 @@ wv_b486861b	تَرْكَنُ	en	have inclined	1	1	example
 wv_b486861b	تَرْكَنُ	bn	ঝুঁকে পড়তে	1	1	example
 wv_b486861b	تَرْكَنُ	ur	جھک جاتا	1	1	example
 wv_b486861b	تَرْكَنُ	hi	झुक जाते	1	1	example
-wv_b486861b	تَرْكَنُ	in	cenderung	1	1	example
-wv_b486861b	تَرْكَنُ	tr	meyletmeyin	1	1	example
-wv_b486861b	تَرْكَنُ	fa	*	1	1	example
-wv_b486861b	تَرْكَنُ	fr	inclinez	1	1	example
+wv_b486861b	تَرْكَنُ	in	condong	1	1	example
+wv_b486861b	تَرْكَنُ	tr	yanaşacaktın	1	1	example
+wv_b486861b	تَرْكَنُ	fa	میل کنی	1	1	example
+wv_b486861b	تَرْكَنُ	fr	t’incliner	1	1	example
 wn_442048f1	زُلْفَة	en	approach	1	1	example
 wn_442048f1	زُلْفَة	bn	অংশে	1	1	example
 wn_442048f1	زُلْفَة	ur	حصہ	1	1	example
@@ -6348,14 +6364,14 @@ wn_78bdc6c3	مُسْتَعان	ur	جس سے مدد طلب کی جاتی	1	1	exam
 wn_78bdc6c3	مُسْتَعان	hi	जिस से मदद तलब की जाती	1	1	example
 wn_78bdc6c3	مُسْتَعان	in	tempat dimintai pertolongan	1	1	example
 wn_78bdc6c3	مُسْتَعان	tr	O'nun yardımına sığınılır	1	1	example
-wn_78bdc6c3	مُسْتَعان	fa	از او باید یاری خواست	1	1	example
+wn_78bdc6c3	مُسْتَعان	fa	باید یاری خواست	1	1	example
 wn_7099993a	بَخْس	en	any loss	1	1	example
 wn_7099993a	بَخْس	bn	অবিচারের	1	1	example
 wn_7099993a	بَخْس	ur	کم	1	1	example
 wn_7099993a	بَخْس	hi	कम	1	1	example
 wn_7099993a	بَخْس	in	murah	1	1	example
 wn_7099993a	بَخْس	tr	düşük	1	1	example
-wn_7099993a	بَخْس	fa	از هیچ کاستی	1	1	example
+wn_7099993a	بَخْس	fa	نا چیز	1	1	example
 wn_7099993a	بَخْس	fr	réduction	1	1	example
 wn_a6f37718	مَعاذ	en	Allah forbid	1	1	example
 wn_a6f37718	مَعاذ	bn	আশ্রয়	1	1	example
@@ -6453,7 +6469,7 @@ wn_dfb85942	أَسَف	ur	بہت افسوس کرکے	1	1	example
 wn_dfb85942	أَسَف	hi	ग़म के मारे	1	1	example
 wn_dfb85942	أَسَف	in	penyesalan	1	1	example
 wn_dfb85942	أَسَف	tr	üzüntüden	1	1	example
-wn_dfb85942	أَسَف	fa	از اندوه	1	1	example
+wn_dfb85942	أَسَف	fa	اندوه	1	1	example
 wn_dfb85942	أَسَف	fr	chagrin	1	1	example
 wn_07a42c6c	هالِك	en	destroyed	1	1	example
 wn_07a42c6c	هالِك	bn	জীবন ধ্বংসকারীদের	1	1	example
@@ -6507,10 +6523,10 @@ wn_d78cabc6	دائِم	fr	constants	1	1	example
 wn_96980614	تَبَع	bn	অধীন	1	1	example
 wn_96980614	تَبَع	in	pengikut	1	1	example
 wn_96980614	تَبَع	tr	tabi	1	1	example
-wn_96980614	تَبَع	fa	*	1	1	example
+wn_96980614	تَبَع	fa	پیرو	1	1	example
 wn_70abb874	مُغْني	en	avert	1	1	example
 wn_70abb874	مُغْني	bn	কাজে আসবে	1	1	example
-wn_70abb874	مُغْني	hi	दूर करने वाले हो	1	1	example
+wn_70abb874	مُغْني	hi	दूर करने वाले	1	1	example
 wn_70abb874	مُغْني	in	melepaskan	1	1	example
 wn_70abb874	مُغْني	tr	savabilir	1	1	example
 wn_70abb874	مُغْني	fa	دفع توانید کرد	1	1	example
@@ -6542,7 +6558,7 @@ wn_14e87305	صَفْح	ur	درگزر کرتے ہوئے	1	1	example
 wn_14e87305	صَفْح	hi	ऐराज़ करते हुए	1	1	example
 wn_14e87305	صَفْح	in	hentikan	1	1	example
 wn_14e87305	صَفْح	tr	hoşgörü	1	1	example
-wn_14e87305	صَفْح	fa	با رویگردانی	1	1	example
+wn_14e87305	صَفْح	fa	رویگردانی	1	1	example
 wn_14e87305	صَفْح	fr	détournement	1	1	example
 wn_baaf2889	خَلّاق	en	Creator	1	1	example
 wn_baaf2889	خَلّاق	ur	خلاق	1	1	example
@@ -6613,7 +6629,7 @@ wn_56c2a0de	مُطْمَئِنّ	bn	অটল	1	1	example
 wn_56c2a0de	مُطْمَئِنّ	ur	اطمینان کے ساتھ	1	1	example
 wn_56c2a0de	مُطْمَئِنّ	hi	इत्मिनान के साथ	1	1	example
 wn_56c2a0de	مُطْمَئِنّ	tr	mutmain olduğu halde	1	1	example
-wn_56c2a0de	مُطْمَئِنّ	fa	آرامیده باشد	1	1	example
+wn_56c2a0de	مُطْمَئِنّ	fa	آرامش	1	1	example
 wn_56c2a0de	مُطْمَئِنّ	fr	en état de tranquillité	1	1	example
 wn_19747b88	مُطْمَئِنَّة	en	content	1	1	example
 wn_19747b88	مُطْمَئِنَّة	bn	নিশ্চিন্ত	1	1	example
@@ -6645,7 +6661,7 @@ wn_5953eab4	تَدْمِير	ur	اس کو تباہ کرنا	1	1	example
 wn_5953eab4	تَدْمِير	hi	तबाह कर देना	1	1	example
 wn_5953eab4	تَدْمِير	in	sebenar-benar binasa	1	1	example
 wn_5953eab4	تَدْمِير	tr	darmadağın	1	1	example
-wn_5953eab4	تَدْمِير	fa	به سختی	1	1	example
+wn_5953eab4	تَدْمِير	fa	سختی	1	1	example
 wn_e90d59ef	مَشْكُور	bn	প্রশংসীত	1	1	example
 wn_e90d59ef	مَشْكُور	hi	क़ाबिले क़दर	1	1	example
 wn_e90d59ef	مَشْكُور	tr	karşılığı verilir	1	1	example
@@ -6655,14 +6671,14 @@ wn_56ce420c	تَفْضِيل	ur	فضیلت	1	1	example
 wn_56ce420c	تَفْضِيل	hi	फ़जीलत	1	1	example
 wn_56ce420c	تَفْضِيل	in	kelebihan	1	1	example
 wn_56ce420c	تَفْضِيل	tr	tam bir üstünlükle	1	1	example
-wn_56ce420c	تَفْضِيل	fa	برتری دادنی	1	1	example
+wn_56ce420c	تَفْضِيل	fa	برتری	1	1	example
 wn_d8c25090	مَنصُور	en	helped	1	1	example
 wn_d8c25090	مَنصُور	bn	সাহায্যপ্রাপ্ত	1	1	example
 wn_d8c25090	مَنصُور	ur	مدد دیئے جانے والے	1	1	example
 wn_d8c25090	مَنصُور	hi	मदद किए जाऐंगे	1	1	example
 wn_d8c25090	مَنصُور	in	orang yang mendapat pertolongan	1	1	example
 wn_d8c25090	مَنصُور	tr	zafere ulaştırılanlar	1	1	example
-wn_d8c25090	مَنصُور	fa	*	1	1	example
+wn_d8c25090	مَنصُور	fa	یاری خواهند شد	1	1	example
 wn_d8c25090	مَنصُور	fr	aidé contre l’ennemi	1	1	example
 wv_7f093d4c	كالُ	en	measure	1	1	example
 wv_7f093d4c	كالُ	bn	মেপে দিবে	1	1	example
@@ -6677,7 +6693,7 @@ wn_cf12336a	مَرَح	bn	দম্ভভরে	1	1	example
 wn_cf12336a	مَرَح	hi	अकड़ कर	1	1	example
 wn_cf12336a	مَرَح	in	angkuh	1	1	example
 wn_cf12336a	مَرَح	tr	böbürlenerek	1	1	example
-wn_cf12336a	مَرَح	fa	با شادی و غرور	1	1	example
+wn_cf12336a	مَرَح	fa	خرامان	1	1	example
 wn_d849ab32	رُفات	ur	ریزہ ریزہ	1	1	example
 wn_d849ab32	رُفات	fa	اعضای ازهم پاشیده	1	1	example
 wv_fb0a81fd	كَرَّمْ	bn	আপনি মর্যাদা দিয়েছেন	1	1	example
@@ -6716,7 +6732,7 @@ wn_d96338fb	يَنبُوع	ur	چشموں	1	1	example
 wn_d96338fb	يَنبُوع	hi	चश्मा	1	1	example
 wn_d96338fb	يَنبُوع	in	mata air	1	1	example
 wn_d96338fb	يَنبُوع	tr	göze	1	1	example
-wn_d96338fb	يَنبُوع	fa	در چشمه هایی	1	1	example
+wn_d96338fb	يَنبُوع	fa	چشمه ای	1	1	example
 wn_d96338fb	يَنبُوع	fr	source d’eau	1	1	example
 wn_70dc4d2b	تَفْجِير	bn	খুব প্রবাহিত করা	1	1	example
 wn_70dc4d2b	تَفْجِير	ur	پھاڑ لے جانا	1	1	example
@@ -6726,7 +6742,6 @@ wn_70dc4d2b	تَفْجِير	tr	fışkırtarak	1	1	example
 wn_e1e9e84e	ماكِث	en	abide	1	1	example
 wn_e1e9e84e	ماكِث	bn	অবস্থানকারী	1	1	example
 wn_e1e9e84e	ماكِث	ur	رہنے والے	1	1	example
-wn_e1e9e84e	ماكِث	hi	रहने वाले	1	1	example
 wn_e1e9e84e	ماكِث	in	kekal	1	1	example
 wn_e1e9e84e	ماكِث	tr	kalacaklardır	1	1	example
 wn_e1e9e84e	ماكِث	fa	ماند گارید	1	1	example
@@ -6789,7 +6804,7 @@ wn_4a1a62c0	مُرْتَفَق	fa	منزلگاهی	1	1	example
 wn_5937c87b	مُنقَلَب	bn	প্রত্যাবর্তনস্থলে	1	1	example
 wn_5937c87b	مُنقَلَب	ur	انجام	1	1	example
 wn_5937c87b	مُنقَلَب	tr	akıbet	1	1	example
-wn_5937c87b	مُنقَلَب	fa	*	1	1	example
+wn_5937c87b	مُنقَلَب	fa	جایگاهی	1	1	example
 wn_819de857	أَقَلّ	en	fewer	1	1	example
 wn_819de857	أَقَلّ	bn	অতি কম	1	1	example
 wn_819de857	أَقَلّ	ur	کم تر ہوں	1	1	example
@@ -6800,7 +6815,7 @@ wn_3f23deb1	غَوْر	bn	ভূগর্ভস্থ	1	1	example
 wn_3f23deb1	غَوْر	ur	خشک	1	1	example
 wn_3f23deb1	غَوْر	in	masuk dalam tanah kering	1	1	example
 wn_3f23deb1	غَوْر	tr	dibe	1	1	example
-wn_3f23deb1	غَوْر	fa	*	1	1	example
+wn_3f23deb1	غَوْر	fa	فرورفته	1	1	example
 wn_4d4af1bb	هَشِيم	en	dry stalks	1	1	example
 wn_4d4af1bb	هَشِيم	bn	ভুষি	1	1	example
 wn_4d4af1bb	هَشِيم	ur	ریزہ ریزہ	1	1	example
@@ -6809,20 +6824,13 @@ wn_4d4af1bb	هَشِيم	in	kering	1	1	example
 wn_4d4af1bb	هَشِيم	tr	çöp kırıntıları	1	1	example
 wn_4d4af1bb	هَشِيم	fa	درهم شکسته	1	1	example
 wn_4d4af1bb	هَشِيم	fr	végétation sèche	1	1	example
-wv_09f2de81	يُغادِرُ	en	leaves	1	1	example
-wv_09f2de81	يُغادِرُ	bn	ছাড়বো	1	1	example
-wv_09f2de81	يُغادِرُ	ur	چھوڑا	1	1	example
-wv_09f2de81	يُغادِرُ	hi	छोड़ेंगे	1	1	example
-wv_09f2de81	يُغادِرُ	in	meninggalkan	1	1	example
-wv_09f2de81	يُغادِرُ	tr	bırakmamışızdır	1	1	example
-wv_09f2de81	يُغادِرُ	fr	laisse	1	1	example
 wn_59001ff3	عَضُد	en	helper	1	1	example
 wn_59001ff3	عَضُد	bn	সাহায্যকারীরূপে	1	1	example
 wn_59001ff3	عَضُد	ur	مددگار	1	1	example
 wn_59001ff3	عَضُد	hi	बाज़ू	1	1	example
 wn_59001ff3	عَضُد	in	pembantu	1	1	example
 wn_59001ff3	عَضُد	tr	yardımcı	1	1	example
-wn_59001ff3	عَضُد	fa	به مددکاری	1	1	example
+wn_59001ff3	عَضُد	fa	مددکاری	1	1	example
 wn_59001ff3	عَضُد	fr	souteneur	1	1	example
 wn_49b01f4b	جَدَل	en	argument	1	1	example
 wn_49b01f4b	جَدَل	bn	ঝগড়াটে	1	1	example
@@ -6836,10 +6844,10 @@ wn_5866c187	مَهْلِك	ur	ہلاکت کے وقت	1	1	example
 wn_5866c187	مَهْلِك	hi	हलाकत के वक़्त	1	1	example
 wn_5866c187	مَهْلِك	in	kebinasaan	1	1	example
 wn_5866c187	مَهْلِك	tr	helakine	1	1	example
-wn_5866c187	مَهْلِك	fa	در هلاک شدن	1	1	example
+wn_5866c187	مَهْلِك	fa	هلاک شدن	1	1	example
 wn_5866c187	مَهْلِك	fr	destruction	1	1	example
 wn_8e708823	مَجْمَع	ur	جمع ہونے کی جگہ	1	1	example
-wn_8e708823	مَجْمَع	fa	به جایگاه به هم پیوستن	1	1	example
+wn_8e708823	مَجْمَع	fa	جایگاه به هم پیوستن	1	1	example
 wn_415ab9c9	خُبْر	en	any knowledge	1	1	example
 wn_415ab9c9	خُبْر	bn	অভিজ্ঞতায়	1	1	example
 wn_415ab9c9	خُبْر	ur	خبر	1	1	example
@@ -6851,7 +6859,7 @@ wn_4bb8dd5d	عُذْر	bn	অজুহাতের শেষ সীমায়	
 wn_4bb8dd5d	عُذْر	ur	عذر	1	1	example
 wn_4bb8dd5d	عُذْر	hi	उज़र	1	1	example
 wn_4bb8dd5d	عُذْر	in	alasan	1	1	example
-wn_4bb8dd5d	عُذْر	fa	به عذری	1	1	example
+wn_4bb8dd5d	عُذْر	fa	حجّتی باشد	1	1	example
 wn_13899762	جِدار	bn	একটি দেয়াল	1	1	example
 wn_13899762	جِدار	ur	دیوار	1	1	example
 wn_13899762	جِدار	fa	دیوار	1	1	example
@@ -6921,14 +6929,14 @@ wn_30fc0d0a	عِتِيّ	ur	حد سے باہر	1	1	example
 wn_30fc0d0a	عِتِيّ	hi	इन्तिहाई दर्जे	1	1	example
 wn_30fc0d0a	عِتِيّ	in	durhaka	1	1	example
 wn_30fc0d0a	عِتِيّ	tr	isyan edeni	1	1	example
-wn_30fc0d0a	عِتِيّ	fa	به فرتوتی	1	1	example
+wn_30fc0d0a	عِتِيّ	fa	سرکشی	1	1	example
 wn_30fc0d0a	عِتِيّ	fr	insolence	1	1	example
 wn_c1e1c480	صَبِيّ	bn	ছোট্ট শিশু	1	1	example
 wn_c1e1c480	صَبِيّ	ur	بچپن میں ہی	1	1	example
 wn_c1e1c480	صَبِيّ	hi	बचपन ही	1	1	example
 wn_c1e1c480	صَبِيّ	in	anak kecil	1	1	example
 wn_c1e1c480	صَبِيّ	tr	çocuk iken	1	1	example
-wn_c1e1c480	صَبِيّ	fa	در حالت کود کی	1	1	example
+wn_c1e1c480	صَبِيّ	fa	حالت کود کی	1	1	example
 wn_1935aef8	عَصِيّ	in	durhaka	1	1	example
 wn_1935aef8	عَصِيّ	tr	isyan etmiştir	1	1	example
 wn_1935aef8	عَصِيّ	fa	بسیار نافرمان	1	1	example
@@ -6997,7 +7005,7 @@ wv_a44697e0	رَعَ	fa	بچرانید	1	1	example
 wv_a44697e0	رَعَ	fr	faites pâturer	1	1	example
 wn_8c6acaa7	نُهَى	bn	বিবেক	1	1	example
 wn_8c6acaa7	نُهَى	ur	عقل	1	1	example
-wn_8c6acaa7	نُهَى	fa	*	1	1	example
+wn_8c6acaa7	نُهَى	fa	خرد	1	1	example
 wn_0bb474c2	نَسْف	bn	উড়িয়ে দেয়া	1	1	example
 wn_0bb474c2	نَسْف	in	berhamburan	1	1	example
 wn_0bb474c2	نَسْف	fa	پاشیدنی	1	1	example
@@ -7027,7 +7035,7 @@ wn_637a06e1	لِزام	fa	لازم می شد	1	1	example
 wn_637a06e1	لِزام	fr	attachement	1	1	example
 wn_6bce4ae0	طُلُوع	hi	तुलूअ होने	1	1	example
 wn_6bce4ae0	طُلُوع	tr	doğmadan	1	1	example
-wn_6bce4ae0	طُلُوع	fa	بر آمدن	1	1	example
+wn_6bce4ae0	طُلُوع	fa	آمدن	1	1	example
 wn_c0713705	غُرُوب	en	setting	1	1	example
 wn_c0713705	غُرُوب	bn	অস্তের	1	1	example
 wn_c0713705	غُرُوب	ur	غروب	1	1	example
@@ -7069,7 +7077,7 @@ wn_e6a2a860	بَرْد	ur	ٹھنڈک	1	1	example
 wn_e6a2a860	بَرْد	hi	ठंडक	1	1	example
 wn_e6a2a860	بَرْد	in	dingin	1	1	example
 wn_e6a2a860	بَرْد	tr	serin	1	1	example
-wn_e6a2a860	بَرْد	fa	*	1	1	example
+wn_e6a2a860	بَرْد	fa	خنکی	1	1	example
 wn_92dcaa2c	إِقام	en	establishing	1	1	example
 wn_92dcaa2c	إِقام	hi	क़ायम करना	1	1	example
 wn_92dcaa2c	إِقام	tr	kılmaktan	1	1	example
@@ -7142,7 +7150,7 @@ wn_7dafc70c	سِخْرِيّ	en	mockery	1	1	example
 wn_7dafc70c	سِخْرِيّ	bn	ঠাট্টার পাত্ররূপে	1	1	example
 wn_7dafc70c	سِخْرِيّ	in	buah ejekan	1	1	example
 wn_7dafc70c	سِخْرِيّ	tr	alay konusu	1	1	example
-wn_7dafc70c	سِخْرِيّ	fa	به مسخره	1	1	example
+wn_7dafc70c	سِخْرِيّ	fa	بودیم به مسخره	1	1	example
 wv_1854d589	اجْلِدُ	en	flog	1	1	example
 wv_1854d589	اجْلِدُ	bn	দোররা মারবে	1	1	example
 wv_1854d589	اجْلِدُ	ur	کوڑے مارو	1	1	example
@@ -7208,7 +7216,7 @@ wn_bfee7331	أَشْتات	fa	پراکنده	1	1	example
 wn_b3a2340f	بُور	bn	ধ্বংসপ্রাপ্ত	1	1	example
 wn_b3a2340f	بُور	ur	شامت زدہ	1	1	example
 wn_b3a2340f	بُور	tr	helaki hak eden	1	1	example
-wn_b3a2340f	بُور	fa	در خورِ هلاکت	1	1	example
+wn_b3a2340f	بُور	fa	خورِ هلاکت	1	1	example
 wn_113a60c5	عُتُوّ	en	insolence	1	1	example
 wn_113a60c5	عُتُوّ	bn	অবাধ্য	1	1	example
 wn_113a60c5	عُتُوّ	in	kelewat batas	1	1	example
@@ -7244,12 +7252,12 @@ wn_405705e5	تَرْتِيل	en	measured rhythmic recitation	1	1	example
 wn_405705e5	تَرْتِيل	bn	তারতিলসহ	1	1	example
 wn_405705e5	تَرْتِيل	ur	آہستہ آہستہ پڑھنا	1	1	example
 wn_405705e5	تَرْتِيل	in	bacaan yang baik	1	1	example
-wn_405705e5	تَرْتِيل	fa	به آرامی و پیاپی	1	1	example
+wn_405705e5	تَرْتِيل	fa	آرامی و پیاپی	1	1	example
 wn_537a0e1b	رَسّ	en	Ar-Raas	1	1	example
 wn_537a0e1b	رَسّ	bn	কূপ	1	1	example
 wn_537a0e1b	رَسّ	ur	الرس	1	1	example
 wn_537a0e1b	رَسّ	hi	असहाबे-रस	1	1	example
-wn_537a0e1b	رَسّ	fa	*	1	1	example
+wn_537a0e1b	رَسّ	fa	رسّ	1	1	example
 wn_563e53ae	سُبات	bn	বিশ্রাম	1	1	example
 wn_563e53ae	سُبات	ur	آرام کا ذریعہ	1	1	example
 wn_563e53ae	سُبات	hi	आराम का ज़रिया	1	1	example
@@ -7278,13 +7286,6 @@ wn_2000df45	شُكُور	hi	शुक्रगुज़ारी	1	1	example
 wn_2000df45	شُكُور	in	bersyukur	1	1	example
 wn_2000df45	شُكُور	tr	teşekkür	1	1	example
 wn_2000df45	شُكُور	fa	سپاس بگزارد	1	1	example
-wv_e0d26b26	يَزْنُ	en	commit adultery	1	1	example
-wv_e0d26b26	يَزْنُ	bn	জিনা করবে না	1	1	example
-wv_e0d26b26	يَزْنُ	ur	زنا کریں گی	1	1	example
-wv_e0d26b26	يَزْنُ	hi	ज़िना करते	1	1	example
-wv_e0d26b26	يَزْنُ	in	berizina	1	1	example
-wv_e0d26b26	يَزْنُ	tr	zina etmemeleri	1	1	example
-wv_e0d26b26	يَزْنُ	fr	forniquent	1	1	example
 wv_2d8c503e	يَخْلُدْ	en	live forever	1	1	example
 wv_2d8c503e	يَخْلُدْ	bn	চিরস্থায়ী হবে	1	1	example
 wv_2d8c503e	يَخْلُدْ	ur	ہمیشہ رہو گے	1	1	example
@@ -7413,7 +7414,6 @@ wv_d9fe73f0	يُحْبَرُ	fa	شادمان شوند	1	1	example
 wv_d9fe73f0	يُحْبَرُ	fr	seront rendus heureux par la beauté	1	1	example
 wn_2975f923	لُقْمان	bn	লুকমান	1	1	example
 wn_2975f923	لُقْمان	tr	Lokman	1	1	example
-wn_2975f923	لُقْمان	fa	به لقمان	1	1	example
 wn_a693d257	وَهْن	bn	কষ্ট	1	1	example
 wn_a693d257	وَهْن	ur	کمزوری	1	1	example
 wn_a693d257	وَهْن	tr	zayıflık	1	1	example
@@ -7437,7 +7437,7 @@ wn_bc8aebb1	حَناجِر	ur	حلق	1	1	example
 wn_bc8aebb1	حَناجِر	hi	गलों तक	1	1	example
 wn_bc8aebb1	حَناجِر	in	kerongkongan	1	1	example
 wn_bc8aebb1	حَناجِر	tr	gırtlaklara	1	1	example
-wn_bc8aebb1	حَناجِر	fa	به حنجره ها	1	1	example
+wn_bc8aebb1	حَناجِر	fa	حنجره ها	1	1	example
 wn_09561300	زِلْزال	en	shake	1	1	example
 wn_09561300	زِلْزال	bn	প্রকম্পন	1	1	example
 wn_09561300	زِلْزال	ur	ہلا مارا جانا	1	1	example
@@ -7502,12 +7502,6 @@ wn_55fe3c13	أَسْفار	in	kitab yang tebal	1	1	example
 wn_55fe3c13	أَسْفار	tr	kitaplar	1	1	example
 wn_55fe3c13	أَسْفار	fa	کتابی چند	1	1	example
 wn_55fe3c13	أَسْفار	fr	livres	1	1	example
-wv_5a457c80	يَبُورُ	en	perish	1	1	example
-wv_5a457c80	يَبُورُ	ur	خسارہ پائے گی	1	1	example
-wv_5a457c80	يَبُورُ	hi	तबाह हो जाएगा	1	1	example
-wv_5a457c80	يَبُورُ	in	akan hancur	1	1	example
-wv_5a457c80	يَبُورُ	tr	batmayacak	1	1	example
-wv_5a457c80	يَبُورُ	fa	*	1	1	example
 wn_1202a52f	لُغُوب	en	fatigue	1	1	example
 wn_1202a52f	لُغُوب	ur	تکان	1	1	example
 wn_1202a52f	لُغُوب	hi	किसी थकावट	1	1	example
@@ -7550,7 +7544,7 @@ wn_ac53d6ac	زَجْرَة	tr	haykırıştır	1	1	example
 wn_ac53d6ac	زَجْرَة	fa	فریاد	1	1	example
 wn_fd52d1b2	مُشْتَرِك	en	sharers	1	1	example
 wn_fd52d1b2	مُشْتَرِك	bn	সম অংশীদার হবে	1	1	example
-wn_fd52d1b2	مُشْتَرِك	ur	مشترک ہو	1	1	example
+wn_fd52d1b2	مُشْتَرِك	ur	مشترک	1	1	example
 wn_fd52d1b2	مُشْتَرِك	hi	बाहम शरीक होंगे	1	1	example
 wn_fd52d1b2	مُشْتَرِك	tr	ortaksınız	1	1	example
 wn_fd52d1b2	مُشْتَرِك	fa	باهم شریک هستید	1	1	example
@@ -7562,16 +7556,15 @@ wn_5f0b92c6	لَذَّة	tr	lezzet veren	1	1	example
 wn_5f0b92c6	لَذَّة	fa	خوشگوار	1	1	example
 wn_5f0b92c6	لَذَّة	fr	délicieuse	1	1	example
 wv_94dc77fa	يُنزَفُ	en	will be intoxicated	1	1	example
-wv_94dc77fa	يُنزَفُ	bn	জ্ঞানহারা হবে	1	1	example
-wv_94dc77fa	يُنزَفُ	ur	بےجا بولیں گے	1	1	example
+wv_94dc77fa	يُنزَفُ	bn	মাতাল হবে	1	1	example
+wv_94dc77fa	يُنزَفُ	ur	عقل زائل کئے جائیں گے	1	1	example
 wv_94dc77fa	يُنزَفُ	hi	अक़्ल ज़ाइल किए जाऐंगे	1	1	example
 wv_94dc77fa	يُنزَفُ	in	dihalangi	1	1	example
-wv_94dc77fa	يُنزَفُ	tr	akılları gidermeyen	1	1	example
-wv_94dc77fa	يُنزَفُ	fa	بدمستی کنند	1	1	example
+wv_94dc77fa	يُنزَفُ	tr	sarhoş	1	1	example
+wv_94dc77fa	يُنزَفُ	fa	مست شوند	1	1	example
+wv_94dc77fa	يُنزَفُ	fr	seront enivrés	1	1	example
 wn_c1238cd8	مالِئ	en	fill	1	1	example
 wn_c1238cd8	مالِئ	bn	এভাবে পূর্ণকারী হবে	1	1	example
-wn_c1238cd8	مالِئ	ur	بھرنے والے	1	1	example
-wn_c1238cd8	مالِئ	hi	भरने वाले	1	1	example
 wn_c1238cd8	مالِئ	in	memenuhi	1	1	example
 wn_c1238cd8	مالِئ	tr	dolduracaklar	1	1	example
 wn_c1238cd8	مالِئ	fa	پر خواهید کرد	1	1	example
@@ -7584,7 +7577,7 @@ wn_9dd7e3b1	مُلِيم	bn	নিজেকে ধিক্কারকারী
 wn_9dd7e3b1	مُلِيم	ur	ملامت زدہ تھا	1	1	example
 wn_9dd7e3b1	مُلِيم	in	seorang tercela	1	1	example
 wn_9dd7e3b1	مُلِيم	tr	kendi kendini kınıyordu	1	1	example
-wn_9dd7e3b1	مُلِيم	fa	در خور سرزنش بود	1	1	example
+wn_9dd7e3b1	مُلِيم	fa	خور سرزنش بود	1	1	example
 wn_08d71bf0	مُسَبِّح	en	glorify	1	1	example
 wn_08d71bf0	مُسَبِّح	bn	মহিমা ঘোষণাকারী	1	1	example
 wn_08d71bf0	مُسَبِّح	ur	تسبیح کرنے والوں	1	1	example
@@ -7592,24 +7585,15 @@ wn_08d71bf0	مُسَبِّح	hi	तस्बीह करने वाले	1	1
 wn_08d71bf0	مُسَبِّح	tr	tesbih edenler	1	1	example
 wn_08d71bf0	مُسَبِّح	fa	تسبیح کنندگان	1	1	example
 wn_08d71bf0	مُسَبِّح	fr	ceux qui déclarent La Perfection d’Allâh	1	1	example
-wn_5168baed	أَيْيد	en	possessor of strength	1	1	example
-wn_5168baed	أَيْيد	bn	শক্তির	1	1	example
-wn_5168baed	أَيْيد	ur	قوت	1	1	example
-wn_5168baed	أَيْيد	hi	क़ुव्वत वाला था	1	1	example
-wn_5168baed	أَيْيد	in	tangan	1	1	example
-wn_5168baed	أَيْيد	tr	güç	1	1	example
-wn_5168baed	أَيْيد	fa	*	1	1	example
-wn_5168baed	أَيْيد	fr	force	1	1	example
 wn_868defcb	بارِد	bn	ঠাণ্ডা	1	1	example
 wn_868defcb	بارِد	ur	ٹھنڈا	1	1	example
-wn_868defcb	بارِد	fa	*	1	1	example
+wn_868defcb	بارِد	fa	سرد	1	1	example
 wn_d9f7755a	غَسّاق	bn	পুঁজ	1	1	example
 wn_d9f7755a	غَسّاق	ur	بہتی پیپ	1	1	example
 wn_d9f7755a	غَسّاق	hi	पीप	1	1	example
 wn_d9f7755a	غَسّاق	in	air luka dan nanah	1	1	example
 wn_d9f7755a	غَسّاق	tr	irin	1	1	example
 wn_d9f7755a	غَسّاق	fa	خونابه ای بدبو	1	1	example
-wn_7b0f2021	مَرْحَب	ur	مرحبا	1	1	example
 wn_7fb860db	صالُوا	en	burn	1	1	example
 wn_7fb860db	صالُوا	bn	জ্বলবে	1	1	example
 wn_7fb860db	صالُوا	ur	داخل ہونے والے	1	1	example
@@ -7632,7 +7616,7 @@ wn_048f3e11	كاشِفَة	ur	دور کرنے والیاں	1	1	example
 wn_048f3e11	كاشِفَة	hi	दूर करने वाली	1	1	example
 wn_048f3e11	كاشِفَة	in	membuka	1	1	example
 wn_048f3e11	كاشِفَة	tr	açacak kimse	1	1	example
-wn_048f3e11	كاشِفَة	fa	بر طرف کنندۂ	1	1	example
+wn_048f3e11	كاشِفَة	fa	طرف کنندۂ	1	1	example
 wn_048f3e11	كاشِفَة	fr	être qui peut enlever	1	1	example
 wn_6855ba99	مَقالِيد	ur	خزانے	1	1	example
 wn_6855ba99	مَقالِيد	in	kunci-kunci	1	1	example
@@ -7699,7 +7683,7 @@ wn_e5f6e892	مَعارِج	ur	سیڑھیاں	1	1	example
 wn_e5f6e892	مَعارِج	hi	उरूज वाला	1	1	example
 wn_e5f6e892	مَعارِج	in	tangga	1	1	example
 wn_e5f6e892	مَعارِج	tr	merdivenler	1	1	example
-wn_e5f6e892	مَعارِج	fa	*	1	1	example
+wn_e5f6e892	مَعارِج	fa	نیز نردبان هایی	1	1	example
 wn_e5f6e892	مَعارِج	fr	chemins de montée	1	1	example
 wn_dc6aec03	بَطْشَة	en	seizure	1	1	example
 wn_dc6aec03	بَطْشَة	bn	পাকড়াও	1	1	example
@@ -7707,14 +7691,14 @@ wn_dc6aec03	بَطْشَة	ur	پکڑ	1	1	example
 wn_dc6aec03	بَطْشَة	hi	पकड़	1	1	example
 wn_dc6aec03	بَطْشَة	in	hantaman	1	1	example
 wn_dc6aec03	بَطْشَة	tr	vuruşla	1	1	example
-wn_dc6aec03	بَطْشَة	fa	به بزرگ ترین حمله	1	1	example
+wn_dc6aec03	بَطْشَة	fa	بزرگ ترین حمله	1	1	example
 wn_dc6aec03	بَطْشَة	fr	saisissement violent	1	1	example
 wn_902784fc	نَعْمَة	en	ease	1	1	example
 wn_902784fc	نَعْمَة	bn	নেয়ামতের	1	1	example
 wn_902784fc	نَعْمَة	ur	نعمت	1	1	example
 wn_902784fc	نَعْمَة	hi	नेअमतों वाले	1	1	example
 wn_902784fc	نَعْمَة	tr	ni'met	1	1	example
-wn_902784fc	نَعْمَة	fa	*	1	1	example
+wn_902784fc	نَعْمَة	fa	خوشی و آسایشی را که	1	1	example
 wn_33ab8b82	تُبَّع	bn	তুব্বা	1	1	example
 wn_33ab8b82	تُبَّع	hi	क़ौमे तुब्बअ	1	1	example
 wn_33ab8b82	تُبَّع	fa	تبع	1	1	example
@@ -7790,7 +7774,7 @@ wn_d0215c76	مَنّاع	fa	بازدارندۂ	1	1	example
 wn_9e33123c	مَزِيد	bn	আরও	1	1	example
 wn_9e33123c	مَزِيد	ur	مزید بھی	1	1	example
 wn_9e33123c	مَزِيد	tr	daha	1	1	example
-wn_9e33123c	مَزِيد	fa	*	1	1	example
+wn_9e33123c	مَزِيد	fa	بیش از آن هم هست	1	1	example
 wn_2721a9df	سِراع	en	hurrying	1	1	example
 wn_2721a9df	سِراع	bn	ত্রস্তব্যস্ত	1	1	example
 wn_2721a9df	سِراع	ur	جلدی کرتے ہوئے	1	1	example
@@ -7869,7 +7853,7 @@ wn_0c93a540	مُثْقَل	tr	ağır bir yük altındadırlar	1	1	example
 wn_e707a6ff	سِدْرَة	bn	কুলগাছটিকে	1	1	example
 wn_e707a6ff	سِدْرَة	ur	سدرہ	1	1	example
 wn_e707a6ff	سِدْرَة	hi	बेरी के दरख़्त	1	1	example
-wn_e707a6ff	سِدْرَة	tr	Sidre'yi	1	1	example
+wn_e707a6ff	سِدْرَة	tr	Sidretü'l	1	1	example
 wn_e707a6ff	سِدْرَة	fa	سدره	1	1	example
 wn_51d498e7	مُسْتَمِرّ	en	continuing	1	1	example
 wn_51d498e7	مُسْتَمِرّ	bn	ক্রমাগত	1	1	example
@@ -7901,9 +7885,6 @@ wn_68ae0fa0	مَرْجان	ur	موتی	1	1	example
 wn_68ae0fa0	مَرْجان	hi	मरजान	1	1	example
 wn_68ae0fa0	مَرْجان	tr	mercan	1	1	example
 wn_68ae0fa0	مَرْجان	fa	مرجان	1	1	example
-wn_416a8710	جَلال	bn	মহিম	1	1	example
-wn_416a8710	جَلال	ur	بزرگی	1	1	example
-wn_416a8710	جَلال	tr	büyüklük	1	1	example
 wn_2098dd8d	إِكْرام	bn	মর্যাদা	1	1	example
 wn_2098dd8d	إِكْرام	ur	کرم والی	1	1	example
 wv_f8336750	فَرَغْ	en	are free	1	1	example
@@ -8018,12 +7999,6 @@ wn_bfaf5829	عِيشَة	tr	hayat	1	1	example
 wn_45d1b683	عالِيَة	bn	সুউচ্চ	1	1	example
 wn_45d1b683	عالِيَة	ur	بلند	1	1	example
 wn_45d1b683	عالِيَة	hi	बुलन्द जन्नत	1	1	example
-wv_1764a79f	يَحُضُّ	bn	উৎসাহ দিত	1	1	example
-wv_1764a79f	يَحُضُّ	ur	ترغیب دیتا تھا	1	1	example
-wv_1764a79f	يَحُضُّ	hi	तरग़ीब देता था	1	1	example
-wv_1764a79f	يَحُضُّ	in	ia menganjurkan	1	1	example
-wv_1764a79f	يَحُضُّ	tr	teşvik etmez	1	1	example
-wv_1764a79f	يَحُضُّ	fr	motivait	1	1	example
 wv_b5cb81bd	أَوْعَىٰٓ	en	hoarded	1	1	example
 wv_b5cb81bd	أَوْعَىٰٓ	bn	সংরক্ষিত রেখেছে	1	1	example
 wv_b5cb81bd	أَوْعَىٰٓ	ur	سمیٹ کر رکھا	1	1	example
@@ -8038,14 +8013,14 @@ wn_ca5f6ffa	رَهَق	ur	تکبر	1	1	example
 wn_ca5f6ffa	رَهَق	hi	किसी ज़्यादती	1	1	example
 wn_ca5f6ffa	رَهَق	in	durhaka	1	1	example
 wn_ca5f6ffa	رَهَق	tr	kötülük edilmesinden	1	1	example
-wn_ca5f6ffa	رَهَق	fa	از هیچ ستمی	1	1	example
+wn_ca5f6ffa	رَهَق	fa	سرکشی	1	1	example
 wn_7aebd28d	رَصَد	en	guard	1	1	example
 wn_7aebd28d	رَصَد	bn	পেতে রাখা	1	1	example
 wn_7aebd28d	رَصَد	ur	محافظ	1	1	example
 wn_7aebd28d	رَصَد	hi	घात	1	1	example
 wn_7aebd28d	رَصَد	in	mengintai	1	1	example
 wn_7aebd28d	رَصَد	tr	gözetleyen	1	1	example
-wn_7aebd28d	رَصَد	fa	در کمین	1	1	example
+wn_7aebd28d	رَصَد	fa	نگهبانانی	1	1	example
 wn_7aebd28d	رَصَد	fr	attend	1	1	example
 wn_8496e98e	قاسِط	bn	সত্য বিমুখরা	1	1	example
 wn_8496e98e	قاسِط	ur	ظالم لوگ	1	1	example
@@ -8055,7 +8030,7 @@ wn_8496e98e	قاسِط	fa	ستمکاران	1	1	example
 wn_fb476aaa	حَطَب	bn	ইন্ধন	1	1	example
 wn_fb476aaa	حَطَب	ur	ایندھن	1	1	example
 wn_fb476aaa	حَطَب	hi	ईंधन	1	1	example
-wn_fb476aaa	حَطَب	fa	*	1	1	example
+wn_fb476aaa	حَطَب	fa	هیزمی	1	1	example
 wn_45f53731	سَبْح	en	occupation	1	1	example
 wn_45f53731	سَبْح	bn	ব্যস্ততা	1	1	example
 wn_45f53731	سَبْح	ur	تیرنا	1	1	example
@@ -8108,7 +8083,7 @@ wn_4e48a539	مِرْصاد	ur	گھات	1	1	example
 wn_4e48a539	مِرْصاد	hi	घात	1	1	example
 wn_4e48a539	مِرْصاد	in	tempat penantian	1	1	example
 wn_4e48a539	مِرْصاد	tr	gözetleme yeri	1	1	example
-wn_4e48a539	مِرْصاد	fa	در کمین	1	1	example
+wn_4e48a539	مِرْصاد	fa	کمین	1	1	example
 wn_4e48a539	مِرْصاد	fr	attente	1	1	example
 wn_1c7bf79b	كِذّاب	en	any falsehood	1	1	example
 wn_1c7bf79b	كِذّاب	ur	جھوٹی بات	1	1	example
@@ -8163,12 +8138,10 @@ wv_3a6af666	نُصِبَتْ	in	ia ditegakkan	1	1	example
 wv_3a6af666	نُصِبَتْ	tr	dikilmiş	1	1	example
 wv_3a6af666	نُصِبَتْ	fa	نصب شده اند	1	1	example
 wv_3a6af666	نُصِبَتْ	fr	ont été dressées	1	1	example
-wn_772e6337	عَقَبَة	en	steep path	1	1	example
 wn_772e6337	عَقَبَة	bn	কষ্টসাধ্য গিরিপথ	1	1	example
 wn_772e6337	عَقَبَة	ur	دشوار گزار گھاٹی	1	1	example
 wn_772e6337	عَقَبَة	in	pendakian	1	1	example
 wn_772e6337	عَقَبَة	tr	sarp yokuşa	1	1	example
-wn_772e6337	عَقَبَة	fa	از گردنه	1	1	example
 wn_69547199	مُؤْصَدَة	en	closed in	1	1	example
 wn_69547199	مُؤْصَدَة	bn	অবরুদ্ধ করে দেয়া হবে	1	1	example
 wn_69547199	مُؤْصَدَة	in	terikat	1	1	example

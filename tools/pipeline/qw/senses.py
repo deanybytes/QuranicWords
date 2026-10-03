@@ -57,6 +57,11 @@ def fold(text, lang):
     return text.casefold()
 
 
+def vote_key(text, lang):
+    """Spelling variants that differ only by an apostrophe (হতে / হ'তে) are one sense."""
+    return fold(text, lang).replace("'", "").replace("’", "")
+
+
 def norm(text, lang):
     return re.sub(r"\s+", " ", glosses.normalize_lang(unicodedata.normalize("NFC", text or ""), lang)).strip()
 
@@ -128,8 +133,8 @@ def _content_label(lem, o, raw, lang):
     function = lem.track == "FUNCTION"
     cleaned = glosses.clean(raw, lang, lem.coarse, conj=o.conj_only and not function, function=function)
     category = "PARTICLE" if lem.track == "FUNCTION" else lem.category
-    if not cleaned or glosses.meaning_problem(cleaned, lang, category):
-        return None
+    if not cleaned or not any(ch.isalpha() for ch in cleaned) or glosses.meaning_problem(cleaned, lang, category):
+        return None   # "*" is GTAF's placeholder for a word it leaves untranslated
     hits = find_all(cleaned, raw, lang)
     if not hits:
         return None
@@ -137,14 +142,40 @@ def _content_label(lem, o, raw, lang):
     return raw[start:end], start
 
 
+def reviewed_variants(sense):
+    """Surface forms of one hand-reviewed sense: the sense without its explanatory brackets or
+    question marks ("kapan?" -> kapan), then the synonyms reviewed for it after "=", separated by
+    ";" (e.g. "निःसंदेह = बेशक; यक़ीनन"). Bracketed notes ("(स्त्री)", "(plural)") are never matched."""
+    base, _, alts = sense.partition(" = ")
+    out = []
+    for v in [base] + alts.split(";"):
+        v = re.sub(r"\([^)]*\)", " ", v)
+        v = re.sub(r"[?!؟¿¡]", " ", v)
+        v = re.sub(r"\s+", " ", v).strip(" .…-")
+        if v and any(ch.isalpha() for ch in v) and v not in out:
+            out.append(v)
+    return out
+
+
 def _function_label(curated, raw, lang):
-    """The curated sense of a function word that this occurrence's own gloss contains."""
+    """A hand-reviewed sense of a function word that this occurrence's own gloss contains."""
     for sense in curated:
-        hits = find_all(sense, raw, lang)
-        if len(hits) == 1:
-            start, end = hits[0]
-            return raw[start:end], start
+        for variant in reviewed_variants(sense):
+            hits = find_all(variant, raw, lang)
+            if len(hits) == 1:
+                start, end = hits[0]
+                return raw[start:end], start
     return None
+
+
+NEGATION_TAGS = ("NEG", "PRO")
+
+
+def _negated(qac, o):
+    """A negative/prohibition particle right before the verb, as its own word or attached."""
+    words = qac[(o.surah, o.ayah)]
+    before = list(words.get(o.word - 1, [])) + list(words[o.word][:o.seg])
+    return any(g.has(t) for t in NEGATION_TAGS for g in before)
 
 
 def _as_bare(o):
@@ -171,6 +202,10 @@ def build(lem, qac, verses, translations, curated=None, display=None):
         span = spans.segment_span(token, segs, o.seg, o.seg_last)
         if span is None:
             continue
+        if lem.coarse == "V" and _negated(qac, o):
+            # لَا / مَا / لَمْ / لَنْ before a verb: word-by-word glosses fold the negation into
+            # the verb ("namaz kılmadı" = did not pray), so such a gloss is not the verb's meaning.
+            continue
         clean_occurrence = o.bare or o.det_only or o.conj_only
         if curated is None and not clean_occurrence:
             continue
@@ -195,7 +230,12 @@ def build(lem, qac, verses, translations, curated=None, display=None):
     for lang in config.LANGS:
         senses_curated = [s.strip() for s in curated[lang].split(" / ")] if curated else None
         by_label = defaultdict(list)
-        for aspect in aspects:
+        # Free-standing function words: the hand-reviewed senses first (عَنْ in Turkish has no
+        # word of its own - the gloss is the next noun with a case ending); only if no
+        # occurrence's gloss contains one of them does the word fall back to its own glosses.
+        modes = ("curated",) if curated is not None and not prefix_particle else ("own",)
+        for mode in modes:
+          for aspect in aspects:
             for o, ws, we in usable:
                 if aspect is not None and o.aspect != aspect:
                     continue
@@ -203,21 +243,31 @@ def build(lem, qac, verses, translations, curated=None, display=None):
                     continue
                 line, parts, pstarts = verses.wbw(lang, o.surah, o.ayah)
                 raw = parts[o.word - 1]
-                picked = (_function_label(senses_curated, raw, lang) if prefix_particle
+                picked = (_function_label(senses_curated, raw, lang) if prefix_particle or mode == "curated"
                           else _content_label(lem, o, raw, lang))
                 if not picked:
                     continue
                 label, offset = picked
-                key = fold(label, lang)
+                key = vote_key(label, lang)
                 by_label[key].append((o, ws, we, label, pstarts[o.word - 1] + offset))
             if by_label:
                 break
+          if by_label:
+            break
         if not by_label:
             out[lang] = []
             continue
         total = sum(len(v) for v in by_label.values())
-        if prefix_particle:
-            order = [fold(s_, lang) for s_ in senses_curated if fold(s_, lang) in by_label]
+        if curated is not None:
+            # Reviewed order; each reviewed sense contributes its variants in order.
+            # One reviewed sense = one sense, however many reviewed synonyms its examples use:
+            # keep the best-attested of them.
+            order = []
+            for s_ in senses_curated:
+                found = [vote_key(v_, lang) for v_ in reviewed_variants(s_) if vote_key(v_, lang) in by_label]
+                found = [k_ for k_ in found if k_ not in order]
+                if found:
+                    order.append(max(found, key=lambda k_: len(by_label[k_])))
         else:
             ranked = sorted(by_label, key=lambda k: (-len(by_label[k]), k))
             top = ranked[0]

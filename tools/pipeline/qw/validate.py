@@ -136,6 +136,29 @@ def check_complete_ayahs(verses, reference):
     return errs
 
 
+_REVIEWED = None
+
+
+def _reviewed_rows():
+    """{display: {lang: cell}} from overrides/function_words.tsv (several rows can share a
+    display, e.g. مَا "what" and مَا "not": their senses are merged for this check)."""
+    global _REVIEWED
+    if _REVIEWED is None:
+        rows = [l.rstrip("\n").split("\t") for l in open(config.OVERRIDES / "function_words.tsv", encoding="utf-8")]
+        head, _REVIEWED = rows[0], {}
+        for r in rows[1:]:
+            if len(r) != len(head):
+                continue
+            d = dict(zip(head, r))
+            if d["action"] != "keep":
+                continue
+            disp = arabic.clean_display(d["display"])
+            cur = _REVIEWED.setdefault(disp, {lang: "" for lang in config.LANGS})
+            for lang in config.LANGS:
+                cur[lang] = " / ".join(x for x in (cur[lang], d[lang]) if x)
+    return _REVIEWED
+
+
 def _check_senses(intro, verses, word_row, raw):
     """Second, independent proof of every sense: re-derived from the raw sources rather than
     trusting the builder. Each check is one of the user-visible guarantees."""
@@ -145,10 +168,20 @@ def _check_senses(intro, verses, word_row, raw):
     if set(senses) != set(config.LANGS):
         return [f"{wid} senses languages {sorted(senses)}"]
     qac, gtaf, translations = raw if raw else (None, None, None)
+    reviewed = _reviewed_rows().get(intro["arabicWord"]) if intro["lemmaCategory"] == "PARTICLE" or \
+        intro["arabicWord"] in _reviewed_rows() else None
     for lang, items in senses.items():
         if not items:
             errs.append(f"{wid} {lang} has no sense")
             continue
+        for it in items:
+            if not any(ch.isalpha() for ch in it["meaning"]):
+                errs.append(f"{wid} {lang} meaning has no letters: {it['meaning']!r}")
+            if reviewed is not None:
+                allowed = {senses_mod.vote_key(v, lang) for s in reviewed[lang].split(" / ")
+                           for v in senses_mod.reviewed_variants(s.strip())}
+                if senses_mod.vote_key(it["meaning"], lang) not in allowed:
+                    errs.append(f"{wid} {lang} function-word meaning {it['meaning']!r} is not a reviewed sense")
         joined = " / ".join(it["meaning"] for it in items)
         if joined != intro["meaning"].get(lang) or (word_row and word_row["meaning"].get(lang) != joined):
             errs.append(f"{wid} {lang} card meaning differs from its senses")

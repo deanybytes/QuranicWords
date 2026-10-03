@@ -120,7 +120,7 @@ NOUN_CONTEXT_LEADING = {
     "hi": ["कि ", "वो ", "वह ", "वे "],
     "in": ["mereka ", "dia ", "kami ", "kamu "],
     "tr": ["o ", "biz ", "siz ", "onlar "],
-    "fa": ["آن ", "این ", "که ", "تا ", "من ", "او ", "آنان ", "هر گونه "],
+    "fa": ["آن ", "این ", "که ", "تا ", "من ", "او ", "آنان ", "هر گونه ", "از ", "به ", "در ", "با ", "بر "],
 }
 NOUN_CONTEXT_LEADING["ur"] += ["اللہ کے ", "اللہ کی ", "اللہ کا "]
 NOUN_CONTEXT_LEADING["hi"] += ["अल्लाह के ", "अल्लाह की ", "अल्लाह का "]
@@ -173,7 +173,8 @@ PRONOUN_ATTACHED = {
     "fa": ["هایشان", "هایتان", "هایمان", "شان", "تان", "مان", "یش"],
 }
 
-TRAILING_COPULA = {"hi": [" है", " हैं"], "ur": [" ہے", " ہیں"], "fa": [" است"], "bn": [" হয়"]}
+TRAILING_COPULA = {"hi": [" है", " हैं", " हो"], "ur": [" ہے", " ہیں", " ہو"], "fa": [" است"], "bn": [" হয়"],
+                   "en": [" is", " are", " was", " were"]}
 # GTAF's Persian is typed with Urdu/Arabic letter forms; fold to standard Persian orthography.
 PERSIAN_FOLD = str.maketrans({"ھ": "ه", "ہ": "ه", "ۀ": "ه", "ي": "ی", "ك": "ک", "ۃ": "ه"})
 

@@ -1,45 +1,45 @@
 {
-  "words": 3928,
-  "excluded": 853,
+  "words": 3833,
+  "excluded": 948,
   "by_track": {
-    "FUNCTION": 71,
-    "VERB": 1168,
-    "NOUN": 2689
+    "FUNCTION": 66,
+    "VERB": 1119,
+    "NOUN": 2648
   },
   "chapters": 10,
-  "sections": 80,
-  "lessons": 966,
-  "exercises": 15708,
+  "sections": 78,
+  "lessons": 943,
+  "exercises": 15329,
   "total_quran_segments": 97155,
-  "taught_occurrences": 94739,
-  "coverage_percent": 97.51,
-  "low_confidence_meanings": 8190,
+  "taught_occurrences": 94618,
+  "coverage_percent": 97.39,
+  "low_confidence_meanings": 8163,
   "legacy_mapping": {
     "35": {
-      "exact": 461,
-      "skeleton": 646,
-      "surface": 1088,
-      "unmapped": 2514
+      "exact": 455,
+      "skeleton": 649,
+      "surface": 1087,
+      "unmapped": 2518
     },
     "34": {
-      "exact": 341,
-      "skeleton": 766,
-      "surface": 1088,
-      "unmapped": 2514
+      "exact": 335,
+      "skeleton": 769,
+      "surface": 1087,
+      "unmapped": 2518
     }
   },
-  "verses": 4905,
-  "senses": 34204,
-  "translation_highlights": 15164,
-  "verses_checked_against_reference_text": 4905,
+  "verses": 4839,
+  "senses": 33333,
+  "translation_highlights": 15019,
+  "verses_checked_against_reference_text": 4839,
   "validation_errors": 0,
   "asset_sha256": {
-    "chapters.json": "930c6d50519125a55e7fd96ae4fdb938b3ac1868f9c9a33842ccdd9ed40fb366",
-    "sections.json": "45b53e5b9d379caa4d0a6b4e742b8b15788047b2fcb0c19239dec6c4bf8c3302",
-    "lessons_vocabulary.json": "ad864b1519d36fed109835401bdca5a7892d21a0ae61bbff666b107b9bc4b42b",
-    "exercises_vocabulary.json": "ea777416b954e7529cb55820f8b6a997fce03cfb9f80c47731472d1aabea026e",
-    "word_frequency.json": "b5a94bab215155ffef6bd47a40c2746d3ca616f147287165b5b174e66403de5d",
-    "legacy_progress_map.json": "47e5112f7f742fb91f20ddf25dca3be9749bf49eb64d1293dc69db56254d6687",
-    "verses.json": "493e177898dee53f0e8ff1af24f38a2864d1a891d01b568d6f1396e446616c29"
+    "chapters.json": "f1e889e7da57dd71fad91f9710ce41b04c0218bfdbe32747936b76532f678faf",
+    "sections.json": "cc25a32fe3ba0569225469dcf0668a115838bd315530e564924b2e3cf2a4587f",
+    "lessons_vocabulary.json": "2278155cb61ab6432b7f6a086bbfa0960081feb1d1ad795e7a900b2697e083ad",
+    "exercises_vocabulary.json": "ccdc7457ce86ca123bc33aea3ae1bea34988e4df73de5c859178fb59d8be65e0",
+    "word_frequency.json": "c1fdade3fc0500bb15995db1400a58fb7c6c75eca2e5b56b533ea539346e0d49",
+    "legacy_progress_map.json": "bf8bc443674e8cebbcacecdc9eba112f6f1e94d2656ebf2a7ce3a548693209f5",
+    "verses.json": "6251401ded55a1880689bd7322992b833c3d273c322d4831e1ab7d652c678314"
   }
 }
