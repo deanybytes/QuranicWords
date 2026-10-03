@@ -1,4 +1,5 @@
 // Flashcards (browse the filtered list, grade to schedule) and Review (today's due queue).
+import { buildUrl } from '../router.js';
 import { h, clear } from '../dom.js';
 import { t, formatNumber, formatDate, getLang, langInfo } from '../i18n.js';
 import { catBadge, meaningText, verseToggle } from '../components.js';
@@ -130,7 +131,7 @@ export const reviewView = {
         h('h2', { text: s.reviewed ? t('reviewSessionDone', { n: formatNumber(s.reviewed) }) : (any ? t('reviewDone') : t('navReview')) }),
         h('p', { class: 'muted', text: any ? t('reviewDoneSub') : t('reviewNothingYet') }),
         next !== null ? h('p', { text: t('reviewNextDue', { date: formatDate(dayToDate(next)) }) }) : null,
-        h('a', { class: 'btn btn-primary', href: '/learn', dataset: { route: 'learn' }, text: t('continueLearning') }));
+        h('a', { class: 'btn btn-primary', href: buildUrl('learn'), dataset: { route: 'learn' }, text: t('continueLearning') }));
       el.appendChild(box);
       return;
     }

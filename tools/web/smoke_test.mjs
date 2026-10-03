@@ -418,20 +418,23 @@ await test('APP_VERSION matches the service worker cache version', () => {
 });
 await test('service-worker shell lists every JS/CSS/font file, and they all exist', () => {
   const sw = read('sw.js');
-  const listed = [...sw.matchAll(/'(\/[^']+\.(?:js|css|woff2|png|json|html))'/g)].map((m) => m[1]);
+  // Shell entries are relative to the worker's scope (no leading slash) so the site can live under a sub-path.
+  const listed = [...sw.matchAll(/'([a-z][^'/]*(?:\/[^']+)?\.(?:js|css|woff2|png|json|html))'/g)].map((m) => m[1]);
+  assert.ok(!/'\/(?:js|css|icons|data)\//.test(sw), 'no root-absolute paths in sw.js');
   for (const p of listed) assert.ok(existsSync(join(ROOT, p)), `missing ${p}`);
   const walk = (dir) => readdirSync(join(ROOT, dir)).flatMap((f) => {
     const p = join(dir, f);
     return statSync(join(ROOT, p)).isDirectory() ? walk(p) : [p];
   });
   for (const f of [...walk('js'), ...walk('css')].filter((f) => /\.(js|css|woff2)$/.test(f))) {
-    assert.ok(listed.includes(`/${f.split('\\').join('/')}`), `not precached: ${f}`);
+    assert.ok(listed.includes(f.split('\\').join('/')), `not precached: ${f}`);
   }
 });
 await test('index.html references only files that exist and is CSP-clean', () => {
   const html = read('index.html');
-  const refs = [...html.matchAll(/(?:src|href)="(\/[^"#?]*)/g)].map((m) => m[1]);
-  const routes = new Set(['/', ...Object.values(router.VIEW_TO_PATH)]);
+  assert.ok(!/(?:src|href)="\/(?!\/)/.test(html), 'no root-absolute src/href (site must work under a sub-path)');
+  const refs = [...html.matchAll(/(?:src|href)="(?!https?:|#|mailto:|\/\/)([^"#?]*)/g)].map((m) => m[1]);
+  const routes = new Set(['./', '', ...Object.values(router.VIEW_TO_PATH).map((p) => p.slice(1))]);
   assert.ok(refs.length > 10);
   for (const r of refs) if (!routes.has(r)) assert.ok(existsSync(join(ROOT, r)), `missing ${r}`);
   assert.ok(!/\sstyle="/.test(html), 'no inline style attributes (CSP style-src self)');
@@ -488,6 +491,38 @@ await test('.vercelignore excludes the Android app and tooling', () => {
   for (const line of ['/app/', '/tools/', '/QuranicWords-v1.0.0.html']) {
     assert.ok(ig.split('\n').includes(line), line);
   }
+});
+
+await test('every named import resolves to a real export (catches dangling imports)', () => {
+  const walk = (dir) => readdirSync(join(ROOT, dir)).flatMap((f) => {
+    const p = join(dir, f);
+    return statSync(join(ROOT, p)).isDirectory() ? walk(p) : [p];
+  });
+  const files = walk('js').filter((f) => f.endsWith('.js')).map((f) => f.split('\\').join('/'));
+  const exportsOf = (f) => {
+    const src = read(f);
+    const names = new Set([...src.matchAll(/export\s+(?:async\s+)?(?:function\*?|const|let|class)\s+([A-Za-z_$][\w$]*)/g)].map((m) => m[1]));
+    for (const m of src.matchAll(/export\s*\{([^}]*)\}/g)) for (const n of m[1].split(',')) if (n.trim()) names.add(n.split(' as ').pop().trim());
+    return names;
+  };
+  for (const f of files) {
+    for (const m of read(f).matchAll(/import\s*\{([^}]*)\}\s*from\s*['"]([^'"]+)['"]/g)) {
+      const target = join(dirname(f), m[2]).split('\\').join('/');
+      const names = exportsOf(target);
+      for (const n of m[1].split(',').map((x) => x.split(' as ')[0].trim()).filter(Boolean)) {
+        assert.ok(names.has(n), `${f} imports missing '${n}' from ${m[2]}`);
+      }
+    }
+  }
+});
+await test('router honours a sub-path base (GitHub Pages)', () => {
+  router.setBase('/QuranicWords/');
+  assert.equal(router.buildUrl('learn'), '/QuranicWords/learn');
+  assert.equal(router.parseRoute('/QuranicWords/quiz', '').view, 'quiz');
+  assert.equal(router.parseRoute('/QuranicWords/', '').view, router.DEFAULT_VIEW);
+  assert.equal(router.parseRoute('/QuranicWords/', '?view=roots').view, 'roots');
+  router.setBase('/');
+  assert.equal(router.buildUrl('learn'), '/learn');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);

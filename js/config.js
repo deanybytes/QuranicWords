@@ -4,8 +4,14 @@ export const APP_VERSION = '2.1.0';
 
 export const REPO_URL = 'https://github.com/rmrashahriar/QuranicWords';
 
+/** Path the site is served from: "/" on its own domain, "/QuranicWords/" on GitHub Pages.
+ * Derived from this module's own URL (js/config.js lives one level below the site root). */
+export const BASE = typeof import.meta !== 'undefined' && import.meta.url.startsWith('http')
+  ? new URL('../', import.meta.url).pathname
+  : '/';
+
 export const DATA_URLS = {
-  index: '/data/index.json',
-  roots: '/data/roots.json',
-  verses: (ch) => `/data/verses/ch_${String(ch).padStart(2, '0')}.json`,
+  index: `${BASE}data/index.json`,
+  roots: `${BASE}data/roots.json`,
+  verses: (ch) => `${BASE}data/verses/ch_${String(ch).padStart(2, '0')}.json`,
 };

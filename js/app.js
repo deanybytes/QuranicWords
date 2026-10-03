@@ -1,15 +1,16 @@
 // QuranicWords web app — orchestrator: boot, routing, header chrome, filters and shared actions.
-import { APP_VERSION } from './config.js';
+import { APP_VERSION, BASE } from './config.js';
 import { h, clear, isTypingTarget, arabic } from './dom.js';
 import { LANGUAGES, normalizeLang, setLang, getLang, langInfo, t, formatNumber, formatPercent, pick } from './i18n.js';
 import { readJSON, writeJSON, readString, writeString } from './storage.js';
 import { DataStore } from './data.js';
 import { filterWords, skeleton } from './search.js';
-import { parseRoute, buildUrl, VIEWS } from './router.js';
+import { parseRoute, buildUrl, setBase, VIEWS } from './router.js';
+
+setBase(BASE);
 import { dayNumber, dueIds } from './srs.js';
 import { ProgressStore, levelForXp, xpForLevel, currentStreak, knownFraction } from './progress.js';
 import { toast, initModal, modalOpen, closeModal, celebrate } from './ui.js';
-import { play } from './components.js';
 import { cardsView, tableView, rootsView } from './views/dictionary.js';
 import { flashcardsView, reviewView } from './views/study.js';
 import { quizView } from './views/quizView.js';
@@ -429,7 +430,7 @@ class App {
     strip.hidden = false;
     const ring = ringSvg(goalFrac);
     strip.replaceChildren(
-      h('a', { class: 'ps-item ps-level', id: 'ps-level', href: '/progress', dataset: { route: 'progress' }, attrs: { 'aria-label': `${t('levelLabel', { n: formatNumber(level) })}, ${t('xpProgress', { xp: formatNumber(s.xp), next: formatNumber(hi) })}` } },
+      h('a', { class: 'ps-item ps-level', id: 'ps-level', href: buildUrl('progress'), dataset: { route: 'progress' }, attrs: { 'aria-label': `${t('levelLabel', { n: formatNumber(level) })}, ${t('xpProgress', { xp: formatNumber(s.xp), next: formatNumber(hi) })}` } },
         h('span', { class: 'ps-level-badge', text: t('levelShort', { n: formatNumber(level) }) }),
         h('span', { class: 'ps-xp' },
           h('progress', { max: hi - lo, value: s.xp - lo, attrs: { 'aria-hidden': 'true' } }),
@@ -463,7 +464,7 @@ class App {
       toast(t('updateAvailable'), { duration: 0, action: { label: t('reload'), run: () => { reloading = true; location.reload(); } } });
     });
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch((e) => console.warn('Service worker registration failed', e));
+      navigator.serviceWorker.register(`${BASE}sw.js`, { scope: BASE }).catch((e) => console.warn('Service worker registration failed', e));
     });
   }
 }

@@ -31,8 +31,28 @@ const LEGACY_POS = { noun: 'NOUN', verb: 'VERB', particle: 'PARTICLE', proper_no
 export const SORTS = ['curriculum', 'freq_desc', 'freq_asc', 'alpha_ar', 'alpha_meaning'];
 const LEGACY_SORT = { default: 'curriculum', occ_desc: 'freq_desc', occ_asc: 'freq_asc', alpha_en: 'alpha_meaning' };
 
+let base = '/';
+
+/** Sets the path prefix the site is served under ("/" or e.g. "/QuranicWords/"). */
+export function setBase(b) {
+  base = b && b.endsWith('/') ? b : `${b || ''}/`;
+}
+
+/** Prefixes a root-relative app path ("/learn") with the site base. */
+export function withBase(path) {
+  return base === '/' ? path : base.replace(/\/$/, '') + path;
+}
+
+function stripBase(pathname) {
+  const p = pathname || '/';
+  if (base !== '/' && p.toLowerCase().startsWith(base.toLowerCase().replace(/\/$/, ''))) {
+    return p.slice(base.length - 1) || '/';
+  }
+  return p;
+}
+
 function cleanPath(pathname) {
-  let p = (pathname || '/').toLowerCase();
+  let p = stripBase(pathname).toLowerCase();
   if (p.length > 1) p = p.replace(/\/+$/, '');
   return p || '/';
 }
@@ -83,5 +103,6 @@ export function buildUrl(view, state = {}) {
     if (state.saved) p.set('saved', '1');
   }
   const qs = p.toString();
-  return qs ? `${path}?${qs}` : path;
+  const full = withBase(path);
+  return qs ? `${full}?${qs}` : full;
 }

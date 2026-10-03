@@ -34,20 +34,20 @@
     <meta name="twitter:description" content="3,900 Qur'anic Arabic words by frequency, with verse examples, roots, lessons, quizzes and spaced repetition.">
     <meta name="twitter:image" content="https://quranicwords.vercel.app/icons/icon-512.png">
 
-    <link rel="icon" type="image/png" sizes="128x128" href="/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="128x128" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#053827">
     <meta name="color-scheme" content="dark light">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="QuranicWords">
 
-    <script src="/js/boot.js"></script>
-    <link rel="preload" href="/css/fonts/ScheherazadeNew-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/components.css">
-    <script type="module" src="/js/app.js"></script>
+    <script src="js/boot.js"></script>
+    <link rel="preload" href="css/fonts/ScheherazadeNew-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <script type="module" src="js/app.js"></script>
 
     <script type="application/ld+json">
     {
@@ -125,8 +125,8 @@
 
     <header class="app-header">
         <div class="container header-inner">
-            <a href="/" class="brand" data-route="cards">
-                <img src="/icons/icon-96.png" alt="" class="brand-logo" width="40" height="40">
+            <a href="./" class="brand" data-route="cards">
+                <img src="icons/icon-96.png" alt="" class="brand-logo" width="40" height="40">
                 <span class="brand-info">
                     <span class="brand-title">QuranicWords</span>
                     <span class="brand-sub" data-i18n="brandSub">Qur'anic vocabulary, word by word</span>
@@ -142,14 +142,14 @@
 
     <nav class="main-nav" data-i18n-attr="aria-label:navMain" aria-label="Main sections">
         <ul class="container nav-list">
-            <li><a class="nav-link" href="/learn" data-route="learn"><span class="ico" aria-hidden="true">🧭</span><span data-i18n="navLearn">Learn</span></a></li>
-            <li><a class="nav-link" href="/review" data-route="review"><span class="ico" aria-hidden="true">🔁</span><span data-i18n="navReview">Review</span><span class="nav-badge" id="review-badge" hidden></span></a></li>
-            <li><a class="nav-link" href="/dictionary" data-route="cards"><span class="ico" aria-hidden="true">📚</span><span data-i18n="navDictionary">Dictionary</span></a></li>
-            <li><a class="nav-link" href="/table" data-route="table"><span class="ico" aria-hidden="true">▤</span><span data-i18n="navTable">Table</span></a></li>
-            <li><a class="nav-link" href="/flashcards" data-route="flashcards"><span class="ico" aria-hidden="true">🗂</span><span data-i18n="navFlashcards">Flashcards</span></a></li>
-            <li><a class="nav-link" href="/quiz" data-route="quiz"><span class="ico" aria-hidden="true">🎯</span><span data-i18n="navQuiz">Quiz</span></a></li>
-            <li><a class="nav-link" href="/roots" data-route="roots"><span class="ico" aria-hidden="true">🌱</span><span data-i18n="navRoots">Roots</span></a></li>
-            <li><a class="nav-link" href="/progress" data-route="progress"><span class="ico" aria-hidden="true">📈</span><span data-i18n="navProgress">Progress</span></a></li>
+            <li><a class="nav-link" href="learn" data-route="learn"><span class="ico" aria-hidden="true">🧭</span><span data-i18n="navLearn">Learn</span></a></li>
+            <li><a class="nav-link" href="review" data-route="review"><span class="ico" aria-hidden="true">🔁</span><span data-i18n="navReview">Review</span><span class="nav-badge" id="review-badge" hidden></span></a></li>
+            <li><a class="nav-link" href="dictionary" data-route="cards"><span class="ico" aria-hidden="true">📚</span><span data-i18n="navDictionary">Dictionary</span></a></li>
+            <li><a class="nav-link" href="table" data-route="table"><span class="ico" aria-hidden="true">▤</span><span data-i18n="navTable">Table</span></a></li>
+            <li><a class="nav-link" href="flashcards" data-route="flashcards"><span class="ico" aria-hidden="true">🗂</span><span data-i18n="navFlashcards">Flashcards</span></a></li>
+            <li><a class="nav-link" href="quiz" data-route="quiz"><span class="ico" aria-hidden="true">🎯</span><span data-i18n="navQuiz">Quiz</span></a></li>
+            <li><a class="nav-link" href="roots" data-route="roots"><span class="ico" aria-hidden="true">🌱</span><span data-i18n="navRoots">Roots</span></a></li>
+            <li><a class="nav-link" href="progress" data-route="progress"><span class="ico" aria-hidden="true">📈</span><span data-i18n="navProgress">Progress</span></a></li>
         </ul>
     </nav>
 
@@ -167,7 +167,7 @@
             <h1 class="hero-title" data-i18n="heroTitle">Learn the vocabulary of the Qur'an</h1>
             <p class="hero-sub" data-i18n="heroSub">Study the most frequent Qur'anic words first, with real verse examples, roots and spaced-repetition review.</p>
             <dl class="stats-ribbon" id="stats-ribbon"></dl>
-            <p class="hero-cta"><a class="btn btn-primary btn-lg" href="/learn" data-route="learn" id="hero-cta" data-i18n="startLearning">Start learning</a></p>
+            <p class="hero-cta"><a class="btn btn-primary btn-lg" href="learn" data-route="learn" id="hero-cta" data-i18n="startLearning">Start learning</a></p>
         </section>
 
         <section id="filters" class="filter-bar" data-views="cards table flashcards quiz" hidden data-i18n-attr="aria-label:searchLabel" aria-label="Search the dictionary">
@@ -289,7 +289,7 @@
 
     <footer class="app-footer">
         <div class="container footer-inner">
-            <p class="footer-brand"><img src="/icons/icon-96.png" alt="" width="28" height="28"><strong>QuranicWords</strong></p>
+            <p class="footer-brand"><img src="icons/icon-96.png" alt="" width="28" height="28"><strong>QuranicWords</strong></p>
             <p class="footer-about" data-i18n="footerAbout">An open-source Qur'anic vocabulary curriculum and dictionary. No accounts, no ads, no tracking: your progress stays on your device.</p>
             <p class="footer-links">
                 <a class="footer-link" href="https://github.com/rmrashahriar/QuranicWords" rel="noopener" data-i18n="footerRepo">Source code</a>

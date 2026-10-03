@@ -6,21 +6,21 @@
 
 @font-face {
   font-family: 'Scheherazade New';
-  src: url('/css/fonts/ScheherazadeNew-Regular.woff2') format('woff2');
+  src: url('fonts/ScheherazadeNew-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Scheherazade New';
-  src: url('/css/fonts/ScheherazadeNew-Bold.woff2') format('woff2');
+  src: url('fonts/ScheherazadeNew-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Amiri Quran';
-  src: url('/css/fonts/AmiriQuran-Regular.woff2') format('woff2');
+  src: url('fonts/AmiriQuran-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;

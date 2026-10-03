@@ -187,7 +187,9 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and 
 
 Explore and study the complete **QuranicWords Master Curriculum Dictionary** directly in any web browser with zero installation:
 
-👉 **[https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)**
+👉 **[https://rmrashahriar.github.io/QuranicWords/](https://rmrashahriar.github.io/QuranicWords/)** (also at [quranicwords.vercel.app](https://quranicwords.vercel.app/))
+
+Deploy with `tools/web/deploy_pages.sh` (GitHub Pages, branch `gh-pages`); the site is base-path aware, so the same files run at a domain root or under a sub-path.
 
 - 📖 **All 3,900 words:** search Arabic (with or without tashkīl), the 8 meaning languages, roots and verse citations.
 - 🧠 **Learn path and spaced review:** progress is saved locally in your browser.
