@@ -9,7 +9,7 @@
 To rank #1 on GitHub search and Google for repository queries:
 
 ### A. Repository Description & Website URL
-Go to your GitHub repo main page (`https://github.com/rmrashahriar/QuranicWords`), click the ⚙️ gear icon next to **About** on the top-right, and fill in:
+Go to your GitHub repo main page (`https://github.com/deanybytes/QuranicWords`), click the ⚙️ gear icon next to **About** on the top-right, and fill in:
 
 - **Description**:
   ```text

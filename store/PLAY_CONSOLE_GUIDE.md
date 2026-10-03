@@ -1,4 +1,4 @@
-# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100012)
+# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100013)
 
 Everything you need is in this `store/` folder. Copy text **from the files**, not from chat, so the
 characters and limits stay exact. Every text file has already been checked against Play's limits
@@ -85,8 +85,8 @@ they override the English ones for that language only. The app icon stays shared
 **Grow users → Store presence → Store settings**
 - **App category:** Education
 - **Tags** (pick up to 5 that Play offers): Education, Language learning, Vocabulary, Reference, Religion
-- **Contact email:** contact.deanstalks@gmail.com
-- **Website:** https://rmrashahriar.github.io/QuranicWords/
+- **Contact email:** deanybytes@gmail.com
+- **Website:** https://deanybytes.github.io/QuranicWords/
 
 ## Step 5 – App content (Policy → App content)
 
@@ -94,7 +94,7 @@ Fill or confirm each item:
 
 | Item | Answer |
 |---|---|
-| Privacy policy | `https://rmrashahriar.github.io/QuranicWords/privacy.html` |
+| Privacy policy | `https://deanybytes.github.io/QuranicWords/privacy.html` |
 | Ads | **No, my app does not contain ads** |
 | App access | **All functionality is available without special access** (no login) |
 | Content rating | Run the questionnaire: category **Reference, News, or Educational**; answer **No** to violence, sexual content, profanity, drugs, gambling, user interaction/sharing, location sharing, purchases → expected rating Everyone / PEGI 3 |
@@ -115,7 +115,7 @@ production access is granted).
      decodes crashes automatically. If Play still asks: **App bundle explorer → (this version) →
      Downloads** → upload `QuranicWords-v1.0.0-native-debug-symbols.zip` and
      `QuranicWords-v1.0.0-mapping.txt.gz` (unzip to `mapping.txt` if it wants the plain file).
-2. **Release name:** `1.0.0 (100012)`
+2. **Release name:** `1.0.0 (100013)`
 3. **Release notes:** open `store/release-notes.txt` and paste its **whole** content into the release
    notes box. It is already in Play's `<en-US> … </en-US>` per-language format, every language
    ≤ 500 characters.
@@ -127,7 +127,7 @@ production access is granted).
 - **Quality → Android vitals:** check crashes/ANRs during the first days.
 - **Ratings and reviews:** reply to early reviews; the testers' report recommends collecting feedback.
 - The website, the offline HTML dictionary and the APK are also on GitHub:
-  https://github.com/rmrashahriar/QuranicWords/releases/tag/v1.0.0
+  https://github.com/deanybytes/QuranicWords/releases/tag/v1.0.0
 
 ## Checksums
 

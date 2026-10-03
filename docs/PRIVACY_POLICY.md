@@ -43,4 +43,4 @@ If this policy changes, the new version will be published at this address with a
 
 ## Contact
 
-Questions about this policy or the app: contact.deanstalks@gmail.com, or GitHub: https://github.com/rmrashahriar/QuranicWords
+Questions about this policy or the app: deanybytes@gmail.com, or GitHub: https://github.com/deanybytes/QuranicWords

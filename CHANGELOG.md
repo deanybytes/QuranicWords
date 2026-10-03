@@ -2,6 +2,36 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.0] - 2026-10-03 (Build 100013): Proven senses, Qur'an fonts, widgets & store readiness
+
+Builds 100009–100013 keep version name 1.0.0.
+
+### Content
+- **Per-language senses:** every meaning is this word's own word-by-word gloss in a complete
+  ayah. Only the taught word is highlighted, plus exactly that meaning in one translation (the
+  full translation when it contains it, otherwise the labelled word-by-word line).
+- Every cited verse is checked word by word against the complete Tanzil text.
+- Clause words, negations and source placeholders never become meanings; function words use
+  reviewed senses only. 3,833 words cover 97.4% of the Qur'an.
+- Citations, grammar labels and font names are fully localized, with each language's digits.
+
+### Reading
+- 7 genuine Qur'an fonts: Madinah Mushaf, Amiri, Scheherazade New, Noto Naskh, Lateef, and the
+  Indo-Pak **Noorani** and **Hafezi** fonts. Duplicate or wrong-reading fonts were removed.
+- Ayah numbers at the end of every verse; high-contrast highlight (green on light, gold on dark).
+
+### App
+- Redesigned home-screen widgets; interactive 6-step first-run tour.
+- Clearer lesson summary, labelled memory-strength meter, "Function words" lesson badge,
+  Home loading state.
+- No Internet permission: the app is offline by construction.
+
+### Web
+- Same senses and highlights as the app; meanings load per language (first load 56% smaller).
+
+### Store
+- Listings, screenshots and feature graphics in all 8 languages (`store/`).
+
 ## [1.0.0] - 2026-10-03 (Build 100008): Verified curriculum, spaced review & gamification
 
 ### Content (rebuilt from source)
@@ -10,7 +40,7 @@ All notable changes to QuranicWords are documented here.
   - 594 distinct nouns across 3,057;
   - phrase-fragment meanings attached to the wrong words (e.g. رَحْمَة = "the Most Gracious");
   - misaligned verse translations.
-- **New curriculum: 3,900 distinct lemmas**, covering 98.4% of the Qur'an's lexical segments.
+- **New curriculum: 3,833 distinct lemmas**, covering 97.4% of the Qur'an's words.
   - Built from the Quranic Arabic Corpus.
   - Meanings in 8 languages are drawn only from each word's own GTAF word-by-word occurrences.
   - Every word has an exact verse highlight, transliteration, root, verb forms and contextual senses.

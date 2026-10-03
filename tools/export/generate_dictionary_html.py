@@ -271,7 +271,7 @@ def main():
           "author": {{
             "@type": "Organization",
             "name": "DEANY TALKS",
-            "url": "https://github.com/rmrashahriar/QuranicWords"
+            "url": "https://github.com/deanybytes/QuranicWords"
           }}
         }}
       ]
