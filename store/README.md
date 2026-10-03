@@ -5,7 +5,7 @@ Start with **[PLAY_CONSOLE_GUIDE.md](PLAY_CONSOLE_GUIDE.md)** – it says what t
 | Path | What |
 |---|---|
 | `PLAY_CONSOLE_GUIDE.md` | Step-by-step Play Console walkthrough, with character limits |
-| `production-access-answers.md` | Answers for "Apply for production" |
+| `private/` | Your own notes, e.g. the "Apply for production" answers (gitignored, never published) |
 | `listing/<locale>/title.txt` | App name (≤ 30) – 8 languages |
 | `listing/<locale>/short_description.txt` | Short description (≤ 80) |
 | `listing/<locale>/full_description.txt` | Full description (≤ 4,000) |
