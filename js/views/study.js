@@ -12,7 +12,6 @@ function flashcard(ctx, w, { flipped, onFlip, onGrade, graded, expanded }) {
   const info = langInfo(getLang());
   const front = h('span', { class: 'flashcard-face flashcard-front', attrs: { 'aria-hidden': String(flipped) } },
     h('span', { class: 'fc-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
-    h('span', { class: 'fc-translit', text: w.tl }),
     w.rt ? h('span', { class: 'fc-root-tag', attrs: { lang: 'ar', dir: 'rtl' }, text: w.rt }) : null,
     h('span', { class: 'fc-hint-tap', text: t('fcHintFront') }));
   const back = h('span', { class: 'flashcard-face flashcard-back', attrs: { 'aria-hidden': String(!flipped) } },

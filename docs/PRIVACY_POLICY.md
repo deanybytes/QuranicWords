@@ -29,6 +29,14 @@ If you turn on the streak reminder, the app shows a local notification on your d
 
 Settings → Backup can export your progress to a file that you choose, and import it again. The file is created only when you ask for it, and you control where it is stored.
 
+## The website
+
+The web version keeps your progress, bookmarks and settings in your own browser's storage. It uses
+no cookies, no analytics and no third-party scripts or fonts, and it works offline after the first
+visit. The site is served by GitHub Pages and Vercel. Like any web host, they may process standard
+technical request data, such as your IP address, to deliver the pages. We do not receive, access or
+use that data.
+
 ## No third parties
 
 There are no accounts and no sharing. No data is sold, shared or transferred to anyone.

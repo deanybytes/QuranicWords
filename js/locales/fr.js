@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'Rang',
   tableWord: 'Arabe',
-  tableTranslit: 'Translittération',
   tableRoot: 'Racine',
   tableMeaning: 'Sens',
   tableFreq: 'Occurrences',

@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'ক্রম',
   tableWord: 'আরবি',
-  tableTranslit: 'উচ্চারণ',
   tableRoot: 'মূল ধাতু',
   tableMeaning: 'অর্থ',
   tableFreq: 'ব্যবহার',

@@ -109,7 +109,6 @@ export const learnView = {
       dots,
       h('article', { class: 'panel teach-card' },
         h('p', { class: 'teach-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
-        h('p', { class: 'card-translit', text: w.tl }),
         h('p', { class: 'teach-meaning', attrs: { lang: info.bcp47 }, text: meaningText(w) }),
         h('div', { class: 'card-tags-row centered' }, catBadge(w),
           w.rt ? h('span', { class: 'tag-root static' }, arabic(w.rt)) : null,

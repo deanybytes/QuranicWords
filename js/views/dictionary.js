@@ -77,14 +77,13 @@ export const tableView = {
     const tbody = h('tbody', {}, ...slice.map((w) => h('tr', {},
       h('td', { class: 'num', text: formatNumber(w.rank) }),
       h('td', { class: 'table-arabic-cell', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
-      h('td', { class: 'translit', text: w.tl }),
       h('td', {}, w.rt ? h('button', { type: 'button', class: 'tag-root', attrs: { lang: 'ar', dir: 'rtl', 'aria-label': t('filterByRoot', { root: w.rt }) }, text: w.rt, on: { click: () => ctx.filterByRoot(w.rt) } }) : h('span', { class: 'muted', text: '—' })),
       h('td', {}, h('span', { attrs: { lang: info.bcp47 }, text: meaningText(w) }), ' ', catBadge(w)),
       h('td', { class: 'num', text: formatNumber(w.occ) }))));
 
     const table = h('table', { class: 'dict-table' },
       h('caption', { class: 'visually-hidden', text: t('navTable') }),
-      h('thead', {}, h('tr', {}, ...['tableRank', 'tableWord', 'tableTranslit', 'tableRoot', 'tableMeaning', 'tableFreq'].map((k) => h('th', { attrs: { scope: 'col' }, text: t(k) })))),
+      h('thead', {}, h('tr', {}, ...['tableRank', 'tableWord', 'tableRoot', 'tableMeaning', 'tableFreq'].map((k) => h('th', { attrs: { scope: 'col' }, text: t(k) })))),
       tbody);
 
     const go = (p) => { this.page = p; this.render(ctx, el); el.querySelector('.table-container').focus(); };

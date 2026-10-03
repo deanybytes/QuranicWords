@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'क्रमांक',
   tableWord: 'अरबी',
-  tableTranslit: 'उच्चारण',
   tableRoot: 'मूल धातु',
   tableMeaning: 'अर्थ',
   tableFreq: 'प्रयोग',

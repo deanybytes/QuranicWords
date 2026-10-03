@@ -1320,7 +1320,7 @@ def main():
                             <th>#</th>
                             <th>ID</th>
                             <th>Arabic</th>
-                            <th>Translit / Root</th>
+                            <th>Root</th>
                             <th>POS</th>
                             <th>Occurrences</th>
                             <th>English</th>
@@ -1351,7 +1351,6 @@ def main():
 
                     <div style="margin:20px 0;">
                         <div class="arabic-lemma font-arabic" id="fc-arabic" style="font-size:44px; margin-bottom:8px;">مِنْ</div>
-                        <div id="fc-translit" style="font-size:16px; font-style:italic; color:var(--text-muted);">min</div>
                         <div id="fc-root" style="font-size:13px; color:var(--gold); font-weight:700; margin-top:4px;"></div>
                     </div>
 
@@ -1629,7 +1628,6 @@ def main():
                         <div>
                             <div class="arabic-lemma font-arabic">${{w.ar}}</div>
                             <div class="word-meta">
-                                <span class="translit-text">${{w.tr || ''}}</span>
                                 ${{w.rt ? `<span class="root-text">Root: ${{w.rt}}</span>` : ''}}
                             </div>
                         </div>
@@ -1666,7 +1664,7 @@ def main():
         function copyWord(wordId) {{
             const w = ALL_WORDS.find(item => item.id === wordId);
             if (!w) return;
-            const textToCopy = `${{w.ar}} (${{w.tr || ''}}) - Meaning: ${{w.m.en || ''}} | Ref: ${{verseRef(w)}}`;
+            const textToCopy = `${{w.ar}} - Meaning: ${{w.m.en || ''}} | Ref: ${{verseRef(w)}}`;
             navigator.clipboard.writeText(textToCopy).then(() => {{
                 showToast(`Copied to clipboard: "${{w.ar}}" 📋`);
             }}).catch(() => {{
@@ -1745,8 +1743,7 @@ def main():
                     <td><span class="badge-id">${{w.id}}</span></td>
                     <td class="font-arabic" style="font-size:22px; font-weight:700; color:var(--emerald);">${{w.ar}}</td>
                     <td>
-                        <div style="font-weight:600; font-style:italic;">${{w.tr || '—'}}</div>
-                        ${{w.rt ? `<div style="color:var(--gold); font-size:10px; font-weight:700;">Root: ${{w.rt}}</div>` : ''}}
+                        ${{w.rt ? `<div style="color:var(--gold); font-size:13px; font-weight:700;">${{w.rt}}</div>` : '—'}}
                     </td>
                     <td><span class="badge-pos">${{w.pos || w.cat}}</span></td>
                     <td><span class="badge-occ">${{w.occ.toLocaleString()}}</span></td>
@@ -1791,7 +1788,6 @@ def main():
             document.getElementById('fc-counter').innerText = `Card ${{fcIndex + 1}} / ${{filteredWords.length}}`;
             document.getElementById('fc-category').innerText = w.pos || w.cat;
             document.getElementById('fc-arabic').innerText = w.ar;
-            document.getElementById('fc-translit').innerText = w.tr || '';
             document.getElementById('fc-root').innerText = w.rt ? `Root: ${{w.rt}}` : '';
 
             let meaningsText = '';

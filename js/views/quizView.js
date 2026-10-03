@@ -19,8 +19,7 @@ function stimulus(q) {
   const info = langInfo(getLang());
   switch (q.mode) {
     case 'ar2m':
-      return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
-        h('p', { class: 'quiz-translit', text: w.tl }));
+      return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }));
     case 'm2ar':
       return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-meaning', attrs: { lang: info.bcp47 }, text: pick(w.m) }));
     case 'verse': {

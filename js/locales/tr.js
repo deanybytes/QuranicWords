@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'Sıra',
   tableWord: 'Arapça',
-  tableTranslit: 'Transliterasyon',
   tableRoot: 'Kök',
   tableMeaning: 'Anlam',
   tableFreq: 'Geçiş',

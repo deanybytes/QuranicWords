@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'درجہ',
   tableWord: 'عربی',
-  tableTranslit: 'تلفظ',
   tableRoot: 'مادہ',
   tableMeaning: 'معنی',
   tableFreq: 'تکرار',

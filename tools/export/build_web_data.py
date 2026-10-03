@@ -95,6 +95,10 @@ def main():
             "rt": c.get("root"), "cat": c["lemmaCategory"], "p": pos_ref(c.get("partOfSpeechLabel") or c.get("verbFormLabel")),
             "ch": ch, "sec": sec_num[lesson["sectionId"]], "les": regular_index[e["lessonId"]],
             "occ": c["quranOccurrenceCount"], "rank": f["frequencyRank"],
+            # English stays in the index: it is the fallback, and older cached copies of the web
+            # app read w.m.en directly (they would crash without it). Other languages are in
+            # data/meanings/LANG.json.
+            "m": {"en": c["meaning"]["en"]},
             "ref": verses[first["verse"]]["ref"],
             "sk": skeleton(c["arabicWord"]),
             "poly": {lang: len(items) for lang, items in c["senses"].items() if len(items) > 1},
@@ -137,7 +141,8 @@ def main():
     for stale in (DATA / "meanings").glob("*.json") if (DATA / "meanings").exists() else []:
         stale.unlink()
     for lang in LANGS:
-        dump(DATA / "meanings" / f"{lang}.json", [meanings[w["id"]][lang] for w in words])
+        if lang != "en":
+            dump(DATA / "meanings" / f"{lang}.json", [meanings[w["id"]][lang] for w in words])
     for (lang, ch), bucket in per.items():
         dump(DATA / "verses" / lang / f"ch_{ch:02d}.json", bucket)
     dump(DATA / "roots.json", {r: ids for r, ids in sorted(roots.items(), key=lambda kv: -len(kv[1]))})
