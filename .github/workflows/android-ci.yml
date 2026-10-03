@@ -3,10 +3,10 @@ name: Android CI
 on:
   push:
     branches: [main]
-    paths-ignore: ["js/**", "css/**", "index.html", "data/**", "docs/**", "*.md", "tools/pipeline/**", "tools/web/**"]
+    paths-ignore: ["js/**", "css/**", "index.html", "sw.js", "data/**", "dataset/**", "quran-words/**", "quran-roots/**", "docs/**", "store/**", "*.md", "*.txt", "sitemap*.xml", "tools/pipeline/**", "tools/web/**", "tools/export/**", "tools/store/**"]
   pull_request:
     branches: [main]
-    paths-ignore: ["js/**", "css/**", "index.html", "data/**", "docs/**", "*.md", "tools/pipeline/**", "tools/web/**"]
+    paths-ignore: ["js/**", "css/**", "index.html", "sw.js", "data/**", "dataset/**", "quran-words/**", "quran-roots/**", "docs/**", "store/**", "*.md", "*.txt", "sitemap*.xml", "tools/pipeline/**", "tools/web/**", "tools/export/**", "tools/store/**"]
 
 permissions:
   contents: read
@@ -33,6 +33,8 @@ jobs:
       # and let it write local.properties for the Gradle build.
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;28.2.13676358'   # not the action's default 'tools': the current sdkmanager has no such package
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
