@@ -125,7 +125,8 @@ class VerseIndex:
 def _content_label(lem, o, raw, lang):
     """The sense text for a word: its cleaned gloss, which must be a contiguous piece of the raw
     gloss so it can be highlighted exactly."""
-    cleaned = glosses.clean(raw, lang, lem.coarse, conj=o.conj_only and lem.track != "FUNCTION")
+    function = lem.track == "FUNCTION"
+    cleaned = glosses.clean(raw, lang, lem.coarse, conj=o.conj_only and not function, function=function)
     category = "PARTICLE" if lem.track == "FUNCTION" else lem.category
     if not cleaned or glosses.meaning_problem(cleaned, lang, category):
         return None

@@ -25,7 +25,10 @@ NOUN_LEADING = {
 }
 NOUN_TRAILING = {"fa": [" را"]}
 # Subject pronouns Urdu/Hindi word-by-word put after the verb ("پھسل گئے تم").
-VERB_TRAILING = {"ur": [" تم", " ہم", " وہ", " تو"], "hi": [" तुम", " हम", " वे", " वह", " मैं", " तू"]}
+VERB_TRAILING = {
+    "ur": [" تم", " ہم", " وہ", " تو", " ہم نے", " انہوں نے", " اس نے", " تم نے", " میں نے", " اسے", " انہیں", " تمہیں", " ہمیں"],
+    "hi": [" तुम", " हम", " वे", " वह", " मैं", " तू", " हमने", " उन्होंने", " उसने", " तुमने", " मैंने", " उसे", " उन्हें", " तुम्हें", " हमें"],
+}
 # Word-by-word glosses sometimes list alternatives ("مقبروں میں/ قبروں میں"); keep the first.
 ALTERNATIVE_SEPARATORS = re.compile(r"\s*(?:۔|/|؛)\s*")
 FRENCH_ELISION = re.compile(r"(?i)(?:\b(?:qu|l|d|j|n|s|c|m|t|jusqu|lorsqu|puisqu))['’]$")
@@ -63,6 +66,64 @@ CONJUNCTIONS = {
     "tr": ["ve ", "sonra ", "artık ", "böylece "],
     "fa": ["و ", "پس ", "سپس "],
 }
+# Words of the surrounding clause that word-by-word glosses fold into a content word ("but",
+# "if", "when", "who"): never part of a verb's or noun's own meaning. Not applied to function
+# words, whose meaning may legitimately be such a word ("آنان که" = those who).
+CLAUSE_LEADING = {
+    "en": ["but ", "if ", "when ", "indeed ", "surely "],
+    "fr": ["mais ", "si ", "quand ", "lorsque ", "certes "],
+    "bn": ["কিন্তু ", "অথচ ", "তাই ", "ফলে ", "যদি ", "যখন ", "নিশ্চয়ই ", "নিশ্চয় ", "অবশ্যই ", "তবে "],
+    "ur": ["اگر ", "جب ", "یقیناً ", "یقینا ", "بیشک ", "بے شک "],
+    "hi": ["अगर ", "जब ", "बेशक ", "यक़ीनन ", "यकीनन "],
+    "in": ["tetapi ", "jika ", "ketika ", "sungguh ", "sesungguhnya "],
+    "tr": ["fakat ", "eğer ", "şüphesiz ", "muhakkak "],
+    "fa": ["اگر ", "چون ", "هر گاه ", "همانا ", "بی گمان ", "بی‌گمان "],
+}
+# A verb's subject or object that is not part of the verb itself: the relative "who" from a
+# preceding الَّذِينَ, a named subject, or an object pronoun ("তাকে বাঁচালেন" = saved him).
+VERB_CONTEXT_LEADING = {
+    "en": ["allah ", "who ", "which ", "that "],
+    "fr": ["qui ", "que ", "qu'", "qu’", "allah "],
+    "bn": ["যারা ", "যে ", "যা ", "তাকে ", "তাদেরকে ", "তাদের ", "তোমাদেরকে ", "তোমাকে ", "আমাকে ", "আমাদেরকে ", "আল্লাহ "],
+    "ur": ["انہوں نے ", "اس نے ", "ہم نے ", "تم نے ", "میں نے ", "آپ نے ", "جس نے ", "جنہوں نے ", "جو ", "اللہ "],
+    "hi": ["उसने ", "उन्होंने ", "हमने ", "तुमने ", "मैंने ", "आपने ", "जिसने ", "जिन्होंने ", "जो ", "अल्लाह "],
+    "in": ["yang ", "allah "],
+    "tr": ["biz ", "siz ", "onlar ", "ben ", "sen ", "o ", "allah "],
+    "fa": ["که ", "تا ", "آن را ", "او را ", "آنها را ", "خدا ", "الله "],
+}
+VERB_CONTEXT_LEADING["bn"] += ["তা "]
+VERB_CONTEXT_LEADING["ur"] += ["کہ ", "ان دونوں نے ", "انہوں "]
+VERB_CONTEXT_LEADING["hi"] += ["कि "]
+# Trailing words that belong to the clause, not the word: a verb's object ("increased him",
+# "بمیراند او را") and a noun's case postposition ("ज़मीन में" = in the earth).
+VERB_CONTEXT_TRAILING = {
+    "en": [" him", " it", " them", " us", " me", " her", " on him", " to him", " upon him"],
+    "bn": [" তাকে", " তা", " তাদেরকে", " তাদের", " তোমাদেরকে", " তোমাকে", " আমাকে"],
+    "ur": [" اس کو", " ان کو", " تم کو", " ہم کو", " مجھ کو", " تجھ کو", " اسے", " انہیں", " اس پر", " ان پر"],
+    "hi": [" उसको", " उनको", " तुमको", " हमको", " मुझको", " उसे", " उन्हें", " उस पर", " उन पर"],
+    "fa": [" او را", " آن را", " آنها را", " ایشان را", " شما را", " ما را", " با او"],
+    "in": [" mereka", " dia", " kamu", " kami"],
+    "tr": [" da", " de"],
+}
+NOUN_CONTEXT_TRAILING = {
+    "ur": [" میں", " کو", " سے", " پر", " کے", " کی", " کا", " نے"],
+    "hi": [" में", " को", " से", " पर", " के", " की", " का", " ने"],
+    "tr": [" da", " de", " ile"],
+}
+# Participles and other nouns glossed with the clause around them ("mereka kekal" = they abide,
+# "o inek" = that cow, "qui guide" = who guides). Urdu ہم is left alone: ہم عمر, ہم نام are words.
+NOUN_CONTEXT_LEADING = {
+    "en": ["who ", "which "],
+    "fr": ["qui ", "que "],
+    "bn": ["তোমরা ", "তারা ", "আমরা ", "আমি ", "সে ", "যারা ", "তা "],
+    "ur": ["کہ ", "وہ ", "تم ", "ان دونوں "],
+    "hi": ["कि ", "वो ", "वह ", "वे "],
+    "in": ["mereka ", "dia ", "kami ", "kamu "],
+    "tr": ["o ", "biz ", "siz ", "onlar "],
+    "fa": ["آن ", "این ", "که ", "تا ", "من ", "او ", "آنان ", "هر گونه "],
+}
+NOUN_CONTEXT_LEADING["ur"] += ["اللہ کے ", "اللہ کی ", "اللہ کا "]
+NOUN_CONTEXT_LEADING["hi"] += ["अल्लाह के ", "अल्लाह की ", "अल्लाह का "]
 _PUNCT = " \t,.;:!?\"'“”‘’«»…-–—()[]{}"
 
 
@@ -139,7 +200,7 @@ def _strip_pronouns(t, lang):
     return t
 
 
-def clean(text, lang, coarse, conj=False, pronoun=False):
+def clean(text, lang, coarse, conj=False, pronoun=False, function=False):
     t = normalize_lang(unicodedata.normalize("NFC", text or ""), lang)
     t = re.sub(r"\([^)]*\)|\[[^\]]*\]|\{[^}]*\}", " ", t)   # implied words GTAF parenthesizes
     t = re.sub(r"\s+", " ", t).strip()
@@ -156,21 +217,35 @@ def clean(text, lang, coarse, conj=False, pronoun=False):
             t, low = t[len(prefix):], low[len(prefix):]
     # A leading "and/so" is never part of a verb's or noun's own meaning.
     t = _strip_leading(t, CONJUNCTIONS.get(lang, []))
+    if not function:
+        t = _strip_leading(t, CONJUNCTIONS.get(lang, []) + CLAUSE_LEADING.get(lang, []))
     t = _strip_leading(t, LEADING_STRIP.get(lang, []))
     if coarse != "V":
         t = _strip_leading(t, NOUN_LEADING.get(lang, []))
     if pronoun:
         t = _strip_pronouns(t.strip(_PUNCT), lang)
     if coarse == "V":
-        t = _strip_leading(t, VERB_PRONOUNS.get(lang, []))
-        for tail in VERB_TRAILING.get(lang, []):
-            if t.endswith(tail) and len(t) > len(tail) + 1:
-                t = t[: -len(tail)]
+        lead = VERB_PRONOUNS.get(lang, []) + ([] if function else
+                                               VERB_CONTEXT_LEADING.get(lang, []) + CONJUNCTIONS.get(lang, [])
+                                               + CLAUSE_LEADING.get(lang, []))
+        t = _strip_leading(t, lead)
+        changed = True
+        while changed:
+            changed = False
+            for tail in VERB_TRAILING.get(lang, []) + ([] if function else VERB_CONTEXT_TRAILING.get(lang, [])):
+                if t.lower().endswith(tail) and len(t) > len(tail) + 1:
+                    t, changed = t[: -len(tail)].rstrip(), True
+        t = _strip_leading(t, lead)
     else:
-        t = _strip_leading(t, NOUN_LEADING.get(lang, []))
-        for tail in NOUN_TRAILING.get(lang, []):
-            if t.endswith(tail) and len(t) > len(tail) + 1:
-                t = t[: -len(tail)]
+        t = _strip_leading(t, NOUN_LEADING.get(lang, []) + ([] if function else
+                                                            NOUN_CONTEXT_LEADING.get(lang, []) + CONJUNCTIONS.get(lang, [])
+                                                            + CLAUSE_LEADING.get(lang, [])))
+        changed = True
+        while changed:
+            changed = False
+            for tail in NOUN_TRAILING.get(lang, []) + ([] if function else NOUN_CONTEXT_TRAILING.get(lang, [])):
+                if t.endswith(tail) and len(t) > len(tail) + 1:
+                    t, changed = t[: -len(tail)].rstrip(), True
         for tail in TRAILING_COPULA.get(lang, []):
             if t.endswith(tail) and len(t) > len(tail) + 1:
                 t = t[: -len(tail)]
