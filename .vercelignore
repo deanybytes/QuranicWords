@@ -31,3 +31,4 @@ gradlew.bat
 *.py
 *.md
 /QuranicWords-v1.0.0.html
+/build.sh

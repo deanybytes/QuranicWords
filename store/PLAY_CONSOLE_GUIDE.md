@@ -19,7 +19,7 @@ Indonesian `id`, Turkish `tr-TR`, Persian `fa`, French `fr-FR`.
 ## Step 1 – Apply for production (day 14 of closed testing)
 
 **Dashboard → "Apply for production"** (appears after 14 days with 12+ opted-in testers).
-Paste the answers from **`store/production-access-answers.md`** – one section per question. They
+Paste the answers from **`store/private/production-access-answers.md`** (kept on your computer only, not in git) – one section per question. They
 describe what was actually changed after the testers' report.
 
 Google reviews the application (usually a few days). Steps 2–6 can be prepared now; the release in

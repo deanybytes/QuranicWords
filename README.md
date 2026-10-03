@@ -60,7 +60,7 @@ and Français**.
 
 - [The curriculum](#the-curriculum) · [How a lesson teaches](#how-a-lesson-teaches) · [Staying motivated](#staying-motivated)
 - [Qur'an fonts](#quran-fonts) · [Where the meanings come from](#where-the-meanings-come-from)
-- [Open dataset](#open-dataset) · [Build from source](#build-from-source) · [Repository layout](#repository-layout)
+- [Open dataset](#open-dataset) · [Rebuild it yourself](#rebuild-it-yourself-no-coding-needed) · [Build from source](#build-from-source-developers) · [Repository layout](#repository-layout)
 - [Documentation](#documentation) · [Contributing, licence and contact](#contributing-licence-and-contact)
 
 ## The curriculum
@@ -161,12 +161,41 @@ flashcards or analysis:
 It is also attached to every release as `QuranicWords-dataset-v1.0.0.zip`. See
 [`dataset/README.md`](dataset/README.md) for the schema, licence and how to cite it.
 
-## Build from source
+## Rebuild it yourself (no coding needed)
+
+The complete source of the Android app, the web app, the content pipeline and the store assets
+is in this repository, so anyone can rebuild everything:
+
+1. **Just want the app?** Download the APK or the offline HTML from the
+   [releases page](https://github.com/deanybytes/QuranicWords/releases/latest).
+2. **Build it in the cloud, nothing to install:** fork this repository, open **Actions → Build
+   APK → Run workflow**, and download `QuranicWords-debug-apk` from the finished run.
+3. **Build it on your computer with one command** (Linux or macOS, JDK 17+; a missing Android SDK
+   is downloaded for you):
+
+   ```bash
+   git clone https://github.com/deanybytes/QuranicWords.git
+   cd QuranicWords
+   ./build.sh            # -> build/QuranicWords-debug.apk
+   ```
+
+   | Command | Does |
+   |---|---|
+   | `./build.sh` | Android app, debug APK |
+   | `./build.sh release` | release APK (debug-signed unless you add your own keystore, see [SECURITY.md](SECURITY.md)) |
+   | `./build.sh content` | rebuild the curriculum from the pinned sources, plus the web data, dataset and word pages |
+   | `./build.sh web` | the website, served at http://localhost:8000 |
+   | `./build.sh test` | every test (Android, content pipeline, web) |
+   | `./build.sh all` | all of the above |
+
+On Windows, use option 2, or open the folder in Android Studio and press Run.
+
+## Build from source (developers)
 
 ```bash
 git clone https://github.com/deanybytes/QuranicWords.git
 cd QuranicWords
-./gradlew --max-workers=4 :app:assembleDebug      # Android app (JDK 21, Android SDK 36)
+./gradlew --max-workers=4 :app:assembleDebug      # Android app (JDK 17+, Android SDK 36)
 ./gradlew --max-workers=4 :app:testDebugUnitTest  # unit tests
 python3 tools/pipeline/run.py --check             # rebuild + validate the content (Python 3.12)
 node tools/web/smoke_test.mjs                     # web app tests (Node 20+)
@@ -179,6 +208,7 @@ regenerate the derived files as described in [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Repository layout
 
 ```
+build.sh                one-command builds (APK, content, website, tests)
 app/                    Android app (Kotlin, Jetpack Compose, Room, Hilt)
   src/main/assets/content/   curriculum JSON built by tools/pipeline
 index.html  js/  css/   web app (vanilla ES modules, service worker)
