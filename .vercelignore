@@ -14,6 +14,7 @@
 /keys/
 /corpus_data/
 /docs/
+/store/
 /gradle/
 /build/
 /scripts/
