@@ -1,5 +1,5 @@
 // Reusable word widgets: verse context (lazy), word card, senses dialog.
-import { h, icon, arabic, splitSpan, splitHighlight, markedText } from './dom.js';
+import { h, icon, arabic, splitSpan, markedText } from './dom.js';
 import { t, pick, cite, getLang, langInfo, formatNumber } from './i18n.js';
 import { toast, openModal } from './ui.js';
 
@@ -9,25 +9,36 @@ function uiDirAttrs() {
   return { lang: info.bcp47, dir: info.dir };
 }
 
-/** Renders a verse object {v_ar, s, e, v_tr, hl} with the word highlighted. */
-export function verseNode(v, ref, { withHighlight = true } = {}) {
-  const lang = getLang();
+function spanLine(cls, text, s, e, markClass, attrs) {
+  const p = h('p', { class: cls, attrs });
+  const parts = splitSpan(text, s, e);
+  if (parts) p.appendChild(markedText(parts, markClass)); else p.textContent = text || '';
+  return p;
+}
+
+/**
+ * Renders one sense example (see DataStore.sensesFor): the complete ayah with only the taught
+ * word marked, the word-by-word line with exactly the sense text marked, and the full
+ * translation - marked only where it contains the sense text verbatim.
+ */
+export function verseNode(v, ref) {
   const wrap = h('div', { class: 'verse' });
-  const ar = h('p', { class: 'card-verse-arabic', attrs: { lang: 'ar', dir: 'rtl' } });
-  const parts = splitSpan(v.v_ar, v.s, v.e);
-  if (parts) ar.appendChild(markedText(parts)); else ar.textContent = v.v_ar || '';
-  wrap.appendChild(ar);
-  const trLang = v.v_tr && v.v_tr[lang] ? lang : 'en';
-  const trText = (v.v_tr && v.v_tr[trLang]) || '';
-  if (trText) {
-    const info = langInfo(trLang);
-    const tr = h('p', { class: 'card-verse-trans', attrs: { lang: info.bcp47, dir: info.dir } });
-    const hl = withHighlight && v.hl ? splitHighlight(trText, v.hl[trLang]) : null;
-    if (hl) tr.appendChild(markedText(hl, 'mark-tr')); else tr.textContent = trText;
-    wrap.appendChild(tr);
+  const info = uiDirAttrs();
+  wrap.appendChild(spanLine('card-verse-arabic', v.v_ar, v.s, v.e, null, { lang: 'ar', dir: 'rtl' }));
+  if (v.wbw) {
+    wrap.appendChild(h('p', { class: 'verse-label', text: t('wbwLabel') }));
+    wrap.appendChild(spanLine('card-verse-wbw', v.wbw, v.ws, v.we, 'mark-tr', info));
   }
+  if (v.tr) wrap.appendChild(spanLine('card-verse-trans', v.tr, v.ts, v.te, 'mark-tr', info));
   if (ref) wrap.appendChild(h('p', { class: 'verse-ref', text: cite(ref) }));
   return wrap;
+}
+
+function senseList(senses) {
+  if (senses.length === 1) return [verseNode(senses[0], senses[0].ref)];
+  return senses.map((s) => h('section', { class: 'sense-item' },
+    h('h3', { class: 'sense-title' }, h('span', { text: t('senseN', { n: formatNumber(s.i) }) }), ': ', h('span', { attrs: uiDirAttrs(), text: s.m })),
+    verseNode(s, s.ref)));
 }
 
 /**
@@ -39,16 +50,19 @@ export function verseToggle(ctx, w, expanded) {
   const regionId = `verse-${w.id}`;
   const btn = h('button', { type: 'button', class: 'verse-toggle', attrs: { 'aria-expanded': 'false', 'aria-controls': regionId } });
   const label = h('span', { class: 'verse-toggle-label' });
-  btn.append(icon('📖'), label, h('span', { class: 'verse-ref-badge', text: cite(w.ref) }));
+  // Each language has its own examples; the badge shows the reference once it is known.
+  const badge = h('span', { class: 'verse-ref-badge', text: getLang() === 'en' ? cite(w.ref) : '' });
+  btn.append(icon('📖'), label, badge);
   const region = h('div', { class: 'card-verse-content', id: regionId, hidden: true });
   box.append(btn, region);
 
   const setLabel = (open) => { label.textContent = open ? t('hideVerse') : t('showVerse'); btn.setAttribute('aria-expanded', String(open)); };
   const load = () => {
     region.replaceChildren(h('p', { class: 'muted', attrs: { role: 'status' }, text: t('verseLoading') }));
-    ctx.data.verseFor(w.id).then((v) => {
-      if (!v) { region.replaceChildren(h('p', { class: 'muted', text: t('noVerse') })); return; }
-      region.replaceChildren(verseNode(v, null));
+    ctx.data.sensesFor(w.id).then((senses) => {
+      if (!senses.length) { region.replaceChildren(h('p', { class: 'muted', text: t('noVerse') })); return; }
+      badge.textContent = cite(senses[0].ref);
+      region.replaceChildren(...senseList(senses));
     }).catch(() => {
       region.replaceChildren(h('p', { class: 'error-text', attrs: { role: 'alert' } }, t('verseError'), ' ',
         h('button', { type: 'button', class: 'btn btn-sm', text: t('retry'), on: { click: load } })));
@@ -74,12 +88,9 @@ export function openSenses(ctx, w) {
   const list = h('div', { class: 'senses-list' }, h('p', { class: 'muted', attrs: { role: 'status' }, text: t('verseLoading') }));
   body.appendChild(list);
   openModal(t('contextSenses'), body);
-  const render = () => ctx.data.verseFor(w.id).then((v) => {
-    const senses = (v && v.senses) || [];
+  const render = () => ctx.data.sensesFor(w.id).then((senses) => {
     if (!senses.length) { list.replaceChildren(h('p', { class: 'muted', text: t('noVerse') })); return; }
-    list.replaceChildren(...senses.map((s) => h('section', { class: 'sense-item' },
-      h('h3', { class: 'sense-title' }, h('span', { text: t('senseN', { n: formatNumber(s.i) }) }), ': ', h('span', { attrs: uiDirAttrs(), text: pick(s.m) })),
-      verseNode(s, s.ref, { withHighlight: false }))));
+    list.replaceChildren(...senseList(senses));
   }).catch(() => {
     list.replaceChildren(h('p', { class: 'error-text', attrs: { role: 'alert' } }, t('verseError'), ' ',
       h('button', { type: 'button', class: 'btn btn-sm', text: t('retry'), on: { click: render } })));
@@ -129,7 +140,7 @@ export function wordCard(ctx, w, { expanded } = {}) {
     h('p', { class: 'card-primary-meaning', attrs: { lang: langInfo(lang).bcp47 }, text: meaning }),
     w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: 'en' }, text: w.pos }) : null,
     verbFormsLine(w),
-    w.poly ? h('button', { type: 'button', class: 'card-poly-indicator', on: { click: () => openSenses(ctx, w) } }, icon('🔀'), h('span', { text: t('contextSenses') })) : null);
+    w.poly && w.poly[lang] ? h('button', { type: 'button', class: 'card-poly-indicator', on: { click: () => openSenses(ctx, w) } }, icon('🔀'), h('span', { text: t('contextSenses') })) : null);
 
   const copyBtn = h('button', { type: 'button', class: 'card-action-btn', on: { click: () => ctx.copyWord(w) } }, icon('📋'), h('span', { text: t('copy') }));
   const saveBtn = h('button', { type: 'button', class: `card-action-btn bookmark-btn${saved ? ' active' : ''}`, attrs: { 'aria-pressed': String(saved) } },

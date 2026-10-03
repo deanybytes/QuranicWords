@@ -94,6 +94,7 @@ export default {
   contextSenses: 'প্রসঙ্গভেদে অর্থ',
   sensesSub: 'এই শব্দটি বিভিন্ন আয়াতে বিভিন্ন অর্থ বহন করে।',
   senseN: 'অর্থ {n}',
+  wbwLabel: 'শব্দে শব্দে',
   verbForms: 'ক্রিয়ার রূপ',
   pastLabel: 'অতীত',
   presentLabel: 'বর্তমান',

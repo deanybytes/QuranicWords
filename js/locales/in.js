@@ -94,6 +94,7 @@ export default {
   contextSenses: 'Makna sesuai konteks',
   sensesSub: 'Kata ini memiliki makna berbeda di ayat yang berbeda.',
   senseN: 'Makna {n}',
+  wbwLabel: 'Kata per kata',
   verbForms: 'Bentuk kata kerja',
   pastLabel: 'Lampau',
   presentLabel: 'Sekarang',

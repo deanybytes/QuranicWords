@@ -1,11 +1,13 @@
 // Data layer for the generated curriculum (tools/export/build_web_data.py):
 //   data/index.json        {meta, words[]}   loaded at start
 //   data/roots.json        {root: [wordIds]}
-//   data/verses/ch_NN.json {wordId: verse}   lazy-loaded per chapter
+//   data/verses/LANG/ch_NN.json {words: {wordId: [sense]}, verses: {"s:a": verse}}
+//                          lazy-loaded per language and chapter
 // Offline caching and revalidation are handled by the service worker (sw.js).
 import { DATA_URLS } from './config.js';
 import { curriculumCompare } from './search.js';
 import { lessonKey } from './progress.js';
+import { getLang } from './i18n.js';
 
 async function getJSON(url) {
   const res = await fetch(url, { credentials: 'same-origin' });
@@ -33,8 +35,8 @@ export class DataStore {
     this.roots = [];          // [{root, ids}] sorted by size desc (file order)
     this.lessons = [];
     this.lessonByKey = new Map();
-    this.verseFiles = new Map(); // ch -> Promise<object>
-    this.loadedChapters = new Set();
+    this.verseFiles = new Map(); // "lang:ch" -> Promise<object>
+    this.loadedChapters = new Set(); // "lang:ch"
   }
 
   async load() {
@@ -52,21 +54,41 @@ export class DataStore {
     return (this.meta && this.meta.chapters.find((c) => c.n === n)) || null;
   }
 
-  /** Loads (once) the verse file of a chapter. Failed loads are not cached so they can be retried. */
-  loadChapterVerses(ch) {
-    if (!this.verseFiles.has(ch)) {
-      const p = getJSON(DATA_URLS.verses(ch)).then((d) => { this.loadedChapters.add(ch); return d; });
-      p.catch(() => this.verseFiles.delete(ch));
-      this.verseFiles.set(ch, p);
-    }
-    return this.verseFiles.get(ch);
+  /** Whether the chapter's verse file for the current language is already loaded. */
+  hasChapterVerses(ch, lang = getLang()) {
+    return this.loadedChapters.has(`${lang}:${ch}`);
   }
 
-  /** Verse context for a word, or null if the word has none. Rejects on network failure. */
-  async verseFor(wordId) {
+  /** Loads (once) a chapter's verse file for a language. Failed loads are not cached so they can be retried. */
+  loadChapterVerses(ch, lang = getLang()) {
+    const key = `${lang}:${ch}`;
+    if (!this.verseFiles.has(key)) {
+      const p = getJSON(DATA_URLS.verses(lang, ch)).then((d) => { this.loadedChapters.add(key); return d; });
+      p.catch(() => this.verseFiles.delete(key));
+      this.verseFiles.set(key, p);
+    }
+    return this.verseFiles.get(key);
+  }
+
+  /**
+   * The word's senses in a language, each with its complete example verse:
+   * [{i, m, ref, v_ar, s, e, wbw, ws, we, tr, ts, te}] - `s..e` is the taught word in the Arabic,
+   * `ws..we` the sense text in the word-by-word line, `ts..te` the same text in the translation
+   * (null when the translation does not contain it exactly once). Rejects on network failure.
+   */
+  async sensesFor(wordId, lang = getLang()) {
     const w = this.byId.get(wordId);
-    if (!w) return null;
-    const file = await this.loadChapterVerses(w.ch);
-    return (file && file[wordId]) || null;
+    if (!w) return [];
+    const file = await this.loadChapterVerses(w.ch, lang);
+    const items = (file && file.words && file.words[wordId]) || [];
+    return items.map((x, i) => {
+      const v = file.verses[x.v] || {};
+      return { i: i + 1, m: x.m, ref: v.ref, v_ar: v.ar, s: x.s, e: x.e, wbw: v.wbw, ws: x.ws, we: x.we, tr: v.tr, ts: x.ts, te: x.te };
+    });
+  }
+
+  /** First sense's example verse, or null. */
+  async verseFor(wordId, lang = getLang()) {
+    return (await this.sensesFor(wordId, lang))[0] || null;
   }
 }

@@ -94,6 +94,7 @@ export default {
   contextSenses: 'سیاق و سباق میں معانی',
   sensesSub: 'یہ لفظ مختلف آیات میں مختلف معانی رکھتا ہے۔',
   senseN: 'معنی {n}',
+  wbwLabel: 'لفظ بہ لفظ',
   verbForms: 'فعل کی صورتیں',
   pastLabel: 'ماضی',
   presentLabel: 'مضارع',

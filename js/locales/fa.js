@@ -94,6 +94,7 @@ export default {
   contextSenses: 'معانی در سیاق',
   sensesSub: 'این واژه در آیات مختلف معانی گوناگونی دارد.',
   senseN: 'معنی {n}',
+  wbwLabel: 'کلمه به کلمه',
   verbForms: 'صیغه‌های فعل',
   pastLabel: 'ماضی',
   presentLabel: 'مضارع',

@@ -95,6 +95,7 @@ export default {
   contextSenses: 'Meanings in context',
   sensesSub: 'This word carries different meanings in different verses.',
   senseN: 'Meaning {n}',
+  wbwLabel: 'Word by word',
   verbForms: 'Verb forms',
   pastLabel: 'Past',
   presentLabel: 'Present',

@@ -1,5 +1,5 @@
 // Quiz view (4 modes) and a reusable multiple-choice question renderer used by lessons.
-import { h, clear, arabic, splitHighlight, markedText } from '../dom.js';
+import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, getLang, langInfo, pick } from '../i18n.js';
 import { buildQuestion, isCorrect, pickTarget, verseBlank, MODES } from '../quiz.js';
 import { verseNode } from '../components.js';
@@ -28,12 +28,8 @@ function stimulus(q) {
       const [before, after] = verseBlank(v);
       const ar = h('p', { class: 'card-verse-arabic quiz-verse', attrs: { lang: 'ar', dir: 'rtl' } },
         before, h('span', { class: 'blank', attrs: { role: 'img', 'aria-label': t('blankLabel') }, text: '_____' }), after);
-      const trLang = v.v_tr && v.v_tr[getLang()] ? getLang() : 'en';
-      const trInfo = langInfo(trLang);
-      const trText = (v.v_tr && v.v_tr[trLang]) || '';
-      const tr = h('p', { class: 'card-verse-trans', attrs: { lang: trInfo.bcp47, dir: trInfo.dir } });
-      const hl = v.hl ? splitHighlight(trText, v.hl[trLang]) : null;
-      if (hl) tr.appendChild(markedText(hl, 'mark-tr')); else tr.textContent = trText;
+      // The translation is shown unmarked: marking it would give the answer away.
+      const tr = h('p', { class: 'card-verse-trans', attrs: { lang: info.bcp47, dir: info.dir }, text: v.tr || '' });
       return h('div', { class: 'quiz-stimulus' }, ar, tr);
     }
     default: return null;
@@ -67,7 +63,7 @@ export function renderQuestion(el, q, { onAnswer, onNext, header = null, autoAdv
       const answerText = q.mode === 'm2ar' || q.mode === 'verse' ? q.target.ar : pick(q.target.m);
       feedback.textContent = ok ? t('quizCorrect') : t('quizWrong', { answer: answerText });
       feedback.className = `quiz-feedback ${ok ? 'ok' : 'bad'}`;
-      if (q.mode === 'verse') el.querySelector('.quiz-stimulus')?.replaceWith(h('div', { class: 'quiz-stimulus' }, verseNode(q.verse, q.target.ref)));
+      if (q.mode === 'verse') el.querySelector('.quiz-stimulus')?.replaceWith(h('div', { class: 'quiz-stimulus' }, verseNode(q.verse, q.verse.ref)));
       onAnswer(ok);
       nextBtn.hidden = false;
       if (ok && autoAdvance) timer = setTimeout(onNext, AUTO_ADVANCE_MS);
@@ -135,7 +131,7 @@ export const quizView = {
       this.body.replaceChildren(h('p', { class: 'empty-state', text: t('quizNeedWords') }));
       return;
     }
-    const prefer = this.mode === 'verse' ? (w) => ctx.data.loadedChapters.has(w.ch) : null;
+    const prefer = this.mode === 'verse' ? (w) => ctx.data.hasChapterVerses(w.ch) : null;
     const target = pickTarget(pool, { prefer, avoidId: this.lastId });
     let verse = null;
     if (this.mode === 'verse') {

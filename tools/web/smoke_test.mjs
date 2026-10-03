@@ -346,11 +346,22 @@ await test('questions are graded by word id, not by text', () => {
 await test('verse fill-in blanks exactly the word span', () => {
   assert.deepEqual(quiz.verseBlank({ v_ar: 'abc def ghi', s: 4, e: 7 }), ['abc ', ' ghi']);
   assert.equal(quiz.verseBlank({ v_ar: 'abc', s: 1, e: 9 }), null);
-  const v = JSON.parse(read('data/verses/ch_01.json'));
-  for (const [id, entry] of Object.entries(v)) {
-    const parts = quiz.verseBlank(entry);
-    assert.ok(parts, id);
-    assert.equal(parts[0].length + parts[1].length + (entry.e - entry.s), entry.v_ar.length);
+});
+await test('every sense highlight is an exact, in-bounds span in every language', () => {
+  for (const lang of ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']) {
+    for (let ch = 1; ch <= 10; ch++) {
+      const f = JSON.parse(read(`data/verses/${lang}/ch_${String(ch).padStart(2, '0')}.json`));
+      for (const [id, senses] of Object.entries(f.words)) {
+        assert.ok(senses.length >= 1 && senses.length <= 3, `${lang} ${id}`);
+        for (const x of senses) {
+          const v = f.verses[x.v];
+          assert.ok(v && v.ref && v.ar && v.wbw && v.tr, `${lang} ${id} verse ${x.v}`);
+          assert.ok(quiz.verseBlank({ v_ar: v.ar, s: x.s, e: x.e }), `${lang} ${id} arabic span`);
+          assert.equal(v.wbw.slice(x.ws, x.we), x.m, `${lang} ${id} wbw`);
+          if (x.ts !== null) assert.equal(v.tr.slice(x.ts, x.te).toLocaleLowerCase(lang === 'tr' ? 'tr' : 'en'), x.m.toLocaleLowerCase(lang === 'tr' ? 'tr' : 'en'), `${lang} ${id} tr`);
+        }
+      }
+    }
   }
 });
 await test('pickTarget avoids repeating the previous word', () => {

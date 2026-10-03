@@ -94,6 +94,7 @@ export default {
   contextSenses: 'Sens selon le contexte',
   sensesSub: 'Ce mot prend des sens différents selon les versets.',
   senseN: 'Sens {n}',
+  wbwLabel: 'Mot à mot',
   verbForms: 'Formes verbales',
   pastLabel: 'Passé',
   presentLabel: 'Présent',

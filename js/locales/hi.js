@@ -94,6 +94,7 @@ export default {
   contextSenses: 'संदर्भ के अनुसार अर्थ',
   sensesSub: 'यह शब्द अलग-अलग आयतों में अलग-अलग अर्थ रखता है।',
   senseN: 'अर्थ {n}',
+  wbwLabel: 'शब्दशः',
   verbForms: 'क्रिया के रूप',
   pastLabel: 'भूतकाल',
   presentLabel: 'वर्तमान काल',

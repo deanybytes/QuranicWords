@@ -94,6 +94,7 @@ export default {
   contextSenses: 'Bağlama göre anlamlar',
   sensesSub: 'Bu kelime farklı ayetlerde farklı anlamlar taşır.',
   senseN: 'Anlam {n}',
+  wbwLabel: 'Kelime kelime',
   verbForms: 'Fiil kalıpları',
   pastLabel: 'Geçmiş',
   presentLabel: 'Şimdiki',
