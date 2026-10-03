@@ -1,13 +1,17 @@
 package com.quranicwords.app.core.data.assets
 
 import android.content.Context
+import android.util.JsonReader
+import android.util.JsonToken
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import androidx.room.withTransaction
 import com.quranicwords.app.core.data.local.QwDatabase
+import com.quranicwords.app.core.data.local.entity.VerseEntity
 import com.quranicwords.app.core.data.migration.LegacyContentMap
 import com.quranicwords.app.core.data.migration.LegacyProgressRemapper
 import com.quranicwords.app.core.util.AppJson
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.InputStreamReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -48,6 +52,7 @@ class ContentSeeder @Inject constructor(
                 database.sectionDao().deleteAll()
                 database.chapterDao().deleteAll()
                 database.wordFrequencyDao().deleteAll()
+                database.verseDao().deleteAll()
 
                 val chapters = readAsset<ChaptersFile>("content/chapters.json").chapters
                 database.chapterDao().insertAll(chapters)
@@ -58,6 +63,7 @@ class ContentSeeder @Inject constructor(
                 streamExercises { chunk -> database.exerciseDao().insertAll(chunk.map { it.toEntity() }) }
                 val words = readAsset<WordFrequencyFile>("content/word_frequency.json").words
                 words.chunked(500).forEach { database.wordFrequencyDao().insertAll(it) }
+                streamVerses { chunk -> database.verseDao().insertAll(chunk) }
 
                 if (legacyMap != null) {
                     val lessonWords = migration.getLessonWords().groupBy({ it.lessonId }, { it.wordId })
@@ -104,6 +110,57 @@ class ContentSeeder @Inject constructor(
         }
     }
 
+    /** Reads the ~20 MB `verses.json` object (`{"S:A": {ref, ar, wbw, tr}}`) entry by entry with a
+     * streaming reader, so only one chunk of verses is ever held in memory. */
+    private suspend fun streamVerses(insert: suspend (List<VerseEntity>) -> Unit) {
+        context.assets.open("content/verses.json").use { stream ->
+            JsonReader(InputStreamReader(stream, Charsets.UTF_8)).use { reader ->
+                val batch = ArrayList<VerseEntity>(VERSE_CHUNK)
+                reader.beginObject()
+                while (reader.hasNext()) {
+                    val key = reader.nextName()
+                    batch += readVerse(key, reader)
+                    if (batch.size == VERSE_CHUNK) {
+                        insert(batch.toList())
+                        batch.clear()
+                    }
+                }
+                reader.endObject()
+                if (batch.isNotEmpty()) insert(batch.toList())
+            }
+        }
+    }
+
+    private fun readVerse(key: String, reader: JsonReader): VerseEntity {
+        var reference = ""
+        var arabic = ""
+        var wordByWord: Map<String, String> = emptyMap()
+        var translation: Map<String, String> = emptyMap()
+        reader.beginObject()
+        while (reader.hasNext()) {
+            when (reader.nextName()) {
+                "ref" -> reference = reader.nextString()
+                "ar" -> arabic = reader.nextString()
+                "wbw" -> wordByWord = readStringMap(reader)
+                "tr" -> translation = readStringMap(reader)
+                else -> reader.skipValue()
+            }
+        }
+        reader.endObject()
+        return VerseEntity(key = key, reference = reference, arabic = arabic, wordByWord = wordByWord, translation = translation)
+    }
+
+    private fun readStringMap(reader: JsonReader): Map<String, String> {
+        val map = LinkedHashMap<String, String>()
+        reader.beginObject()
+        while (reader.hasNext()) {
+            val name = reader.nextName()
+            if (reader.peek() == JsonToken.STRING) map[name] = reader.nextString() else reader.skipValue()
+        }
+        reader.endObject()
+        return map
+    }
+
     private fun loadLegacyMap(previousVersion: Int): LegacyContentMap? = runCatching {
         val all = readAsset<Map<String, LegacyContentMap>>("content/legacy_progress_map.json")
         all[previousVersion.toString()] ?: all[LATEST_LEGACY_VERSION.toString()]
@@ -115,10 +172,11 @@ class ContentSeeder @Inject constructor(
 
     companion object {
         /** Bump whenever tools/pipeline output changes. */
-        const val CONTENT_VERSION = 37
+        const val CONTENT_VERSION = 38
         /** First content version built by tools/pipeline (new word/lesson ids). */
         const val FIRST_REBUILT_VERSION = 36
         private const val LATEST_LEGACY_VERSION = 35
         private const val EXERCISE_CHUNK = 400
+        private const val VERSE_CHUNK = 250
     }
 }

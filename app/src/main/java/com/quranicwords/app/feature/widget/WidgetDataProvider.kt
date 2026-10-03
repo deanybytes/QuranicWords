@@ -9,6 +9,7 @@ import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
 import com.quranicwords.app.core.data.local.Converters
 import com.quranicwords.app.core.data.local.QwDatabase
 import com.quranicwords.app.core.data.local.dao.ItemStability
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
 import com.quranicwords.app.core.di.SystemZoneClock
 import com.quranicwords.app.core.domain.DisplayedStreak
 import com.quranicwords.app.core.domain.HeartsCalculator
@@ -16,11 +17,9 @@ import com.quranicwords.app.core.domain.LevelCurve
 import com.quranicwords.app.core.domain.hasKnownMetric
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
-import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.model.get
-import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.util.decodeExerciseContentOrNull
 import kotlinx.coroutines.CancellationException
@@ -175,7 +174,7 @@ object WidgetDataProvider {
 
     private const val MAX_PICK_ATTEMPTS = 3
 
-    private fun details(db: QwDatabase, pick: WordPick, strength: WordStrength, language: Language): WidgetWord? {
+    private suspend fun details(db: QwDatabase, pick: WordPick, strength: WordStrength, language: Language): WidgetWord? {
         val key = "${pick.wordId}|${language.tag}"
         wordCache.get(key)?.let { return it.copy(kind = pick.kind, strength = strength) }
 
@@ -189,17 +188,30 @@ object WidgetDataProvider {
             FrequencyRow(c.getString(0), c.getInt(1), c.getInt(2), converters.toLocalizedText(c.getString(3)))
         }
         val intro = introFor(db, pick.wordId)
+        // Meaning and example in the learner's language: that language's sense 1, its verse from
+        // the verses table, and exactly one translation line.
+        val localized = intro?.let { WordExampleLocalizer(db.verseDao()::getAll).localize(it, language) }
         val word = WidgetWord(
             id = pick.wordId,
-            arabic = intro?.arabic?.takeIf { it.isNotBlank() } ?: row.arabic,
-            meaning = (intro?.meaning?.takeIf { it.isNotEmpty() } ?: row.meaning).get(language),
+            arabic = intro?.arabicWord?.takeIf { it.isNotBlank() } ?: row.arabic,
+            meaning = localized?.meaning?.takeIf { it.isNotBlank() } ?: row.meaning.get(language),
             kind = pick.kind,
             strength = strength,
-            category = intro?.category,
+            category = intro?.lemmaCategory,
             occurrences = row.count,
             rank = row.rank,
-            example = intro?.example?.let { ex ->
-                WidgetExample(arabic = ex.arabic, translation = ex.translation.getOrNull(language), reference = ex.reference)
+            example = localized?.primarySense?.let { sense ->
+                val fullTranslation = sense.translationStart != null
+                WidgetExample(
+                    arabic = sense.verseArabic,
+                    translation = if (fullTranslation) sense.translationText else sense.wbwText,
+                    reference = sense.verseKey,
+                    arabicStart = sense.wordStart,
+                    arabicEnd = sense.wordEnd,
+                    translationStart = if (fullTranslation) sense.translationStart else sense.wbwStart,
+                    translationEnd = if (fullTranslation) sense.translationEnd else sense.wbwEnd,
+                    isWordByWord = !fullTranslation
+                )
             }
         )
         wordCache.put(key, word)
@@ -208,8 +220,6 @@ object WidgetDataProvider {
 
     private data class FrequencyRow(val arabic: String, val rank: Int, val count: Int, val meaning: LocalizedText)
 
-    private data class IntroExample(val arabic: String, val translation: LocalizedText, val reference: String?)
-    private data class IntroDetails(val arabic: String, val meaning: LocalizedText, val category: LemmaCategory, val example: IntroExample?)
 
     /**
      * The word's WORD_INTRO teach step, found without decoding the curriculum: content JSON is
@@ -219,7 +229,7 @@ object WidgetDataProvider {
      * This is the widgets' only reader of [ExerciseContent] - if the way examples are stored
      * changes, this mapping is the one place to follow it.
      */
-    private fun introFor(db: QwDatabase, wordId: String): IntroDetails? {
+    private fun introFor(db: QwDatabase, wordId: String): ExerciseContent.WordIntro? {
         val pattern = "%\"wordId\":\"$wordId\"%"
         db.query(
             SimpleSQLiteQuery(
@@ -230,10 +240,7 @@ object WidgetDataProvider {
             while (c.moveToNext()) {
                 val intro = decodeExerciseContentOrNull(c.getString(0)) as? ExerciseContent.WordIntro ?: continue
                 if (intro.wordId != wordId) continue
-                val example = intro.exampleVerseArabic?.takeIf { it.isNotBlank() }?.let {
-                    IntroExample(it, intro.exampleVerseTranslation, intro.exampleVerseReference)
-                }
-                return IntroDetails(intro.arabicWord, intro.meaning, intro.lemmaCategory, example)
+                return intro
             }
         }
         return null

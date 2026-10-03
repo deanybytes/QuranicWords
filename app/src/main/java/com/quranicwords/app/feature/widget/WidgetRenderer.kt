@@ -3,8 +3,13 @@ package com.quranicwords.app.feature.widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.StyleSpan
 import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
@@ -189,8 +194,23 @@ object WidgetRenderer {
             val example = word.example
             if (example != null) {
                 v.setViewVisibility(R.id.ll_example, View.VISIBLE)
-                v.setTextViewText(R.id.tv_example_arabic, example.arabic)
-                bindOptionalText(v, R.id.tv_example_translation, example.translation?.takeIf { !hidden })
+                v.setTextViewText(R.id.tv_example_arabic, highlighted(example.arabic, example.arabicStart, example.arabicEnd))
+                val line = example.translation?.takeIf { !hidden && it.isNotBlank() }
+                if (line == null) {
+                    v.setViewVisibility(R.id.tv_example_translation, View.GONE)
+                } else {
+                    val body = highlighted(line, example.translationStart, example.translationEnd)
+                    val text = if (example.isWordByWord) {
+                        SpannableStringBuilder()
+                            .append(res.getString(R.string.verse_word_by_word_label), StyleSpan(Typeface.BOLD), 0)
+                            .append(": ")
+                            .append(body)
+                    } else {
+                        body
+                    }
+                    v.setTextViewText(R.id.tv_example_translation, text)
+                    v.setViewVisibility(R.id.tv_example_translation, View.VISIBLE)
+                }
                 bindOptionalText(
                     v, R.id.tv_example_ref,
                     example.reference?.let { VerseReferenceFormatter.format(it, language) }?.takeIf { it.isNotBlank() }
@@ -305,6 +325,14 @@ object WidgetRenderer {
             val cta = WidgetDeepLink.pendingIntent(context, widgetId, "cta", target)
             v.setOnClickPendingIntent(R.id.tv_cta, cta)
             v.setOnClickPendingIntent(R.id.ll_tile_due, cta)
+        }
+
+        /** [text] with only `[start, end)` in bold - the content's explicit span, never a search. */
+        private fun highlighted(text: String, start: Int?, end: Int?): CharSequence {
+            if (start == null || end == null || start !in 0 until end || end > text.length) return text
+            return SpannableString(text).apply {
+                setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
         }
 
         private fun bindOptionalText(v: RemoteViews, id: Int, text: String?) {

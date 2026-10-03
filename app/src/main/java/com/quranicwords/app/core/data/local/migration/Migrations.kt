@@ -59,5 +59,21 @@ object Migrations {
         }
     }
 
-    val ALL: Array<Migration> = arrayOf(MIGRATION_5_6, MIGRATION_6_7)
+    /**
+     * 7 → 8: the `verses` content table - one row per ayah that a word's senses cite, with its
+     * word-by-word line and full translation per language. Content-only and additive: it starts
+     * empty and is filled by the content reseed that the accompanying CONTENT_VERSION bump
+     * triggers (see ContentSeeder), so no learner row is touched.
+     */
+    val MIGRATION_7_8 = object : Migration(7, 8) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL(
+                "CREATE TABLE IF NOT EXISTS `verses` (`key` TEXT NOT NULL, `reference` TEXT NOT NULL, " +
+                    "`arabic` TEXT NOT NULL, `wbwJson` TEXT NOT NULL, `translationJson` TEXT NOT NULL, " +
+                    "PRIMARY KEY(`key`))"
+            )
+        }
+    }
+
+    val ALL: Array<Migration> = arrayOf(MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
 }

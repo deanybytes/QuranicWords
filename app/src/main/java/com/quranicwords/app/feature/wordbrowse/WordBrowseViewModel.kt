@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.ExerciseContent
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
@@ -15,7 +19,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +30,9 @@ data class WordBrowseUiState(
     val isLoading: Boolean = true,
     val words: List<ExerciseContent.WordIntro> = emptyList(),
     /** Memory strength per word id; absent means the learner hasn't met the word yet. */
-    val strengths: Map<String, WordStrength> = emptyMap()
+    val strengths: Map<String, WordStrength> = emptyMap(),
+    /** wordId -> meaning and senses in the learner's current language (see WordExampleLocalizer). */
+    val localized: Map<String, LocalizedWord> = emptyMap()
 )
 
 /**
@@ -39,6 +48,8 @@ class WordBrowseViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
     private val userIdProvider: CurrentUserIdProvider,
+    private val preferences: UserPreferencesDataStore,
+    private val exampleLocalizer: WordExampleLocalizer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -62,7 +73,11 @@ class WordBrowseViewModel @Inject constructor(
             }
 
             val strengths = progressRepository.getWordStrengths(userIdProvider.get())
-            _uiState.value = WordBrowseUiState(isLoading = false, words = words, strengths = strengths)
+            // Re-localized whenever the learner switches language.
+            preferences.languageFlow.map { it ?: Language.ENGLISH }.distinctUntilChanged().collectLatest { language ->
+                val localized = exampleLocalizer.localizeAll(words, language)
+                _uiState.value = WordBrowseUiState(isLoading = false, words = words, strengths = strengths, localized = localized)
+            }
         }
     }
 

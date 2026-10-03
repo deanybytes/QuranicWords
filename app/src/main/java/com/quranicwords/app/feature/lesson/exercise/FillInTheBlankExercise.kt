@@ -22,6 +22,11 @@ import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
+import com.quranicwords.app.core.domain.model.LocalizedSense
+import com.quranicwords.app.core.ui.components.SenseTranslationLine
+import com.quranicwords.app.core.ui.components.spanHighlighted
+import com.quranicwords.app.core.ui.components.textDirection
+import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
@@ -33,6 +38,7 @@ import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 @Composable
 fun FillInTheBlankExerciseContent(
     content: ExerciseContent.FillInTheBlank,
+    sense: LocalizedSense?,
     selectedOptionId: String?,
     isChecked: Boolean,
     onSelect: (String) -> Unit
@@ -53,33 +59,48 @@ fun FillInTheBlankExerciseContent(
             }
         }
 
-        val sentenceWithBlank = buildAnnotatedString {
-            val start = content.blankStart.coerceIn(0, content.sentenceArabic.length)
-            val end = content.blankEnd.coerceIn(start, content.sentenceArabic.length)
-            append(content.sentenceArabic.substring(0, start))
-            withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
-                append("____")
+        val start = content.blankStart.coerceIn(0, content.sentenceArabic.length)
+        val end = content.blankEnd.coerceIn(start, content.sentenceArabic.length)
+        // Once answered the blank is filled with the word itself, highlighted by its exact span.
+        val sentence = if (isChecked) {
+            spanHighlighted(
+                content.sentenceArabic, start, end,
+                SpanStyle(color = BrandGold, fontWeight = FontWeight.Bold, background = BrandGold.copy(alpha = 0.20f))
+            )
+        } else {
+            buildAnnotatedString {
+                append(content.sentenceArabic.substring(0, start))
+                withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
+                    append("____")
+                }
+                append(content.sentenceArabic.substring(end))
             }
-            append(content.sentenceArabic.substring(end))
         }
         Text(
-            text = sentenceWithBlank,
+            text = sentence,
             fontFamily = LocalQuranFontFamily.current,
             fontSize = 32.sp,
             lineHeight = 46.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
-        Text(
-            text = content.sentenceTranslation.get(language),
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = QuranCitationFontFamily,
-                fontStyle = FontStyle.Italic
-            ),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+        // Exactly one translation line: the plain translation while answering, then the sense's
+        // proven line (highlighted translation, or the word-by-word fallback) as feedback.
+        if (isChecked && sense != null) {
+            SenseTranslationLine(sense = sense)
+        } else {
+            Text(
+                text = sense?.translationText ?: content.sentenceTranslation.get(language),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontFamily = QuranCitationFontFamily,
+                    fontStyle = FontStyle.Italic,
+                    textDirection = (sense?.textLanguage ?: language).textDirection()
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
         Text(
             text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.sentenceReference, language),
             style = MaterialTheme.typography.labelLarge.copy(

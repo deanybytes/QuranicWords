@@ -16,6 +16,7 @@ import com.quranicwords.app.core.data.local.dao.LessonDao
 import com.quranicwords.app.core.data.local.dao.SectionDao
 import com.quranicwords.app.core.data.local.dao.UserProgressDao
 import com.quranicwords.app.core.data.local.dao.UserStatsDao
+import com.quranicwords.app.core.data.local.dao.VerseDao
 import com.quranicwords.app.core.data.local.dao.WordFrequencyDao
 import com.quranicwords.app.core.data.local.dao.WordMemoryDao
 import com.quranicwords.app.core.data.local.entity.AchievementEntity
@@ -27,6 +28,7 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.data.local.entity.VerseEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
 import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
@@ -47,7 +49,8 @@ import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
         AchievementEntity::class,
         DailyPracticeEntity::class,
         WordMemoryEntity::class,
-        DailyQuestEntity::class
+        DailyQuestEntity::class,
+        VerseEntity::class
     ],
     version = QwDatabase.VERSION,
     exportSchema = true
@@ -67,10 +70,11 @@ abstract class QwDatabase : RoomDatabase() {
     abstract fun legacyMigrationDao(): LegacyMigrationDao
     abstract fun wordMemoryDao(): WordMemoryDao
     abstract fun dailyQuestDao(): DailyQuestDao
+    abstract fun verseDao(): VerseDao
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"
-        const val VERSION = 7
+        const val VERSION = 8
 
         @Volatile
         private var INSTANCE: QwDatabase? = null
