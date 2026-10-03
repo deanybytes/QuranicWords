@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'Peringkat',
   tableWord: 'Arab',
-  tableTranslit: 'Transliterasi',
   tableRoot: 'Akar',
   tableMeaning: 'Arti',
   tableFreq: 'Kemunculan',

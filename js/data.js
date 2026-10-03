@@ -54,16 +54,17 @@ export class DataStore {
     this.meaningLangs = new Map();   // lang -> Promise (one meanings file per language)
   }
 
-  /** Loads the index, roots and the meanings of English plus `lang` (other languages load on
-   * demand via ensureLanguage, keeping the first download small). */
+  /** Loads the index (which carries English), roots and the meanings of `lang` (other languages
+   * load on demand via ensureLanguage, keeping the first download small). */
   async load(lang = getLang()) {
-    const langs = lang === 'en' ? ['en'] : ['en', lang];
+    const langs = lang === 'en' ? [] : [lang];
     const [index, roots, ...lists] = await Promise.all([getJSON(DATA_URLS.index), getJSON(DATA_URLS.roots),
       ...langs.map((l) => getJSON(DATA_URLS.meanings(l)))]);
     if (!index || !index.meta || !Array.isArray(index.words)) throw new Error('index.json: unexpected shape');
     this.meta = index.meta;
     this.words = index.words;
     attachPos(this.words, this.meta.pos || []);
+    this.meaningLangs.set('en', Promise.resolve());
     langs.forEach((l, i) => { attachMeanings(this.words, l, lists[i]); this.meaningLangs.set(l, Promise.resolve()); });
     this.byId = new Map(this.words.map((w) => [w.id, w]));
     this.roots = Object.entries(roots || {}).map(([root, ids]) => ({ root, ids: ids.filter((id) => this.byId.has(id)) }));

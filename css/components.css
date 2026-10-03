@@ -50,7 +50,6 @@
   overflow-wrap: anywhere;
 }
 .card-arabic:hover { color: var(--primary-text); }
-.card-translit { font-size: 0.95rem; font-style: italic; color: var(--text-muted); }
 .card-meta-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
 .card-pos-badge {
   font-size: 0.7rem;
@@ -229,7 +228,6 @@
 .dict-table td { padding: 10px 14px; border-top: 1px solid var(--border-subtle); vertical-align: middle; }
 .dict-table tr:hover td { background: var(--primary-soft); }
 .dict-table .num { font-variant-numeric: tabular-nums; color: var(--text-muted); }
-.dict-table .translit { font-style: italic; }
 .table-arabic-cell { text-align: right; white-space: nowrap; }
 .linklike {
   font-family: var(--font-arabic);
@@ -298,7 +296,6 @@
 }
 .flashcard-back { transform: rotateY(180deg); border-color: var(--primary-border); }
 .fc-arabic { font-family: var(--font-arabic); font-size: clamp(2.6rem, 9vw, 4rem); font-weight: 700; line-height: 1.4; color: var(--text-arabic); }
-.fc-translit { font-size: 1.1rem; font-style: italic; color: var(--text-muted); }
 .fc-root-tag { font-family: var(--font-arabic); font-size: 1.1rem; color: var(--primary-text); }
 .fc-hint-tap { font-size: 0.8rem; color: var(--text-dim); margin-top: 8px; }
 .fc-meaning { font-size: clamp(1.3rem, 4vw, 1.8rem); font-weight: 800; line-height: 1.35; }
@@ -417,7 +414,6 @@
 .quiz-stimulus { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 16px; text-align: center; }
 .quiz-question-arabic { font-family: var(--font-arabic); font-size: clamp(2.6rem, 9vw, 3.6rem); font-weight: 700; line-height: 1.4; color: var(--text-arabic); }
 .quiz-question-meaning { font-size: 1.5rem; font-weight: 800; }
-.quiz-translit { color: var(--text-muted); font-style: italic; }
 .quiz-verse { text-align: center; }
 .blank { display: inline-block; min-width: 3em; border-bottom: 3px solid var(--gold); color: transparent; }
 .quiz-options-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }

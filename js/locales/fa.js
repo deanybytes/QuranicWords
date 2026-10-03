@@ -105,7 +105,6 @@ export default {
 
   tableRank: 'رتبه',
   tableWord: 'عربی',
-  tableTranslit: 'آوانویسی',
   tableRoot: 'ریشه',
   tableMeaning: 'معنی',
   tableFreq: 'تکرار',

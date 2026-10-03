@@ -93,7 +93,7 @@ export function verseToggle(ctx, w, expanded) {
 export function openSenses(ctx, w) {
   const body = h('div', { class: 'senses' });
   body.append(
-    h('div', { class: 'senses-head' }, arabic(w.ar, 'senses-ar'), h('p', { class: 'card-translit', text: w.tl })),
+    h('div', { class: 'senses-head' }, arabic(w.ar, 'senses-ar')),
     h('p', { class: 'muted', text: t('sensesSub') }));
   const list = h('div', { class: 'senses-list' }, h('p', { class: 'muted', attrs: { role: 'status' }, text: t('verseLoading') }));
   body.appendChild(list);
@@ -137,7 +137,7 @@ export function wordCard(ctx, w, { expanded } = {}) {
 
   const arBtn = h('span', { class: 'card-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar });
   const head = h('div', { class: 'card-header' },
-    h('div', { class: 'card-arabic-wrap' }, arBtn, h('span', { class: 'card-translit', text: w.tl })),
+    h('div', { class: 'card-arabic-wrap' }, arBtn),
     h('div', { class: 'card-meta-right' }, catBadge(w), h('span', { class: 'card-occ-pill', text: t('occurrences', { n: formatNumber(w.occ) }) })));
 
   const tags = h('div', { class: 'card-tags-row' });

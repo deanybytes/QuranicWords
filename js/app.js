@@ -333,7 +333,7 @@ class App {
     $('search-input').value = w.ar;
     this.setFilter({ q: w.ar, ch: null, cat: null, root: null, saved: false });
     if (this.state.view !== 'cards') this.navigate('cards');
-    toast(t('randomToast', { word: `${w.ar} (${w.tl})` }));
+    toast(t('randomToast', { word: w.ar }));
   }
 
   /* ---------------- Saved words / clipboard ---------------- */
@@ -347,7 +347,7 @@ class App {
   }
 
   copyWord(w) {
-    const text = `${w.ar} (${w.tl}) — ${pick(w.m)}`;
+    const text = `${w.ar} — ${pick(w.m)}`;
     const fail = () => toast(t('copyFailed'), { tone: 'error' });
     try {
       if (!navigator.clipboard || !navigator.clipboard.writeText) { fail(); return; }
@@ -416,7 +416,7 @@ class App {
     for (const el of document.querySelectorAll('[data-stat]')) el.textContent = values[el.dataset.stat] ?? '';
     const catName = { NOUN: 'Noun', VERB: 'Verb', PARTICLE: 'Particle' };
     $('about-top').replaceChildren(...this.data.words.slice(0, 10).map((w) => h('tr', {},
-      h('td', {}, arabic(w.ar, 'seo-ar-word')), h('td', {}, h('code', { text: w.tl })), h('td', { text: catName[w.cat] }),
+      h('td', {}, arabic(w.ar, 'seo-ar-word')), h('td', { text: catName[w.cat] }),
       h('td', { text: formatNumber(w.occ, 'en') }), h('td', { text: w.m.en }))));
   }
 
@@ -466,8 +466,11 @@ class App {
     let reloading = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!hadController) { toast(t('offlineReady')); return; }
+      // A new version has taken over: reload once so the page never runs old code against
+      // new data (the new worker has already cached the new files).
       if (reloading) return;
-      toast(t('updateAvailable'), { duration: 0, action: { label: t('reload'), run: () => { reloading = true; location.reload(); } } });
+      reloading = true;
+      location.reload();
     });
     window.addEventListener('load', () => {
       navigator.serviceWorker.register(`${BASE}sw.js`, { scope: BASE }).catch((e) => console.warn('Service worker registration failed', e));
