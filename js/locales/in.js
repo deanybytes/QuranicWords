@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'Kurikulum dan kamus kosakata Al-Qur\'an sumber terbuka. Tanpa akun, tanpa iklan, tanpa pelacakan: kemajuan Anda tetap di perangkat Anda.',
   footerRepo: 'Kode sumber',
+  footerWords: 'Semua kata',
+  footerRoots: 'Akar kata',
+  footerDataset: 'Dataset terbuka',
+  footerPrivacy: 'Privasi',
+  wordPage: 'Halaman kata',
   footerReleases: 'Rilis',
   footerLicense: 'Berlisensi GPL-3.0',
 };

@@ -80,7 +80,7 @@ com.quranicwords.app/
     └── settings/              (Theme, language, font, daily goal, sound effects, local backup)
 ```
 
-> The content hierarchy is **Chapter (10) → Section (79) → Lesson (958)**, covering 3,900 Qur'anic lemmas and 17,618 exercises. Chapters are single-part-of-speech (function words, then alternating verbs and nouns), with exam-gated progression between units. Content is produced by `tools/pipeline` and seeded by `ContentSeeder` in one transaction.
+> The content hierarchy is **Chapter (10) → Section (78) → Lesson (943)**, covering 3,833 Qur'anic lemmas and 15,329 exercises. Chapters are single-part-of-speech (function words, then alternating verbs and nouns), with exam-gated progression between units. Content is produced by `tools/pipeline` and seeded by `ContentSeeder` in one transaction.
 
 ## 🧷 Dependency injection graph
 

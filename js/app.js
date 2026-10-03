@@ -416,7 +416,7 @@ class App {
     for (const el of document.querySelectorAll('[data-stat]')) el.textContent = values[el.dataset.stat] ?? '';
     const catName = { NOUN: 'Noun', VERB: 'Verb', PARTICLE: 'Particle' };
     $('about-top').replaceChildren(...this.data.words.slice(0, 10).map((w) => h('tr', {},
-      h('td', {}, arabic(w.ar, 'seo-ar-word')), h('td', { text: catName[w.cat] }),
+      h('td', {}, w.u ? h('a', { attrs: { href: `${BASE}quran-words/${w.u}.html` } }, arabic(w.ar, 'seo-ar-word')) : arabic(w.ar, 'seo-ar-word')), h('td', { text: catName[w.cat] }),
       h('td', { text: formatNumber(w.occ, 'en') }), h('td', { text: w.m.en }))));
   }
 

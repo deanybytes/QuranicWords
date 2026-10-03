@@ -15,6 +15,8 @@ import unicodedata
 from collections import defaultdict
 from pathlib import Path
 
+from slugs import word_slug
+
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "app" / "src" / "main" / "assets" / "content"
 DATA = ROOT / "data"
@@ -100,6 +102,7 @@ def main():
             # data/meanings/LANG.json.
             "m": {"en": c["meaning"]["en"]},
             "ref": verses[first["verse"]]["ref"],
+            "u": word_slug(c["wordId"], c.get("transliteration")),     # quran-words/<u>.html
             "sk": skeleton(c["arabicWord"]),
             "poly": {lang: len(items) for lang, items in c["senses"].items() if len(items) > 1},
             "vf": {k: c[k] for k in ("verbForm", "pastArabic", "presentArabic", "masdarArabic") if c.get(k)} or None,

@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'Un programme et un dictionnaire open source du vocabulaire coranique. Pas de compte, pas de publicité, pas de pistage : vos progrès restent sur votre appareil.',
   footerRepo: 'Code source',
+  footerWords: 'Tous les mots',
+  footerRoots: 'Racines',
+  footerDataset: 'Données ouvertes',
+  footerPrivacy: 'Confidentialité',
+  wordPage: 'Page du mot',
   footerReleases: 'Versions',
   footerLicense: 'Sous licence GPL-3.0',
 };

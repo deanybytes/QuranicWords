@@ -1,14 +1,15 @@
 name: Content CI
 
 # Guards the vocabulary content: the pipeline's own tests, its validator, and a check that the
-# committed app assets are exactly what a fresh, pinned build produces (no hand edits, no drift).
+# committed app assets, web data, open dataset and word/root pages are exactly what a fresh, pinned
+# build produces (no hand edits, no drift).
 on:
   push:
     branches: [main]
-    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", ".github/workflows/content-ci.yml"]
+    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", "dataset/**", "quran-words/**", "quran-roots/**", ".github/workflows/content-ci.yml"]
   pull_request:
     branches: [main]
-    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", ".github/workflows/content-ci.yml"]
+    paths: ["tools/pipeline/**", "app/src/main/assets/content/**", "reference/**", "tools/export/**", "data/**", "dataset/**", "quran-words/**", "quran-roots/**", ".github/workflows/content-ci.yml"]
 
 permissions:
   contents: read
@@ -44,10 +45,12 @@ jobs:
       - name: Pipeline tests (golden words, validator, determinism)
         run: python -m pytest -q tools/pipeline/tests
 
-      - name: Rebuild content and web data
+      - name: Rebuild content, web data, open dataset and word/root pages
         run: |
           python tools/pipeline/run.py
           python tools/export/build_web_data.py
+          python tools/export/build_dataset.py
+          python tools/export/build_seo_pages.py
 
       - name: Committed assets must match a fresh build
-        run: git diff --exit-code --stat -- app/src/main/assets/content tools/pipeline/reports data
+        run: git diff --exit-code --stat -- app/src/main/assets/content tools/pipeline/reports data dataset quran-words quran-roots sitemap-words.xml sitemap-roots.xml

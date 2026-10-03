@@ -87,10 +87,10 @@ Every word is shown via a non-scored `WordIntro` step immediately before its own
 
 ## 📊 Word-frequency-driven curriculum ordering & POS Categorization
 
-The curriculum teaches **3,900 lemmas**, ordered within each part of speech by their real frequency in the Qur'an (Quranic Arabic Corpus lemma counts):
+The curriculum teaches **3,833 lemmas**, ordered within each part of speech by their real frequency in the Qur'an (Quranic Arabic Corpus lemma counts):
 
-- **Chapter 1, function words (72):** particles, plus closed-class nominals (pronouns, demonstratives, relatives). They make up 46.8% of the Qur'an's lexical segments.
-- **Verbs (1,144)** and **nouns (2,684)** come in alternating frequency-band chapters (2–10).
+- **Chapter 1, function words (66):** 41 particles plus 25 closed-class nominals (pronouns, demonstratives, relatives). They make up 46.2% of the Qur'an's lexical segments.
+- **Verbs (1,119)** and **nouns (2,648)** come in alternating frequency-band chapters (2–10).
 
 Word ids are content-derived and stable: `wp_`/`wv_`/`wn_` + the first 8 hex digits of the SHA-1 of the QAC lemma key. A word's grammatical category always comes from its own `WordIntro.lemmaCategory`, exposed through `ContentRepository.getWordCategories()`, never from its id or its lesson.
 

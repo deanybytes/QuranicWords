@@ -3,10 +3,10 @@ name: Web CI
 on:
   push:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
   pull_request:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
 
 permissions:
   contents: read

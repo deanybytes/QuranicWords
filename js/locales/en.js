@@ -222,6 +222,11 @@ export default {
 
   footerAbout: 'An open-source Qur\'anic vocabulary curriculum and dictionary. No accounts, no ads, no tracking: your progress stays on your device.',
   footerRepo: 'Source code',
+  footerWords: 'All words',
+  footerRoots: 'Roots',
+  footerDataset: 'Open dataset',
+  footerPrivacy: 'Privacy',
+  wordPage: 'Word page',
   footerReleases: 'Releases',
   footerLicense: 'Licensed under GPL-3.0',
 };

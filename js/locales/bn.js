@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'কুরআনের শব্দভাণ্ডারের একটি ওপেন-সোর্স পাঠ্যক্রম ও অভিধান। কোনো অ্যাকাউন্ট নেই, বিজ্ঞাপন নেই, ট্র্যাকিং নেই: আপনার অগ্রগতি আপনার ডিভাইসেই থাকে।',
   footerRepo: 'সোর্স কোড',
+  footerWords: 'সব শব্দ',
+  footerRoots: 'মূল ধাতু',
+  footerDataset: 'উন্মুক্ত ডেটাসেট',
+  footerPrivacy: 'গোপনীয়তা',
+  wordPage: 'শব্দের পাতা',
   footerReleases: 'রিলিজ',
   footerLicense: 'GPL-3.0 লাইসেন্সের অধীনে',
 };

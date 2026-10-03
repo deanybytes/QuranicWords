@@ -3,3 +3,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://quranicwords.vercel.app/sitemap.xml
+Sitemap: https://quranicwords.vercel.app/sitemap-words.xml
+Sitemap: https://quranicwords.vercel.app/sitemap-roots.xml

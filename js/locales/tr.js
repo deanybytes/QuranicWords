@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'Açık kaynaklı bir Kur\'an kelimeleri müfredatı ve sözlüğü. Hesap yok, reklam yok, izleme yok: ilerlemeniz cihazınızda kalır.',
   footerRepo: 'Kaynak kodu',
+  footerWords: 'Tüm kelimeler',
+  footerRoots: 'Kökler',
+  footerDataset: 'Açık veri seti',
+  footerPrivacy: 'Gizlilik',
+  wordPage: 'Kelime sayfası',
   footerReleases: 'Sürümler',
   footerLicense: 'GPL-3.0 lisansı ile',
 };

@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'क़ुरआन की शब्दावली का एक ओपन-सोर्स पाठ्यक्रम और शब्दकोश। कोई खाता नहीं, कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं: आपकी प्रगति आपके डिवाइस पर ही रहती है।',
   footerRepo: 'सोर्स कोड',
+  footerWords: 'सभी शब्द',
+  footerRoots: 'मूल धातु',
+  footerDataset: 'ओपन डेटासेट',
+  footerPrivacy: 'गोपनीयता',
+  wordPage: 'शब्द पृष्ठ',
   footerReleases: 'रिलीज़',
   footerLicense: 'GPL-3.0 लाइसेंस के अंतर्गत',
 };

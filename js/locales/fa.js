@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'برنامه آموزشی و واژه‌نامه متن‌باز واژگان قرآنی. بدون حساب کاربری، بدون تبلیغات، بدون ردیابی: پیشرفت شما روی دستگاه خودتان می‌ماند.',
   footerRepo: 'کد منبع',
+  footerWords: 'همهٔ واژه‌ها',
+  footerRoots: 'ریشه‌ها',
+  footerDataset: 'داده‌های باز',
+  footerPrivacy: 'حریم خصوصی',
+  wordPage: 'صفحهٔ واژه',
   footerReleases: 'نسخه‌ها',
   footerLicense: 'منتشرشده تحت مجوز GPL-3.0',
 };

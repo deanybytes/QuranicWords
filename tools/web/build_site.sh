@@ -10,7 +10,7 @@ OUT="${1:-$ROOT/build/site}"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 cd "$ROOT"
-cp -r index.html privacy.html manifest.json sw.js favicon.png robots.txt sitemap.xml css js data icons "$OUT"/
+cp -r index.html privacy.html manifest.json sw.js favicon.png robots.txt sitemap.xml sitemap-words.xml sitemap-roots.xml css js data icons quran-words quran-roots "$OUT"/
 cp google*.html "$OUT"/ 2>/dev/null || true
 cp index.html "$OUT/404.html"
 touch "$OUT/.nojekyll"

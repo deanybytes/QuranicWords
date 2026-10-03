@@ -2,6 +2,31 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [Unreleased] - Open data and web
+
+The Android app is unchanged (still build 100013).
+
+### Open data
+- New `dataset/`: the whole vocabulary as JSON and CSV (3,833 words, 1,423 roots, 4,839 cited
+  ayahs), with schema, licence and citation; also attached to releases as a zip.
+- `CITATION.cff` for "Cite this repository".
+
+### Web (2.2.5)
+- A static, crawlable page for every word (`quran-words/`) and root (`quran-roots/`), with
+  meanings in 8 languages, grammar, frequency and a complete ayah; sitemaps for both.
+- Dictionary cards link to the word's page; the footer links to all words, roots, the dataset
+  and the privacy page.
+- Fixed: returning visitors could get stuck on "Loading the vocabulary" after an update (old
+  cached code met new data). The page now reloads once when a new version takes over.
+- Fixed: visiting any non-app page (such as the privacy page) replaced the offline copy of the
+  app; such pages are now cached under their own address.
+- Removed the Latin transliteration from the web app and the offline HTML dictionary.
+- Redesigned privacy page (it was unstyled on Vercel, whose CSP blocks inline styles).
+
+### Repository
+- README, docs and figures updated to the current curriculum (78 sections, 943 lessons, 15,329
+  exercises); CI rebuilds the dataset and pages and fails on drift.
+
 ## [1.0.0] - 2026-10-03 (Build 100013): Proven senses, Qur'an fonts, widgets & store readiness
 
 Builds 100009–100013 keep version name 1.0.0.
