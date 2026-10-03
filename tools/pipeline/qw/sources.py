@@ -95,6 +95,14 @@ def load_gtaf():
     return out
 
 
+def load_reference_arabic(pin=False):
+    """{(surah, ayah): text} from an independent full Qur'an text (Tanzil Uthmani via
+    alquran.cloud), used only to prove every cited verse is the complete ayah."""
+    path = fetch("ar_quran-uthmani.json", config.VERSE_URL.format(edition="quran-uthmani"), pin)
+    data = json.loads(path.read_text(encoding="utf-8"))["data"]["surahs"]
+    return {(s["number"], a["numberInSurah"]): a["text"] for s in data for a in s["ayahs"]}
+
+
 def load_verse_translations(pin=False):
     """{lang: {(surah, ayah): text}} - one full translation per language (config.VERSE_EDITIONS)."""
     import re

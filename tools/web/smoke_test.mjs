@@ -44,6 +44,16 @@ function rng(seed = 42) {
 }
 
 console.log('i18n');
+await test('citations are entirely in the learner\'s language', () => {
+  assert.equal(i18n.cite('Taha 20:34', 'en'), 'Surah Taha 20:34');
+  assert.equal(i18n.cite('Taha 20:34', 'bn'), 'সূরা ত্বা-হা ২০:৩৪');
+  assert.equal(i18n.cite('Al-Baqarah 2:30', 'bn'), 'সূরা আল-বাকারা ২:৩০');
+  assert.equal(i18n.cite('2:30', 'ur'), 'سورۃ البقرۃ ۲:۳۰');
+  assert.equal(i18n.cite('2:30', 'hi'), 'सूरह अल-बक़रह २:३०');
+  assert.equal(i18n.cite('2:30', 'fa'), 'سوره بقره ۲:۳۰');
+  assert.equal(i18n.cite('2:30', 'tr'), 'Sure Bakara 2:30');
+  assert.equal(i18n.cite('2:30', 'fr'), 'Sourate Al-Baqara 2:30');
+});
 await test('exactly the 8 data languages are offered', () => {
   assert.deepEqual(i18n.LANG_CODES, ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']);
   assert.deepEqual([...i18n.LANG_CODES].sort(), [...META.languages].sort());
@@ -80,7 +90,7 @@ await test('surahWord values and citation format', () => {
   const expected = { en: 'Surah', bn: 'সূরা', ur: 'سورۃ', hi: 'सूरह', in: 'Surah', tr: 'Sure', fa: 'سوره', fr: 'Sourate' };
   for (const [code, word] of Object.entries(expected)) assert.equal(i18n.DICTIONARY[code].surahWord, word);
   assert.equal(i18n.cite('Al-Baqarah 2:22', 'en'), 'Surah Al-Baqarah 2:22');
-  assert.equal(i18n.cite('Al-Baqarah 2:22', 'tr'), 'Sure Al-Baqarah 2:22');
+  assert.equal(i18n.cite('Al-Baqarah 2:22', 'tr'), 'Sure Bakara 2:22');
 });
 await test('language metadata: RTL for ur/fa, BCP-47 "id" for Indonesian', () => {
   assert.equal(i18n.langInfo('ur').dir, 'rtl');

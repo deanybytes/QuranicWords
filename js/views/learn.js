@@ -114,7 +114,7 @@ export const learnView = {
         h('div', { class: 'card-tags-row centered' }, catBadge(w),
           w.rt ? h('span', { class: 'tag-root static' }, arabic(w.rt)) : null,
           h('span', { class: 'card-occ-pill', text: t('occurrences', { n: formatNumber(w.occ) }) })),
-        w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: 'en' }, text: w.pos }) : null,
+        w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: langInfo(getLang()).bcp47, dir: langInfo(getLang()).dir }, text: pick(w.pos) }) : null,
         verbFormsLine(w),
         w.ref ? verseToggle(ctx, w, this.expanded) : null),
       h('div', { class: 'flashcard-nav-bar' },

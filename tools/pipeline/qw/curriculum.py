@@ -28,6 +28,25 @@ def _rng(*parts):
     return random.Random(f"{config.SEED}:" + ":".join(map(str, parts)))
 
 
+
+
+_GRAMMAR = None
+
+
+def grammar_labels():
+    """{english label: {lang: label}}; a label missing from the table fails the build."""
+    global _GRAMMAR
+    if _GRAMMAR is None:
+        rows = [l.rstrip("\n").split("\t") for l in open(config.OVERRIDES / "grammar_labels.tsv", encoding="utf-8")
+                if l.strip() and not l.startswith("#")]
+        head, body = rows[0], rows[1:]
+        assert head == list(config.LANGS), head
+        _GRAMMAR = {}
+        for r in body:
+            assert len(r) == len(head) and all(r), r
+            _GRAMMAR[r[0]] = dict(zip(head, r))
+    return _GRAMMAR
+
 class Builder:
     def __init__(self, words, gtaf, verse_tr, surah_names, total_occurrences):
         self.verses = senses_mod.VerseIndex(gtaf)
@@ -104,6 +123,10 @@ class Builder:
                        ("partOfSpeechDetail", w.pos_detail or w.particle_type)):
             if val:
                 c[k] = val
+        # The same grammar labels in every content language (overrides/grammar_labels.tsv).
+        for k, src in (("partOfSpeechLabel", c.get("partOfSpeechDetail")), ("verbFormLabel", c.get("verbForm"))):
+            if src:
+                c[k] = grammar_labels()[src]
         return c
 
     def option(self, w):

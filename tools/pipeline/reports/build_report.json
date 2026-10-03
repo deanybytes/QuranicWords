@@ -31,12 +31,13 @@
   "verses": 4909,
   "senses": 33899,
   "translation_highlights": 14551,
+  "verses_checked_against_reference_text": 4909,
   "validation_errors": 0,
   "asset_sha256": {
     "chapters.json": "e21b64a4c7fc7a4185573675c0a7091559e9f17af886ed09b2a897058fc55c5b",
     "sections.json": "b2fa2f89b31c22fe0192f5a6ecc7e1a6751af75d87294af8c424d37e1018c2bc",
     "lessons_vocabulary.json": "a7336133887ed1c97faf836b141eb5ffdf0cc9939cadda00804ab097b6f66be0",
-    "exercises_vocabulary.json": "99a5d44ddcccbb9477bb39d2add8b4b5b770b625bc14ba27844e32227ccb85fd",
+    "exercises_vocabulary.json": "5e258dc3cbb6035bb7669fcd30e424251a32733fa3ace4339c50abbd0331bc35",
     "word_frequency.json": "1b9a7aea67f6a47872a2d91df4e8e47d3e23dcd8058d3621ab624d98f17bf23c",
     "legacy_progress_map.json": "47e5112f7f742fb91f20ddf25dca3be9749bf49eb64d1293dc69db56254d6687",
     "verses.json": "6cb6d58c551ccc86120d80c567e819c0446e986622002ccc3229c344ea81f886"

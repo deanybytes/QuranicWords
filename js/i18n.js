@@ -8,6 +8,7 @@ import id from './locales/in.js';
 import tr from './locales/tr.js';
 import fa from './locales/fa.js';
 import fr from './locales/fr.js';
+import { SURAH_NAMES } from './surahs.js';
 
 export const LANGUAGES = [
   { code: 'en', bcp47: 'en', name: 'English', dir: 'ltr' },
@@ -93,7 +94,21 @@ export function pick(map, lang = current) {
   return map[lang] || map.en || '';
 }
 
-/** "Surah Al-Baqarah 2:22" in the current language. */
+const NATIVE_DIGITS = { bn: '০১২৩৪৫৬৭৮৯', hi: '०१२३४५६७८९', ur: '۰۱۲۳۴۵۶۷۸۹', fa: '۰۱۲۳۴۵۶۷۸۹' };
+
+/** ASCII digits in the language's own numerals (as in the app's VerseReferenceFormatter). */
+export function nativeDigits(text, lang = current) {
+  const d = NATIVE_DIGITS[lang];
+  return d ? String(text).replace(/[0-9]/g, (c) => d[c]) : String(text);
+}
+
+/** "Surah Al-Baqarah 2:22" entirely in the given language - surah word, surah name and digits
+ * ("সূরা আল-বাকারা ২:২২", "سورۃ البقرۃ ۲:۲۲"). Accepts "2:22" or "Al-Baqarah 2:22". */
 export function cite(ref, lang = current) {
-  return ref ? `${translate(lang, 'surahWord')} ${ref}` : '';
+  if (!ref) return '';
+  const m = /(\d+)\s*:\s*(\d+)/.exec(ref);
+  const s = m ? Number(m[1]) : 0;
+  if (!m || s < 1 || s > 114) return `${translate(lang, 'surahWord')} ${nativeDigits(ref, lang)}`;
+  const names = SURAH_NAMES[lang] || SURAH_NAMES.en;
+  return `${translate(lang, 'surahWord')} ${names[s - 1]} ${nativeDigits(`${s}:${m[2]}`, lang)}`;
 }

@@ -103,6 +103,39 @@ def run(assets, raw=None):
     return errors
 
 
+def _ayah_letters(word):
+    """Spelling-insensitive letters of one written word: the two Uthmani encodings differ only
+    in tatweel, small yā/wāw, hamza seats and yā before a dagger alif."""
+    import unicodedata
+    w = unicodedata.normalize("NFC", word).replace("\u0640", "")
+    w = re.sub(r"[\u064B-\u065F\u06D6-\u06ED]", "", w)          # harakat, small letters, pause marks
+    w = w.replace("\u0649\u0670", "\u0670")                      # صَىٰحِبَىِ = صَٰحِبَيِ
+    w = re.sub(r"[^\u0621-\u064A\u0671]", "", w)
+    for a, b in (("ى", "ي"), ("ٱ", "ا"), ("أ", "ا"), ("إ", "ا"), ("ؤ", "و"), ("ئ", "ي"), ("ة", "ه")):
+        w = w.replace(a, b)
+    return w.replace("ء", "").replace("ا", "")
+
+
+BASMALA = ["بسم", "لله", "لرحمن", "لرحيم"]
+
+
+def check_complete_ayahs(verses, reference):
+    """Every cited verse must be the complete ayah: the same words, in order, as an independent
+    full Qur'an text (the Basmala Tanzil prefixes to verse 1 is not part of the ayah)."""
+    errs = []
+    for key, v in verses.items():
+        s, a = map(int, key.split(":"))
+        theirs = [w for w in reference[(s, a)].split() if _ayah_letters(w)]
+        if a == 1 and s not in (1, 9) and [_ayah_letters(w) for w in theirs[:4]] == BASMALA:
+            theirs = theirs[4:]
+        ours = [w for w in v["ar"].split(" ") if _ayah_letters(w)]
+        if len(ours) != len(theirs):
+            errs.append(f"verse {key}: {len(ours)} words, the complete ayah has {len(theirs)}")
+        elif any(_ayah_letters(x) != _ayah_letters(y) for x, y in zip(ours, theirs)):
+            errs.append(f"verse {key}: text differs from the reference ayah")
+    return errs
+
+
 def _check_senses(intro, verses, word_row, raw):
     """Second, independent proof of every sense: re-derived from the raw sources rather than
     trusting the builder. Each check is one of the user-visible guarantees."""

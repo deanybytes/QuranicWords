@@ -67,6 +67,9 @@ def main():
     args = ap.parse_args()
     assets, legacy_map, report, excluded, ws, raw = build(args.pin)
     errors = validate.run(assets, raw)
+    ayah_errors = validate.check_complete_ayahs(assets["verses"], sources.load_reference_arabic(args.pin))
+    report["verses_checked_against_reference_text"] = len(assets["verses"]) if not ayah_errors else 0
+    errors += ayah_errors
     report["validation_errors"] = len(errors)
     for e in errors[:50]:
         print("  ✗", e)

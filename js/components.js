@@ -18,18 +18,19 @@ function spanLine(cls, text, s, e, markClass, attrs) {
 
 /**
  * Renders one sense example (see DataStore.sensesFor): the complete ayah with only the taught
- * word marked, the word-by-word line with exactly the sense text marked, and the full
- * translation - marked only where it contains the sense text verbatim.
+ * word marked, and ONE translation with exactly the card's meaning marked - the full translation
+ * when it contains that meaning verbatim, otherwise the word-by-word translation (labelled).
  */
 export function verseNode(v, ref) {
   const wrap = h('div', { class: 'verse' });
   const info = uiDirAttrs();
   wrap.appendChild(spanLine('card-verse-arabic', v.v_ar, v.s, v.e, null, { lang: 'ar', dir: 'rtl' }));
-  if (v.wbw) {
+  if (v.tr && Number.isInteger(v.ts)) {
+    wrap.appendChild(spanLine('card-verse-trans', v.tr, v.ts, v.te, 'mark-tr', info));
+  } else if (v.wbw) {
     wrap.appendChild(h('p', { class: 'verse-label', text: t('wbwLabel') }));
-    wrap.appendChild(spanLine('card-verse-wbw', v.wbw, v.ws, v.we, 'mark-tr', info));
+    wrap.appendChild(spanLine('card-verse-trans', v.wbw, v.ws, v.we, 'mark-tr', info));
   }
-  if (v.tr) wrap.appendChild(spanLine('card-verse-trans', v.tr, v.ts, v.te, 'mark-tr', info));
   if (ref) wrap.appendChild(h('p', { class: 'verse-ref', text: cite(ref) }));
   return wrap;
 }
@@ -138,7 +139,7 @@ export function wordCard(ctx, w, { expanded } = {}) {
 
   const meaningBox = h('div', { class: 'card-meaning-box' },
     h('p', { class: 'card-primary-meaning', attrs: { lang: langInfo(lang).bcp47 }, text: meaning }),
-    w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: 'en' }, text: w.pos }) : null,
+    w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: langInfo(getLang()).bcp47, dir: langInfo(getLang()).dir }, text: pick(w.pos) }) : null,
     verbFormsLine(w),
     w.poly && w.poly[lang] ? h('button', { type: 'button', class: 'card-poly-indicator', on: { click: () => openSenses(ctx, w) } }, icon('🔀'), h('span', { text: t('contextSenses') })) : null);
 

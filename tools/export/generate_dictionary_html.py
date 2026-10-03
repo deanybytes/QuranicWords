@@ -198,6 +198,8 @@ def main():
     # Generate Compact JSON (Stripping whitespace)
     words_json = json.dumps(flat_words, separators=(',', ':'), ensure_ascii=False)
     chapters_json = json.dumps(chapters_meta, separators=(',', ':'), ensure_ascii=False)
+    surahs_txt = open(os.path.join(BASE_DIR, 'js', 'surahs.js'), encoding='utf-8').read()
+    surahs_json = json.dumps(json.loads(surahs_txt[surahs_txt.index('{'):surahs_txt.rindex('}') + 1]), separators=(',', ':'), ensure_ascii=False)
     verses_json = json.dumps(used_verses, separators=(',', ':'), ensure_ascii=False)
     vt_json = json.dumps(used_vt, separators=(',', ':'), ensure_ascii=False)
     # Data sits inside <script>: never let a "</" in the text close it.
@@ -1378,6 +1380,17 @@ def main():
             if (s === null || s === undefined || !(0 <= s && s < e && e <= text.length)) return esc(text);
             return esc(text.slice(0, s)) + `<mark class="${{cls}}">` + esc(text.slice(s, e)) + '</mark>' + esc(text.slice(e));
         }}
+        const WBW_LABEL = {{ en: 'Word by word', bn: 'শব্দে শব্দে', ur: 'لفظ بہ لفظ', hi: 'शब्दशः', in: 'Kata per kata', tr: 'Kelime kelime', fa: 'کلمه به کلمه', fr: 'Mot à mot' }};
+        const SURAHS = {surahs_json};
+        const SURAH_WORD = {{ en: 'Surah', bn: 'সূরা', ur: 'سورۃ', hi: 'सूरह', in: 'Surah', tr: 'Sure', fa: 'سوره', fr: 'Sourate' }};
+        const DIGITS = {{ bn: '০১২৩৪৫৬৭৮৯', hi: '०१२३४५६७८९', ur: '۰۱۲۳۴۵۶۷۸۹', fa: '۰۱۲۳۴۵۶۷۸۹' }};
+        // "Surah Al-Baqarah 2:22" entirely in one language: surah word, name and digits.
+        function cite(v, lang) {{
+            const [s, a] = v.split(':').map(Number);
+            const d = DIGITS[lang];
+            const num = d ? `${{s}}:${{a}}`.replace(/[0-9]/g, (c) => d[c]) : `${{s}}:${{a}}`;
+            return `${{SURAH_WORD[lang] || 'Surah'}} ${{(SURAHS[lang] || SURAHS.en)[s - 1]}} ${{num}}`;
+        }}
         const ctxLang = () => Object.keys(visibleLangs).find((l) => visibleLangs[l]) || 'en';
         function senseOf(w, lang, idx) {{
             const list = (w.sn && w.sn[lang]) || [];
@@ -1394,11 +1407,11 @@ def main():
         }}
         function verseRef(w, lang = ctxLang()) {{
             const x = senseOf(w, lang, 0);
-            return x ? x.ref : w.ref;
+            return x ? cite(x.v, lang) : w.ref;
         }}
-        // One language's sense example: complete ayah with only the taught word marked, the
-        // word-by-word line with exactly the sense text marked, and the full translation marked
-        // only where it contains that text verbatim.
+        // One language's sense example: complete ayah with only the taught word marked and ONE
+        // translation with exactly the card meaning marked - the full translation when it contains
+        // that meaning verbatim, otherwise the word-by-word translation (labelled).
         function renderContext(w, lang, idx) {{
             const list = (w.sn && w.sn[lang]) || [];
             const x = senseOf(w, lang, idx);
@@ -1412,12 +1425,13 @@ def main():
                 ${{langTabs}}${{senseTabs}}
                 <div class="verse-meta-row">
                     <span>📖 Qur'an Context</span>
-                    <a href="https://quran.com/${{x.v}}" target="_blank" rel="noopener" class="verse-ref-link">Surah ${{esc(x.ref)}} ↗</a>
+                    <a href="https://quran.com/${{x.v}}" target="_blank" rel="noopener" class="verse-ref-link">${{esc(cite(x.v, lang))}} ↗</a>
                 </div>
                 <div class="verse-arabic-text font-arabic">${{markSpan(x.ar, x.s, x.e, 'ar-hl')}}</div>
                 <div class="verse-translations-list">
-                    <div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">Word by word:</span> <span>${{markSpan(x.wbw, x.ws, x.we, 'tr-hl')}}</span></div>
-                    <div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}:</span> <span>${{markSpan(x.tr, x.ts, x.te, 'tr-hl')}}</span></div>
+                    ${{x.ts !== null
+                        ? `<div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}</span> <span>${{markSpan(x.tr, x.ts, x.te, 'tr-hl')}}</span></div>`
+                        : `<div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{WBW_LABEL[lang]}}:</span> <span>${{markSpan(x.wbw, x.ws, x.we, 'tr-hl')}}</span></div>`}}
                 </div>`;
         }}
         function setCtx(wordId, lang, idx) {{
@@ -1642,7 +1656,7 @@ def main():
         function copyWord(wordId) {{
             const w = ALL_WORDS.find(item => item.id === wordId);
             if (!w) return;
-            const textToCopy = `${{w.ar}} (${{w.tr || ''}}) - Meaning: ${{w.m.en || ''}} | Ref: Surah ${{verseRef(w)}}`;
+            const textToCopy = `${{w.ar}} (${{w.tr || ''}}) - Meaning: ${{w.m.en || ''}} | Ref: ${{verseRef(w)}}`;
             navigator.clipboard.writeText(textToCopy).then(() => {{
                 showToast(`Copied to clipboard: "${{w.ar}}" 📋`);
             }}).catch(() => {{
@@ -1730,7 +1744,7 @@ def main():
                     <td class="font-bn" style="font-weight:600;">${{w.m.bn || '—'}}</td>
                     <td class="font-ur" style="font-weight:600;">${{w.m.ur || '—'}}</td>
                     <td style="min-width:200px;">
-                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">Surah ${{esc(verseRef(w))}}</div>
+                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">${{esc(verseRef(w))}}</div>
                         <div class="font-arabic" style="font-size:14px;">${{verseArHtml(w)}}</div>
                     </td>
                     <td>
@@ -1777,7 +1791,7 @@ def main():
                 }}
             }}
             document.getElementById('fc-meanings').innerHTML = meaningsText;
-            document.getElementById('fc-verse').innerHTML = `${{verseArHtml(w)}} <span style="font-size:12px; color:var(--emerald);">(Surah ${{esc(verseRef(w))}})</span>`;
+            document.getElementById('fc-verse').innerHTML = `${{verseArHtml(w)}} <span style="font-size:12px; color:var(--emerald);">(${{esc(verseRef(w))}})</span>`;
 
             // Reset answer visibility
             document.getElementById('fc-answer-box').style.display = 'none';

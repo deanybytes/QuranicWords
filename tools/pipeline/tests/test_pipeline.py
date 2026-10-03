@@ -142,3 +142,12 @@ def test_screenshot_regressions_highlight_only_the_word(built):
             if e["exerciseType"] == "WORD_INTRO" and e["content"]["arabicWord"] == "مَا"]
     cats = {c["meaning"]["en"]: c["lemmaCategory"] for c in nots}
     assert cats.get("not") == "PARTICLE"
+
+
+def test_complete_ayah_check_catches_a_truncated_verse():
+    from qw import validate
+    ref = {(20, 34): "وَنَذْكُرَكَ كَثِيرًا", (2, 1): "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ الٓمٓ"}
+    ok = {"20:34": {"ar": "وَنَذۡكُرَكَ كَثِيرًا"}, "2:1": {"ar": "الٓمٓ"}}
+    assert validate.check_complete_ayahs(ok, ref) == []
+    cut = {"20:34": {"ar": "وَنَذۡكُرَكَ"}}
+    assert validate.check_complete_ayahs(cut, ref) == ["verse 20:34: 1 words, the complete ayah has 2"]
