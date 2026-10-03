@@ -1,0 +1,27 @@
+name: Web CI
+
+on:
+  push:
+    branches: [main]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", ".github/workflows/web-ci.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", ".github/workflows/web-ci.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Module smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Smoke tests (SRS, quiz, i18n parity, escaping, routing)
+        run: node tools/web/smoke_test.mjs
+      - name: Every vercel.json rewrite target exists
+        run: |
+          node -e "const v=require('./vercel.json');const fs=require('fs');for(const r of v.rewrites||[]){const f='.'+r.destination;if(!fs.existsSync(f)){console.error('missing',f);process.exit(1)}}"
