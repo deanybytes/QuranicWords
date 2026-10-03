@@ -1,4 +1,4 @@
-# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100010)
+# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100011)
 
 Everything you need is in this `store/` folder. Copy text **from the files**, not from chat, so the
 characters and limits stay exact. Every text file has already been checked against Play's limits
@@ -100,7 +100,7 @@ production access is granted).
      decodes crashes automatically. If Play still asks: **App bundle explorer → (this version) →
      Downloads** → upload `QuranicWords-v1.0.0-native-debug-symbols.zip` and
      `QuranicWords-v1.0.0-mapping.txt.gz` (unzip to `mapping.txt` if it wants the plain file).
-2. **Release name:** `1.0.0 (100010)`
+2. **Release name:** `1.0.0 (100011)`
 3. **Release notes:** open `store/release-notes.txt` and paste its **whole** content into the release
    notes box. It is already in Play's `<en-US> … </en-US>` per-language format, every language
    ≤ 500 characters.
