@@ -465,7 +465,7 @@ class ProgressRepositoryImplTest {
 
         assertEquals(listOf("word_a", "word_b"), repository.getDueItemIds(userId, limit = 10))
         assertEquals(2, repository.observeDueCount(userId).first())
-        val session = repository.getDailyReviewExercises(userId, limit = 1, listeningEnabled = false)
+        val session = repository.getDailyReviewExercises(userId, limit = 1)
         assertEquals(listOf("word_a"), session.map { it.practicedItemId })
     }
 
@@ -559,7 +559,7 @@ class ProgressRepositoryImplTest {
 
         // User makes a mistake on word_1 and word_2
         repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
-        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.TAP_WHAT_YOU_HEAR, wasCorrect = false)
+        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.FILL_IN_THE_BLANK, wasCorrect = false)
 
         val missedBefore = repository.getMissedItemIds(userId)
         assertEquals(setOf("word_1", "word_2"), missedBefore.toSet())

@@ -131,9 +131,7 @@
     <string name="lesson_exit_confirm_stay">سیکھنا جاری رکھیں</string>
     <string name="lesson_matching_instruction">ایک حرف پر تھپتھپائیں، پھر اس کے جوڑے پر تھپتھپائیں۔</string>
     <string name="lesson_teach_continue_button">سمجھ گیا</string>
-    <string name="exercise_audio_unavailable">اس آئٹم کے لیے آڈیو ابھی دستیاب نہیں ہے۔</string>
     <string name="word_order_build_area_label">آپ کا جواب</string>
-    <string name="listen_and_type_hint">جو سنیں وہ ٹائپ کریں</string>
     <string name="lesson_empty_title">سبق کا مواد دستیاب نہیں ہے</string>
     <string name="lesson_empty_desc">اس سبق کے لیے کوئی مشقیں نہیں ملیں۔ براہ کرم ڈیش بورড پر واپس جائیں۔</string>
 
@@ -306,7 +304,6 @@
     <string name="home_review_count_subtitle">%1$d قرآنی الفاظ کا جائزہ درکار ہے</string>
     <string name="home_review_single_mistake_subtitle">1 قرآنی لفظ کا جائزہ درکار ہے</string>
     <string name="lesson_try_again_button">دوبارہ کوشش کریں</string>
-    <string name="settings_pronunciation_audio_label">تلفظ کی آڈیو</string>
     <string name="settings_reduce_glass_label">گلاس اثرات کم کریں</string>
     <string name="settings_section_sound">آواز اور آڈیو</string>
     <string name="lesson_kind_regular">سبق</string>
@@ -387,9 +384,6 @@
     <string name="settings_show_walkthrough_button">تعارفی گائیڈ دیکھیں</string>
     <string name="splash_load_failed">اسباق تیار نہیں ہو سکے۔ آپ کی پیش رفت محفوظ ہے۔</string>
     <string name="action_retry">دوبارہ کوشش کریں</string>
-    <string name="content_language_notice_title">الفاظ کے معانی کے بارے میں</string>
-    <string name="content_language_notice_body">ہر لفظ کا معنی اب قرآن کے مستند لفظی ترجمے سے لیا جاتا ہے۔ آپ کی زبان میں ابھی مستند ماخذ دستیاب نہیں، اس لیے معانی انگریزی میں دکھائے جائیں گے۔</string>
-    <string name="content_language_notice_ok">ٹھیک ہے</string>
     <string name="lesson_skip_button">چھوڑیں</string>
     <string name="chapter_label">باب نمبر %1$s</string>
     <string name="chapter_label_ordinal">%1$s باب</string>
@@ -408,7 +402,6 @@
     <string name="a11y_action_match">جوڑیں</string>
     <string name="a11y_action_select_word">یہ لفظ منتخب کریں</string>
     <string name="a11y_meaning_tab">معنی %1$s از %2$s</string>
-    <string name="a11y_play_pronunciation">تلفظ سنیں</string>
     <string name="a11y_action_flip_card">کارڈ پلٹیں</string>
     <string name="a11y_card_showing_word">لفظ دکھایا جا رہا ہے</string>
     <string name="a11y_card_showing_meaning">معنی دکھایا جا رہا ہے</string>
@@ -466,7 +459,6 @@
     <string name="quest_finish_lessons">%1$s اسباق مکمل کریں</string>
     <string name="quest_earn_xp">%1$s XP حاصل کریں</string>
     <string name="quest_daily_goal">آج %1$s منٹ مشق کریں</string>
-    <string name="quest_listening">سننے کے %1$s سوالوں کے جواب دیں</string>
     <string name="quest_new_words">%1$s نئے الفاظ سیکھیں</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -484,7 +476,6 @@
     <string name="achievement_level_description">لیول %d تک پہنچیں</string>
     <string name="achievement_strong_name">مضبوط بنیاد</string>
     <string name="achievement_strong_description">%d الفاظ کو مضبوط بنائیں</string>
-    <string name="settings_pronunciation_audio_description">سکھاتے وقت الفاظ سنیں اور سننے کے سوال فعال کریں۔</string>
     <string name="settings_invocation_every_launch_label">ہر بار کھولنے پر ابتدائی دعا</string>
     <string name="settings_invocation_every_launch_description">بند ہو تو: دعا دن میں ایک بار ایپ کھولتے وقت دکھائی جاتی ہے۔</string>
     <string name="settings_hearts_label">دل</string>

@@ -178,7 +178,7 @@ class HighlightUtilsTest {
     }
 
     @Test
-    fun `findMeaningHighlightRange matches Indonesian and Malay`() {
+    fun `findMeaningHighlightRange matches Indonesian`() {
         val translation = "Kitab ini tidak ada keraguan padanya."
         val range = HighlightUtils.findMeaningHighlightRange(
             verseTranslation = translation,
@@ -199,27 +199,6 @@ class HighlightUtilsTest {
         )
         assertNotNull(range)
         assertEquals("Livre", translation.substring(range!!.first, range.second))
-    }
-
-    @Test
-    fun `findMeaningHighlightRange matches Swahili and Hausa`() {
-        val swahili = "Hiki ni Kitabu kisicho na shaka."
-        val swRange = HighlightUtils.findMeaningHighlightRange(
-            verseTranslation = swahili,
-            meaningHighlight = "kitabu",
-            meaning = "kitabu"
-        )
-        assertNotNull(swRange)
-        assertEquals("Kitabu", swahili.substring(swRange!!.first, swRange.second))
-
-        val hausa = "Wannan Littafi ne babu shakka."
-        val haRange = HighlightUtils.findMeaningHighlightRange(
-            verseTranslation = hausa,
-            meaningHighlight = "littafi",
-            meaning = "littafi"
-        )
-        assertNotNull(haRange)
-        assertEquals("Littafi", hausa.substring(haRange!!.first, haRange.second))
     }
 
     @Test

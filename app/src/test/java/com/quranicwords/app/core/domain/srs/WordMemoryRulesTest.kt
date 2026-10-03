@@ -3,6 +3,7 @@ package com.quranicwords.app.core.domain.srs
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseEntity
 import com.quranicwords.app.core.domain.model.ExerciseType
+import com.quranicwords.app.core.domain.model.isWithdrawn
 import com.quranicwords.app.core.domain.model.ItemKind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -115,30 +116,31 @@ class WordMemoryRulesTest {
 
     @Test
     fun `review exercises get harder as memory strengthens`() {
-        val exercises = listOf("weak", "mid", "strong", "strongNoAudio").associateWith { item ->
+        val exercises = listOf("weak", "mid", "strong", "strongNoFill").associateWith { item ->
             buildList {
                 add(ex("${item}_mc", item, ExerciseType.MULTIPLE_CHOICE))
-                add(ex("${item}_fill", item, ExerciseType.FILL_IN_THE_BLANK))
-                if (item != "strongNoAudio") add(ex("${item}_hear", item, ExerciseType.TAP_WHAT_YOU_HEAR))
+                if (item != "strongNoFill") add(ex("${item}_fill", item, ExerciseType.FILL_IN_THE_BLANK))
+                add(ex("${item}_tap", item, ExerciseType.WORD_IN_VERSE_TAP))
             }
         }
         val strengths = mapOf(
             "weak" to WordStrength.LEARNING,
             "mid" to WordStrength.FAMILIAR,
             "strong" to WordStrength.MASTERED,
-            "strongNoAudio" to WordStrength.STRONG
+            "strongNoFill" to WordStrength.STRONG
         )
 
-        val picked = ReviewExercisePicker.pick(listOf("weak", "mid", "strong", "strongNoAudio"), exercises, strengths, listeningEnabled = true)
+        val picked = ReviewExercisePicker.pick(listOf("weak", "mid", "strong", "strongNoFill"), exercises, strengths)
 
         assertEquals(
-            listOf(ExerciseType.MULTIPLE_CHOICE, ExerciseType.FILL_IN_THE_BLANK, ExerciseType.TAP_WHAT_YOU_HEAR, ExerciseType.MULTIPLE_CHOICE),
+            listOf(ExerciseType.MULTIPLE_CHOICE, ExerciseType.FILL_IN_THE_BLANK, ExerciseType.FILL_IN_THE_BLANK, ExerciseType.WORD_IN_VERSE_TAP),
             picked.map { it.type }
         )
     }
 
     @Test
-    fun `listening is never picked while audio is off and familiar words alternate context types`() {
+    @Suppress("DEPRECATION")
+    fun `withdrawn listening exercises are never picked and familiar words alternate context types`() {
         val items = listOf("a", "b")
         val exercises = items.associateWith { item ->
             listOf(
@@ -147,11 +149,16 @@ class WordMemoryRulesTest {
                 ex("${item}_hear", item, ExerciseType.TAP_WHAT_YOU_HEAR)
             )
         }
-        val familiar = ReviewExercisePicker.pick(items, exercises, items.associateWith { WordStrength.FAMILIAR }, listeningEnabled = false)
+        val familiar = ReviewExercisePicker.pick(items, exercises, items.associateWith { WordStrength.FAMILIAR })
         assertEquals(listOf(ExerciseType.FILL_IN_THE_BLANK, ExerciseType.WORD_IN_VERSE_TAP), familiar.map { it.type })
 
-        val onlyListening = mapOf("x" to listOf(ex("x_hear", "x", ExerciseType.TAP_WHAT_YOU_HEAR)))
-        assertTrue(ReviewExercisePicker.pick(listOf("x"), onlyListening, mapOf("x" to WordStrength.MASTERED), listeningEnabled = false).isEmpty())
-        assertNull(ReviewExercisePicker.pick(listOf("missing"), emptyMap(), emptyMap(), true).firstOrNull())
+        val strong = ReviewExercisePicker.pick(items, exercises, items.associateWith { WordStrength.MASTERED })
+        assertTrue(strong.none { it.type.isWithdrawn })
+
+        val onlyListening = mapOf(
+            "x" to listOf(ex("x_hear", "x", ExerciseType.TAP_WHAT_YOU_HEAR), ex("x_type", "x", ExerciseType.LISTEN_AND_TYPE))
+        )
+        assertTrue(ReviewExercisePicker.pick(listOf("x"), onlyListening, mapOf("x" to WordStrength.MASTERED)).isEmpty())
+        assertNull(ReviewExercisePicker.pick(listOf("missing"), emptyMap(), emptyMap()).firstOrNull())
     }
 }

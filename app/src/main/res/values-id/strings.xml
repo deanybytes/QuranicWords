@@ -128,9 +128,7 @@
     <string name="lesson_exit_confirm_stay">Terus belajar</string>
     <string name="lesson_matching_instruction">Ketuk satu huruf, lalu ketuk pasangannya.</string>
     <string name="lesson_teach_continue_button">Mengerti</string>
-    <string name="exercise_audio_unavailable">Audio untuk item ini belum tersedia.</string>
     <string name="word_order_build_area_label">Jawaban Anda</string>
-    <string name="listen_and_type_hint">Ketik apa yang Anda dengar</string>
     <string name="lesson_empty_title">Konten Pelajaran Tidak Tersedia</string>
     <string name="lesson_empty_desc">Tidak ada latihan yang ditemukan untuk pelajaran ini. Silakan kembali ke dasbor.</string>
 
@@ -303,7 +301,6 @@
     <string name="home_review_count_subtitle">%1$d kata Al-Qur\'an perlu ditinjau</string>
     <string name="home_review_single_mistake_subtitle">1 kata Al-Qur\'an perlu ditinjau</string>
     <string name="lesson_try_again_button">Coba Lagi</string>
-    <string name="settings_pronunciation_audio_label">Audio pelafalan</string>
     <string name="settings_reduce_glass_label">Kurangi Efek Kaca</string>
     <string name="settings_section_sound">Suara &amp; Audio</string>
     <string name="lesson_kind_regular">Pelajaran</string>
@@ -387,9 +384,6 @@
     <string name="settings_show_walkthrough_button">Tampilkan Panduan Pengenalan</string>
     <string name="splash_load_failed">Pelajaran tidak dapat disiapkan. Kemajuan Anda aman.</string>
     <string name="action_retry">Coba lagi</string>
-    <string name="content_language_notice_title">Tentang arti kata</string>
-    <string name="content_language_notice_body">Setiap arti kata kini diambil langsung dari terjemahan kata per kata Al-Qur\'an yang terverifikasi. Sumber terverifikasi belum tersedia dalam bahasa Anda, jadi arti kata ditampilkan dalam bahasa Inggris.</string>
-    <string name="content_language_notice_ok">Oke</string>
     <string name="lesson_skip_button">Lewati</string>
     <string name="chapter_label">Bab %1$s</string>
     <string name="chapter_label_ordinal">Bab %1$s</string>
@@ -407,7 +401,6 @@
     <string name="a11y_action_match">Cocokkan</string>
     <string name="a11y_action_select_word">Pilih kata ini</string>
     <string name="a11y_meaning_tab">Arti %1$s dari %2$s</string>
-    <string name="a11y_play_pronunciation">Putar pelafalan</string>
     <string name="a11y_action_flip_card">Balik kartu</string>
     <string name="a11y_card_showing_word">Menampilkan kata</string>
     <string name="a11y_card_showing_meaning">Menampilkan arti</string>
@@ -465,7 +458,6 @@
     <string name="quest_finish_lessons">Selesaikan %1$s pelajaran</string>
     <string name="quest_earn_xp">Kumpulkan %1$s XP</string>
     <string name="quest_daily_goal">Berlatih %1$s menit hari ini</string>
-    <string name="quest_listening">Jawab %1$s soal mendengarkan</string>
     <string name="quest_new_words">Pelajari %1$s kata baru</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -483,7 +475,6 @@
     <string name="achievement_level_description">Capai level %d</string>
     <string name="achievement_strong_name">Fondasi Kuat</string>
     <string name="achievement_strong_description">Jadikan %d kata Kuat</string>
-    <string name="settings_pronunciation_audio_description">Dengarkan kata saat diajarkan dan aktifkan soal mendengarkan.</string>
     <string name="settings_invocation_every_launch_label">Doa pembuka setiap kali dibuka</string>
     <string name="settings_invocation_every_launch_description">Mati: doa pembuka tampil sekali sehari.</string>
     <string name="settings_hearts_label">Hati</string>

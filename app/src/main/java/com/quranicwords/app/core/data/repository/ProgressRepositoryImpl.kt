@@ -6,6 +6,7 @@ import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
 import com.quranicwords.app.core.domain.HeartsCalculator
 import com.quranicwords.app.core.domain.QuestCatalog
 import com.quranicwords.app.core.domain.QuestEligibility
+import com.quranicwords.app.core.domain.model.isWithdrawn
 import com.quranicwords.app.core.domain.QuestEvent
 import com.quranicwords.app.core.domain.model.HeartsStatus
 import com.quranicwords.app.core.domain.model.LearningPath
@@ -335,7 +336,6 @@ class ProgressRepositoryImpl @Inject constructor(
     /** Preference reads for quest selection - done before a transaction opens, not inside it. */
     private suspend fun questEligibility(userId: String): QuestEligibility = QuestEligibility(
         dueReviewCount = database.wordMemoryDao().getDueCount(userId, clock.millis()),
-        listeningEnabled = preferences.pronunciationAudioEnabledFlow.first(),
         lessonsAvailable = preferences.learningPathFlow.first() == LearningPath.LEARN,
         dailyGoalMinutes = preferences.dailyGoalLevelFlow.first().minutes
     )
@@ -370,7 +370,6 @@ class ProgressRepositoryImpl @Inject constructor(
             lessonsFinished = lessonsFinished,
             xpEarned = xpEarned,
             todayMinutes = database.dailyPracticeDao().get(userId, today)?.minutesPracticed ?: 0,
-            listeningAnswers = session.listeningAnswers,
             newWords = session.newWords
         )
         val update = QuestCatalog.apply(quests, event, clock.millis())
@@ -551,8 +550,7 @@ class ProgressRepositoryImpl @Inject constructor(
 
     override suspend fun getDailyReviewExercises(
         userId: String,
-        limit: Int,
-        listeningEnabled: Boolean
+        limit: Int
     ): List<ExerciseEntity> = withContext(Dispatchers.IO) {
         val dueIds = database.wordMemoryDao().getDueItemIds(userId, clock.millis(), limit)
         if (dueIds.isEmpty()) return@withContext emptyList()
@@ -561,8 +559,7 @@ class ProgressRepositoryImpl @Inject constructor(
         ReviewExercisePicker.pick(
             orderedItemIds = dueIds,
             exercisesByItem = scoredExercisesFor(dueIds).groupBy { it.practicedItemId.orEmpty() },
-            strengthByItem = strengths,
-            listeningEnabled = listeningEnabled
+            strengthByItem = strengths
         )
     }
 
@@ -608,6 +605,7 @@ class ProgressRepositoryImpl @Inject constructor(
 
     private suspend fun scoredExercisesFor(itemIds: Collection<String>): List<ExerciseEntity> =
         chunkedInQuery(itemIds) { database.exerciseDao().getScoredExercisesForItems(it) }
+            .filter { !it.type.isWithdrawn }
 
     override suspend fun completeReviewSession(
         userId: String,

@@ -7,6 +7,10 @@ import kotlinx.serialization.Serializable
  * The full content of one exercise, shaped differently per [ExerciseType]. Stored as a single
  * JSON blob in [com.quranicwords.app.core.data.local.entity.ExerciseEntity] since
  * the shape genuinely varies by type rather than sharing a fixed set of columns.
+ *
+ * The listening types ("tap_what_you_hear", "listen_and_type") were withdrawn along with word
+ * pronunciation audio; a stored blob of either no longer decodes, and every reader goes through
+ * [com.quranicwords.app.core.util.decodeExerciseContentOrNull] so such a row is skipped.
  */
 @Serializable
 sealed interface ExerciseContent {
@@ -26,18 +30,6 @@ sealed interface ExerciseContent {
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
         val meaningHighlight: LocalizedText = emptyMap()
-    ) : OptionsBearing {
-        override fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent = copy(options = newOptions)
-    }
-
-    @Serializable
-    @SerialName("tap_what_you_hear")
-    data class TapWhatYouHear(
-        override val prompt: LocalizedText,
-        val audioAssetPath: String,
-        override val wordId: String,
-        override val options: List<ChoiceOption>,
-        override val correctOptionId: String
     ) : OptionsBearing {
         override fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent = copy(options = newOptions)
     }
@@ -88,7 +80,6 @@ sealed interface ExerciseContent {
         val exampleVerseTranslation: LocalizedText = emptyMap(),
         val exampleVerseReference: String? = null,
         val exampleVerseVerified: Boolean = false,
-        val audioAssetPath: String? = null,
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
         val meaningHighlight: LocalizedText = emptyMap(),
@@ -169,19 +160,6 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * Plays [audioAssetPath], the learner types the transliteration.
-     */
-    @Serializable
-    @SerialName("listen_and_type")
-    data class ListenAndType(
-        override val prompt: LocalizedText,
-        val wordId: String,
-        val audioAssetPath: String,
-        val correctAnswer: String,
-        val acceptedAnswers: List<String> = emptyList()
-    ) : ExerciseContent
-
-    /**
      * The "reverse direction" quiz: [meaning] is shown as the prompt (instead of the Arabic
      * word), and the learner taps the matching word directly inside [verseArabic].
      */
@@ -227,14 +205,14 @@ sealed interface OptionsBearing : ExerciseContent {
 val ExerciseContent.isScored: Boolean
     get() = when (this) {
         is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> false
-        is ExerciseContent.MultipleChoice, is ExerciseContent.TapWhatYouHear, is ExerciseContent.Matching,
-        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder, is ExerciseContent.ListenAndType,
+        is ExerciseContent.MultipleChoice, is ExerciseContent.Matching,
+        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder,
         is ExerciseContent.TapWordInVerse -> true
     }
 
 /**
  * The id of the single word this exercise quizzes, for attempt logging - [OptionsBearing.wordId]
- * for [ExerciseContent.MultipleChoice]/[ExerciseContent.TapWhatYouHear] (NOT `correctOptionId`,
+ * for [ExerciseContent.MultipleChoice]/[ExerciseContent.FillInTheBlank] (NOT `correctOptionId`,
  * which is only a per-exercise-local option id like "o3" and would fragment attempt logging for
  * the same word across different exercises that happen to number their baked options
  * differently). `null` for teach steps (nothing scored yet) and for [ExerciseContent.Matching],
@@ -243,10 +221,8 @@ val ExerciseContent.isScored: Boolean
  */
 fun ExerciseContent.practicedItemId(): String? = when (this) {
     is ExerciseContent.MultipleChoice -> wordId
-    is ExerciseContent.TapWhatYouHear -> wordId
     is ExerciseContent.FillInTheBlank -> wordId
     is ExerciseContent.WordOrderBuilder -> wordId
-    is ExerciseContent.ListenAndType -> wordId
     is ExerciseContent.TapWordInVerse -> wordId
     is ExerciseContent.Matching, is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> null
 }

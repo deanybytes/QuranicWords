@@ -47,9 +47,8 @@ class VerseReferenceFormatterTest {
     }
 
     @Test
-    fun `formats reference with localized Surah name in Indonesian and Malay`() {
+    fun `formats reference with localized Surah name in Indonesian`() {
         assertEquals("Surah Al-Baqarah 2:23", VerseReferenceFormatter.format("Al-Baqarah 2:23", Language.INDONESIAN))
-        assertEquals("Surah Al-Baqarah 2:23", VerseReferenceFormatter.format("Al-Baqarah 2:23", Language.MALAY))
     }
 
     @Test

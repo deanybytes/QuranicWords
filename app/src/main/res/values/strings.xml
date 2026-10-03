@@ -135,9 +135,7 @@
     <string name="lesson_exit_confirm_stay">Keep learning</string>
     <string name="lesson_matching_instruction">Tap a letter, then tap its match.</string>
     <string name="lesson_teach_continue_button">Got it</string>
-    <string name="exercise_audio_unavailable">Audio for this item isn\'t available yet.</string>
     <string name="word_order_build_area_label">Your answer</string>
-    <string name="listen_and_type_hint">Type what you hear</string>
     <string name="lesson_empty_title">Lesson Content Unavailable</string>
     <string name="lesson_empty_desc">No exercises found for this lesson. Please return to the dashboard.</string>
 
@@ -200,7 +198,6 @@
     <string name="settings_font_scale_extra_large">Extra large</string>
     <string name="settings_section_sound">Sound</string>
     <string name="settings_sound_effects_label">Sound effects</string>
-    <string name="settings_pronunciation_audio_label">Pronunciation audio</string>
     <string name="settings_section_mode">Learning Mode</string>
     <string name="settings_learning_path_label">Learning Path</string>
     <string name="settings_learning_path_learn">Learn</string>
@@ -379,9 +376,6 @@
     <string name="settings_show_walkthrough_button">Show Walkthrough Guide</string>
     <string name="splash_load_failed">Couldn\'t prepare the lessons. Your progress is safe.</string>
     <string name="action_retry">Try again</string>
-    <string name="content_language_notice_title">About word meanings</string>
-    <string name="content_language_notice_body">Every word meaning is now taken directly from a verified word-by-word translation of the Qur\'an. A verified source isn\'t available in your language yet, so word meanings are shown in English while the app stays in your language.</string>
-    <string name="content_language_notice_ok">OK</string>
     <string name="lesson_skip_button">Skip</string>
     <string name="chapter_label">Chapter %1$s</string>
     <string name="chapter_label_ordinal">%1$s Chapter</string>
@@ -400,7 +394,6 @@
     <string name="a11y_action_match">Match</string>
     <string name="a11y_action_select_word">Select this word</string>
     <string name="a11y_meaning_tab">Meaning %1$s of %2$s</string>
-    <string name="a11y_play_pronunciation">Play pronunciation</string>
     <string name="a11y_action_flip_card">Flip card</string>
     <string name="a11y_card_showing_word">Showing the word</string>
     <string name="a11y_card_showing_meaning">Showing the meaning</string>
@@ -458,7 +451,6 @@
     <string name="quest_finish_lessons">Finish %1$s lessons</string>
     <string name="quest_earn_xp">Earn %1$s XP</string>
     <string name="quest_daily_goal">Practise %1$s minutes today</string>
-    <string name="quest_listening">Answer %1$s listening questions</string>
     <string name="quest_new_words">Learn %1$s new words</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -476,7 +468,6 @@
     <string name="achievement_level_description">Reach level %d</string>
     <string name="achievement_strong_name">Strong Foundation</string>
     <string name="achievement_strong_description">Make %d words Strong</string>
-    <string name="settings_pronunciation_audio_description">Hear words as they are taught and enable listening questions.</string>
     <string name="settings_invocation_every_launch_label">Opening invocation on every launch</string>
     <string name="settings_invocation_every_launch_description">Off: the invocation opens the app once a day.</string>
     <string name="settings_hearts_label">Hearts</string>

@@ -65,7 +65,6 @@ import com.quranicwords.app.core.ui.components.Qw3DFlipCard
 import com.quranicwords.app.core.ui.components.WordStrengthMeter
 import com.quranicwords.app.core.ui.components.QwPrimaryButton
 import com.quranicwords.app.core.ui.theme.QwShapes
-import com.quranicwords.app.feature.lesson.exercise.AudioPlayButton
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Search
@@ -192,8 +191,7 @@ fun WordBrowseScreen(
                     front = {
                         WordCardFront(
                             word = word,
-                            strength = uiState.strengths[word.wordId],
-                            onPlayAudio = word.audioAssetPath?.let { path -> { viewModel.playPronunciation(path) } }
+                            strength = uiState.strengths[word.wordId]
                         )
                     },
                     back = { WordCardBack(word, language) }
@@ -204,7 +202,7 @@ fun WordBrowseScreen(
 }
 
 @Composable
-private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrength?, onPlayAudio: (() -> Boolean)?) {
+private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrength?) {
     GlassSurface(
         modifier = Modifier.fillMaxSize(),
         shape = RoundedCornerShape(28.dp),
@@ -225,9 +223,6 @@ private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrengt
             )
             if (strength != null && strength != WordStrength.NEW) {
                 WordStrengthMeter(strength = strength, modifier = Modifier.padding(top = 16.dp))
-            }
-            if (onPlayAudio != null) {
-                Box(modifier = Modifier.padding(top = 16.dp)) { AudioPlayButton(onPlay = onPlayAudio) }
             }
         }
     }

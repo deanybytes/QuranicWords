@@ -123,9 +123,7 @@
     <string name="lesson_exit_confirm_stay">ادامه یادگیری</string>
     <string name="lesson_matching_instruction">یک کلمه عربی را لمس کنید، سپس معنای مطابق با آن را انتخاب کنید.</string>
     <string name="lesson_teach_continue_button">متوجه شدم</string>
-    <string name="exercise_audio_unavailable">صوت این مورد هنوز در دسترس نیست.</string>
     <string name="word_order_build_area_label">پاسخ شما</string>
-    <string name="listen_and_type_hint">آنچه را می‌شنوید بنویسید</string>
     <string name="lesson_empty_title">محتوای درس در دسترس نیست</string>
     <string name="lesson_empty_desc">هیچ تمرینی برای این درس یافت نشد. لطفاً به داشبورد بازگردید.</string>
     <!-- Lesson summary -->
@@ -185,7 +183,6 @@
     <string name="settings_font_scale_extra_large">خیلی بزرگ</string>
     <string name="settings_section_sound">صداها</string>
     <string name="settings_sound_effects_label">جلوه‌های صوتی</string>
-    <string name="settings_pronunciation_audio_label">صدای تلفظ</string>
     <string name="settings_section_mode">حالت یادگیری</string>
     <string name="settings_learning_path_label">مسیر یادگیری</string>
     <string name="settings_learning_path_learn">یادگیری و آزمون</string>
@@ -361,9 +358,6 @@
     <string name="settings_show_walkthrough_button">نمایش راهنمای معرفی</string>
     <string name="splash_load_failed">درس‌ها آماده نشدند. پیشرفت شما محفوظ است.</string>
     <string name="action_retry">دوباره تلاش کنید</string>
-    <string name="content_language_notice_title">درباره معنای واژه‌ها</string>
-    <string name="content_language_notice_body">معنای هر واژه اکنون مستقیماً از ترجمه واژه‌به‌واژه تأییدشده قرآن گرفته می‌شود. هنوز منبع تأییدشده‌ای به زبان شما نیست، بنابراین معانی به انگلیسی نمایش داده می‌شوند.</string>
-    <string name="content_language_notice_ok">باشه</string>
     <string name="lesson_skip_button">رد شدن</string>
     <string name="chapter_label">فصل %1$s</string>
     <string name="chapter_label_ordinal">فصل %1$s</string>
@@ -382,7 +376,6 @@
     <string name="a11y_action_match">جفت کردن</string>
     <string name="a11y_action_select_word">این کلمه را انتخاب کنید</string>
     <string name="a11y_meaning_tab">معنی %1$s از %2$s</string>
-    <string name="a11y_play_pronunciation">پخش تلفظ</string>
     <string name="a11y_action_flip_card">برگرداندن کارت</string>
     <string name="a11y_card_showing_word">در حال نمایش کلمه</string>
     <string name="a11y_card_showing_meaning">در حال نمایش معنی</string>
@@ -440,7 +433,6 @@
     <string name="quest_finish_lessons">%1$s درس را تمام کن</string>
     <string name="quest_earn_xp">%1$s XP به دست بیاور</string>
     <string name="quest_daily_goal">امروز %1$s دقیقه تمرین کن</string>
-    <string name="quest_listening">به %1$s پرسش شنیداری پاسخ بده</string>
     <string name="quest_new_words">%1$s واژه تازه یاد بگیر</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -458,7 +450,6 @@
     <string name="achievement_level_description">به سطح %d برس</string>
     <string name="achievement_strong_name">پایهٔ محکم</string>
     <string name="achievement_strong_description">%d واژه را به سطح قوی برسان</string>
-    <string name="settings_pronunciation_audio_description">واژه‌ها را هنگام آموزش بشنوید و پرسش‌های شنیداری را فعال کنید.</string>
     <string name="settings_invocation_every_launch_label">دعای آغاز در هر بار باز کردن</string>
     <string name="settings_invocation_every_launch_description">خاموش: دعا روزی یک بار هنگام باز کردن برنامه نمایش داده می‌شود.</string>
     <string name="settings_hearts_label">قلب‌ها</string>

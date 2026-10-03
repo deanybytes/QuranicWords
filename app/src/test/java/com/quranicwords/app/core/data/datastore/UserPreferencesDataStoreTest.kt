@@ -1,8 +1,10 @@
 package com.quranicwords.app.core.data.datastore
 
 import androidx.test.core.app.ApplicationProvider
+import com.quranicwords.app.core.domain.model.Language
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -39,6 +41,24 @@ class UserPreferencesDataStoreTest {
         val ids = deferreds.awaitAll()
         val distinctIds = ids.toSet()
         assertEquals(1, distinctIds.size)
+    }
+
+    @Test
+    fun `a withdrawn language tag reads as English and is migrated to en`() = runTest {
+        for (tag in listOf("ms", "ha", "sw", "msa", "swa")) {
+            dataStore.setRawLanguageTag(tag)
+            assertEquals(Language.ENGLISH, dataStore.languageFlow.first())
+            dataStore.migrateRetiredLanguage()
+            assertEquals("en", dataStore.rawLanguageTag())
+        }
+    }
+
+    @Test
+    fun `migrateRetiredLanguage leaves a current language untouched`() = runTest {
+        dataStore.setLanguage(Language.TURKISH)
+        dataStore.migrateRetiredLanguage()
+        assertEquals(Language.TURKISH, dataStore.languageFlow.first())
+        assertEquals("tr", dataStore.rawLanguageTag())
     }
 
     @Test

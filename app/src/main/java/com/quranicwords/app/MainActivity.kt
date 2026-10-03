@@ -120,19 +120,6 @@ class MainActivity : AppCompatActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         QwNavHost()
-                        val showLanguageNotice by viewModel.showContentLanguageNotice.collectAsStateWithLifecycle()
-                        if (showLanguageNotice) {
-                            androidx.compose.material3.AlertDialog(
-                                onDismissRequest = viewModel::dismissContentLanguageNotice,
-                                title = { androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_title)) },
-                                text = { androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_body)) },
-                                confirmButton = {
-                                    androidx.compose.material3.TextButton(onClick = viewModel::dismissContentLanguageNotice) {
-                                        androidx.compose.material3.Text(androidx.compose.ui.res.stringResource(R.string.content_language_notice_ok))
-                                    }
-                                }
-                            )
-                        }
                     }
                 }
             }

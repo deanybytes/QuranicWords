@@ -105,7 +105,6 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
-    val pronunciationAudioEnabled by viewModel.pronunciationAudioEnabled.collectAsStateWithLifecycle()
     val invocationEveryLaunch by viewModel.invocationEveryLaunch.collectAsStateWithLifecycle()
     val heartsEnabled by viewModel.heartsEnabled.collectAsStateWithLifecycle()
     val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
@@ -218,7 +217,7 @@ fun SettingsScreen(
 
             Text(stringResource(R.string.settings_language_label), style = MaterialTheme.typography.labelLarge)
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(Language.entries.filter { it.isContentLanguage || it == language }) { lang ->
+                items(Language.entries) { lang ->
                     FilterChip(
                         selected = language == lang,
                         onClick = { viewModel.setLanguage(lang) },
@@ -315,16 +314,6 @@ fun SettingsScreen(
                 label = stringResource(R.string.settings_sound_effects_label),
                 checked = soundEnabled,
                 onCheckedChange = viewModel::setSoundEnabled
-            )
-            SettingsSwitchRow(
-                label = stringResource(R.string.settings_pronunciation_audio_label),
-                checked = pronunciationAudioEnabled,
-                onCheckedChange = viewModel::setPronunciationAudioEnabled
-            )
-            Text(
-                stringResource(R.string.settings_pronunciation_audio_description),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             SettingsSwitchRow(
                 label = stringResource(R.string.settings_invocation_every_launch_label),

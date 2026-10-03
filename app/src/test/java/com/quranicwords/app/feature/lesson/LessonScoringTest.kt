@@ -134,9 +134,9 @@ class LessonScoringTest {
     }
 
     @Test
-    fun `missed words, listening answers and new words feed the session stats`() {
+    fun `missed words and new words feed the session stats`() {
         var scoring = LessonScoring()
-        scoring = scoring.log("w1", ExerciseType.TAP_WHAT_YOU_HEAR, correct = false).first
+        scoring = scoring.log("w1", ExerciseType.FILL_IN_THE_BLANK, correct = false).first
         scoring = scoring.log("w1", ExerciseType.MULTIPLE_CHOICE, correct = true).first // retry - not first try
         scoring = scoring.log("w2", ExerciseType.MULTIPLE_CHOICE, correct = true).first
         scoring = scoring.grade(0, correct = true)
@@ -144,7 +144,6 @@ class LessonScoringTest {
         assertEquals(setOf("w1"), scoring.missedItemIds)
         val stats = scoring.sessionStats(knownItemIds = setOf("w2"))
         assertEquals(2, stats.firstTryAnswers)
-        assertEquals(1, stats.listeningAnswers)
         assertEquals(1, stats.newWords)
         assertEquals(1, stats.bestCombo)
     }

@@ -10,8 +10,7 @@ import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.util.ArabicSearch
-import com.quranicwords.app.core.util.AudioPlayer
-import com.quranicwords.app.core.util.AppJson
+import com.quranicwords.app.core.util.decodeExerciseContentOrNull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,7 +39,6 @@ class WordBrowseViewModel @Inject constructor(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
     private val userIdProvider: CurrentUserIdProvider,
-    private val audioPlayer: AudioPlayer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -59,9 +57,7 @@ class WordBrowseViewModel @Inject constructor(
                 contentRepository.getExercisesForLesson(lesson.id)
                     .sortedBy { it.orderIndex }
                     .mapNotNull { exercise ->
-                        runCatching {
-                            AppJson.decodeFromString(ExerciseContent.serializer(), exercise.contentJson)
-                        }.getOrNull() as? ExerciseContent.WordIntro
+                        decodeExerciseContentOrNull(exercise.contentJson) as? ExerciseContent.WordIntro
                     }
             }
 
@@ -76,12 +72,5 @@ class WordBrowseViewModel @Inject constructor(
         return _uiState.value.words.indexOfFirst { word ->
             ArabicSearch.matches(word.arabicWord, query) || word.meaning.values.any { ArabicSearch.matches(it, query) }
         }.takeIf { it >= 0 }
-    }
-
-    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
-
-    override fun onCleared() {
-        audioPlayer.release()
-        super.onCleared()
     }
 }

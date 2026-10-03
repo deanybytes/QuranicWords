@@ -7,6 +7,7 @@ import com.quranicwords.app.core.util.AppJson
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -29,8 +30,11 @@ class GeneratedContentParsesTest {
     private fun readAsset(name: String): String = File(assetsDir, name).readText()
     private fun reported(key: String) = report.getValue(key).jsonPrimitive.int
 
+    // Decoded per element exactly as ContentSeeder does: an exercise of a withdrawn type (the
+    // old listening exercises, until the content pipeline stops emitting them) is skipped.
     private val exercises: List<ExerciseSeedDto> by lazy {
-        AppJson.decodeFromString(ListSerializer(ExerciseSeedDto.serializer()), readAsset("exercises_vocabulary.json"))
+        AppJson.decodeFromString(ListSerializer(JsonElement.serializer()), readAsset("exercises_vocabulary.json"))
+            .mapNotNull { runCatching { AppJson.decodeFromJsonElement(ExerciseSeedDto.serializer(), it) }.getOrNull() }
     }
     private val intros by lazy { exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>() }
 
@@ -39,7 +43,7 @@ class GeneratedContentParsesTest {
         assertEquals(reported("chapters"), AppJson.decodeFromString<ChaptersFile>(readAsset("chapters.json")).chapters.size)
         assertEquals(reported("sections"), AppJson.decodeFromString<SectionsFile>(readAsset("sections.json")).sections.size)
         assertEquals(reported("lessons"), AppJson.decodeFromString<LessonsFile>(readAsset("lessons_vocabulary.json")).lessons.size)
-        assertEquals(reported("exercises"), exercises.size)
+        assertEquals(reported("exercises"), exercises.size + withdrawnExerciseCount(readAsset("exercises_vocabulary.json")))
         assertEquals(reported("words"), AppJson.decodeFromString<WordFrequencyFile>(readAsset("word_frequency.json")).words.size)
     }
 
@@ -122,3 +126,8 @@ class GeneratedContentParsesTest {
         map.values.forEach { m -> assertTrue(m.words.values.all { it in wordIds }) }
     }
 }
+
+/** Exercises of the withdrawn listening types still present in the bundled seed JSON - the app
+ * skips them on seeding, so they count toward the pipeline report but never reach the database. */
+internal fun withdrawnExerciseCount(exercisesJson: String): Int =
+    Regex(""""type"\s*:\s*"(tap_what_you_hear|listen_and_type)"""").findAll(exercisesJson).count()

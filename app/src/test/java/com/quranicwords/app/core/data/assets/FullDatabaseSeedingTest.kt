@@ -60,7 +60,8 @@ class FullDatabaseSeedingTest {
         assertEquals(reported("sections"), sections.size)
         assertEquals(reported("lessons"), lessons.size)
         assertEquals(reported("words"), wordsCount)
-        assertEquals(reported("exercises"), exercisesCount)
+        val withdrawn = withdrawnExerciseCount(java.io.File("src/main/assets/content/exercises_vocabulary.json").readText())
+        assertEquals(reported("exercises"), exercisesCount + withdrawn)
     }
 
     @Test

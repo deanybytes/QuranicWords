@@ -5,10 +5,7 @@
     <locale android:name="ur" />
     <locale android:name="hi" />
     <locale android:name="in" />
-    <locale android:name="ms" />
     <locale android:name="tr" />
     <locale android:name="fa" />
-    <locale android:name="ha" />
-    <locale android:name="sw" />
     <locale android:name="fr" />
 </locale-config>

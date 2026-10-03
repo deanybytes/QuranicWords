@@ -37,14 +37,10 @@ class MainViewModel @Inject constructor(
     val fontStyle: StateFlow<com.quranicwords.app.core.domain.model.QuranFontStyle> = preferences.fontStyleFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, com.quranicwords.app.core.domain.model.QuranFontStyle.DEFAULT)
 
-    /** One-time explanation for learners whose language (Malay/Hausa/Swahili) has no verified
-     * word meanings, so the curriculum shows English meanings for them. */
-    val showContentLanguageNotice: StateFlow<Boolean> = kotlinx.coroutines.flow.combine(
-        preferences.languageFlow, preferences.contentLanguageNoticeShownFlow
-    ) { lang, shown -> lang != null && !lang.isContentLanguage && !shown }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
-
-    fun dismissContentLanguageNotice() {
-        viewModelScope.launch { preferences.setContentLanguageNoticeShown() }
+    init {
+        // Malay, Hausa and Swahili were withdrawn: a learner who had one stored is read as English
+        // (Language.fromTag) - persist that so the stored tag, backups and widgets agree, and the
+        // English language flow re-applies the AppCompat per-app locale in MainActivity.
+        viewModelScope.launch { preferences.migrateRetiredLanguage() }
     }
 }
