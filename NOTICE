@@ -15,13 +15,15 @@ Details: Lemmas, roots, parts of speech, verb forms, clitic segmentation and fre
          for every word - the basis of the curriculum.
 
 ==============================================================================
-2. Verse translations (alquran.cloud editions)
+2. Verse translations (alquran.cloud and quran.com editions)
 ==============================================================================
-Source:  https://alquran.cloud
-Details: Saheeh International (en), Muhiuddin Khan (bn), Fateh Muhammad Jalandhry (ur),
-         Suhel Farooq Khan & Saifur Rahman Nadwi (hi), Indonesian Ministry of Religious
-         Affairs (id), Diyanet Isleri (tr), Mohammad Mahdi Fooladvand (fa),
-         Muhammad Hamidullah (fr).
+Sources: https://alquran.cloud  and  https://quran.com (API v4)
+Details: Saheeh International (en), Dr. Abu Bakr Muhammad Zakaria (bn),
+         Dr. Israr Ahmad - Bayan-ul-Quran (ur), Maulana Azizul Haque al-Umari (hi),
+         Indonesian Ministry of Religious Affairs (id), Muslim Shahin (tr),
+         Hussein Taji Kal Dari (fa), Muhammad Hamidullah (fr).
+Reference text: Tanzil Quran Text (Uthmani), https://tanzil.net - used only to verify
+         that every cited verse is the complete ayah.
 
 ==============================================================================
 3. Greentech Apps Foundation (GTAF)
