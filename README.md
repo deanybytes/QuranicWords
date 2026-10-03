@@ -5,14 +5,14 @@
 </p>
 
 <p align="center">
-  <strong>3,900 Qur'anic words, taught in order of frequency with source-verified meanings in 8 languages, real verse contexts, spaced review and a gamified Android app.</strong>
+  <strong>3,833 Qur'anic words, taught in order of frequency with source-verified meanings in 8 languages, real verse contexts, spaced review and a gamified Android app.</strong>
 </p>
 
 <p align="center">
   <a href="https://quranicwords.vercel.app/"><img alt="Quran Vocabulary" src="https://img.shields.io/badge/Quran%20Vocabulary-3%2C900%20Words-10b981?style=for-the-badge&logo=bookstack&logoColor=white" /></a>
   <a href="https://quranicwords.vercel.app/roots"><img alt="Roots Dictionary" src="https://img.shields.io/badge/Root%20Words-1%2C430%20Roots-f59e0b?style=for-the-badge" /></a>
   <a href="https://quranicwords.vercel.app/"><img alt="11 Languages" src="https://img.shields.io/badge/Meanings-8%20Languages-06b6d4?style=for-the-badge" /></a>
-  <a href="https://github.com/rmrashahriar/QuranicWords/releases"><img alt="Android APK" src="https://img.shields.io/badge/Android%20App-v1.0.0%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
+  <a href="https://github.com/deanybytes/QuranicWords/releases"><img alt="Android APK" src="https://img.shields.io/badge/Android%20App-v1.0.0%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@
 
 **QuranicWords** teaches the vocabulary of the Qur'an through short, game-like lessons, with spaced review so words stay learned. It's built for learners who can read Arabic script and want to understand what they recite.
 
-- **3,900 distinct Qur'anic words.** Each is a real lemma from the Quranic Arabic Corpus, taught in order of how often it occurs. Together they account for **98.4%** of the Qur'an's words and attached particles.
+- **3,833 distinct Qur'anic words.** Each is a real lemma from the Quranic Arabic Corpus, taught in order of how often it occurs. Together they account for **97.4%** of the Qur'an's words and attached particles.
 - **Meanings in 8 languages:** English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Türkçe, فارسی and Français. Every meaning comes from the GTAF word-by-word translation of that word's own occurrences, so it can never be a neighbouring word or a phrase fragment ([how](tools/pipeline/README.md)).
 - **Every word is shown in a real verse,** with the exact word highlighted and a full translation of the verse.
 
@@ -173,7 +173,7 @@ mindmap
 ## 🚀 Quick start
 
 ```bash
-git clone git@github.com:rmrashahriar/QuranicWords.git
+git clone git@github.com:deanybytes/QuranicWords.git
 cd QuranicWords
 ./gradlew :app:assembleDebug
 ./gradlew :app:testDebugUnitTest
@@ -201,11 +201,11 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and 
 
 Explore and study the complete **QuranicWords Master Curriculum Dictionary** directly in any web browser with zero installation:
 
-👉 **[https://rmrashahriar.github.io/QuranicWords/](https://rmrashahriar.github.io/QuranicWords/)** (also at [quranicwords.vercel.app](https://quranicwords.vercel.app/))
+👉 **[https://deanybytes.github.io/QuranicWords/](https://deanybytes.github.io/QuranicWords/)** (also at [quranicwords.vercel.app](https://quranicwords.vercel.app/))
 
 Deploy with `tools/web/deploy_pages.sh` (GitHub Pages, branch `gh-pages`); the site is base-path aware, so the same files run at a domain root or under a sub-path.
 
-- 📖 **All 3,900 words:** search Arabic (with or without tashkīl), the 8 meaning languages, roots and verse citations.
+- 📖 **All 3,833 words:** search Arabic (with or without tashkīl), the 8 meaning languages, roots and verse citations.
 - 🧠 **Learn path and spaced review:** progress is saved locally in your browser.
 - 📋 **One-Click Copy & Ayah Links**: Direct citations linking to Quranic Ayahs on Quran.com.
 - ⭐ **Favorites / Bookmarking**: Save words locally to your browser for revision.
@@ -219,7 +219,7 @@ Deploy with `tools/web/deploy_pages.sh` (GitHub Pages, branch `gh-pages`); the s
 **QuranicWords** is an open-source project licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). Contributions, bug reports, and pull requests are warmly welcomed to help make Quranic Arabic learning accessible to everyone worldwide.
 
 - 🌐 **Live Web Application**: [https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)
-- 🐙 **Repository**: [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords)
+- 🐙 **Repository**: [github.com/deanybytes/QuranicWords](https://github.com/deanybytes/QuranicWords)
 - 📢 **DEANY TALKS Ecosystem**: Part of the **DEANY TALKS** digital Dawah platforms, creating modern, open Islamic educational tools.
-- ✉️ **Contact & Feedback**: Reach out via email at `contact.deanstalks@gmail.com` or open an issue on GitHub.
+- ✉️ **Contact & Feedback**: Reach out via email at `deanybytes@gmail.com` or open an issue on GitHub.
 

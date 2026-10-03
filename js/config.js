@@ -2,7 +2,7 @@
 // tools/web/smoke_test.mjs fails if the two drift apart.
 export const APP_VERSION = '2.2.3';
 
-export const REPO_URL = 'https://github.com/rmrashahriar/QuranicWords';
+export const REPO_URL = 'https://github.com/deanybytes/QuranicWords';
 
 /** Path the site is served from: "/" on its own domain, "/QuranicWords/" on GitHub Pages.
  * Derived from this module's own URL (js/config.js lives one level below the site root). */

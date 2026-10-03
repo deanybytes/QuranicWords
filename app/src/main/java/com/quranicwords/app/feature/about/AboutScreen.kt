@@ -91,7 +91,7 @@ fun AboutScreen() {
                 ConnectLinkRow(
                     icon = Icons.Filled.Code,
                     label = stringResource(R.string.settings_connect_github),
-                    onClick = { uriHandler.openUri("https://github.com/rmrashahriar/QuranicWords") }
+                    onClick = { uriHandler.openUri("https://github.com/deanybytes/QuranicWords") }
                 )
             } }
         }

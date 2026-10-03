@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Publishes the website to GitHub Pages (branch gh-pages of the "origin" remote).
-# The site is base-path aware, so it works at https://<user>.github.io/QuranicWords/.
+# Publishes the website to GitHub Pages (branch gh-pages of a git remote, default "deanybytes":
+# https://deanybytes.github.io/QuranicWords/). The site is base-path aware, so it works at
+# https://<owner>.github.io/QuranicWords/.
 #
-#   tools/web/deploy_pages.sh
+#   tools/web/deploy_pages.sh [remote]
 set -euo pipefail
+REMOTE="${1:-deanybytes}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SITE="$(mktemp -d)"
 trap 'rm -rf "$SITE"' EXIT
@@ -14,5 +16,5 @@ git init -q -b gh-pages
 git add -A
 git -c user.name="$(git -C "$ROOT" config user.name)" -c user.email="$(git -C "$ROOT" config user.email)" \
   commit -q -m "Deploy website from ${SHA}"
-git push -q --force "$(git -C "$ROOT" remote get-url origin)" gh-pages:gh-pages
-echo "pushed gh-pages (${SHA})"
+git push -q --force "$(git -C "$ROOT" remote get-url "$REMOTE")" gh-pages:gh-pages
+echo "pushed gh-pages (${SHA}) to ${REMOTE}"

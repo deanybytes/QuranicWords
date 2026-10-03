@@ -5,7 +5,7 @@ Thanks for your interest in contributing. This is a single-module Android app (K
 ## Getting set up
 
 ```bash
-git clone https://github.com/rmrashahriar/QuranicWords.git
+git clone https://github.com/deanybytes/QuranicWords.git
 cd QuranicWords
 ./gradlew :app:assembleDebug
 ```
@@ -63,9 +63,9 @@ These are enforced by design, not just convention — PRs that violate them won'
 QuranicWords is licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). By contributing to QuranicWords, you agree that your contributions will be licensed under its GPL-3.0 terms.
 
 - **Dawah Platform Ecosystem**: QuranicWords is part of the **DEANY TALKS** digital Islamic education initiative.
-- **Contact & Inquiries**: Reach out to the core team via email at `contact.deanstalks@gmail.com` or join community discussions on GitHub.
+- **Contact & Inquiries**: Reach out to the core team via email at `deanybytes@gmail.com` or join community discussions on GitHub.
 
 ## Reporting bugs / requesting features
 
-Use the issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) or email `contact.deanstalks@gmail.com`.
+Use the issue templates under [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) or email `deanybytes@gmail.com`.
 
