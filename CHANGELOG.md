@@ -4,7 +4,7 @@ All notable changes to QuranicWords are documented here.
 
 ## [Unreleased] - Open data and web
 
-The Android app is unchanged (still build 100013).
+The Android app is unchanged.
 
 ### Open data
 - New `dataset/`: the whole vocabulary as JSON and CSV (3,833 words, 1,423 roots, 4,839 cited
@@ -27,9 +27,9 @@ The Android app is unchanged (still build 100013).
 - README, docs and figures updated to the current curriculum (78 sections, 943 lessons, 15,329
   exercises); CI rebuilds the dataset and pages and fails on drift.
 
-## [1.0.0] - 2026-10-03 (Build 100013): Proven senses, Qur'an fonts, widgets & store readiness
+## [1.0.0] - 2026-10-03: Proven senses, Qur'an fonts, widgets & store readiness
 
-Builds 100009–100013 keep version name 1.0.0.
+Several internal test builds kept version name 1.0.0.
 
 ### Content
 - **Per-language senses:** every meaning is this word's own word-by-word gloss in a complete
@@ -57,7 +57,7 @@ Builds 100009–100013 keep version name 1.0.0.
 ### Store
 - Listings, screenshots and feature graphics in all 8 languages (`store/`).
 
-## [1.0.0] - 2026-10-03 (Build 100008): Verified curriculum, spaced review & gamification
+## [1.0.0] - 2026-10-03: Verified curriculum, spaced review & gamification
 
 ### Content (rebuilt from source)
 - **Corrupted curriculum replaced.** The previous content had:
@@ -129,7 +129,7 @@ Builds 100009–100013 keep version name 1.0.0.
   - 8 languages, with RTL.
 - **Standalone HTML dictionary** regenerated from the new content.
 
-## [1.0.0] - 2026-09-23 (Build 100002)
+## [1.0.0] - 2026-09-23
 
 ### Fixed & Improved
 - **Widget Theme Synchronization**: Synchronized widget visual styling (background glass drawables, surface cards, badges, buttons, and text colors) directly with the in-app `ThemeMode` (`DARK`, `LIGHT`, `SYSTEM`). Added dual-theme `RemoteViews(light, dark)` support on Android 12+ (API 31+) for system-following mode, and connected `UserPreferencesDataStore.setThemeMode` to trigger immediate background widget refreshes via `WidgetUpdateScheduler.updateAllWidgets`.
@@ -142,10 +142,9 @@ Builds 100009–100013 keep version name 1.0.0.
 - **Zero Warnings**: Pristine compilation under Kotlin `-Werror`, Android Lint Vital, and ProGuard/R8 shrinking.
 
 ### Changed
-- **Version Code**: Bumped `versionCode` to `100002`.
 - **Distribution Artifacts**: Generated signed release bundle `QuranicWords-v1.0.0.aab` and APK `QuranicWords-v1.0.0.apk`.
 
-## [1.0.0] - 2026-09-22 (Build 100001)
+## [1.0.0] - 2026-09-22
 
 ### Fixed & Audited
 - **Quiz Answer Leak Elimination**: Removed verse translations and translation highlights from Multiple Choice (`MultipleChoiceExercise`) and Matching (`MatchingExercise`) exercises, ensuring answers are never revealed to the learner while preserving authentic Quranic Arabic verse context.
@@ -170,7 +169,7 @@ Builds 100009–100013 keep version name 1.0.0.
   - Clean ProGuard / R8 code shrinking and resource optimization with full native debug symbol export.
 
 ### Changed
-- **Release Version**: Official release `v1.0.0` (versionCode `100001`).
+- **Release Version**: Official release `v1.0.0`.
 - **Distribution Artifacts**: Generated cryptographically signed Play Store Release App Bundle (`QuranicWords-v1.0.0.aab`), signed universal Release APK (`QuranicWords-v1.0.0.apk`), and native debug symbols archive (`QuranicWords-v1.0.0-native-debug-symbols.zip`).
 
 ## [1.0.0] - 2026-09-21
