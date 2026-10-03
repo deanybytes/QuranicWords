@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Static 70% goal ring for the widget picker's preview layout only (a preview can't set an
+     image level); the live widget swaps in the level-driven widget_ring. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <path
+        android:pathData="M48,5.3a42.7,42.7 0,1 1,0 85.4a42.7,42.7 0,1 1,0 -85.4"
+        android:strokeWidth="10.6"
+        android:strokeColor="@color/wg_track" />
+    <path
+        android:pathData="M48,5.3A42.7,42.7 0,1 1,7.39 61.2"
+        android:strokeLineCap="round"
+        android:strokeWidth="10.6"
+        android:strokeColor="@color/wg_fill" />
+</vector>

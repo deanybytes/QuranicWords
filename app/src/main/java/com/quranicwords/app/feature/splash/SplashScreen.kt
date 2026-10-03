@@ -12,6 +12,17 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
+import com.quranicwords.app.R
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -62,13 +73,18 @@ fun SplashScreen(
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     val destination by viewModel.destination.collectAsStateWithLifecycle()
+    val loadFailed by viewModel.loadFailed.collectAsStateWithLifecycle()
+    val playInvocation by viewModel.playInvocation.collectAsStateWithLifecycle()
     val reducedMotion = rememberReducedMotion()
     var invocationFinished by remember { mutableStateOf(false) }
-    val playsInvocationHere = destination == Route.Home
+    // Only on the first launch of the day (or every launch, if chosen in Settings) - not on
+    // every cold start, which made the app slow to reach for a quick review.
+    val playsInvocationHere = destination == Route.Home && playInvocation == true
 
-    LaunchedEffect(destination, invocationFinished) {
+    LaunchedEffect(destination, invocationFinished, playInvocation) {
         val dest = destination ?: return@LaunchedEffect
-        if (dest != Route.Home || invocationFinished) onNavigateTo(dest)
+        val decided = playInvocation ?: return@LaunchedEffect
+        if (dest != Route.Home || !decided || invocationFinished) onNavigateTo(dest)
     }
 
     if (playsInvocationHere && !invocationFinished) {
@@ -140,6 +156,24 @@ fun SplashScreen(
                 density = density,
                 reducedMotion = reducedMotion
             )
+
+            if (loadFailed) {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(horizontal = 32.dp, vertical = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(R.string.splash_load_failed),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Button(onClick = viewModel::retry) { Text(stringResource(R.string.action_retry)) }
+                }
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.quranicwords.app
 
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.res.AssetManager
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -28,6 +29,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.navigation.QwNavHost
+import com.quranicwords.app.R
 import com.quranicwords.app.core.ui.components.LocalAppLanguage
 import com.quranicwords.app.core.ui.motion.LocalReduceGlassPreference
 import com.quranicwords.app.core.ui.motion.LocalReduceMotionPreference
@@ -35,6 +37,8 @@ import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontStyle
 import com.quranicwords.app.core.ui.theme.QuranicWordsTheme
 import com.quranicwords.app.core.ui.theme.toFontFamily
+import com.quranicwords.app.feature.widget.WidgetDeepLink
+import com.quranicwords.app.feature.widget.WidgetUpdateScheduler
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // A widget tap's destination; a restored activity already handled its launch intent.
+        if (savedInstanceState == null) WidgetDeepLink.offer(intent)
 
         setContent {
             val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
@@ -64,8 +70,11 @@ class MainActivity : AppCompatActivity() {
                     val targetTag = if (currentLang == Language.INDONESIAN) "in" else currentLang.tag
                     val currentAppLocales = AppCompatDelegate.getApplicationLocales()
                     val currentFirstLocale = currentAppLocales.get(0)
-                    val currentLangTag = currentFirstLocale?.toLanguageTag() ?: currentFirstLocale?.language
-                    if (currentLangTag != targetTag) {
+                    // Compare bare language codes, folding Indonesian's legacy "in" and modern
+                    // "id" together - toLanguageTag() reports "id" for an "in" locale, so a raw tag
+                    // comparison never matched and re-applied the locale on every launch.
+                    fun normalized(code: String?) = if (code == "in") "id" else code
+                    if (normalized(currentFirstLocale?.language) != normalized(Locale.forLanguageTag(targetTag).language)) {
                         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(targetTag))
                     }
                 }
@@ -120,5 +129,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        WidgetDeepLink.offer(intent)
+    }
+
+    /** Leaving the app is when the home-screen widgets become visible again - bring them up to
+     * date with anything changed in-app that has no refresh hook of its own (e.g. the Qur'an font). */
+    override fun onStop() {
+        super.onStop()
+        if (!isChangingConfigurations) WidgetUpdateScheduler.refreshInBackground(applicationContext)
     }
 }

@@ -1,17 +1,17 @@
-# 🕌 QuranicWords — 4,709 Quran Words, Meaning, Root Dictionary & Vocabulary Master Curriculum
+# 🕌 QuranicWords — Learn the Vocabulary of the Qur'an
 
 <p align="center">
   <img src="assets/image/LOGO.png" width="140" alt="QuranicWords logo" />
 </p>
 
 <p align="center">
-  <strong>The Ultimate Quranic Arabic Vocabulary Curriculum & Interactive Dictionary — 4,709 Quranic words taught in descending order of real frequency with meanings in 11 languages, 251 roots, authentic verse contexts, audio, and gamified Android app.</strong>
+  <strong>3,900 Qur'anic words, taught in order of frequency with source-verified meanings in 8 languages, real verse contexts, spaced review and a gamified Android app.</strong>
 </p>
 
 <p align="center">
-  <a href="https://quranicwords.vercel.app/"><img alt="Quran Vocabulary" src="https://img.shields.io/badge/Quran%20Vocabulary-4%2C709%20Words-10b981?style=for-the-badge&logo=bookstack&logoColor=white" /></a>
-  <a href="https://quranicwords.vercel.app/roots"><img alt="Roots Dictionary" src="https://img.shields.io/badge/Root%20Words-251%20Roots-f59e0b?style=for-the-badge" /></a>
-  <a href="https://quranicwords.vercel.app/"><img alt="11 Languages" src="https://img.shields.io/badge/Meanings-11%20Languages-06b6d4?style=for-the-badge" /></a>
+  <a href="https://quranicwords.vercel.app/"><img alt="Quran Vocabulary" src="https://img.shields.io/badge/Quran%20Vocabulary-3%2C900%20Words-10b981?style=for-the-badge&logo=bookstack&logoColor=white" /></a>
+  <a href="https://quranicwords.vercel.app/roots"><img alt="Roots Dictionary" src="https://img.shields.io/badge/Root%20Words-1%2C430%20Roots-f59e0b?style=for-the-badge" /></a>
+  <a href="https://quranicwords.vercel.app/"><img alt="11 Languages" src="https://img.shields.io/badge/Meanings-8%20Languages-06b6d4?style=for-the-badge" /></a>
   <a href="https://github.com/rmrashahriar/QuranicWords/releases"><img alt="Android APK" src="https://img.shields.io/badge/Android%20App-v1.0.0%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
 </p>
 
@@ -32,106 +32,100 @@
 
 ---
 
-## 🔍 Key Search Terms & Overview
-
-| Topic | Search Queries Targeted | Direct Link |
-|---|---|---|
-| 📖 **Quran Words & Vocabulary** | Quran words, Quran vocabulary, learn Quran words, frequency list | [Explore 4,709 Lemmas](https://quranicwords.vercel.app/) |
-| 🔤 **Word-by-Word Meanings** | Quran word meaning, English, Bengali, Urdu, Hindi, Indonesian | [11-Language Dictionary](https://quranicwords.vercel.app/) |
-| 🌳 **Quran Root Words** | Quran root words dictionary, 251 roots, Arabic root explorer | [Root Graph Explorer](https://quranicwords.vercel.app/roots) |
-| 📇 **Quran Flashcards & Quiz** | Quran flashcards, Quran vocabulary quiz, spaced repetition | [Flashcard Trainer](https://quranicwords.vercel.app/flashcards) |
-| 📱 **Android Native App** | QuranicWords Android app, Jetpack Compose offline APK | [Download Release](https://github.com/rmrashahriar/QuranicWords/releases) |
-
----
-
 ## ✨ What is this?
 
-**QuranicWords** teaches the vocabulary of the Qur'an through short, game-like lessons — points, streaks, and immediate feedback — built specifically around Qur'anic Arabic and Islamic values, for a learner who can already read Arabic script and wants to understand the meaning of what they recite.
+**QuranicWords** teaches the vocabulary of the Qur'an through short, game-like lessons, with spaced review so words stay learned. It's built for learners who can read Arabic script and want to understand what they recite.
 
-> 🕋 **No human faces, anywhere.** Icons, illustrations, and avatars use geometric, calligraphic, and nature motifs only.
-> 📖 **No scripture as decoration.** Ayat/Mushaf text is never used as a loading-screen skin or gamification flourish — it only ever appears as real lesson content.
-> 🌙 **11-language architecture** (English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی, Hausa, Kiswahili, Français), chosen by the learner at setup — not inferred from device locale. Features 100% verified word meanings, unified contextual polysemic senses (*Wujūh al-Qur'an*), collision-free quiz distractors, and exact in-verse span highlights with complete Tashkīl and zero mismatches.
-> 🟢 **One green identity**, day and night — Material You dynamic color is deliberately disabled.
+- **3,900 distinct Qur'anic words.** Each is a real lemma from the Quranic Arabic Corpus, taught in order of how often it occurs. Together they account for **98.4%** of the Qur'an's words and attached particles.
+- **Meanings in 8 languages:** English, বাংলা, اردو, हिन्दी, Bahasa Indonesia, Türkçe, فارسی and Français. Every meaning comes from the GTAF word-by-word translation of that word's own occurrences, so it can never be a neighbouring word or a phrase fragment ([how](tools/pipeline/README.md)).
+- **Every word is shown in a real verse,** with the exact word highlighted and a full translation of the verse.
 
----
-
-## 📚 Table of contents
+> 🕋 **No human faces, anywhere.** Icons, illustrations and badges use geometric, calligraphic and nature motifs only.
+> 📖 **No scripture as decoration.** Qur'anic text appears only as real lesson content.
+> 🔒 **100% offline and private.** No account, no analytics, no network calls.
+> 🟢 **One green identity**, day and night.
 
 | Doc | What's in it |
 |---|---|
-| 📄 *(this file)* | Overview, features, tech stack, quick start |
 | [🏗️ Architecture](docs/ARCHITECTURE.md) | Layered architecture, package map, DI graph |
-| [🧭 User flows](docs/USER_FLOWS.md) | Onboarding and lesson gameplay flows as diagrams |
-| [🗄️ Data model](docs/DATA_MODEL.md) | Room schema (ER diagram), bundled JSON content shape |
-| [🧮 Algorithms](docs/ALGORITHMS.md) | Streak calculation, gamification scoring, curriculum ordering |
-| [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | The pedagogical shape of the vocabulary curriculum, and why it's teach-then-quiz |
-| [📚 Content sources](docs/CONTENT_SOURCES.md) | Sourced open-licensed Qur'an corpora, with licenses |
-| [🔐 Security](SECURITY.md) | Secrets handling and what's not yet hardened |
-| [🗄️ Local-only design](docs/BACKUP_AND_SYNC.md) | Why there's no cloud sync, and how backup/restore works instead |
-| [🗺️ Roadmap](docs/ROADMAP.md) | Built vs. deferred |
-| [🤝 Contributing](CONTRIBUTING.md) | Build/test commands, ingestion pipeline, PR expectations |
-| [📜 Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
-| [📱 Play Store Listing](PLAY_STORE_DESCRIPTION.md) | Complete store metadata, character limits, keywords, and localizations |
+| [🧭 User flows](docs/USER_FLOWS.md) | Onboarding and lesson flows |
+| [🗄️ Data model](docs/DATA_MODEL.md) | Room schema and bundled content shape |
+| [🧮 Algorithms](docs/ALGORITHMS.md) | Spaced repetition (FSRS), streaks, XP and levels, hearts, quests |
+| [🎓 Curriculum design](docs/CURRICULUM_DESIGN.md) | How the curriculum is ordered, and why it teaches before it quizzes |
+| [📚 Content sources](docs/CONTENT_SOURCES.md) | Corpora, licenses, and how meanings are verified |
+| [🧪 Content pipeline](tools/pipeline/README.md) | The reproducible build that produces all content |
+| [🔐 Security](SECURITY.md) · [🗄️ Backup](docs/BACKUP_AND_SYNC.md) · [🗺️ Roadmap](docs/ROADMAP.md) · [🤝 Contributing](CONTRIBUTING.md) | |
 
 ---
 
 ## 🎯 The curriculum
 
-QuranicWords is a structured Quranic vocabulary learning system divided into the three primary Arabic parts of speech (**Aqsam al-Kalimah**) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **14,358 Exercises**:
+The curriculum has **10 chapters, 79 sections, 958 lessons and 17,618 exercises**. Each chapter is a single part of speech (*Aqsām al-Kalimah*). Verb and noun chapters alternate by frequency, so اللَّه, رَبّ and يَوْم come early.
 
-1. **Ḥarf (الحرف — Particles)**: 173 Quranic particles (24,651 occurrences, 41.16% of Quranic text) structured across 10 sections in Chapter 1.
-2. **Fi'l (الفعل — Verbs)**: 1,479 Quranic verbs (13,491 occurrences) structured across 30 sections in Chapters 2 to 4.
-3. **Ism (الاسم — Nouns)**: 3,057 Quranic nouns (21,746 occurrences) structured across 60 sections in Chapters 5 to 10.
+| Ch | Title | Words | Share of the Qur'an |
+|---|---|---|---|
+| 1 | Particles & Function Words | 72 | 46.8% |
+| 2 | Essential Verbs | 150 | 14.4% |
+| 3 | Essential Nouns | 250 | 22.9% |
+| 4 | Common Verbs | 250 | 3.2% |
+| 5 | Common Nouns | 500 | 5.3% |
+| 6 | Frequent Verbs | 350 | 1.4% |
+| 7 | Frequent Nouns | 650 | 2.2% |
+| 8 | Further Verbs | 394 | 0.5% |
+| 9 | Further Nouns | 650 | 1.0% |
+| 10 | Rare & Unique Nouns | 634 | 0.7% |
 
-In total, **4,709 vocabulary lemmas** covering **~80%+ of total Quranic word occurrences (59,888 occurrences)** are taught **ordered by their real occurrence frequency in the Qur'an**. Every word features full grammatical categorization, root details, contextual polysemy (**Wujūh al-Qur'an**), and interactive verse examples with complete Tashkīl/Ḥarakāt (sukūn, fatḥah, kasrah, ḍammah, shaddah, tanwīn).
+**Sections and checkpoints.** Each section has up to 10 lessons of 5 words, a review and an exam. Exams require 80% on **first-try** answers, and each chapter ends with a chapter exam.
 
-Content is organized as **chapters → sections → lessons**, with section and chapter exams gating progress into subsequent units.
+**What each word gets:**
+- a transliteration
+- its root
+- its verb forms (past, present and maṣdar), for verbs
+- its contextual senses (*Wujūh*), each with its own verse
 
-## 🧪 Test-Only & Practice Modes
+## 🧩 How a lesson teaches
 
-For learners who want focused recall testing without linear lesson progression, the dedicated **Test-Only Mode** offers 6 specialized practice modes:
+Every word is **taught first, then quizzed** immediately (retrieval practice):
 
-1. 📖 **Ism Mode (الاسم — Nouns)**: 3,057 nouns.
-2. ⚡ **Fi'l Mode (الفعل — Verbs)**: 1,479 verbs.
-3. ✨ **Ḥarf Mode (الحرف — Particles)**: 173 particles.
-4. 🔀 **Mix / Random Mode**: Dynamic shuffle across all 4,709 words with live grammar category tags.
-5. 🔄 **Mistaken Words Review**: Adaptive spaced review of previously missed words with grammar category tags.
-6. 📚 **Chapterwise Practice & Test Mode**: Targeted unit testing across all 10 Quranic chapters.
-
-> 🌟 **Dynamic In-Verse Quizzing**: In all test modes, quizzes alternate between **Reverse Verse Quizzes** (`TapWordInVerse`), **Verse Completion** (`FillInTheBlank`), and **Contextual Multiple Choice** with real Quranic verses and full Tashkīl. On completion, the **Lesson Summary** displays a full word breakdown with Arabic text, grammatical categories, and localized meanings.
-
-## 🎮 Gamification
-
-```
-✅ Correct answer         → +10 points
-🏆 100% lesson accuracy   → +20 bonus points
-🔥 Daily streak           → local-calendar-date based, timezone-safe
-🔓 Progression unlocking  → each lesson and section unlocks the next on completion
-📊 Lesson End Summary     → words covered (Alhamdulillah), mistakes, accuracy %, and next lesson preview
-🔢 Universal Digits       → all numbers, streaks, and percentages localized to your script (e.g. Eastern Arabic, Bengali)
-```
-
-## 🧩 How a lesson teaches (not just tests)
-
-Every word is **taught before it's quizzed** — a non-scored intro (the word, its meaning tabs for multiple contextual senses, and real example verses with full Tashkīl) immediately followed by that word's quiz, repeated per word, closed by an interactive lesson summary.
-
-| Type | Interaction | Scored? |
+| Step | Interaction | Scored |
 |---|---|---|
-| 📖 Word intro | Word + meaning tabs (Wujūh al-Qur'an) + real verse examples with Tashkīl, tap "Continue" | No — teaching only |
-| 🔤 Multiple choice | Select the correct translation for the Arabic word, with live verse context and highlighted meaning | Yes |
-| 🔗 Matching | Pair Arabic words with their meanings, with live verse examples and highlighted glass translations on tap | Yes |
-| ✏️ Fill in the blank | Complete a Quranic verse by choosing the missing word | Yes |
-| 🧱 Word order builder | Assemble a verse from individual word chips in correct order | Yes |
-| 👁️ Word in verse tap | Identify and tap the target word directly inside a Quranic verse with highlighted translation | Yes |
+| 📖 Learn | The word, meaning, root, forms and senses in a highlighted verse | No |
+| 🔤 Meaning | Pick the meaning of the Arabic word | Yes |
+| ✏️ Verse | Complete the verse with the missing word, or tap the word in the verse that has this meaning | Yes |
+| 🔗 Match | Pair the lesson's words with their meanings | Yes |
 
-All word meanings and polysemic senses are verified against word-by-word reference corpora. See [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md) for data sourcing details.
+Distractors come from the same chapter. They never share the answer's written form, root, or meaning in any language, so there is always exactly one defensible answer.
+
+## 🎮 Staying motivated
+
+- **Daily Review (spaced repetition).** FSRS schedules every word you've met. Home shows how many are due, and each word's strength runs New → Learning → Familiar → Strong → Mastered.
+- **XP and levels:** 10 XP per first-try correct answer, a perfect-lesson bonus, and combo bonuses for runs of correct answers.
+- **Hearts:** optional. A wrong first try costs a heart, and review refills them.
+- **Streaks and daily goal.** Your streak counts local calendar days, and the daily goal shows as a progress ring. A recently lost streak can be recovered with a short quiz.
+- **Daily quests:** three each day.
+- **Achievements** with progress bars, and **celebrations** for level-ups, streak milestones and passed exams. Celebrations respect *reduce motion*.
+- **Test-only mode:** Ism, Fiʿl and Ḥarf modes, Mix, Mistakes and chapter practice.
 
 ## 🖋️ Qur'an script styles
 
 At setup or via Settings, learners preview **Surah Al-Kawthar** in clean, streamlined font cards showing the typeface name and live Arabic sample:
 
-| Style | Status |
-|---|---|
+| Style | Typeface | Licence |
+|---|---|---|
+| Madinah Mushaf (default) | KFGQPC Uthmanic Script Hafs | KFGQPC end-user licence |
+| Classic calligraphic Naskh | Amiri | SIL OFL 1.1 |
+| Traditional Naskh | Scheherazade New | SIL OFL 1.1 |
+| Modern clean Naskh | Noto Naskh Arabic | SIL OFL 1.1 |
+| South Asian Naskh | Lateef | SIL OFL 1.1 |
+| Noorani Qur'an (Indo-Pak) | Noore Huda | NooreHidayat (free redistribution) |
+| Hafezi Qur'an (Indo-Pak 15-line) | Noore Hira | NooreHidayat (free redistribution) |
+
+Each one renders every character of the Uthmani text, including pause marks (ۖ ۗ ۚ) and open
+tanween, and they look visibly different from each other. Verses end with the ayah mark and number
+(۝٣٤, or ﴿٣٤﴾ in the KFGQPC and Indo-Pak fonts). With the two Indo-Pak fonts, five marks are shown
+in their Indo-Pak form (alif waṣla as alif, jazm, closed tanween), one character for one.
+
+---|---|
 | Uthmani (Amiri) | ✅ Bundled (SIL OFL) |
 | Scheherazade Naskh | ✅ Bundled (SIL OFL) |
 | Simple Naskh (Noto) | ✅ Bundled (SIL OFL) |
@@ -183,6 +177,7 @@ git clone git@github.com:rmrashahriar/QuranicWords.git
 cd QuranicWords
 ./gradlew :app:assembleDebug
 ./gradlew :app:testDebugUnitTest
+python3 tools/pipeline/run.py --check      # rebuild + validate the content
 ```
 
 The app **builds and runs fully offline** with zero configuration — language selection, the font picker, and the full vocabulary lesson loop (scoring, streaks, points) all work with no account needed. There is no sign-in, no cloud sync, and no leaderboard; progress lives entirely on-device and travels between devices only via the local backup export/import feature described in [`docs/BACKUP_AND_SYNC.md`](docs/BACKUP_AND_SYNC.md).
@@ -193,7 +188,8 @@ The app **builds and runs fully offline** with zero configuration — language s
 app/src/main/java/com/quranicwords/app/
 ├── core/           # data (Room, DataStore, local backup), domain, DI, navigation, theme, shared UI
 └── feature/        # one package per screen: splash, onboarding/*, home, lesson, settings...
-app/src/main/assets/content/   # bundled vocabulary lesson JSON (seeds Room on first run)
+app/src/main/assets/content/   # curriculum JSON built by tools/pipeline (seeds Room on first run)
+tools/pipeline/                # reproducible content build + validator + tests
 docs/                          # the documentation set linked above
 ```
 
@@ -205,10 +201,12 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full package map and 
 
 Explore and study the complete **QuranicWords Master Curriculum Dictionary** directly in any web browser with zero installation:
 
-👉 **[https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)**
+👉 **[https://rmrashahriar.github.io/QuranicWords/](https://rmrashahriar.github.io/QuranicWords/)** (also at [quranicwords.vercel.app](https://quranicwords.vercel.app/))
 
-- 📖 **All 4,709 Lemmas**: Instant search across Arabic (with or without Tashkīl), English, Bengali, Urdu, Hindi, Bahasa, Turkish, French, roots, and Surah citations.
-- 🔊 **Audio Pronunciation**: High-clarity Arabic pronunciation for every lemma.
+Deploy with `tools/web/deploy_pages.sh` (GitHub Pages, branch `gh-pages`); the site is base-path aware, so the same files run at a domain root or under a sub-path.
+
+- 📖 **All 3,900 words:** search Arabic (with or without tashkīl), the 8 meaning languages, roots and verse citations.
+- 🧠 **Learn path and spaced review:** progress is saved locally in your browser.
 - 📋 **One-Click Copy & Ayah Links**: Direct citations linking to Quranic Ayahs on Quran.com.
 - ⭐ **Favorites / Bookmarking**: Save words locally to your browser for revision.
 - 🔀 **Polysemy (Wujūh al-Qur'an) Explorer**: Interactive contextual meaning tabs with live Ayah switching.
@@ -221,7 +219,7 @@ Explore and study the complete **QuranicWords Master Curriculum Dictionary** dir
 **QuranicWords** is an open-source project licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE). Contributions, bug reports, and pull requests are warmly welcomed to help make Quranic Arabic learning accessible to everyone worldwide.
 
 - 🌐 **Live Web Application**: [https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)
-- 🐙 **GitHub Organization / Repo**: [github.com/deanybytes/QuranicWords](https://github.com/deanybytes/QuranicWords) (also mirrored at [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords))
+- 🐙 **Repository**: [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords)
 - 📢 **DEANY TALKS Ecosystem**: Part of the **DEANY TALKS** digital Dawah platforms, creating modern, open Islamic educational tools.
 - ✉️ **Contact & Feedback**: Reach out via email at `contact.deanstalks@gmail.com` or open an issue on GitHub.
 

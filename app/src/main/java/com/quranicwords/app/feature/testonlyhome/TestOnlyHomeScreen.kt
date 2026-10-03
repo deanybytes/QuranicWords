@@ -84,7 +84,7 @@ import java.util.Locale
  * Premium Home for a Test/Quiz-only learner. Matches the Learn module's visual excellence,
  * glassmorphism, 3D glossy press depth, and animations with 3 dedicated practice modes:
  * 1. Frequency Order Mode (sequential Quranic frequency rank)
- * 2. Full Random Mode (non-repeating until 3,680 words are covered)
+ * 2. Full Random Mode (non-repeating until every word in the corpus is covered)
  * 3. Mistaken Words Review (adaptive retry of missed vocabulary)
  */
 @Composable
@@ -92,6 +92,7 @@ fun TestOnlyHomeScreen(
     onStartQuiz: (mode: String) -> Unit,
     onOpenReview: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
+    onOpenDailyReview: () -> Unit = {},
     onOpenRoadmap: () -> Unit = {},
     onOpenLearnedWords: () -> Unit = {},
     viewModel: TestOnlyHomeViewModel = hiltViewModel()
@@ -153,10 +154,26 @@ fun TestOnlyHomeScreen(
                 )
             }
 
+            // Due spaced-repetition reviews first, same as the Learn Home.
+            if (uiState.dueReviewCount > 0) {
+                item(key = "daily_review") {
+                    com.quranicwords.app.core.ui.components.DailyReviewCard(
+                        dueCount = uiState.dueReviewCount,
+                        onClick = onOpenDailyReview
+                    )
+                }
+            }
+
+            if (uiState.quests.isNotEmpty()) {
+                item(key = "daily_quests") {
+                    com.quranicwords.app.feature.home.QuestsCard(quests = uiState.quests)
+                }
+            }
+
             // 2. Mode 1: Ism (Nouns) Mode (3D Glossy Card)
             item {
-                val localizedIsmCovered = VerseReferenceFormatter.formatDigits(uiState.ismCoveredCount.toString(), language)
-                val localizedTotalIsm = VerseReferenceFormatter.formatDigits(uiState.totalIsmCount.toString(), language)
+                val localizedIsmCovered = VerseReferenceFormatter.formatNumber(uiState.ismCoveredCount, language)
+                val localizedTotalIsm = VerseReferenceFormatter.formatNumber(uiState.totalIsmCount, language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.AutoStories,
                     accentColor = Color(0xFF2E7D32),
@@ -165,7 +182,7 @@ fun TestOnlyHomeScreen(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
                     title = stringResource(R.string.test_mode_ism_title),
-                    description = stringResource(R.string.test_mode_ism_desc),
+                    description = stringResource(R.string.test_mode_ism_desc, localizedTotalIsm),
                     progressText = stringResource(
                         R.string.test_mode_ism_progress,
                         localizedIsmCovered,
@@ -182,8 +199,8 @@ fun TestOnlyHomeScreen(
 
             // 3. Mode 2: Fi'l (Verbs) Mode (3D Glossy Card)
             item {
-                val localizedFilCovered = VerseReferenceFormatter.formatDigits(uiState.filCoveredCount.toString(), language)
-                val localizedTotalFil = VerseReferenceFormatter.formatDigits(uiState.totalFilCount.toString(), language)
+                val localizedFilCovered = VerseReferenceFormatter.formatNumber(uiState.filCoveredCount, language)
+                val localizedTotalFil = VerseReferenceFormatter.formatNumber(uiState.totalFilCount, language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.FlashOn,
                     accentColor = BrandGold,
@@ -192,7 +209,7 @@ fun TestOnlyHomeScreen(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
                     title = stringResource(R.string.test_mode_fil_title),
-                    description = stringResource(R.string.test_mode_fil_desc),
+                    description = stringResource(R.string.test_mode_fil_desc, localizedTotalFil),
                     progressText = stringResource(
                         R.string.test_mode_fil_progress,
                         localizedFilCovered,
@@ -209,8 +226,8 @@ fun TestOnlyHomeScreen(
 
             // 4. Mode 3: Ḥarf (Particles) Mode (3D Glossy Card)
             item {
-                val localizedHarfCovered = VerseReferenceFormatter.formatDigits(uiState.harfCoveredCount.toString(), language)
-                val localizedTotalHarf = VerseReferenceFormatter.formatDigits(uiState.totalHarfCount.toString(), language)
+                val localizedHarfCovered = VerseReferenceFormatter.formatNumber(uiState.harfCoveredCount, language)
+                val localizedTotalHarf = VerseReferenceFormatter.formatNumber(uiState.totalHarfCount, language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.AutoAwesome,
                     accentColor = Color(0xFF0288D1),
@@ -219,7 +236,7 @@ fun TestOnlyHomeScreen(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
                     title = stringResource(R.string.test_mode_harf_title),
-                    description = stringResource(R.string.test_mode_harf_desc),
+                    description = stringResource(R.string.test_mode_harf_desc, localizedTotalHarf),
                     progressText = stringResource(
                         R.string.test_mode_harf_progress,
                         localizedHarfCovered,
@@ -236,8 +253,8 @@ fun TestOnlyHomeScreen(
 
             // 5. Mode 4: Mix / Random Mode (3D Glossy Card)
             item {
-                val localizedRandomCovered = VerseReferenceFormatter.formatDigits(uiState.randomCoveredCount.toString(), language)
-                val localizedTotalWords = VerseReferenceFormatter.formatDigits(uiState.totalWordsCount.toString(), language)
+                val localizedRandomCovered = VerseReferenceFormatter.formatNumber(uiState.randomCoveredCount, language)
+                val localizedTotalWords = VerseReferenceFormatter.formatNumber(uiState.totalWordsCount, language)
                 GlossyTestModeCard(
                     icon = Icons.Filled.Shuffle,
                     accentColor = Color(0xFF7E57C2),
@@ -246,7 +263,7 @@ fun TestOnlyHomeScreen(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
                     ),
                     title = stringResource(R.string.test_mode_random_title),
-                    description = stringResource(R.string.test_mode_random_desc),
+                    description = stringResource(R.string.test_mode_random_desc, localizedTotalWords),
                     progressText = stringResource(
                         R.string.test_mode_random_progress,
                         localizedRandomCovered,
@@ -465,6 +482,9 @@ private fun TestHeroHeader(
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    com.quranicwords.app.core.ui.components.LevelProgressBar(totalXp = totalPoints)
 
                     Spacer(modifier = Modifier.height(14.dp))
 
@@ -733,7 +753,7 @@ private fun GlossyMistakesReviewCard(
                         text = if (hasMistakes) {
                             stringResource(
                                 R.string.test_mode_mistakes_count,
-                                VerseReferenceFormatter.formatDigits(missedCount.toString(), language)
+                                VerseReferenceFormatter.formatNumber(missedCount, language)
                             )
                         } else {
                             stringResource(R.string.test_mode_mistakes_empty)
@@ -826,27 +846,12 @@ private fun GlossyChapterTestCard(
         (chapterItem.coveredCount.toFloat() / chapterItem.totalCount).coerceIn(0f, 1f)
     } else 0f
 
-    val localizedChapterNum = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(ch.sortOrder.toString(), language)
-    val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(ch.wordCount.toString(), language)
+    val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatNumber(ch.wordCount, language)
     val localizedOccPercent = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(formatPercent(ch.quranOccurrencePercent), language)
-    val localizedCoveredCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(chapterItem.coveredCount.toString(), language)
+    val localizedCoveredCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatNumber(chapterItem.coveredCount, language)
 
-    val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
-    val urOrdinals = arrayOf("", "پہلا", "دوسرا", "تیسرا", "چوتھا", "پانچواں", "چھٹا", "ساتواں", "آٹھواں", "نواں", "دسواں")
-
-    val chapterOrdinalLabel = when (language) {
-        com.quranicwords.app.core.domain.model.Language.BANGLA -> if (ch.sortOrder in 1..10) "${bnOrdinals[ch.sortOrder]} অধ্যায়" else "অধ্যায় $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.URDU -> if (ch.sortOrder in 1..10) "${urOrdinals[ch.sortOrder]} باب" else "باب نمبر $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.PERSIAN -> if (ch.sortOrder in 1..10) "${urOrdinals[ch.sortOrder]} فصل" else "فصل $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.HINDI -> "अध्याय $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.INDONESIAN -> "Bab $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.MALAY -> "Bab $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.TURKISH -> "$localizedChapterNum. Bölüm"
-        com.quranicwords.app.core.domain.model.Language.HAUSA -> "Babi na $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.SWAHILI -> "Sura ya $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.FRENCH -> "Chapitre $localizedChapterNum"
-        com.quranicwords.app.core.domain.model.Language.ENGLISH -> "Chapter $localizedChapterNum"
-    }
+    // Resource-driven (incl. ordinal words for bn/ur/fa) - see chapterLabel.
+    val chapterOrdinalLabel = com.quranicwords.app.core.ui.components.chapterLabel(ch.sortOrder, language)
 
     GlassSurface(
         modifier = Modifier.fillMaxWidth(),

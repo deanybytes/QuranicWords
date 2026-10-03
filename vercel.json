@@ -15,6 +15,77 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; font-src 'self'; manifest-src 'self'; worker-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/(index\\.html|learn|review|dictionary|table|flashcards|quiz|roots|progress)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/(css|js|data)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/css/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
+        }
+      ]
+    },
+    {
+      "source": "/(icons/.*|favicon\\.png)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/app/src/main/assets/audio/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000"
         }
       ]
     },
@@ -23,41 +94,18 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
-      "source": "/data/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
-      "source": "/(css|js)/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
-    },
-    {
-      "source": "/favicon.png",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800, immutable"
+          "value": "public, max-age=86400"
         }
       ]
     }
   ],
   "rewrites": [
     {
-      "source": "/",
+      "source": "/learn",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/review",
       "destination": "/index.html"
     },
     {
@@ -65,7 +113,15 @@
       "destination": "/index.html"
     },
     {
+      "source": "/table",
+      "destination": "/index.html"
+    },
+    {
       "source": "/flashcards",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/quiz",
       "destination": "/index.html"
     },
     {
@@ -73,13 +129,8 @@
       "destination": "/index.html"
     },
     {
-      "source": "/standalone",
-      "destination": "/QuranicWords-v1.0.0.html"
-    },
-    {
-      "source": "/v1.0.0",
-      "destination": "/QuranicWords-v1.0.0.html"
+      "source": "/progress",
+      "destination": "/index.html"
     }
   ]
 }
-

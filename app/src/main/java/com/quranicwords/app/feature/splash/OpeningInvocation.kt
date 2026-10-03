@@ -64,7 +64,7 @@ private val PHASE_TEXT = mapOf(
 
 /**
  * The app's opening devotional sequence, shown every launch (not just first-run): the Ta'awwudh,
- * then the Basmala, then "Rabbi zidni ilma" (Qur'an 20:114) pulsed three times, matching the
+ * then the Basmala, then "Rabbi zidni ilma" (Surah Taha 20:114) pulsed three times, matching the
  * traditional practice of repeating that particular dua thrice. These are functional openers -
  * said before any act of learning, not decorative - a deliberate, narrow exception to this app's
  * usual "no rendering of Ayat/Mushaf text as decoration" guardrail (see [SplashScreen]'s doc

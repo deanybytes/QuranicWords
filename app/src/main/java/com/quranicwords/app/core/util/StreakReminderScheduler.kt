@@ -8,9 +8,8 @@ import com.quranicwords.app.core.data.sync.StreakReminderWorker
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Clock
 import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -34,11 +33,13 @@ class StreakReminderScheduler @Inject constructor(
         val request = PeriodicWorkRequestBuilder<StreakReminderWorker>(24, TimeUnit.HOURS)
             .setInitialDelay(initialDelayMillis(hour, minute), TimeUnit.MILLISECONDS)
             .build()
-        // UPDATE (not KEEP) so changing the reminder time in Settings actually reschedules the
-        // next run instead of leaving the old time in effect until the work happens to re-enqueue.
+        // Only ever called from a Settings action (reminder switched on, or its time changed), so
+        // always replace: UPDATE keeps an existing periodic request's original schedule, which left
+        // a changed reminder time firing at the old time; CANCEL_AND_REENQUEUE applies the new
+        // initial delay.
         workManager.enqueueUniquePeriodicWork(
             StreakReminderWorker.UNIQUE_WORK_NAME,
-            ExistingPeriodicWorkPolicy.UPDATE,
+            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
             request
         )
     }
@@ -47,10 +48,13 @@ class StreakReminderScheduler @Inject constructor(
         workManager.cancelUniqueWork(StreakReminderWorker.UNIQUE_WORK_NAME)
     }
 
+    /** Zoned (not LocalDateTime) arithmetic so a DST change between now and the next reminder
+     * doesn't shift it by an hour; a wall time skipped by a spring-forward gap resolves to the
+     * instant just after the gap. */
     private fun initialDelayMillis(hour: Int, minute: Int): Long {
-        val now = LocalDateTime.now(clock)
-        var target = LocalDateTime.of(LocalDate.now(clock), LocalTime.of(hour, minute))
-        if (!target.isAfter(now)) target = target.plusDays(1)
-        return Duration.between(now, target).toMillis()
+        val now = ZonedDateTime.now(clock)
+        var target = now.toLocalDate().atTime(LocalTime.of(hour, minute)).atZone(now.zone)
+        if (!target.isAfter(now)) target = now.toLocalDate().plusDays(1).atTime(LocalTime.of(hour, minute)).atZone(now.zone)
+        return Duration.between(now, target).toMillis().coerceAtLeast(0L)
     }
 }

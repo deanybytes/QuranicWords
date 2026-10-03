@@ -1,74 +1,74 @@
 # 🎓 Curriculum Design
 
-## Three-Part Parts of Speech Architecture (Aqsam al-Kalimah)
+## What is taught
 
-Arabic grammar traditionally categorizes all vocabulary into three fundamental parts of speech: **Ḥarf (Particles)**, **Fi'l (Verbs)**, and **Ism (Nouns)**. The curriculum structures **4,709 Quranic vocabulary lemmas** covering **59,888 occurrences** (~80%+ of the Qur'an) across **10 Chapters**, **100 Sections**, **1,217 Lessons**, and **14,358 Exercises**:
+The curriculum teaches **3,900 distinct lemmas** from the Quranic Arabic Corpus. Every one is a
+real word with its own meaning; none is a repeat or a grammatical fragment. Together they account
+for **98.4% of the Qur'an's lexical segments**, meaning its words plus attached particles
+such as وَ and بِ.
 
-```mermaid
-flowchart TD
-    subgraph Curriculum["Curriculum — 4,709 Quranic Words (~80%+ Coverage)"]
-        Harf["✨ Ḥarf (الحرف — Particles)<br/>173 words · Chapter 1 (10 sections) · 24,651 occurrences (41.16%)"]
-        Fil["⚡ Fi'l (الفعل — Verbs)<br/>1,479 words · Chapters 2–4 (30 sections) · 13,491 occurrences"]
-        Ism["📖 Ism (الاسم — Nouns)<br/>3,057 words · Chapters 5–10 (60 sections) · 21,746 occurrences"]
-    end
-```
+About 880 very rare lemmas are not taught. They are mostly hapax legomena (words that occur only
+once) that never appear without an attached pronoun or preposition, so no clean source meaning
+exists for them in all 8 languages. Each one is listed with its reason in
+[`tools/pipeline/reports/excluded_lemmas.tsv`](../tools/pipeline/reports/excluded_lemmas.tsv).
 
-### The 10 Curated Quranic Chapters
+## The three parts of speech (Aqsām al-Kalimah), interleaved by frequency
 
-| Chapter | Title | Category | Words | Occurrences | Quran Coverage % |
-|---|---|---|---|---|---|
-| **Ch 01** | Grammatical Particles | Ḥarf | 173 | 24,651 | 41.16% |
-| **Ch 02** | High-Frequency Verbs | Fi'l | 500 | 12,378 | 20.67% |
-| **Ch 03** | Essential Verbal Forms | Fi'l | 500 | 634 | 1.06% |
-| **Ch 04** | Specialized Verbs | Fi'l | 479 | 479 | 0.80% |
-| **Ch 05** | Divine Names & Core Nominals | Ism | 510 | 18,329 | 30.61% |
-| **Ch 06** | Essential Quranic Nominals | Ism | 510 | 1,300 | 2.17% |
-| **Ch 07** | Devotional & Faith Nominals | Ism | 510 | 590 | 0.99% |
-| **Ch 08** | Prophetic & Narrative Nominals | Ism | 510 | 510 | 0.85% |
-| **Ch 09** | Moral & Social Nominals | Ism | 510 | 510 | 0.85% |
-| **Ch 10** | Cosmic & Lexical Nominals | Ism | 507 | 507 | 0.85% |
+Each chapter covers a single part of speech. After the function words, verb and noun chapters
+alternate by frequency band. A learner therefore meets اللَّه, رَبّ, يَوْم and كِتاب in Chapter 3,
+instead of after 1,400 verbs as in the previous design.
 
-Every word within its chapter and section is taught **ordered strictly by its occurrence frequency in the Qur'an**, ensuring learners encounter the highest-impact vocabulary first.
+| Ch | Title | Words | Qur'an share |
+|---|---|---|---|
+| 1 | Particles & Function Words | 72 | 46.8% |
+| 2 | Essential Verbs | 150 | 14.4% |
+| 3 | Essential Nouns | 250 | 22.9% |
+| 4 | Common Verbs | 250 | 3.2% |
+| 5 | Common Nouns | 500 | 5.3% |
+| 6 | Frequent Verbs | 350 | 1.4% |
+| 7 | Frequent Nouns | 650 | 2.2% |
+| 8 | Further Verbs | 394 | 0.5% |
+| 9 | Further Nouns | 650 | 1.0% |
+| 10 | Rare & Unique Nouns | 634 | 0.7% |
 
-## Why teach-then-quiz, not quiz-only
+**What Chapter 1 contains.** Chapter 1 holds particles together with closed-class nominals:
+pronouns, demonstratives, relatives and interrogatives. These are grammatically *ism* and are
+badged that way, but they behave like function words and are among the most frequent words in the
+Qur'an.
 
-A quiz with no prior exposure to the word is a testing platform, not a teaching one. Every word gets a non-scored teach step (`ExerciseContent.WordIntro` — see [`docs/DATA_MODEL.md`](DATA_MODEL.md)) immediately before its own quiz, not a batch of teaching followed by a batch of quizzing. That ordering choice is deliberate **retrieval practice** — testing recall right after exposure is a substantially more effective pattern than testing after a long study block.
+## Why teach-then-quiz
 
-## Contextual Polysemy (Wujūh al-Qur'an)
+A quiz on a word you've never seen tests, it doesn't teach. Every word gets a non-scored teach
+step (`WordIntro`) immediately followed by its own quizzes. Testing recall right after exposure is
+retrieval practice, and it is far more effective than a long study block followed by a test.
 
-In the Qur'an, many words carry different contextual meanings depending on the surah and ayah. Every word in QuranicWords features:
-- **Polysemy Tabs**: Multiple distinct meanings categorized and tabbed.
-- **Unified Multi-Sense Meanings**: Words with polysemous senses combine meanings via slash `' / '` separators (e.g., `A, B / X, Y`) across all 10 languages, tested thoroughly without ambiguous quiz option overlap.
-- **Contextual Verse Examples**: Real Quranic verses illustrating each specific contextual sense.
-- **Tashkīl & Ḥarakāt Preservation**: Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with seamless in-verse span highlighting across all 11 languages.
+## A lesson
 
-## Closing Matching Quizzes & Lesson Flow
+| Order | Step |
+|---|---|
+| 1 | Teach each word: meaning, root, verb forms, contextual senses, a highlighted verse |
+| 2 | Meaning quiz (Arabic → meaning) for each word |
+| 3 | A verse exercise per word, alternating between *complete the verse* (pick the missing word) and *tap the word in the verse* that has the shown meaning |
+| 4 | A closing matching round |
 
-- **Closing Matching Quizzes**: Every one of the 997 regular lessons concludes with an interactive 4–5 pair `MATCHING` exercise (1,207 matching exercises total across the curriculum), providing rapid-fire reinforcement of all taught words before completing the lesson.
-- **Section & Chapter Exam Suites**: All 210 checkpoint lessons (`SECTION_FLASHBACK`, `SECTION_EXAM`, `CHAPTER_EXAM`) are fully populated with comprehensive review exercises (14,358 total exercises; zero empty lessons).
+The learning style setting (practice once, 3× or 5×) repeats the quiz steps, re-shuffled so the
+same word is never asked twice in a row.
 
-## End of Lesson Summary & Next Lesson Preview
+## Checkpoints
 
-At the end of every lesson:
-- **Performance Report**: Displays total words covered (*Alhamdulillah*), mistake count, accuracy percentage, and time spent.
-- **Vocabulary Breakdown**: In curriculum lessons, open practice, and test modes, displays the complete list of words practiced during the session with Arabic script, grammatical category badge (`GrammarCategoryBadge`), and localized meaning.
-- **Next Lesson Introduction**: Previews the upcoming lesson's target words and grammatical context (for curriculum lessons).
-- **Direct Navigation**: Option to immediately proceed to the next lesson or return to the curriculum map / test hub.
+Each section of up to 10 lessons ends with a **review** (15 words) and an **exam** (20 words);
+each chapter ends with a **chapter exam** (25 words). Exams require **80% on first tries**:
+retrying a wrong answer is allowed, but the retry does not count. A failed exam stays open
+for another attempt and is never recorded as completed.
 
-## 6-Mode Test-Only System
+## Contextual senses (Wujūh al-Qurʾān)
 
-For learners seeking targeted revision and speed testing without linear lesson progression:
-1. **Ism Mode**: Quizzes from the 3,057 nouns.
-2. **Fi'l Mode**: Quizzes from the 1,479 verbs.
-3. **Ḥarf Mode**: Quizzes from the 173 particles.
-4. **Mix / Random Mode**: Dynamically samples from all 4,709 words with live grammar badging (`GrammarCategoryBadge`).
-All test modes feature **dynamic in-verse quizzing**, automatically alternating between Reverse Verse Quizzes (`TapWordInVerse`), Verse Completion (`FillInTheBlank`), and Contextual Multiple Choice (`MultipleChoice`) with authentic Quranic verses, Tashkīl, and translations.
+When a word's occurrences split clearly between meanings (for example مِنْ, "from / of"), the
+word gets one tab per sense. Each tab shows a verse where the source translates the word with
+exactly that sense. 285 words have multiple senses.
 
-## 🌐 Live Interactive Curriculum Dictionary
+## Spaced review
 
-The entire curriculum is also available as a standalone, zero-installation web application deployed at:
-
-👉 **[https://quranicwords.vercel.app/](https://quranicwords.vercel.app/)**
-
-Learners and educators can explore the complete 4,709-lemma dataset with instant search, audio pronunciation, 11-language translations, polysemic sense tabs, and interactive table and curriculum views.
-
+Every first-try answer updates the word's memory model (FSRS, see
+[`ALGORITHMS.md`](ALGORITHMS.md)). The Daily Review brings back words just before they would be
+forgotten, and the exercise type adapts to the word's strength.

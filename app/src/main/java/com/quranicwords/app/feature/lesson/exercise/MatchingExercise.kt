@@ -1,5 +1,9 @@
 package com.quranicwords.app.feature.lesson.exercise
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 
@@ -69,7 +73,8 @@ import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.domain.model.localizedRight
 import com.quranicwords.app.core.ui.components.GlassSurface
-import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.ui.components.VerseExampleCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
@@ -83,6 +88,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 /** Sentinel id for the extra, never-matchable meaning-side tile (see
  * [ExerciseContent.Matching.distractorRight]) - never equals a real [MatchPair.id] ("p1", "p2",
@@ -149,6 +155,7 @@ private fun derangeRightEntries(
 @Composable
 fun MatchingExerciseContent(
     content: ExerciseContent.Matching,
+    localizedWords: Map<String, LocalizedWord>,
     matchedPairIds: Set<String>,
     pendingLeftId: String?,
     lastMismatch: MismatchEvent?,
@@ -222,7 +229,7 @@ fun MatchingExerciseContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        val category = content.pairs.firstOrNull()?.wordId?.let { com.quranicwords.app.core.ui.components.resolveCategoryFromWordId(it) }
+        val category = content.pairs.firstOrNull()?.wordId?.let { com.quranicwords.app.core.ui.components.wordCategory(it) }
         if (category != null) {
             com.quranicwords.app.core.ui.components.GrammarCategoryBadge(category = category)
         }
@@ -300,45 +307,24 @@ fun MatchingExerciseContent(
             }
         }
 
-        val selectedPair = leftItems.find { it.effectiveId == pendingLeftId }
-        val exampleArabic = selectedPair?.exampleVerseArabic
-        val exampleRef = selectedPair?.exampleVerseReference
+        // The pending word's example (ayah only - its meaning is the answer being asked for), or,
+        // with nothing pending, the most recently matched word's full example as feedback.
+        val pendingWordId = leftItems.find { it.effectiveId == pendingLeftId }?.wordId
+        val lastMatchedWordId = matchOrder.lastOrNull()?.let { id -> content.pairs.find { it.effectiveId == id } }?.wordId
+        val exampleWordId = pendingWordId ?: lastMatchedWordId
+        val exampleSense = exampleWordId?.let { localizedWords[it]?.primarySense }
 
         AnimatedVisibility(
-            visible = selectedPair != null && exampleArabic != null && exampleRef != null,
+            visible = exampleSense != null,
             enter = fadeIn(tween(250)) + slideInVertically(tween(250)) { it / 2 },
             exit = fadeOut(tween(200)) + slideOutVertically(tween(200)) { it / 2 }
         ) {
-            if (selectedPair != null && exampleArabic != null && exampleRef != null) {
-                GlassSurface(
-                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
-                    tint = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth().padding(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Text(
-                            text = stringResource(
-                                R.string.lesson_word_example_verse_label,
-                                com.quranicwords.app.core.util.VerseReferenceFormatter.format(exampleRef, language)
-                            ),
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.5.sp
-                            ),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        HighlightedGlassArabic(
-                            verseArabic = exampleArabic,
-                            start = selectedPair.arabicWordStart,
-                            end = selectedPair.arabicWordEnd,
-                            modifier = Modifier.fillMaxWidth(),
-                            arabicWord = selectedPair.effectiveLeftArabic
-                        )
-                    }
-                }
+            if (exampleSense != null) {
+                VerseExampleCard(
+                    sense = exampleSense,
+                    showTranslation = pendingWordId == null,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
             }
         }
     }
@@ -437,6 +423,14 @@ private fun MatchTile(
         )
     }
 
+    val stateText = when {
+        isMatched -> stringResource(R.string.a11y_state_matched)
+        isMismatch -> stringResource(R.string.a11y_state_incorrect)
+        isSelected -> stringResource(R.string.a11y_state_selected)
+        else -> ""
+    }
+    val clickLabel = stringResource(R.string.a11y_action_match)
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -455,11 +449,17 @@ private fun MatchTile(
                 interactionSource = interactionSource,
                 indication = null,
                 enabled = !isMatched && !isMismatch,
+                onClickLabel = clickLabel,
+                role = Role.Button,
                 onClick = {
                     tapClickCount++
                     onClick()
                 }
             )
+            .semantics {
+                selected = isSelected
+                if (stateText.isNotEmpty()) stateDescription = stateText
+            }
     ) {
         Box(
             modifier = Modifier
@@ -468,7 +468,7 @@ private fun MatchTile(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = text,
+                text = if (isArabic) quranText(text) else text,
                 fontFamily = if (isArabic) LocalQuranFontFamily.current else null,
                 style = if (isArabic) MaterialTheme.typography.titleLarge else MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,

@@ -3,6 +3,7 @@ package com.quranicwords.app.feature.settings
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
+import android.text.format.DateFormat
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -56,6 +58,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -82,6 +85,8 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.core.ui.theme.toFontFamily
 import com.quranicwords.app.core.util.QuranPreviewText
+import com.quranicwords.app.core.util.VerseReferenceFormatter
+import java.time.LocalTime
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -100,6 +105,8 @@ fun SettingsScreen(
     val reduceMotion by viewModel.reduceMotion.collectAsStateWithLifecycle()
     val reduceGlassEffects by viewModel.reduceGlassEffects.collectAsStateWithLifecycle()
     val soundEnabled by viewModel.soundEnabled.collectAsStateWithLifecycle()
+    val invocationEveryLaunch by viewModel.invocationEveryLaunch.collectAsStateWithLifecycle()
+    val heartsEnabled by viewModel.heartsEnabled.collectAsStateWithLifecycle()
     val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
     val fontScale by viewModel.fontScale.collectAsStateWithLifecycle()
     val streakReminderEnabled by viewModel.streakReminderEnabled.collectAsStateWithLifecycle()
@@ -111,6 +118,8 @@ fun SettingsScreen(
     val dailyGoalLevel by viewModel.dailyGoalLevel.collectAsStateWithLifecycle()
     val progressResetDone by viewModel.progressResetDone.collectAsStateWithLifecycle()
     val displayLanguage = rememberSelectedLanguage()
+    // Follow the device's 12/24-hour setting rather than always forcing AM/PM.
+    val is24Hour = DateFormat.is24HourFormat(LocalContext.current)
     val context = LocalContext.current
     var showTimePicker by remember { mutableStateOf(false) }
     var showResetProgressConfirm by remember { mutableStateOf(false) }
@@ -239,7 +248,7 @@ fun SettingsScreen(
             ) {
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Text(
-                        text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   "),
+                        text = fontStyle.script(QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   ")),
                         fontFamily = fontStyle.toFontFamily(),
                         fontSize = 20.sp,
                         lineHeight = 38.sp,
@@ -250,30 +259,21 @@ fun SettingsScreen(
                 }
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_reduce_motion_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = reduceMotion, onCheckedChange = viewModel::setReduceMotion)
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_reduce_glass_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = reduceGlassEffects, onCheckedChange = viewModel::setReduceGlassEffects)
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_require_exit_confirmation_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = requireExitConfirmation, onCheckedChange = viewModel::setRequireExitConfirmation)
-            }
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_reduce_motion_label),
+                checked = reduceMotion,
+                onCheckedChange = viewModel::setReduceMotion
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_reduce_glass_label),
+                checked = reduceGlassEffects,
+                onCheckedChange = viewModel::setReduceGlassEffects
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_require_exit_confirmation_label),
+                checked = requireExitConfirmation,
+                onCheckedChange = viewModel::setRequireExitConfirmation
+            )
             Text(
                 stringResource(R.string.settings_require_exit_confirmation_description),
                 style = MaterialTheme.typography.bodySmall,
@@ -310,18 +310,36 @@ fun SettingsScreen(
         StaggeredEntrance(index = 1) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_sound))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_sound_effects_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = soundEnabled, onCheckedChange = viewModel::setSoundEnabled)
-            }
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_sound_effects_label),
+                checked = soundEnabled,
+                onCheckedChange = viewModel::setSoundEnabled
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_invocation_every_launch_label),
+                checked = invocationEveryLaunch,
+                onCheckedChange = viewModel::setInvocationEveryLaunch
+            )
+            Text(
+                stringResource(R.string.settings_invocation_every_launch_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         } }
 
         StaggeredEntrance(index = 2) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_mode))
+
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_hearts_label),
+                checked = heartsEnabled,
+                onCheckedChange = viewModel::setHeartsEnabled
+            )
+            Text(
+                stringResource(R.string.settings_hearts_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
 
             Text(stringResource(R.string.settings_learning_path_label), style = MaterialTheme.typography.labelLarge)
             SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
@@ -344,9 +362,9 @@ fun SettingsScreen(
                 Text(stringResource(R.string.settings_learning_style_label), style = MaterialTheme.typography.labelLarge)
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                     val options = listOf(
-                        LearningStyle.SHARP to stringResource(R.string.format_repeat_count, LearningStyle.SHARP.repeatCount),
-                        LearningStyle.SLOW to stringResource(R.string.format_repeat_count, LearningStyle.SLOW.repeatCount),
-                        LearningStyle.COZY to stringResource(R.string.format_repeat_count, LearningStyle.COZY.repeatCount)
+                        LearningStyle.SHARP to stringResource(R.string.format_repeat_count, VerseReferenceFormatter.formatNumber(LearningStyle.SHARP.repeatCount, displayLanguage)),
+                        LearningStyle.SLOW to stringResource(R.string.format_repeat_count, VerseReferenceFormatter.formatNumber(LearningStyle.SLOW.repeatCount, displayLanguage)),
+                        LearningStyle.COZY to stringResource(R.string.format_repeat_count, VerseReferenceFormatter.formatNumber(LearningStyle.COZY.repeatCount, displayLanguage))
                     )
                     options.forEachIndexed { index, (style, label) ->
                         SegmentedButton(
@@ -397,14 +415,11 @@ fun SettingsScreen(
 
         StaggeredEntrance(index = 3) { SectionCard {
             SectionTitle(stringResource(R.string.settings_section_notifications))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(stringResource(R.string.settings_streak_reminder_label), style = MaterialTheme.typography.labelLarge)
-                Switch(checked = streakReminderEnabled, onCheckedChange = ::onStreakReminderToggled)
-            }
+            SettingsSwitchRow(
+                label = stringResource(R.string.settings_streak_reminder_label),
+                checked = streakReminderEnabled,
+                onCheckedChange = ::onStreakReminderToggled
+            )
             Text(
                 stringResource(R.string.settings_streak_reminder_description),
                 style = MaterialTheme.typography.bodySmall,
@@ -418,7 +433,7 @@ fun SettingsScreen(
                 ) {
                     Text(stringResource(R.string.settings_streak_reminder_time_label), style = MaterialTheme.typography.labelLarge)
                     QwSecondaryButton(
-                        text = "%02d:%02d".format(streakReminderHour, streakReminderMinute),
+                        text = formatReminderTime(streakReminderHour, streakReminderMinute, displayLanguage, is24Hour),
                         onClick = { showTimePicker = true }
                     )
                 }
@@ -498,7 +513,7 @@ fun SettingsScreen(
         val timePickerState = rememberTimePickerState(
             initialHour = streakReminderHour,
             initialMinute = streakReminderMinute,
-            is24Hour = false
+            is24Hour = is24Hour
         )
         TimePickerDialog(
             onDismissRequest = { showTimePicker = false },
@@ -534,4 +549,27 @@ fun SettingsScreen(
         )
     }
 
+}
+
+/** One label + Switch row as a single accessibility target: the whole row toggles and is
+ * announced as "<label>, switch, on/off" instead of an unlabeled switch next to stray text. */
+@Composable
+private fun SettingsSwitchRow(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, style = MaterialTheme.typography.labelLarge, modifier = Modifier.weight(1f))
+        Switch(checked = checked, onCheckedChange = null)
+    }
+}
+
+/** The reminder time in the learner's language and digits, 12- or 24-hour per the device. */
+private fun formatReminderTime(hour: Int, minute: Int, language: Language, is24Hour: Boolean): String {
+    val pattern = if (is24Hour) "HH:mm" else "h:mm a"
+    val text = LocalTime.of(hour, minute).format(DateTimeFormatter.ofPattern(pattern, language.locale))
+    return VerseReferenceFormatter.formatDigits(text, language)
 }

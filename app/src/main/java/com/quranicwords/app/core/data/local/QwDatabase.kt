@@ -3,16 +3,22 @@ package com.quranicwords.app.core.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.quranicwords.app.core.data.local.migration.Migrations
+import com.quranicwords.app.core.data.local.migration.PreMigrationBackup
 import com.quranicwords.app.core.data.local.dao.AchievementDao
 import com.quranicwords.app.core.data.local.dao.ChapterDao
 import com.quranicwords.app.core.data.local.dao.DailyPracticeDao
+import com.quranicwords.app.core.data.local.dao.DailyQuestDao
+import com.quranicwords.app.core.data.local.dao.LegacyMigrationDao
 import com.quranicwords.app.core.data.local.dao.ExerciseAttemptDao
 import com.quranicwords.app.core.data.local.dao.ExerciseDao
 import com.quranicwords.app.core.data.local.dao.LessonDao
 import com.quranicwords.app.core.data.local.dao.SectionDao
 import com.quranicwords.app.core.data.local.dao.UserProgressDao
 import com.quranicwords.app.core.data.local.dao.UserStatsDao
+import com.quranicwords.app.core.data.local.dao.VerseDao
 import com.quranicwords.app.core.data.local.dao.WordFrequencyDao
+import com.quranicwords.app.core.data.local.dao.WordMemoryDao
 import com.quranicwords.app.core.data.local.entity.AchievementEntity
 import com.quranicwords.app.core.data.local.entity.ChapterEntity
 import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
@@ -22,12 +28,14 @@ import com.quranicwords.app.core.data.local.entity.LessonEntity
 import com.quranicwords.app.core.data.local.entity.SectionEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.data.local.entity.VerseEntity
 import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
 
-// This fork starts its own schema history at version 1 - no installed base to migrate from, so
-// there's no value in pretending continuity with the source app's version 4. Real hand-written
-// Migration objects (see the source app's Migrations.kt for the pattern) are reserved for changes
-// made after this fork's own first release.
+// Schema v5 shipped in v1.0.0 and v1.0.1, so learner data now has a real installed base: every
+// later version needs a hand-written Migration in migration/Migrations.kt. Destructive fallback is
+// allowed only from versions 1-4, which never left development.
 @Database(
     entities = [
         WordFrequencyEntity::class,
@@ -39,9 +47,12 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
         UserStatsEntity::class,
         ExerciseAttemptEntity::class,
         AchievementEntity::class,
-        DailyPracticeEntity::class
+        DailyPracticeEntity::class,
+        WordMemoryEntity::class,
+        DailyQuestEntity::class,
+        VerseEntity::class
     ],
-    version = 5,
+    version = QwDatabase.VERSION,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -56,23 +67,32 @@ abstract class QwDatabase : RoomDatabase() {
     abstract fun exerciseAttemptDao(): ExerciseAttemptDao
     abstract fun achievementDao(): AchievementDao
     abstract fun dailyPracticeDao(): DailyPracticeDao
+    abstract fun legacyMigrationDao(): LegacyMigrationDao
+    abstract fun wordMemoryDao(): WordMemoryDao
+    abstract fun dailyQuestDao(): DailyQuestDao
+    abstract fun verseDao(): VerseDao
 
     companion object {
         const val DATABASE_NAME = "quranicwords.db"
+        const val VERSION = 8
 
         @Volatile
         private var INSTANCE: QwDatabase? = null
 
         fun getInstance(context: android.content.Context): QwDatabase {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: androidx.room.Room.databaseBuilder(
-                    context.applicationContext,
-                    QwDatabase::class.java,
-                    DATABASE_NAME
-                )
-                .fallbackToDestructiveMigration(dropAllTables = true)
-                .build()
-                .also { INSTANCE = it }
+                INSTANCE ?: run {
+                    PreMigrationBackup.snapshotIfUpgrading(context.applicationContext, DATABASE_NAME, VERSION)
+                    androidx.room.Room.databaseBuilder(
+                        context.applicationContext,
+                        QwDatabase::class.java,
+                        DATABASE_NAME
+                    )
+                        .addMigrations(*Migrations.ALL)
+                        .fallbackToDestructiveMigrationFrom(true, 1, 2, 3, 4)
+                        .build()
+                        .also { INSTANCE = it }
+                }
             }
         }
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wg_bg_start">@color/wg_dark_bg_start</color>
+    <color name="wg_bg_end">@color/wg_dark_bg_end</color>
+    <color name="wg_stroke">@color/wg_dark_stroke</color>
+    <color name="wg_card">@color/wg_dark_card</color>
+    <color name="wg_card_stroke">@color/wg_dark_card_stroke</color>
+    <color name="wg_chip">@color/wg_dark_chip</color>
+    <color name="wg_chip_due">@color/wg_dark_chip_due</color>
+    <color name="wg_chip_learned">@color/wg_dark_chip_learned</color>
+    <color name="wg_text_primary">@color/wg_dark_text_primary</color>
+    <color name="wg_text_secondary">@color/wg_dark_text_secondary</color>
+    <color name="wg_text_tertiary">@color/wg_dark_text_tertiary</color>
+    <color name="wg_accent">@color/wg_dark_accent</color>
+    <color name="wg_highlight">@color/wg_dark_highlight</color>
+    <color name="wg_gold">@color/wg_dark_gold</color>
+    <color name="wg_flame">@color/wg_dark_flame</color>
+    <color name="wg_heart">@color/wg_dark_heart</color>
+    <color name="wg_cta_bg">@color/wg_dark_cta_bg</color>
+    <color name="wg_cta_text">@color/wg_dark_cta_text</color>
+    <color name="wg_track">@color/wg_dark_track</color>
+    <color name="wg_fill">@color/wg_dark_fill</color>
+    <color name="wg_icon_btn">@color/wg_dark_icon_btn</color>
+</resources>

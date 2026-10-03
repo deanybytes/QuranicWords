@@ -7,6 +7,10 @@ import kotlinx.serialization.Serializable
  * The full content of one exercise, shaped differently per [ExerciseType]. Stored as a single
  * JSON blob in [com.quranicwords.app.core.data.local.entity.ExerciseEntity] since
  * the shape genuinely varies by type rather than sharing a fixed set of columns.
+ *
+ * The listening types ("tap_what_you_hear", "listen_and_type") were withdrawn along with word
+ * pronunciation audio; a stored blob of either no longer decodes, and every reader goes through
+ * [com.quranicwords.app.core.util.decodeExerciseContentOrNull] so such a row is skipped.
  */
 @Serializable
 sealed interface ExerciseContent {
@@ -17,24 +21,6 @@ sealed interface ExerciseContent {
     data class MultipleChoice(
         override val prompt: LocalizedText,
         val promptArabic: String? = null,
-        override val wordId: String,
-        override val options: List<ChoiceOption>,
-        override val correctOptionId: String,
-        val exampleVerseArabic: String? = null,
-        val exampleVerseTranslation: LocalizedText = emptyMap(),
-        val exampleVerseReference: String? = null,
-        val arabicWordStart: Int? = null,
-        val arabicWordEnd: Int? = null,
-        val meaningHighlight: LocalizedText = emptyMap()
-    ) : OptionsBearing {
-        override fun withOptions(newOptions: List<ChoiceOption>): ExerciseContent = copy(options = newOptions)
-    }
-
-    @Serializable
-    @SerialName("tap_what_you_hear")
-    data class TapWhatYouHear(
-        override val prompt: LocalizedText,
-        val audioAssetPath: String,
         override val wordId: String,
         override val options: List<ChoiceOption>,
         override val correctOptionId: String
@@ -56,18 +42,28 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * One contextual meaning and example verse entry for a word (supports polysemy / Wujūh al-Qur'an).
+     * One proven sense of a word in one language: [meaning] is exactly the word-by-word gloss of
+     * the word in verse [verse] ("surah:ayah", a key of `content/verses.json`). Every span is a
+     * char `[start, end)` range validated by tools/pipeline:
+     * - `arabic[wordStart, wordEnd)` is exactly the taught word (the segment inside its written
+     *   token, e.g. مَا inside وَمَا), [word] being that token's 1-based index;
+     * - `wordByWord[lang][wbwStart, wbwEnd)` equals [meaning];
+     * - when [translationStart] is non-null, `translation[lang][translationStart, translationEnd)`
+     *   equals [meaning] ignoring case and occurs once; when null the translation is shown with
+     *   no highlight at all.
+     * Displayed only through `WordExampleLocalizer`, never by searching for substrings.
      */
     @Serializable
-    data class PolysemyEntry(
-        val meaningIndex: Int = 1,
-        val contextualMeaning: LocalizedText = emptyMap(),
-        val verseReference: String? = null,
-        val verseArabic: String? = null,
-        val arabicWordStart: Int? = null,
-        val arabicWordEnd: Int? = null,
-        val verseTranslation: LocalizedText = emptyMap(),
-        val translationHighlight: LocalizedText? = null
+    data class SenseRef(
+        val meaning: String,
+        val verse: String,
+        val word: Int,
+        val wordStart: Int,
+        val wordEnd: Int,
+        val wbwStart: Int,
+        val wbwEnd: Int,
+        val translationStart: Int? = null,
+        val translationEnd: Int? = null
     )
 
     /**
@@ -81,14 +77,17 @@ sealed interface ExerciseContent {
         val arabicWord: String,
         val meaning: LocalizedText,
         val lemmaCategory: LemmaCategory = LemmaCategory.NOUN,
-        val polysemyEntries: List<PolysemyEntry> = emptyList(),
+        /** Language tag -> this word's senses in that language (1-3, in teaching order);
+         * `meaning[lang]` is their meanings joined with " / ". */
+        val senses: Map<String, List<SenseRef>> = emptyMap(),
         val meaningReviewed: Map<String, Boolean> = emptyMap(),
         val root: String? = null,
+        // Legacy English-default example (sense 1 of `senses["en"]`), kept for the generated
+        // Open Practice exercises - every displayed example comes from [senses] instead.
         val exampleVerseArabic: String? = null,
         val exampleVerseTranslation: LocalizedText = emptyMap(),
         val exampleVerseReference: String? = null,
         val exampleVerseVerified: Boolean = false,
-        val audioAssetPath: String? = null,
         val arabicWordStart: Int? = null,
         val arabicWordEnd: Int? = null,
         val meaningHighlight: LocalizedText = emptyMap(),
@@ -98,7 +97,11 @@ sealed interface ExerciseContent {
         val masdarArabic: String? = null,
         val particleType: String? = null,
         val grammaticalCategory: String? = null,
-        val partOfSpeechDetail: String? = null
+        val partOfSpeechDetail: String? = null,
+        /** [partOfSpeechDetail] in every content language (e.g. "حرفِ عطف" for Urdu). */
+        val partOfSpeechLabel: LocalizedText = emptyMap(),
+        /** [verbForm] in every content language (e.g. "Forme I (فَعَلَ)" for French). */
+        val verbFormLabel: LocalizedText = emptyMap()
     ) : ExerciseContent
 
     /**
@@ -169,19 +172,6 @@ sealed interface ExerciseContent {
     ) : ExerciseContent
 
     /**
-     * Plays [audioAssetPath], the learner types the transliteration.
-     */
-    @Serializable
-    @SerialName("listen_and_type")
-    data class ListenAndType(
-        override val prompt: LocalizedText,
-        val wordId: String,
-        val audioAssetPath: String,
-        val correctAnswer: String,
-        val acceptedAnswers: List<String> = emptyList()
-    ) : ExerciseContent
-
-    /**
      * The "reverse direction" quiz: [meaning] is shown as the prompt (instead of the Arabic
      * word), and the learner taps the matching word directly inside [verseArabic].
      */
@@ -196,8 +186,7 @@ sealed interface ExerciseContent {
         val correctWordEnd: Int,
         val tappableSpans: List<WordSpan>,
         val meaning: LocalizedText,
-        val verseTranslation: LocalizedText = emptyMap(),
-        val meaningHighlight: LocalizedText = emptyMap()
+        val verseTranslation: LocalizedText = emptyMap()
     ) : ExerciseContent
 }
 
@@ -227,14 +216,14 @@ sealed interface OptionsBearing : ExerciseContent {
 val ExerciseContent.isScored: Boolean
     get() = when (this) {
         is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> false
-        is ExerciseContent.MultipleChoice, is ExerciseContent.TapWhatYouHear, is ExerciseContent.Matching,
-        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder, is ExerciseContent.ListenAndType,
+        is ExerciseContent.MultipleChoice, is ExerciseContent.Matching,
+        is ExerciseContent.FillInTheBlank, is ExerciseContent.WordOrderBuilder,
         is ExerciseContent.TapWordInVerse -> true
     }
 
 /**
  * The id of the single word this exercise quizzes, for attempt logging - [OptionsBearing.wordId]
- * for [ExerciseContent.MultipleChoice]/[ExerciseContent.TapWhatYouHear] (NOT `correctOptionId`,
+ * for [ExerciseContent.MultipleChoice]/[ExerciseContent.FillInTheBlank] (NOT `correctOptionId`,
  * which is only a per-exercise-local option id like "o3" and would fragment attempt logging for
  * the same word across different exercises that happen to number their baked options
  * differently). `null` for teach steps (nothing scored yet) and for [ExerciseContent.Matching],
@@ -243,10 +232,8 @@ val ExerciseContent.isScored: Boolean
  */
 fun ExerciseContent.practicedItemId(): String? = when (this) {
     is ExerciseContent.MultipleChoice -> wordId
-    is ExerciseContent.TapWhatYouHear -> wordId
     is ExerciseContent.FillInTheBlank -> wordId
     is ExerciseContent.WordOrderBuilder -> wordId
-    is ExerciseContent.ListenAndType -> wordId
     is ExerciseContent.TapWordInVerse -> wordId
     is ExerciseContent.Matching, is ExerciseContent.WordIntro, is ExerciseContent.ChapterIntro -> null
 }
@@ -264,13 +251,7 @@ data class MatchPair(
     val leftArabic: String = "",
     val left: String? = null,
     val right: LocalizedText = emptyMap(),
-    val wordId: String? = null,
-    val exampleVerseArabic: String? = null,
-    val exampleVerseTranslation: LocalizedText = emptyMap(),
-    val exampleVerseReference: String? = null,
-    val arabicWordStart: Int? = null,
-    val arabicWordEnd: Int? = null,
-    val meaningHighlight: LocalizedText = emptyMap()
+    val wordId: String? = null
 ) {
     val effectiveLeftArabic: String get() = leftArabic.ifBlank { left.orEmpty() }.cleanArabicDisplay()
     val effectiveId: String get() = id.ifBlank { wordId.orEmpty() }
@@ -281,6 +262,14 @@ private val LEMMA_ID_REGEX = Regex("""\s*\(\d+\)""")
 fun String.cleanArabicDisplay(): String = this.replace(LEMMA_ID_REGEX, "").trim()
 
 fun ExerciseContent.localizedPrompt(language: Language): String = prompt.get(language)
+
+/** The verb form ("Form IV" ...) in the learner's language, falling back to the English string. */
+fun ExerciseContent.WordIntro.localizedVerbForm(language: Language): String? =
+    verbFormLabel.getOrNull(language)?.takeIf { it.isNotBlank() } ?: verbForm
+
+/** The part of speech ("Noun (Ism)" ...) in the learner's language, falling back to the English string. */
+fun ExerciseContent.WordIntro.localizedPartOfSpeech(language: Language): String? =
+    partOfSpeechLabel.getOrNull(language)?.takeIf { it.isNotBlank() } ?: partOfSpeechDetail
 fun ChoiceOption.localizedLabel(language: Language): String =
     label.getOrNull(language) ?: labelArabic.orEmpty().cleanArabicDisplay()
 fun MatchPair.localizedRight(language: Language): String = right.get(language)

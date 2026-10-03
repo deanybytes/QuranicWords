@@ -45,10 +45,10 @@ Learners preview **Surah Al-Kawthar** in a clean interface displaying the script
 For test-focused learning:
 ```mermaid
 flowchart TD
-    TestHome[Test-Only Hub] --> Mode1[1. Ism Mode: 3,057 Nouns]
-    TestHome --> Mode2[2. Fi'l Mode: 1,479 Verbs]
-    TestHome --> Mode3[3. Ḥarf Mode: 173 Particles]
-    TestHome --> Mode4[4. Mix / Random Mode: All 4,709 Words with Grammar Badges]
+    TestHome[Test-Only Hub] --> Mode1[1. Ism Mode: Nouns]
+    TestHome --> Mode2[2. Fi'l Mode: Verbs]
+    TestHome --> Mode3[3. Ḥarf Mode: Particles]
+    TestHome --> Mode4[4. Mix / Random Mode: All Words with Grammar Badges]
     TestHome --> Mode5[5. Mistaken Words Review: Adaptive Error Revision]
     TestHome --> Mode6[6. Chapterwise Practice & Test Mode: 10 Quranic Chapters]
     Mode1 & Mode2 & Mode3 & Mode4 & Mode5 & Mode6 --> DynQuiz[Dynamic In-Verse Quizzes:<br/>• Reverse Verse Tap<br/>• Verse Completion<br/>• Contextual Multiple Choice]

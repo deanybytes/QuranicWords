@@ -47,7 +47,6 @@ class UserPreferencesDataStore @Inject constructor(
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
         val REDUCE_GLASS_EFFECTS = booleanPreferencesKey("reduce_glass_effects")
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
-        val PRONUNCIATION_AUDIO_ENABLED = booleanPreferencesKey("pronunciation_audio_enabled")
         val FONT_SCALE = stringPreferencesKey("font_scale")
         val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
         val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
@@ -64,6 +63,10 @@ class UserPreferencesDataStore @Inject constructor(
         val TEST_FIL_COVERED_IDS = stringSetPreferencesKey("test_fil_covered_ids")
         val TEST_HARF_COVERED_IDS = stringSetPreferencesKey("test_harf_covered_ids")
         val REQUIRE_EXIT_CONFIRMATION = booleanPreferencesKey("require_exit_confirmation")
+        val WORD_MEMORY_BACKFILLED = booleanPreferencesKey("word_memory_backfilled")
+        val LESSON_RESUME = stringPreferencesKey("lesson_resume")
+        val LAST_INVOCATION_DATE = stringPreferencesKey("last_invocation_date")
+        val INVOCATION_EVERY_LAUNCH = booleanPreferencesKey("invocation_every_launch")
     }
 
     private val userIdMutex = Mutex()
@@ -101,8 +104,39 @@ class UserPreferencesDataStore @Inject constructor(
         }
     }
 
+    /** The chosen language. A withdrawn language's tag (Malay/Hausa/Swahili) already reads as
+     * [Language.ENGLISH] here via [Language.fromTag]; [migrateRetiredLanguage] persists that. */
     val languageFlow: Flow<Language?> =
         context.dataStore.data.map { Language.fromTag(it[Keys.LANGUAGE]) }
+
+    /** One-time move of a stored withdrawn-language tag to English (and drop of the retired
+     * content-language-notice and pronunciation-audio flags). Idempotent. */
+    suspend fun migrateRetiredLanguage() {
+        var changed = false
+        context.dataStore.edit { prefs ->
+            if (Language.isRetiredTag(prefs[Keys.LANGUAGE])) {
+                prefs[Keys.LANGUAGE] = Language.ENGLISH.tag
+                changed = true
+            }
+            prefs.remove(booleanPreferencesKey("content_language_notice_shown"))
+            prefs.remove(booleanPreferencesKey("pronunciation_audio_enabled"))
+        }
+        if (changed) {
+            runCatching {
+                com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+            }
+        }
+    }
+
+    /** Writes a raw language tag, bypassing [Language] - lets tests seed a withdrawn tag. */
+    @androidx.annotation.VisibleForTesting
+    internal suspend fun setRawLanguageTag(tag: String) {
+        context.dataStore.edit { it[Keys.LANGUAGE] = tag }
+    }
+
+    /** The raw stored language tag (see [setRawLanguageTag]). */
+    @androidx.annotation.VisibleForTesting
+    internal suspend fun rawLanguageTag(): String? = context.dataStore.data.first()[Keys.LANGUAGE]
 
     suspend fun setLanguage(language: Language) {
         context.dataStore.edit { it[Keys.LANGUAGE] = language.tag }
@@ -134,6 +168,19 @@ class UserPreferencesDataStore @Inject constructor(
     val fontChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.FONT_CHOICE_MADE] == true }
 
+    /** The content version currently seeded, or null on a fresh install. */
+    suspend fun contentSeededVersion(): Int? = context.dataStore.data.first()[Keys.CONTENT_SEEDED_VERSION]
+
+    /** Open-practice "already covered" sets hold word ids; they are meaningless once the word ids
+     * change with a content rebuild. */
+    suspend fun resetAllTestCoverage() {
+        context.dataStore.edit { prefs ->
+            @Suppress("UNCHECKED_CAST")
+            prefs.asMap().keys.filter { it.name.startsWith("test_") }
+                .forEach { prefs.remove(it as androidx.datastore.preferences.core.Preferences.Key<Any>) }
+        }
+    }
+
     suspend fun isContentSeeded(version: Int): Boolean =
         context.dataStore.data.first()[Keys.CONTENT_SEEDED_VERSION] == version
 
@@ -161,6 +208,39 @@ class UserPreferencesDataStore @Inject constructor(
         context.dataStore.edit { it[Keys.REDUCE_GLASS_EFFECTS] = enabled }
     }
 
+    /** One-time marker for `ProgressRepositoryImpl`'s replay of attempt history into
+     * `word_memory` (spaced-repetition state introduced in DB v7). Cleared by a backup restore
+     * that carries no memory rows, so the restored attempts get replayed too. */
+    suspend fun isWordMemoryBackfilled(): Boolean =
+        context.dataStore.data.first()[Keys.WORD_MEMORY_BACKFILLED] == true
+
+    suspend fun setWordMemoryBackfilled(done: Boolean) {
+        context.dataStore.edit { it[Keys.WORD_MEMORY_BACKFILLED] = done }
+    }
+
+    /** JSON of the last interrupted Learn lesson (`feature.lesson.LessonResumeRecord`), or null. */
+    val lessonResumeJsonFlow: Flow<String?> =
+        context.dataStore.data.map { it[Keys.LESSON_RESUME] }
+
+    suspend fun setLessonResumeJson(json: String?) {
+        context.dataStore.edit { if (json == null) it.remove(Keys.LESSON_RESUME) else it[Keys.LESSON_RESUME] = json }
+    }
+
+    /** ISO date the opening invocation last played - it plays on the first launch of each day. */
+    suspend fun lastInvocationDate(): String? = context.dataStore.data.first()[Keys.LAST_INVOCATION_DATE]
+
+    suspend fun setLastInvocationDate(date: String) {
+        context.dataStore.edit { it[Keys.LAST_INVOCATION_DATE] = date }
+    }
+
+    /** Settings: play the opening invocation on every cold start instead of once a day. Off by default. */
+    val invocationEveryLaunchFlow: Flow<Boolean> =
+        context.dataStore.data.map { it[Keys.INVOCATION_EVERY_LAUNCH] == true }
+
+    suspend fun setInvocationEveryLaunch(enabled: Boolean) {
+        context.dataStore.edit { it[Keys.INVOCATION_EVERY_LAUNCH] = enabled }
+    }
+
     val requireExitConfirmationFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.REQUIRE_EXIT_CONFIRMATION] != false }
 
@@ -176,16 +256,6 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setSoundEnabled(enabled: Boolean) {
         context.dataStore.edit { it[Keys.SOUND_ENABLED] = enabled }
-    }
-
-    /** Word-pronunciation audio toggle (Settings screen, "Sound" section) - gates
-     * [com.quranicwords.app.core.util.AudioPlayer.play] directly, independent of [soundEnabledFlow]
-     * (which only gates the short SFX chimes via `SfxPlayer`). Defaults to on. */
-    val pronunciationAudioEnabledFlow: Flow<Boolean> =
-        context.dataStore.data.map { it[Keys.PRONUNCIATION_AUDIO_ENABLED] != false }
-
-    suspend fun setPronunciationAudioEnabled(enabled: Boolean) {
-        context.dataStore.edit { it[Keys.PRONUNCIATION_AUDIO_ENABLED] = enabled }
     }
 
     val fontScaleFlow: Flow<FontScale> =

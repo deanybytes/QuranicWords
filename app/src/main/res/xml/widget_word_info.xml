@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Word of the Moment. Sizes follow the 70n-30dp cell rule; the provider picks compact / small /
+     medium / large layouts from the actual size (RemoteViews size map on API 31+, the reported
+     widget options before that). Refreshes come from WidgetUpdateScheduler's non-wakeup alarms and
+     in-app events; updatePeriodMillis is only a 3-hour safety net. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/widget_word_description"
-    android:initialKeyguardLayout="@layout/widget_word"
-    android:initialLayout="@layout/widget_word"
-    android:minWidth="250dp"
-    android:minHeight="140dp"
-    android:minResizeWidth="180dp"
-    android:minResizeHeight="110dp"
-    android:previewImage="@drawable/ic_qw_mark"
-    android:previewLayout="@layout/widget_word"
+    android:initialLayout="@layout/widget_loading"
+    android:minWidth="180dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:maxResizeWidth="530dp"
+    android:maxResizeHeight="450dp"
+    android:previewImage="@drawable/widget_preview_word"
+    android:previewLayout="@layout/widget_word_medium"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="3"
     android:targetCellHeight="2"
-    android:updatePeriodMillis="180000"
-    android:widgetCategory="home_screen|keyguard" />
+    android:updatePeriodMillis="10800000"
+    android:widgetCategory="home_screen" />

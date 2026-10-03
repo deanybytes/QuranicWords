@@ -25,6 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,7 +64,10 @@ private enum class BottomTab { HOME, PROGRESS, ABOUT, SETTINGS }
 @Composable
 fun QwBottomNavShell(
     onOpenLesson: (String) -> Unit,
+    onResumeLesson: (String) -> Unit,
+    onOpenAchievements: () -> Unit,
     onOpenReview: () -> Unit,
+    onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
@@ -73,17 +78,24 @@ fun QwBottomNavShell(
     onOpenWalkthrough: () -> Unit = {},
     viewModel: QwBottomNavShellViewModel = hiltViewModel()
 ) {
-    var selectedTab by remember { mutableStateOf(BottomTab.HOME) }
-    var expandedChapterIds by remember { mutableStateOf<Set<String>?>(null) }
-    var expandedSectionIds by remember { mutableStateOf<Set<String>?>(null) }
+    // Saveable so rotation / process death keeps the learner on the same tab with the same
+    // chapters/sections expanded.
+    var selectedTab by rememberSaveable { mutableStateOf(BottomTab.HOME) }
+    var expandedChapterIds by rememberSaveable(stateSaver = IdSetSaver) { mutableStateOf<Set<String>?>(null) }
+    var expandedSectionIds by rememberSaveable(stateSaver = IdSetSaver) { mutableStateOf<Set<String>?>(null) }
     val learningPath by viewModel.learningPath.collectAsStateWithLifecycle()
     val currentLessonId by viewModel.currentLessonId.collectAsStateWithLifecycle()
     val requireExitConfirmation by viewModel.requireExitConfirmation.collectAsStateWithLifecycle()
 
     var showExitDialog by remember { mutableStateOf(false) }
 
-    BackHandler(enabled = requireExitConfirmation) {
+    // Only Home offers to exit; back from any other tab returns to Home first. (Registered after
+    // the exit handler so it takes precedence while enabled.)
+    BackHandler(enabled = requireExitConfirmation && selectedTab == BottomTab.HOME) {
         showExitDialog = true
+    }
+    BackHandler(enabled = selectedTab != BottomTab.HOME) {
+        selectedTab = BottomTab.HOME
     }
 
     if (showExitDialog) {
@@ -168,16 +180,15 @@ fun QwBottomNavShell(
                 )
                 // Center "Continue Learning" action: always visible across all tabs (Home, Progress,
                 // About, Settings) as long as there is an unlocked lesson to progress in.
+                // The one labelled item: unlike the tabs it's an action, and a bare play icon
+                // didn't say what it would continue.
                 if (currentLessonId != null) {
                     NavigationBarItem(
                         selected = false,
                         onClick = { onOpenLesson(currentLessonId!!) },
-                        icon = {
-                            Icon(
-                                Icons.Filled.PlayArrow,
-                                contentDescription = stringResource(R.string.home_continue_learning)
-                            )
-                        }
+                        icon = { Icon(Icons.Filled.PlayArrow, contentDescription = null) },
+                        label = { Text(stringResource(R.string.bottom_nav_continue), maxLines = 1) },
+                        alwaysShowLabel = true
                     )
                 }
                 NavigationBarItem(
@@ -207,18 +218,24 @@ fun QwBottomNavShell(
     ) { padding ->
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
             when (selectedTab) {
-                BottomTab.HOME -> if (learningPath == LearningPath.TEST_ONLY) {
+                BottomTab.HOME -> if (learningPath == null) {
+                    // Path preference not read yet - a blank frame rather than the wrong Home.
+                    Box(Modifier.fillMaxSize())
+                } else if (learningPath == LearningPath.TEST_ONLY) {
                     TestOnlyHomeScreen(
                         onStartQuiz = onOpenOpenPractice,
                         onOpenReview = onOpenReview,
                         onOpenStreakRecovery = onOpenStreakRecovery,
+                        onOpenDailyReview = onOpenDailyReview,
                         onOpenRoadmap = onOpenRoadmap,
                         onOpenLearnedWords = onOpenLearnedWords
                     )
                 } else {
                     HomeScreen(
                         onOpenLesson = onOpenLesson,
+                        onResumeLesson = onResumeLesson,
                         onOpenReview = onOpenReview,
+                        onOpenDailyReview = onOpenDailyReview,
                         onOpenChapterIntro = onOpenChapterIntro,
                         onOpenSectionIntro = onOpenSectionIntro,
                         onOpenWordBrowse = onOpenWordBrowse,
@@ -232,7 +249,7 @@ fun QwBottomNavShell(
                         onExpandedSectionIdsChange = { expandedSectionIds = it }
                     )
                 }
-                BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords)
+                BottomTab.PROGRESS -> ProgressScreen(onOpenLearnedWords = onOpenLearnedWords, onOpenAchievements = onOpenAchievements)
                 BottomTab.ABOUT -> AboutScreen()
                 BottomTab.SETTINGS -> SettingsScreen(
                     onBack = {},
@@ -243,3 +260,10 @@ fun QwBottomNavShell(
         }
     }
 }
+
+/** [rememberSaveable] saver for the nullable expanded-id sets (null = "not yet initialised from
+ * the current lesson", distinct from an empty set the learner collapsed to). */
+private val IdSetSaver = Saver<Set<String>?, ArrayList<String>>(
+    save = { ids -> ids?.let { ArrayList(it) } },
+    restore = { it.toSet() }
+)

@@ -1,36 +1,46 @@
 # QuranicWords Privacy Policy
 
-*Last updated: 2026-09-17*
+*Last updated: 2026-10-03*
 
 ## Summary
 
-QuranicWords is completely offline, does not require an account, does not collect personal information, and does not use analytics, crashlytics, or advertising SDKs. All learning progress and preferences remain strictly on your local device.
+QuranicWords works completely offline. It has no account, collects no personal information, and contains no analytics, crash-reporting or advertising code. Your learning progress and settings stay on your device.
 
-## What the app stores
+## No network access
 
-- **Learning progress** (points, streaks, lesson/exam completion, per-word attempt history) is stored exclusively in a local Room database on your device.
-- **Settings & Preferences** (language, theme, font size, sound effect preferences, daily goal) are stored locally in Android DataStore.
+The app does not have Android's Internet permission, so it cannot send or receive any data. Everything it needs is bundled inside the app:
+- the curriculum (3,833 words), meanings in 8 languages and example verses with their translations;
+- the Qur'an fonts and sound effects.
 
-## Zero Network Access
+Links in the About screen (for example GitHub or YouTube) open in your browser or the relevant app, only when you tap them.
 
-The app is **100% offline** and makes **zero network requests**:
-- All curriculum data (4,709 words across Ḥarf, Fi'l, Ism), translations across 11 languages, and verse examples are bundled directly inside the application.
-- All typeface files and sound effects are bundled locally.
-- No personal data or telemetry is ever transmitted to any remote server.
+## What the app stores on your device
 
-## Data export (backup)
+- **Learning progress**: points, level, streak, lessons, exams, answers and review schedule, kept in a local database.
+- **Settings**: language, theme, Qur'an font, text size, sounds, daily goal and reminder time.
 
-The Settings screen offers an optional "Export backup" feature that saves your progress to a local JSON file of your choice via the Android Storage Access Framework (SAF). This file is created only when explicitly requested, and is managed entirely by you.
+Uninstalling the app deletes this data.
 
-## No accounts, no third-party sharing
+## Notifications
 
-QuranicWords has no accounts, no telemetry, and does not share any data with third parties.
+If you turn on the streak reminder, the app shows a local notification on your device. It is created by the app itself; nothing is sent over a network.
+
+## Backup
+
+Settings → Backup can export your progress to a file that you choose, and import it again. The file is created only when you ask for it, and you control where it is stored.
+
+## No third parties
+
+There are no accounts and no sharing. No data is sold, shared or transferred to anyone.
 
 ## Children's privacy
 
 QuranicWords does not collect personal information from anyone, including children.
 
+## Changes
+
+If this policy changes, the new version will be published at this address with a new date.
+
 ## Contact
 
-Questions regarding this privacy policy or the app can be directed to `contact.deanstalks@gmail.com` or via GitHub at [github.com/rmrashahriar/QuranicWords](https://github.com/rmrashahriar/QuranicWords).
-
+Questions about this policy or the app: contact.deanstalks@gmail.com, or GitHub: https://github.com/rmrashahriar/QuranicWords

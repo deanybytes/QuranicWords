@@ -2,6 +2,78 @@
 
 All notable changes to QuranicWords are documented here.
 
+## [1.0.0] - 2026-10-03 (Build 100008): Verified curriculum, spaced review & gamification
+
+### Content (rebuilt from source)
+- **Corrupted curriculum replaced.** The previous content had:
+  - only 90 distinct verbs across 1,479 entries;
+  - 594 distinct nouns across 3,057;
+  - phrase-fragment meanings attached to the wrong words (e.g. رَحْمَة = "the Most Gracious");
+  - misaligned verse translations.
+- **New curriculum: 3,900 distinct lemmas**, covering 98.4% of the Qur'an's lexical segments.
+  - Built from the Quranic Arabic Corpus.
+  - Meanings in 8 languages are drawn only from each word's own GTAF word-by-word occurrences.
+  - Every word has an exact verse highlight, transliteration, root, verb forms and contextual senses.
+- **POS-pure chapters** alternate verbs and nouns by frequency.
+- **New exercise types:** verse completion and tap-the-word-in-verse.
+- **Reproducible pipeline** (`tools/pipeline`) with a validator, golden tests and CI that verifies the committed assets.
+- **French content is new.** Malay, Hausa and Swahili were removed (no verified word-by-word source); learners who used them are switched to English.
+- **Pronunciation audio and listening exercises were withdrawn,** because audio could not be provided for every word.
+- **Citations** now read "Surah <name> <surah>:<ayah>" everywhere.
+
+### Learning & motivation
+- **Spaced repetition (FSRS):**
+  - a Daily Review with due counts;
+  - word strength from New to Mastered;
+  - exercise type adapts to strength;
+  - mistakes review is based on word memory.
+- **Gamification:**
+  - XP levels, combos and optional hearts;
+  - daily quests and a daily-goal ring;
+  - an achievements screen with progress bars;
+  - celebrations for level-ups, streak milestones and exam passes.
+- **Lesson summary:** shows missed words with "Review these now", a Retry button for failed exams, and an XP breakdown.
+- **Smoother flow:**
+  - resume an interrupted lesson;
+  - go back during onboarding;
+  - opt in to the reminder during onboarding;
+  - the opening invocation plays once a day.
+
+### Correctness & data safety
+- **Progress survives upgrades.**
+  - Real Room migrations (5→6→7) replace destructive ones.
+  - The database is snapshotted before an upgrade.
+  - Progress from v1.0.0/v1.0.1 is migrated onto the rebuilt curriculum.
+- **Data integrity:**
+  - Lesson completion, reset, backup import and content seeding are transactional.
+  - Seeding streams the content instead of decoding 70 MB at once.
+  - Backup rules now exclude the real database file (they named a non-existent one).
+- **Scoring:**
+  - Only first tries score. Retries no longer reach 100%, bypass exam gates or clear mistakes.
+  - Matching mistakes count, and failed exams stay open.
+  - Chapter achievements unlock (they never could before).
+- **Streaks:**
+  - A reset is no longer reported as an increase.
+  - Clock rollback and time-zone changes are handled.
+  - The reminder respects DST and the current streak.
+- **Battery:** the widget no longer wakes the device every 3 minutes.
+
+### Interface
+- **RTL:** verse word order is correct in RTL.
+- **Accessibility:** TalkBack semantics throughout.
+- **Localization:** digits, plurals and dates are localized.
+- **Navigation and state:** the selected tab survives rotation, and Back returns to Home.
+
+### Web
+- **Rebuilt web edition:**
+  - an offline PWA;
+  - a learn path, spaced review and four quiz modes;
+  - XP and streaks;
+  - a strict CSP and no third-party requests;
+  - full accessibility;
+  - 8 languages, with RTL.
+- **Standalone HTML dictionary** regenerated from the new content.
+
 ## [1.0.0] - 2026-09-23 (Build 100002)
 
 ### Fixed & Improved

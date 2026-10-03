@@ -4,6 +4,7 @@ import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
 import com.quranicwords.app.core.domain.InactivityDuration
 import com.quranicwords.app.core.domain.StreakRecovery
+import com.quranicwords.app.core.domain.model.LemmaCategory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -56,5 +57,21 @@ class TestOnlyHomeViewModelTest {
         assertTrue(DailyGoalCalculator.isGoalMetToday(minutesPracticedToday = 20, goalMinutes = 20))
         assertTrue(DailyGoalCalculator.isGoalMetToday(minutesPracticedToday = 25, goalMinutes = 20))
         assertFalse(DailyGoalCalculator.isGoalMetToday(minutesPracticedToday = 19, goalMinutes = 20))
+    }
+
+    @Test
+    fun `word pools are counted from content categories, not id shapes`() {
+        // Ids deliberately don't follow any prefix/range convention.
+        val pools = WordPools.from(
+            allWordIds = listOf("a", "b", "c", "d", "e"),
+            categories = mapOf("a" to LemmaCategory.NOUN, "b" to LemmaCategory.VERB, "c" to LemmaCategory.PARTICLE, "d" to LemmaCategory.NOUN)
+        )
+
+        assertEquals(5, pools.all.size)
+        assertEquals(setOf("a", "d"), pools.nouns)
+        assertEquals(setOf("b"), pools.verbs)
+        assertEquals(setOf("c"), pools.particles)
+        // Covered ids left over from an older content build don't count.
+        assertEquals(1, pools.coveredCount(setOf("a", "w_9999"), pools.nouns))
     }
 }

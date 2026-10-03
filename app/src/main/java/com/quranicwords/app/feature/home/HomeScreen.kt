@@ -1,5 +1,6 @@
 package com.quranicwords.app.feature.home
 
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -17,9 +18,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,11 +34,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.ChevronLeft
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.Lock
@@ -46,9 +49,21 @@ import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Style
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import com.quranicwords.app.core.domain.model.LemmaCategory
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -71,6 +86,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -99,6 +115,9 @@ import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.DailyGoalBadge
+import com.quranicwords.app.core.ui.components.DailyReviewCard
+import com.quranicwords.app.core.ui.components.HeartsBadge
+import com.quranicwords.app.core.ui.components.LevelProgressBar
 import com.quranicwords.app.core.ui.components.GeometricPatternBackground
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.PointsBadge
@@ -119,6 +138,7 @@ import com.quranicwords.app.core.ui.motion.rememberReducedGlass
 import com.quranicwords.app.core.ui.motion.unlockRevealShimmer
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.Elevation
+import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatDuration
 import com.quranicwords.app.core.util.formatPercent
 import kotlinx.coroutines.launch
@@ -145,7 +165,9 @@ import kotlin.math.sin
 @Composable
 fun HomeScreen(
     onOpenLesson: (String) -> Unit,
+    onResumeLesson: (String) -> Unit,
     onOpenReview: () -> Unit,
+    onOpenDailyReview: () -> Unit,
     onOpenChapterIntro: (String) -> Unit,
     onOpenSectionIntro: (String) -> Unit,
     onOpenWordBrowse: (String) -> Unit,
@@ -159,11 +181,6 @@ fun HomeScreen(
     onExpandedChapterIdsChange: (Set<String>?) -> Unit,
     expandedSectionIds: Set<String>?,
     onExpandedSectionIdsChange: (Set<String>?) -> Unit,
-    /** Reports the "Continue Learning" target up to [com.quranicwords.app.core.navigation
-     * .QwBottomNavShell], whose own `Scaffold` now hosts that FAB centered over the bottom nav
-     * bar - a Home-tab-specific action, but the bar itself is shared shell chrome, so the shell
-     * needs to know when to show it rather than Home rendering its own floating button. */
-    onContinueLearningLessonIdChange: (String?) -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -214,10 +231,6 @@ fun HomeScreen(
     val currentExpandedChapterIds = expandedChapterIds ?: emptySet()
     val currentExpandedSectionIds = expandedSectionIds ?: emptySet()
 
-    LaunchedEffect(uiState.currentLessonId) {
-        onContinueLearningLessonIdChange(uiState.currentLessonId)
-    }
-
     // Auto-scrolls the list to the current lesson or its containing section/chapter node whenever
     // the active lesson advances (e.g. after completing a lesson/chapter).
     LaunchedEffect(uiState.currentLessonId, uiState.isLoading, currentExpandedChapterIds, currentExpandedSectionIds) {
@@ -228,6 +241,7 @@ fun HomeScreen(
                 isCurriculumComplete = uiState.isCurriculumComplete,
                 hasReviewableItems = uiState.hasReviewableItems,
                 hasCompletedHistory = uiState.completedHistory.isNotEmpty(),
+                extraLeadingItems = listOf(uiState.dueReviewCount > 0, uiState.resume != null, uiState.quests.isNotEmpty()).count { it },
                 expandedChapterIds = currentExpandedChapterIds,
                 expandedSectionIds = currentExpandedSectionIds,
                 targetLessonId = targetLessonId
@@ -237,6 +251,16 @@ fun HomeScreen(
                 listState.animateScrollToItem(targetIndex)
             }
         }
+    }
+
+    // Chime when a quest completes while Home is away (e.g. during a lesson) - compared against
+    // the count last seen here, so the first load after launch stays quiet.
+    val completedQuests = uiState.quests.count { it.completedAtEpochMillis != null }
+    var lastSeenCompletedQuests by rememberSaveable { mutableIntStateOf(-1) }
+    LaunchedEffect(completedQuests, uiState.isLoading) {
+        if (uiState.isLoading) return@LaunchedEffect
+        if (lastSeenCompletedQuests in 0 until completedQuests) viewModel.playQuestChime()
+        lastSeenCompletedQuests = completedQuests
     }
 
     Scaffold(
@@ -263,8 +287,12 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.5f)
             )
 
+            // Fade the learner's figures in once loaded, rather than flashing "0% · 0 XP" (which
+            // reads like lost progress) while the curriculum is read on a slow first start.
+            val contentAlpha by animateFloatAsState(if (uiState.isLoading) 0f else 1f, label = "homeLoaded")
             Column(modifier = Modifier.fillMaxSize()) {
                 HomeHeroHeader(
+                    modifier = Modifier.alpha(contentAlpha),
                     totalPoints = uiState.totalPoints,
                     currentStreak = uiState.currentStreak,
                     isStreakLocked = uiState.isStreakLocked,
@@ -274,6 +302,9 @@ fun HomeScreen(
                     last30DaysMinutes = uiState.last30DaysMinutes,
                     activeDaysCount = uiState.last30DaysActiveCount,
                     totalMinutes = uiState.last30DaysTotalMinutes,
+                    hearts = uiState.hearts?.takeIf { it.enabled }?.hearts,
+                    todayMinutes = uiState.todayMinutes,
+                    dailyGoalMinutes = uiState.dailyGoalMinutes,
                     onOpenRoadmap = onOpenRoadmap,
                     onOpenStreakRecovery = onOpenStreakRecovery,
                     onOpenLearnedWords = onOpenLearnedWords
@@ -327,6 +358,33 @@ fun HomeScreen(
                     ),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    if (uiState.isLoading) {
+                        item(key = "loading") {
+                            Box(Modifier.fillMaxWidth().height(240.dp), contentAlignment = Alignment.Center) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                    }
+                    // Due reviews lead the list: keeping known words alive is the best use of the
+                    // first minutes of a session.
+                    if (uiState.dueReviewCount > 0) {
+                        item(key = "daily_review") {
+                            DailyReviewCard(dueCount = uiState.dueReviewCount, onClick = onOpenDailyReview)
+                        }
+                    }
+
+                    uiState.resume?.let { resume ->
+                        item(key = "resume_lesson") {
+                            ResumeLessonCard(resume = resume, onResume = { onResumeLesson(resume.lessonId) })
+                        }
+                    }
+
+                    if (uiState.quests.isNotEmpty()) {
+                        item(key = "daily_quests") {
+                            QuestsCard(quests = uiState.quests)
+                        }
+                    }
+
                     if (uiState.isCurriculumComplete) {
                         item(key = "curriculum_complete") {
                             CurriculumCompleteCard(onClick = onOpenOpenPractice)
@@ -465,6 +523,7 @@ fun HomeScreen(
  */
 @Composable
 private fun HomeHeroHeader(
+    modifier: Modifier = Modifier,
     totalPoints: Int,
     currentStreak: Int,
     isStreakLocked: Boolean,
@@ -474,13 +533,17 @@ private fun HomeHeroHeader(
     last30DaysMinutes: List<Int> = emptyList(),
     activeDaysCount: Int = 0,
     totalMinutes: Int = 0,
+    /** Null while hearts are switched off. */
+    hearts: Int? = null,
+    todayMinutes: Int = 0,
+    dailyGoalMinutes: Int = 0,
     onOpenRoadmap: () -> Unit,
     onOpenStreakRecovery: () -> Unit,
     onOpenLearnedWords: () -> Unit = {}
 ) {
     val shape = RoundedCornerShape(28.dp)
 
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(modifier = modifier.fillMaxWidth()) {
         // Same glass-edge border highlight as GlassSurface (kept as a raw .border(...) rather than
         // routing this hero surface through GlassSurface itself, since its bespoke gradient fill
         // is a deliberate hero-only treatment worth keeping distinct). No drop shadow - per
@@ -574,7 +637,9 @@ private fun HomeHeroHeader(
                             size = 68.dp,
                             color = MaterialTheme.colorScheme.tertiary,
                             trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.16f),
-                            centerLabel = "${formatPercent(quranCoveragePercent)}%",
+                            centerLabel = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(
+                                "${formatPercent(quranCoveragePercent)}%", rememberSelectedLanguage()
+                            ),
                             labelStyle = MaterialTheme.typography.labelLarge.copy(
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
                             )
@@ -597,10 +662,15 @@ private fun HomeHeroHeader(
                                 } else {
                                     StreakBadge(currentStreak)
                                 }
+                                if (hearts != null) HeartsBadge(hearts = hearts)
+                                if (dailyGoalMinutes > 0) DailyGoalRing(minutes = todayMinutes, goalMinutes = dailyGoalMinutes, size = 36.dp)
                                 DailyGoalBadge(visible = isDailyGoalMetToday)
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    LevelProgressBar(totalXp = totalPoints)
 
                     Spacer(modifier = Modifier.height(14.dp))
 
@@ -625,11 +695,8 @@ private fun formatCompletedDate(epochMillis: Long, language: com.quranicwords.ap
         com.quranicwords.app.core.domain.model.Language.URDU -> java.util.Locale.forLanguageTag("ur-PK")
         com.quranicwords.app.core.domain.model.Language.HINDI -> java.util.Locale.forLanguageTag("hi-IN")
         com.quranicwords.app.core.domain.model.Language.INDONESIAN -> java.util.Locale.forLanguageTag("id-ID")
-        com.quranicwords.app.core.domain.model.Language.MALAY -> java.util.Locale.forLanguageTag("ms-MY")
         com.quranicwords.app.core.domain.model.Language.TURKISH -> java.util.Locale.forLanguageTag("tr-TR")
         com.quranicwords.app.core.domain.model.Language.PERSIAN -> java.util.Locale.forLanguageTag("fa-IR")
-        com.quranicwords.app.core.domain.model.Language.HAUSA -> java.util.Locale.forLanguageTag("ha-NG")
-        com.quranicwords.app.core.domain.model.Language.SWAHILI -> java.util.Locale.forLanguageTag("sw-KE")
         com.quranicwords.app.core.domain.model.Language.FRENCH -> java.util.Locale.FRENCH
         com.quranicwords.app.core.domain.model.Language.ENGLISH -> java.util.Locale.ENGLISH
     }
@@ -699,7 +766,7 @@ private fun ChapterSummaryNode(
             }
             Icon(
                 if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                contentDescription = null
+                contentDescription = stringResource(if (expanded) R.string.a11y_collapse else R.string.a11y_expand)
             )
         }
         if (status != LessonStatus.LOCKED) {
@@ -766,7 +833,7 @@ private fun SectionSummaryNode(
             )
             Icon(
                 if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                contentDescription = null
+                contentDescription = stringResource(if (expanded) R.string.a11y_collapse else R.string.a11y_expand)
             )
             IconButton(onClick = onOpenWordBrowse) {
                 Icon(Icons.Filled.Style, contentDescription = stringResource(R.string.word_browse_title))
@@ -819,7 +886,7 @@ private fun LessonPathNode(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = indent)
-            .height(96.dp)
+            .heightIn(min = 96.dp)
             .drawBehind {
                 val dashEffect = PathEffect.dashPathEffect(floatArrayOf(14f, 14f), 0f)
                 drawLine(
@@ -856,6 +923,23 @@ private fun LessonNode(
     val status = progress?.status ?: LessonStatus.LOCKED
     val isUnlocked = status != LessonStatus.LOCKED
     val kindVisual = rememberLessonKindVisual(kind)
+    val language = rememberSelectedLanguage()
+    val context = LocalContext.current
+    val lockedHint = stringResource(R.string.lesson_locked_hint)
+    // A locked node used to swallow taps silently - now it says why it won't open.
+    val onNodeClick: () -> Unit = if (isUnlocked) onClick else {
+        { Toast.makeText(context, lockedHint, Toast.LENGTH_SHORT).show() }
+    }
+    val scoreText = VerseReferenceFormatter.formatDigits("${progress?.bestScorePercent ?: 0}%", language)
+    val kindLabel = stringResource(
+        if (kindVisual.isQuizOrExam) kindVisual.labelResId
+        else com.quranicwords.app.core.ui.components.categoryLabelRes(category)
+    )
+    val stateLabel = when (status) {
+        LessonStatus.LOCKED -> stringResource(R.string.home_module_locked)
+        LessonStatus.COMPLETED -> scoreText
+        else -> ""
+    }
 
     val scale by animateFloatAsState(
         targetValue = if (isUnlocked) 1f else 0.9f,
@@ -863,8 +947,16 @@ private fun LessonNode(
         label = "nodeScale"
     )
 
+    // One accessibility node for the whole lesson (badge + card), announcing title, kind and
+    // locked/score state - the badge and card are separate touch targets but must not be two
+    // separate, partially-labelled focus stops.
     Row(
-        modifier = modifier,
+        modifier = modifier.semantics(mergeDescendants = true) {
+            contentDescription = "$title, $kindLabel"
+            if (stateLabel.isNotEmpty()) stateDescription = stateLabel
+            role = Role.Button
+            onClick { onNodeClick(); true }
+        },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -898,23 +990,24 @@ private fun LessonNode(
             modifier = Modifier
                 .size(64.dp)
                 .graphicsLayer { scaleX = scale; scaleY = scale }
-                .unlockRevealShimmer(status, if (kindVisual.isQuizOrExam) kindVisual.accentColor else MaterialTheme.colorScheme.tertiary),
+                .unlockRevealShimmer(status, if (kindVisual.isQuizOrExam) kindVisual.accentColor else MaterialTheme.colorScheme.tertiary)
+                .clearAndSetSemantics { },
             contentAlignment = Alignment.Center
         ) {
             GlassStatusBadge(
                 icon = icon,
-                contentDescription = title,
+                contentDescription = null,
                 tint = tint,
                 containerColor = containerColor,
                 size = 64.dp,
-                onClick = if (isUnlocked) onClick else null,
+                onClick = onNodeClick,
                 accentBorderColor = badgeAccentBorder
             )
         }
 
         GlassSurface(
-            modifier = Modifier.width(170.dp),
-            onClick = if (isUnlocked) onClick else null,
+            modifier = Modifier.width(170.dp).clearAndSetSemantics { },
+            onClick = onNodeClick,
             tint = statusContainerColor(status),
             accentBorderColor = when {
                 isCurrent -> MaterialTheme.colorScheme.tertiary
@@ -986,11 +1079,12 @@ private fun LessonNode(
                     title,
                     style = MaterialTheme.typography.labelLarge,
                     color = labelColor,
-                    maxLines = 2
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 if (status == LessonStatus.COMPLETED) {
                     Text(
-                        "${progress?.bestScorePercent ?: 0}%",
+                        scoreText,
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
                         color = if (kindVisual.isQuizOrExam) kindVisual.accentColor else labelColor
                     )
@@ -1103,7 +1197,7 @@ private fun ReviewEntryCard(
                             contentColor = MaterialTheme.colorScheme.onError
                         ) {
                             Text(
-                                text = "$missedCount",
+                                text = VerseReferenceFormatter.formatNumber(missedCount, rememberSelectedLanguage()),
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
@@ -1218,6 +1312,9 @@ private fun HistoryCard(
     val thresholdPx = with(density) { historyStepThreshold.toPx() }
     val canGoPrevious = position > 0
     val canGoNext = position < total - 1
+    // "Next" lives at the end of the reading direction (right in LTR, left in RTL), so the swipe
+    // that reveals it flips with the layout direction too - matching the auto-mirrored chevrons.
+    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
     // Snaps the drag offset back to zero whenever the displayed lesson changes (including via the
     // chevron buttons, not just a drag) so a fast tap-tap-tap never leaves a stale offset behind.
@@ -1226,14 +1323,16 @@ private fun HistoryCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+            // absoluteOffset: the drag delta is a physical (screen) direction, so the card must
+            // follow the finger without offset's automatic RTL mirroring.
+            .absoluteOffset { IntOffset(offsetX.value.roundToInt(), 0) }
             .draggable(
                 orientation = Orientation.Horizontal,
                 state = rememberDraggableState { delta ->
                     coroutineScope.launch { offsetX.snapTo(offsetX.value + delta) }
                 },
                 onDragStopped = {
-                    val dragged = offsetX.value
+                    val dragged = if (isRtl) -offsetX.value else offsetX.value
                     if (dragged <= -thresholdPx && canGoNext) {
                         onNext()
                     } else if (dragged >= thresholdPx && canGoPrevious) {
@@ -1251,7 +1350,7 @@ private fun HistoryCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onPrevious, enabled = canGoPrevious) {
-                Icon(Icons.Filled.ChevronLeft, contentDescription = stringResource(R.string.home_history_previous))
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = stringResource(R.string.home_history_previous))
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -1273,15 +1372,15 @@ private fun HistoryCard(
                 Text(
                     stringResource(
                         R.string.home_history_position,
-                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits("${position + 1}", language),
-                        com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits("$total", language)
+                        VerseReferenceFormatter.formatNumber(position + 1, language),
+                        VerseReferenceFormatter.formatNumber(total, language)
                     ),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             IconButton(onClick = onNext, enabled = canGoNext) {
-                Icon(Icons.Filled.ChevronRight, contentDescription = stringResource(R.string.home_history_next))
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = stringResource(R.string.home_history_next))
             }
         }
     }
@@ -1296,10 +1395,12 @@ internal fun findHomeTargetItemIndex(
     hasCompletedHistory: Boolean,
     expandedChapterIds: Set<String>,
     expandedSectionIds: Set<String>,
-    targetLessonId: String?
+    targetLessonId: String?,
+    /** Further cards above the chapter tree (e.g. the Daily Review card) - each shifts the tree down one item. */
+    extraLeadingItems: Int = 0
 ): Int? {
     if (targetLessonId == null) return null
-    var currentIndex = 0
+    var currentIndex = extraLeadingItems
     if (isCurriculumComplete) currentIndex++
     if (hasReviewableItems) currentIndex++
     if (hasCompletedHistory) currentIndex++

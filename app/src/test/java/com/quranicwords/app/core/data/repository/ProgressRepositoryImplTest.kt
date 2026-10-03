@@ -16,6 +16,13 @@ import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LessonSessionType
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
+import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
+import com.quranicwords.app.core.domain.model.SessionStats
+import com.quranicwords.app.core.domain.srs.FsrsScheduler
+import com.quranicwords.app.core.domain.srs.MemoryState
+import com.quranicwords.app.core.domain.srs.WordMemoryRules
+import kotlinx.coroutines.flow.first
 import com.quranicwords.app.core.util.StreakCalculator
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -141,6 +148,31 @@ class ProgressRepositoryImplTest {
     }
 
     @Test
+    fun `a failed exam is not recorded as completed and earns no points`() = runTest {
+        seedTree()
+
+        val result = repository.completeLesson(userId, "section_exam", correctCount = 3, totalCount = 10, durationMillis = 60_000L)
+
+        assertEquals(0, result.pointsAwarded)
+        val row = database.userProgressDao().get(userId, "section_exam")
+        assertEquals(LessonStatus.UNLOCKED, row?.status)
+        assertEquals(30, row?.bestScorePercent)
+        assertNull(row?.completedAtEpochMillis)
+    }
+
+    @Test
+    fun `failing a previously passed exam keeps it completed`() = runTest {
+        seedTree()
+        repository.completeLesson(userId, "section_exam", correctCount = 9, totalCount = 10, durationMillis = 60_000L)
+
+        repository.completeLesson(userId, "section_exam", correctCount = 2, totalCount = 10, durationMillis = 60_000L)
+
+        val row = database.userProgressDao().get(userId, "section_exam")
+        assertEquals(LessonStatus.COMPLETED, row?.status)
+        assertEquals(90, row?.bestScorePercent)
+    }
+
+    @Test
     fun `a REGULAR lesson at a low score still unlocks the next lesson`() = runTest {
         seedTree()
 
@@ -182,14 +214,24 @@ class ProgressRepositoryImplTest {
     }
 
     @Test
-    fun `completeLesson rounds a session's duration up into today's daily practice minutes`() = runTest {
+    fun `completeLesson floors a session's duration into today's daily practice minutes`() = runTest {
         seedTree()
 
-        // 90 seconds should round up to 2 minutes, not truncate to 1.
+        // 90 seconds is one whole minute of practice - rounding up used to inflate it to 2.
         repository.completeLesson(userId, "l1", correctCount = 5, totalCount = 10, durationMillis = 90_000L)
 
         val today = java.time.LocalDate.now(clock).toString()
-        assertEquals(2, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+        assertEquals(1, database.dailyPracticeDao().get(userId, today)?.minutesPracticed)
+    }
+
+    @Test
+    fun `a sub-minute session does not create a daily practice row`() = runTest {
+        seedTree()
+
+        repository.completeReviewSession(userId, correctCount = 5, totalCount = 5, durationMillis = 45_000L)
+
+        val today = java.time.LocalDate.now(clock).toString()
+        assertNull(database.dailyPracticeDao().get(userId, today))
     }
 
     @Test
@@ -261,9 +303,9 @@ class ProgressRepositoryImplTest {
                 WordFrequencyEntity("word_c", "ت", 3, 80, mapOf("en" to "c"), null, 1)
             )
         )
-        database.exerciseAttemptDao().insert(
-            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, attemptedAtEpochMillis = 1L)
-        )
+        // Mistakes now come from spaced-repetition memory, which logAttempt maintains.
+        repository.logAttempt(userId, "word_a", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        repository.logAttempt(userId, "word_b", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
 
         val result = repository.getOpenPracticeExercises(userId, mode = "MISTAKES", batchSize = 18)
 
@@ -317,7 +359,7 @@ class ProgressRepositoryImplTest {
     @Test
     fun `attemptStreakRecovery on a passing score restores lastActivityLocalDate without touching currentStreak`() = runTest {
         seedTree()
-        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-19"))
 
         val passed = repository.attemptStreakRecovery(userId, correctCount = 4, totalCount = 5)
 
@@ -330,14 +372,185 @@ class ProgressRepositoryImplTest {
     @Test
     fun `attemptStreakRecovery under the passing threshold leaves stats untouched`() = runTest {
         seedTree()
-        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-19"))
 
         val passed = repository.attemptStreakRecovery(userId, correctCount = 2, totalCount = 5)
 
         assertEquals(false, passed)
         val stats = database.userStatsDao().get(userId)
-        assertEquals("2020-01-01", stats?.lastActivityLocalDate)
+        assertEquals("2026-08-19", stats?.lastActivityLocalDate)
         assertEquals(15, stats?.currentStreak)
+    }
+
+    @Test
+    fun `attemptStreakRecovery refuses a streak that is not locked`() = runTest {
+        seedTree()
+        // Practiced yesterday - the streak is still alive, nothing to recover.
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2026-08-21"))
+
+        assertEquals(false, repository.attemptStreakRecovery(userId, correctCount = 5, totalCount = 5))
+        assertEquals("2026-08-21", database.userStatsDao().get(userId)?.lastActivityLocalDate)
+    }
+
+    @Test
+    fun `attemptStreakRecovery refuses a lapse older than the recovery window`() = runTest {
+        seedTree()
+        database.userStatsDao().upsert(UserStatsEntity(userId, totalPoints = 100, currentStreak = 15, longestStreak = 15, lastActivityLocalDate = "2020-01-01"))
+
+        assertEquals(false, repository.attemptStreakRecovery(userId, correctCount = 5, totalCount = 5))
+        assertEquals("2020-01-01", database.userStatsDao().get(userId)?.lastActivityLocalDate)
+    }
+
+    @Test
+    fun `a correct retry does not clear a first-try mistake or count as mastery`() = runTest {
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, isFirstTry = false)
+
+        assertEquals(listOf("word_1"), repository.getMissedItemIds(userId))
+        assertEquals(emptyList<String>(), repository.getMasteredItemIds(userId))
+
+        // A later session's first try is what actually clears it - but one right answer doesn't
+        // make a word Strong (learned); only spaced recall over days does.
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+        assertEquals(emptyList<String>(), repository.getMissedItemIds(userId))
+        assertEquals(emptyList<String>(), repository.getMasteredItemIds(userId))
+    }
+
+    private fun repositoryAt(instant: String) = ProgressRepositoryImpl(
+        database,
+        StreakCalculator(Clock.fixed(Instant.parse(instant), ZoneOffset.UTC)),
+        Clock.fixed(Instant.parse(instant), ZoneOffset.UTC),
+        preferences,
+        ApplicationProvider.getApplicationContext()
+    )
+
+    @Test
+    fun `a first try writes word memory and a retry does not`() = runTest {
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, isFirstTry = false)
+        assertNull(database.wordMemoryDao().get(userId, "word_1"))
+
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        val memory = checkNotNull(database.wordMemoryDao().get(userId, "word_1"))
+        assertEquals(MemoryState.LEARNING, memory.state)
+        assertEquals("2026-08-22", memory.lastReviewLocalDate)
+        assertEquals(clock.millis() + FsrsScheduler.DAY_MILLIS, memory.dueAtEpochMillis)
+        assertEquals(2, database.exerciseAttemptDao().getAllForUser(userId).size)
+    }
+
+    @Test
+    fun `spaced correct answers over weeks make a word Strong`() = runTest {
+        val days = listOf("2026-08-22", "2026-08-23", "2026-08-27", "2026-09-08", "2026-10-05")
+        days.forEach { day ->
+            repositoryAt("${day}T10:00:00Z").logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+        }
+        val later = repositoryAt("2026-10-06T10:00:00Z")
+
+        assertEquals(listOf("word_1"), later.getMasteredItemIds(userId))
+        assertTrue(later.getWordStrengths(userId).getValue("word_1").isStrongOrBetter)
+        assertEquals(1, later.getStrengthCounts(userId).values.sum())
+    }
+
+    @Test
+    fun `due words come back most overdue first and the daily review respects its cap`() = runTest {
+        seedTree()
+        val now = clock.millis()
+        listOf("word_a" to now - 3 * FsrsScheduler.DAY_MILLIS, "word_b" to now - FsrsScheduler.DAY_MILLIS, "word_c" to now + FsrsScheduler.DAY_MILLIS)
+            .forEach { (id, due) ->
+                database.wordMemoryDao().upsert(
+                    WordMemoryEntity(userId, id, MemoryState.REVIEW, 1.0, 5.0, due, 2, 0, 3, now - 5 * FsrsScheduler.DAY_MILLIS, "2026-08-17")
+                )
+                seedExercise("ex_$id", id)
+            }
+
+        assertEquals(listOf("word_a", "word_b"), repository.getDueItemIds(userId, limit = 10))
+        assertEquals(2, repository.observeDueCount(userId).first())
+        val session = repository.getDailyReviewExercises(userId, limit = 1)
+        assertEquals(listOf("word_a"), session.map { it.practicedItemId })
+    }
+
+    @Test
+    fun `the first curriculum load turns hearts on only for a brand-new learner`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        assertTrue(checkNotNull(database.userStatsDao().get(userId)).heartsEnabled)
+
+        val upgrader = "upgrader"
+        database.exerciseAttemptDao().insert(
+            ExerciseAttemptEntity(userId = upgrader, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = 1L)
+        )
+        repository.ensureCurriculumStarted(upgrader)
+        assertEquals(false, database.userStatsDao().get(upgrader)?.heartsEnabled)
+    }
+
+    @Test
+    fun `existing attempt history is replayed into word memory once`() = runTest {
+        seedTree()
+        val history = listOf(
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = Instant.parse("2026-08-01T10:00:00Z").toEpochMilli()),
+            ExerciseAttemptEntity(userId = userId, itemId = "word_a", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = true, attemptedAtEpochMillis = Instant.parse("2026-08-05T10:00:00Z").toEpochMilli()),
+            ExerciseAttemptEntity(userId = userId, itemId = "word_b", itemKind = ItemKind.WORD, exerciseType = ExerciseType.MULTIPLE_CHOICE, wasCorrect = false, attemptedAtEpochMillis = Instant.parse("2026-08-02T10:00:00Z").toEpochMilli())
+        )
+        database.exerciseAttemptDao().insertAll(history)
+        preferences.setWordMemoryBackfilled(false) // DataStore outlives a single test's database
+
+        repository.ensureCurriculumStarted(userId)
+
+        val rows = database.wordMemoryDao().getAllForUser(userId).associateBy { it.itemId }
+        assertEquals(setOf("word_a", "word_b"), rows.keys)
+        assertTrue(rows.values.all { it.stability <= WordMemoryRules.BACKFILL_MAX_STABILITY_DAYS })
+        assertTrue(rows.values.all { it.dueAtEpochMillis - clock.millis() in 0 until 7 * FsrsScheduler.DAY_MILLIS })
+        assertEquals(listOf("word_b"), repository.getMissedItemIds(userId))
+
+        // A second load must not replay again over rows that live sessions have since changed.
+        database.wordMemoryDao().deleteForUser(userId)
+        repository.ensureCurriculumStarted(userId)
+        assertEquals(0, database.wordMemoryDao().countForUser(userId))
+    }
+
+    @Test
+    fun `resetProgress clears word memory but keeps the hearts setting`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        database.userStatsDao().get(userId)?.let { database.userStatsDao().upsert(it.copy(heartsEnabled = false, totalPoints = 99)) }
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = true)
+
+        repository.resetProgress(userId)
+
+        assertEquals(0, database.wordMemoryDao().countForUser(userId))
+        val stats = checkNotNull(database.userStatsDao().get(userId))
+        assertEquals(0, stats.totalPoints)
+        assertEquals(false, stats.heartsEnabled)
+    }
+
+    @Test
+    fun `getReviewExercises handles more ids than SQLite's bound-parameter limit`() = runTest {
+        seedTree()
+        val ids = (1..1500).map { "word_$it" }
+        database.exerciseDao().insertAll(
+            ids.mapIndexed { i, id -> ExerciseEntity("ex_$i", "l1", i, ExerciseType.MULTIPLE_CHOICE, "{}", id) }
+        )
+
+        val result = repository.getReviewExercises(ids, limit = 20)
+
+        assertEquals(20, result.size)
+        assertEquals(20, result.map { it.practicedItemId }.toSet().size)
+    }
+
+    @Test
+    fun `getReviewExercises returns one exercise per word`() = runTest {
+        seedTree()
+        database.exerciseDao().insertAll(
+            listOf(
+                ExerciseEntity("ex_a1", "l1", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "word_a"),
+                ExerciseEntity("ex_a2", "l2", 1, ExerciseType.FILL_IN_THE_BLANK, "{}", "word_a"),
+                ExerciseEntity("ex_b1", "l1", 2, ExerciseType.MULTIPLE_CHOICE, "{}", "word_b")
+            )
+        )
+
+        val result = repository.getReviewExercises(listOf("word_a", "word_b"))
+
+        assertEquals(listOf("word_a", "word_b"), result.mapNotNull { it.practicedItemId }.sorted())
     }
 
     @Test
@@ -346,7 +559,7 @@ class ProgressRepositoryImplTest {
 
         // User makes a mistake on word_1 and word_2
         repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
-        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.TAP_WHAT_YOU_HEAR, wasCorrect = false)
+        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.FILL_IN_THE_BLANK, wasCorrect = false)
 
         val missedBefore = repository.getMissedItemIds(userId)
         assertEquals(setOf("word_1", "word_2"), missedBefore.toSet())
@@ -477,5 +690,71 @@ class ProgressRepositoryImplTest {
 
         val introProgress = database.userProgressDao().get(userId, "intro_1")
         assertEquals(LessonStatus.COMPLETED, introProgress?.status)
+    }
+
+    @Test
+    fun `replaying a completed lesson pays half and a failed exam pays nothing even with a combo`() = runTest {
+        seedTree()
+        val first = repository.completeLesson(userId, "l1", 10, 10, 0L, SessionStats(comboBonusXp = 15, bestCombo = 10))
+        assertEquals(10 * 10 + 20 + 15, first.pointsAwarded)
+        assertEquals(15, first.comboBonus)
+        assertEquals(0, first.replayDeduction)
+
+        val replay = repository.completeLesson(userId, "l1", 10, 10, 0L)
+        assertEquals(60, replay.pointsAwarded)
+        assertEquals(60, replay.replayDeduction)
+
+        val failed = repository.completeLesson(userId, "section_exam", 2, 10, 0L, SessionStats(comboBonusXp = 7))
+        assertEquals(0, failed.pointsAwarded)
+        assertEquals(0, failed.comboBonus)
+        assertEquals(10, database.userStatsDao().get(userId)?.bestCombo)
+    }
+
+    @Test
+    fun `a completed quest pays its reward into XP exactly once`() = runTest {
+        seedTree()
+        database.dailyQuestDao().insertAllIfAbsent(
+            listOf(DailyQuestEntity(userId, "2026-08-22", "earn_50_xp", "EARN_XP", 50, 0, 15, null))
+        )
+
+        val result = repository.completeLesson(userId, "l1", 10, 10, 0L)
+        assertEquals(15, result.questRewardXp)
+        assertEquals(listOf("earn_50_xp"), result.completedQuestIds)
+        assertEquals(120 + 15, result.newTotalPoints)
+        assertEquals(0, result.previousTotalPoints)
+
+        val again = repository.completeLesson(userId, "l2", 10, 10, 0L)
+        assertEquals(0, again.questRewardXp)
+        assertEquals(135 + 120, again.newTotalPoints)
+        assertEquals(50, database.dailyQuestDao().getForDay(userId, "2026-08-22").single().progress)
+    }
+
+    @Test
+    fun `today's quests are picked once and include a review while words are due`() = runTest {
+        seedTree()
+        repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
+        val later = repositoryAt("2026-08-22T11:00:00Z")
+
+        val quests = later.observeQuests(userId, "2026-08-22").first()
+        assertEquals(3, quests.size)
+        assertTrue(quests.any { it.metric == "REVIEW_WORDS" })
+        assertEquals(quests, later.observeQuests(userId, "2026-08-22").first())
+    }
+
+    @Test
+    fun `mistakes cost hearts only while enabled and a review session restores one`() = runTest {
+        seedTree()
+        repository.ensureCurriculumStarted(userId)
+        repository.setHeartsEnabled(userId, false)
+        assertEquals(false, repository.loseHeart(userId).enabled)
+        assertEquals(5, database.userStatsDao().get(userId)?.hearts)
+
+        repository.setHeartsEnabled(userId, true)
+        repeat(2) { repository.loseHeart(userId) }
+        assertEquals(3, repository.getHearts(userId).hearts)
+        assertTrue(repository.getHearts(userId).nextHeartAtMillis != null)
+
+        repository.completeReviewSession(userId, correctCount = 3, totalCount = 3, durationMillis = 0L)
+        assertEquals(4, repository.getHearts(userId).hearts)
     }
 }

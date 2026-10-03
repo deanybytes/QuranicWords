@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -29,11 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
-import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.ui.components.charts.BarChart
 import com.quranicwords.app.core.ui.components.charts.DonutChart
 import com.quranicwords.app.core.ui.components.charts.HeatmapChart
 import com.quranicwords.app.core.ui.components.charts.MetricTile
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.ui.components.WordStrengthMeter
+import com.quranicwords.app.core.ui.components.LevelProgressBar
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import com.quranicwords.app.core.util.formatPercent
@@ -47,6 +51,7 @@ import com.quranicwords.app.feature.achievements.AchievementsSection
 @Composable
 fun ProgressScreen(
     onOpenLearnedWords: () -> Unit = {},
+    onOpenAchievements: () -> Unit = {},
     viewModel: ProgressViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,19 +78,23 @@ fun ProgressScreen(
         }
 
         item {
+            LevelProgressBar(totalXp = uiState.totalPoints)
+        }
+
+        item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 MetricTile(
                     icon = Icons.Filled.LocalFireDepartment,
-                    value = VerseReferenceFormatter.formatDigits(uiState.currentStreak.toString(), language),
+                    value = VerseReferenceFormatter.formatNumber(uiState.currentStreak, language),
                     label = stringResource(R.string.progress_current_streak),
                     modifier = Modifier.weight(1f)
                 )
                 MetricTile(
                     icon = Icons.Filled.Star,
-                    value = VerseReferenceFormatter.formatDigits(uiState.totalPoints.toString(), language),
+                    value = VerseReferenceFormatter.formatNumber(uiState.totalPoints, language),
                     label = stringResource(R.string.progress_total_points),
                     modifier = Modifier.weight(1f)
                 )
@@ -98,7 +107,7 @@ fun ProgressScreen(
             ) {
                 MetricTile(
                     icon = Icons.AutoMirrored.Filled.MenuBook,
-                    value = VerseReferenceFormatter.formatDigits(uiState.wordsLearnedCount.toString(), language),
+                    value = VerseReferenceFormatter.formatNumber(uiState.wordsLearnedCount, language),
                     label = stringResource(R.string.progress_words_learned),
                     modifier = Modifier.weight(1f),
                     onClick = onOpenLearnedWords
@@ -109,6 +118,12 @@ fun ProgressScreen(
                     label = stringResource(R.string.progress_goal_days_label),
                     modifier = Modifier.weight(1f)
                 )
+            }
+        }
+
+        if (uiState.strengthCounts.isNotEmpty()) {
+            item {
+                WordStrengthBreakdown(counts = uiState.strengthCounts, language = language)
             }
         }
 
@@ -128,7 +143,9 @@ fun ProgressScreen(
                 Text(stringResource(R.string.progress_lessons_this_week), style = MaterialTheme.typography.titleMedium)
                 BarChart(
                     values = uiState.lessonsCompletedLast7Days,
-                    labels = uiState.last7DayLabels,
+                    labels = narrowWeekdayLabels(uiState.last7Days, language.locale),
+                    accessibilityLabels = uiState.last7Days.map { it.dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL_STANDALONE, language.locale) },
+                    valueFormatter = { VerseReferenceFormatter.formatNumber(it, language) },
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }
@@ -136,12 +153,12 @@ fun ProgressScreen(
 
         item {
             Column(modifier = Modifier.fillMaxWidth()) {
-                val formattedCount = VerseReferenceFormatter.formatDigits(uiState.daysPracticedLast28Count.toString(), language)
-                val daysPracticedText = if (uiState.daysPracticedLast28Count == 1 && language == Language.ENGLISH) {
-                    stringResource(R.string.progress_day_practiced, formattedCount)
-                } else {
-                    stringResource(R.string.progress_days_practiced, formattedCount)
-                }
+                val daysPracticedText = pluralStringResource(
+                    R.plurals.progress_days_practiced_count,
+                    uiState.daysPracticedLast28Count,
+                    VerseReferenceFormatter.formatNumber(uiState.daysPracticedLast28Count, language),
+                    VerseReferenceFormatter.formatNumber(28, language)
+                )
                 Text(
                     daysPracticedText,
                     style = MaterialTheme.typography.titleMedium
@@ -151,7 +168,28 @@ fun ProgressScreen(
         }
 
         item {
-            AchievementsSection()
+            AchievementsSection(onOpenAll = onOpenAchievements)
+        }
+    }
+}
+
+/** One row per remembered strength bucket (Learning -> Mastered): its meter, name and count. */
+@Composable
+private fun WordStrengthBreakdown(counts: Map<WordStrength, Int>, language: Language) {
+    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.progress_word_strength_title), style = MaterialTheme.typography.titleMedium)
+        WordStrength.entries.filter { it != WordStrength.NEW }.forEach { strength ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                WordStrengthMeter(strength = strength, prefixed = false)
+                Text(
+                    VerseReferenceFormatter.formatNumber(counts[strength] ?: 0, language),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
     }
 }

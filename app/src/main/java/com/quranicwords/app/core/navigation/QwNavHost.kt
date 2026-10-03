@@ -13,17 +13,24 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
+import com.quranicwords.app.feature.achievements.AchievementsScreen
 import com.quranicwords.app.feature.home.HomeScreen
+import com.quranicwords.app.feature.lesson.RefillTarget
 import com.quranicwords.app.feature.intro.IntroScreen
 import com.quranicwords.app.feature.learnedwords.LearnedWordsScreen
 import com.quranicwords.app.feature.lesson.LessonScreen
@@ -38,6 +45,9 @@ import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.splash.OnboardingInvocationScreen
 import com.quranicwords.app.feature.splash.SplashScreen
 import com.quranicwords.app.feature.walkthrough.WalkthroughScreen
+import com.quranicwords.app.feature.widget.WidgetDeepLink
+import com.quranicwords.app.feature.widget.WidgetDestination
+import com.quranicwords.app.feature.widget.WidgetTarget
 
 private typealias EnterSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
 private typealias ExitSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition
@@ -102,6 +112,20 @@ private class NavTransitions(reducedMotion: Boolean) {
 fun QwNavHost(navController: NavHostController = rememberNavController()) {
     val t = NavTransitions(rememberReducedMotion())
 
+    // A home-screen widget tap (see WidgetDeepLink) waits until Home is on the back stack -
+    // past splash and onboarding - so Back from the opened screen returns to Home.
+    val widgetTarget by WidgetDeepLink.pending.collectAsStateWithLifecycle()
+    val currentEntry by navController.currentBackStackEntryAsState()
+    LaunchedEffect(widgetTarget, currentEntry) {
+        if (widgetTarget == null || currentEntry == null) return@LaunchedEffect
+        if (runCatching { navController.getBackStackEntry<Route.Home>() }.isFailure) return@LaunchedEffect
+        val route = WidgetDeepLink.consume()?.let(::widgetRoute) ?: return@LaunchedEffect
+        navController.navigate(route) {
+            popUpTo(Route.Home)
+            launchSingleTop = true
+        }
+    }
+
     NavHost(navController = navController, startDestination = Route.Splash) {
         composable<Route.Splash>(
             exitTransition = t.crossfadeExit
@@ -120,12 +144,10 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             popEnterTransition = t.onboardingPopEnter,
             popExitTransition = t.onboardingPopExit
         ) {
+            // Onboarding steps stay on the back stack (system Back returns to the previous choice);
+            // the whole flow is cleared once it hands off to the invocation.
             LanguageSelectScreen(
-                onContinue = {
-                    navController.navigate(Route.PathSelect) {
-                        popUpTo(Route.LanguageSelect) { inclusive = true }
-                    }
-                }
+                onContinue = { navController.navigate(Route.PathSelect) { launchSingleTop = true } }
             )
         }
         composable<Route.PathSelect>(
@@ -135,11 +157,7 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             popExitTransition = t.onboardingPopExit
         ) {
             PathSelectScreen(
-                onContinue = {
-                    navController.navigate(Route.FontSelect) {
-                        popUpTo(Route.PathSelect) { inclusive = true }
-                    }
-                }
+                onContinue = { navController.navigate(Route.FontSelect) { launchSingleTop = true } }
             )
         }
         composable<Route.FontSelect>(
@@ -154,9 +172,7 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                     // for a repeat count to apply to. See FontSelectViewModel.selectFont's doc
                     // comment for why this is decided here rather than baked into a fixed target.
                     val next = if (path == LearningPath.TEST_ONLY) Route.DailyGoalSelect else Route.LearningStyleSelect
-                    navController.navigate(next) {
-                        popUpTo(Route.FontSelect) { inclusive = true }
-                    }
+                    navController.navigate(next) { launchSingleTop = true }
                 }
             )
         }
@@ -167,11 +183,7 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             popExitTransition = t.onboardingPopExit
         ) {
             LearningStyleSelectScreen(
-                onContinue = {
-                    navController.navigate(Route.DailyGoalSelect) {
-                        popUpTo(Route.LearningStyleSelect) { inclusive = true }
-                    }
-                }
+                onContinue = { navController.navigate(Route.DailyGoalSelect) { launchSingleTop = true } }
             )
         }
         composable<Route.DailyGoalSelect>(
@@ -183,7 +195,7 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             DailyGoalSelectScreen(
                 onContinue = {
                     navController.navigate(Route.OnboardingInvocation) {
-                        popUpTo(Route.DailyGoalSelect) { inclusive = true }
+                        popUpTo(navController.graph.id) { inclusive = true }
                     }
                 }
             )
@@ -207,8 +219,14 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             WalkthroughScreen(
                 onFinished = {
-                    navController.navigate(Route.Home) {
-                        popUpTo(Route.Walkthrough) { inclusive = true }
+                    // Replayed from Settings: Home is already underneath, so just return to it -
+                    // navigating to Route.Home again stacked a second Home on top of the first.
+                    if (navController.previousBackStackEntry?.destination?.hasRoute<Route.Home>() == true) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(Route.Home) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
                     }
                 }
             )
@@ -219,7 +237,10 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             QwBottomNavShell(
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) },
+                onResumeLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId, resume = true)) },
+                onOpenAchievements = { navController.navigate(Route.Achievements) },
                 onOpenReview = { navController.navigate(Route.Review) },
+                onOpenDailyReview = { navController.navigate(Route.DailyReview()) },
                 onOpenChapterIntro = { chapterId -> navController.navigate(Route.ChapterIntro(chapterId)) },
                 onOpenSectionIntro = { sectionId -> navController.navigate(Route.SectionIntro(sectionId)) },
                 onOpenWordBrowse = { sectionId -> navController.navigate(Route.WordBrowse(sectionId)) },
@@ -262,6 +283,8 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
         ) {
             LessonScreen(
                 onExit = { navController.popBackStack() },
+                onPracticeToRefill = { target -> navController.navigate(refillRoute(target)) { popUpTo(Route.Home) } },
+
                 onFinished = { summary ->
                     if (summary.lessonKind == LessonKind.CHAPTER_INTRO) {
                         val nextLessonId = summary.nextLessonId
@@ -285,6 +308,36 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             )
         }
         composable<Route.Review>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            LessonScreen(
+                onExit = { navController.popBackStack() },
+                onFinished = { summary ->
+                    navController.navigate(summary) {
+                        popUpTo(Route.Home)
+                    }
+                }
+            )
+        }
+        composable<Route.FocusedReview>(
+            enterTransition = t.immersiveEnter,
+            exitTransition = t.immersiveExit,
+            popEnterTransition = t.immersivePopEnter,
+            popExitTransition = t.immersivePopExit
+        ) {
+            LessonScreen(
+                onExit = { navController.popBackStack() },
+                onFinished = { summary ->
+                    navController.navigate(summary) {
+                        popUpTo(Route.Home)
+                    }
+                }
+            )
+        }
+        composable<Route.DailyReview>(
             enterTransition = t.immersiveEnter,
             exitTransition = t.immersiveExit,
             popEnterTransition = t.immersivePopEnter,
@@ -361,7 +414,9 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                             popUpTo(navController.graph.id) { inclusive = true }
                         }
                     }
-                }
+                },
+                onReviewMissed = { ids -> navController.navigate(Route.FocusedReview(ids)) { popUpTo(Route.Home) } },
+                onRetry = { lessonId -> navController.navigate(Route.Lesson(lessonId)) { popUpTo(Route.Home) } }
             )
         }
         composable<Route.Roadmap>(
@@ -374,6 +429,13 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
                 onOpenLesson = { lessonId -> navController.navigate(Route.Lesson(lessonId)) }
             )
         }
+        composable<Route.Achievements>(
+            enterTransition = t.modalEnter,
+            exitTransition = t.modalExit,
+            popExitTransition = t.modalPopExit
+        ) {
+            AchievementsScreen(onBack = { navController.popBackStack() })
+        }
         composable<Route.LearnedWords>(
             enterTransition = t.modalEnter,
             exitTransition = t.modalExit,
@@ -384,4 +446,18 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             )
         }
     }
+}
+
+/** A widget target's screen; null for plain "open the app" (keep whatever screen is showing). */
+private fun widgetRoute(target: WidgetTarget): Route? = when (target.destination) {
+    WidgetDestination.HOME -> null
+    WidgetDestination.DAILY_REVIEW -> Route.DailyReview()
+    WidgetDestination.PRACTICE_WORD -> target.wordId?.let { Route.FocusedReview(listOf(it)) }
+}
+
+/** Where "Practice to refill" goes - every one of these restores a heart when finished. */
+private fun refillRoute(target: RefillTarget): Route = when (target) {
+    RefillTarget.DAILY_REVIEW -> Route.DailyReview()
+    RefillTarget.MISTAKES -> Route.Review
+    RefillTarget.OPEN_PRACTICE -> Route.OpenPractice(mode = "RANDOM")
 }

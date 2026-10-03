@@ -1,5 +1,6 @@
 package com.quranicwords.app.core.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -28,5 +29,9 @@ data class ExerciseAttemptEntity(
     val itemKind: ItemKind,
     val exerciseType: ExerciseType,
     val wasCorrect: Boolean,
-    val attemptedAtEpochMillis: Long
+    val attemptedAtEpochMillis: Long,
+    /** False for a retry of an item already answered in the same session - only first tries are
+     * an honest recall signal, so mastery/review/scoring read this and ignore retries. Defaults to
+     * true so pre-v6 rows and older backups decode unchanged. */
+    @ColumnInfo(defaultValue = "1") val isFirstTry: Boolean = true
 )

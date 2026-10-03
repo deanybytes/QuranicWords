@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,29 +27,16 @@ import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.LemmaCategory
 
-/**
- * Resolves the 3-part classical Arabic grammar category from word ID prefix:
- * - `wn_` -> [LemmaCategory.NOUN] (Ism - الاسم)
- * - `wv_` -> [LemmaCategory.VERB] (Fi'l - الفعل)
- * - `wp_` -> [LemmaCategory.PARTICLE] (Ḥarf - الحرف)
- */
-fun resolveCategoryFromWordId(wordId: String?): LemmaCategory? = when {
-    wordId == null -> null
-    wordId.startsWith("wv_") -> LemmaCategory.VERB
-    wordId.startsWith("wp_") -> LemmaCategory.PARTICLE
-    wordId.startsWith("wn_") -> LemmaCategory.NOUN
-    wordId.startsWith("w_") -> {
-        val num = wordId.removePrefix("w_").toIntOrNull()
-        when {
-            num == null -> null
-            num in 1..173 -> LemmaCategory.PARTICLE
-            num in 174..1652 -> LemmaCategory.VERB
-            num in 1653..4709 -> LemmaCategory.NOUN
-            else -> null
-        }
-    }
-    else -> null
-}
+/** wordId -> category for the words on screen, from `ContentRepository.getWordCategories` (the
+ * content's own WORD_INTRO `lemmaCategory`). Provided by screens that have loaded it; empty
+ * elsewhere, in which case no badge is shown rather than a guessed one. */
+val LocalWordCategories = staticCompositionLocalOf<Map<String, LemmaCategory>> { emptyMap() }
+
+/** The 3-part classical Arabic grammar category (Ism/Fi'l/Ḥarf) of [wordId], or null when unknown.
+ * Never derived from the id's shape - content ids and counts change between curriculum builds. */
+@Composable
+fun wordCategory(wordId: String?): LemmaCategory? =
+    wordId?.let { LocalWordCategories.current[it] }?.takeIf { it != LemmaCategory.MIXED }
 
 /**
  * Returns a high-contrast accent color for the given grammar category that remains
@@ -59,8 +47,9 @@ fun categoryAccentColor(category: LemmaCategory?): Color {
     val isDark = isSystemInDarkTheme()
     return when (category) {
         LemmaCategory.VERB -> if (isDark) Color(0xFFFFD54F) else Color(0xFFC59B27) // Warm Gold
-        LemmaCategory.PARTICLE -> if (isDark) Color(0xFF4FC3F7) else Color(0xFF0288D1) // Sky Blue (high contrast)
-        LemmaCategory.NOUN, LemmaCategory.MIXED, null -> if (isDark) Color(0xFF81C784) else Color(0xFF2E7D32) // Forest Green
+        // Mixed lessons are the function words (particles, pronouns, demonstratives).
+        LemmaCategory.PARTICLE, LemmaCategory.MIXED -> if (isDark) Color(0xFF4FC3F7) else Color(0xFF0288D1) // Sky Blue (high contrast)
+        LemmaCategory.NOUN, null -> if (isDark) Color(0xFF81C784) else Color(0xFF2E7D32) // Forest Green
     }
 }
 
@@ -69,8 +58,8 @@ fun categoryAccentColor(category: LemmaCategory?): Color {
  */
 fun categoryIcon(category: LemmaCategory?): ImageVector = when (category) {
     LemmaCategory.VERB -> Icons.Filled.FlashOn
-    LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
-    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> Icons.Filled.AutoStories
+    LemmaCategory.PARTICLE, LemmaCategory.MIXED -> Icons.Filled.AutoAwesome
+    LemmaCategory.NOUN, null -> Icons.Filled.AutoStories
 }
 
 /**
@@ -79,7 +68,8 @@ fun categoryIcon(category: LemmaCategory?): ImageVector = when (category) {
 fun categoryLabelRes(category: LemmaCategory?): Int = when (category) {
     LemmaCategory.VERB -> R.string.word_category_verb
     LemmaCategory.PARTICLE -> R.string.word_category_particle
-    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> R.string.word_category_noun
+    LemmaCategory.MIXED -> R.string.word_category_mixed
+    LemmaCategory.NOUN, null -> R.string.word_category_noun
 }
 
 /**

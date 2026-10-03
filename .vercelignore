@@ -1,0 +1,33 @@
+# Deploy only what the static site needs: index.html, css/, js/, data/, icons/, favicon.png,
+# manifest.json, sw.js, robots.txt, sitemap.xml, the Google verification file.
+
+# Android app
+/app/
+
+# Source fonts/images (the site uses subsets in css/fonts and icons/)
+/assets/
+
+# Tooling, sources and build outputs
+/tools/
+/db/
+/reference/
+/keys/
+/corpus_data/
+/docs/
+/gradle/
+/build/
+/scripts/
+/.github/
+/reports/
+*.properties
+*.apk
+*.aab
+*.zip
+*.jks
+*.keystore
+*.gradle.kts
+gradlew
+gradlew.bat
+*.py
+*.md
+/QuranicWords-v1.0.0.html

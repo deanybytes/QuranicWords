@@ -5,6 +5,7 @@ import com.quranicwords.app.core.data.local.entity.DailyPracticeEntity
 import com.quranicwords.app.core.data.local.entity.ExerciseAttemptEntity
 import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.data.local.entity.UserStatsEntity
+import com.quranicwords.app.core.data.local.entity.WordMemoryEntity
 import kotlinx.serialization.Serializable
 
 /**
@@ -27,7 +28,10 @@ data class BackupPayload(
      * with no achievements key at all) decodable via [com.quranicwords.app.core.util.AppJson]'s
      * lenient/default-value handling. */
     val achievements: List<AchievementEntity> = emptyList(),
-    val dailyPractices: List<DailyPracticeEntity> = emptyList()
+    val dailyPractices: List<DailyPracticeEntity> = emptyList(),
+    /** Added in schema version 3 (spaced repetition). Absent from older files, in which case the
+     * restore re-derives memory from [attempts] - see `BackupRepositoryImpl.importBackup`. */
+    val wordMemory: List<WordMemoryEntity> = emptyList()
 )
 
 @Serializable
@@ -40,7 +44,14 @@ data class BackupPreferences(
     val learningStyle: String? = null,
     val dailyGoalLevel: String? = null,
     val reduceGlassEffects: Boolean = false,
-    val soundEnabled: Boolean = true
+    val soundEnabled: Boolean = true,
+    // Added after schema 2 shipped; nullable so older backups (which lack them) leave the
+    // current setting untouched instead of resetting it.
+    /** Legacy: the withdrawn word-pronunciation audio toggle. Kept so backups that carry it
+     * still decode; never exported (always null) and ignored on restore. */
+    val pronunciationAudioEnabled: Boolean? = null,
+    val fontScale: String? = null,
+    val requireExitConfirmation: Boolean? = null
 )
 
-const val BACKUP_SCHEMA_VERSION = 2
+const val BACKUP_SCHEMA_VERSION = 3

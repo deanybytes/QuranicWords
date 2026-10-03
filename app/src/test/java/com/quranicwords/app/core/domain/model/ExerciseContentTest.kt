@@ -2,6 +2,7 @@ package com.quranicwords.app.core.domain.model
 
 import com.quranicwords.app.core.util.AppJson
 import com.quranicwords.app.core.util.GamificationConfig
+import com.quranicwords.app.core.util.decodeExerciseContentOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -44,26 +45,13 @@ class ExerciseContentTest {
         translation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে")
     )
 
-    private fun listenAndType(wordId: String) = ExerciseContent.ListenAndType(
-        prompt = mapOf("en" to "Type what you hear", "bn" to "যা শুনলেন তা লিখুন"),
-        wordId = wordId, audioAssetPath = "audio/$wordId.mp3", correctAnswer = "Allah",
-        acceptedAnswers = listOf("allah")
-    )
-
     @Test
     fun `teach steps are not scored, quiz and matching are`() {
         assertFalse(teachStep("alif").isScored)
         assertTrue(quizStep("q1").isScored)
         assertTrue(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).isScored)
-        assertTrue(
-            ExerciseContent.TapWhatYouHear(
-                prompt = EN_BN, audioAssetPath = "a.mp3", wordId = "x",
-                options = emptyList(), correctOptionId = "x"
-            ).isScored
-        )
         assertTrue(fillInTheBlank("w1").isScored)
         assertTrue(wordOrder("w1").isScored)
-        assertTrue(listenAndType("w1").isScored)
     }
 
     @Test
@@ -72,13 +60,12 @@ class ExerciseContentTest {
         assertEquals("q1", quizStep("q1").practicedItemId())
         assertEquals("w1", fillInTheBlank("w1").practicedItemId())
         assertEquals("w1", wordOrder("w1").practicedItemId())
-        assertEquals("w1", listenAndType("w1").practicedItemId())
         assertNull(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).practicedItemId())
     }
 
     @Test
     fun `new exercise subtypes round-trip through serialization`() {
-        listOf(fillInTheBlank("w1"), wordOrder("w1"), listenAndType("w1")).forEach { content ->
+        listOf(fillInTheBlank("w1"), wordOrder("w1")).forEach { content ->
             val json = AppJson.encodeToString(ExerciseContent.serializer(), content)
             val decoded = AppJson.decodeFromString(ExerciseContent.serializer(), json)
             assertEquals(content, decoded)
@@ -133,5 +120,35 @@ class ExerciseContentTest {
         assertNull(olderDecoded.arabicWordStart)
         assertTrue(olderDecoded.meaningHighlight.isEmpty())
         assertTrue(olderDecoded.meaningReviewed.isEmpty())
+    }
+
+    @Test
+    fun `an exercise of an unknown or withdrawn type is skipped without crashing`() {
+        val known = AppJson.encodeToString(ExerciseContent.serializer(), quizStep("q1"))
+        val withdrawn = """
+            {"type":"tap_what_you_hear","prompt":{"en":"p"},"audioAssetPath":"audio/words/wf_1.mp3",
+             "wordId":"w","options":[],"correctOptionId":"w"}
+        """.trimIndent()
+        val listenAndType = """{"type":"listen_and_type","prompt":{"en":"p"},"wordId":"w","audioAssetPath":"a.mp3","correctAnswer":"x"}"""
+        val unknown = """{"type":"some_future_type","prompt":{"en":"p"}}"""
+        val malformed = """{"type":"multiple_choice","""
+
+        assertNull(decodeExerciseContentOrNull(withdrawn))
+        assertNull(decodeExerciseContentOrNull(listenAndType))
+        assertNull(decodeExerciseContentOrNull(unknown))
+        assertNull(decodeExerciseContentOrNull(malformed))
+
+        val decoded = listOf(known, withdrawn, unknown, listenAndType, malformed).mapNotNull(::decodeExerciseContentOrNull)
+        assertEquals(listOf<ExerciseContent>(quizStep("q1")), decoded)
+    }
+
+    @Test
+    fun `a WordIntro still carrying the withdrawn audioAssetPath key decodes`() {
+        val json = """
+            {"type":"word_intro","prompt":{"en":"p"},"wordId":"w","arabicWord":"a",
+             "meaning":{"en":"m"},"audioAssetPath":"audio/words/wf_1.mp3"}
+        """.trimIndent()
+        val decoded = decodeExerciseContentOrNull(json) as ExerciseContent.WordIntro
+        assertEquals("w", decoded.wordId)
     }
 }

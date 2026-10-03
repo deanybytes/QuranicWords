@@ -28,8 +28,23 @@ data class LessonResult(
     val durationMillis: Long = 0L,
     /** See [LessonSessionType] - which of the four session kinds this result came from, so the
      * summary screen can pick the right primary-button behavior. */
-    val sessionType: LessonSessionType = LessonSessionType.LESSON
+    val sessionType: LessonSessionType = LessonSessionType.LESSON,
+    // XP breakdown for the summary. [pointsAwarded] = base + perfect + combo - replayDeduction;
+    // [questRewardXp] is paid on top (already included in [newTotalPoints]).
+    val basePoints: Int = 0,
+    val perfectBonus: Int = 0,
+    val comboBonus: Int = 0,
+    /** Points withheld because the lesson had already been completed (see
+     * [GamificationConfig.REPLAY_POINTS_PERCENT]). */
+    val replayDeduction: Int = 0,
+    val questRewardXp: Int = 0,
+    val completedQuestIds: List<String> = emptyList(),
+    val bestCombo: Int = 0
 ) {
+    /** Total XP before this session - for detecting a level-up on the summary. */
+    val previousTotalPoints: Int
+        get() = (newTotalPoints - pointsAwarded - questRewardXp).coerceAtLeast(0)
+
     val accuracyPercent: Int
         get() = GamificationConfig.percentOf(correctCount, totalCount)
 }

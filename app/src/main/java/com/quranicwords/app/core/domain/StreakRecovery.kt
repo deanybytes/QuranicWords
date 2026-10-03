@@ -40,6 +40,22 @@ object StreakRecovery {
         return ChronoUnit.DAYS.between(lastActivity, today) >= 2
     }
 
+    /** How many days after the lapse (the first fully-missed day, the day after the last
+     * activity) a locked streak can still be recovered. Past that the streak is simply gone. */
+    const val RECOVERY_WINDOW_DAYS = 7
+
+    /** True when [stats] is [isLocked] *and* the lapse is recent enough to recover - the gate both
+     * `ProgressRepository.attemptStreakRecovery` and Home's recovery offer use, so a months-old
+     * streak can't be resurrected by a 3-question quiz. */
+    fun canRecover(stats: UserStatsEntity?, today: LocalDate): Boolean {
+        if (!isLocked(stats, today)) return false
+        val lastActivity = stats?.lastActivityLocalDate
+            ?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+            ?: return false
+        val daysSinceLapse = ChronoUnit.DAYS.between(lastActivity.plusDays(1), today)
+        return daysSinceLapse <= RECOVERY_WINDOW_DAYS
+    }
+
     /** How long it's actually been, in whatever unit reads most naturally at that scale - "3
      * days" is meaningful, "620 days" isn't. Only meaningful when [isLocked] is true; the caller
      * (Home's unlock dialog) is expected to check that first. */

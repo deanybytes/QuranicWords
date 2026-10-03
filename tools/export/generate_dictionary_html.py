@@ -9,11 +9,9 @@ Architectural Highlights:
 - High-Performance Compact Inlined Dataset (~8 MB payload vs 74 MB).
 - Infinite / Progressive Batch Rendering (Render 24 cards initially in <5ms, stream more on scroll).
 - Zero DOM Reflow Latency with IntersectionObserver.
-- 11 Master Languages: English, Bengali (বাংলা), Urdu (اردو), Hindi (हिन्दी),
-  Indonesian (Bahasa), Malay (Melayu), Turkish (Türkçe), Persian (فارسی),
-  Hausa, Swahili (Kiswahili), French (Français).
+- 8 content languages with source-verified meanings: English, Bengali (বাংলা), Urdu (اردو),
+  Hindi (हिन्दी), Indonesian, Turkish (Türkçe), Persian (فارسی), French (Français).
 - 3 View Modes: 📚 Card Stream View, 📋 Interactive Data Table, 📇 Flashcard Master Mode.
-- 🔊 Audio Pronunciation with SpeechSynthesis.
 - 📋 Instant Quick Copy with animated glass toast notifications.
 - ⭐ Bookmarking / Favorites with localStorage persistence.
 - 🎲 Random Word / Ayah Discovery Modal.
@@ -58,46 +56,6 @@ def strip_tashkeel(text):
     t = t.replace('ة', 'ه').replace('ى', 'ي')
     return t.strip()
 
-def highlight_arabic(verse, start, end, fallback_word=''):
-    if not verse:
-        return ''
-    if start is not None and end is not None and 0 <= start < end <= len(verse):
-        before = html.escape(verse[:start])
-        target = html.escape(verse[start:end])
-        after = html.escape(verse[end:])
-        return f'{before}<mark class="ar-hl">{target}</mark>{after}'
-    v_escaped = html.escape(verse)
-    if fallback_word:
-        w_esc = html.escape(fallback_word)
-        if w_esc in v_escaped:
-            return v_escaped.replace(w_esc, f'<mark class="ar-hl">{w_esc}</mark>', 1)
-    return v_escaped
-
-def highlight_translation(trans, hl_word):
-    if not trans:
-        return ''
-    if not hl_word or len(hl_word.strip()) < 2:
-        return html.escape(trans)
-    hw = hl_word.strip()
-    idx = trans.lower().find(hw.lower())
-    if idx >= 0:
-        before = html.escape(trans[:idx])
-        actual = html.escape(trans[idx:idx+len(hw)])
-        after = html.escape(trans[idx+len(hw):])
-        return f'{before}<mark class="tr-hl">{actual}</mark>{after}'
-    words = hw.split()
-    if len(words) > 1:
-        for w in words:
-            w = w.strip('.,;:!?()[]{}')
-            if len(w) >= 2:
-                w_idx = trans.lower().find(w.lower())
-                if w_idx >= 0:
-                    before = html.escape(trans[:w_idx])
-                    actual = html.escape(trans[w_idx:w_idx+len(w)])
-                    after = html.escape(trans[w_idx+len(w):])
-                    return f'{before}<mark class="tr-hl">{actual}</mark>{after}'
-    return html.escape(trans)
-
 def main():
     print("Loading curriculum content JSON files...")
     with open(os.path.join(CONTENT_DIR, 'chapters.json'), encoding='utf-8') as f:
@@ -107,7 +65,7 @@ def main():
     with open(os.path.join(CONTENT_DIR, 'lessons_vocabulary.json'), encoding='utf-8') as f:
         lessons = json.load(f)['lessons']
     with open(os.path.join(CONTENT_DIR, 'exercises_vocabulary.json'), encoding='utf-8') as f:
-        exercises = json.load(f)['exercises']
+        exercises = json.load(f)  # top-level array (tools/pipeline output)
 
     print(f"Loaded {len(chapters)} chapters, {len(sections)} sections, {len(lessons)} lessons, {len(exercises)} exercises.")
 
@@ -137,8 +95,11 @@ def main():
             sec_by_ch[cid] = []
         sec_by_ch[cid].append(sec)
 
-    SUPPORTED_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'ms', 'tr', 'fa', 'ha', 'sw', 'fr']
-    CORE_VERSE_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fr']
+    SUPPORTED_LANGS = ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']
+    with open(os.path.join(CONTENT_DIR, 'verses.json'), encoding='utf-8') as f:
+        VERSES = json.load(f)
+    used_verses = {}
+    used_vt = {l: {} for l in SUPPORTED_LANGS}
 
     chapters_meta = []
     flat_words = []
@@ -180,35 +141,19 @@ def main():
                         total_words_count += 1
                         
                         m_all = {l: c.get('meaning', {}).get(l, '') for l in SUPPORTED_LANGS if c.get('meaning', {}).get(l)}
-                        v_tr = {l: c.get('exampleVerseTranslation', {}).get(l, '') for l in CORE_VERSE_LANGS if c.get('exampleVerseTranslation', {}).get(l)}
-                        hl_m = {l: c.get('meaningHighlight', {}).get(l, '') for l in CORE_VERSE_LANGS if c.get('meaningHighlight', {}).get(l)}
-
-                        # Build highlighted translations
-                        v_tr_hl = {}
-                        for l in CORE_VERSE_LANGS:
-                            if l in v_tr:
-                                v_tr_hl[l] = highlight_translation(v_tr[l], hl_m.get(l, ''))
-                        
-                        poly_entries = []
-                        for se in c.get('polysemyEntries', []):
-                            se_m = {l: se.get('contextualMeaning', {}).get(l, '') for l in SUPPORTED_LANGS if se.get('contextualMeaning', {}).get(l)}
-                            se_v_tr = {l: se.get('verseTranslation', {}).get(l, '') for l in CORE_VERSE_LANGS if se.get('verseTranslation', {}).get(l)}
-                            se_hl_m = {l: se.get('translationHighlight', {}).get(l, '') for l in CORE_VERSE_LANGS if se.get('translationHighlight', {}).get(l)}
-                            
-                            se_v_tr_hl = {}
-                            for l in CORE_VERSE_LANGS:
-                                if l in se_v_tr:
-                                    se_v_tr_hl[l] = highlight_translation(se_v_tr[l], se_hl_m.get(l, ''))
-                                    
-                            poly_entries.append({
-                                'idx': se['meaningIndex'],
-                                'm': se_m,
-                                'ref': se.get('verseReference', ''),
-                                'v_ar': highlight_arabic(se.get('verseArabic', ''), se.get('arabicWordStart'), se.get('arabicWordEnd'), c.get('arabicWord', '')),
-                                'v_tr_hl': se_v_tr_hl
-                            })
-                            
-                        if len(poly_entries) > 1:
+                        # Proven senses per language: [meaning, verse, arStart, arEnd, wbwStart,
+                        # wbwEnd, trStart|null, trEnd|null] - exact spans, never text search.
+                        sn = {}
+                        for l in SUPPORTED_LANGS:
+                            sn[l] = []
+                            for se in c['senses'][l]:
+                                v = VERSES[se['verse']]
+                                used_verses.setdefault(se['verse'], [v['ref'], v['ar']])
+                                used_vt[l].setdefault(se['verse'], [v['wbw'][l], v['tr'][l]])
+                                sn[l].append([se['meaning'], se['verse'], se['wordStart'], se['wordEnd'],
+                                              se['wbwStart'], se['wbwEnd'], se['translationStart'], se['translationEnd']])
+                        n_senses = max(len(x) for x in sn.values())
+                        if n_senses > 1:
                             poly_words_count += 1
 
                         w_item = {
@@ -217,8 +162,8 @@ def main():
                             'norm': strip_tashkeel(c['arabicWord']),
                             'tr': c.get('transliteration', ''),
                             'rt': c.get('root', ''),
-                            'pos': c.get('partOfSpeech', ''),
-                            'cat': les['category'],
+                            'pos': c.get('partOfSpeechDetail') or c.get('verbForm') or '',
+                            'cat': c.get('lemmaCategory', les['category']),
                             'ch': cid,
                             'sec': sid,
                             'les': lid,
@@ -228,10 +173,9 @@ def main():
                             'lesTitle': les['title'].get('en', ''),
                             'occ': c.get('quranOccurrenceCount', 1),
                             'm': m_all,
-                            'ref': c.get('exampleVerseReference', ''),
-                            'v_ar': highlight_arabic(c.get('exampleVerseArabic', ''), c.get('arabicWordStart'), c.get('arabicWordEnd'), c.get('arabicWord', '')),
-                            'v_tr_hl': v_tr_hl,
-                            'poly': poly_entries if len(poly_entries) > 1 else []
+                            'ref': VERSES[c['senses']['en'][0]['verse']]['ref'],
+                            'np': n_senses,
+                            'sn': sn
                         }
                         
                         flat_words.append(w_item)
@@ -241,9 +185,25 @@ def main():
     print(f"Total Words Processed: {total_words_count}")
     print(f"Total Multi-meaning (Polysemous) Words: {poly_words_count}")
 
+    n_words = f"{len(flat_words):,}"
+    n_part = f"{sum(1 for w in flat_words if w['cat'] == 'PARTICLE'):,}"
+    n_verb = f"{sum(1 for w in flat_words if w['cat'] == 'VERB'):,}"
+    n_noun = f"{sum(1 for w in flat_words if w['cat'] == 'NOUN'):,}"
+    n_poly = f"{poly_words_count:,}"
+    n_chapters = f"{len(chapters):,}"
+    n_sections = f"{len(sections):,}"
+    n_lessons = f"{len(lessons):,}"
+    coverage = round(sum(c['quranOccurrencePercent'] for c in chapters), 1)
+
     # Generate Compact JSON (Stripping whitespace)
     words_json = json.dumps(flat_words, separators=(',', ':'), ensure_ascii=False)
     chapters_json = json.dumps(chapters_meta, separators=(',', ':'), ensure_ascii=False)
+    surahs_txt = open(os.path.join(BASE_DIR, 'js', 'surahs.js'), encoding='utf-8').read()
+    surahs_json = json.dumps(json.loads(surahs_txt[surahs_txt.index('{'):surahs_txt.rindex('}') + 1]), separators=(',', ':'), ensure_ascii=False)
+    verses_json = json.dumps(used_verses, separators=(',', ':'), ensure_ascii=False)
+    vt_json = json.dumps(used_vt, separators=(',', ':'), ensure_ascii=False)
+    # Data sits inside <script>: never let a "</" in the text close it.
+    words_json, verses_json, vt_json = (x.replace('</', '<\\/') for x in (words_json, verses_json, vt_json))
 
     html_template = f"""<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -254,9 +214,9 @@ def main():
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Primary SEO Meta Tags -->
-    <title>QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary</title>
-    <meta name="title" content="QuranicWords — 4,709 Quranic Vocabulary Master Curriculum Dictionary">
-    <meta name="description" content="Master 4,709 verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 11 languages, root analysis, audio pronunciation, and polysemy exploration.">
+    <title>QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary</title>
+    <meta name="title" content="QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary">
+    <meta name="description" content="Master {n_words} verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 8 languages, root analysis, and polysemy exploration.">
     <meta name="keywords" content="Quran vocabulary, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran lemmas, Uthmani Quran, Arabic grammar, Wujuh al-Quran, polysemy, Quranic root words, deanybytes, quranic words english, quran dictionary bangla">
     <meta name="author" content="DEANY TALKS (deanybytes)">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -272,8 +232,8 @@ def main():
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://quranicwords.vercel.app/">
     <meta property="og:site_name" content="QuranicWords">
-    <meta property="og:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Dictionary">
-    <meta property="og:description" content="Master 4,700+ Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 11 languages.">
+    <meta property="og:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
+    <meta property="og:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
     <meta property="og:image" content="{LOGO_DATA_URI}">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="bn_BD">
@@ -282,8 +242,8 @@ def main():
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://quranicwords.vercel.app/">
-    <meta name="twitter:title" content="QuranicWords — 4,709 Quranic Vocabulary Master Dictionary">
-    <meta name="twitter:description" content="Master 4,700+ Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 11 languages.">
+    <meta name="twitter:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
+    <meta name="twitter:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
     <meta name="twitter:image" content="{LOGO_DATA_URI}">
 
     <!-- Preconnect & Google Fonts -->
@@ -300,7 +260,7 @@ def main():
           "@type": "WebApplication",
           "name": "QuranicWords Master Curriculum Dictionary",
           "url": "https://quranicwords.vercel.app/",
-          "description": "Interactive, offline-ready dictionary teaching 4,709 Qur'anic Arabic words organized by frequency with verified contextual verses and 11-language translations.",
+          "description": "Interactive, offline-ready dictionary teaching {n_words} Qur'anic Arabic words organized by frequency with verified contextual verses and 8-language translations.",
           "applicationCategory": "EducationalApplication",
           "operatingSystem": "All",
           "offers": {{
@@ -311,7 +271,7 @@ def main():
           "author": {{
             "@type": "Organization",
             "name": "DEANY TALKS",
-            "url": "https://github.com/deanybytes"
+            "url": "https://github.com/rmrashahriar/QuranicWords"
           }}
         }}
       ]
@@ -399,29 +359,30 @@ def main():
         }}
 
         /* Highlighting */
+        /* The taught word and its meaning: bold green (light) / bright gold (dark), for contrast. No padding/border on the Arabic mark,
+           which would break the joining of a connected letter. */
         mark.ar-hl {{
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #ffffff !important;
+            background-color: #d1fae5;
+            color: #047857;
             font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.35);
-            display: inline-block;
-            margin: 0 2px;
+            text-decoration: underline 2px #059669;
+            text-underline-offset: 6px;
         }}
-
+        .dark mark.ar-hl {{
+            background-color: rgba(255, 213, 79, 0.16);
+            color: #ffd54f;
+            text-decoration-color: #ffd54f;
+        }}
         mark.tr-hl {{
-            background-color: #fef08a;
-            color: #854d0e;
+            background-color: #d1fae5;
+            color: #047857;
             font-weight: 700;
-            padding: 1px 6px;
+            padding: 1px 4px;
             border-radius: 4px;
-            border: 1px solid #fde047;
         }}
         .dark mark.tr-hl {{
-            background-color: #854d0e;
-            color: #fef08a;
-            border-color: #a16207;
+            background-color: rgba(255, 213, 79, 0.16);
+            color: #ffd54f;
         }}
 
         /* Sidebar */
@@ -952,10 +913,16 @@ def main():
             cursor: pointer;
             transition: all 0.15s;
         }}
+        /* Selected sense/language tab: the highlight colour (green on light, gold on dark). */
         .poly-tab-btn.active {{
-            background: var(--purple);
+            background: #047857;
             color: #ffffff;
-            border-color: var(--purple);
+            border-color: #047857;
+        }}
+        .dark .poly-tab-btn.active {{
+            background: #ffd54f;
+            color: #2a1f00;
+            border-color: #ffd54f;
         }}
 
         /* Table View */
@@ -1207,8 +1174,8 @@ def main():
                 </div>
             </div>
             <div style="margin-top:12px; font-size:11px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center;">
-                <span>10 Chapters · 4,709 Words</span>
-                <span class="count-pill">100% Verified</span>
+                <span>10 Chapters · {n_words} Words</span>
+                <span class="count-pill">Source-verified</span>
             </div>
         </div>
 
@@ -1247,17 +1214,17 @@ def main():
             <!-- Filter Controls Row -->
             <div class="chips-row">
                 <span style="font-size:11px; font-weight:700; color:var(--text-muted); margin-right:2px;">Filter:</span>
-                <div class="filter-chip active" onclick="filterCategory('ALL', this)">All (4,709)</div>
-                <div class="filter-chip" onclick="filterCategory('PARTICLE', this)">Particles (173)</div>
-                <div class="filter-chip" onclick="filterCategory('VERB', this)">Verbs (1,479)</div>
-                <div class="filter-chip" onclick="filterCategory('NOUN', this)">Nouns (3,057)</div>
-                <div class="filter-chip" onclick="filterCategory('POLYSEMY', this)">✨ Polysemy (44)</div>
+                <div class="filter-chip active" onclick="filterCategory('ALL', this)">All ({n_words})</div>
+                <div class="filter-chip" onclick="filterCategory('PARTICLE', this)">Particles ({n_part})</div>
+                <div class="filter-chip" onclick="filterCategory('VERB', this)">Verbs ({n_verb})</div>
+                <div class="filter-chip" onclick="filterCategory('NOUN', this)">Nouns ({n_noun})</div>
+                <div class="filter-chip" onclick="filterCategory('POLYSEMY', this)">✨ Polysemy ({n_poly})</div>
                 <div class="filter-chip" onclick="filterCategory('BOOKMARKS', this)" id="bookmark-chip">⭐ Saved (<span id="bookmark-count">0</span>)</div>
 
                 <div style="margin-left:auto; display:flex; gap:6px; align-items:center;">
                     <select id="chapter-select" class="btn" onchange="onChapterSelect(this.value)" style="padding:5px 8px; font-size:11px;">
                         <option value="ALL">All 10 Chapters</option>
-                        <option value="ch_01">Ch 1: Particles (173)</option>
+                        <option value="ch_01">Ch 1: Particles ({n_part})</option>
                         <option value="ch_02">Ch 2: High-Freq Verbs (500)</option>
                         <option value="ch_03">Ch 3: Verbal Forms (500)</option>
                         <option value="ch_04">Ch 4: Specialized Verbs (479)</option>
@@ -1280,15 +1247,12 @@ def main():
                     <button class="lang-toggle-btn active" onclick="toggleLanguage('ur', this)">🇵🇰 اردو</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('hi', this)">🇮🇳 हिन्दी</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('in', this)">🇮🇩 Bahasa</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('ms', this)">🇲🇾 Melayu</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('tr', this)">🇹🇷 Türkçe</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('fa', this)">🇮🇷 فارسی</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('ha', this)">🇳🇬 Hausa</button>
-                    <button class="lang-toggle-btn" onclick="toggleLanguage('sw', this)">🇰🇪 Swahili</button>
                     <button class="lang-toggle-btn" onclick="toggleLanguage('fr', this)">🇫🇷 Français</button>
                 </div>
                 <div id="stats-badge" style="margin-left:auto; font-size:11px; font-weight:700; color:var(--emerald);">
-                    Showing 4,709 / 4,709 words
+                    Showing {n_words} / {n_words} words
                 </div>
             </div>
         </header>
@@ -1303,40 +1267,40 @@ def main():
                             <img src="{LOGO_DATA_URI}" width="16" height="16" alt="logo" style="border-radius:3px;">
                             <span>Master Curriculum v1.0.0</span>
                             <span style="opacity:0.8;">•</span>
-                            <span style="color:#a7f3d0;">100% Precision Verified</span>
+                            <span style="color:#a7f3d0;">Meanings from the word-by-word source</span>
                         </div>
                         <h1 style="font-size:24px; font-weight:900; line-height:1.2; letter-spacing:-0.02em;">
                             The Complete Vocabulary of the Holy Qur'an
                         </h1>
                         <p style="font-size:13px; color:#e2e8f0; margin-top:4px; max-width:760px;">
-                            Every unique lemma in the Qur'an organized by pedagogical frequency. Featuring authentic Uthmani calligraphy, verified ayah citations, multi-lingual translations, and instant audio pronunciation.
+                            Every unique lemma in the Qur'an organized by pedagogical frequency. Featuring authentic Uthmani calligraphy, verified ayah citations, and multi-lingual translations.
                         </p>
                     </div>
                 </div>
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-num">10</div>
+                        <div class="stat-num">{n_chapters}</div>
                         <div class="stat-label">Chapters</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">100</div>
+                        <div class="stat-num">{n_sections}</div>
                         <div class="stat-label">Sections</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">1,214</div>
+                        <div class="stat-num">{n_lessons}</div>
                         <div class="stat-label">Lessons</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">4,709</div>
+                        <div class="stat-num">{n_words}</div>
                         <div class="stat-label">Lemmas</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">85%+</div>
+                        <div class="stat-num">{coverage}%</div>
                         <div class="stat-label">Tokens</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-num">11</div>
+                        <div class="stat-num">8</div>
                         <div class="stat-label">Languages</div>
                     </div>
                 </div>
@@ -1381,7 +1345,7 @@ def main():
             <div id="flashcard-view-wrapper">
                 <div class="flashcard-box" id="flashcard-box">
                     <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                        <span id="fc-counter">Card 1 / 4,709</span>
+                        <span id="fc-counter">Card 1 / {n_words}</span>
                         <span id="fc-category" class="badge-pos">PARTICLE</span>
                     </div>
 
@@ -1404,7 +1368,6 @@ def main():
 
                     <div style="display:flex; justify-content:space-between; margin-top:10px;">
                         <button class="btn" onclick="prevFlashcard()">‹ Previous (←)</button>
-                        <button class="icon-btn" onclick="playFcAudio()">🔊</button>
                         <button class="btn btn-primary" onclick="nextFlashcard()">Next (→) ›</button>
                     </div>
                 </div>
@@ -1416,13 +1379,83 @@ def main():
     <script>
         const CHAPTERS_META = {chapters_json};
         const ALL_WORDS = {words_json};
+        const VERSES = {verses_json};   // "s:a" -> [reference, complete ayah]
+        const VT = {vt_json};           // lang -> "s:a" -> [word-by-word line, translation]
+        const ESC = {{ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }};
+        const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (ch) => ESC[ch]);
+        function markSpan(text, s, e, cls) {{
+            if (s === null || s === undefined || !(0 <= s && s < e && e <= text.length)) return esc(text);
+            return esc(text.slice(0, s)) + `<mark class="${{cls}}">` + esc(text.slice(s, e)) + '</mark>' + esc(text.slice(e));
+        }}
+        const WBW_LABEL = {{ en: 'Word by word', bn: 'শব্দে শব্দে', ur: 'لفظ بہ لفظ', hi: 'शब्दशः', in: 'Kata per kata', tr: 'Kelime kelime', fa: 'کلمه به کلمه', fr: 'Mot à mot' }};
+        const SURAHS = {surahs_json};
+        const SURAH_WORD = {{ en: 'Surah', bn: 'সূরা', ur: 'سورۃ', hi: 'सूरह', in: 'Surah', tr: 'Sure', fa: 'سوره', fr: 'Sourate' }};
+        const DIGITS = {{ bn: '০১২৩৪৫৬৭৮৯', hi: '०१२३४५६७८९', ur: '۰۱۲۳۴۵۶۷۸۹', fa: '۰۱۲۳۴۵۶۷۸۹' }};
+        // "Surah Al-Baqarah 2:22" entirely in one language: surah word, name and digits.
+        function cite(v, lang) {{
+            const [s, a] = v.split(':').map(Number);
+            const d = DIGITS[lang];
+            const num = d ? `${{s}}:${{a}}`.replace(/[0-9]/g, (c) => d[c]) : `${{s}}:${{a}}`;
+            return `${{SURAH_WORD[lang] || 'Surah'}} ${{(SURAHS[lang] || SURAHS.en)[s - 1]}} ${{num}}`;
+        }}
+        const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+        // End-of-ayah mark with its number, as in a printed mushaf (appended after the verse).
+        const ayahMark = (v) => '\u00a0\u06dd' + String(v.split(':')[1]).replace(/[0-9]/g, (d) => AR_DIGITS[d]);
+        const ctxLang = () => Object.keys(visibleLangs).find((l) => visibleLangs[l]) || 'en';
+        function senseOf(w, lang, idx) {{
+            const list = (w.sn && w.sn[lang]) || [];
+            const x = list[idx] || list[0];
+            if (!x) return null;
+            const [m, v, s, e, ws, we, ts, te] = x;
+            const [ref, ar] = VERSES[v];
+            const [wbw, tr] = VT[lang][v];
+            return {{ m, v, ref, ar, s, e, wbw, ws, we, tr, ts, te }};
+        }}
+        function verseArHtml(w, lang = ctxLang()) {{
+            const x = senseOf(w, lang, 0);
+            return x ? markSpan(x.ar, x.s, x.e, 'ar-hl') : '';
+        }}
+        function verseRef(w, lang = ctxLang()) {{
+            const x = senseOf(w, lang, 0);
+            return x ? cite(x.v, lang) : w.ref;
+        }}
+        // One language's sense example: complete ayah with only the taught word marked and ONE
+        // translation with exactly the card meaning marked - the full translation when it contains
+        // that meaning verbatim, otherwise the word-by-word translation (labelled).
+        function renderContext(w, lang, idx) {{
+            const list = (w.sn && w.sn[lang]) || [];
+            const x = senseOf(w, lang, idx);
+            if (!x) return '<div class="v-trans-item">—</div>';
+            const fontClass = lang === 'bn' ? 'font-bn' : (lang === 'ur' ? 'font-ur' : '');
+            const rtl = ['ur', 'fa'].includes(lang) ? ' dir="rtl"' : '';
+            const langs = Object.keys(visibleLangs).filter((l) => visibleLangs[l] && w.sn[l]);
+            const langTabs = langs.length > 1 ? `<div class="poly-tabs-header">${{langs.map((l) => `<button class="poly-tab-btn ${{l === lang ? 'active' : ''}}" onclick="setCtx('${{w.id}}','${{l}}',0)">${{LANG_FLAGS[l] || l.toUpperCase()}}</button>`).join('')}}</div>` : '';
+            const senseTabs = list.length > 1 ? `<div class="poly-tabs-header">${{list.map((sx, i) => `<button class="poly-tab-btn ${{i === Math.min(idx, list.length - 1) ? 'active' : ''}} ${{fontClass}}" onclick="setCtx('${{w.id}}','${{lang}}',${{i}})">[${{i + 1}}] ${{esc(sx[0])}}</button>`).join('')}}</div>` : '';
+            return `
+                ${{langTabs}}${{senseTabs}}
+                <div class="verse-meta-row">
+                    <span>📖 Qur'an Context</span>
+                    <a href="https://quran.com/${{x.v}}" target="_blank" rel="noopener" class="verse-ref-link">${{esc(cite(x.v, lang))}} ↗</a>
+                </div>
+                <div class="verse-arabic-text font-arabic">${{markSpan(x.ar, x.s, x.e, 'ar-hl')}}${{ayahMark(x.v)}}</div>
+                <div class="verse-translations-list">
+                    ${{x.ts !== null
+                        ? `<div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}</span> <span>${{markSpan(x.tr, x.ts, x.te, 'tr-hl')}}</span></div>`
+                        : `<div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{WBW_LABEL[lang]}}:</span> <span>${{markSpan(x.wbw, x.ws, x.we, 'tr-hl')}}</span></div>`}}
+                </div>`;
+        }}
+        function setCtx(wordId, lang, idx) {{
+            const w = ALL_WORDS.find((item) => item.id === wordId);
+            const box = document.getElementById(`verse-box-${{wordId}}`);
+            if (w && box) box.innerHTML = renderContext(w, lang, idx);
+        }}
 
         // State variables
         let currentView = 'stream';
         let currentCategory = 'ALL';
         let currentChapter = 'ALL';
         let currentSearch = '';
-        let visibleLangs = {{ en: true, bn: true, ur: true, hi: false, in: false, ms: false, tr: false, fa: false, ha: false, sw: false, fr: false }};
+        let visibleLangs = {{ en: true, bn: true, ur: true, hi: false, in: false, tr: false, fa: false, fr: false }};
         let bookmarks = JSON.parse(localStorage.getItem('qw_bookmarks') || '[]');
 
         // Virtualized / Paginated stream state
@@ -1438,8 +1471,8 @@ def main():
         let fcIndex = 0;
 
         const LANG_FLAGS = {{
-            en: '🇬🇧', bn: '🇧🇩', ur: '🇵🇰', hi: '🇮🇳', in: '🇮🇩', ms: '🇲🇾',
-            tr: '🇹🇷', fa: '🇮🇷', ha: '🇳🇬', sw: '🇰🇪', fr: '🇫🇷'
+            en: '🇬🇧', bn: '🇧🇩', ur: '🇵🇰', hi: '🇮🇳', in: '🇮🇩',
+            tr: '🇹🇷', fa: '🇮🇷', fr: '🇫🇷'
         }};
 
         // Render Sidebar Navigation
@@ -1488,7 +1521,7 @@ def main():
                 if (currentCategory === 'PARTICLE' && w.cat !== 'PARTICLE') return false;
                 if (currentCategory === 'VERB' && w.cat !== 'VERB') return false;
                 if (currentCategory === 'NOUN' && w.cat !== 'NOUN') return false;
-                if (currentCategory === 'POLYSEMY' && (!w.poly || w.poly.length <= 1)) return false;
+                if (currentCategory === 'POLYSEMY' && w.np <= 1) return false;
 
                 if (q) {{
                     const matchAr = (w.ar && w.ar.includes(q)) || (w.norm && w.norm.includes(qNorm));
@@ -1573,7 +1606,7 @@ def main():
 
         // Word Card Template
         function createWordCardHtml(w) {{
-            const isPoly = w.poly && w.poly.length > 1;
+            const isPoly = w.np > 1;
             const isBookmarked = bookmarks.includes(w.id);
 
             return `
@@ -1582,7 +1615,7 @@ def main():
                         <div style="display:flex; gap:5px; align-items:center;">
                             <span class="badge-id">${{w.id}}</span>
                             <span class="badge-pos">${{w.pos || w.cat}}</span>
-                            ${{isPoly ? `<span style="background:var(--purple-light); color:var(--purple); font-size:10px; font-weight:800; padding:1px 6px; border-radius:8px; border:1px solid rgba(124,58,237,0.3);">✨ ${{w.poly.length}} Senses</span>` : ''}}
+                            ${{isPoly ? `<span style="background:var(--purple-light); color:var(--purple); font-size:10px; font-weight:800; padding:1px 6px; border-radius:8px; border:1px solid rgba(124,58,237,0.3);">✨ ${{w.np}} Senses</span>` : ''}}
                         </div>
                         <div style="display:flex; gap:5px; align-items:center;">
                             <span class="badge-occ">${{w.occ.toLocaleString()}} occ</span>
@@ -1601,7 +1634,6 @@ def main():
                             </div>
                         </div>
                         <div class="word-action-btns">
-                            <button class="icon-btn" onclick="playAudio('${{w.ar}}')" title="Listen">🔊</button>
                             <button class="icon-btn" onclick="copyWord('${{w.id}}')" title="Copy">📋</button>
                         </div>
                     </div>
@@ -1610,36 +1642,7 @@ def main():
                         ${{renderMeaningsHtml(w.m)}}
                     </div>
 
-                    <div class="verse-box" id="verse-box-${{w.id}}">
-                        <div class="verse-meta-row">
-                            <span>📖 Qur'an Context</span>
-                            <a href="https://quran.com/${{w.ref.split(' ')[1] || '2:255'}}" target="_blank" rel="noopener" class="verse-ref-link" id="ref-${{w.id}}">
-                                ${{w.ref}} ↗
-                            </a>
-                        </div>
-                        <div class="verse-arabic-text font-arabic" id="verse-ar-${{w.id}}">
-                            ${{w.v_ar}}
-                        </div>
-                        <div class="verse-translations-list" id="verse-trans-${{w.id}}">
-                            ${{renderVerseTranslationsHtml(w.v_tr_hl)}}
-                        </div>
-                    </div>
-
-                    ${{isPoly ? `
-                        <div class="polysemy-card-block">
-                            <div style="font-size:11px; font-weight:800; color:var(--purple); display:flex; justify-content:space-between; align-items:center;">
-                                <span>📚 Contextual Senses (Wujūh al-Qur'an)</span>
-                                <span style="font-size:9px; opacity:0.8;">Tap to switch</span>
-                            </div>
-                            <div class="poly-tabs-header">
-                                ${{w.poly.map((se, idx) => `
-                                    <button class="poly-tab-btn ${{idx === 0 ? 'active' : ''}}" onclick="switchPolySense('${{w.id}}', ${{idx}}, this)">
-                                        [${{se.idx}}] ${{se.m.en || 'Sense ' + se.idx}}
-                                    </button>
-                                `).join('')}}
-                            </div>
-                        </div>
-                    ` : ''}}
+                    <div class="verse-box" id="verse-box-${{w.id}}">${{renderContext(w, ctxLang(), 0)}}</div>
                 </article>
             `;
         }}
@@ -1652,69 +1655,18 @@ def main():
                 out += `
                     <div class="meaning-item">
                         <span class="lang-flag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}</span>
-                        <span class="meaning-val ${{fontClass}}">${{text || '—'}}</span>
+                        <span class="meaning-val ${{fontClass}}">${{esc(text) || '—'}}</span>
                     </div>
                 `;
             }}
             return out;
-        }}
-
-        function renderVerseTranslationsHtml(transHlDict) {{
-            let out = '';
-            for (const [lang, hlHtml] of Object.entries(transHlDict || {{}})) {{
-                if (!visibleLangs[lang]) continue;
-                const fontClass = lang === 'bn' ? 'font-bn' : (lang === 'ur' ? 'font-ur' : '');
-                out += `
-                    <div class="v-trans-item ${{fontClass}}">
-                        <span class="v-trans-tag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}:</span>
-                        <span>${{hlHtml || '—'}}</span>
-                    </div>
-                `;
-            }}
-            return out;
-        }}
-
-        // Switch Polysemy Sense
-        function switchPolySense(wordId, senseIdx, btnEl) {{
-            const w = ALL_WORDS.find(item => item.id === wordId);
-            if (!w || !w.poly || !w.poly[senseIdx]) return;
-
-            const se = w.poly[senseIdx];
-            const parent = btnEl.parentElement;
-            parent.querySelectorAll('.poly-tab-btn').forEach(b => b.classList.remove('active'));
-            btnEl.classList.add('active');
-
-            const refEl = document.getElementById(`ref-${{wordId}}`);
-            if (refEl) {{
-                refEl.innerText = se.ref + ' ↗';
-                refEl.href = `https://quran.com/${{se.ref.split(' ')[1] || '2:255'}}`;
-            }}
-            const verseArEl = document.getElementById(`verse-ar-${{wordId}}`);
-            if (verseArEl) verseArEl.innerHTML = se.v_ar;
-            
-            const verseTransEl = document.getElementById(`verse-trans-${{wordId}}`);
-            if (verseTransEl) verseTransEl.innerHTML = renderVerseTranslationsHtml(se.v_tr_hl);
-        }}
-
-        // Audio Pronunciation
-        function playAudio(arabicText) {{
-            if (!window.speechSynthesis) {{
-                showToast('Speech audio synthesis not supported in this browser 🔊');
-                return;
-            }}
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(arabicText);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.85;
-            window.speechSynthesis.speak(utterance);
-            showToast(`Playing pronunciation: "${{arabicText}}" 🔊`);
         }}
 
         // Quick Copy
         function copyWord(wordId) {{
             const w = ALL_WORDS.find(item => item.id === wordId);
             if (!w) return;
-            const textToCopy = `${{w.ar}} (${{w.tr || ''}}) - Meaning: ${{w.m.en || ''}} | Ref: ${{w.ref}}`;
+            const textToCopy = `${{w.ar}} (${{w.tr || ''}}) - Meaning: ${{w.m.en || ''}} | Ref: ${{verseRef(w)}}`;
             navigator.clipboard.writeText(textToCopy).then(() => {{
                 showToast(`Copied to clipboard: "${{w.ar}}" 📋`);
             }}).catch(() => {{
@@ -1802,12 +1754,11 @@ def main():
                     <td class="font-bn" style="font-weight:600;">${{w.m.bn || '—'}}</td>
                     <td class="font-ur" style="font-weight:600;">${{w.m.ur || '—'}}</td>
                     <td style="min-width:200px;">
-                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">${{w.ref}}</div>
-                        <div class="font-arabic" style="font-size:14px;">${{w.v_ar}}</div>
+                        <div style="font-weight:700; color:var(--emerald); font-size:10px;">${{esc(verseRef(w))}}</div>
+                        <div class="font-arabic" style="font-size:14px;">${{verseArHtml(w)}}</div>
                     </td>
                     <td>
                         <div style="display:flex; gap:4px;">
-                            <button class="icon-btn" onclick="playAudio('${{w.ar}}')" title="Listen">🔊</button>
                             <button class="icon-btn" onclick="copyWord('${{w.id}}')" title="Copy">📋</button>
                         </div>
                     </td>
@@ -1850,7 +1801,7 @@ def main():
                 }}
             }}
             document.getElementById('fc-meanings').innerHTML = meaningsText;
-            document.getElementById('fc-verse').innerHTML = `${{w.v_ar}} <span style="font-size:12px; color:var(--emerald);">(${{w.ref}})</span>`;
+            document.getElementById('fc-verse').innerHTML = `${{verseArHtml(w)}} <span style="font-size:12px; color:var(--emerald);">(${{esc(verseRef(w))}})</span>`;
 
             // Reset answer visibility
             document.getElementById('fc-answer-box').style.display = 'none';
@@ -1877,12 +1828,6 @@ def main():
         function prevFlashcard() {{
             fcIndex--;
             renderFlashcard();
-        }}
-
-        function playFcAudio() {{
-            if (filteredWords.length > 0) {{
-                playAudio(filteredWords[fcIndex].ar);
-            }}
         }}
 
         // Filter Handlers

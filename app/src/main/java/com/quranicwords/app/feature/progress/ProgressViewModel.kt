@@ -9,6 +9,7 @@ import com.quranicwords.app.core.data.local.entity.UserProgressEntity
 import com.quranicwords.app.core.domain.DailyGoalCalculator
 import com.quranicwords.app.core.domain.repository.AchievementRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
+import com.quranicwords.app.core.domain.srs.WordStrength
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,12 @@ import kotlinx.coroutines.launch
 import java.time.Clock
 import java.time.Instant
 import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
+import com.quranicwords.app.core.domain.DisplayedStreak
+import com.quranicwords.app.core.util.currentDateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flatMapLatest
 import java.time.ZoneId
 import javax.inject.Inject
 
@@ -33,11 +40,14 @@ data class ProgressUiState(
     val quranCoveragePercent: Double = 0.0,
     /** Oldest-first, one entry per of the last 7 days. */
     val lessonsCompletedLast7Days: List<Int> = List(7) { 0 },
-    val last7DayLabels: List<String> = List(7) { "" },
+    /** Oldest first; labelled at the UI in the learner's language via [narrowWeekdayLabels]. */
+    val last7Days: List<LocalDate> = emptyList(),
     /** Oldest-first, one entry per of the last 28 days - [HeatmapChart] lays these out 7-per-row. */
     val practiceDaysLast28: List<Boolean> = List(28) { false },
     val daysPracticedLast28Count: Int = 0,
-    val goalMetDaysLast7: Int = 0
+    val goalMetDaysLast7: Int = 0,
+    /** Remembered words per strength bucket (NEW never counted) - see [WordStrength]. */
+    val strengthCounts: Map<WordStrength, Int> = emptyMap()
 )
 
 /** Pure, no DB access - one entry per day in [days], counting how many rows in [progress] have a
@@ -56,6 +66,11 @@ fun lessonsCompletedPerDay(progress: List<UserProgressEntity>, days: List<LocalD
 
 /** Pure, no DB access - one entry per day in [days], true when that date has a
  * [DailyPracticeEntity] row with at least one minute practiced. */
+/** Narrow standalone weekday names ("M", "ব", "پ"...) for [days] in [locale] - replaces the old
+ * English-only `dayOfWeek.name.take(1)`, which also collided (T/T, S/S). */
+fun narrowWeekdayLabels(days: List<LocalDate>, locale: Locale): List<String> =
+    days.map { it.dayOfWeek.getDisplayName(TextStyle.NARROW_STANDALONE, locale) }
+
 fun practiceDaysGrid(dailyPractice: List<DailyPracticeEntity>, days: List<LocalDate>): List<Boolean> {
     val practicedDates = dailyPractice.filter { it.minutesPracticed > 0 }.map { it.localDate }.toSet()
     return days.map { it.toString() in practicedDates }
@@ -74,6 +89,7 @@ fun countGoalMetDays(dailyPractice: List<DailyPracticeEntity>, days: List<LocalD
  * added). Chart *data derivation* is pure and unit-tested (see the top-level functions above);
  * the Canvas drawing itself is not meaningfully testable, same as this app's other custom motifs.
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
@@ -89,37 +105,44 @@ class ProgressViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            val zone = clock.zone
-            val today = LocalDate.now(clock)
-            val last7Days = (6 downTo 0).map { today.minusDays(it.toLong()) }
-            val last28Days = (27 downTo 0).map { today.minusDays(it.toLong()) }
-            val startDate = today.minusDays(27).toString()
-            val endDate = today.toString()
 
-            combine(
-                progressRepository.observeStats(userId),
-                progressRepository.observeProgress(userId),
-                preferences.dailyGoalLevelFlow,
-                progressRepository.observePracticeHistoryForRange(userId, startDate, endDate),
-                progressRepository.observeMissedItemIds(userId)
-            ) { stats, progress, goalLevel, dailyPractice, _ ->
-                val masteredCount = progressRepository.getMasteredItemIds(userId).size
-                val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
-                val goalMinutes = goalLevel.minutes
+            // Re-subscribed at local midnight so the 7/28-day windows and the displayed streak
+            // roll over if the tab is left open past midnight.
+            currentDateFlow(clock).flatMapLatest { today ->
+                val zone = clock.zone
+                val last7Days = (6 downTo 0).map { today.minusDays(it.toLong()) }
+                val last28Days = (27 downTo 0).map { today.minusDays(it.toLong()) }
+                val startDate = today.minusDays(27).toString()
+                val endDate = today.toString()
 
-                ProgressUiState(
-                    isLoading = false,
-                    totalPoints = stats?.totalPoints ?: 0,
-                    currentStreak = stats?.currentStreak ?: 0,
-                    longestStreak = stats?.longestStreak ?: 0,
-                    wordsLearnedCount = masteredCount,
-                    quranCoveragePercent = coveragePercent,
-                    lessonsCompletedLast7Days = lessonsCompletedPerDay(progress, last7Days, zone),
-                    last7DayLabels = last7Days.map { date -> date.dayOfWeek.name.take(1) },
-                    practiceDaysLast28 = practiceDaysGrid(dailyPractice, last28Days),
-                    daysPracticedLast28Count = practiceDaysGrid(dailyPractice, last28Days).count { it },
-                    goalMetDaysLast7 = countGoalMetDays(dailyPractice, last7Days, goalMinutes)
-                )
+                combine(
+                    progressRepository.observeStats(userId),
+                    progressRepository.observeProgress(userId),
+                    preferences.dailyGoalLevelFlow,
+                    progressRepository.observePracticeHistoryForRange(userId, startDate, endDate),
+                    progressRepository.observeMissedItemIds(userId)
+                ) { stats, progress, goalLevel, dailyPractice, _ ->
+                    val strengthCounts = progressRepository.getStrengthCounts(userId)
+                    // "Words learned" is Strong+ - the same definition the summary and Learned Words use.
+                    val masteredCount = strengthCounts.filterKeys { it.isLearned }.values.sum()
+                    val coveragePercent = achievementRepository.getCumulativeCoveragePercent(userId)
+                    val goalMinutes = goalLevel.minutes
+
+                    ProgressUiState(
+                        isLoading = false,
+                        totalPoints = stats?.totalPoints ?: 0,
+                        currentStreak = DisplayedStreak.of(stats, today),
+                        longestStreak = stats?.longestStreak ?: 0,
+                        wordsLearnedCount = masteredCount,
+                        quranCoveragePercent = coveragePercent,
+                        lessonsCompletedLast7Days = lessonsCompletedPerDay(progress, last7Days, zone),
+                        last7Days = last7Days,
+                        practiceDaysLast28 = practiceDaysGrid(dailyPractice, last28Days),
+                        daysPracticedLast28Count = practiceDaysGrid(dailyPractice, last28Days).count { it },
+                        goalMetDaysLast7 = countGoalMetDays(dailyPractice, last7Days, goalMinutes),
+                        strengthCounts = strengthCounts
+                    )
+                }
             }.collect { state ->
                 _uiState.value = state
             }

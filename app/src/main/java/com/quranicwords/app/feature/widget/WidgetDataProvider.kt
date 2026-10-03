@@ -1,229 +1,281 @@
 package com.quranicwords.app.feature.widget
 
 import android.content.Context
-import androidx.core.content.edit
+import android.content.res.Configuration
+import android.util.Log
+import android.util.LruCache
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.data.local.Converters
 import com.quranicwords.app.core.data.local.QwDatabase
-import com.quranicwords.app.core.data.local.entity.WordFrequencyEntity
+import com.quranicwords.app.core.data.local.dao.ItemStability
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
+import com.quranicwords.app.core.di.SystemZoneClock
+import com.quranicwords.app.core.domain.DisplayedStreak
+import com.quranicwords.app.core.domain.HeartsCalculator
+import com.quranicwords.app.core.domain.LevelCurve
+import com.quranicwords.app.core.domain.hasKnownMetric
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.model.ThemeMode
 import com.quranicwords.app.core.domain.model.get
-import com.quranicwords.app.core.util.AppJson
+import com.quranicwords.app.core.domain.srs.WordStrength
+import com.quranicwords.app.core.util.decodeExerciseContentOrNull
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import java.time.Clock
 import java.time.LocalDate
 
-data class WidgetStatsData(
-    val streakDays: Int,
-    val isStreakActive: Boolean,
-    val wordsLearnedCount: Int,
-    val wordsLearnedPct: Float,
-    val accuracyPct: Int,
-    val todayPracticeMinutes: Int,
-    val dailyGoalMinutes: Int,
-    val dailyGoalProgressPct: Int,
-    val reviewCount: Int
-)
-
-data class WidgetWordData(
-    val wordId: String,
-    val arabicWord: String,
-    val meaning: String,
-    val occurrenceCount: Int,
-    val quranPercentage: Double,
-    val frequencyRank: Int,
-    val exampleVerseArabic: String?,
-    val exampleVerseTranslation: String?,
-    val exampleVerseReference: String?,
-    val isMistaken: Boolean
-)
-
-data class WidgetSnapshot(
-
-    val stats: WidgetStatsData,
-    val currentWord: WidgetWordData?,
-    val language: Language = Language.ENGLISH,
-    val themeMode: ThemeMode = ThemeMode.SYSTEM
-)
-
-fun Context.getLocalizedWidgetContext(language: Language): Context {
-    return getThemedAndLocalizedWidgetContext(language, ThemeMode.SYSTEM)
-}
-
+/** [this] with [language]'s locale and, for a forced [themeMode], that night mode - so strings
+ * resolve in the app's language (not the launcher's) and colours in the chosen theme. */
 fun Context.getThemedAndLocalizedWidgetContext(language: Language, themeMode: ThemeMode): Context {
-    val locale = java.util.Locale.forLanguageTag(language.tag)
-    val config = android.content.res.Configuration(resources.configuration)
-    config.setLocale(locale)
-    when (themeMode) {
-        ThemeMode.DARK -> {
-            config.uiMode = (config.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK.inv()) or android.content.res.Configuration.UI_MODE_NIGHT_YES
-        }
-        ThemeMode.LIGHT -> {
-            config.uiMode = (config.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK.inv()) or android.content.res.Configuration.UI_MODE_NIGHT_NO
-        }
-        ThemeMode.SYSTEM -> {
-            // Keep device system UI mode
-        }
+    val config = Configuration(resources.configuration)
+    config.setLocale(language.locale)
+    config.setLayoutDirection(language.locale)
+    val night = when (themeMode) {
+        ThemeMode.DARK -> Configuration.UI_MODE_NIGHT_YES
+        ThemeMode.LIGHT -> Configuration.UI_MODE_NIGHT_NO
+        ThemeMode.SYSTEM -> null
+    }
+    if (night != null) {
+        config.uiMode = (config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or night
     }
     return createConfigurationContext(config)
 }
 
+/**
+ * Reads what the widgets show. Kept deliberately cheap - widgets refresh on every session end,
+ * every half hour and on date/locale changes - so it never decodes the whole curriculum: the
+ * snapshot is a handful of indexed queries (counts, the due list, stabilities, today's rows) and
+ * only the one word on screen has its content looked up, through a small in-memory cache.
+ */
 object WidgetDataProvider {
-    private const val PREFS_WIDGET_STATE = "quranic_words_widget_state"
-    private const val KEY_ROTATION_STEP = "widget_rotation_step"
-    private const val TOTAL_QURAN_WORDS = 77797.0
-    private const val TOTAL_VOCABULARY_TARGET = 4709.0
+    private const val TAG = "WidgetData"
+    private const val DUE_POOL_LIMIT = 50
 
-    suspend fun getWidgetData(context: Context, advanceRotation: Boolean = false): WidgetSnapshot = withContext(Dispatchers.IO) {
-        val database = QwDatabase.getInstance(context)
-        val prefs = UserPreferencesDataStore(context)
+    /** Widgets aren't Hilt-injected, so this mirrors ClockModule's zone-following clock. */
+    private val clock: Clock = SystemZoneClock()
+
+    private val converters = Converters()
+
+    /** "wordId|language" -> display data, dropped whenever the vocabulary size changes (a reseed). */
+    private val wordCache = LruCache<String, WidgetWord>(32)
+
+    @Volatile
+    private var cachedVocabularySize = -1
+
+    suspend fun loadSnapshot(context: Context): WidgetSnapshot = withContext(Dispatchers.IO) {
+        val prefs = UserPreferencesDataStore(context.applicationContext)
+        val environment = try {
+            WidgetEnvironment(
+                language = prefs.languageFlow.first() ?: Language.ENGLISH,
+                themeMode = prefs.themeModeFlow.first(),
+                fontStyle = prefs.fontStyleFlow.first()
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "Preferences unavailable", e)
+            WidgetEnvironment()
+        }
+        try {
+            load(context, prefs, environment)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // A widget must never crash the launcher's view of the app: a database that isn't
+            // ready (first launch still seeding, a migration mid-flight) shows the friendly
+            // "almost ready" state instead, and the next refresh tries again.
+            Log.w(TAG, "Widget data unavailable", e)
+            WidgetSnapshot.notReady(environment)
+        }
+    }
+
+    private suspend fun load(context: Context, prefs: UserPreferencesDataStore, environment: WidgetEnvironment): WidgetSnapshot {
+        val db = QwDatabase.getInstance(context.applicationContext)
+        val vocabularySize = db.wordFrequencyDao().count()
+        if (vocabularySize == 0) return WidgetSnapshot.notReady(environment)
+        if (vocabularySize != cachedVocabularySize) {
+            wordCache.evictAll()
+            cachedVocabularySize = vocabularySize
+        }
+
         val userId = prefs.getOrCreateLocalUserId()
-        val language = prefs.languageFlow.first() ?: Language.ENGLISH
-        val themeMode = prefs.themeModeFlow.first()
+        val nowMillis = clock.millis()
+        val today = LocalDate.now(clock)
+        val memoryDao = db.wordMemoryDao()
 
-        // 1. Compute Stats
-        val statsEntity = database.userStatsDao().get(userId)
-        val streak = statsEntity?.currentStreak ?: 0
-        val isStreakActive = streak > 0
+        val statsEntity = db.userStatsDao().get(userId)
+        val todayMinutes = db.dailyPracticeDao().get(userId, today.toString())?.minutesPracticed ?: 0
+        val goalMinutes = prefs.dailyGoalLevelFlow.first().minutes
+        val dueCount = memoryDao.getDueCount(userId, nowMillis)
+        val dueIds = memoryDao.getDueItemIds(userId, nowMillis, DUE_POOL_LIMIT)
+        val stabilities = memoryDao.getStabilities(userId)
+        val dueSet = dueIds.toSet()
+        val learned = stabilities
+            .filter { it.itemId !in dueSet }
+            .sortedWith(compareByDescending<ItemStability> { it.stability }.thenBy { it.itemId })
+            .map { it.itemId }
+        val nextNew = if (dueIds.isEmpty() && learned.isEmpty()) nextWordToLearn(db, userId) else null
 
-        val masteredIds = database.exerciseAttemptDao().getMasteredItemIds(userId)
-        val missedIds = database.exerciseAttemptDao().getMissedItemIds(userId)
-        val allPracticedIds = database.exerciseAttemptDao().getAllPracticedItemIds(userId)
+        val quests = db.dailyQuestDao().getForDay(userId, today.toString()).filter { it.hasKnownMetric }
+        val hearts = statsEntity
+            ?.takeIf { it.heartsEnabled }
+            ?.let { HeartsCalculator.current(it.hearts, it.heartsUpdatedAtEpochMillis, nowMillis).hearts }
 
-        val wordsLearnedCount = masteredIds.size
-        val wordsLearnedPct = ((wordsLearnedCount / TOTAL_VOCABULARY_TARGET) * 100).toFloat().coerceIn(0f, 100f)
-
-        val recentAttempts = database.exerciseAttemptDao().getAllForUser(userId)
-        val accuracyPct = if (recentAttempts.isNotEmpty()) {
-            val correct = recentAttempts.count { it.wasCorrect }
-            ((correct.toDouble() / recentAttempts.size) * 100).toInt().coerceIn(0, 100)
-        } else {
-            100
-        }
-
-        val todayStr = LocalDate.now().toString()
-        val dailyPractice = database.dailyPracticeDao().get(userId, todayStr)
-        val todayPracticeMinutes = dailyPractice?.minutesPracticed ?: 0
-        val goalLevel = prefs.dailyGoalLevelFlow.first()
-        val dailyGoalMinutes = goalLevel.minutes
-        val dailyGoalProgressPct = if (dailyGoalMinutes > 0) {
-            ((todayPracticeMinutes.toDouble() / dailyGoalMinutes) * 100).toInt().coerceIn(0, 100)
-        } else {
-            0
-        }
-
-        val reviewCount = missedIds.size
-
-        val stats = WidgetStatsData(
-            streakDays = streak,
-            isStreakActive = isStreakActive,
-            wordsLearnedCount = wordsLearnedCount,
-            wordsLearnedPct = wordsLearnedPct,
-            accuracyPct = accuracyPct,
-            todayPracticeMinutes = todayPracticeMinutes,
-            dailyGoalMinutes = dailyGoalMinutes,
-            dailyGoalProgressPct = dailyGoalProgressPct,
-            reviewCount = reviewCount
+        val stats = WidgetStats(
+            streakDays = DisplayedStreak.of(statsEntity, today),
+            practicedToday = DisplayedStreak.practicedToday(statsEntity, today),
+            todayMinutes = todayMinutes,
+            goalMinutes = goalMinutes,
+            dueCount = dueCount,
+            learnedCount = stabilities.count { it.stability >= WordStrength.LEARNED_MIN_DAYS },
+            level = LevelCurve.progressFor(statsEntity?.totalPoints ?: 0),
+            hearts = hearts,
+            maxHearts = HeartsCalculator.MAX_HEARTS,
+            questsDone = quests.count { it.completedAtEpochMillis != null },
+            questsTotal = quests.size
         )
+        return WidgetSnapshot(
+            environment = environment,
+            contentReady = true,
+            stats = stats,
+            pools = WordPools(due = dueIds, learned = learned, nextNew = nextNew),
+            strengths = stabilities.associate { it.itemId to WordStrength.fromStability(it.stability) }
+        )
+    }
 
-        // 2. Select Word with 2:1 Mistaken vs Learned Rotation (never show unlearned words)
-        val validPracticedWords = allPracticedIds.toSet()
-        val validMissedWords = missedIds.filter { it in validPracticedWords }
-        val validMasteredWords = masteredIds.filter { it in validPracticedWords }
-
-        val wordData = if (validPracticedWords.isEmpty()) {
+    /**
+     * The word for one widget instance at rotation [step]. If the picked id has no content any
+     * more (a word dropped by a newer content build), the next ones in the same pool are tried
+     * before giving up.
+     */
+    suspend fun wordFor(context: Context, snapshot: WidgetSnapshot, step: Int): WidgetWord? = withContext(Dispatchers.IO) {
+        if (!snapshot.contentReady) return@withContext null
+        try {
+            val db = QwDatabase.getInstance(context.applicationContext)
+            repeat(MAX_PICK_ATTEMPTS) { attempt ->
+                val pick = WidgetWordPicker.pick(snapshot.pools, step + attempt) ?: return@withContext null
+                val strength = snapshot.strengths[pick.wordId] ?: WordStrength.NEW
+                val word = details(db, pick, strength, snapshot.environment.language)
+                if (word != null) return@withContext word
+            }
             null
-        } else {
-            val sp = context.getSharedPreferences(PREFS_WIDGET_STATE, Context.MODE_PRIVATE)
-            var currentStep = sp.getInt(KEY_ROTATION_STEP, 0)
-            if (advanceRotation) {
-                currentStep = (currentStep + 1) % 1000
-                sp.edit { putInt(KEY_ROTATION_STEP, currentStep) }
-            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(TAG, "Word lookup failed", e)
+            null
+        }
+    }
 
-            // 2:1 ratio logic:
-            // step % 3 == 0 -> Missed word
-            // step % 3 == 1 -> Missed word
-            // step % 3 == 2 -> Mastered word
-            val isMistakeTurn = (currentStep % 3 != 2)
-            val targetId = if (isMistakeTurn) {
-                if (validMissedWords.isNotEmpty()) {
-                    val index = ((currentStep / 3) * 2 + (currentStep % 3)) % validMissedWords.size
-                    validMissedWords[index]
-                } else if (validMasteredWords.isNotEmpty()) {
-                    validMasteredWords[currentStep % validMasteredWords.size]
-                } else {
-                    validPracticedWords.elementAt(currentStep % validPracticedWords.size)
-                }
-            } else {
-                if (validMasteredWords.isNotEmpty()) {
-                    val index = (currentStep / 3) % validMasteredWords.size
-                    validMasteredWords[index]
-                } else if (validMissedWords.isNotEmpty()) {
-                    validMissedWords[currentStep % validMissedWords.size]
-                } else {
-                    validPracticedWords.elementAt(currentStep % validPracticedWords.size)
-                }
-            }
+    private const val MAX_PICK_ATTEMPTS = 3
 
-            val isMistaken = targetId in validMissedWords
+    private suspend fun details(db: QwDatabase, pick: WordPick, strength: WordStrength, language: Language): WidgetWord? {
+        val key = "${pick.wordId}|${language.tag}"
+        wordCache.get(key)?.let { return it.copy(kind = pick.kind, strength = strength) }
 
-            // Load WordIntro from exerciseDao
-            val teachExercises = database.exerciseDao().getAllTeachWords()
-            val introMap = teachExercises.mapNotNull {
-                runCatching {
-                    AppJson.decodeFromString(
-                        ExerciseContent.serializer(),
-                        it.contentJson
-                    ) as? ExerciseContent.WordIntro
-                }.getOrNull()
-            }.associateBy { it.wordId }
-
-            val intro = introMap[targetId]
-
-            // Load WordFrequency entity
-            val freqList = database.wordFrequencyDao().observeAllByFrequency().first()
-            val freq = freqList.find { it.id == targetId }
-
-            if (intro != null) {
-                val arabic = intro.arabicWord
-                val meaning = intro.meaning.get(language)
-                val count = freq?.frequencyCount ?: 1
-                val rank = freq?.frequencyRank ?: 1
-                val quranPct = (count / TOTAL_QURAN_WORDS) * 100.0
-
-                WidgetWordData(
-                    wordId = targetId,
-                    arabicWord = arabic,
-                    meaning = meaning,
-                    occurrenceCount = count,
-                    quranPercentage = quranPct,
-                    frequencyRank = rank,
-                    exampleVerseArabic = intro.exampleVerseArabic,
-                    exampleVerseTranslation = intro.exampleVerseTranslation.get(language),
-                    exampleVerseReference = com.quranicwords.app.core.util.VerseReferenceFormatter.format(intro.exampleVerseReference, language),
-                    isMistaken = isMistaken
+        val row = db.query(
+            SimpleSQLiteQuery(
+                "SELECT arabicWord, frequencyRank, frequencyCount, meaning FROM word_frequency WHERE id = ? LIMIT 1",
+                arrayOf(pick.wordId)
+            )
+        ).use { c ->
+            if (!c.moveToFirst()) return null
+            FrequencyRow(c.getString(0), c.getInt(1), c.getInt(2), converters.toLocalizedText(c.getString(3)))
+        }
+        val intro = introFor(db, pick.wordId)
+        // Meaning and example in the learner's language: that language's sense 1, its verse from
+        // the verses table, and exactly one translation line.
+        val localized = intro?.let { WordExampleLocalizer(db.verseDao()::getAll).localize(it, language) }
+        val word = WidgetWord(
+            id = pick.wordId,
+            arabic = intro?.arabicWord?.takeIf { it.isNotBlank() } ?: row.arabic,
+            meaning = localized?.meaning?.takeIf { it.isNotBlank() } ?: row.meaning.get(language),
+            kind = pick.kind,
+            strength = strength,
+            category = intro?.lemmaCategory,
+            occurrences = row.count,
+            rank = row.rank,
+            example = localized?.primarySense?.let { sense ->
+                val fullTranslation = sense.translationStart != null
+                WidgetExample(
+                    arabic = sense.verseArabic,
+                    translation = if (fullTranslation) sense.translationText else sense.wbwText,
+                    reference = sense.verseKey,
+                    arabicStart = sense.wordStart,
+                    arabicEnd = sense.wordEnd,
+                    translationStart = if (fullTranslation) sense.translationStart else sense.wbwStart,
+                    translationEnd = if (fullTranslation) sense.translationEnd else sense.wbwEnd,
+                    isWordByWord = !fullTranslation
                 )
-            } else if (freq != null) {
-                WidgetWordData(
-                    wordId = targetId,
-                    arabicWord = freq.arabicWord,
-                    meaning = freq.meaning.get(language),
-                    occurrenceCount = freq.frequencyCount,
-                    quranPercentage = (freq.frequencyCount / TOTAL_QURAN_WORDS) * 100.0,
-                    frequencyRank = freq.frequencyRank,
-                    exampleVerseArabic = null,
-                    exampleVerseTranslation = null,
-                    exampleVerseReference = null,
-                    isMistaken = isMistaken
-                )
-            } else {
-                null
+            }
+        )
+        wordCache.put(key, word)
+        return word
+    }
+
+    private data class FrequencyRow(val arabic: String, val rank: Int, val count: Int, val meaning: LocalizedText)
+
+
+    /**
+     * The word's WORD_INTRO teach step, found without decoding the curriculum: content JSON is
+     * written compactly by AppJson, so a LIKE on its `"wordId":"…"` pair narrows the scan to the
+     * candidates, and decoding then confirms the exact id (`_` in ids is a LIKE wildcard).
+     *
+     * This is the widgets' only reader of [ExerciseContent] - if the way examples are stored
+     * changes, this mapping is the one place to follow it.
+     */
+    private fun introFor(db: QwDatabase, wordId: String): ExerciseContent.WordIntro? {
+        val pattern = "%\"wordId\":\"$wordId\"%"
+        db.query(
+            SimpleSQLiteQuery(
+                "SELECT contentJson FROM exercises WHERE (type = 'WORD_INTRO' OR type = 'TEACH_WORD') AND contentJson LIKE ? LIMIT 8",
+                arrayOf(pattern)
+            )
+        ).use { c ->
+            while (c.moveToNext()) {
+                val intro = decodeExerciseContentOrNull(c.getString(0)) as? ExerciseContent.WordIntro ?: continue
+                if (intro.wordId != wordId) continue
+                return intro
             }
         }
+        return null
+    }
 
-        WidgetSnapshot(stats = stats, currentWord = wordData, language = language, themeMode = themeMode)
+    /**
+     * For a learner with nothing practised yet: the first word of the curriculum (chapter,
+     * section, lesson, then exercise order) they have no memory of. Falls back to the most
+     * frequent such word if the curriculum tables are empty or shaped unexpectedly.
+     */
+    private fun nextWordToLearn(db: QwDatabase, userId: String): String? {
+        val curriculumOrder = runCatching {
+            db.query(
+                SimpleSQLiteQuery(
+                    """
+                    SELECT e.practicedItemId FROM exercises e
+                    JOIN lessons l ON l.id = e.lessonId
+                    JOIN chapters c ON c.id = l.chapterId
+                    LEFT JOIN sections s ON s.id = l.sectionId
+                    JOIN word_frequency w ON w.id = e.practicedItemId
+                    WHERE l.kind = 'REGULAR'
+                      AND e.practicedItemId NOT IN (SELECT itemId FROM word_memory WHERE userId = ?)
+                    ORDER BY c.sortOrder, COALESCE(s.sortOrder, 0), l.sortOrder, e.orderIndex
+                    LIMIT 1
+                    """.trimIndent(),
+                    arrayOf(userId)
+                )
+            ).use { c -> if (c.moveToFirst()) c.getString(0) else null }
+        }.onFailure { Log.w(TAG, "Curriculum order lookup failed", it) }.getOrNull()
+        if (curriculumOrder != null) return curriculumOrder
+        return db.query(
+            SimpleSQLiteQuery(
+                "SELECT id FROM word_frequency WHERE id NOT IN (SELECT itemId FROM word_memory WHERE userId = ?) ORDER BY frequencyRank LIMIT 1",
+                arrayOf(userId)
+            )
+        ).use { c -> if (c.moveToFirst()) c.getString(0) else null }
     }
 }

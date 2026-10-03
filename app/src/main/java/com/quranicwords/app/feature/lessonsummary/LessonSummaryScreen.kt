@@ -73,6 +73,9 @@ import com.quranicwords.app.core.ui.components.CelebrationBurst
 import com.quranicwords.app.core.ui.components.CelebrationIntensity
 import com.quranicwords.app.core.ui.components.CrescentMoonMotif
 import com.quranicwords.app.core.ui.components.GlassSurface
+import com.quranicwords.app.core.ui.components.LevelProgressBar
+import com.quranicwords.app.core.ui.motion.rememberQwHaptics
+import androidx.compose.runtime.saveable.rememberSaveable
 import com.quranicwords.app.core.ui.components.MosqueSilhouetteMotif
 import com.quranicwords.app.core.ui.components.PointsBadge
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
@@ -87,8 +90,8 @@ import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.BrandGreen
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
-import com.quranicwords.app.core.ui.theme.MedallionShapeDefault
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import java.util.Locale
@@ -98,6 +101,8 @@ fun LessonSummaryScreen(
     route: Route.LessonSummary,
     onContinue: () -> Unit,
     onBackHome: () -> Unit = onContinue,
+    onReviewMissed: (List<String>) -> Unit = {},
+    onRetry: (String) -> Unit = {},
     viewModel: LessonSummaryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -109,15 +114,24 @@ fun LessonSummaryScreen(
     var continueClicked by remember { mutableStateOf(false) }
 
     val animatedPointsEarned by animateIntAsState(
-        targetValue = if (visible) route.pointsAwarded else 0,
+        targetValue = if (visible) route.pointsAwarded + route.questRewardXp else 0,
         animationSpec = MotionSpecs.countUp,
         label = "pointsEarned"
     )
 
     val isStreakRecoverySession = route.sessionType == LessonSessionType.STREAK_RECOVERY
     val requiresPassing = !isStreakRecoverySession && (route.lessonKind?.requiresPassingScore() ?: false)
-    val passed = if (isStreakRecoverySession) route.streakIncreased
-    else !requiresPassing || route.accuracyPercent >= GamificationConfig.PASSING_SCORE_PERCENT
+    val passed = summaryPassed(route)
+    val celebration = viewModel.celebration
+    val haptics = rememberQwHaptics()
+    var milestoneDismissed by rememberSaveable { mutableStateOf(false) }
+    var milestoneHapticDone by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(celebration.streakMilestone) {
+        if (celebration.streakMilestone != null && !milestoneHapticDone) {
+            milestoneHapticDone = true
+            haptics.onStreakMilestone()
+        }
+    }
 
     val celebrationIntensity = if (route.accuracyPercent >= 100) CelebrationIntensity.PERFECT else CelebrationIntensity.PASSED
     val newlyUnlockedAchievements = remember(route.newlyUnlockedAchievementIds) {
@@ -128,10 +142,10 @@ fun LessonSummaryScreen(
     val mistakeCount = (route.totalCount - route.correctCount).coerceAtLeast(0)
 
     val wordsCount = if (uiState.wordsCoveredCount > 0) uiState.wordsCoveredCount else route.totalCount
-    val localizedWordsCovered = VerseReferenceFormatter.formatDigits(wordsCount.toString(), language)
+    val localizedWordsCovered = VerseReferenceFormatter.formatNumber(wordsCount, language)
     val localizedAccuracy = VerseReferenceFormatter.formatDigits("${route.accuracyPercent}%", language)
-    val localizedMistakes = VerseReferenceFormatter.formatDigits(mistakeCount.toString(), language)
-    val localizedTotalLearned = VerseReferenceFormatter.formatDigits(uiState.totalWordsLearned.toString(), language)
+    val localizedMistakes = VerseReferenceFormatter.formatNumber(mistakeCount, language)
+    val localizedTotalLearned = VerseReferenceFormatter.formatNumber(uiState.totalWordsLearned, language)
     val localizedCoveragePercent = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", uiState.quranCoveragePercent), language)
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -190,9 +204,11 @@ fun LessonSummaryScreen(
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-                    if (uiState.lessonTitle != null) {
+                    val subtitle = uiState.lessonTitle?.get(language)
+                        ?: if (uiState.isPracticeSession) stringResource(R.string.lesson_summary_practice_session_title) else null
+                    if (subtitle != null) {
                         Text(
-                            text = uiState.lessonTitle?.get(language) ?: "",
+                            text = subtitle,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
@@ -206,12 +222,12 @@ fun LessonSummaryScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Qw3DFlipCard(
                         flipped = visible,
-                        front = { BadgeMedallionPlaceholder() },
+                        front = {},
                         back = { PointsBadge(route.newTotalPoints) }
                     )
                     Qw3DFlipCard(
                         flipped = visible,
-                        front = { BadgeMedallionPlaceholder() },
+                        front = {},
                         back = { StreakBadge(route.currentStreak) }
                     )
                 }
@@ -226,14 +242,14 @@ fun LessonSummaryScreen(
                     ) {
                         SummaryMetricCard(
                             icon = Icons.Filled.AutoStories,
-                            title = stringResource(R.string.lesson_summary_words_covered, wordsCount),
+                            title = stringResource(R.string.lesson_summary_label_words),
                             value = localizedWordsCovered,
                             accentColor = BrandGreen,
                             modifier = Modifier.weight(1f)
                         )
                         SummaryMetricCard(
                             icon = Icons.Filled.CheckCircle,
-                            title = stringResource(R.string.lesson_summary_accuracy, route.accuracyPercent),
+                            title = stringResource(R.string.lesson_summary_label_accuracy),
                             value = localizedAccuracy,
                             accentColor = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.weight(1f)
@@ -246,19 +262,42 @@ fun LessonSummaryScreen(
                     ) {
                         SummaryMetricCard(
                             icon = if (mistakeCount == 0) Icons.Filled.Stars else Icons.Filled.ErrorOutline,
-                            title = if (mistakeCount == 0) stringResource(R.string.lesson_summary_flawless) else stringResource(R.string.lesson_summary_mistakes_count, mistakeCount),
-                            value = if (mistakeCount == 0) "0" else localizedMistakes,
+                            title = if (mistakeCount == 0) stringResource(R.string.lesson_summary_label_flawless) else stringResource(R.string.lesson_summary_label_mistakes),
+                            value = localizedMistakes,
                             accentColor = if (mistakeCount == 0) BrandGold else MaterialTheme.colorScheme.error,
                             modifier = Modifier.weight(1f)
                         )
                         SummaryMetricCard(
                             icon = Icons.AutoMirrored.Filled.TrendingUp,
-                            title = stringResource(R.string.lesson_summary_points_earned, animatedPointsEarned),
-                            value = "+$animatedPointsEarned",
+                            title = stringResource(R.string.lesson_summary_label_points),
+                            value = "+" + VerseReferenceFormatter.formatNumber(animatedPointsEarned, language),
                             accentColor = BrandGold,
                             modifier = Modifier.weight(1f)
                         )
                     }
+                }
+            }
+
+            // XP breakdown, level-up and best combo
+            if (!isStreakRecoverySession && !isInfoOnly) {
+                StaggeredEntrance(index = 3) {
+                    XpBreakdownCard(route = route, language = language)
+                }
+            }
+            celebration.leveledUpTo?.let { level ->
+                StaggeredEntrance(index = 3) {
+                    LevelUpCard(level = level, totalXp = route.newTotalPoints, language = language)
+                }
+            }
+
+            // Words missed this session, with a focused review of exactly those
+            if (uiState.missedWords.isNotEmpty() && !isStreakRecoverySession) {
+                StaggeredEntrance(index = 3) {
+                    MissedWordsCard(
+                        words = uiState.missedWords,
+                        language = language,
+                        onReview = { onReviewMissed(uiState.missedWords.map { it.wordId }) }
+                    )
                 }
             }
 
@@ -302,7 +341,7 @@ fun LessonSummaryScreen(
                                             verticalArrangement = Arrangement.spacedBy(4.dp)
                                         ) {
                                             Text(
-                                                text = word.arabicWord,
+                                                text = quranText(word.arabicWord),
                                                 fontFamily = LocalQuranFontFamily.current,
                                                 fontSize = 20.sp,
                                                 fontWeight = FontWeight.Bold,
@@ -456,6 +495,7 @@ fun LessonSummaryScreen(
                                             text = when (uiState.nextLessonCategory) {
                                                 LemmaCategory.VERB -> stringResource(R.string.lesson_category_verb)
                                                 LemmaCategory.PARTICLE -> stringResource(R.string.lesson_category_particle)
+                                                LemmaCategory.MIXED -> stringResource(R.string.lesson_category_mixed)
                                                 else -> stringResource(R.string.lesson_category_noun)
                                             },
                                             style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.Bold),
@@ -519,7 +559,7 @@ fun LessonSummaryScreen(
                             items(newlyUnlockedAchievements) { achievement ->
                                 Qw3DFlipCard(
                                     flipped = visible,
-                                    front = { BadgeMedallionPlaceholder() },
+                                    front = {},
                                     back = {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                             AchievementBadge(motifKind = achievement.motifKind, unlocked = true)
@@ -541,6 +581,21 @@ fun LessonSummaryScreen(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
+                    // A failed exam/flashback leaves what's next locked - offer the retry first.
+                    if (requiresPassing && !passed) {
+                        QwPrimaryButton(
+                            text = stringResource(R.string.summary_retry),
+                            enabled = !continueClicked,
+                            onClick = {
+                                if (!continueClicked) {
+                                    continueClicked = true
+                                    onRetry(route.lessonId)
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+
                     QwPrimaryButton(
                         text = stringResource(
                             when {
@@ -576,6 +631,159 @@ fun LessonSummaryScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        val milestone = celebration.streakMilestone
+        if (milestone != null && !milestoneDismissed) {
+            StreakMilestoneOverlay(days = milestone, language = language, onDismiss = { milestoneDismissed = true })
+        }
+    }
+}
+
+/** Where this session's XP came from - base, bonuses, the replay halving and quest rewards. */
+@Composable
+private fun XpBreakdownCard(route: Route.LessonSummary, language: com.quranicwords.app.core.domain.model.Language) {
+    GlassSurface(modifier = Modifier.fillMaxWidth(), tint = MaterialTheme.colorScheme.surfaceVariant) {
+        Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(
+                stringResource(R.string.summary_xp_breakdown_title),
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.primary
+            )
+            XpRow(stringResource(R.string.summary_xp_base), route.basePoints, language)
+            if (route.perfectBonus > 0) XpRow(stringResource(R.string.summary_xp_perfect), route.perfectBonus, language)
+            if (route.comboBonus > 0) XpRow(stringResource(R.string.summary_xp_combo), route.comboBonus, language)
+            if (route.replayDeduction > 0) XpRow(stringResource(R.string.summary_xp_replay), -route.replayDeduction, language)
+            if (route.questRewardXp > 0) XpRow(stringResource(R.string.summary_xp_quests, route.completedQuestCount), route.questRewardXp, language)
+            XpRow(stringResource(R.string.summary_xp_total), route.pointsAwarded + route.questRewardXp, language, emphasized = true)
+            if (route.bestCombo >= 2) {
+                Text(
+                    stringResource(R.string.summary_best_combo, VerseReferenceFormatter.formatNumber(route.bestCombo, language)),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun XpRow(label: String, amount: Int, language: com.quranicwords.app.core.domain.model.Language, emphasized: Boolean = false) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(
+            label,
+            style = if (emphasized) MaterialTheme.typography.titleSmall else MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Text(
+            (if (amount >= 0) "+" else "−") + VerseReferenceFormatter.formatNumber(kotlin.math.abs(amount), language),
+            style = if (emphasized) MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold) else MaterialTheme.typography.bodyMedium,
+            color = if (amount >= 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.error
+        )
+    }
+}
+
+@Composable
+private fun LevelUpCard(level: Int, totalXp: Int, language: com.quranicwords.app.core.domain.model.Language) {
+    GlassSurface(
+        modifier = Modifier.fillMaxWidth(),
+        tint = MaterialTheme.colorScheme.tertiaryContainer,
+        accentBorderColor = BrandGold.copy(alpha = 0.6f)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(16.dp).semantics { liveRegion = LiveRegionMode.Polite },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                stringResource(R.string.summary_level_up_title),
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onTertiaryContainer
+            )
+            Text(
+                stringResource(R.string.summary_level_up_body, VerseReferenceFormatter.formatNumber(level, language)),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onTertiaryContainer
+            )
+            LevelProgressBar(totalXp = totalXp)
+        }
+    }
+}
+
+@Composable
+private fun MissedWordsCard(
+    words: List<WordSummaryItem>,
+    language: com.quranicwords.app.core.domain.model.Language,
+    onReview: () -> Unit
+) {
+    GlassSurface(modifier = Modifier.fillMaxWidth(), tint = MaterialTheme.colorScheme.surfaceVariant) {
+        Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(
+                stringResource(R.string.summary_missed_title),
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.primary
+            )
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(words, key = { it.wordId }) { word ->
+                    GlassSurface(shape = RoundedCornerShape(12.dp), tint = MaterialTheme.colorScheme.surface) {
+                        Column(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(quranText(word.arabicWord), fontFamily = LocalQuranFontFamily.current, fontSize = 20.sp)
+                            Text(word.meaning.get(language), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
+            }
+            QwSecondaryButton(
+                text = stringResource(R.string.summary_review_these),
+                onClick = onReview,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+/** A 7/30/100-day streak gets its own moment over the summary - dismissed, it doesn't return. */
+@Composable
+private fun StreakMilestoneOverlay(days: Int, language: com.quranicwords.app.core.domain.model.Language, onDismiss: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.55f)),
+        contentAlignment = Alignment.Center
+    ) {
+        CelebrationBurst(intensity = CelebrationIntensity.PERFECT, modifier = Modifier.fillMaxSize())
+        GlassSurface(
+            modifier = Modifier.padding(32.dp).fillMaxWidth(),
+            tint = MaterialTheme.colorScheme.surface,
+            accentBorderColor = BrandGold
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(24.dp).semantics { liveRegion = LiveRegionMode.Assertive },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                StreakFlame(streakDays = days)
+                Text(
+                    stringResource(R.string.streak_milestone_title, VerseReferenceFormatter.formatNumber(days, language)),
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.semantics { heading() }
+                )
+                Text(
+                    stringResource(R.string.streak_milestone_body),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+                QwPrimaryButton(
+                    text = stringResource(R.string.lesson_continue_button),
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }
@@ -627,15 +835,6 @@ private fun SummaryMetricCard(
             }
         }
     }
-}
-
-@Composable
-private fun BadgeMedallionPlaceholder() {
-    Surface(
-        modifier = Modifier.size(56.dp),
-        shape = MedallionShapeDefault,
-        color = MaterialTheme.colorScheme.surfaceVariant
-    ) {}
 }
 
 private val Route.LessonSummary.accuracyPercent: Int

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -12,16 +12,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 /**
  * Tap-to-place word-order exercise: chips from [content.orderedChips] are shown shuffled in the
@@ -60,35 +65,42 @@ fun WordOrderBuilderExerciseContent(
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            FlowRow(
-                modifier = Modifier.fillMaxWidth().height(56.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                selectedChipIds.forEach { chipId ->
-                    val chip = chipsById[chipId] ?: return@forEach
-                    WordOrderChip(
-                        text = chip.arabicText,
-                        selected = true,
-                        enabled = !isChecked,
-                        onClick = { onDeselectChip(chip.id) }
-                    )
+            // Arabic reads right-to-left whatever the UI language: without forcing RTL here an
+            // English/French UI laid the built verse out reversed. heightIn (not a fixed height)
+            // so a long answer can wrap onto a second line instead of being clipped.
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    selectedChipIds.forEach { chipId ->
+                        val chip = chipsById[chipId] ?: return@forEach
+                        WordOrderChip(
+                            text = chip.arabicText,
+                            selected = true,
+                            enabled = !isChecked,
+                            onClick = { onDeselectChip(chip.id) }
+                        )
+                    }
                 }
             }
         }
 
         HorizontalDivider()
 
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            availableChips.forEach { chip ->
-                WordOrderChip(
-                    text = chip.arabicText,
-                    selected = false,
-                    enabled = !isChecked,
-                    onClick = { onSelectChip(chip.id) }
-                )
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                availableChips.forEach { chip ->
+                    WordOrderChip(
+                        text = chip.arabicText,
+                        selected = false,
+                        enabled = !isChecked,
+                        onClick = { onSelectChip(chip.id) }
+                    )
+                }
             }
         }
     }
@@ -103,9 +115,10 @@ private fun WordOrderChip(text: String, selected: Boolean, enabled: Boolean, onC
         enabled = enabled
     ) {
         Text(
-            text = text,
+            text = quranText(text),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
             fontSize = 20.sp,
+            fontFamily = LocalQuranFontFamily.current,
             color = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
         )
     }

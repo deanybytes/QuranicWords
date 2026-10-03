@@ -11,11 +11,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /** Which short UI sound to play - see [SfxPlayer.play]. */
-enum class SfxEffect { CORRECT, WRONG, LESSON_COMPLETE, EXAM_PASS, STREAK_MILESTONE, OPENING }
+enum class SfxEffect { CORRECT, WRONG, LESSON_COMPLETE, EXAM_PASS, STREAK_MILESTONE, OPENING, QUEST_COMPLETE }
 
 /**
- * Short, low-latency UI sound effects (correct/wrong dings, celebratory chimes) - distinct from
- * [AudioPlayer], which streams/plays longer word-pronunciation recitation clips. [SoundPool] is
+ * Short, low-latency UI sound effects (correct/wrong dings, celebratory chimes). [SoundPool] is
  * the right tool here (not [android.media.MediaPlayer]): it preloads every clip up front and can
  * play overlapping instances with near-zero start latency, which matters for "ding the instant
  * the learner taps the correct answer" responsiveness.
@@ -44,7 +43,9 @@ class SfxPlayer @Inject constructor(
         SfxEffect.LESSON_COMPLETE to soundPool.load(context, R.raw.sfx_lesson_complete, 1),
         SfxEffect.EXAM_PASS to soundPool.load(context, R.raw.sfx_exam_pass, 1),
         SfxEffect.STREAK_MILESTONE to soundPool.load(context, R.raw.sfx_streak_milestone, 1),
-        SfxEffect.OPENING to soundPool.load(context, R.raw.sfx_opening, 1)
+        SfxEffect.OPENING to soundPool.load(context, R.raw.sfx_opening, 1),
+        // The lesson-complete chime, reused - a quest is a small completion of its own.
+        SfxEffect.QUEST_COMPLETE to soundPool.load(context, R.raw.sfx_lesson_complete, 1)
     )
 
     /** No-ops silently if the master sound toggle is off or the clip hasn't finished loading yet

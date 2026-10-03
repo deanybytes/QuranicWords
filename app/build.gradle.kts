@@ -36,7 +36,7 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 36
-        versionCode = 100006
+        versionCode = 100012
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -88,6 +88,12 @@ android {
         compose = true
         buildConfig = true
     }
+    sourceSets {
+        // Exported Room schemas, so MigrationTestHelper can build each historical version.
+        // Robolectric unit tests read the *variant's* merged assets (not the "test" source set),
+        // hence debug - a few KB of JSON, never part of a release build.
+        getByName("debug").assets.srcDir("$projectDir/schemas")
+    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -125,7 +131,10 @@ android {
             "GradleDependency",
             "NewerVersionAvailable",
             "ObsoleteSdkInt",
-            "OldTargetApi"
+            "OldTargetApi",
+            // values-in (legacy Java code) and values-id (BCP-47) are kept as identical copies on
+            // purpose so Indonesian resolves on every Android version - see commit 65ca0b0b.
+            "LocaleFolder"
         )
     }
 

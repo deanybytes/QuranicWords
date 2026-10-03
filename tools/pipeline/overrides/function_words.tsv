@@ -1,0 +1,83 @@
+key	action	display	en	bn	ur	hi	in	tr	fa	fr
+P|و	keep	وَ	and	এবং / আর	اور	और	dan	ve	و	et
+P|ل	keep	لِ	for / to	জন্য / প্রতি	کے لیے / کو	के लिए / को	untuk / bagi	için / -e	برای	pour / à
+P|مِن	keep	مِنْ	from / of	থেকে / হতে	سے / میں سے	से / में से	dari	-den / -dan	از	de / parmi
+P|ف	keep	فَ	so / then	অতঃপর / সুতরাং	پس / تو	तो / फिर	maka	artık / böylece	پس	alors / puis
+P|ب	keep	بِ	with / by / in	দ্বারা / সাথে	سے / ساتھ	से / साथ	dengan	ile	با / به	avec / par
+P|لا	keep	لَا	no / do not	না / নেই	نہیں / نہ	नहीं / न	tidak / jangan	hayır / değil	نه / نباید	non / ne pas
+P|فِي	keep	فِي	in	মধ্যে / ভিতরে	میں	में	di / dalam	içinde	در	dans / en
+P|إِنّ	keep	إِنَّ	indeed / surely	নিশ্চয়ই	بے شک	निःसंदेह = बेशक; यक़ीनन	sesungguhnya	şüphesiz	همانا	certes
+N|ما	keep	مَا	what / that which	যা / কী	جو / کیا	जो / क्या	apa / yang	şey / ne	آنچه / چه	ce que / quoi
+P|ما	keep	مَا	not	না	نہیں	नहीं	tidak	değil	نه = نیست	ne pas
+N|الَّذِي	keep	ٱلَّذِي	who / which / those who	যে / যারা	جو / جنہوں نے	जो / जिन्होंने	yang / orang-orang yang	o kimse ki / onlar ki	کسی که / کسانی که	celui qui / ceux qui
+P|عَلَى	keep	عَلَىٰ	on / upon / against	উপর / বিরুদ্ধে	پر / کے خلاف	पर / के विरुद्ध	atas / di atas	üzerine / karşı	بر / بر ضدِ	sur / contre
+N|ذا	keep	ذَٰلِكَ	that / this	ঐ / এটি	وہ / یہ	वह = वो / यह = ये	itu / ini	o / bu	آن / این	cela / ce
+N|PRON:هم	keep	هُمْ	they	তারা	وہ لوگ = وہ	वे = वो	mereka	onlar	آنان	ils / eux
+N|مَن	keep	مَنْ	who / whoever	যে / কে	جو / کون	जो / कौन	siapa / barang siapa	kim / kimse	هر که / چه کسی	qui / quiconque
+P|إِلَى	keep	إِلَىٰ	to / towards	দিকে / প্রতি	کی طرف	की ओर / तक	kepada / ke	-e / doğru	به / به سوی	vers / à
+P|إِن	keep	إِنْ	if / not	যদি / না	اگر / نہیں	अगर / नहीं	jika / tidak	eğer	اگر	si
+P|إِلّا	keep	إِلَّا	except / but	ছাড়া / ব্যতীত	مگر / سوائے	सिवाय / मगर	kecuali	ancak / -den başka	جز / مگر	sauf / excepté
+P|أَن	keep	أَنْ	that / to	যে / যেন	کہ	कि	bahwa / untuk	-mek / ki	که	que / de
+N|أ	keep	أَ	is it? (question)	কি? (প্রশ্নবোধক)	کیا؟ (سوالیہ)	क्या? (प्रश्नवाचक)	apakah? (tanya)	mı? (soru eki)	آیا؟ (پرسشی)	est-ce que ?
+P|أ	exclude									
+N|PRON:هو	keep	هُوَ	he / it	সে / তিনি	وہ	वह = वो	dia	o	او	il / lui
+P|عَن	keep	عَنْ	about / from	সম্পর্কে / থেকে	کے بارے میں / سے	के बारे में / से	tentang / dari	hakkında / -den	درباره / از	au sujet de / de
+P|قَد	keep	قَدْ	certainly / already	অবশ্যই / ইতিমধ্যে	تحقیق / بے شک	निश्चय ही = तहक़ीक़; यक़ीनन	sungguh / telah	muhakkak	به‌راستی = به راستی; به تحقیق; هر آینه	certes / déjà
+N|إِذا	keep	إِذَا	when	যখন	جب	जब	apabila / ketika	zaman	هنگامی که	lorsque / quand
+P|إِذا	exclude									
+P|أَنّ	keep	أَنَّ	that (indeed)	যে (নিশ্চয়)	کہ (بے شک)	कि (निःसंदेह)	bahwa (sesungguhnya)	ki (gerçekten)	که (همانا)	que (certes)
+P|ي	keep	يَا	O	হে	اے	ऐ	wahai	ey	ای	ô
+P|لَم	keep	لَمْ	did not	নি / করেনি	نہیں کیا = نہیں; نہ	नहीं किया = नहीं; ना	tidak / belum	-medi	نکرد	n'a pas = ne pas
+P|ثُمّ	keep	ثُمَّ	then	তারপর	پھر	फिर	kemudian	sonra	سپس	puis / ensuite
+P|ه	exclude									
+N|إِذ	keep	إِذْ	when / (remember) when	যখন / স্মরণ কর যখন	جب / یاد کرو جب	जब / याद करो जब	ketika / (ingatlah) ketika	hani / o zaman	هنگامی که / آنگاه که	lorsque / quand
+P|ك	keep	كَ	like / as	মতো	کی طرح	की तरह	seperti	gibi	مانند	comme
+P|أَو	keep	أَوْ	or	অথবা	یا	या	atau	veya	یا	ou
+P|لَو	keep	لَوْ	if (only)	যদি	اگر	अगर	seandainya	eğer / keşke	اگر	si
+N|مَع	keep	مَعَ	with	সাথে	ساتھ	साथ	bersama	ile / beraber	با / همراه	avec
+N|لَمّا	keep	لَمَّا	when	যখন	جب	जब	ketika	zaman	هنگامی که	lorsque / quand
+P|لَمّا	exclude									
+P|حَتَّى	keep	حَتَّىٰ	until / so that	যতক্ষণ না / পর্যন্ত	یہاں تک کہ	यहाँ तक कि	sampai / hingga	-e kadar = kadar	تا / تا اینکه	jusqu'à = jusqu’à ce que; jusqu’à-ce que; jusqu’à ce qu’; jusqu’à-ce qu’ / afin que
+P|أَم	keep	أَمْ	or (rather)	নাকি	یا (پھر)	या (फिर)	ataukah	yoksa	یا (آیا)	ou bien
+N|PRON:انتم	keep	أَنْتُمْ	you (plural)	তোমরা	تم سب = تم	तुम सब = तुम	kamu (sekalian)	siz	شما	vous
+P|لَعَلّ	keep	لَعَلَّ	perhaps / so that	সম্ভবত / যাতে	شاید / تاکہ	शायद / ताकि	agar / mudah-mudahan / barangkali = barang kali	umulur ki / belki	شاید / باشد که	peut-être / afin que
+P|بَل	keep	بَلْ	rather / but	বরং	بلکہ	बल्कि	bahkan / tetapi	bilakis	بلکه	mais plutôt = plutôt
+P|س	keep	سَ	will	শীঘ্রই	عنقریب	अनक़रीब	akan	-ecek	به زودی	très bientôt
+P|لَن	keep	لَنْ	will never	কখনো না	ہرگز نہیں	कदापि नहीं = हरगिज़ नहीं	tidak akan	asla	هرگز	ne ... jamais = jamais
+P|هَل	keep	هَلْ	is? / does? (question)	কি?	کیا؟	क्या?	apakah?	mı? / acaba	آیا؟	est-ce que ? / y a-t-il ?
+N|PRON:نحن	keep	نَحْنُ	we	আমরা	ہم	हम	kami	biz	ما	nous
+N|PRON:انت	keep	أَنْتَ	you (singular)	তুমি	تو / آپ	तू / आप	engkau	sen	تو	toi / tu
+P|لَوْلا	keep	لَوْلَا	if not for / why not	যদি না হত / কেন না	اگر نہ ہوتا / کیوں نہیں	अगर न होता / क्यों नहीं	sekiranya tidak / mengapa tidak	olmasaydı / değil miydi	اگر نبود / چرا	n'eût été / pourquoi pas = pourquoi ne pas
+N|PRON:انا	keep	أَنَا	I	আমি	میں	मैं	aku	ben	من	je / moi
+P|لٰكِنّ	keep	لَٰكِنَّ	but	কিন্তু	لیکن	लेकिन	tetapi	fakat	ولی	mais
+P|لٰكِن	merge:P|لٰكِنّ									
+N|PRON:هي	keep	هِيَ	she / it (feminine)	সে (স্ত্রী) / এটি	وہ (مؤنث)	वह (स्त्री) = वो	dia (perempuan)	o (dişil)	او (مؤنث)	elle
+P|أَمّا	keep	أَمَّا	as for	পক্ষান্তরে / আর যে	رہا وہ جو = رہا	जहाँ तक = रहा	adapun	-e gelince	اما	quant à
+P|سَوْف	keep	سَوْفَ	will (in time)	অচিরেই = শীঘ্রই	آگے چل کر = عنقریب	आगे चलकर = अनक़रीब	kelak	-ecek (yakında) = yakında	به زودی (در آینده)	finira par = bientôt
+P|أَلا	keep	أَلَا	behold / indeed	জেনে রাখ	سن لو / خبردار	सुन लो / सावधान = ख़बरदार	ingatlah	iyi bilin ki	آگاه باشید	certes = sans doute / sachez que
+P|كَلّا	keep	كَلَّا	by no means!	কখনো নয় = কখনও না; কখনও নয়	ہرگز نہیں!	कदापि नहीं! = हरगिज़ नहीं	sekali-kali tidak!	hayır, asla! = hayır	هرگز چنین نیست	mais non ! = non, pas du tout
+P|كَأَنّ	keep	كَأَنَّ	as if	যেন	گویا	मानो = गोया कि	seakan-akan	sanki	گویی	comme si
+P|كَأَنْ	merge:P|كَأَنّ									
+P|إِذًا	keep	إِذًا	then / in that case	তাহলে / তখন	تب تو = تب	तब तो = तब	kalau begitu	o takdirde	در آن صورت	alors / dans ce cas
+N|أَنَّى	keep	أَنَّىٰ	how / from where	কীভাবে / কোথা থেকে	کیسے / کہاں سے	कैसे / कहाँ से	bagaimana / dari mana	nasıl / nereden	چگونه / از کجا	comment / d'où
+N|PRON:هن	keep	هُنَّ	they (feminine)	তারা (স্ত্রী)	وہ (عورتیں)	वे (स्त्रियाँ) = वो	mereka (perempuan)	onlar (kadınlar)	آنان (زنان)	elles
+N|ماذا	keep	مَاذَا	what?	কী?	کیا (چیز)؟	क्या (चीज़)?	apa?	ne?	چه چیز؟	que ? / quoi ?
+N|إِيّا	keep	إِيَّا	(you) alone / only (him)	কেবল (তোমাকেই) = শুধু তাঁকেই; তাঁরই শুধু; শুধু তাকেই	صرف (تجھی کو)	केवल (तुझी को) = सिर्फ़ उसी की; सिर्फ़ उसी को	hanya (kepada-Mu)	yalnız (sana)	تنها (تو را)	toi seul / lui seul
+P|إِمّا	keep	إِمَّا	either / whether	হয় / অথবা	یا تو = خواہ; یا	या तो	adakalanya / baik	ya ... ya = ya	یا / چه	soit / ou bien
+P|بَلَى	keep	بَلَىٰ	yes indeed	হ্যাঁ, অবশ্যই = হ্যাঁ	کیوں نہیں	क्यों नहीं	benar (demikian)	evet (öyle)	آری	mais si = si
+N|لَدَى	keep	لَدَىٰ	with / near	কাছে / নিকট	پاس / نزدیک	पास / निकट	di sisi	yanında / katında	نزد	auprès de = auprès
+N|أَيْن	keep	أَيْنَ	where	কোথায়	کہاں	कहाँ	di mana	nerede	کجا	où
+N|PRON:هما	keep	هُمَا	they both	তারা উভয়ে = তারা দু'জনে	وہ دونوں	वे दोनों = वो दोनों	keduanya	ikisi	آن دو	eux deux = ils
+P|لَيْت	keep	لَيْتَ	I wish / would that	হায়	کاش	काश	seandainya	keşke	ای کاش	souhait
+P|كَي	keep	كَيْ	so that = that	যাতে	تاکہ	ताकि	supaya	-sin diye = diye; için	تا اینکه = تا	afin que
+N|مَتَى	keep	مَتَىٰ	when?	কখন?	کب؟	कब?	kapan?	ne zaman?	کی؟	quand ?
+N|هُنالِك	keep	هُنَالِكَ	there / at that time	সেখানে / তখন	وہاں / اس وقت	वहाँ / उस समय	di sana / ketika itu	orada / o zaman	آنجا / آنگاه	là / alors
+P|ت	keep	تَ	by	শপথ	قسم	क़सम	demi	andolsun	سوگند به	par
+N|أَيّان	keep	أَيَّانَ	when (will it be)?	কবে?	کب (آئے گی)؟	कब (आएगी)?	bilakah?	ne vakit?	چه وقت؟	quand donc ?
+N|ثَمّ	keep	ثَمَّ	there	সেখানে	وہاں	वहाँ	di sana	orada	آنجا	là-bas
+N|هُنا	keep	هُنَا	here	এখানে	یہاں	यहाँ	di sini	burada	اینجا	ici
+P|نَعَم	keep	نَعَمْ	yes	হ্যাঁ	ہاں	हाँ	ya	evet	بله = آری	oui
+N|مَهْما	keep	مَهْمَا	whatever	যা কিছুই	جو کچھ بھی	जो कुछ भी	apa saja	her ne	هر چه	quoi que
+P|إِي	exclude									
+N|PRON:انتما	exclude									
+N|PRON:هيه	exclude									

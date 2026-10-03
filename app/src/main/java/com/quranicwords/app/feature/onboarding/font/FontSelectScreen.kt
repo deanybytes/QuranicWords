@@ -115,7 +115,7 @@ private fun FontOptionCard(style: QuranFontStyle, onClick: () -> Unit) {
             ) {
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Text(
-                        text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   "),
+                        text = style.script(QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   ")),
                         fontFamily = style.toFontFamily(),
                         fontSize = 22.sp,
                         lineHeight = 42.sp,

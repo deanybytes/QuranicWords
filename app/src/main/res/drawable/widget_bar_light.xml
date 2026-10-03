@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="999dp" />
+            <solid android:color="@color/wg_light_track" />
+        </shape>
+    </item>
+    <item>
+        <clip
+            android:clipOrientation="horizontal"
+            android:gravity="start">
+            <shape android:shape="rectangle">
+                <corners android:radius="999dp" />
+                <solid android:color="@color/wg_light_fill" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

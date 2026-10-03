@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
-import com.quranicwords.app.core.data.local.entity.LessonKind
+import com.quranicwords.app.core.domain.CoverageCalculator
 import com.quranicwords.app.core.data.local.entity.LessonStatus
 import com.quranicwords.app.core.domain.model.LocalizedText
 import com.quranicwords.app.core.domain.repository.ContentRepository
@@ -23,7 +23,9 @@ data class IntroUiState(
     val title: LocalizedText = emptyMap(),
     val wordCount: Int = 0,
     val occurrencePercent: Double = 0.0,
-    val cumulativePercent: Double = 0.0
+    val cumulativePercent: Double = 0.0,
+    /** The requested chapter/section isn't in the content (stale or bad id) - show a way back. */
+    val isUnavailable: Boolean = false
 )
 
 /**
@@ -35,10 +37,9 @@ data class IntroUiState(
  * ([com.quranicwords.app.core.data.local.entity.ChapterEntity]/[com.quranicwords.app.core.data
  * .local.entity.SectionEntity]'s `wordCount`/`quranOccurrencePercent`) and used as-is.
  * [IntroUiState.cumulativePercent], though, is **not** a position-only sum of earlier
- * siblings' percentages - it reflects [userId]'s actual completed chapter/section exams (via
- * [progressRepository]), so a learner who has skipped or not yet finished an earlier unit doesn't
- * see credit for it. The unit currently being introduced is always added on top, since the copy
- * ("you'll have covered X% ... so far") is a post-completion projection.
+ * siblings' percentages - it is the learner's real coverage so far ([CoverageCalculator], the
+ * same figure Home/Progress show) plus whatever of the unit being introduced is still uncovered,
+ * since the copy ("you'll have covered X% ... so far") is a post-completion projection.
  */
 @HiltViewModel
 class IntroViewModel @Inject constructor(
@@ -57,56 +58,48 @@ class IntroViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val userId = userIdProvider.get()
-            val allChapters = contentRepository.observeChapters().first().sortedBy { it.sortOrder }
+            val tree = contentRepository.getFullCurriculumTree()
             val completedLessonIds = progressRepository.observeProgress(userId).first()
                 .filter { it.status == LessonStatus.COMPLETED }
                 .map { it.lessonId }
                 .toSet()
+            // Same numbers Home/Progress show - see CoverageCalculator.
+            val coverageByChapter = CoverageCalculator.coverageByChapter(tree, completedLessonIds)
+            val coveredSoFar = coverageByChapter.values.sum()
 
-            if (chapterId != null) {
-                val chapter = allChapters.first { it.id == chapterId }
-                val completedPriorChaptersPercent = allChapters
-                    .filter { it.sortOrder < chapter.sortOrder }
-                    .sumOf { c -> if (isChapterExamCompleted(c.id, completedLessonIds)) c.quranOccurrencePercent else 0.0 }
-                _uiState.value = IntroUiState(
-                    isLoading = false,
-                    isChapter = true,
-                    title = chapter.title,
-                    wordCount = chapter.wordCount,
-                    occurrencePercent = chapter.quranOccurrencePercent,
-                    cumulativePercent = completedPriorChaptersPercent + chapter.quranOccurrencePercent
-                )
+            // A stale/deep-linked id that no longer exists in the (re)seeded content must not
+            // crash - fall back to a "not available" state with a way back.
+            val state = if (chapterId != null) {
+                tree.firstOrNull { it.chapter.id == chapterId }?.let { node ->
+                    val chapter = node.chapter
+                    val stillUncovered = (chapter.quranOccurrencePercent - (coverageByChapter[chapter.id] ?: 0.0)).coerceAtLeast(0.0)
+                    IntroUiState(
+                        isLoading = false,
+                        isChapter = true,
+                        title = chapter.title,
+                        wordCount = chapter.wordCount,
+                        occurrencePercent = chapter.quranOccurrencePercent,
+                        cumulativePercent = coveredSoFar + stillUncovered
+                    )
+                }
             } else if (sectionId != null) {
-                val sections = allChapters.flatMap { c -> contentRepository.observeSections(c.id).first() }
-                val section = sections.first { it.id == sectionId }
-                val thisChapter = allChapters.first { it.id == section.chapterId }
-
-                val completedPriorChaptersPercent = allChapters
-                    .filter { it.sortOrder < thisChapter.sortOrder }
-                    .sumOf { c -> if (isChapterExamCompleted(c.id, completedLessonIds)) c.quranOccurrencePercent else 0.0 }
-
-                val sectionsInChapter = contentRepository.observeSections(thisChapter.id).first()
-                val completedPriorSectionsPercent = sectionsInChapter
-                    .filter { it.sortOrder < section.sortOrder }
-                    .sumOf { s -> if (isSectionExamCompleted(s.id, completedLessonIds)) s.quranOccurrencePercent else 0.0 }
-
-                _uiState.value = IntroUiState(
-                    isLoading = false,
-                    isChapter = false,
-                    title = section.title,
-                    wordCount = section.wordCount,
-                    occurrencePercent = section.quranOccurrencePercent,
-                    cumulativePercent = completedPriorChaptersPercent + completedPriorSectionsPercent + section.quranOccurrencePercent
-                )
+                tree.asSequence().flatMap { it.sections.asSequence() }.firstOrNull { it.section.id == sectionId }?.let { node ->
+                    val section = node.section
+                    val covered = CoverageCalculator.sectionCoverage(section, node.lessons, completedLessonIds)
+                    val stillUncovered = (section.quranOccurrencePercent - covered).coerceAtLeast(0.0)
+                    IntroUiState(
+                        isLoading = false,
+                        isChapter = false,
+                        title = section.title,
+                        wordCount = section.wordCount,
+                        occurrencePercent = section.quranOccurrencePercent,
+                        cumulativePercent = coveredSoFar + stillUncovered
+                    )
+                }
+            } else {
+                null
             }
+            _uiState.value = state ?: IntroUiState(isLoading = false, isUnavailable = true)
         }
     }
-
-    private suspend fun isChapterExamCompleted(chapterId: String, completedLessonIds: Set<String>): Boolean =
-        contentRepository.getChapterLevelLessons(chapterId)
-            .any { it.kind == LessonKind.CHAPTER_EXAM && it.id in completedLessonIds }
-
-    private suspend fun isSectionExamCompleted(sectionId: String, completedLessonIds: Set<String>): Boolean =
-        contentRepository.observeLessons(sectionId).first()
-            .any { it.kind == LessonKind.SECTION_EXAM && it.id in completedLessonIds }
 }

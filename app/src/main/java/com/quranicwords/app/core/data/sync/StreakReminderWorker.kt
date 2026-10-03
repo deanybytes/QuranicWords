@@ -12,6 +12,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
 import java.time.Clock
+import com.quranicwords.app.core.domain.DisplayedStreak
 import java.time.LocalDate
 
 /**
@@ -38,11 +39,14 @@ class StreakReminderWorker @AssistedInject constructor(
         val userId = currentUserIdProvider.get()
         val stats = progressRepository.observeStats(userId).first() ?: return Result.success()
         val today = LocalDate.now(clock)
-        val lastActivity = stats.lastActivityLocalDate?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
-        if (lastActivity == today) return Result.success()
+        // Nothing at risk once today's practice is done, and nothing to protect when the streak
+        // the learner actually sees has already lapsed to 0 (the stored value may still be stale).
+        if (DisplayedStreak.practicedToday(stats, today)) return Result.success()
+        val displayedStreak = DisplayedStreak.of(stats, today)
+        if (displayedStreak <= 0) return Result.success()
 
         val language = preferences.languageFlow.first()
-        StreakReminderNotifications.notifyStreakAtRisk(applicationContext, stats.currentStreak, language)
+        StreakReminderNotifications.notifyStreakAtRisk(applicationContext, displayedStreak, language)
         return Result.success()
     }
 

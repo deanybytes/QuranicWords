@@ -36,4 +36,11 @@ class MainViewModel @Inject constructor(
 
     val fontStyle: StateFlow<com.quranicwords.app.core.domain.model.QuranFontStyle> = preferences.fontStyleFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, com.quranicwords.app.core.domain.model.QuranFontStyle.DEFAULT)
+
+    init {
+        // Malay, Hausa and Swahili were withdrawn: a learner who had one stored is read as English
+        // (Language.fromTag) - persist that so the stored tag, backups and widgets agree, and the
+        // English language flow re-applies the AppCompat per-app locale in MainActivity.
+        viewModelScope.launch { preferences.migrateRetiredLanguage() }
+    }
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home-screen widget palette (one green identity, WCAG AA text on every surface).
+     wg_light_* / wg_dark_* are fixed and used when the in-app theme is forced Light or Dark;
+     wg_* follow the launcher's night mode (values-night) for the System theme. -->
+<resources>
+    <color name="wg_light_bg_start">#FFFDFAF1</color>
+    <color name="wg_light_bg_end">#FFF3ECDA</color>
+    <color name="wg_light_stroke">#1F053827</color>
+    <color name="wg_light_card">#CCFFFFFF</color>
+    <color name="wg_light_card_stroke">#14053827</color>
+    <color name="wg_light_chip">#14053827</color>
+    <color name="wg_light_chip_due">#2EC48300</color>
+    <color name="wg_light_chip_learned">#2400964F</color>
+    <color name="wg_light_text_primary">#FF053827</color>
+    <color name="wg_light_text_secondary">#FF2E5A45</color>
+    <color name="wg_light_text_tertiary">#FF55705F</color>
+    <color name="wg_light_accent">#FF00703C</color>
+    <!-- Highlighted word/meaning: green on light, bright gold on the green dark theme (contrast). -->
+    <color name="wg_light_highlight">#FF00703C</color>
+    <color name="wg_light_gold">#FF8A5A00</color>
+    <color name="wg_light_flame">#FFC27A00</color>
+    <color name="wg_light_heart">#FFC2362B</color>
+    <color name="wg_light_cta_bg">#FF053827</color>
+    <color name="wg_light_cta_text">#FFFFFFFF</color>
+    <color name="wg_light_track">#24053827</color>
+    <color name="wg_light_fill">#FF13934F</color>
+    <color name="wg_light_icon_btn">#14053827</color>
+    <color name="wg_dark_bg_start">#FF0A4630</color>
+    <color name="wg_dark_bg_end">#FF04281B</color>
+    <color name="wg_dark_stroke">#337ED957</color>
+    <color name="wg_dark_card">#FF0E5139</color>
+    <color name="wg_dark_card_stroke">#1F7ED957</color>
+    <color name="wg_dark_chip">#1FFFFFFF</color>
+    <color name="wg_dark_chip_due">#38EBC971</color>
+    <color name="wg_dark_chip_learned">#2E7ED957</color>
+    <color name="wg_dark_text_primary">#FFF2F7F0</color>
+    <color name="wg_dark_text_secondary">#FFBCDDC3</color>
+    <color name="wg_dark_text_tertiary">#FFA6C4AE</color>
+    <color name="wg_dark_accent">#FF7ED957</color>
+    <color name="wg_dark_highlight">#FFFFD54F</color>
+    <color name="wg_dark_gold">#FFEBC971</color>
+    <color name="wg_dark_flame">#FFEBC971</color>
+    <color name="wg_dark_heart">#FFFF8A80</color>
+    <color name="wg_dark_cta_bg">#FF7ED957</color>
+    <color name="wg_dark_cta_text">#FF053827</color>
+    <color name="wg_dark_track">#FF2E6B51</color>
+    <color name="wg_dark_fill">#FF7ED957</color>
+    <color name="wg_dark_icon_btn">#1FFFFFFF</color>
+    <color name="wg_bg_start">@color/wg_light_bg_start</color>
+    <color name="wg_bg_end">@color/wg_light_bg_end</color>
+    <color name="wg_stroke">@color/wg_light_stroke</color>
+    <color name="wg_card">@color/wg_light_card</color>
+    <color name="wg_card_stroke">@color/wg_light_card_stroke</color>
+    <color name="wg_chip">@color/wg_light_chip</color>
+    <color name="wg_chip_due">@color/wg_light_chip_due</color>
+    <color name="wg_chip_learned">@color/wg_light_chip_learned</color>
+    <color name="wg_text_primary">@color/wg_light_text_primary</color>
+    <color name="wg_text_secondary">@color/wg_light_text_secondary</color>
+    <color name="wg_text_tertiary">@color/wg_light_text_tertiary</color>
+    <color name="wg_accent">@color/wg_light_accent</color>
+    <color name="wg_highlight">@color/wg_light_highlight</color>
+    <color name="wg_gold">@color/wg_light_gold</color>
+    <color name="wg_flame">@color/wg_light_flame</color>
+    <color name="wg_heart">@color/wg_light_heart</color>
+    <color name="wg_cta_bg">@color/wg_light_cta_bg</color>
+    <color name="wg_cta_text">@color/wg_light_cta_text</color>
+    <color name="wg_track">@color/wg_light_track</color>
+    <color name="wg_fill">@color/wg_light_fill</color>
+    <color name="wg_icon_btn">@color/wg_light_icon_btn</color>
+</resources>

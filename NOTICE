@@ -9,43 +9,42 @@ and open-source typefaces:
 ==============================================================================
 License: GNU General Public License (GPL)
 Source:  https://corpus.quran.com
-Attribution: Quranic Arabic Corpus (University of Leeds)
-Details: Vocabulary frequency rankings, lemma occurrences, and morphological analysis.
+Attribution: Quranic Arabic Corpus (University of Leeds), morphology v0.4, via the
+             corrected fork https://github.com/mustafa0x/quran-morphology
+Details: Lemmas, roots, parts of speech, verb forms, clitic segmentation and frequencies
+         for every word - the basis of the curriculum.
 
 ==============================================================================
-2. Quran-bil-Quran
+2. Verse translations (alquran.cloud and quran.com editions)
 ==============================================================================
-License: MIT License
-Source:  https://github.com/R3GENESI5/quran-bil-quran
-Details: Classical Arabic root lexicons, root definitions, and English verse translations.
+Sources: https://alquran.cloud  and  https://quran.com (API v4)
+Details: Saheeh International (en), Dr. Abu Bakr Muhammad Zakaria (bn),
+         Dr. Israr Ahmad - Bayan-ul-Quran (ur), Maulana Azizul Haque al-Umari (hi),
+         Indonesian Ministry of Religious Affairs (id), Muslim Shahin (tr),
+         Hussein Taji Kal Dari (fa), Muhammad Hamidullah (fr).
+Reference text: Tanzil Quran Text (Uthmani), https://tanzil.net - used only to verify
+         that every cited verse is the complete ayah.
 
 ==============================================================================
-3. Bangla Quran Dataset
-==============================================================================
-License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-Source:  https://github.com/risan/quran-json
-Details: Bangla Quranic verse translations.
-
-==============================================================================
-4. Greentech Apps Foundation (GTAF)
+3. Greentech Apps Foundation (GTAF)
 ==============================================================================
 Source:  https://quran.gtaf.org
-Details: Multilingual word-by-word Quran reference databases across 12 languages
-         (Albanian, Bangla, Chinese, English, Farsi, French, German, Hindi,
-         Indonesian, Russian, Turkish, Urdu).
+Details: Word-by-word glosses (the source of every word meaning) in English, Bangla,
+         Urdu, Hindi, Indonesian, Turkish, Farsi and French.
 
 ==============================================================================
-5. Open Typography & Typefaces
+4. Open Typography & Typefaces
 ==============================================================================
-License: SIL Open Font License, Version 1.1 (https://openfontlicense.org)
-Typefaces:
-  • Amiri (Uthmani Script) - The Amiri Project Authors
-  • Scheherazade New (Naskh Script) - SIL Global
-  • Noto Naskh Arabic (Simple Naskh) - The Noto Project Authors
-  • Lateef (IndoPak Naskh Style) - SIL Global
-  • Noto Nastaliq Urdu (Nastaliq Style) - The Noto Project Authors
+License: SIL Open Font License, Version 1.1 (https://openfontlicense.org), except KFGQPC
+Typefaces (each renders the complete Uthmani text, including pause marks and open tanween):
+  • KFGQPC Uthmanic Script Hafs (Madinah Mushaf style) - King Fahd Glorious Qur'an Printing
+    Complex, distributed under the KFGQPC end-user licence
+  • Amiri (classic Naskh) - The Amiri Project Authors (SIL OFL 1.1)
+  • Scheherazade New (traditional Naskh) - SIL Global (SIL OFL 1.1)
+  • Noto Naskh Arabic (modern Naskh) - The Noto Project Authors (SIL OFL 1.1)
+  • Lateef (South Asian Naskh) - SIL Global (SIL OFL 1.1)
+  • Noore Huda (Noorani Qur'an, Indo-Pak) and Noore Hira (Hafezi Qur'an, Indo-Pak 15-line) -
+    NooreHidayat, www.noorehidayat.org; free to distribute with any application per the
+    NooreHidayat end-user licence. Shown with five marks in their Indo-Pak form (ٱ→ا, ۡ→ْ,
+    ٞ ٖ ٗ → ٌ ٍ ً).
 
-==============================================================================
-6. Word Pronunciation Audio
-==============================================================================
-Details: Synthesized Arabic pronunciation assistance powered by Google Cloud Text-to-Speech.

@@ -58,7 +58,8 @@ import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.BrandGreen
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.VerseReferenceFormatter
-import java.util.Locale
+import com.quranicwords.app.core.ui.components.chapterLabel
+import java.text.NumberFormat
 
 @Composable
 fun ChapterIntroExerciseContent(
@@ -78,15 +79,22 @@ fun ChapterIntroExerciseContent(
         animatedProgress = (content.accumulatedCoveragePercent / 100f).coerceIn(0f, 1f)
     }
 
-    val localizedChapterNumber = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.chapterNumber.toString(), language)
-    val localizedWordCount = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.wordCount.toString(), language)
-    val localizedOccurrences = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%,d", content.quranOccurrenceCount), language)
-    val localizedChapterCoverage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", content.chapterCoveragePercent), language)
-    val localizedAccumulatedCoverage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", content.accumulatedCoveragePercent), language)
-    val localizedAccumulatedWords = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.accumulatedWords.toString(), language)
-    val localizedNouns = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.nounCount.toString(), language)
-    val localizedVerbs = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.verbCount.toString(), language)
-    val localizedParticles = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(content.particleCount.toString(), language)
+    // Locale-aware grouping/decimal separators first (NumberFormat), then native digits.
+    val percentFormat = remember(language) {
+        NumberFormat.getNumberInstance(language.locale).apply {
+            minimumFractionDigits = 1
+            maximumFractionDigits = 1
+        }
+    }
+    fun localizedPercent(value: Float) = VerseReferenceFormatter.formatDigits(percentFormat.format(value) + "%", language)
+    val localizedWordCount = VerseReferenceFormatter.formatNumber(content.wordCount, language)
+    val localizedOccurrences = VerseReferenceFormatter.formatNumber(content.quranOccurrenceCount, language)
+    val localizedChapterCoverage = localizedPercent(content.chapterCoveragePercent)
+    val localizedAccumulatedCoverage = localizedPercent(content.accumulatedCoveragePercent)
+    val localizedAccumulatedWords = VerseReferenceFormatter.formatNumber(content.accumulatedWords, language)
+    val localizedNouns = VerseReferenceFormatter.formatNumber(content.nounCount, language)
+    val localizedVerbs = VerseReferenceFormatter.formatNumber(content.verbCount, language)
+    val localizedParticles = VerseReferenceFormatter.formatNumber(content.particleCount, language)
 
     Column(
         modifier = modifier
@@ -142,13 +150,12 @@ fun ChapterIntroExerciseContent(
                             tint = BrandGold,
                             modifier = Modifier.size(16.dp)
                         )
-                        val bnOrdinals = arrayOf("", "১ম", "২য়", "৩য়", "৪র্থ", "৫ম", "৬ষ্ঠ", "৭ম", "৮ম", "৯ম", "১০ম")
-                        val urOrdinals = arrayOf("", "پہلا", "دوسرا", "تیسرا", "چوتھا", "پانچواں", "چھٹا", "ساتواں", "آٹھواں", "نواں", "دسواں")
-                        val badgeText = when (language) {
-                            com.quranicwords.app.core.domain.model.Language.BANGLA -> if (content.chapterNumber in 1..10) "${bnOrdinals[content.chapterNumber]} অধ্যায় পরিচিতি" else "অধ্যায় $localizedChapterNumber পরিচিতি"
-                            com.quranicwords.app.core.domain.model.Language.URDU -> if (content.chapterNumber in 1..10) "${urOrdinals[content.chapterNumber]} باب کا تعارف" else "باب $localizedChapterNumber کا تعارف"
-                            else -> stringResource(R.string.chapter_intro_label, localizedChapterNumber)
-                        }
+                        val badgeText = chapterLabel(
+                            number = content.chapterNumber,
+                            language = language,
+                            numericRes = R.string.chapter_intro_label,
+                            ordinalRes = R.string.chapter_intro_label_ordinal
+                        )
 
                         Text(
                             text = badgeText,
@@ -375,19 +382,19 @@ fun ChapterIntroExerciseContent(
                         dotColor = BrandGreen,
                         label = stringResource(R.string.chapter_intro_ism_label),
                         count = localizedNouns,
-                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", nounPct), language)
+                        percentage = localizedPercent(nounPct)
                     )
                     PosItem(
                         dotColor = BrandGold,
                         label = stringResource(R.string.chapter_intro_fil_label),
                         count = localizedVerbs,
-                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", verbPct), language)
+                        percentage = localizedPercent(verbPct)
                     )
                     PosItem(
                         dotColor = particleColor,
                         label = stringResource(R.string.chapter_intro_harf_label),
                         count = localizedParticles,
-                        percentage = VerseReferenceFormatter.formatDigits(String.format(Locale.US, "%.1f%%", particlePct), language)
+                        percentage = localizedPercent(particlePct)
                     )
                 }
             }

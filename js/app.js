@@ -1,973 +1,491 @@
-/**
- * QuranicWords — Master Application Orchestrator
- * High Performance SPA Controller with Full Multilingual (i18n) Engine
- */
+// QuranicWords web app — orchestrator: boot, routing, header chrome, filters and shared actions.
+import { APP_VERSION, BASE } from './config.js';
+import { h, clear, isTypingTarget, arabic } from './dom.js';
+import { LANGUAGES, normalizeLang, setLang, getLang, langInfo, t, formatNumber, formatPercent, pick } from './i18n.js';
+import { readJSON, writeJSON, readString, writeString } from './storage.js';
+import { DataStore } from './data.js';
+import { filterWords, skeleton } from './search.js';
+import { parseRoute, buildUrl, setBase, VIEWS } from './router.js';
 
-import { dbService } from './db.js';
-import { audioService } from './audio.js';
-import { SearchEngine, stripTashkeel } from './search.js';
-import { t, I18N_DICTIONARY } from './i18n.js';
+setBase(BASE);
+import { dayNumber, dueIds } from './srs.js';
+import { ProgressStore, levelForXp, xpForLevel, currentStreak, knownFraction } from './progress.js';
+import { toast, initModal, modalOpen, closeModal, celebrate } from './ui.js';
+import { cardsView, tableView, rootsView } from './views/dictionary.js';
+import { flashcardsView, reviewView } from './views/study.js';
+import { quizView } from './views/quizView.js';
+import { learnView, nextLesson } from './views/learn.js';
+import { progressView } from './views/progressView.js';
 
-class QuranicApp {
+const VIEW_IMPL = { learn: learnView, review: reviewView, cards: cardsView, table: tableView, flashcards: flashcardsView, quiz: quizView, roots: rootsView, progress: progressView };
+const NAV_KEY = { learn: 'navLearn', review: 'navReview', cards: 'navDictionary', table: 'navTable', flashcards: 'navFlashcards', quiz: 'navQuiz', roots: 'navRoots', progress: 'navProgress' };
+const BOOKMARKS_KEY = 'qw_bookmarks';
+
+const $ = (id) => document.getElementById(id);
+
+class App {
   constructor() {
-    // Application State
-    this.wordsSummary = [];
-    this.wordsFull = new Map(); // id -> full word object with verses
-    this.metadata = null;
-    this.roots = [];
-    this.filteredWords = [];
-    this.searchEngine = new SearchEngine();
-
-    // UI State
-    this.currentLang = localStorage.getItem('qw_lang') || 'en';
-    this.currentTheme = localStorage.getItem('qw_theme') || 'dark';
-    this.currentView = 'cards'; // 'cards' | 'table' | 'flashcards' | 'roots' | 'quiz'
-    this.bookmarks = new Set(JSON.parse(localStorage.getItem('qw_bookmarks') || '[]'));
-    
-    // Batch Rendering State
-    this.renderedCount = 0;
-    this.BATCH_SIZE = 24;
-    this.observer = null;
-
-    // Flashcard State
-    this.fcIndex = 0;
-    this.fcFlipped = false;
-    this.fcStreak = 0;
-
-    // Quiz State
-    this.quizQuestion = null;
-    this.quizScore = 0;
-    this.quizTotal = 0;
-    this.quizAnswered = false;
-
-    // Elements
-    this.el = {};
+    this.data = new DataStore();
+    this.store = new ProgressStore();
+    this.state = { view: 'cards', q: '', ch: null, cat: null, root: null, sort: 'curriculum', saved: false };
+    this.filterVersion = 0;
+    this.memo = { key: null, list: [] };
+    const saved = readJSON(BOOKMARKS_KEY, []);
+    this.bookmarks = new Set(Array.isArray(saved) ? saved.filter((x) => typeof x === 'string') : []);
+    this.savedVersion = 0;
+    this.ready = false;
+    this.currentView = null;
+    this.ctx = this.makeContext();
   }
 
+  /* ---------------- Context handed to views ---------------- */
+  makeContext() {
+    const app = this;
+    return {
+      data: this.data,
+      store: this.store,
+      get filterVersion() { return app.filterVersion; },
+      today: () => dayNumber(),
+      filtered: () => app.filtered(),
+      skeleton,
+      rerender: () => app.renderView(),
+      navigate: (v) => app.navigate(v),
+      isSaved: (id) => app.bookmarks.has(id),
+      toggleSaved: (id) => app.toggleSaved(id),
+      copyWord: (w) => app.copyWord(w),
+      filterByRoot: (root) => app.filterByRoot(root),
+      clearFilters: () => app.clearFilters(),
+      practiceMistakes: () => { quizView.pool = 'mistakes'; quizView.question = null; app.navigate('quiz'); },
+      gradeWord: (id, g, firstTry) => app.gradeWord(id, g, firstTry),
+      answerQuiz: (id, ok) => app.answerQuiz(id, ok),
+      answerLesson: (id, ok) => app.answerLesson(id, ok),
+    };
+  }
+
+  /* ---------------- Boot ---------------- */
   async init() {
-    this.initTheme();
-    this.cacheElements();
-    this.bindEvents();
-    this.initIntersectionObserver();
-
-    try {
-      // Step 1: Fast asynchronous load of metadata and summary dataset (<50ms)
-      const [meta, summary, roots] = await Promise.all([
-        dbService.fetchCached('/data/metadata.json?v=1.0.3', 'meta_v3'),
-        dbService.fetchCached('/data/words_summary.json?v=1.0.3', 'words_summary_v3'),
-        dbService.fetchCached('/data/roots.json?v=1.0.3', 'roots_v3')
-      ]);
-
-      this.metadata = meta;
-      this.wordsSummary = summary;
-      this.roots = roots;
-      this.searchEngine.setWords(summary);
-
-      // Populate UI filters & statistics
-      this.renderMetadataStats();
-      this.renderRootCloud();
-
-      // Apply initial full internationalization
-      this.updateUILanguage(this.currentLang, false);
-
-      // Handle URL Deep-Linking & Search Query Parameters for SEO & Sitelinks
-      this.handleURLParameters();
-
-      // Step 2: Background preload of full verses data
-      setTimeout(() => this.preloadFullVerses(), 200);
-
-    } catch (err) {
-      console.error('Error initializing QuranicWords app:', err);
-      this.showToast('⚠️ Error loading dictionary data. Please check your connection.');
-    }
+    const route = parseRoute(location.pathname, location.search);
+    const lang = normalizeLang(route.lang) || normalizeLang(readString('qw_lang')) || normalizeLang(navigator.language) || 'en';
+    if (route.lang && normalizeLang(route.lang)) writeString('qw_lang', lang);
+    this.applyRoute(route);
+    this.setLanguage(lang, false);
+    this.bindChrome();
+    initModal();
+    this.store.onChange(() => this.renderChrome());
+    this.registerServiceWorker();
+    await this.loadData();
   }
 
-  handleURLParameters() {
+  async loadData() {
+    const status = $('app-status');
+    status.hidden = false;
+    status.className = 'app-status';
+    clear(status).append(h('div', { class: 'spinner', attrs: { 'aria-hidden': 'true' } }), h('p', { text: t('loadingData') }));
     try {
-      const params = new URLSearchParams(window.location.search);
-      let filterNeeded = false;
-
-      // 1. Language parameter (?lang=bn)
-      const lang = params.get('lang');
-      if (lang && I18N_DICTIONARY[lang] && lang !== this.currentLang) {
-        this.currentLang = lang;
-        localStorage.setItem('qw_lang', lang);
-        if (this.el.langSelect) this.el.langSelect.value = lang;
-        this.updateUILanguage(lang, false);
-      }
-
-      // 2. View / Mode parameter (?view=roots or ?mode=flashcards)
-      const view = params.get('view') || params.get('mode');
-      if (view && ['cards', 'table', 'flashcards', 'roots', 'quiz'].includes(view)) {
-        this.switchView(view);
-      }
-
-      // 3. Search query (?q=min or ?search=qala)
-      const query = params.get('q') || params.get('search');
-      if (query && this.el.searchInput) {
-        this.el.searchInput.value = query;
-        if (this.el.searchClearBtn) this.el.searchClearBtn.style.display = 'block';
-        filterNeeded = true;
-      }
-
-      // 4. Root parameter (?root=كتب)
-      const root = params.get('root');
-      if (root && this.el.searchInput) {
-        this.el.searchInput.value = root;
-        if (this.el.searchClearBtn) this.el.searchClearBtn.style.display = 'block';
-        filterNeeded = true;
-      }
-
-      // 5. Part of speech filter (?pos=verb)
-      const pos = params.get('pos');
-      if (pos && this.el.posFilter) {
-        this.el.posFilter.value = pos;
-        filterNeeded = true;
-      }
-
-      // 6. Chapter filter (?chapter=ch_01)
-      const ch = params.get('chapter') || params.get('ch');
-      if (ch && this.el.chapterFilter) {
-        this.el.chapterFilter.value = ch;
-        filterNeeded = true;
-      }
-
-      if (filterNeeded) {
-        this.applyFilter();
-      }
+      await this.data.load();
     } catch (e) {
-      console.warn('URL parameters handling notice:', e);
+      console.error(e);
+      status.className = 'app-status is-error';
+      clear(status).append(h('p', { attrs: { role: 'alert' }, text: t('loadError') }),
+        h('button', { type: 'button', class: 'btn btn-primary', text: t('retry'), on: { click: () => this.loadData() } }));
+      return;
     }
+    status.hidden = true;
+    this.ready = true;
+    this.renderFilters();
+    this.renderHero();
+    this.renderAbout();
+    this.renderChrome();
+    this.showView(this.state.view);
   }
 
-  async preloadFullVerses() {
-    try {
-      const fullList = await dbService.fetchCached('/data/words.json?v=1.0.3', 'words_full_v3');
-      if (Array.isArray(fullList)) {
-        for (const w of fullList) {
-          this.wordsFull.set(w.id, w);
-        }
+  /* ---------------- Language & theme ---------------- */
+  setLanguage(code, announce = true) {
+    const lang = setLang(code);
+    const info = langInfo(lang);
+    document.documentElement.lang = info.bcp47;
+    document.documentElement.dir = info.dir;
+    writeString('qw_lang', lang);
+    this.applyStaticI18n();
+    const sel = $('lang-select');
+    if (sel && !sel.options.length) {
+      for (const l of LANGUAGES) sel.appendChild(h('option', { value: l.code, text: l.name, attrs: { lang: l.bcp47 } }));
+    }
+    if (sel) sel.value = lang;
+    this.memo.key = null;
+    if (this.ready) {
+      this.renderFilters();
+      this.renderHero();
+      this.renderChrome();
+      this.renderView();
+      this.updateTitle();
+    }
+    if (announce) toast(t('langSwitched', { lang: info.name }));
+  }
+
+  applyStaticI18n() {
+    for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
+    for (const el of document.querySelectorAll('[data-i18n-attr]')) {
+      for (const pair of el.dataset.i18nAttr.split(';')) {
+        const [attr, key] = pair.split(':');
+        if (attr && key) el.setAttribute(attr.trim(), t(key.trim()));
       }
-    } catch (e) {
-      console.warn('Background full verses preload notice:', e);
     }
-  }
-
-  cacheElements() {
-    this.el.wordsGrid = document.getElementById('words-grid');
-    this.el.tableBody = document.getElementById('table-body');
-    this.el.cardsContainer = document.getElementById('cards-container');
-    this.el.tableContainer = document.getElementById('table-container');
-    this.el.flashcardContainer = document.getElementById('flashcard-container');
-    this.el.rootsContainer = document.getElementById('roots-container');
-    this.el.quizContainer = document.getElementById('quiz-container');
-    this.el.loadingIndicator = document.getElementById('loading-indicator');
-    this.el.emptyState = document.getElementById('empty-state');
-    
-    // Inputs & Controls
-    this.el.searchInput = document.getElementById('search-input');
-    this.el.searchClearBtn = document.getElementById('search-clear-btn');
-    this.el.chapterFilter = document.getElementById('chapter-filter');
-    this.el.posFilter = document.getElementById('pos-filter');
-    this.el.sortFilter = document.getElementById('sort-filter');
-    this.el.langSelect = document.getElementById('lang-select');
-    this.el.themeToggleBtn = document.getElementById('theme-toggle-btn');
-    this.el.bookmarksToggleBtn = document.getElementById('bookmarks-toggle-btn');
-    this.el.randomWordBtn = document.getElementById('random-word-btn');
-    
-    // Stats
-    this.el.statTotalWords = document.getElementById('stat-total-words');
-    this.el.statOccurrences = document.getElementById('stat-occurrences');
-    this.el.statRoots = document.getElementById('stat-roots');
-    this.el.statFilteredCount = document.getElementById('stat-filtered-count');
-    
-    // Modal
-    this.el.modalBackdrop = document.getElementById('polysemy-modal');
-    this.el.modalBody = document.getElementById('modal-body');
-    this.el.modalCloseBtn = document.getElementById('modal-close-btn');
-
-    // Toast
-    this.el.toastContainer = document.getElementById('toast-container');
-  }
-
-  initTheme() {
-    document.documentElement.setAttribute('data-theme', this.currentTheme);
   }
 
   toggleTheme() {
-    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', this.currentTheme);
-    localStorage.setItem('qw_theme', this.currentTheme);
-    this.updateThemeButtonIcon();
+    const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    writeString('qw_theme', next);
+    this.updateThemeIcon();
   }
 
-  updateThemeButtonIcon() {
-    if (this.el.themeToggleBtn) {
-      this.el.themeToggleBtn.innerHTML = this.currentTheme === 'dark' ? '☀️' : '🌙';
-    }
+  updateThemeIcon() {
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    $('theme-icon').textContent = light ? '☾' : '☀';
+    $('theme-toggle').setAttribute('aria-pressed', String(!light));
   }
 
-  bindEvents() {
-    // Search input with debounce
-    let searchDebounce;
-    this.el.searchInput.addEventListener('input', (e) => {
-      clearTimeout(searchDebounce);
-      const val = e.target.value;
-      this.el.searchClearBtn.style.display = val ? 'block' : 'none';
-      searchDebounce = setTimeout(() => this.applyFilter(), 60);
+  /* ---------------- Chrome bindings ---------------- */
+  bindChrome() {
+    $('lang-select').addEventListener('change', (e) => this.setLanguage(e.target.value));
+    $('theme-toggle').addEventListener('click', () => this.toggleTheme());
+    this.updateThemeIcon();
+
+    // Internal links: <a data-route> anywhere (nav, brand, buttons rendered by views).
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-route]');
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      this.navigate(a.dataset.route);
     });
-
-    this.el.searchClearBtn.addEventListener('click', () => {
-      this.el.searchInput.value = '';
-      this.el.searchClearBtn.style.display = 'none';
-      this.applyFilter();
+    window.addEventListener('popstate', () => {
+      this.applyRoute(parseRoute(location.pathname, location.search));
+      if (this.ready) { this.renderFilters(); this.showView(this.state.view, { focus: false }); }
     });
 
     // Filters
-    this.el.chapterFilter.addEventListener('change', () => this.applyFilter());
-    this.el.posFilter.addEventListener('change', () => this.applyFilter());
-    this.el.sortFilter.addEventListener('change', () => this.applyFilter());
-
-    // Language Select
-    this.el.langSelect.value = this.currentLang;
-    this.el.langSelect.addEventListener('change', (e) => {
-      this.currentLang = e.target.value;
-      localStorage.setItem('qw_lang', this.currentLang);
-      this.updateUILanguage(this.currentLang, true);
+    const input = $('search-input');
+    let debounce = null;
+    input.addEventListener('input', () => {
+      $('search-clear').hidden = !input.value;
+      clearTimeout(debounce);
+      debounce = setTimeout(() => this.setFilter({ q: input.value.trim() }), 150);
     });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Escape' && input.value) { e.stopPropagation(); input.value = ''; this.setFilter({ q: '' }); $('search-clear').hidden = true; } });
+    $('search-clear').addEventListener('click', () => { input.value = ''; $('search-clear').hidden = true; this.setFilter({ q: '' }); input.focus(); });
+    $('chapter-filter').addEventListener('change', (e) => this.setFilter({ ch: e.target.value ? Number(e.target.value) : null }));
+    $('cat-filter').addEventListener('change', (e) => this.setFilter({ cat: e.target.value || null }));
+    $('sort-filter').addEventListener('change', (e) => this.setFilter({ sort: e.target.value }));
+    $('saved-toggle').addEventListener('click', () => this.setFilter({ saved: !this.state.saved }));
+    $('random-btn').addEventListener('click', () => this.randomWord());
 
-    // Theme Toggle
-    this.el.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
-    this.updateThemeButtonIcon();
-
-    // Bookmarks Filter Toggle
-    let showOnlyBookmarks = false;
-    this.el.bookmarksToggleBtn.addEventListener('click', () => {
-      showOnlyBookmarks = !showOnlyBookmarks;
-      this.el.bookmarksToggleBtn.classList.toggle('btn-gold', showOnlyBookmarks);
-      this.applyFilter(showOnlyBookmarks);
-    });
-
-    // Random Discovery
-    this.el.randomWordBtn.addEventListener('click', () => this.openRandomWord());
-
-    // View Mode Tabs
-    document.querySelectorAll('.view-tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mode = btn.dataset.mode;
-        this.switchView(mode);
-      });
-    });
-
-    // Modal Close
-    this.el.modalCloseBtn.addEventListener('click', () => this.closeModal());
-    this.el.modalBackdrop.addEventListener('click', (e) => {
-      if (e.target === this.el.modalBackdrop) this.closeModal();
-    });
-
-    // Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== this.el.searchInput) {
-        e.preventDefault();
-        this.el.searchInput.focus();
-      } else if (e.key === 'Escape') {
-        this.closeModal();
-      } else if (this.currentView === 'flashcards') {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          this.flipFlashcard();
-        } else if (e.code === 'ArrowRight') {
-          this.nextFlashcard();
-        } else if (e.code === 'ArrowLeft') {
-          this.prevFlashcard();
-        } else if (e.key.toLowerCase() === 'a') {
-          const w = this.filteredWords[this.fcIndex];
-          if (w) audioService.speakArabic(w.ar);
-        }
-      }
-    });
+    document.addEventListener('keydown', (e) => this.onKey(e));
   }
 
-  /**
-   * Complete UI Internationalization Switcher
-   */
-  updateUILanguage(lang, showToastNotification = true) {
-    const dict = I18N_DICTIONARY[lang] || I18N_DICTIONARY['en'];
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', dict.dir || 'ltr');
+  onKey(e) {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (modalOpen()) return; // the dialog handles its own keys (Esc, focus trap)
+    if (isTypingTarget(e.target)) return; // never steal keys from text fields / selects
+    if (e.key === '/' && !$('filters').hidden) { e.preventDefault(); $('search-input').focus(); return; }
+    // Let Space/Enter activate the focused button, link or summary natively.
+    const interactive = e.target.closest && e.target.closest('button, a, summary, [role="button"]');
+    if (interactive && (e.key === ' ' || e.key === 'Enter') && !interactive.classList.contains('flashcard-perspective-box')) return;
+    if (interactive && interactive.classList.contains('flashcard-perspective-box') && e.key === 'Enter') return;
+    const view = VIEW_IMPL[this.state.view];
+    if (this.ready && view && view.onKey) view.onKey(this.ctx, $(`view-${this.state.view}`), e);
+  }
 
-    // Update Header & Brand
-    const brandSub = document.querySelector('.brand-sub');
-    if (brandSub) brandSub.textContent = t(lang, 'brandSub');
+  /* ---------------- Routing ---------------- */
+  applyRoute(r) {
+    this.state.view = VIEWS.includes(r.view) ? r.view : 'cards';
+    const f = { q: r.q, ch: r.ch, cat: r.cat, root: r.root, sort: r.sort, saved: r.saved };
+    const changed = ['q', 'ch', 'cat', 'root', 'sort', 'saved'].some((k) => this.state[k] !== f[k]);
+    Object.assign(this.state, f);
+    if (changed) this.filterVersion++;
+  }
 
-    // Update Hero
-    const heroPill = document.getElementById('hero-pill');
-    if (heroPill) heroPill.textContent = t(lang, 'heroPill');
-    const heroTitle = document.getElementById('hero-title');
-    if (heroTitle) heroTitle.textContent = t(lang, 'heroTitle');
-    const heroSub = document.getElementById('hero-sub');
-    if (heroSub) heroSub.textContent = t(lang, 'heroSub');
+  navigate(view, { push = true } = {}) {
+    if (!VIEWS.includes(view)) view = 'cards';
+    if (modalOpen()) closeModal();
+    const url = buildUrl(view, this.state);
+    if (push && url !== location.pathname + location.search) history.pushState({ view }, '', url);
+    this.state.view = view;
+    if (this.ready) this.showView(view);
+  }
 
-    // Update Stats Ribbon labels
-    const lblLemmas = document.getElementById('stat-lbl-lemmas');
-    if (lblLemmas) lblLemmas.textContent = t(lang, 'statLemmas');
-    const lblOcc = document.getElementById('stat-lbl-occ');
-    if (lblOcc) lblOcc.textContent = t(lang, 'statOccurrences');
-    const lblRoots = document.getElementById('stat-lbl-roots');
-    if (lblRoots) lblRoots.textContent = t(lang, 'statRoots');
-    const lblChapters = document.getElementById('stat-lbl-chapters');
-    if (lblChapters) lblChapters.textContent = t(lang, 'statChapters');
-    const lblLangs = document.getElementById('stat-lbl-languages');
-    if (lblLangs) lblLangs.textContent = t(lang, 'statLanguages');
-
-    // Update Search bar & shortcuts
-    if (this.el.searchInput) this.el.searchInput.placeholder = t(lang, 'searchPlaceholder');
-    const searchShortcut = document.getElementById('search-shortcut');
-    if (searchShortcut) searchShortcut.textContent = t(lang, 'searchShortcut');
-
-    // Update View Mode Tabs
-    const tabCards = document.getElementById('tab-btn-cards');
-    if (tabCards) tabCards.textContent = t(lang, 'tabCards');
-    const tabTable = document.getElementById('tab-btn-table');
-    if (tabTable) tabTable.textContent = t(lang, 'tabTable');
-    const tabFlashcards = document.getElementById('tab-btn-flashcards');
-    if (tabFlashcards) tabFlashcards.textContent = t(lang, 'tabFlashcards');
-    const tabRoots = document.getElementById('tab-btn-roots');
-    if (tabRoots) tabRoots.textContent = t(lang, 'tabRoots');
-    const tabQuiz = document.getElementById('tab-btn-quiz');
-    if (tabQuiz) tabQuiz.textContent = t(lang, 'tabQuiz');
-
-    // Update Dropdown Filters
-    this.renderChapterFilters();
-    this.renderPosFilter();
-    this.renderSortFilter();
-
-    // Update Table Header
-    const thIdx = document.getElementById('th-index');
-    if (thIdx) thIdx.textContent = t(lang, 'tableIndex');
-    const thLemma = document.getElementById('th-lemma');
-    if (thLemma) thLemma.textContent = t(lang, 'tableLemma');
-    const thTranslit = document.getElementById('th-translit');
-    if (thTranslit) thTranslit.textContent = t(lang, 'tableTranslit');
-    const thRoot = document.getElementById('th-root');
-    if (thRoot) thRoot.textContent = t(lang, 'tableRoot');
-    const thMeaning = document.getElementById('th-meaning');
-    if (thMeaning) thMeaning.textContent = t(lang, 'tableMeaning');
-    const thFreq = document.getElementById('th-freq');
-    if (thFreq) thFreq.textContent = t(lang, 'tableFreq');
-    const thAudio = document.getElementById('th-audio');
-    if (thAudio) thAudio.textContent = t(lang, 'tableAudio');
-
-    // Update Flashcards UI text
-    const fcFrontHint = document.getElementById('fc-flip-hint-front');
-    if (fcFrontHint) fcFrontHint.textContent = t(lang, 'fcFlipHintFront');
-    const fcBackHint = document.getElementById('fc-flip-hint-back');
-    if (fcBackHint) fcBackHint.textContent = t(lang, 'fcFlipHintBack');
-    const fcPrev = document.getElementById('fc-prev-btn');
-    if (fcPrev) fcPrev.textContent = t(lang, 'fcPrev');
-    const fcNext = document.getElementById('fc-next-btn');
-    if (fcNext) fcNext.textContent = t(lang, 'fcNext');
-    const fcAudio = document.getElementById('fc-audio-btn');
-    if (fcAudio) fcAudio.textContent = t(lang, 'fcAudio');
-    const fcKb = document.getElementById('fc-keyboard-hint');
-    if (fcKb) fcKb.textContent = t(lang, 'fcKeyboardHint');
-
-    // Update Roots UI
-    const rootsTitle = document.getElementById('roots-title');
-    if (rootsTitle) rootsTitle.textContent = t(lang, 'rootsTitle');
-    const rootsSub = document.getElementById('roots-sub');
-    if (rootsSub) rootsSub.textContent = t(lang, 'rootsSub');
-
-    // Update Quiz UI
-    const quizTitle = document.getElementById('quiz-title');
-    if (quizTitle) quizTitle.textContent = t(lang, 'quizTitle');
-
-    // Update Empty State
-    const emptyTitle = document.getElementById('empty-title');
-    if (emptyTitle) emptyTitle.textContent = t(lang, 'emptyTitle');
-    const emptySub = document.getElementById('empty-sub');
-    if (emptySub) emptySub.textContent = t(lang, 'emptySub');
-
-    // Update Modal
-    const modalTitle = document.getElementById('modal-title');
-    if (modalTitle) modalTitle.textContent = t(lang, 'modalTitle');
-
-    // Update Buttons
-    const bmBtn = document.getElementById('bookmarks-toggle-btn');
-    if (bmBtn) bmBtn.innerHTML = `⭐ ${t(lang, 'btnBookmarks')}`;
-    const randBtn = document.getElementById('random-word-btn');
-    if (randBtn) randBtn.innerHTML = `🎲 ${t(lang, 'btnRandom')}`;
-
-    // Update Footer
-    const footAbout = document.getElementById('footer-about');
-    if (footAbout) footAbout.textContent = t(lang, 'footerAbout');
-    const footRepo = document.getElementById('footer-repo-link');
-    if (footRepo) footRepo.textContent = t(lang, 'footerRepo');
-    const footLive = document.getElementById('footer-live-link');
-    if (footLive) footLive.textContent = t(lang, 'footerLive');
-    const footReleases = document.getElementById('footer-releases-link');
-    if (footReleases) footReleases.textContent = t(lang, 'footerReleases');
-    const footCopy = document.getElementById('footer-copyright');
-    if (footCopy) footCopy.textContent = t(lang, 'footerCopyright');
-
-    // Re-render active view
-    this.applyFilter();
-
-    if (showToastNotification) {
-      this.showToast(t(lang, 'langSwitchedToast', { lang: this.getLangName(lang) }));
+  showView(view, { focus = true } = {}) {
+    const prev = this.currentView;
+    if (prev && prev !== view && VIEW_IMPL[prev].leave) VIEW_IMPL[prev].leave();
+    this.currentView = view;
+    for (const sec of document.querySelectorAll('section.view')) sec.hidden = sec.dataset.view !== view;
+    for (const el of document.querySelectorAll('[data-views]')) el.hidden = !el.dataset.views.split(' ').includes(view);
+    for (const a of document.querySelectorAll('.nav-link')) {
+      if (a.dataset.route === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    }
+    const impl = VIEW_IMPL[view];
+    if (prev !== view && impl.enter) impl.enter(this.ctx);
+    this.renderView();
+    this.updateTitle();
+    if (focus && prev && prev !== view) {
+      window.scrollTo({ top: 0 });
+      $('main').focus({ preventScroll: true });
     }
   }
 
-  renderMetadataStats() {
-    if (!this.metadata) return;
-    if (this.el.statTotalWords) this.el.statTotalWords.textContent = (this.metadata.total_words || 4709).toLocaleString();
-    if (this.el.statOccurrences) this.el.statOccurrences.textContent = (this.metadata.total_occurrences || 77430).toLocaleString();
-    if (this.el.statRoots) this.el.statRoots.textContent = (this.metadata.total_roots || 250).toLocaleString();
+  renderView() {
+    if (!this.ready) return;
+    const view = this.state.view;
+    const el = $(`view-${view}`);
+    VIEW_IMPL[view].render(this.ctx, el);
+    this.renderResultCount();
   }
 
-  renderChapterFilters() {
-    if (!this.metadata || !this.metadata.chapters) return;
-    const select = this.el.chapterFilter;
-    const currentVal = select.value || 'all';
-    select.innerHTML = `<option value="all">${t(this.currentLang, 'allChapters')}</option>`;
-    for (const ch of this.metadata.chapters) {
-      const opt = document.createElement('option');
-      opt.value = ch.id;
-      const title = (ch.title && (ch.title[this.currentLang] || ch.title.en)) || ch.title;
-      const chLabel = t(this.currentLang, 'chapterLabel', { n: ch.sort });
-      opt.textContent = `${chLabel}: ${title} (${ch.words})`;
-      select.appendChild(opt);
+  updateTitle() {
+    document.title = `${t(NAV_KEY[this.state.view])} — QuranicWords`;
+  }
+
+  /* ---------------- Filters ---------------- */
+  filtered() {
+    const s = this.state;
+    const key = JSON.stringify([s.q, s.ch, s.cat, s.root, s.sort, s.saved, getLang(), s.saved ? this.savedVersion : 0]);
+    if (this.memo.key !== key) {
+      this.memo = { key, list: filterWords(this.data.words, { ...s, savedIds: this.bookmarks, lang: getLang() }) };
     }
-    select.value = currentVal;
+    return this.memo.list;
   }
 
-  renderPosFilter() {
-    const select = this.el.posFilter;
-    const currentVal = select.value || 'all';
-    select.innerHTML = `
-      <option value="all">${t(this.currentLang, 'allPos')}</option>
-      <option value="noun">${t(this.currentLang, 'posNoun')}</option>
-      <option value="verb">${t(this.currentLang, 'posVerb')}</option>
-      <option value="particle">${t(this.currentLang, 'posParticle')}</option>
-      <option value="pronoun">${t(this.currentLang, 'posPronoun')}</option>
-      <option value="proper_noun">${t(this.currentLang, 'posProperNoun')}</option>
-    `;
-    select.value = currentVal;
+  setFilter(patch) {
+    Object.assign(this.state, patch);
+    this.filterVersion++;
+    history.replaceState(history.state, '', buildUrl(this.state.view, this.state));
+    this.renderFilters();
+    this.renderView();
   }
 
-  renderSortFilter() {
-    const select = this.el.sortFilter;
-    const currentVal = select.value || 'default';
-    select.innerHTML = `
-      <option value="default">${t(this.currentLang, 'sortDefault')}</option>
-      <option value="occ_desc">${t(this.currentLang, 'sortOccDesc')}</option>
-      <option value="occ_asc">${t(this.currentLang, 'sortOccAsc')}</option>
-      <option value="alpha_ar">${t(this.currentLang, 'sortAlphaAr')}</option>
-      <option value="alpha_en">${t(this.currentLang, 'sortAlphaMeaning')}</option>
-    `;
-    select.value = currentVal;
+  clearFilters() {
+    $('search-input').value = '';
+    $('search-clear').hidden = true;
+    this.setFilter({ q: '', ch: null, cat: null, root: null, saved: false });
   }
 
-  renderRootCloud() {
-    const cloud = document.getElementById('roots-cloud');
-    if (!cloud || !this.roots) return;
-    cloud.innerHTML = '';
-    
-    for (const r of this.roots.slice(0, 150)) {
-      const pill = document.createElement('div');
-      pill.className = 'root-pill';
-      pill.innerHTML = `
-        <span class="root-pill-arabic">${r.root}</span>
-        <span class="root-pill-count">${r.words.length}</span>
-      `;
-      pill.addEventListener('click', () => {
-        this.el.searchInput.value = r.root;
-        this.switchView('cards');
-        this.applyFilter();
-      });
-      cloud.appendChild(pill);
-    }
+  filterByRoot(root) {
+    $('search-input').value = '';
+    Object.assign(this.state, { root, q: '', ch: null, cat: null, saved: false });
+    this.filterVersion++;
+    this.renderFilters();
+    if (this.state.view === 'cards' || this.state.view === 'table') {
+      history.replaceState(history.state, '', buildUrl(this.state.view, this.state));
+      this.renderView();
+      window.scrollTo({ top: 0 });
+    } else this.navigate('cards');
   }
 
-  switchView(mode) {
-    this.currentView = mode;
-    document.querySelectorAll('.view-tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.mode === mode);
-    });
+  renderFilters() {
+    if (!this.ready) return;
+    const s = this.state;
+    const input = $('search-input');
+    if (document.activeElement !== input) input.value = s.q;
+    $('search-clear').hidden = !input.value;
 
-    this.el.cardsContainer.style.display = mode === 'cards' ? 'block' : 'none';
-    this.el.tableContainer.style.display = mode === 'table' ? 'block' : 'none';
-    this.el.flashcardContainer.style.display = mode === 'flashcards' ? 'block' : 'none';
-    this.el.rootsContainer.style.display = mode === 'roots' ? 'block' : 'none';
-    this.el.quizContainer.style.display = mode === 'quiz' ? 'block' : 'none';
+    const ch = $('chapter-filter');
+    ch.replaceChildren(h('option', { value: '', text: t('allChapters') }),
+      ...this.data.meta.chapters.map((c) => h('option', { value: String(c.n), text: `${t('chapterLabel', { n: formatNumber(c.n) })}: ${pick(c.title)}` })));
+    ch.value = s.ch ? String(s.ch) : '';
 
-    if (mode === 'flashcards') {
-      this.initFlashcards();
-    } else if (mode === 'quiz') {
-      this.initQuiz();
-    } else if (mode === 'table') {
-      this.renderTable();
+    const cat = $('cat-filter');
+    cat.replaceChildren(h('option', { value: '', text: t('allCats') }),
+      ...['NOUN', 'VERB', 'PARTICLE'].map((c) => h('option', { value: c, text: t(`cat${c}`) })));
+    cat.value = s.cat || '';
+
+    const sort = $('sort-filter');
+    sort.replaceChildren(...[['curriculum', 'sortCurriculum'], ['freq_desc', 'sortFreqDesc'], ['freq_asc', 'sortFreqAsc'], ['alpha_ar', 'sortAlphaAr'], ['alpha_meaning', 'sortAlphaMeaning']]
+      .map(([v, k]) => h('option', { value: v, text: t(k) })));
+    sort.value = s.sort;
+
+    const savedBtn = $('saved-toggle');
+    savedBtn.setAttribute('aria-pressed', String(s.saved));
+    savedBtn.classList.toggle('btn-gold', s.saved);
+
+    const chip = clear($('root-chip-wrap'));
+    if (s.root) {
+      chip.appendChild(h('span', { class: 'root-chip' }, h('span', { text: t('rootChip', { root: '' }) }), arabic(s.root),
+        h('button', { type: 'button', class: 'chip-remove', attrs: { 'aria-label': t('removeRootFilter') }, text: '✕', on: { click: () => this.setFilter({ root: null }) } })));
     }
   }
 
-  applyFilter(bookmarksOnly = false) {
-    const q = this.el.searchInput.value;
-    const chapter = this.el.chapterFilter.value;
-    const pos = this.el.posFilter.value;
-    const sortBy = this.el.sortFilter.value;
+  renderResultCount() {
+    const el = $('result-count');
+    if (!el || $('filters').hidden) return;
+    el.textContent = t('wordsFound', { count: formatNumber(this.filtered().length) });
+  }
 
-    this.filteredWords = this.searchEngine.filter({
-      query: q,
-      chapter: chapter,
-      pos: pos,
-      lang: this.currentLang,
-      bookmarksOnly: bookmarksOnly,
-      bookmarkSet: this.bookmarks,
-      sortBy: sortBy
-    });
+  randomWord() {
+    const words = this.data.words;
+    if (!words.length) return;
+    const w = words[Math.floor(Math.random() * words.length)];
+    $('search-input').value = w.ar;
+    this.setFilter({ q: w.ar, ch: null, cat: null, root: null, saved: false });
+    if (this.state.view !== 'cards') this.navigate('cards');
+    toast(t('randomToast', { word: `${w.ar} (${w.tl})` }));
+  }
 
-    if (this.el.statFilteredCount) {
-      this.el.statFilteredCount.textContent = t(this.currentLang, 'wordsFound', { count: this.filteredWords.length.toLocaleString() });
-    }
+  /* ---------------- Saved words / clipboard ---------------- */
+  toggleSaved(id) {
+    const now = !this.bookmarks.has(id);
+    if (now) this.bookmarks.add(id); else this.bookmarks.delete(id);
+    this.savedVersion++;
+    writeJSON(BOOKMARKS_KEY, [...this.bookmarks]);
+    toast(now ? t('savedToast') : t('removedToast'));
+    return now;
+  }
 
-    if (this.currentView === 'cards') {
-      this.resetCardStream();
-    } else if (this.currentView === 'table') {
-      this.renderTable();
-    } else if (this.currentView === 'flashcards') {
-      this.initFlashcards();
+  copyWord(w) {
+    const text = `${w.ar} (${w.tl}) — ${pick(w.m)}`;
+    const fail = () => toast(t('copyFailed'), { tone: 'error' });
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) { fail(); return; }
+      navigator.clipboard.writeText(text).then(() => toast(t('copied', { word: w.ar })), fail);
+    } catch {
+      fail();
     }
   }
 
-  /* ------------------------------------------------------------------------
-     Card View Rendering (Infinite Stream)
-     ------------------------------------------------------------------------ */
-  resetCardStream() {
-    this.el.wordsGrid.innerHTML = '';
-    this.renderedCount = 0;
-    
-    if (this.filteredWords.length === 0) {
-      this.el.emptyState.style.display = 'block';
-      this.el.loadingIndicator.style.display = 'none';
-      return;
-    }
-
-    this.el.emptyState.style.display = 'none';
-    this.renderNextCardBatch();
+  /* ---------------- Answers, XP and celebrations ---------------- */
+  handleEvents(ev) {
+    if (!ev) return;
+    if (ev.levelUp) { toast(t('levelUp', { n: formatNumber(ev.levelUp) }), { tone: 'success' }); celebrate($('ps-level')); }
+    if (ev.milestone) { toast(t('streakMilestone', { n: formatNumber(ev.milestone) }), { tone: 'success' }); celebrate($('ps-streak')); }
+    if (ev.goalReached) { toast(t('goalReached'), { tone: 'success' }); celebrate($('ps-goal')); }
   }
 
-  renderNextCardBatch() {
-    const start = this.renderedCount;
-    const end = Math.min(start + this.BATCH_SIZE, this.filteredWords.length);
-    const fragment = document.createDocumentFragment();
-
-    for (let i = start; i < end; i++) {
-      const word = this.filteredWords[i];
-      const card = this.createCardElement(word);
-      fragment.appendChild(card);
-    }
-
-    this.el.wordsGrid.appendChild(fragment);
-    this.renderedCount = end;
-
-    if (this.renderedCount < this.filteredWords.length) {
-      this.el.loadingIndicator.style.display = 'block';
-      const loadText = document.getElementById('loading-indicator-text');
-      if (loadText) loadText.textContent = t(this.currentLang, 'streamingWords');
-    } else {
-      this.el.loadingIndicator.style.display = 'none';
-    }
-  }
-
-  initIntersectionObserver() {
-    this.observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && this.renderedCount < this.filteredWords.length) {
-        this.renderNextCardBatch();
-      }
-    }, { rootMargin: '400px' });
-
-    if (this.el.loadingIndicator) {
-      this.observer.observe(this.el.loadingIndicator);
-    }
-  }
-
-  createCardElement(w) {
-    const card = document.createElement('div');
-    card.className = 'word-card';
-    card.dataset.id = w.id;
-
-    const isBookmarked = this.bookmarks.has(w.id);
-    const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
-    const validRoot = (w.rt && w.rt !== '—' && w.rt !== '-' && w.rt !== 'None' && w.rt.trim() !== '') ? w.rt.trim() : null;
-    const chNum = w.ch_num || (w.ch ? String(w.ch).replace(/^ch_0?/, '') : '1');
-    const chLabel = t(this.currentLang, 'chapterLabel', { n: chNum });
-
-    card.innerHTML = `
-      <div class="card-header">
-        <div class="card-arabic-wrap">
-          <div class="card-arabic" title="Click to pronounce">${w.ar}</div>
-          <div class="card-translit">${w.tr || ''}</div>
-        </div>
-        <div class="card-meta-right">
-          <span class="card-pos-badge">${w.pos || 'noun'}</span>
-          <span class="card-occ-pill">⚡ ${w.occ}×</span>
-        </div>
-      </div>
-
-      <div class="card-tags-row">
-        ${validRoot ? `<span class="tag-root" title="Filter by root">${validRoot}</span>` : ''}
-        <span class="tag-chapter">${chLabel}</span>
-      </div>
-
-      <div class="card-meaning-box">
-        <div class="card-primary-meaning">${meaning}</div>
-        ${w.has_poly ? `<span class="card-poly-indicator">${t(this.currentLang, 'polyIndicator')}</span>` : ''}
-      </div>
-
-      <div class="card-verse-box" id="verse-box-${w.id}">
-        <div class="card-verse-header">
-          <span class="verse-ref-badge">📖 Ayah ${w.ref || ''}</span>
-        </div>
-        <div class="card-verse-content" id="verse-content-${w.id}">
-          <p style="color: var(--text-dim); font-size: 0.8rem;">${t(this.currentLang, 'ayahContextPlaceholder')}</p>
-        </div>
-      </div>
-
-      <div class="card-actions">
-        <button class="card-action-btn audio-btn" title="Pronounce Arabic">${t(this.currentLang, 'btnAudio')}</button>
-        <button class="card-action-btn copy-btn" title="Copy Lemma">${t(this.currentLang, 'btnCopy')}</button>
-        <button class="card-action-btn bookmark-btn ${isBookmarked ? 'active' : ''}" title="Save Bookmark">
-          ${isBookmarked ? t(this.currentLang, 'btnSaved') : t(this.currentLang, 'btnSave')}
-        </button>
-      </div>
-    `;
-
-    // Audio click
-    card.querySelector('.card-arabic').addEventListener('click', () => audioService.speakArabic(w.ar));
-    card.querySelector('.audio-btn').addEventListener('click', () => audioService.speakArabic(w.ar));
-
-    // Copy click
-    card.querySelector('.copy-btn').addEventListener('click', () => {
-      navigator.clipboard.writeText(`${w.ar} (${w.tr}) - ${meaning}`);
-      this.showToast(t(this.currentLang, 'copiedToast', { word: w.ar }));
-    });
-
-    // Bookmark toggle
-    const bmBtn = card.querySelector('.bookmark-btn');
-    bmBtn.addEventListener('click', () => this.toggleBookmark(w.id, bmBtn));
-
-    // Root click
-    if (validRoot) {
-      const rootTag = card.querySelector('.tag-root');
-      if (rootTag) {
-        rootTag.addEventListener('click', () => {
-          this.el.searchInput.value = validRoot;
-          this.applyFilter();
-        });
-      }
-    }
-
-    // Polysemy click
-    const polyInd = card.querySelector('.card-poly-indicator');
-    if (polyInd) {
-      polyInd.addEventListener('click', () => this.openPolysemyModal(w.id));
-    }
-
-    // Load full verse on hover or click
-    card.addEventListener('mouseenter', () => this.loadCardVerse(w.id), { once: true });
-    card.addEventListener('click', (e) => {
-      if (!e.target.closest('button') && !e.target.closest('.tag-root') && !e.target.closest('.card-poly-indicator')) {
-        this.loadCardVerse(w.id);
-      }
-    });
-
+  /** Flashcard / review grading. XP only on the first attempt for the word in this session. */
+  gradeWord(id, g, firstTry) {
+    const card = this.store.grade(id, g, dayNumber());
+    if (firstTry) this.handleEvents(this.store.answer(id, g !== 'again', dayNumber()));
     return card;
   }
 
-  loadCardVerse(wordId) {
-    const box = document.getElementById(`verse-content-${wordId}`);
-    if (!box) return;
-
-    const fullWord = this.wordsFull.get(wordId);
-    if (!fullWord) return;
-
-    if (fullWord.v_ar) {
-      const vTrans = (fullWord.v_tr && fullWord.v_tr[this.currentLang]) || (fullWord.v_tr && fullWord.v_tr['en']) || '';
-      box.innerHTML = `
-        <div class="card-verse-arabic">${fullWord.v_ar}</div>
-        <div class="card-verse-trans">${vTrans}</div>
-      `;
-    }
+  /** Quiz view answer (always a first try). Words already in review are re-scheduled. */
+  answerQuiz(id, ok) {
+    const ev = this.store.answer(id, ok, dayNumber());
+    if (this.store.state.cards[id]) this.store.grade(id, ok ? 'good' : 'again', dayNumber());
+    this.handleEvents(ev);
+    return ev;
   }
 
-  toggleBookmark(id, btn) {
-    if (this.bookmarks.has(id)) {
-      this.bookmarks.delete(id);
-      if (btn) {
-        btn.classList.remove('active');
-        btn.textContent = t(this.currentLang, 'btnSave');
-      }
-      this.showToast(t(this.currentLang, 'removedToast'));
-    } else {
-      this.bookmarks.add(id);
-      if (btn) {
-        btn.classList.add('active');
-        btn.textContent = t(this.currentLang, 'btnSaved');
-      }
-      this.showToast(t(this.currentLang, 'savedToast'));
-    }
-    localStorage.setItem('qw_bookmarks', JSON.stringify([...this.bookmarks]));
+  /** Lesson check: first-try answers grade the freshly introduced word. */
+  answerLesson(id, ok) {
+    const ev = this.store.answer(id, ok, dayNumber());
+    this.store.grade(id, ok ? 'good' : 'again', dayNumber());
+    this.handleEvents(ev);
+    return ev;
   }
 
-  /* ------------------------------------------------------------------------
-     Table View Rendering
-     ------------------------------------------------------------------------ */
-  renderTable() {
-    const tbody = this.el.tableBody;
-    tbody.innerHTML = '';
-    const slice = this.filteredWords.slice(0, 100); // Display up to 100 in table view
-
-    for (let i = 0; i < slice.length; i++) {
-      const w = slice[i];
-      const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="color: var(--text-dim); font-size: 0.8rem;">#${w.id}</td>
-        <td class="table-arabic-cell" style="cursor: pointer;" title="Click to listen">${w.ar}</td>
-        <td><strong>${w.tr}</strong></td>
-        <td>${w.rt ? `<span class="tag-root" style="font-size: 0.9rem;">${w.rt}</span>` : '<span style="color: var(--text-dim);">—</span>'}</td>
-        <td>${meaning}</td>
-        <td><span class="card-occ-pill">${w.occ}×</span></td>
-        <td><button class="btn btn-icon btn-sm audio-btn">🔊</button></td>
-      `;
-
-      tr.querySelector('.table-arabic-cell').addEventListener('click', () => audioService.speakArabic(w.ar));
-      tr.querySelector('.audio-btn').addEventListener('click', () => audioService.speakArabic(w.ar));
-      tbody.appendChild(tr);
-    }
+  /* ---------------- Hero, about, progress strip ---------------- */
+  renderHero() {
+    const m = this.data.meta;
+    const stats = [
+      [formatNumber(m.wordCount), 'statWords', 'primary'],
+      [formatNumber(m.occurrences), 'statOccurrences', 'gold'],
+      [formatNumber(m.rootCount), 'statRoots', 'light'],
+      [formatNumber(m.chapters.length), 'statChapters', ''],
+      [formatNumber(m.languages.length), 'statLanguages', ''],
+      [formatPercent(m.coveragePercent / 100), 'statCoverage', 'primary'],
+    ];
+    $('stats-ribbon').replaceChildren(...stats.map(([v, k, cls]) => h('div', { class: 'stat-chip' },
+      h('dt', { class: 'stat-lbl', text: t(k) }), h('dd', { class: `stat-val ${cls}`, text: v }))));
+    const started = Object.keys(this.store.state.lessons).length > 0;
+    $('hero-cta').textContent = started ? t('continueLearning') : t('startLearning');
   }
 
-  /* ------------------------------------------------------------------------
-     Flashcard SRS Study Mode
-     ------------------------------------------------------------------------ */
-  initFlashcards() {
-    this.fcIndex = 0;
-    this.fcFlipped = false;
-    this.renderCurrentFlashcard();
-    this.bindFlashcardControls();
-  }
-
-  renderCurrentFlashcard() {
-    if (this.filteredWords.length === 0) return;
-    const w = this.filteredWords[this.fcIndex];
-    const flipper = document.getElementById('fc-flipper');
-    if (flipper) flipper.classList.remove('flipped');
-    this.fcFlipped = false;
-
-    // Front elements
-    document.getElementById('fc-front-arabic').textContent = w.ar;
-    document.getElementById('fc-front-translit').textContent = w.tr;
-    document.getElementById('fc-front-root').textContent = w.rt ? `Root: ${w.rt}` : '';
-
-    // Back elements
-    const meaning = (w.m && w.m[this.currentLang]) || (w.m && w.m['en']) || '';
-    document.getElementById('fc-back-meaning').textContent = meaning;
-    
-    const chLabel = t(this.currentLang, 'chapterLabel', { n: w.ch_num || w.ch });
-    document.getElementById('fc-back-occ').textContent = t(this.currentLang, 'fcAppears', { n: (w.occ || 0).toLocaleString(), ch: chLabel });
-
-    // Counter
-    document.getElementById('fc-counter').textContent = `${this.fcIndex + 1} / ${this.filteredWords.length}`;
-  }
-
-  flipFlashcard() {
-    const flipper = document.getElementById('fc-flipper');
-    if (!flipper) return;
-    this.fcFlipped = !this.fcFlipped;
-    flipper.classList.toggle('flipped', this.fcFlipped);
-  }
-
-  nextFlashcard() {
-    if (this.fcIndex < this.filteredWords.length - 1) {
-      this.fcIndex++;
-      this.renderCurrentFlashcard();
-    }
-  }
-
-  prevFlashcard() {
-    if (this.fcIndex > 0) {
-      this.fcIndex--;
-      this.renderCurrentFlashcard();
-    }
-  }
-
-  bindFlashcardControls() {
-    const flipperWrap = document.getElementById('fc-perspective-box');
-    if (flipperWrap) {
-      flipperWrap.onclick = () => this.flipFlashcard();
-    }
-    const nextBtn = document.getElementById('fc-next-btn');
-    if (nextBtn) nextBtn.onclick = () => this.nextFlashcard();
-    const prevBtn = document.getElementById('fc-prev-btn');
-    if (prevBtn) prevBtn.onclick = () => this.prevFlashcard();
-    const audioBtn = document.getElementById('fc-audio-btn');
-    if (audioBtn) audioBtn.onclick = () => {
-      const w = this.filteredWords[this.fcIndex];
-      if (w) audioService.speakArabic(w.ar);
+  renderAbout() {
+    const m = this.data.meta;
+    const values = {
+      wordCount: formatNumber(m.wordCount, 'en'),
+      rootCount: formatNumber(m.rootCount, 'en'),
+      occurrences: formatNumber(m.occurrences, 'en'),
+      coveragePercent: formatPercent(m.coveragePercent / 100, 'en'),
     };
+    for (const el of document.querySelectorAll('[data-stat]')) el.textContent = values[el.dataset.stat] ?? '';
+    const catName = { NOUN: 'Noun', VERB: 'Verb', PARTICLE: 'Particle' };
+    $('about-top').replaceChildren(...this.data.words.slice(0, 10).map((w) => h('tr', {},
+      h('td', {}, arabic(w.ar, 'seo-ar-word')), h('td', {}, h('code', { text: w.tl })), h('td', { text: catName[w.cat] }),
+      h('td', { text: formatNumber(w.occ, 'en') }), h('td', { text: w.m.en }))));
   }
 
-  /* ------------------------------------------------------------------------
-     Quiz & Self-Test Mode
-     ------------------------------------------------------------------------ */
-  initQuiz() {
-    this.quizScore = 0;
-    this.quizTotal = 0;
-    this.generateNextQuizQuestion();
+  renderChrome() {
+    if (!this.ready) return;
+    const s = this.store.state;
+    const today = dayNumber();
+    const level = levelForXp(s.xp);
+    const lo = xpForLevel(level);
+    const hi = xpForLevel(level + 1);
+    const streak = currentStreak(s, today);
+    const todayXp = s.daily[today] || 0;
+    const goalFrac = Math.min(1, todayXp / s.goal);
+    const known = knownFraction(s.cards, this.data.byId, this.data.meta.occurrences);
+
+    const strip = $('progress-strip');
+    strip.hidden = false;
+    const ring = ringSvg(goalFrac);
+    strip.replaceChildren(
+      h('a', { class: 'ps-item ps-level', id: 'ps-level', href: buildUrl('progress'), dataset: { route: 'progress' }, attrs: { 'aria-label': `${t('levelLabel', { n: formatNumber(level) })}, ${t('xpProgress', { xp: formatNumber(s.xp), next: formatNumber(hi) })}` } },
+        h('span', { class: 'ps-level-badge', text: t('levelShort', { n: formatNumber(level) }) }),
+        h('span', { class: 'ps-xp' },
+          h('progress', { max: hi - lo, value: s.xp - lo, attrs: { 'aria-hidden': 'true' } }),
+          h('span', { class: 'ps-xp-text', attrs: { 'aria-hidden': 'true' }, text: t('xpProgress', { xp: formatNumber(s.xp), next: formatNumber(hi) }) }))),
+      h('span', { class: `ps-item ps-streak${streak ? ' on' : ''}`, id: 'ps-streak', attrs: { role: 'img', 'aria-label': t('streakDays', { n: formatNumber(streak) }) } },
+        h('span', { attrs: { 'aria-hidden': 'true' }, text: '🔥' }), h('span', { attrs: { 'aria-hidden': 'true' }, text: formatNumber(streak) })),
+      h('span', { class: `ps-item ps-goal${goalFrac >= 1 ? ' met' : ''}`, id: 'ps-goal', attrs: { role: 'img', 'aria-label': t('goalToday', { xp: formatNumber(todayXp), goal: formatNumber(s.goal) }) } },
+        ring, h('span', { attrs: { 'aria-hidden': 'true' }, text: `${formatNumber(todayXp)}/${formatNumber(s.goal)}` })),
+      h('span', { class: 'ps-item ps-known', attrs: { title: t('knownLong', { pct: formatPercent(known) }) } },
+        h('span', { class: 'visually-hidden', text: t('knownLong', { pct: formatPercent(known) }) }),
+        h('span', { attrs: { 'aria-hidden': 'true' }, text: t('knownShort', { pct: formatPercent(known) }) })));
+
+    const due = dueIds(s.cards, today).length;
+    const badge = $('review-badge');
+    badge.hidden = due === 0;
+    badge.textContent = formatNumber(due);
+    badge.setAttribute('aria-label', t('reviewDueBadge', { n: formatNumber(due) }));
+    const started = Object.keys(s.lessons).length > 0;
+    const cta = $('hero-cta');
+    if (cta) cta.textContent = started && nextLesson(this.ctx) ? t('continueLearning') : t('startLearning');
   }
 
-  generateNextQuizQuestion() {
-    if (this.filteredWords.length < 4) {
-      this.showToast(t(this.currentLang, 'quizMinWords'));
-      return;
-    }
-
-    this.quizAnswered = false;
-    const correctIdx = Math.floor(Math.random() * this.filteredWords.length);
-    const correctWord = this.filteredWords[correctIdx];
-
-    // Pick 3 random distractor words
-    const options = [correctWord];
-    while (options.length < 4) {
-      const rand = this.filteredWords[Math.floor(Math.random() * this.filteredWords.length)];
-      if (!options.some(o => o.id === rand.id)) {
-        options.push(rand);
-      }
-    }
-
-    // Shuffle options
-    options.sort(() => Math.random() - 0.5);
-
-    document.getElementById('quiz-arabic').textContent = correctWord.ar;
-    document.getElementById('quiz-translit').textContent = correctWord.tr;
-    document.getElementById('quiz-score-display').textContent = t(this.currentLang, 'quizScore', { score: this.quizScore, total: this.quizTotal });
-
-    const grid = document.getElementById('quiz-options');
-    grid.innerHTML = '';
-
-    for (const opt of options) {
-      const btn = document.createElement('button');
-      btn.className = 'quiz-option-btn';
-      const optMeaning = (opt.m && opt.m[this.currentLang]) || (opt.m && opt.m['en']) || '';
-      btn.textContent = optMeaning;
-
-      btn.addEventListener('click', () => {
-        if (this.quizAnswered) return;
-        this.quizAnswered = true;
-        this.quizTotal++;
-
-        if (opt.id === correctWord.id) {
-          btn.classList.add('correct');
-          this.quizScore++;
-          this.showToast(t(this.currentLang, 'quizCorrect'));
-        } else {
-          btn.classList.add('wrong');
-          // Highlight correct one
-          grid.querySelectorAll('.quiz-option-btn').forEach(b => {
-            if (b.textContent === ((correctWord.m && correctWord.m[this.currentLang]) || correctWord.m['en'])) {
-              b.classList.add('correct');
-            }
-          });
-          this.showToast(t(this.currentLang, 'quizWrong'));
-        }
-
-        document.getElementById('quiz-score-display').textContent = t(this.currentLang, 'quizScore', { score: this.quizScore, total: this.quizTotal });
-        setTimeout(() => this.generateNextQuizQuestion(), 1600);
-      });
-
-      grid.appendChild(btn);
-    }
-  }
-
-  /* ------------------------------------------------------------------------
-     Polysemy / Context Senses Modal
-     ------------------------------------------------------------------------ */
-  openPolysemyModal(wordId) {
-    const fullWord = this.wordsFull.get(wordId);
-    if (!fullWord || !fullWord.poly || fullWord.poly.length === 0) {
-      this.showToast('No contextual polysemy records found for this lemma.');
-      return;
-    }
-
-    let sensesHtml = '';
-    for (const s of fullWord.poly) {
-      const sMeaning = (s.m && s.m[this.currentLang]) || (s.m && s.m['en']) || '';
-      const sTrans = (s.v_tr && s.v_tr[this.currentLang]) || (s.v_tr && s.v_tr['en']) || '';
-      sensesHtml += `
-        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <strong style="color: var(--accent-gold); font-size: 0.85rem;">Sense #${s.idx}: ${sMeaning}</strong>
-            <span class="verse-ref-badge">📖 Ayah ${s.ref}</span>
-          </div>
-          <div class="card-verse-arabic" style="font-size: 1.3rem;">${s.v_ar}</div>
-          <div class="card-verse-trans">${sTrans}</div>
-        </div>
-      `;
-    }
-
-    this.el.modalBody.innerHTML = `
-      <div style="text-align: center; margin-bottom: 20px;">
-        <div class="card-arabic" style="font-size: 2.8rem;">${fullWord.ar}</div>
-        <div class="card-translit" style="font-size: 1.1rem;">${fullWord.tr}</div>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 6px;">
-          ${t(this.currentLang, 'modalSub')}
-        </p>
-      </div>
-      ${sensesHtml}
-    `;
-
-    this.el.modalBackdrop.classList.add('open');
-  }
-
-  closeModal() {
-    this.el.modalBackdrop.classList.remove('open');
-  }
-
-  openRandomWord() {
-    if (this.wordsSummary.length === 0) return;
-    const rand = this.wordsSummary[Math.floor(Math.random() * this.wordsSummary.length)];
-    this.el.searchInput.value = rand.ar;
-    this.switchView('cards');
-    this.applyFilter();
-    audioService.speakArabic(rand.ar);
-    this.showToast(t(this.currentLang, 'randomToast', { word: `${rand.ar} (${rand.tr})` }));
-  }
-
-  getLangName(code) {
-    const names = {
-      en: 'English', bn: 'বাংলা', ur: 'اردو', hi: 'हिन्दी',
-      in: 'Bahasa Indonesia', ms: 'Bahasa Melayu', tr: 'Türkçe',
-      fa: 'فارسی', ha: 'Hausa', sw: 'Kiswahili', fr: 'Français'
-    };
-    return names[code] || code;
-  }
-
-  showToast(msg) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = msg;
-    this.el.toastContainer.appendChild(toast);
-
-    requestAnimationFrame(() => toast.classList.add('show'));
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, 2800);
+  /* ---------------- Service worker ---------------- */
+  registerServiceWorker() {
+    if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController) { toast(t('offlineReady')); return; }
+      if (reloading) return;
+      toast(t('updateAvailable'), { duration: 0, action: { label: t('reload'), run: () => { reloading = true; location.reload(); } } });
+    });
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(`${BASE}sw.js`, { scope: BASE }).catch((e) => console.warn('Service worker registration failed', e));
+    });
   }
 }
 
-// Instantiate and boot app on DOM load
-window.addEventListener('DOMContentLoaded', () => {
-  const app = new QuranicApp();
-  app.init();
-});
+function ringSvg(frac) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const r = 9;
+  const c = 2 * Math.PI * r;
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('class', 'goal-ring');
+  svg.setAttribute('aria-hidden', 'true');
+  const bg = document.createElementNS(NS, 'circle');
+  for (const [k, v] of Object.entries({ cx: 12, cy: 12, r, class: 'goal-ring-bg' })) bg.setAttribute(k, v);
+  const fg = document.createElementNS(NS, 'circle');
+  for (const [k, v] of Object.entries({ cx: 12, cy: 12, r, class: 'goal-ring-fg', 'stroke-dasharray': `${c.toFixed(2)}`, 'stroke-dashoffset': `${(c * (1 - frac)).toFixed(2)}`, transform: 'rotate(-90 12 12)' })) fg.setAttribute(k, v);
+  svg.append(bg, fg);
+  return svg;
+}
+
+const app = new App();
+window.addEventListener('DOMContentLoaded', () => { app.init(); });
+// Exposed for debugging in the console only.
+window.QuranicWords = { version: APP_VERSION };
