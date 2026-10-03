@@ -35,11 +35,16 @@ Details: Word-by-word glosses (the source of every word meaning) in English, Ban
 ==============================================================================
 4. Open Typography & Typefaces
 ==============================================================================
-License: SIL Open Font License, Version 1.1 (https://openfontlicense.org)
-Typefaces:
-  • Amiri (Uthmani Script) - The Amiri Project Authors
-  • Scheherazade New (Naskh Script) - SIL Global
-  • Noto Naskh Arabic (Simple Naskh) - The Noto Project Authors
-  • Lateef (IndoPak Naskh Style) - SIL Global
-  • Noto Nastaliq Urdu (Nastaliq Style) - The Noto Project Authors
+License: SIL Open Font License, Version 1.1 (https://openfontlicense.org), except KFGQPC
+Typefaces (each renders the complete Uthmani text, including pause marks and open tanween):
+  • KFGQPC Uthmanic Script Hafs (Madinah Mushaf style) - King Fahd Glorious Qur'an Printing
+    Complex, distributed under the KFGQPC end-user licence
+  • Amiri (classic Naskh) - The Amiri Project Authors (SIL OFL 1.1)
+  • Scheherazade New (traditional Naskh) - SIL Global (SIL OFL 1.1)
+  • Noto Naskh Arabic (modern Naskh) - The Noto Project Authors (SIL OFL 1.1)
+  • Lateef (South Asian Naskh) - SIL Global (SIL OFL 1.1)
+  • Noore Huda (Noorani Qur'an, Indo-Pak) and Noore Hira (Hafezi Qur'an, Indo-Pak 15-line) -
+    NooreHidayat, www.noorehidayat.org; free to distribute with any application per the
+    NooreHidayat end-user licence. Shown with five marks in their Indo-Pak form (ٱ→ا, ۡ→ْ,
+    ٞ ٖ ٗ → ٌ ٍ ً).
 

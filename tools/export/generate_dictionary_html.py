@@ -1398,6 +1398,9 @@ def main():
             const num = d ? `${{s}}:${{a}}`.replace(/[0-9]/g, (c) => d[c]) : `${{s}}:${{a}}`;
             return `${{SURAH_WORD[lang] || 'Surah'}} ${{(SURAHS[lang] || SURAHS.en)[s - 1]}} ${{num}}`;
         }}
+        const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+        // End-of-ayah mark with its number, as in a printed mushaf (appended after the verse).
+        const ayahMark = (v) => '\u00a0\u06dd' + String(v.split(':')[1]).replace(/[0-9]/g, (d) => AR_DIGITS[d]);
         const ctxLang = () => Object.keys(visibleLangs).find((l) => visibleLangs[l]) || 'en';
         function senseOf(w, lang, idx) {{
             const list = (w.sn && w.sn[lang]) || [];
@@ -1434,7 +1437,7 @@ def main():
                     <span>📖 Qur'an Context</span>
                     <a href="https://quran.com/${{x.v}}" target="_blank" rel="noopener" class="verse-ref-link">${{esc(cite(x.v, lang))}} ↗</a>
                 </div>
-                <div class="verse-arabic-text font-arabic">${{markSpan(x.ar, x.s, x.e, 'ar-hl')}}</div>
+                <div class="verse-arabic-text font-arabic">${{markSpan(x.ar, x.s, x.e, 'ar-hl')}}${{ayahMark(x.v)}}</div>
                 <div class="verse-translations-list">
                     ${{x.ts !== null
                         ? `<div class="v-trans-item ${{fontClass}}"${{rtl}}><span class="v-trans-tag">${{LANG_FLAGS[lang] || lang.toUpperCase()}}</span> <span>${{markSpan(x.tr, x.ts, x.te, 'tr-hl')}}</span></div>`

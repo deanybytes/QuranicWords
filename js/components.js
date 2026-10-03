@@ -16,6 +16,13 @@ function spanLine(cls, text, s, e, markClass, attrs) {
   return p;
 }
 
+const ARABIC_INDIC = '٠١٢٣٤٥٦٧٨٩';
+/** End-of-ayah mark with the ayah number, as in a printed mushaf ("۝٣٤"), for a "s:a" key. */
+export function ayahMark(key) {
+  const a = key ? Number(String(key).split(':')[1]) : 0;
+  return a > 0 ? `\u00a0\u06dd${String(a).replace(/[0-9]/g, (d) => ARABIC_INDIC[d])}` : '';
+}
+
 /**
  * Renders one sense example (see DataStore.sensesFor): the complete ayah with only the taught
  * word marked, and ONE translation with exactly the card's meaning marked - the full translation
@@ -24,7 +31,9 @@ function spanLine(cls, text, s, e, markClass, attrs) {
 export function verseNode(v, ref) {
   const wrap = h('div', { class: 'verse' });
   const info = uiDirAttrs();
-  wrap.appendChild(spanLine('card-verse-arabic', v.v_ar, v.s, v.e, null, { lang: 'ar', dir: 'rtl' }));
+  const ar = spanLine('card-verse-arabic', v.v_ar, v.s, v.e, null, { lang: 'ar', dir: 'rtl' });
+  if (v.key) ar.append(ayahMark(v.key));   // after the verse: the spans are unaffected
+  wrap.appendChild(ar);
   if (v.tr && Number.isInteger(v.ts)) {
     wrap.appendChild(spanLine('card-verse-trans', v.tr, v.ts, v.te, 'mark-tr', info));
   } else if (v.wbw) {

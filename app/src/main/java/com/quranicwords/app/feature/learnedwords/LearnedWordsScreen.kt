@@ -87,6 +87,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -239,7 +240,7 @@ private fun LearnedWordCard(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = word.arabicWord,
+                    text = quranText(word.arabicWord),
                     fontFamily = LocalQuranFontFamily.current,
                     fontSize = 28.sp,
                     lineHeight = 36.sp,
@@ -336,7 +337,7 @@ private fun WordQuranExamplesSheet(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = word.arabicWord,
+                        text = quranText(word.arabicWord),
                         fontFamily = LocalQuranFontFamily.current,
                         fontSize = 44.sp,
                         lineHeight = 56.sp,

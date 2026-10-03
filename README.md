@@ -110,8 +110,22 @@ Distractors come from the same chapter. They never share the answer's written fo
 
 At setup or via Settings, learners preview **Surah Al-Kawthar** in clean, streamlined font cards showing the typeface name and live Arabic sample:
 
-| Style | Status |
-|---|---|
+| Style | Typeface | Licence |
+|---|---|---|
+| Madinah Mushaf (default) | KFGQPC Uthmanic Script Hafs | KFGQPC end-user licence |
+| Classic calligraphic Naskh | Amiri | SIL OFL 1.1 |
+| Traditional Naskh | Scheherazade New | SIL OFL 1.1 |
+| Modern clean Naskh | Noto Naskh Arabic | SIL OFL 1.1 |
+| South Asian Naskh | Lateef | SIL OFL 1.1 |
+| Noorani Qur'an (Indo-Pak) | Noore Huda | NooreHidayat (free redistribution) |
+| Hafezi Qur'an (Indo-Pak 15-line) | Noore Hira | NooreHidayat (free redistribution) |
+
+Each one renders every character of the Uthmani text, including pause marks (ۖ ۗ ۚ) and open
+tanween, and they look visibly different from each other. Verses end with the ayah mark and number
+(۝٣٤, or ﴿٣٤﴾ in the KFGQPC and Indo-Pak fonts). With the two Indo-Pak fonts, five marks are shown
+in their Indo-Pak form (alif waṣla as alif, jazm, closed tanween), one character for one.
+
+---|---|
 | Uthmani (Amiri) | ✅ Bundled (SIL OFL) |
 | Scheherazade Naskh | ✅ Bundled (SIL OFL) |
 | Simple Naskh (Noto) | ✅ Bundled (SIL OFL) |

@@ -63,6 +63,7 @@ import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
@@ -112,7 +113,7 @@ fun WordIntroExerciseContent(
                 }
 
                 Text(
-                    text = content.arabicWord.cleanArabicDisplay(),
+                    text = quranText(content.arabicWord.cleanArabicDisplay()),
                     fontFamily = LocalQuranFontFamily.current,
                     fontSize = 54.sp,
                     lineHeight = 66.sp,
@@ -182,7 +183,7 @@ fun WordIntroExerciseContent(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = content.pastArabic,
+                                    text = quranText(content.pastArabic),
                                     fontFamily = LocalQuranFontFamily.current,
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.Bold,
@@ -198,7 +199,7 @@ fun WordIntroExerciseContent(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = content.presentArabic,
+                                    text = quranText(content.presentArabic),
                                     fontFamily = LocalQuranFontFamily.current,
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.Bold,
@@ -214,7 +215,7 @@ fun WordIntroExerciseContent(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = content.masdarArabic,
+                                    text = quranText(content.masdarArabic),
                                     fontFamily = LocalQuranFontFamily.current,
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.Bold,

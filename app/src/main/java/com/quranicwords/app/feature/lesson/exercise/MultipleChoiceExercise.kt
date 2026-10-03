@@ -42,6 +42,7 @@ import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 @Composable
 fun MultipleChoiceExerciseContent(
@@ -70,7 +71,7 @@ fun MultipleChoiceExerciseContent(
         content.promptArabic?.let { rawArabic ->
             val arabic = rawArabic.cleanArabicDisplay()
             Text(
-                text = arabic,
+                text = quranText(arabic),
                 fontFamily = LocalQuranFontFamily.current,
                 fontSize = 52.sp,
                 lineHeight = 64.sp,
@@ -164,7 +165,7 @@ internal fun OptionCard(
         interactionSource = interactionSource
     ) {
         val isArabicText = showArabic && !option.labelArabic.isNullOrBlank()
-        val text = if (isArabicText) option.labelArabic.orEmpty().cleanArabicDisplay() else option.localizedLabel(language)
+        val text = if (isArabicText) quranText(option.labelArabic.orEmpty().cleanArabicDisplay()) else option.localizedLabel(language)
         Text(
             text = text,
             modifier = Modifier.fillMaxWidth().padding(16.dp),

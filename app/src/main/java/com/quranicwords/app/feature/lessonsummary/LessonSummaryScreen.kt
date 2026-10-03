@@ -91,6 +91,7 @@ import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.BrandGreen
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 import com.quranicwords.app.core.util.GamificationConfig
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 import java.util.Locale
@@ -340,7 +341,7 @@ fun LessonSummaryScreen(
                                             verticalArrangement = Arrangement.spacedBy(4.dp)
                                         ) {
                                             Text(
-                                                text = word.arabicWord,
+                                                text = quranText(word.arabicWord),
                                                 fontFamily = LocalQuranFontFamily.current,
                                                 fontSize = 20.sp,
                                                 fontWeight = FontWeight.Bold,
@@ -728,7 +729,7 @@ private fun MissedWordsCard(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text(word.arabicWord, fontFamily = LocalQuranFontFamily.current, fontSize = 20.sp)
+                            Text(quranText(word.arabicWord), fontFamily = LocalQuranFontFamily.current, fontSize = 20.sp)
                             Text(word.meaning.get(language), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }

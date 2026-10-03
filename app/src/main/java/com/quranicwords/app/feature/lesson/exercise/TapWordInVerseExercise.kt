@@ -40,6 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 /**
  * The "reverse direction" quiz (see [ExerciseContent.TapWordInVerse]'s doc comment): the meaning
@@ -177,7 +178,7 @@ private fun TappableWord(
     val clickLabel = stringResource(R.string.a11y_action_select_word)
 
     Text(
-        text = text,
+        text = quranText(text),
         fontFamily = LocalQuranFontFamily.current,
         fontSize = 28.sp,
         lineHeight = 40.sp,

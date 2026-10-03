@@ -248,7 +248,7 @@ fun SettingsScreen(
             ) {
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Text(
-                        text = QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   "),
+                        text = fontStyle.script(QuranPreviewText.SURAH_AL_KAWTHAR.joinToString("   ۝   ")),
                         fontFamily = fontStyle.toFontFamily(),
                         fontSize = 20.sp,
                         lineHeight = 38.sp,

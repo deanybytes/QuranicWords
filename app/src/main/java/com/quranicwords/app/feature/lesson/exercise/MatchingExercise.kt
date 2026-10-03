@@ -88,6 +88,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 /** Sentinel id for the extra, never-matchable meaning-side tile (see
  * [ExerciseContent.Matching.distractorRight]) - never equals a real [MatchPair.id] ("p1", "p2",
@@ -467,7 +468,7 @@ private fun MatchTile(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = text,
+                text = if (isArabic) quranText(text) else text,
                 fontFamily = if (isArabic) LocalQuranFontFamily.current else null,
                 style = if (isArabic) MaterialTheme.typography.titleLarge else MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,

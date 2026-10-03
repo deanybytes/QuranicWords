@@ -52,7 +52,9 @@ import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.LocalizedSense
 import com.quranicwords.app.core.domain.model.LocalizedWord
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.LocalQuranFontStyle
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
+import com.quranicwords.app.core.util.AyahMark
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /** Highlight colour on the dark (green) theme: bright gold, ~9:1 on the dark surface. */
@@ -98,29 +100,32 @@ fun Language.textDirection(): TextDirection =
 
 /**
  * A complete Qur'anic ayah, right-to-left, with only `[start, end)` - the taught word itself -
- * highlighted inline (bold brand green on a light green tint) without breaking the line.
+ * highlighted inline without breaking the line, followed by its end-of-ayah mark and number
+ * ([AyahMark]) when [ayah] is known. The mark is appended after the verse, so the content's
+ * spans are unaffected.
  */
 @Composable
 fun HighlightedGlassArabic(
     verseArabic: String,
     start: Int?,
     end: Int?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    ayah: Int? = null
 ) {
+    val fontStyle = LocalQuranFontStyle.current
     val style = TextStyle(
         fontFamily = LocalQuranFontFamily.current,
-        fontSize = 24.sp,
-        lineHeight = 44.sp,
+        fontSize = 24.sp * fontStyle.verseScale,
+        lineHeight = 44.sp * fontStyle.verseScale,
         color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Right,
         textDirection = TextDirection.Rtl
     )
     val highlight = verseHighlightStyle()
-    val annotated = remember(verseArabic, start, end, highlight) {
-        spanHighlighted(
-            verseArabic, start, end,
-            highlight
-        )
+    val annotated = remember(verseArabic, start, end, highlight, ayah, fontStyle) {
+        // script() maps characters one for one, so the content's spans stay exact.
+        val verse = spanHighlighted(fontStyle.script(verseArabic), start, end, highlight)
+        if (ayah == null) verse else verse + AnnotatedString(AyahMark.of(ayah, fontStyle))
     }
     Text(text = annotated, style = style, modifier = modifier.fillMaxWidth())
 }
@@ -234,7 +239,10 @@ fun VerseExampleCard(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             VerseCitation(sense.reference)
-            HighlightedGlassArabic(verseArabic = sense.verseArabic, start = sense.wordStart, end = sense.wordEnd)
+            HighlightedGlassArabic(
+                verseArabic = sense.verseArabic, start = sense.wordStart, end = sense.wordEnd,
+                ayah = AyahMark.ayahOf(sense.verseKey)
+            )
             if (showTranslation) {
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
                 SenseTranslationLine(sense)

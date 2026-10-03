@@ -2,7 +2,7 @@
 import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, getLang, langInfo, pick } from '../i18n.js';
 import { buildQuestion, isCorrect, pickTarget, verseBlank, MODES } from '../quiz.js';
-import { verseNode } from '../components.js';
+import { verseNode, ayahMark } from '../components.js';
 
 const AUTO_ADVANCE_MS = 1300;
 const MODE_KEYS = { ar2m: 'modeArToMeaning', m2ar: 'modeMeaningToAr', verse: 'modeVerse' };
@@ -27,7 +27,7 @@ function stimulus(q) {
       const v = q.verse;
       const [before, after] = verseBlank(v);
       const ar = h('p', { class: 'card-verse-arabic quiz-verse', attrs: { lang: 'ar', dir: 'rtl' } },
-        before, h('span', { class: 'blank', attrs: { role: 'img', 'aria-label': t('blankLabel') }, text: '_____' }), after);
+        before, h('span', { class: 'blank', attrs: { role: 'img', 'aria-label': t('blankLabel') }, text: '_____' }), after, ayahMark(v.key));
       // The translation is shown unmarked: marking it would give the answer away.
       const tr = h('p', { class: 'card-verse-trans', attrs: { lang: info.bcp47, dir: info.dir }, text: v.tr || '' });
       return h('div', { class: 'quiz-stimulus' }, ar, tr);

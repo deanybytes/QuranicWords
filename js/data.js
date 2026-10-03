@@ -83,7 +83,7 @@ export class DataStore {
     const items = (file && file.words && file.words[wordId]) || [];
     return items.map((x, i) => {
       const v = file.verses[x.v] || {};
-      return { i: i + 1, m: x.m, ref: v.ref, v_ar: v.ar, s: x.s, e: x.e, wbw: v.wbw, ws: x.ws, we: x.we, tr: v.tr, ts: x.ts, te: x.te };
+      return { i: i + 1, m: x.m, key: x.v, ref: v.ref, v_ar: v.ar, s: x.s, e: x.e, wbw: v.wbw, ws: x.ws, we: x.we, tr: v.tr, ts: x.ts, te: x.te };
     });
   }
 

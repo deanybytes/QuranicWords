@@ -26,6 +26,7 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
+import com.quranicwords.app.core.ui.theme.quranText
 
 /**
  * Tap-to-place word-order exercise: chips from [content.orderedChips] are shown shuffled in the
@@ -114,7 +115,7 @@ private fun WordOrderChip(text: String, selected: Boolean, enabled: Boolean, onC
         enabled = enabled
     ) {
         Text(
-            text = text,
+            text = quranText(text),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
             fontSize = 20.sp,
             fontFamily = LocalQuranFontFamily.current,

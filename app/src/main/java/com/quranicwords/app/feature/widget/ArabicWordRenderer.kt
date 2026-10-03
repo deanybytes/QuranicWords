@@ -38,20 +38,18 @@ object ArabicWordRenderer {
     fun fontFor(style: QuranFontStyle): Int = when (style.fontKey) {
         "kfgqpc_hafs" -> R.font.kfgqpc_hafs_regular
         "lateef" -> R.font.lateef_regular
-        "hafs_nastaleeq" -> R.font.hafs_nastaleeq_regular
         "amiri" -> R.font.amiri_regular
         "scheherazade" -> R.font.scheherazade_regular
-        "kitab" -> R.font.kitab_regular
-        "kfgqpc_warsh" -> R.font.kfgqpc_warsh_regular
-        "kfgqpc_qaloun" -> R.font.kfgqpc_qaloun_regular
         "noto_naskh" -> R.font.noto_naskh_regular
-        "noto_nastaliq_urdu" -> R.font.noto_nastaliq_urdu_regular
+        "noorehuda" -> R.font.noorehuda_regular
+        "noorehira" -> R.font.noorehira_regular
         else -> R.font.kfgqpc_hafs_regular
     }
 
     @Synchronized
-    fun render(context: Context, text: String, style: QuranFontStyle): Bitmap? {
-        if (text.isBlank()) return null
+    fun render(context: Context, word: String, style: QuranFontStyle): Bitmap? {
+        if (word.isBlank()) return null
+        val text = style.script(word)
         val key = "${style.name}|$text"
         bitmaps.get(key)?.let { return it }
         return try {
