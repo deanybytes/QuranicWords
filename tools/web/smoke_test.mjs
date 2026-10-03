@@ -557,6 +557,42 @@ await test('router honours a sub-path base (GitHub Pages)', () => {
   assert.equal(router.buildUrl('learn'), '/learn');
 });
 
+console.log('static word and root pages');
+await test('every word has its static page, listed in the sitemap, and links resolve', () => {
+  const { words } = JSON.parse(read('data/index.json'));
+  const pages = new Set(readdirSync(join(ROOT, 'quran-words')));
+  const sitemap = read('sitemap-words.xml');
+  for (const w of words) {
+    assert.ok(w.u, `${w.id} has no page slug`);
+    assert.ok(pages.has(`${w.u}.html`), `missing quran-words/${w.u}.html`);
+    assert.ok(sitemap.includes(`/quran-words/${w.u}.html<`), `${w.u} not in sitemap-words.xml`);
+  }
+  assert.equal(pages.size, words.length + 11, 'one page per word + index + 10 chapter pages, nothing stale');
+  const roots = JSON.parse(read('data/roots.json'));
+  const rootPages = readdirSync(join(ROOT, 'quran-roots'));
+  assert.equal(rootPages.length, Object.keys(roots).length + 1, 'one page per root + index');
+  for (const sm of ['sitemap-words.xml', 'sitemap-roots.xml']) assert.ok(read('robots.txt').includes(`/${sm}`), `robots.txt lists ${sm}`);
+});
+await test('static pages are CSP-clean, canonical and link only to files that exist', () => {
+  const sample = ['quran-words/index.html', 'quran-words/chapter-01.html', 'quran-roots/index.html',
+    ...readdirSync(join(ROOT, 'quran-words')).slice(0, 40).map((f) => `quran-words/${f}`),
+    ...readdirSync(join(ROOT, 'quran-roots')).slice(0, 20).map((f) => `quran-roots/${f}`)];
+  for (const f of sample) {
+    const html = read(f);
+    assert.ok(!/\sstyle=/.test(html), `${f}: inline style attribute`);
+    assert.ok(!/<style/.test(html), `${f}: inline <style>`);
+    for (const m of html.matchAll(/<script([^>]*)>/g)) assert.match(m[1], /application\/ld\+json/, `${f}: executable inline script`);
+    assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.vercel\.app\//, `${f}: canonical`);
+    for (const m of html.matchAll(/(?:href|src)="([^"#?]+)"/g)) {
+      const u = m[1];
+      if (/^(https?:|mailto:)/.test(u)) continue;
+      const target = join(ROOT, dirname(f), u);
+      const appRoute = /(^|\/)(learn|dictionary)$/.test(u) || u === '../';
+      assert.ok(appRoute || existsSync(target), `${f}: broken link ${u}`);
+    }
+  }
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
 

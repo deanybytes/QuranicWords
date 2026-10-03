@@ -2,9 +2,9 @@
 
 ## What is taught
 
-The curriculum teaches **3,900 distinct lemmas** from the Quranic Arabic Corpus. Every one is a
+The curriculum teaches **3,833 distinct lemmas** from the Quranic Arabic Corpus. Every one is a
 real word with its own meaning; none is a repeat or a grammatical fragment. Together they account
-for **98.4% of the Qur'an's lexical segments**, meaning its words plus attached particles
+for **97.4% of the Qur'an's lexical segments**, meaning its words plus attached particles
 such as وَ and بِ.
 
 About 880 very rare lemmas are not taught. They are mostly hapax legomena (words that occur only
@@ -65,7 +65,8 @@ for another attempt and is never recorded as completed.
 
 When a word's occurrences split clearly between meanings (for example مِنْ, "from / of"), the
 word gets one tab per sense. Each tab shows a verse where the source translates the word with
-exactly that sense. 285 words have multiple senses.
+exactly that sense. 333 words have more than one sense in English, and 870 in at least one
+language.
 
 ## Spaced review
 

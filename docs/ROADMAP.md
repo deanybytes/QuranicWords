@@ -2,10 +2,10 @@
 
 ## ✅ Built
 
-- **A verified curriculum, rebuilt from the Quranic Arabic Corpus.** 3,900 distinct lemmas in
-  10 part-of-speech chapters, ordered by frequency, covering 98.4% of the Qur'an's lexical
+- **A verified curriculum, rebuilt from the Quranic Arabic Corpus.** 3,833 distinct lemmas in
+  10 part-of-speech chapters, ordered by frequency, covering 97.4% of the Qur'an's lexical
   segments. Meanings in 8 languages come from each word's own GTAF word-by-word occurrences.
-  Exact verse highlights, transliteration, roots, verb forms and contextual senses.
+  Exact verse highlights, roots, verb forms and contextual senses.
 - **A reproducible content pipeline.** `tools/pipeline` uses pinned sources, a validator that
   fails the build on corrupt content, and golden-word tests. CI checks that committed assets
   match a fresh build.

@@ -29,6 +29,16 @@ pinned sources below. Every download is checksum-verified against `tools/pipelin
 `tools/pipeline/qw/validate.py` re-derives every one of these guarantees from the raw sources,
 independently of the builder, and the build fails on any violation.
 
+## Open data built from this content
+
+- [`dataset/`](../dataset/README.md): words, roots and cited ayahs as JSON and CSV, with schema,
+  licence and citation (`tools/export/build_dataset.py`).
+- `quran-words/` and `quran-roots/`: one static page per word and per root for the website and
+  search engines (`tools/export/build_seo_pages.py`).
+- `data/`: the web app's data (`tools/export/build_web_data.py`).
+
+Content CI rebuilds all of them from the pinned sources and fails if a committed file differs.
+
 ## How a meaning is verified
 
 1. **Word-by-word alignment.** QAC and GTAF agree on the number of words in every one of the

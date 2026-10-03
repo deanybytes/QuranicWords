@@ -221,6 +221,11 @@ export default {
 
   footerAbout: 'قرآنی الفاظ کا ایک اوپن سورس نصاب اور لغت۔ نہ اکاؤنٹ، نہ اشتہارات، نہ ٹریکنگ: آپ کی پیش رفت آپ کے آلے پر ہی رہتی ہے۔',
   footerRepo: 'سورس کوڈ',
+  footerWords: 'تمام الفاظ',
+  footerRoots: 'مادّے',
+  footerDataset: 'اوپن ڈیٹاسیٹ',
+  footerPrivacy: 'رازداری',
+  wordPage: 'لفظ کا صفحہ',
   footerReleases: 'ریلیزز',
   footerLicense: 'GPL-3.0 کے تحت لائسنس یافتہ',
 };

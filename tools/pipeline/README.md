@@ -20,7 +20,8 @@ in `pins.json`. A changed upstream file stops the build.
 |---|---|---|
 | Quranic Arabic Corpus morphology v0.4, via the [mustafa0x/quran-morphology](https://github.com/mustafa0x/quran-morphology) fork | Lemma, root, part of speech, verb form and clitic segmentation for every word | GPL |
 | GTAF word-by-word (`reference/word-by-word/`) | Word-aligned glosses in en, bn, ur, hi, id, tr, fa and fr | Greentech Apps Foundation public Dawah data |
-| alquran.cloud editions | Full-verse translations: Saheeh International (en), Muhiuddin Khan (bn), Jalandhry (ur), Suhel Farooq Khan (hi), Indonesian Ministry (id), Diyanet (tr), Fooladvand (fa), Hamidullah (fr) | Per edition |
+| alquran.cloud and quran.com (API v4) editions | Full-verse translations: Saheeh International (en), Dr. Abu Bakr Muhammad Zakaria (bn), Dr. Israr Ahmad (ur), Maulana Azizul Haque al-Umari (hi), Indonesian Ministry of Religious Affairs (id), Muslim Shahin (tr), Hussein Taji Kal Dari (fa), Muhammad Hamidullah (fr) | Per edition |
+| Tanzil Quran Text (Uthmani) | Reference text: every cited verse is checked to be the complete ayah | CC BY 3.0 (verbatim) |
 
 ## How meanings are made
 

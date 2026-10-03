@@ -41,8 +41,16 @@ To fix a meaning, add a reviewed entry to `tools/pipeline/overrides/` (function 
 value-only change too. See [`tools/pipeline/README.md`](tools/pipeline/README.md) and
 [`docs/CONTENT_SOURCES.md`](docs/CONTENT_SOURCES.md).
 
-`tools/legacy/` holds the old one-off scripts that produced the corrupted v1.0 content. Don't run
-them.
+After a content change, regenerate everything derived from it and commit the result (Content CI
+fails if any of it drifts from a fresh build):
+
+```bash
+python3 tools/pipeline/run.py            # app content + reports
+python3 tools/export/build_web_data.py   # web app data (data/)
+python3 tools/export/build_dataset.py    # open dataset (dataset/)
+python3 tools/export/build_seo_pages.py  # word/root pages + sitemaps
+node tools/web/smoke_test.mjs            # web tests
+```
 
 ## Two hard product constraints
 

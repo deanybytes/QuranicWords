@@ -32,11 +32,6 @@ signing.properties
 *-native-debug-symbols.zip
 
 
-# Ingestion pipeline scratch data (scraped HTML, intermediate JSON) - reproducible by re-running
-# tools/ingestion/*.py; the actual deliverable is app/src/main/assets/content/*.json, which is
-# tracked normally. Keeping these out of git avoids ~38MB of regenerable intermediate data.
-tools/ingestion/raw/
-tools/ingestion/output/
 **/__pycache__/
 *.py[cod]
 *$py.class
@@ -54,3 +49,11 @@ PROFILE_README.md
 *-mapping.txt
 *-mapping.txt.gz
 store/release/
+
+# Generated release files (published on GitHub Releases, not in the tree)
+/build/
+/QuranicWords-v1.0.0.html
+# Private: Play Console answers, tester reports, local archive
+store/private/
+/reports/
+/_dev-archive/

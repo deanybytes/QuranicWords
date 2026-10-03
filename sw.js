@@ -1,14 +1,17 @@
 /* QuranicWords service worker.
  * - App shell (HTML/CSS/JS/fonts/icons): cache-first, precached into a versioned cache.
  * - data/*.json: stale-while-revalidate (index + roots precached; verse files cached on first use).
- * - Navigation: network-first, falling back to the cached app shell, then to an offline page.
+ * - Navigation: network-first. App routes fall back to the cached app shell; other pages (privacy,
+ *   word and root pages) are cached under their own URL, so they never replace the shell.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.2.4';
+const VERSION = '2.2.5';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
 const DATA_CACHE = 'qw-data-v3';
+const PAGES_CACHE = 'qw-pages-v1';
+const PAGES_LIMIT = 150;   // most recently visited static pages kept for offline reading
 // Anything else (including the retired qw-audio-* cache) is deleted on activate.
-const KEEP = [SHELL_CACHE, DATA_CACHE];
+const KEEP = [SHELL_CACHE, DATA_CACHE, PAGES_CACHE];
 
 // Paths are relative to the service worker's scope, so the site works at "/" and under a
 // sub-path such as GitHub Pages' "/QuranicWords/".
@@ -22,6 +25,8 @@ const SHELL_FILES = [
   'favicon.png',
   'css/main.css',
   'css/components.css',
+  'css/privacy.css',
+  'css/seo.css',
   'css/fonts/ScheherazadeNew-Regular.woff2',
   'css/fonts/ScheherazadeNew-Bold.woff2',
   'css/fonts/AmiriQuran-Regular.woff2',
@@ -87,6 +92,31 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
+// Paths the single-page app renders itself (see js/router.js); everything else is a real page.
+const APP_ROUTES = new Set(['', 'index.html', 'learn', 'review', 'dictionary', 'table', 'flashcards', 'quiz', 'roots', 'progress']);
+
+function isAppRoute(url) {
+  if (`${url.pathname}/` === SCOPE_PATH) return true;
+  if (!url.pathname.startsWith(SCOPE_PATH)) return false;
+  return APP_ROUTES.has(url.pathname.slice(SCOPE_PATH.length).replace(/\/+$/, '').toLowerCase());
+}
+
+async function networkFirstPage(request) {
+  const cache = await caches.open(PAGES_CACHE);
+  try {
+    const res = await fetch(request);
+    if (res.ok && res.status === 200 && (res.headers.get('content-type') || '').includes('text/html')) {
+      await cache.put(request, res.clone());
+      const keys = await cache.keys();
+      await Promise.all(keys.slice(0, Math.max(0, keys.length - PAGES_LIMIT)).map((k) => cache.delete(k)));
+    }
+    return res;
+  } catch {
+    const cached = await cache.match(request, { ignoreSearch: true });
+    return cached || new Response(OFFLINE_HTML, { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+  }
+}
+
 async function networkFirstNavigation(request) {
   const shell = await caches.open(SHELL_CACHE);
   try {
@@ -130,7 +160,7 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === 'navigate') {
-    event.respondWith(networkFirstNavigation(request));
+    event.respondWith(isAppRoute(url) ? networkFirstNavigation(request) : networkFirstPage(request));
     return;
   }
   if (!url.pathname.startsWith(SCOPE_PATH)) return;

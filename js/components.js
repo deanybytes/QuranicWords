@@ -2,6 +2,7 @@
 import { h, icon, arabic, splitSpan, markedText } from './dom.js';
 import { t, pick, cite, getLang, langInfo, formatNumber } from './i18n.js';
 import { toast, openModal } from './ui.js';
+import { BASE } from './config.js';
 
 /* ---------------- Verse context ---------------- */
 function uiDirAttrs() {
@@ -152,6 +153,7 @@ export function wordCard(ctx, w, { expanded } = {}) {
     verbFormsLine(w),
     w.poly && w.poly[lang] ? h('button', { type: 'button', class: 'card-poly-indicator', on: { click: () => openSenses(ctx, w) } }, icon('🔀'), h('span', { text: t('contextSenses') })) : null);
 
+  const pageLink = w.u ? h('a', { class: 'card-action-btn', attrs: { href: `${BASE}quran-words/${w.u}.html` } }, icon('🔗'), h('span', { text: t('wordPage') })) : null;
   const copyBtn = h('button', { type: 'button', class: 'card-action-btn', on: { click: () => ctx.copyWord(w) } }, icon('📋'), h('span', { text: t('copy') }));
   const saveBtn = h('button', { type: 'button', class: `card-action-btn bookmark-btn${saved ? ' active' : ''}`, attrs: { 'aria-pressed': String(saved) } },
     icon(saved ? '★' : '☆'), h('span', { text: saved ? t('saved') : t('save') }));
@@ -164,5 +166,5 @@ export function wordCard(ctx, w, { expanded } = {}) {
 
   return h('article', { class: 'word-card', attrs: { 'aria-label': `${w.ar} — ${meaning}` } },
     head, tags, meaningBox, w.ref ? verseToggle(ctx, w, expanded) : null,
-    h('div', { class: 'card-actions' }, copyBtn, saveBtn));
+    h('div', { class: 'card-actions' }, copyBtn, pageLink, saveBtn));
 }

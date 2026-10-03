@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use QuranicWords or its open dataset, please cite it as below."
+title: "QuranicWords: Qur'anic Arabic vocabulary in 8 languages"
+abstract: >-
+  An open-source curriculum, Android app, web app and dataset for learning the vocabulary of the
+  Qur'an: 3,833 lemmas (97.4% of the Qur'an's text) and 1,423 roots, with meanings in English,
+  Bangla, Urdu, Hindi, Indonesian, Turkish, Persian and French, each tied to a complete ayah.
+type: software
+authors:
+  - name: "DEANY BYTES"
+    email: deanybytes@gmail.com
+version: 1.0.0
+date-released: 2026-10-03
+license: GPL-3.0-or-later
+repository-code: "https://github.com/deanybytes/QuranicWords"
+url: "https://quranicwords.vercel.app/"
+keywords:
+  - Quran
+  - Quranic Arabic
+  - Arabic vocabulary
+  - Arabic roots
+  - word by word Quran
+  - Quran dictionary
+  - dataset
+  - language learning
+  - spaced repetition
+references:
+  - type: data
+    title: "Quranic Arabic Corpus (morphology v0.4)"
+    authors:
+      - name: "Kais Dukes, University of Leeds"
+    url: "https://corpus.quran.com"
+  - type: data
+    title: "Word-by-word Quran translations"
+    authors:
+      - name: "Greentech Apps Foundation"
+    url: "https://quran.gtaf.org"
+  - type: data
+    title: "Tanzil Quran Text"
+    authors:
+      - name: "Tanzil Project"
+    url: "https://tanzil.net"
