@@ -1,7 +1,7 @@
 // Dictionary views: word cards (incremental), table (paginated) and the roots index.
 import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, getLang, langInfo } from '../i18n.js';
-import { wordCard, audioButton, catBadge, meaningText, play } from '../components.js';
+import { wordCard, catBadge, meaningText } from '../components.js';
 
 const CARD_BATCH = 24;
 const TABLE_PAGE = 50;
@@ -76,16 +76,15 @@ export const tableView = {
 
     const tbody = h('tbody', {}, ...slice.map((w) => h('tr', {},
       h('td', { class: 'num', text: formatNumber(w.rank) }),
-      h('td', { class: 'table-arabic-cell' }, h('button', { type: 'button', class: 'linklike', attrs: { lang: 'ar', dir: 'rtl', 'aria-label': `${t('playAudio')}: ${w.ar}` }, text: w.ar, on: { click: () => play(w) } })),
+      h('td', { class: 'table-arabic-cell', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
       h('td', { class: 'translit', text: w.tl }),
       h('td', {}, w.rt ? h('button', { type: 'button', class: 'tag-root', attrs: { lang: 'ar', dir: 'rtl', 'aria-label': t('filterByRoot', { root: w.rt }) }, text: w.rt, on: { click: () => ctx.filterByRoot(w.rt) } }) : h('span', { class: 'muted', text: '—' })),
       h('td', {}, h('span', { attrs: { lang: info.bcp47 }, text: meaningText(w) }), ' ', catBadge(w)),
-      h('td', { class: 'num', text: formatNumber(w.occ) }),
-      h('td', {}, audioButton(w, { label: false, cls: 'btn btn-icon btn-sm' })))));
+      h('td', { class: 'num', text: formatNumber(w.occ) }))));
 
     const table = h('table', { class: 'dict-table' },
       h('caption', { class: 'visually-hidden', text: t('navTable') }),
-      h('thead', {}, h('tr', {}, ...['tableRank', 'tableWord', 'tableTranslit', 'tableRoot', 'tableMeaning', 'tableFreq', 'tableAudio'].map((k) => h('th', { attrs: { scope: 'col' }, text: t(k) })))),
+      h('thead', {}, h('tr', {}, ...['tableRank', 'tableWord', 'tableTranslit', 'tableRoot', 'tableMeaning', 'tableFreq'].map((k) => h('th', { attrs: { scope: 'col' }, text: t(k) })))),
       tbody);
 
     const go = (p) => { this.page = p; this.render(ctx, el); el.querySelector('.table-container').focus(); };

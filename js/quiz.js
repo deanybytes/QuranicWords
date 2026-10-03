@@ -1,6 +1,6 @@
 // Pure quiz logic: shuffling, distractor selection and question building.
 
-export const MODES = ['ar2m', 'm2ar', 'listen', 'verse'];
+export const MODES = ['ar2m', 'm2ar', 'verse'];
 
 /** Unbiased in-place Fisher–Yates shuffle; returns the array. `rng` returns [0, 1). */
 export function shuffle(arr, rng = Math.random) {

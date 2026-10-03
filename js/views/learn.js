@@ -3,10 +3,9 @@
 import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, pick, getLang, langInfo } from '../i18n.js';
 import { buildQuestion, shuffle } from '../quiz.js';
-import { audioButton, catBadge, meaningText, play, verbFormsLine, verseToggle } from '../components.js';
+import { catBadge, meaningText, verbFormsLine, verseToggle } from '../components.js';
 import { renderQuestion } from './quizView.js';
 import { celebrate } from '../ui.js';
-import { stopAudio } from '../audio.js';
 
 export function lessonName(l) {
   return `${t('chapterLabel', { n: formatNumber(l.ch) })} · ${t('sectionLabel', { n: formatNumber(l.sec) })} · ${t('lessonLabel', { n: formatNumber(l.les) })}`;
@@ -96,7 +95,7 @@ export const learnView = {
   header(ctx, step) {
     return h('div', { class: 'lesson-head' },
       h('div', {}, h('p', { class: 'muted lesson-name', text: lessonName(this.run.lesson) }), h('p', { class: 'lesson-step', attrs: { role: 'status' }, text: step })),
-      h('button', { type: 'button', class: 'btn btn-sm', on: { click: () => { this.run = null; stopAudio(); ctx.rerender(); } } }, h('span', { text: t('exitLesson') })));
+      h('button', { type: 'button', class: 'btn btn-sm', on: { click: () => { this.run = null; ctx.rerender(); } } }, h('span', { text: t('exitLesson') })));
   },
 
   renderTeach(ctx, el) {
@@ -109,7 +108,7 @@ export const learnView = {
       this.header(ctx, t('teachStep', { i: formatNumber(r.i + 1), n: formatNumber(words.length) })),
       dots,
       h('article', { class: 'panel teach-card' },
-        h('button', { type: 'button', class: 'teach-arabic', attrs: { lang: 'ar', dir: 'rtl', 'aria-label': `${t('playAudio')}: ${w.ar}` }, text: w.ar, on: { click: () => play(w) } }),
+        h('p', { class: 'teach-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
         h('p', { class: 'card-translit', text: w.tl }),
         h('p', { class: 'teach-meaning', attrs: { lang: info.bcp47 }, text: meaningText(w) }),
         h('div', { class: 'card-tags-row centered' }, catBadge(w),
@@ -117,7 +116,6 @@ export const learnView = {
           h('span', { class: 'card-occ-pill', text: t('occurrences', { n: formatNumber(w.occ) }) })),
         w.pos ? h('p', { class: 'card-pos-detail', attrs: { lang: 'en' }, text: w.pos }) : null,
         verbFormsLine(w),
-        audioButton(w, { cls: 'btn' }),
         w.ref ? verseToggle(ctx, w, this.expanded) : null),
       h('div', { class: 'flashcard-nav-bar' },
         h('button', { type: 'button', class: 'btn', disabled: r.i === 0, on: { click: () => { r.i--; ctx.rerender(); } } }, h('span', { text: t('back') })),
@@ -186,6 +184,5 @@ export const learnView = {
 
   leave() {
     if (this.cleanup) { this.cleanup(); this.cleanup = null; }
-    stopAudio();
   },
 };

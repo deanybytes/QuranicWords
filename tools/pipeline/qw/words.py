@@ -51,7 +51,6 @@ class Word:
     verb_form: str = None
     particle_type: str = None
     pos_detail: str = None
-    audio: str = None
 
     @property
     def frequency(self):

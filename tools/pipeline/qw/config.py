@@ -8,7 +8,6 @@ OUT = PIPELINE / "out"
 REPORTS = PIPELINE / "reports"
 OVERRIDES = PIPELINE / "overrides"
 ASSETS = ROOT / "app" / "src" / "main" / "assets" / "content"
-AUDIO_DIR = ROOT / "app" / "src" / "main" / "assets" / "audio" / "words"
 GTAF_DIR = ROOT / "reference" / "word-by-word"
 
 SEED = 20261003

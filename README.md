@@ -82,7 +82,6 @@ The curriculum has **10 chapters, 79 sections, 958 lessons and 17,618 exercises*
 - its root
 - its verb forms (past, present and maṣdar), for verbs
 - its contextual senses (*Wujūh*), each with its own verse
-- pronunciation audio, for 2,034 words
 
 ## 🧩 How a lesson teaches
 
@@ -93,7 +92,6 @@ Every word is **taught first, then quizzed** immediately (retrieval practice):
 | 📖 Learn | The word, meaning, root, forms and senses in a highlighted verse | No |
 | 🔤 Meaning | Pick the meaning of the Arabic word | Yes |
 | ✏️ Verse | Complete the verse with the missing word, or tap the word in the verse that has this meaning | Yes |
-| 🎧 Listen | Hear the word and pick it (when verified audio exists) | Yes |
 | 🔗 Match | Pair the lesson's words with their meanings | Yes |
 
 Distractors come from the same chapter. They never share the answer's written form, root, or meaning in any language, so there is always exactly one defensible answer.
@@ -193,7 +191,6 @@ Explore and study the complete **QuranicWords Master Curriculum Dictionary** dir
 
 - 📖 **All 3,900 words:** search Arabic (with or without tashkīl), the 8 meaning languages, roots and verse citations.
 - 🧠 **Learn path and spaced review:** progress is saved locally in your browser.
-- 🔊 **Pronunciation** for words with a verified recording.
 - 📋 **One-Click Copy & Ayah Links**: Direct citations linking to Quranic Ayahs on Quran.com.
 - ⭐ **Favorites / Bookmarking**: Save words locally to your browser for revision.
 - 🔀 **Polysemy (Wujūh al-Qur'an) Explorer**: Interactive contextual meaning tabs with live Ayah switching.

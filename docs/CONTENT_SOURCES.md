@@ -9,7 +9,6 @@ pinned sources below. Every download is checksum-verified against `tools/pipelin
 | [Quranic Arabic Corpus](https://corpus.quran.com) morphology v0.4, via the [mustafa0x/quran-morphology](https://github.com/mustafa0x/quran-morphology) fork (spelling and root fixes) | GPL (attribution and link-back to corpus.quran.com) | Lemma, root, part of speech, verb form and clitic segmentation for all 77,429 words |
 | [quran.gtaf.org](https://quran.gtaf.org) word-by-word (Greentech Apps Foundation), bundled in `reference/word-by-word/` | Public Dawah data | Word-aligned glosses in English, Bangla, Urdu, Hindi, Indonesian, Turkish, Persian and French; the Uthmani word forms used for verses |
 | [alquran.cloud](https://alquran.cloud) editions | Per edition | Full-verse translations: Saheeh International (en), Muhiuddin Khan (bn), Fateh Muhammad Jalandhry (ur), Suhel Farooq Khan & Saifur Rahman Nadwi (hi), Indonesian Ministry of Religious Affairs (id), Diyanet İşleri (tr), Mohammad Mahdi Fooladvand (fa), Muhammad Hamidullah (fr) |
-| Google Cloud Text-to-Speech (ar-XA-Wavenet-B) | Generated assets | Pronunciation clips, reattached only where the clip's source text reads identically to the word |
 | [Amiri](https://github.com/aliftype/amiri), [Scheherazade New](https://github.com/silnrsi/font-scheherazade), [Noto Naskh Arabic](https://github.com/notofonts/arabic), [Lateef](https://github.com/silnrsi/font-lateef), [Noto Nastaliq Urdu](https://github.com/notofonts/nastaliq) | SIL OFL 1.1 | Qur'anic script typefaces |
 
 ## How a meaning is verified
@@ -33,10 +32,9 @@ pinned sources below. Every download is checksum-verified against `tools/pipelin
 
 ## Languages
 
-Content is provided in **8 languages**: en, bn, ur, hi, id, tr, fa and fr. The interface is also
-translated into Malay, Hausa and Swahili, but no verified word-by-word source exists in those
-languages yet. Learners who already use them see English meanings, with a one-time explanation,
-and the languages are not offered to new learners.
+The app supports **8 languages** for both interface and content: en, bn, ur, hi, id, tr, fa and
+fr. Malay, Hausa and Swahili were removed, because no verified word-by-word source exists for them.
+Learners who had chosen one of them are switched to English automatically.
 
 ## Attribution obligations
 

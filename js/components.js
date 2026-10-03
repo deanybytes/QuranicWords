@@ -1,35 +1,7 @@
-// Reusable word widgets: audio button, verse context (lazy), word card, senses dialog.
+// Reusable word widgets: verse context (lazy), word card, senses dialog.
 import { h, icon, arabic, splitSpan, splitHighlight, markedText } from './dom.js';
 import { t, pick, cite, getLang, langInfo, formatNumber } from './i18n.js';
-import { audioKind, canPlay, playWord, onVoicesReady } from './audio.js';
 import { toast, openModal } from './ui.js';
-
-/* ---------------- Audio ---------------- */
-export async function play(w) {
-  if (!canPlay(w)) { toast(t('audioUnavailable')); return; }
-  try { await playWord(w); } catch { toast(t('audioError'), { tone: 'error' }); }
-}
-
-function setAudioState(btn, available) {
-  btn.title = available ? t('playAudio') : t('audioUnavailable');
-  if (available) { btn.removeAttribute('aria-disabled'); btn.classList.remove('is-disabled'); }
-  else { btn.setAttribute('aria-disabled', 'true'); btn.classList.add('is-disabled'); }
-}
-
-export function audioButton(w, { label = true, cls = 'card-action-btn' } = {}) {
-  // With a visible label the accessible name starts with that label (WCAG 2.5.3 label-in-name).
-  const btn = h('button', { type: 'button', class: `${cls} audio-btn`, attrs: { 'aria-label': label ? null : `${t('playAudio')}: ${w.tl || w.ar}` } },
-    icon('🔊'), label ? h('span', { text: t('listen') }) : null, label ? h('span', { class: 'visually-hidden', text: ` (${w.tl || w.ar})` }) : null);
-  setAudioState(btn, Boolean(audioKind(w)));
-  if (!w.au) btn.dataset.ttsPending = '1';
-  btn.addEventListener('click', (e) => { e.stopPropagation(); play(w); });
-  return btn;
-}
-
-// Speech voices load asynchronously: enable TTS-backed buttons once an Arabic voice appears.
-onVoicesReady(() => {
-  for (const btn of document.querySelectorAll('[data-tts-pending]')) setAudioState(btn, true);
-});
 
 /* ---------------- Verse context ---------------- */
 function uiDirAttrs() {
@@ -142,7 +114,7 @@ export function wordCard(ctx, w, { expanded } = {}) {
   const saved = ctx.isSaved(w.id);
   const meaning = meaningText(w);
 
-  const arBtn = h('button', { type: 'button', class: 'card-arabic', attrs: { lang: 'ar', dir: 'rtl', 'aria-label': `${t('playAudio')}: ${w.ar}` }, text: w.ar, on: { click: () => play(w) } });
+  const arBtn = h('span', { class: 'card-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar });
   const head = h('div', { class: 'card-header' },
     h('div', { class: 'card-arabic-wrap' }, arBtn, h('span', { class: 'card-translit', text: w.tl })),
     h('div', { class: 'card-meta-right' }, catBadge(w), h('span', { class: 'card-occ-pill', text: t('occurrences', { n: formatNumber(w.occ) }) })));
@@ -171,5 +143,5 @@ export function wordCard(ctx, w, { expanded } = {}) {
 
   return h('article', { class: 'word-card', attrs: { 'aria-label': `${w.ar} — ${meaning}` } },
     head, tags, meaningBox, w.ref ? verseToggle(ctx, w, expanded) : null,
-    h('div', { class: 'card-actions' }, audioButton(w), copyBtn, saveBtn));
+    h('div', { class: 'card-actions' }, copyBtn, saveBtn));
 }

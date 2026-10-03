@@ -1,16 +1,8 @@
 # Deploy only what the static site needs: index.html, css/, js/, data/, icons/, favicon.png,
-# manifest.json, sw.js, robots.txt, sitemap.xml, the Google verification file, and the word
-# audio under app/src/main/assets/audio/ (referenced by data/index.json).
+# manifest.json, sw.js, robots.txt, sitemap.xml, the Google verification file.
 
-# Android app: everything except the audio directory
-/app/*
-!/app/src
-/app/src/*
-!/app/src/main
-/app/src/main/*
-!/app/src/main/assets
-/app/src/main/assets/*
-!/app/src/main/assets/audio
+# Android app
+/app/
 
 # Source fonts/images (the site uses subsets in css/fonts and icons/)
 /assets/

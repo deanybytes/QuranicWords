@@ -15,7 +15,7 @@ There are no API keys, backend credentials, or third-party service tokens anywhe
 
 - **No PII collected.** A locally-generated UUID (`UserPreferencesDataStore.getOrCreateLocalUserId()`) keys a learner's local progress; nothing personally identifying is generated or requested, and nothing ever leaves the device.
 - **No analytics or crash reporting is wired up** — nothing is sent anywhere, ever, in this build. There is no network permission usage beyond what the OS itself requires.
-- **No PII is ever logged.** The small amount of `Log.w` logging that exists (e.g. `AudioPlayer` logging the asset path when playback fails) is deliberately limited to exception objects and asset paths, never user identifiers or displayed content.
+- **No PII is ever logged.** The small amount of `Log.w` logging that exists is deliberately limited to exception objects and asset paths, never user identifiers or displayed content.
 - **The local backup file is plaintext JSON, not encrypted.** A learner who exports it and shares the file would be sharing their own progress data (points, streak, per-word attempt history) — worth a line in Settings' backup UI, but not a secret-handling concern the app itself needs to solve.
 - Room DB and DataStore preferences are excluded from Android Auto Backup (`app/src/main/res/xml/backup_rules.xml` / `data_extraction_rules.xml`) as defense-in-depth, even though current local data has no PII beyond a random UUID.
 

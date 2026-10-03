@@ -407,7 +407,7 @@ await test('lessons partition the curriculum in order', () => {
 await test('meta stats are consistent with the data', () => {
   assert.equal(META.wordCount, WORDS.length);
   assert.equal(META.rootCount, Object.keys(JSON.parse(read('data/roots.json'))).length);
-  assert.ok(WORDS.every((w) => !w.au || existsSync(join(ROOT, w.au))), 'every audio path exists');
+  assert.ok(WORDS.every((w) => !('au' in w)), 'no word carries an audio path (audio was withdrawn)');
 });
 
 console.log('static wiring');
@@ -483,12 +483,13 @@ await test('vercel.json: CSP, routes, no standalone rewrites', () => {
   for (const p of ['/dictionary', '/flashcards', '/roots', '/quiz', '/learn', '/review', '/progress']) assert.ok(rewrites.includes(p), p);
   assert.ok(!rewrites.includes('/standalone') && !rewrites.includes('/v1.0.0'));
 });
-await test('.vercelignore keeps the audio directory and excludes the rest of app/', () => {
+await test('.vercelignore excludes the Android app and tooling', () => {
   const ig = read('.vercelignore');
-  for (const line of ['/app/*', '!/app/src', '/app/src/*', '!/app/src/main', '/app/src/main/*', '!/app/src/main/assets', '/app/src/main/assets/*', '!/app/src/main/assets/audio', '/tools/', '/QuranicWords-v1.0.0.html']) {
+  for (const line of ['/app/', '/tools/', '/QuranicWords-v1.0.0.html']) {
     assert.ok(ig.split('\n').includes(line), line);
   }
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
+

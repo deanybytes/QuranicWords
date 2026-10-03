@@ -1,7 +1,7 @@
 {
   "name": "QuranicWords — Learn the Vocabulary of the Qur'an",
   "short_name": "QuranicWords",
-  "description": "Learn 3,900 Qur'anic Arabic words in order of frequency, with verse examples, roots, audio, lessons, quizzes and spaced-repetition review. Meanings in 8 languages. Works offline; no tracking.",
+  "description": "Learn 3,900 Qur'anic Arabic words in order of frequency, with verse examples, roots, lessons, quizzes and spaced-repetition review. Meanings in 8 languages. Works offline; no tracking.",
   "id": "/",
   "start_url": "/learn?source=pwa",
   "scope": "/",

@@ -46,11 +46,10 @@ retrieval practice, and it is far more effective than a long study block followe
 
 | Order | Step |
 |---|---|
-| 1 | Teach each word: meaning, root, verb forms, contextual senses, a highlighted verse, audio |
+| 1 | Teach each word: meaning, root, verb forms, contextual senses, a highlighted verse |
 | 2 | Meaning quiz (Arabic → meaning) for each word |
 | 3 | A verse exercise per word, alternating between *complete the verse* (pick the missing word) and *tap the word in the verse* that has the shown meaning |
-| 4 | A listening quiz for words with verified pronunciation audio |
-| 5 | A closing matching round |
+| 4 | A closing matching round |
 
 The learning style setting (practice once, 3× or 5×) repeats the quiz steps, re-shuffled so the
 same word is never asked twice in a row.

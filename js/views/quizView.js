@@ -2,11 +2,10 @@
 import { h, clear, arabic, splitHighlight, markedText } from '../dom.js';
 import { t, formatNumber, getLang, langInfo, pick } from '../i18n.js';
 import { buildQuestion, isCorrect, pickTarget, verseBlank, MODES } from '../quiz.js';
-import { play, audioButton, verseNode } from '../components.js';
-import { playWord, stopAudio } from '../audio.js';
+import { verseNode } from '../components.js';
 
 const AUTO_ADVANCE_MS = 1300;
-const MODE_KEYS = { ar2m: 'modeArToMeaning', m2ar: 'modeMeaningToAr', listen: 'modeListening', verse: 'modeVerse' };
+const MODE_KEYS = { ar2m: 'modeArToMeaning', m2ar: 'modeMeaningToAr', verse: 'modeVerse' };
 const POOLS = { filtered: 'poolFiltered', learned: 'poolLearned', mistakes: 'poolMistakes' };
 
 function optionLabel(q, w) {
@@ -21,12 +20,9 @@ function stimulus(q) {
   switch (q.mode) {
     case 'ar2m':
       return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }),
-        h('p', { class: 'quiz-translit', text: w.tl }), audioButton(w, { cls: 'btn btn-sm' }));
+        h('p', { class: 'quiz-translit', text: w.tl }));
     case 'm2ar':
       return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-meaning', attrs: { lang: info.bcp47 }, text: pick(w.m) }));
-    case 'listen':
-      return h('div', { class: 'quiz-stimulus' }, h('button', { type: 'button', class: 'btn btn-primary btn-lg', on: { click: () => play(w) } },
-        h('span', { attrs: { 'aria-hidden': 'true' }, text: '🔊' }), h('span', { text: t('playAgain') })));
     case 'verse': {
       const v = q.verse;
       const [before, after] = verseBlank(v);
@@ -44,7 +40,7 @@ function stimulus(q) {
   }
 }
 
-const PROMPTS = { ar2m: 'quizPromptMeaning', m2ar: 'quizPromptArabic', listen: 'quizPromptListen', verse: 'quizPromptVerse' };
+const PROMPTS = { ar2m: 'quizPromptMeaning', m2ar: 'quizPromptArabic', verse: 'quizPromptVerse' };
 
 /**
  * Renders question `q` into `el`. Calls onAnswer(correct) exactly once (first try), then
@@ -85,7 +81,6 @@ export function renderQuestion(el, q, { onAnswer, onNext, header = null, autoAdv
     stimulus(q),
     grid,
     h('div', { class: 'quiz-footer' }, feedback, nextBtn));
-  if (q.mode === 'listen') playWord(q.target).catch(() => {});
   return () => clearTimeout(timer);
 }
 
@@ -108,7 +103,6 @@ export const quizView = {
     if (this.pool === 'learned') list = ctx.data.words.filter((w) => ctx.store.state.cards[w.id]);
     else if (this.pool === 'mistakes') list = ctx.data.words.filter((w) => ctx.store.state.mistakes[w.id]);
     else list = ctx.filtered();
-    if (this.mode === 'listen') list = list.filter((w) => w.au);
     return list;
   },
 
@@ -138,7 +132,7 @@ export const quizView = {
     const pool = this.poolWords(ctx);
     if (!pool.length) {
       this.question = null;
-      this.body.replaceChildren(h('p', { class: 'empty-state', text: this.mode === 'listen' ? t('quizNeedAudio') : t('quizNeedWords') }));
+      this.body.replaceChildren(h('p', { class: 'empty-state', text: t('quizNeedWords') }));
       return;
     }
     const prefer = this.mode === 'verse' ? (w) => ctx.data.loadedChapters.has(w.ch) : null;
@@ -183,6 +177,5 @@ export const quizView = {
   leave() {
     this.token++;
     if (this.cleanup) { this.cleanup(); this.cleanup = null; }
-    stopAudio();
   },
 };

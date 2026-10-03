@@ -1,15 +1,14 @@
 /* QuranicWords service worker.
  * - App shell (HTML/CSS/JS/fonts/icons): cache-first, precached into a versioned cache.
  * - data/*.json: stale-while-revalidate (index + roots precached; verse files cached on first use).
- * - Word audio: cache-first at runtime (recordings play offline once heard).
  * - Navigation: network-first, falling back to the cached app shell, then to an offline page.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.0.0';
+const VERSION = '2.1.0';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
-const DATA_CACHE = 'qw-data-v2';
-const AUDIO_CACHE = 'qw-audio-v1';
-const KEEP = [SHELL_CACHE, DATA_CACHE, AUDIO_CACHE];
+const DATA_CACHE = 'qw-data-v3';
+// Anything else (including the retired qw-audio-* cache) is deleted on activate.
+const KEEP = [SHELL_CACHE, DATA_CACHE];
 
 const SHELL_FILES = [
   '/index.html',
@@ -28,7 +27,6 @@ const SHELL_FILES = [
   '/icons/apple-touch-icon.png',
   '/js/boot.js',
   '/js/app.js',
-  '/js/audio.js',
   '/js/components.js',
   '/js/config.js',
   '/js/data.js',
@@ -118,18 +116,6 @@ async function staleWhileRevalidate(event, request) {
   return network;
 }
 
-async function audio(request) {
-  const cache = await caches.open(AUDIO_CACHE);
-  const url = new URL(request.url);
-  const key = url.origin + url.pathname;
-  const cached = await cache.match(key);
-  if (cached) return cached;
-  // Fetch the whole file (no Range) so it can be cached; media elements accept a 200 response.
-  const res = await fetch(key);
-  if (res.ok && res.status === 200) cache.put(key, res.clone());
-  return res;
-}
-
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
@@ -140,8 +126,6 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(networkFirstNavigation(request));
   } else if (url.pathname.startsWith('/data/') && url.pathname.endsWith('.json')) {
     event.respondWith(staleWhileRevalidate(event, request));
-  } else if (url.pathname.startsWith('/app/src/main/assets/audio/')) {
-    event.respondWith(audio(request));
   } else if (/^\/(css|js|icons)\//.test(url.pathname) || url.pathname === '/manifest.json' || url.pathname === '/favicon.png') {
     event.respondWith(cacheFirst(request, SHELL_CACHE));
   }

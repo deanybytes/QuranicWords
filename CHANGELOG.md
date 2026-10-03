@@ -2,7 +2,7 @@
 
 All notable changes to QuranicWords are documented here.
 
-## [1.0.0] - 2026-10-03 (Build 100007): Verified curriculum, spaced review & gamification
+## [1.0.0] - 2026-10-03 (Build 100008): Verified curriculum, spaced review & gamification
 
 ### Content (rebuilt from source)
 - **Corrupted curriculum replaced.** The previous content had:
@@ -15,9 +15,10 @@ All notable changes to QuranicWords are documented here.
   - Meanings in 8 languages are drawn only from each word's own GTAF word-by-word occurrences.
   - Every word has an exact verse highlight, transliteration, root, verb forms and contextual senses.
 - **POS-pure chapters** alternate verbs and nouns by frequency.
-- **New exercise types:** verse completion, tap-the-word-in-verse and listening (2,034 words with verified audio).
+- **New exercise types:** verse completion and tap-the-word-in-verse.
 - **Reproducible pipeline** (`tools/pipeline`) with a validator, golden tests and CI that verifies the committed assets.
-- **French content is new.** Malay, Hausa and Swahili have no verified source yet, so they show English meanings and carry a notice.
+- **French content is new.** Malay, Hausa and Swahili were removed (no verified word-by-word source); learners who used them are switched to English.
+- **Pronunciation audio and listening exercises were withdrawn,** because audio could not be provided for every word.
 - **Citations** now read "Surah <name> <surah>:<ayah>" everywhere.
 
 ### Learning & motivation
@@ -32,7 +33,6 @@ All notable changes to QuranicWords are documented here.
   - an achievements screen with progress bars;
   - celebrations for level-ups, streak milestones and exam passes.
 - **Lesson summary:** shows missed words with "Review these now", a Retry button for failed exams, and an XP breakdown.
-- **Pronunciation:** play buttons, and an autoplay setting on the teach step.
 - **Smoother flow:**
   - resume an interrupted lesson;
   - go back during onboarding;

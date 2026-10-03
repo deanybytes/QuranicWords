@@ -12,7 +12,6 @@ Architectural Highlights:
 - 8 content languages with source-verified meanings: English, Bengali (বাংলা), Urdu (اردو),
   Hindi (हिन्दी), Indonesian, Turkish (Türkçe), Persian (فارسی), French (Français).
 - 3 View Modes: 📚 Card Stream View, 📋 Interactive Data Table, 📇 Flashcard Master Mode.
-- 🔊 Audio Pronunciation with SpeechSynthesis.
 - 📋 Instant Quick Copy with animated glass toast notifications.
 - ⭐ Bookmarking / Favorites with localStorage persistence.
 - 🎲 Random Word / Ayah Discovery Modal.
@@ -265,7 +264,7 @@ def main():
     <!-- Primary SEO Meta Tags -->
     <title>QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary</title>
     <meta name="title" content="QuranicWords — {n_words} Quranic Vocabulary Master Curriculum Dictionary">
-    <meta name="description" content="Master {n_words} verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 8 languages, root analysis, audio pronunciation, and polysemy exploration.">
+    <meta name="description" content="Master {n_words} verified Qur'anic Arabic words ordered by frequency. Features authentic verse contexts, multi-lingual translations in 8 languages, root analysis, and polysemy exploration.">
     <meta name="keywords" content="Quran vocabulary, Quranic Arabic dictionary, Learn Quran Arabic, Quran words frequency, Quran lemmas, Uthmani Quran, Arabic grammar, Wujuh al-Quran, polysemy, Quranic root words, deanybytes, quranic words english, quran dictionary bangla">
     <meta name="author" content="DEANY TALKS (deanybytes)">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -1315,7 +1314,7 @@ def main():
                             The Complete Vocabulary of the Holy Qur'an
                         </h1>
                         <p style="font-size:13px; color:#e2e8f0; margin-top:4px; max-width:760px;">
-                            Every unique lemma in the Qur'an organized by pedagogical frequency. Featuring authentic Uthmani calligraphy, verified ayah citations, multi-lingual translations, and instant audio pronunciation.
+                            Every unique lemma in the Qur'an organized by pedagogical frequency. Featuring authentic Uthmani calligraphy, verified ayah citations, and multi-lingual translations.
                         </p>
                     </div>
                 </div>
@@ -1410,7 +1409,6 @@ def main():
 
                     <div style="display:flex; justify-content:space-between; margin-top:10px;">
                         <button class="btn" onclick="prevFlashcard()">‹ Previous (←)</button>
-                        <button class="icon-btn" onclick="playFcAudio()">🔊</button>
                         <button class="btn btn-primary" onclick="nextFlashcard()">Next (→) ›</button>
                     </div>
                 </div>
@@ -1607,7 +1605,6 @@ def main():
                             </div>
                         </div>
                         <div class="word-action-btns">
-                            <button class="icon-btn" onclick="playAudio('${{w.ar}}')" title="Listen">🔊</button>
                             <button class="icon-btn" onclick="copyWord('${{w.id}}')" title="Copy">📋</button>
                         </div>
                     </div>
@@ -1700,20 +1697,6 @@ def main():
             
             const verseTransEl = document.getElementById(`verse-trans-${{wordId}}`);
             if (verseTransEl) verseTransEl.innerHTML = renderVerseTranslationsHtml(se.v_tr_hl);
-        }}
-
-        // Audio Pronunciation
-        function playAudio(arabicText) {{
-            if (!window.speechSynthesis) {{
-                showToast('Speech audio synthesis not supported in this browser 🔊');
-                return;
-            }}
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(arabicText);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.85;
-            window.speechSynthesis.speak(utterance);
-            showToast(`Playing pronunciation: "${{arabicText}}" 🔊`);
         }}
 
         // Quick Copy
@@ -1813,7 +1796,6 @@ def main():
                     </td>
                     <td>
                         <div style="display:flex; gap:4px;">
-                            <button class="icon-btn" onclick="playAudio('${{w.ar}}')" title="Listen">🔊</button>
                             <button class="icon-btn" onclick="copyWord('${{w.id}}')" title="Copy">📋</button>
                         </div>
                     </td>
@@ -1883,12 +1865,6 @@ def main():
         function prevFlashcard() {{
             fcIndex--;
             renderFlashcard();
-        }}
-
-        function playFcAudio() {{
-            if (filteredWords.length > 0) {{
-                playAudio(filteredWords[fcIndex].ar);
-            }}
         }}
 
         // Filter Handlers

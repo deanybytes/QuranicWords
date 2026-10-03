@@ -17,7 +17,6 @@ ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "app" / "src" / "main" / "assets" / "content"
 DATA = ROOT / "data"
 LANGS = ["en", "bn", "ur", "hi", "in", "tr", "fa", "fr"]
-AUDIO_PREFIX = "/app/src/main/assets/"
 
 
 def skeleton(text):
@@ -61,7 +60,7 @@ def main():
             "rt": c.get("root"), "cat": c["lemmaCategory"], "pos": c.get("partOfSpeechDetail") or c.get("verbForm"),
             "ch": ch, "sec": sec_num[lesson["sectionId"]], "les": regular_index[e["lessonId"]],
             "occ": c["quranOccurrenceCount"], "rank": f["frequencyRank"], "m": c["meaning"],
-            "ref": c["exampleVerseReference"], "au": AUDIO_PREFIX + c["audioAssetPath"] if c.get("audioAssetPath") else None,
+            "ref": c["exampleVerseReference"],
             "sk": skeleton(c["arabicWord"]), "poly": len(c.get("polysemyEntries", [])) > 1,
             "vf": {k: c[k] for k in ("verbForm", "pastArabic", "presentArabic", "masdarArabic") if c.get(k)} or None,
         })

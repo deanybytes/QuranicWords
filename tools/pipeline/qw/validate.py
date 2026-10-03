@@ -61,7 +61,7 @@ def run(assets):
             tr = c.get("transliteration", "")
             if not LATIN.match(tr):
                 errors.append(f"{c['wordId']} transliteration not Latin: {tr}")
-        if e["exerciseType"] in ("MULTIPLE_CHOICE", "FILL_IN_THE_BLANK", "TAP_WHAT_YOU_HEAR"):
+        if e["exerciseType"] in ("MULTIPLE_CHOICE", "FILL_IN_THE_BLANK"):
             opts = c["options"]
             ids = [o["id"] for o in opts]
             if c["correctOptionId"] not in ids or len(ids) != len(set(ids)) or len(ids) < 3:
@@ -81,8 +81,8 @@ def run(assets):
             v = c["sentenceArabic"]
             if not (0 <= c["blankStart"] < c["blankEnd"] <= len(v)):
                 errors.append(f"{e['id']} bad blank span")
-        if c.get("audioAssetPath") and not (config.ROOT / "app/src/main/assets" / c["audioAssetPath"]).exists():
-            errors.append(f"{e['id']} missing audio {c['audioAssetPath']}")
+        if c.get("audioAssetPath") or e["exerciseType"] in ("TAP_WHAT_YOU_HEAR", "LISTEN_AND_TYPE"):
+            errors.append(f"{e['id']} references audio, which the app no longer ships")
     for w in words:
         if regular_count[w["id"]] != 1:
             errors.append(f"{w['id']} taught in {regular_count[w['id']]} regular lessons")

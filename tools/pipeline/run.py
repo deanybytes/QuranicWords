@@ -14,7 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from qw import audio, config, curriculum, legacy, sources, validate, words  # noqa: E402
+from qw import config, curriculum, legacy, sources, validate, words  # noqa: E402
 
 
 def surah_names():
@@ -33,7 +33,6 @@ def build(pin=False):
     gtaf = sources.load_gtaf()
     verse_tr = sources.load_verse_translations(pin)
     ws, excluded, total = words.build_words(qac, gtaf)
-    matched, unused_clips = audio.assign(ws)
     b = curriculum.Builder(ws, gtaf, verse_tr, surah_names(), total)
     b.build()
     assets = {
@@ -52,10 +51,9 @@ def build(pin=False):
         "exercises": len(b.exercises), "total_quran_segments": total,
         "taught_occurrences": sum(w.frequency for w in ws),
         "coverage_percent": round(100 * sum(w.frequency for w in ws) / total, 2),
-        "audio_matched_words": matched, "audio_unused_clips": len(unused_clips),
         "low_confidence_meanings": low_conf, "legacy_mapping": legacy_stats,
     }
-    return assets, legacy_map, report, excluded, unused_clips, ws
+    return assets, legacy_map, report, excluded, ws
 
 
 def main():
@@ -63,7 +61,7 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--pin", action="store_true")
     args = ap.parse_args()
-    assets, legacy_map, report, excluded, unused_clips, ws = build(args.pin)
+    assets, legacy_map, report, excluded, ws = build(args.pin)
     errors = validate.run(assets)
     report["validation_errors"] = len(errors)
     for e in errors[:50]:
@@ -97,7 +95,6 @@ def main():
                 if not w.reviewed[lang]:
                     c, t, m = w.confidence[lang]
                     f.write(f"{w.id}\t{w.arabic}\t{lang}\t{w.meaning[lang]}\t{c}\t{t}\t{m}\n")
-    (config.REPORTS / "unused_audio_clips.txt").write_text("\n".join(unused_clips) + "\n")
     print("assets written to", config.ASSETS)
     return 0
 

@@ -10,7 +10,6 @@ import { dayNumber, dueIds } from './srs.js';
 import { ProgressStore, levelForXp, xpForLevel, currentStreak, knownFraction } from './progress.js';
 import { toast, initModal, modalOpen, closeModal, celebrate } from './ui.js';
 import { play } from './components.js';
-import { stopAudio } from './audio.js';
 import { cardsView, tableView, rootsView } from './views/dictionary.js';
 import { flashcardsView, reviewView } from './views/study.js';
 import { quizView } from './views/quizView.js';
@@ -217,7 +216,6 @@ class App {
   showView(view, { focus = true } = {}) {
     const prev = this.currentView;
     if (prev && prev !== view && VIEW_IMPL[prev].leave) VIEW_IMPL[prev].leave();
-    stopAudio();
     this.currentView = view;
     for (const sec of document.querySelectorAll('section.view')) sec.hidden = sec.dataset.view !== view;
     for (const el of document.querySelectorAll('[data-views]')) el.hidden = !el.dataset.views.split(' ').includes(view);
@@ -329,7 +327,6 @@ class App {
     this.setFilter({ q: w.ar, ch: null, cat: null, root: null, saved: false });
     if (this.state.view !== 'cards') this.navigate('cards');
     toast(t('randomToast', { word: `${w.ar} (${w.tl})` }));
-    play(w);
   }
 
   /* ---------------- Saved words / clipboard ---------------- */

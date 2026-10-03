@@ -18,8 +18,7 @@
   Mastered.
 - **Gamification:** XP and levels, combos, optional hearts, daily quests, streaks with recovery,
   a daily-goal ring, achievements with progress, and celebrations.
-- **Exercises:** meaning, verse completion, tap-the-word-in-verse, listening (2,034 words with
-  verified audio) and matching.
+- **Exercises:** meaning, verse completion, tap-the-word-in-verse and matching.
 - **Accessibility and localization:** TalkBack semantics, RTL verse layout, localized digits,
   plurals and dates.
 - **Web edition** at quranicwords.vercel.app: offline-capable PWA, learn path, spaced review
@@ -31,7 +30,5 @@
 | Item | Description |
 |---|---|
 | Native-speaker review | Work through `tools/pipeline/reports/review_queue.tsv` (low-confidence meanings) with reviewers per language |
-| Malay, Hausa, Swahili meanings | Add once a verified word-by-word source is available |
-| Audio for verbs | Generate pronunciation for the ~1,860 words without a verified clip (needs a TTS key), with a spot-check list |
 | Remaining rare words | Hand-curated meanings for the ~880 excluded hapax lemmas |
 | Tajweed visualizer | Colour-coded tajweed in verse examples |

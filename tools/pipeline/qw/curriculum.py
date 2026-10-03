@@ -99,7 +99,7 @@ class Builder:
             "quranOccurrenceCount": w.frequency,
             "exampleVerseArabic": verse_ar, "exampleVerseTranslation": self.translation(w.verse),
             "exampleVerseReference": self.reference(w.verse), "exampleVerseVerified": True,
-            "audioAssetPath": w.audio, "arabicWordStart": st, "arabicWordEnd": en,
+            "arabicWordStart": st, "arabicWordEnd": en,
             "meaningHighlight": self.highlight(w, w.verse),
         }
         for k, v in (("verbForm", w.verb_form), ("pastArabic", w.past), ("presentArabic", w.present),
@@ -141,12 +141,6 @@ class Builder:
                 "correctWordStart": st, "correctWordEnd": en, "tappableSpans": spans,
                 "meaning": w.meaning, "verseTranslation": self.translation(w.verse),
                 "meaningHighlight": self.highlight(w, w.verse)}
-
-    def listen(self, w):
-        opts = [self.option(w)] + [self.option(self.by_id[d]) for d in self.distractors[w.id][:3]]
-        _rng("listen", w.id).shuffle(opts)
-        return {"type": "tap_what_you_hear", "prompt": text.PROMPT_LISTEN, "audioAssetPath": w.audio,
-                "wordId": w.id, "options": opts, "correctOptionId": f"opt_{w.id}"}
 
     def matching(self, ws):
         pairs = []
@@ -287,10 +281,6 @@ class Builder:
                             self._ex(lid, o, "FILL_IN_THE_BLANK", self.fill(w))
                         else:
                             self._ex(lid, o, "WORD_IN_VERSE_TAP", self.tap(w))
-                    for w in lw:
-                        if w.audio:
-                            o += 1
-                            self._ex(lid, o, "TAP_WHAT_YOU_HEAR", self.listen(w))
                     if len(lw) >= 3:
                         o += 1
                         self._ex(lid, o, "MATCHING", self.matching(lw))
@@ -318,5 +308,5 @@ class Builder:
     def word_frequency(self):
         ranked = sorted(self.words, key=lambda w: (-w.frequency, w.id))
         return [{"id": w.id, "arabicWord": w.arabic, "frequencyRank": r, "frequencyCount": w.frequency,
-                 "meaning": w.meaning, "audioAssetPath": w.audio, "tierLevel": self.tier[w.id]}
+                 "meaning": w.meaning, "audioAssetPath": None, "tierLevel": self.tier[w.id]}
                 for r, w in enumerate(ranked, 1)]

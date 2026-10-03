@@ -13,7 +13,7 @@ from qw import arabic, glosses, validate  # noqa: E402
 
 @pytest.fixture(scope="module")
 def built():
-    assets, legacy_map, report, excluded, unused, words = run.build()
+    assets, legacy_map, report, excluded, words = run.build()
     return assets, legacy_map, report, words
 
 

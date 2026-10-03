@@ -1,7 +1,7 @@
 // Flashcards (browse the filtered list, grade to schedule) and Review (today's due queue).
 import { h, clear } from '../dom.js';
 import { t, formatNumber, formatDate, getLang, langInfo } from '../i18n.js';
-import { audioButton, catBadge, meaningText, play, verseToggle } from '../components.js';
+import { catBadge, meaningText, verseToggle } from '../components.js';
 import { dueIds, nextDueDay, dayToDate } from '../srs.js';
 
 const GRADE_KEYS = { '1': 'again', '2': 'good', '3': 'easy' };
@@ -66,7 +66,6 @@ export const flashcardsView = {
       fc,
       h('div', { class: 'flashcard-nav-bar' },
         h('button', { type: 'button', class: 'btn', disabled: this.index === 0, on: { click: () => this.move(ctx, el, -1) } }, h('span', { attrs: { 'aria-hidden': 'true' }, text: '←' }), h('span', { text: t('fcPrev') })),
-        audioButton(w, { cls: 'btn btn-primary' }),
         h('button', { type: 'button', class: 'btn', disabled: this.index >= list.length - 1, on: { click: () => this.move(ctx, el, 1) } }, h('span', { text: t('fcNext') }), h('span', { attrs: { 'aria-hidden': 'true' }, text: '→' }))),
       h('p', { class: 'kbd-hint', text: t('fcKeyboard') }));
   },
@@ -99,7 +98,6 @@ export const flashcardsView = {
     if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); this.flip(ctx, el); }
     else if (e.key === 'ArrowRight') { e.preventDefault(); this.move(ctx, el, langInfo().dir === 'rtl' ? -1 : 1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); this.move(ctx, el, langInfo().dir === 'rtl' ? 1 : -1); }
-    else if (e.key.toLowerCase() === 'a') { if (this.current) play(this.current); }
     else if (GRADE_KEYS[e.key] && this.flipped) this.gradeCurrent(ctx, el, GRADE_KEYS[e.key]);
   },
 };
@@ -150,8 +148,7 @@ export const reviewView = {
         onGrade: (g) => this.gradeCurrent(ctx, el, g),
       }),
       h('div', { class: 'flashcard-nav-bar' },
-        s.flipped ? null : h('button', { type: 'button', class: 'btn btn-primary', on: { click: () => this.flip(ctx, el) } }, h('span', { text: t('fcShowAnswer') })),
-        audioButton(w, { cls: 'btn' })),
+        s.flipped ? null : h('button', { type: 'button', class: 'btn btn-primary', on: { click: () => this.flip(ctx, el) } }, h('span', { text: t('fcShowAnswer') }))),
       h('p', { class: 'kbd-hint', text: t('fcKeyboard') }));
   },
 
@@ -178,7 +175,6 @@ export const reviewView = {
   onKey(ctx, el, e) {
     if (!this.session || this.session.i >= this.session.ids.length) return;
     if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); this.flip(ctx, el); }
-    else if (e.key.toLowerCase() === 'a') { if (this.current) play(this.current); }
     else if (GRADE_KEYS[e.key] && this.session.flipped) this.gradeCurrent(ctx, el, GRADE_KEYS[e.key]);
   },
 };

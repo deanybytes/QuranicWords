@@ -119,7 +119,7 @@ flowchart TD
 `VerseReferenceFormatter.formatDigits(text, language)` converts ASCII digits `0–9` into target script numerals:
 - **Arabic / Urdu / Persian**: Eastern Arabic numerals (`٠, ١, ٢, ٣, ٤, ٥, ٦, ٧, ٨, ٩`)
 - **Bengali**: Bengali numerals (`০, ১, ২, ৩, ৪, ৫, ৬, ৭, ৮, ৯`)
-- **Latin-based languages** (English, French, Indonesian, Malay, Turkish, Swahili, Hausa): Standard Western Arabic numerals (`0–9`)
+- **Latin-based languages** (English, French, Indonesian, Turkish): Standard Western Arabic numerals (`0–9`)
 
 This ensures streak numbers, points, percentages, lesson counters (`1 / N`), and activity charts respect the cultural script conventions of the selected language.
 

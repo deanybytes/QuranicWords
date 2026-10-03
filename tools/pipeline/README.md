@@ -52,15 +52,13 @@ hand in `overrides/function_words.tsv`, which also merges QAC's split duplicates
 - Sections hold 10 lessons of 5 words each, followed by a review and an exam. Each chapter
   ends with a chapter exam.
 - Each word gets a teach step, a meaning quiz, a verse exercise (fill-in-the-blank or
-  tap-the-word), a listening quiz when verified audio exists, and a closing matching round.
+  tap-the-word) and a closing matching round.
 - Distractors come from the same chapter. They never share the answer's written form, root,
   or any meaning in any language.
 
 ## Audio
 
-Clips from commit `c21e5cdd` (Google TTS) are reused only where their source text is read
-identically to the new word (`arabic.pronunciation_key`). Clips that match nothing are listed
-in `reports/unused_audio_clips.txt` and removed from the assets.
+The app ships no pronunciation audio. The validator fails if any exercise references audio or uses a listening type.
 
 ## Validation (`qw/validate.py`)
 

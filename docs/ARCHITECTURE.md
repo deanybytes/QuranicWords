@@ -119,7 +119,7 @@ Each onboarding step persists its choice to DataStore **immediately** on selecti
 ## 🔊 Audio architecture
 
 - **System sound effects** (`SfxPlayer.kt`): Low-latency audio feedback using Android `SoundPool` for UI interactions (`CORRECT`, `WRONG`, `LESSON_COMPLETE`, `EXAM_PASS`, `STREAK_MILESTONE`, `OPENING`). Governed by the `soundEnabled` switch in Settings.
-- **Visual-first focus**: Word pronunciation clips and listen-to-type exercises have been removed to prioritize visual script recognition, contextual comprehension, and reading fluency.
+- **Visual-first focus**: The app has no word pronunciation audio and no listening exercises. Learning is visual and verse-based. Only the short UI sound effects above remain.
 
 ## 🌐 In-app language switching & Universal Digit Localization
 

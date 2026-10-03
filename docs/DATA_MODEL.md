@@ -80,7 +80,7 @@ The curriculum dataset is compiled under `app/src/main/assets/content/` (`Conten
 - `chapters.json`: 10 Chapters with localized titles, descriptions, lemma counts, and Quranic coverage percentages.
 - `sections.json`: 100 Sections with chapter references, sort orders, and localized titles.
 - `lessons_vocabulary.json`: 958 lessons by `LessonKind` (780 regular, 79 section reviews, 79 section exams, 10 chapter intros, 10 chapter exams).
-- `exercises_vocabulary.json`: a top-level array of 17,618 polymorphic exercises (stream-decoded at seed time) with exact, token-aligned verse spans: 3,900 word intros, 6,381 meaning quizzes, 2,424 fill-in-the-blank, 2,010 tap-the-word, 2,034 listening and 859 matching.
+- `exercises_vocabulary.json`: a top-level array of 15,584 polymorphic exercises (stream-decoded at seed time) with exact, token-aligned verse spans: 3,900 word intros, 6,381 meaning quizzes, 2,424 fill-in-the-blank, 2,010 tap-the-word and 859 matching.
 - `word_frequency.json`: 3,900 words ordered by frequency, with meanings in 8 languages (senses joined with `' / '`).
 - `legacy_progress_map.json`: old→new word/lesson maps for content versions 34/35, used once to migrate v1.0.0/v1.0.1 progress.
 

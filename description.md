@@ -91,7 +91,7 @@ For fast recall and targeted revision, the Test-Only Hub offers:
 • Contextual Polysemy (Wujūh al-Qur'an): Many Quranic words change meaning depending on context. View multi-sense tabs and real verse examples with highlighted target words.
 • 100% Arabic Vocalization (Tashkīl): Complete diacritical fidelity (fatḥah, kasrah, ḍammah, sukūn, shaddah, tanwīn) with natural in-verse text flow.
 • 5 Sacred Arabic Script Styles: Choose your favorite Qur'an typeface—Uthmani (Amiri), Scheherazade Naskh, Simple Naskh (Noto), IndoPak Naskh (Lateef), or Nastaliq (Noto Urdu).
-• 8 Meaning Languages: Source-verified word meanings and verse translations in English, Bengali, Urdu, Hindi, Indonesian, Turkish, Persian and French (interface also in Malay, Hausa and Swahili).
+• 8 Meaning Languages: Source-verified word meanings and verse translations in English, Bengali, Urdu, Hindi, Indonesian, Turkish, Persian and French.
 • Gamified Motivation: Earn points, build daily streaks, unlock milestone medallion badges, and review rich lesson summary statistics.
 • Local Backup & Restore: Export and import your progress anytime via Android Storage Access Framework (SAF).
 
@@ -124,7 +124,7 @@ QuranicWords is a 100% offline, privacy-first Android app designed to help you u
 • Contextual Meanings (Wujūh al-Qur'an): Learn polysemic senses with authentic Quranic verse examples and in-verse highlighting.
 • Complete Vocalization (Tashkīl): Full diacritics on every word and verse for effortless readability.
 • 5 Bundled Arabic Typefaces: Uthmani, Scheherazade, Noto Naskh, IndoPak Lateef, and Nastaliq Urdu.
-• 8 Languages Supported: English, Bengali, Urdu, Hindi, Indonesian, Malay, Turkish, Persian, Hausa, Swahili, and French.
+• 8 Languages Supported: English, Bengali, Urdu, Hindi, Indonesian, Turkish, Persian and French.
 • 100% Offline & Private: No accounts, no sign-in, zero analytics, zero ads.
 • Daily Streaks & Milestones: Earn points, maintain daily consistency, and collect 17 achievement badges.
 
@@ -196,7 +196,7 @@ Customize your Quran reading experience:
 5. Nastaliq (Noto Urdu)
 
 🌍 8 Languages Included
-100% verified translations and verse highlights in English, বাংলা (Bengali), اردو (Urdu), हिन्दी (Hindi), Bahasa Indonesia, Bahasa Melayu, Türkçe, فارسی (Persian), Hausa, Kiswahili, and Français.
+100% verified translations and verse highlights in English, বাংলা (Bengali), اردو (Urdu), हिन्दी (Hindi), Bahasa Indonesia, Türkçe, فارسی (Persian) and Français.
 
 🔒 100% Offline, Ad-Free & Private
 • Completely offline—no internet required after download.
