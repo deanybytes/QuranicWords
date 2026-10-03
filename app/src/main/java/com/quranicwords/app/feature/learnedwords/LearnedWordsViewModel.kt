@@ -5,6 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.quranicwords.app.core.data.CurrentUserIdProvider
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LocalizedText
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.data.datastore.UserPreferencesDataStore
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.domain.srs.WordStrength
@@ -25,22 +34,22 @@ data class LearnedWordItem(
     val root: String? = null,
     val frequencyRank: Int,
     val frequencyCount: Int,
-    val exampleVerseArabic: String? = null,
-    val exampleVerseTranslation: LocalizedText = emptyMap(),
-    val exampleVerseReference: String? = null,
-    val arabicWordStart: Int? = null,
-    val arabicWordEnd: Int? = null,
-    val meaningHighlight: LocalizedText = emptyMap(),
-    val polysemyEntries: List<ExerciseContent.PolysemyEntry> = emptyList(),
+    /** The word's teach step - the source of its localized senses and examples. */
+    val intro: ExerciseContent.WordIntro? = null,
     val strength: WordStrength = WordStrength.NEW
-)
+) {
+    /** "surah:ayah" of every verse any of the word's senses cites, for search by reference. */
+    val verseKeys: Set<String> get() = intro?.senses?.values?.flatMapTo(HashSet()) { senses -> senses.map { it.verse } }.orEmpty()
+}
 
 data class LearnedWordsUiState(
     val isLoading: Boolean = true,
     val allLearnedWords: List<LearnedWordItem> = emptyList(),
     val filteredWords: List<LearnedWordItem> = emptyList(),
     val searchQuery: String = "",
-    val selectedWordForDetail: LearnedWordItem? = null
+    val selectedWordForDetail: LearnedWordItem? = null,
+    /** [selectedWordForDetail] in the learner's current language (see WordExampleLocalizer). */
+    val selectedWordLocalized: LocalizedWord? = null
 ) {
     /** "Strong+" - the same learned-word definition Progress and the lesson summary count. */
     val strongCount: Int get() = allLearnedWords.count { it.strength.isStrongOrBetter }
@@ -50,7 +59,9 @@ data class LearnedWordsUiState(
 class LearnedWordsViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val contentRepository: ContentRepository,
-    private val userIdProvider: CurrentUserIdProvider
+    private val userIdProvider: CurrentUserIdProvider,
+    private val preferences: UserPreferencesDataStore,
+    private val exampleLocalizer: WordExampleLocalizer
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -58,12 +69,21 @@ class LearnedWordsViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(true)
     private val _learnedWords = MutableStateFlow<List<LearnedWordItem>>(emptyList())
 
+    /** Only the opened word is localized - on opening it, and again on a language switch. */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val _selectedLocalized: Flow<LocalizedWord?> = combine(
+        _selectedWordForDetail,
+        preferences.languageFlow.map { it ?: Language.ENGLISH }.distinctUntilChanged()
+    ) { word, language -> word to language }
+        .mapLatest { (word, language) -> word?.intro?.let { exampleLocalizer.localize(it, language) } }
+
     val uiState: StateFlow<LearnedWordsUiState> = combine(
         _isLoading,
         _learnedWords,
         _searchQuery,
-        _selectedWordForDetail
-    ) { isLoading, words, query, selectedWord ->
+        _selectedWordForDetail,
+        _selectedLocalized
+    ) { isLoading, words, query, selectedWord, selectedLocalized ->
         val filtered = if (query.isBlank()) {
             words
         } else {
@@ -72,7 +92,7 @@ class LearnedWordsViewModel @Inject constructor(
                 ArabicSearch.matches(item.arabicWord, query) ||
                     item.meaning.values.any { ArabicSearch.matches(it, query) } ||
                     ArabicSearch.matches(item.root, query) ||
-                    item.exampleVerseReference?.contains(query.trim()) == true
+                    query.trim().let { q -> item.verseKeys.any { it == q } }
             }
         }
         LearnedWordsUiState(
@@ -80,7 +100,8 @@ class LearnedWordsViewModel @Inject constructor(
             allLearnedWords = words,
             filteredWords = filtered,
             searchQuery = query,
-            selectedWordForDetail = selectedWord
+            selectedWordForDetail = selectedWord,
+            selectedWordLocalized = selectedLocalized?.takeIf { it.wordId == selectedWord?.wordId }
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LearnedWordsUiState())
 
@@ -103,13 +124,7 @@ class LearnedWordsViewModel @Inject constructor(
                         root = intro?.root,
                         frequencyRank = cand.frequencyRank,
                         frequencyCount = cand.frequencyCount,
-                        exampleVerseArabic = intro?.exampleVerseArabic,
-                        exampleVerseTranslation = intro?.exampleVerseTranslation ?: emptyMap(),
-                        exampleVerseReference = intro?.exampleVerseReference,
-                        arabicWordStart = intro?.arabicWordStart,
-                        arabicWordEnd = intro?.arabicWordEnd,
-                        meaningHighlight = intro?.meaningHighlight ?: emptyMap(),
-                        polysemyEntries = intro?.polysemyEntries ?: emptyList(),
+                        intro = intro,
                         strength = strength
                     )
                 }.sortedWith(compareByDescending<LearnedWordItem> { it.strength.level }.thenBy { it.frequencyRank })

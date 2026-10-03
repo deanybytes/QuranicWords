@@ -62,6 +62,11 @@ class FullDatabaseSeedingTest {
         assertEquals(reported("words"), wordsCount)
         val withdrawn = withdrawnExerciseCount(java.io.File("src/main/assets/content/exercises_vocabulary.json").readText())
         assertEquals(reported("exercises"), exercisesCount + withdrawn)
+        assertEquals(reported("verses"), database.verseDao().count())
+        // A seeded verse decodes back with every language's word-by-word line and translation.
+        val sample = checkNotNull(database.verseDao().get("2:8"))
+        assertEquals(8, sample.wordByWord.size)
+        assertEquals(8, sample.translation.size)
     }
 
     @Test

@@ -73,7 +73,8 @@ import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.domain.model.localizedPrompt
 import com.quranicwords.app.core.domain.model.localizedRight
 import com.quranicwords.app.core.ui.components.GlassSurface
-import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.ui.components.VerseExampleCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.pressDepth
@@ -153,6 +154,7 @@ private fun derangeRightEntries(
 @Composable
 fun MatchingExerciseContent(
     content: ExerciseContent.Matching,
+    localizedWords: Map<String, LocalizedWord>,
     matchedPairIds: Set<String>,
     pendingLeftId: String?,
     lastMismatch: MismatchEvent?,
@@ -304,42 +306,24 @@ fun MatchingExerciseContent(
             }
         }
 
-        val selectedPair = leftItems.find { it.effectiveId == pendingLeftId }
-        val exampleArabic = selectedPair?.exampleVerseArabic
-        val exampleRef = selectedPair?.exampleVerseReference
+        // The pending word's example (ayah only - its meaning is the answer being asked for), or,
+        // with nothing pending, the most recently matched word's full example as feedback.
+        val pendingWordId = leftItems.find { it.effectiveId == pendingLeftId }?.wordId
+        val lastMatchedWordId = matchOrder.lastOrNull()?.let { id -> content.pairs.find { it.effectiveId == id } }?.wordId
+        val exampleWordId = pendingWordId ?: lastMatchedWordId
+        val exampleSense = exampleWordId?.let { localizedWords[it]?.primarySense }
 
         AnimatedVisibility(
-            visible = selectedPair != null && exampleArabic != null && exampleRef != null,
+            visible = exampleSense != null,
             enter = fadeIn(tween(250)) + slideInVertically(tween(250)) { it / 2 },
             exit = fadeOut(tween(200)) + slideOutVertically(tween(200)) { it / 2 }
         ) {
-            if (selectedPair != null && exampleArabic != null && exampleRef != null) {
-                GlassSurface(
-                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
-                    tint = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth().padding(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        Text(
-                            text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(exampleRef, language),
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.5.sp
-                            ),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        HighlightedGlassArabic(
-                            verseArabic = exampleArabic,
-                            start = selectedPair.arabicWordStart,
-                            end = selectedPair.arabicWordEnd,
-                            modifier = Modifier.fillMaxWidth(),
-                            arabicWord = selectedPair.effectiveLeftArabic
-                        )
-                    }
-                }
+            if (exampleSense != null) {
+                VerseExampleCard(
+                    sense = exampleSense,
+                    showTranslation = pendingWordId == null,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
             }
         }
     }

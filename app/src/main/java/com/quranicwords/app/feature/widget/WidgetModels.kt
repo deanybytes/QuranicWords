@@ -39,7 +39,22 @@ data class WidgetWord(
     val example: WidgetExample?
 )
 
-data class WidgetExample(val arabic: String, val translation: String?, val reference: String?)
+/**
+ * The word's example: the complete ayah ([arabicStart]/[arabicEnd] = the taught word), exactly one
+ * translation line ([translation], highlighted by [translationStart]/[translationEnd] when set) -
+ * the full translation, or the word-by-word line when [isWordByWord] - and the "surah:ayah"
+ * [reference], localized when rendered.
+ */
+data class WidgetExample(
+    val arabic: String,
+    val translation: String?,
+    val reference: String?,
+    val arabicStart: Int? = null,
+    val arabicEnd: Int? = null,
+    val translationStart: Int? = null,
+    val translationEnd: Int? = null,
+    val isWordByWord: Boolean = false
+)
 
 data class WidgetStats(
     val streakDays: Int,

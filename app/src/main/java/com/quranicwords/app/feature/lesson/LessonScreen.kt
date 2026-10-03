@@ -257,12 +257,14 @@ fun LessonScreen(
                             when (val content = uiState.currentContent) {
                                 is ExerciseContent.MultipleChoice -> MultipleChoiceExerciseContent(
                                     content = content,
+                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
                                     selectedOptionId = uiState.attempt.selectedOptionId,
                                     isChecked = uiState.isChecked,
                                     onSelect = viewModel::selectOption
                                 )
                                 is ExerciseContent.Matching -> MatchingExerciseContent(
                                     content = content,
+                                    localizedWords = uiState.localizedWords,
                                     matchedPairIds = uiState.attempt.matchedPairIds,
                                     pendingLeftId = uiState.attempt.pendingLeftId,
                                     lastMismatch = uiState.attempt.lastMismatch,
@@ -272,6 +274,7 @@ fun LessonScreen(
                                 is ExerciseContent.WordIntro -> {
                                     WordIntroExerciseContent(
                                         content = content,
+                                        word = uiState.localizedWords[content.wordId],
                                         strength = uiState.wordStrengths[content.wordId],
                                         selectedMeaningIndex = selectedMeaningIndex,
                                         onMeaningSelected = {
@@ -285,6 +288,7 @@ fun LessonScreen(
                                 )
                                 is ExerciseContent.FillInTheBlank -> FillInTheBlankExerciseContent(
                                     content = content,
+                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
                                     selectedOptionId = uiState.attempt.selectedOptionId,
                                     isChecked = uiState.isChecked,
                                     onSelect = viewModel::selectOption
@@ -298,6 +302,7 @@ fun LessonScreen(
                                 )
                                 is ExerciseContent.TapWordInVerse -> TapWordInVerseExerciseContent(
                                     content = content,
+                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
                                     selectedSpan = uiState.attempt.selectedSpan,
                                     onSelectWord = viewModel::selectVerseWord
                                 )
@@ -417,7 +422,7 @@ fun LessonScreen(
                             }
                             uiState.currentContent is ExerciseContent.WordIntro -> {
                                 val intro = uiState.currentContent as ExerciseContent.WordIntro
-                                val totalSenses = intro.polysemyEntries.size
+                                val totalSenses = uiState.localizedWords[intro.wordId]?.senses?.size ?: 0
                                 val allVisited = visitedSenses.size >= totalSenses || totalSenses <= 1
                                 val onContinueOrNextSense = {
                                     if (allVisited) {

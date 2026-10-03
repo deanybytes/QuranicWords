@@ -7,7 +7,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.LayoutDirection
 import com.quranicwords.app.core.domain.model.get
-import com.quranicwords.app.core.domain.model.getOrNull
+import com.quranicwords.app.core.domain.model.LocalizedSense
+import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
+import com.quranicwords.app.core.ui.components.SenseTranslationLine
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,6 +50,7 @@ import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 @Composable
 fun TapWordInVerseExerciseContent(
     content: ExerciseContent.TapWordInVerse,
+    sense: LocalizedSense?,
     selectedSpan: WordSpan?,
     onSelectWord: (WordSpan) -> Unit
 ) {
@@ -115,18 +118,33 @@ fun TapWordInVerseExerciseContent(
             color = MaterialTheme.colorScheme.primary
         )
 
-        val verseTranslation = content.verseTranslation.get(language)
-        if (verseTranslation.isNotBlank()) {
-            val range = com.quranicwords.app.core.util.HighlightUtils.findMeaningHighlightRange(
-                verseTranslation = verseTranslation,
-                meaningHighlight = content.meaningHighlight.getOrNull(language),
-                meaning = content.meaning.get(language)
-            )
-            com.quranicwords.app.core.ui.components.HighlightedGlassTranslation(
-                verseTranslation = verseTranslation,
-                range = range,
-                modifier = Modifier.fillMaxWidth()
-            )
+        // Exactly one translation line. While answering: the full translation, highlighted only
+        // when the content proves the meaning in it (the meaning is the prompt, so that gives
+        // nothing away) - the word-by-word fallback would point at the word's position, so it is
+        // shown only once answered.
+        if (sense != null) {
+            if (selectedSpan != null || sense.translationStart != null) {
+                SenseTranslationLine(sense = sense, modifier = Modifier.fillMaxWidth())
+            } else if (sense.translationText.isNotBlank()) {
+                HighlightedGlassTranslation(
+                    verseTranslation = sense.translationText,
+                    start = null,
+                    end = null,
+                    textLanguage = sense.textLanguage,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        } else {
+            val verseTranslation = content.verseTranslation.get(language)
+            if (verseTranslation.isNotBlank()) {
+                HighlightedGlassTranslation(
+                    verseTranslation = verseTranslation,
+                    start = null,
+                    end = null,
+                    textLanguage = language,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

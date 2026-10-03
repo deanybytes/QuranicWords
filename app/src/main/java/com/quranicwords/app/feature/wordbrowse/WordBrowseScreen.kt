@@ -57,8 +57,8 @@ import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.ui.components.GlassSurface
-import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
-import com.quranicwords.app.core.ui.components.HighlightedGlassTranslation
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.ui.components.WordSenseExamples
 import com.quranicwords.app.core.ui.components.QwIconButton
 import com.quranicwords.app.core.ui.components.QwLogo
 import com.quranicwords.app.core.ui.components.Qw3DFlipCard
@@ -75,7 +75,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
-import com.quranicwords.app.core.util.HighlightUtils
 import com.quranicwords.app.core.util.VerseReferenceFormatter
 
 /**
@@ -194,7 +193,7 @@ fun WordBrowseScreen(
                             strength = uiState.strengths[word.wordId]
                         )
                     },
-                    back = { WordCardBack(word, language) }
+                    back = { WordCardBack(word, uiState.localized[word.wordId], language) }
                 )
             }
         }
@@ -231,20 +230,11 @@ private fun WordCardFront(word: ExerciseContent.WordIntro, strength: WordStrengt
 @Composable
 private fun WordCardBack(
     word: ExerciseContent.WordIntro,
+    localized: LocalizedWord?,
     language: Language
 ) {
     var selectedMeaningIndex by remember(word) { androidx.compose.runtime.mutableIntStateOf(0) }
-    val activePolysemyEntry = word.polysemyEntries.getOrNull(selectedMeaningIndex)
-
-    val displayedMeaning = if (activePolysemyEntry != null && activePolysemyEntry.contextualMeaning.isNotEmpty()) {
-        activePolysemyEntry.contextualMeaning.get(language)
-    } else {
-        word.meaning.get(language)
-    }
-
-    val verseTranslation = activePolysemyEntry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
-    val arabicVerse = activePolysemyEntry?.verseArabic ?: word.exampleVerseArabic
-    val verseRef = activePolysemyEntry?.verseReference ?: word.exampleVerseReference
+    val displayedMeaning = localized?.meaning?.takeIf { it.isNotBlank() } ?: word.meaning.get(language)
 
     GlassSurface(
         modifier = Modifier.fillMaxSize(),
@@ -265,98 +255,13 @@ private fun WordCardBack(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
-
-            // Polysemy tabs if multiple meanings exist
-            if (word.polysemyEntries.size > 1) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState()),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    word.polysemyEntries.forEachIndexed { idx, _ ->
-                        val isSelected = selectedMeaningIndex == idx
-                        val tabBg by androidx.compose.animation.animateColorAsState(
-                            targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-                            label = "tabBg"
-                        )
-                        val tabTextColor by androidx.compose.animation.animateColorAsState(
-                            targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
-                            label = "tabText"
-                        )
-
-                        Box(
-                            modifier = Modifier
-                                .padding(horizontal = 4.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(tabBg)
-                                .selectable(selected = isSelected, role = Role.Tab, onClick = { selectedMeaningIndex = idx })
-                                .padding(horizontal = 10.dp, vertical = 4.dp)
-                        ) {
-                            Text(
-                                text = "[${VerseReferenceFormatter.formatDigits((idx + 1).toString(), language)}]",
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                color = tabTextColor
-                            )
-                        }
-                    }
-                }
-            }
-
-            AnimatedContent(
-                targetState = selectedMeaningIndex,
-                transitionSpec = {
-                    (fadeIn(androidx.compose.animation.core.tween(200))).togetherWith(fadeOut(androidx.compose.animation.core.tween(150)))
-                },
-                label = "BrowseCardVerseTransition"
-            ) { targetIdx ->
-                val entry = word.polysemyEntries.getOrNull(targetIdx)
-                val activeArabicVerse = entry?.verseArabic ?: word.exampleVerseArabic
-                val activeArabicStart = entry?.arabicWordStart ?: word.arabicWordStart
-                val activeArabicEnd = entry?.arabicWordEnd ?: word.arabicWordEnd
-                val activeVerseTranslation = entry?.verseTranslation?.get(language) ?: word.exampleVerseTranslation.get(language)
-                val activeVerseRef = entry?.verseReference ?: word.exampleVerseReference
-                val activeMeaningHighlight = entry?.translationHighlight?.get(language) ?: word.meaningHighlight.getOrNull(language)
-                val activeMeaningText = entry?.contextualMeaning?.get(language) ?: word.meaning.get(language)
-
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    if (!activeArabicVerse.isNullOrBlank()) {
-                        HighlightedGlassArabic(
-                            verseArabic = activeArabicVerse,
-                            start = activeArabicStart,
-                            end = activeArabicEnd,
-                            arabicWord = word.arabicWord,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                    if (activeVerseTranslation.isNotBlank()) {
-                        val range = HighlightUtils.findMeaningHighlightRange(
-                            verseTranslation = activeVerseTranslation,
-                            meaningHighlight = activeMeaningHighlight,
-                            meaning = activeMeaningText
-                        )
-                        HighlightedGlassTranslation(
-                            verseTranslation = activeVerseTranslation,
-                            range = range,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                    if (!activeVerseRef.isNullOrBlank()) {
-                        Text(
-                            text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(activeVerseRef, language),
-                            style = MaterialTheme.typography.labelLarge.copy(
-                                fontFamily = QuranCitationFontFamily,
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.5.sp
-                            ),
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
+            if (localized != null) {
+                WordSenseExamples(
+                    word = localized,
+                    selectedIndex = selectedMeaningIndex,
+                    onSenseSelected = { selectedMeaningIndex = it },
+                    language = language
+                )
             }
         }
     }

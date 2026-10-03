@@ -779,8 +779,7 @@ class ProgressRepositoryImpl @Inject constructor(
                                 correctWordEnd = targetSpan.end,
                                 tappableSpans = spans,
                                 meaning = intro.meaning,
-                                verseTranslation = intro.exampleVerseTranslation,
-                                meaningHighlight = intro.meaningHighlight
+                                verseTranslation = intro.exampleVerseTranslation
                             )
                             ExerciseEntity(
                                 id = "test_tap_${wordId}_$index",
@@ -886,13 +885,7 @@ class ProgressRepositoryImpl @Inject constructor(
             wordId = wordId,
             promptArabic = intro.arabicWord,
             options = listOf(correctOptionFor(wordId, intro)),
-            correctOptionId = wordId,
-            exampleVerseArabic = intro.exampleVerseArabic,
-            exampleVerseReference = intro.exampleVerseReference,
-            arabicWordStart = intro.arabicWordStart,
-            arabicWordEnd = intro.arabicWordEnd,
-            exampleVerseTranslation = intro.exampleVerseTranslation,
-            meaningHighlight = intro.meaningHighlight
+            correctOptionId = wordId
         )
         return ExerciseEntity(
             id = "test_mc_${wordId}_$index",

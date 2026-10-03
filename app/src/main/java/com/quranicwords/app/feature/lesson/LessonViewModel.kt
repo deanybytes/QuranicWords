@@ -16,6 +16,9 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.ExerciseType
 import com.quranicwords.app.core.domain.model.ItemKind
 import com.quranicwords.app.core.domain.model.LemmaCategory
+import com.quranicwords.app.core.domain.model.Language
+import com.quranicwords.app.core.domain.model.LocalizedWord
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
 import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.OptionsBearing
@@ -43,6 +46,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -91,7 +97,11 @@ data class LessonUiState(
     val outOfHearts: Boolean = false,
     val refillTarget: RefillTarget = RefillTarget.OPEN_PRACTICE,
     /** True when this session continued an interrupted one. */
-    val isResumed: Boolean = false
+    val isResumed: Boolean = false,
+    /** wordId -> the word's meaning and proven senses in the learner's current language (see
+     * WordExampleLocalizer), for every word this session shows - re-localized on a language
+     * change, together with [contents]. */
+    val localizedWords: Map<String, LocalizedWord> = emptyMap()
 ) {
     /** Consecutive first-try correct answers right now - see [LessonScoring.combo]. */
     val combo: Int get() = scoring.combo
@@ -114,7 +124,8 @@ class LessonViewModel @Inject constructor(
     private val sfxPlayer: SfxPlayer,
     private val preferences: UserPreferencesDataStore,
     private val clock: Clock,
-    private val savedStateHandle: androidx.lifecycle.SavedStateHandle
+    private val savedStateHandle: androidx.lifecycle.SavedStateHandle,
+    private val exampleLocalizer: WordExampleLocalizer
 ) : ViewModel() {
 
     // Null exactly when this ViewModel was reached via Route.Review (a distinct destination with
@@ -161,6 +172,16 @@ class LessonViewModel @Inject constructor(
 
     /** The session's exercise order (exercise ids) - persisted for resume. Empty outside lessons. */
     private var exerciseOrder: List<String> = emptyList()
+
+    /** The session's exercises before localization (distractors already picked) - every language
+     * is rendered from these, so a language change re-localizes without reshuffling anything. */
+    private var baseContents: List<ExerciseContent> = emptyList()
+
+    /** The teach steps of every word in [baseContents], the localizer's input. */
+    private var sessionIntros: Map<String, ExerciseContent.WordIntro> = emptyMap()
+
+    /** The language [LessonUiState.contents]/[LessonUiState.localizedWords] are currently in. */
+    private var localizedLanguage: Language? = null
 
     /** Hearts apply to Learn lessons with something to score (not chapter intros). */
     private var lessonCostsHearts = false
@@ -247,7 +268,7 @@ class LessonViewModel @Inject constructor(
                     freshOrder(exercises, missedItemIds, repeatCount)
                 }
                 val playable = ordered
-                    .map { (id, content) -> id to resolveCanonicalMeaning(content, candidatePool, wordIntros) }
+                    .map { (id, content) -> id to resolveCanonicalMeaning(content, candidatePool) }
                     .map { (id, content) -> id to regenerateDistractors(content, candidatePool, missedItemIds, wordIntros) }
                     // An exercise that still can't offer a real choice (no resolvable correct
                     // option, or no distractors at all) would render an empty, unanswerable card -
@@ -259,6 +280,13 @@ class LessonViewModel @Inject constructor(
             }
             val wordCategories = categoriesDeferred.await()
             val wordStrengths = strengthsDeferred.await()
+
+            baseContents = contents
+            sessionIntros = contentRepository.getWordIntrosForItems(contents.flatMap { it.shownWordIds() }.distinct())
+            val language = currentLanguage()
+            val localizedWords = exampleLocalizer.localizeAll(sessionIntros.values, language)
+            localizedLanguage = language
+            val localizedContents = contents.map { WordExampleLocalizer.localizeExercise(it, localizedWords) }
 
             if (lessonId != null) {
                 lessonCostsHearts = contentRepository.getLesson(lessonId)?.kind != LessonKind.CHAPTER_INTRO &&
@@ -273,7 +301,8 @@ class LessonViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     isLoading = false,
-                    contents = contents,
+                    contents = localizedContents,
+                    localizedWords = localizedWords,
                     wordCategories = wordCategories,
                     wordStrengths = wordStrengths,
                     hearts = hearts,
@@ -286,7 +315,31 @@ class LessonViewModel @Inject constructor(
                 )
             }
             if (lessonCostsHearts) observeHearts(userId)
+            observeLanguage()
         }
+    }
+
+    private suspend fun currentLanguage(): Language = preferences.languageFlow.first() ?: Language.ENGLISH
+
+    /** Re-localizes every example (and the verse-based quizzes built on them) when the learner
+     * switches language, keeping the session's exercises, order and options as they are. */
+    private fun observeLanguage() {
+        viewModelScope.launch {
+            preferences.languageFlow.map { it ?: Language.ENGLISH }.distinctUntilChanged().collectLatest { language ->
+                if (language == localizedLanguage) return@collectLatest
+                val localizedWords = exampleLocalizer.localizeAll(sessionIntros.values, language)
+                localizedLanguage = language
+                val contents = baseContents.map { WordExampleLocalizer.localizeExercise(it, localizedWords) }
+                _uiState.update { it.copy(contents = contents, localizedWords = localizedWords) }
+            }
+        }
+    }
+
+    /** Every word whose example this exercise can show. */
+    private fun ExerciseContent.shownWordIds(): List<String> = when (this) {
+        is ExerciseContent.WordIntro -> listOf(wordId)
+        is ExerciseContent.Matching -> pairs.mapNotNull { it.wordId }
+        else -> listOfNotNull(practicedItemId())
     }
 
     /** Keeps the hearts badge live and lifts the out-of-hearts gate the moment one regenerates. */
@@ -347,70 +400,21 @@ class LessonViewModel @Inject constructor(
     }
 
     /** Overrides every baked, content-pipeline-authored copy of a word's meaning with the single
-     * canonical value from [WordFrequencyEntity] (via [candidatePool]) and enriches quiz types
-     * with their canonical Quran example verses from [wordIntros].
+     * canonical value from [WordFrequencyEntity] (via [candidatePool]). Examples are not copied in
+     * here: they come per language from WordExampleLocalizer (see [observeLanguage]).
      */
     private fun resolveCanonicalMeaning(
         content: ExerciseContent,
-        candidatePool: WordCandidatePool,
-        wordIntros: Map<String, ExerciseContent.WordIntro>
+        candidatePool: WordCandidatePool
     ): ExerciseContent =
         when (content) {
             is ExerciseContent.WordIntro ->
                 candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
-            is ExerciseContent.TapWordInVerse -> {
-                val intro = wordIntros[content.wordId]
-                val meaning = candidatePool.get(content.wordId)?.meaning ?: content.meaning
-                if (intro != null) {
-                    content.copy(
-                        meaning = meaning,
-                        verseTranslation = intro.exampleVerseTranslation,
-                        meaningHighlight = intro.meaningHighlight
-                    )
-                } else {
-                    content.copy(meaning = meaning)
-                }
-            }
-            is ExerciseContent.FillInTheBlank -> {
-                val intro = wordIntros[content.wordId]
-                if (intro != null) {
-                    content.copy(
-                        sentenceArabic = intro.exampleVerseArabic ?: content.sentenceArabic,
-                        blankStart = intro.arabicWordStart ?: content.blankStart,
-                        blankEnd = intro.arabicWordEnd ?: content.blankEnd,
-                        sentenceTranslation = if (intro.exampleVerseTranslation.isNotEmpty()) intro.exampleVerseTranslation else content.sentenceTranslation,
-                        sentenceReference = intro.exampleVerseReference ?: content.sentenceReference
-                    )
-                } else content
-            }
-            is ExerciseContent.MultipleChoice -> {
-                val intro = wordIntros[content.wordId]
-                if (intro != null) {
-                    content.copy(
-                        exampleVerseArabic = intro.exampleVerseArabic,
-                        exampleVerseTranslation = intro.exampleVerseTranslation,
-                        exampleVerseReference = intro.exampleVerseReference,
-                        arabicWordStart = intro.arabicWordStart,
-                        arabicWordEnd = intro.arabicWordEnd,
-                        meaningHighlight = intro.meaningHighlight
-                    )
-                } else content
-            }
+            is ExerciseContent.TapWordInVerse ->
+                content.copy(meaning = candidatePool.get(content.wordId)?.meaning ?: content.meaning)
             is ExerciseContent.Matching -> content.copy(
                 pairs = content.pairs.map { pair ->
-                    var updated = pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
-                    val intro = pair.wordId?.let { wordIntros[it] }
-                    if (intro != null) {
-                        updated = updated.copy(
-                            exampleVerseArabic = intro.exampleVerseArabic,
-                            exampleVerseTranslation = intro.exampleVerseTranslation,
-                            exampleVerseReference = intro.exampleVerseReference,
-                            arabicWordStart = intro.arabicWordStart,
-                            arabicWordEnd = intro.arabicWordEnd,
-                            meaningHighlight = intro.meaningHighlight
-                        )
-                    }
-                    updated
+                    pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
                 }
             )
             else -> content

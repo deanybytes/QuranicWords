@@ -302,6 +302,7 @@
     <string name="particle_type_label">نوع حرف (نوع الحرف)</string>
     <string name="polysemy_tab_format">معنای [%d]</string>
     <string name="polysemy_meanings_title">وجوه و معانی گوناگون در قرآن (وجوه القرآن)</string>
+    <string name="verse_word_by_word_label">کلمه به کلمه</string>
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">نمای کلی فصل %1$s</string>
     <string name="chapter_intro_words_count_label">تعداد کلمات</string>

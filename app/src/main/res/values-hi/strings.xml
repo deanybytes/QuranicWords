@@ -302,6 +302,7 @@
     <string name="particle_type_label">अव्यय प्रकार (نوع الحرف)</string>
     <string name="polysemy_tab_format">अर्थ [%d]</string>
     <string name="polysemy_meanings_title">क़ुरआन में विभिन्न अर्थ (وجوه القرآن)</string>
+    <string name="verse_word_by_word_label">शब्दशः</string>
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">अध्याय %1$s अवलोकन</string>
     <string name="chapter_intro_words_count_label">शब्दावली की संख्या</string>

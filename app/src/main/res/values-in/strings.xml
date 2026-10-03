@@ -326,6 +326,7 @@
     <string name="particle_type_label">Jenis Partikel (نوع الحرف)</string>
     <string name="polysemy_tab_format">Arti [%d]</string>
     <string name="polysemy_meanings_title">Arti Kontekstual (Wujuh Al-Qur\'an)</string>
+    <string name="verse_word_by_word_label">Kata per kata</string>
 
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">Pengantar Bab %1$s</string>

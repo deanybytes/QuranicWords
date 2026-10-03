@@ -105,4 +105,47 @@ class QwDatabaseMigrationTest {
             db.close()
         }
     }
+
+    @Test
+    fun migrate7To8_addsAnEmptyVersesTableAndKeepsLearnerData() = runTest {
+        val name = "migration-test-8.db"
+        helper.createDatabase(name, 5).apply {
+            execSQL("INSERT INTO user_stats VALUES ('u1', 420, 9, 12, '2026-09-30')")
+            execSQL("INSERT INTO user_progress VALUES ('u1', 'les_1', 'COMPLETED', 90, 1700000000000, 60000)")
+            execSQL("INSERT INTO exercise_attempts (userId, itemId, itemKind, exerciseType, wasCorrect, attemptedAtEpochMillis) VALUES ('u1', 'wp_1', 'WORD', 'MULTIPLE_CHOICE', 1, 1700000000000)")
+            close()
+        }
+        helper.runMigrationsAndValidate(name, 7, true, *Migrations.ALL).apply {
+            // Rows written by a v7 build.
+            execSQL("INSERT INTO word_memory VALUES ('u1', 'wp_1', 'REVIEW', 3.5, 5.0, 1700000900000, 2, 0, 3, 1700000000000, '2026-09-30')")
+            execSQL("INSERT INTO daily_quests VALUES ('u1', '2026-09-30', 'q1', 'LESSONS', 2, 1, 20, NULL)")
+            close()
+        }
+
+        helper.runMigrationsAndValidate(name, 8, true, *Migrations.ALL).close()
+
+        val db = Room.databaseBuilder(ApplicationProvider.getApplicationContext(), QwDatabase::class.java, name)
+            .addMigrations(*Migrations.ALL)
+            .allowMainThreadQueries()
+            .build()
+        try {
+            assertEquals("verses are filled by the content reseed, not by SQL", 0, db.verseDao().count())
+            db.verseDao().insertAll(
+                listOf(
+                    com.quranicwords.app.core.data.local.entity.VerseEntity(
+                        key = "2:8", reference = "Al-Baqarah 2:8", arabic = "وَمِنَ ٱلنَّاسِ",
+                        wordByWord = mapOf("en" to "And of the people"), translation = mapOf("en" to "And of the people")
+                    )
+                )
+            )
+            assertEquals("Al-Baqarah 2:8", db.verseDao().get("2:8")?.reference)
+            assertEquals(mapOf("en" to "And of the people"), db.verseDao().getAll(listOf("2:8", "9:9")).single().wordByWord)
+            assertEquals(420, db.userStatsDao().get("u1")?.totalPoints)
+            assertEquals(90, db.userProgressDao().get("u1", "les_1")?.bestScorePercent)
+            assertEquals(1, db.exerciseAttemptDao().getAllForUser("u1").size)
+            assertEquals(1, db.wordMemoryDao().countForUser("u1"))
+        } finally {
+            db.close()
+        }
+    }
 }

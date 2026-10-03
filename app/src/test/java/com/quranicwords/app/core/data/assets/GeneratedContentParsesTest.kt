@@ -1,6 +1,9 @@
 package com.quranicwords.app.core.data.assets
 
 import com.quranicwords.app.core.data.local.entity.LessonKind
+import com.quranicwords.app.core.data.local.entity.VerseEntity
+import com.quranicwords.app.core.data.repository.WordExampleLocalizer
+import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.LemmaCategory
 import com.quranicwords.app.core.util.AppJson
@@ -37,6 +40,21 @@ class GeneratedContentParsesTest {
             .mapNotNull { runCatching { AppJson.decodeFromJsonElement(ExerciseSeedDto.serializer(), it) }.getOrNull() }
     }
     private val intros by lazy { exercises.map { it.content }.filterIsInstance<ExerciseContent.WordIntro>() }
+
+    /** verses.json decoded into the same entity the seeder stores. */
+    private val verses: Map<String, VerseEntity> by lazy {
+        Json.parseToJsonElement(readAsset("verses.json")).jsonObject.mapValues { (key, value) ->
+            val obj = value.jsonObject
+            fun strings(name: String) = obj.getValue(name).jsonObject.mapValues { it.value.jsonPrimitive.content }
+            VerseEntity(
+                key = key,
+                reference = obj.getValue("ref").jsonPrimitive.content,
+                arabic = obj.getValue("ar").jsonPrimitive.content,
+                wordByWord = strings("wbw"),
+                translation = strings("tr")
+            )
+        }
+    }
 
     @Test
     fun `counts match the build report`() {
@@ -86,20 +104,91 @@ class GeneratedContentParsesTest {
     }
 
     @Test
-    fun `verse spans and highlights are exact`() {
+    fun `verses cover the build report and every language`() {
+        assertEquals(reported("verses"), verses.size)
+        verses.forEach { (key, verse) ->
+            assertTrue(key, verse.arabic.isNotBlank())
+            assertEquals(key, contentLanguages, verse.wordByWord.keys)
+            assertEquals(key, contentLanguages, verse.translation.keys)
+        }
+    }
+
+    @Test
+    fun `every sense is proven against its verse`() {
         intros.forEach { intro ->
-            val verse = intro.exampleVerseArabic!!
-            val start = intro.arabicWordStart!!
-            val end = intro.arabicWordEnd!!
-            assertTrue(intro.wordId, start in 0 until end && end <= verse.length)
-            assertEquals(intro.wordId, contentLanguages, intro.exampleVerseTranslation.keys)
-            intro.meaningHighlight.forEach { (lang, hl) ->
-                assertTrue("${intro.wordId} $lang", intro.exampleVerseTranslation.getValue(lang).contains(hl))
+            assertEquals(intro.wordId, contentLanguages, intro.senses.keys)
+            intro.senses.forEach { (lang, senses) ->
+                val where = "${intro.wordId} $lang"
+                assertTrue(where, senses.size in 1..3)
+                assertEquals(where, intro.meaning.getValue(lang), senses.joinToString(" / ") { it.meaning })
+                senses.forEach { sense ->
+                    val verse = verses[sense.verse]
+                    assertTrue("$where cites missing verse ${sense.verse}", verse != null)
+                    verse!!
+                    assertTrue(where, sense.wordStart in 0 until sense.wordEnd && sense.wordEnd <= verse.arabic.length)
+                    val token = WordExampleLocalizer.tokenSpans(verse.arabic)
+                        .indexOfFirst { sense.wordStart >= it.start && sense.wordStart < it.end }
+                    assertEquals("$where token index", sense.word, token + 1)
+                    val wbw = verse.wordByWord.getValue(lang)
+                    assertTrue(where, sense.wbwStart in 0 until sense.wbwEnd && sense.wbwEnd <= wbw.length)
+                    assertEquals(where, sense.meaning, wbw.substring(sense.wbwStart, sense.wbwEnd))
+                    val tStart = sense.translationStart
+                    val tEnd = sense.translationEnd
+                    assertEquals(where, tStart == null, tEnd == null)
+                    if (tStart != null && tEnd != null) {
+                        val translation = verse.translation.getValue(lang)
+                        assertTrue(where, tStart in 0 until tEnd && tEnd <= translation.length)
+                        assertTrue(where, translation.substring(tStart, tEnd).equals(sense.meaning, ignoreCase = true))
+                    }
+                }
             }
-            intro.polysemyEntries.forEach { pe ->
-                val v = pe.verseArabic!!
-                assertTrue(intro.wordId, pe.arabicWordStart!! in 0 until pe.arabicWordEnd!! && pe.arabicWordEnd <= v.length)
+        }
+    }
+
+    @Test
+    fun `localizing never drops a sense and keeps every verse quiz answerable in every language`() {
+        Language.entries.forEach { language ->
+            val localized = intros.associate { it.wordId to WordExampleLocalizer.build(it, language, verses) }
+            intros.forEach { intro ->
+                assertEquals("${intro.wordId} $language", intro.senses.getValue(language.tag).size, localized.getValue(intro.wordId).senses.size)
             }
+            exercises.map { it.content }.forEach { content ->
+                when (val out = WordExampleLocalizer.localizeExercise(content, localized)) {
+                    is ExerciseContent.FillInTheBlank -> {
+                        val correct = out.options.single { it.id == out.correctOptionId }
+                        assertEquals(out.wordId, out.sentenceArabic.substring(out.blankStart, out.blankEnd), correct.labelArabic)
+                        assertTrue(out.wordId, out.options.size >= 2)
+                    }
+                    is ExerciseContent.TapWordInVerse -> {
+                        val sense = localized.getValue(out.wordId).primarySense!!
+                        assertTrue(out.wordId, out.tappableSpans.any { it.start == out.correctWordStart && it.end == out.correctWordEnd })
+                        assertTrue(out.wordId, out.correctWordStart <= sense.wordStart && sense.wordEnd <= out.correctWordEnd)
+                    }
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `grammar labels exist in every language wherever an English one is shown`() {
+        intros.forEach { intro ->
+            if (!intro.verbForm.isNullOrBlank()) {
+                assertEquals(intro.wordId, contentLanguages, intro.verbFormLabel.keys)
+                assertEquals(intro.wordId, intro.verbForm, intro.verbFormLabel.getValue("en"))
+            }
+            if (!intro.partOfSpeechDetail.isNullOrBlank()) {
+                assertEquals(intro.wordId, contentLanguages, intro.partOfSpeechLabel.keys)
+                assertEquals(intro.wordId, intro.partOfSpeechDetail, intro.partOfSpeechLabel.getValue("en"))
+            }
+        }
+    }
+
+    @Test
+    fun `bundled verse quizzes match their English default verse exactly`() {
+        exercises.map { it.content }.filterIsInstance<ExerciseContent.FillInTheBlank>().forEach { f ->
+            val correct = f.options.single { it.id == f.correctOptionId }
+            assertEquals(f.wordId, f.sentenceArabic.substring(f.blankStart, f.blankEnd), correct.labelArabic)
         }
         exercises.map { it.content }.filterIsInstance<ExerciseContent.TapWordInVerse>().forEach { t ->
             assertTrue(t.wordId, t.tappableSpans.any { it.start == t.correctWordStart && it.end == t.correctWordEnd })

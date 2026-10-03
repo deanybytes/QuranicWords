@@ -325,6 +325,7 @@
     <string name="particle_type_label">Type de Particule (نوع الحرف)</string>
     <string name="polysemy_tab_format">Sens [%d]</string>
     <string name="polysemy_meanings_title">Significations Contextuelles (Woujoûh al-Qor\'an)</string>
+    <string name="verse_word_by_word_label">Mot à mot</string>
 
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">Aperçu du Chapitre %1$s</string>

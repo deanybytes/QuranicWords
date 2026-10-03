@@ -325,6 +325,7 @@
     <string name="particle_type_label">হরফের প্রকার (نوع الحرف)</string>
     <string name="polysemy_tab_format">অর্থ [%d]</string>
     <string name="polysemy_meanings_title">প্রাসঙ্গিক অর্থসমূহ (উজূহুল কুরআন)</string>
+    <string name="verse_word_by_word_label">শব্দে শব্দে</string>
 
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">অধ্যায় %1$s পরিচিতি</string>

@@ -36,7 +36,8 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.ui.components.GlassSurface
-import com.quranicwords.app.core.ui.components.HighlightedGlassArabic
+import com.quranicwords.app.core.domain.model.LocalizedSense
+import com.quranicwords.app.core.ui.components.VerseExampleCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
@@ -45,6 +46,7 @@ import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 @Composable
 fun MultipleChoiceExerciseContent(
     content: ExerciseContent.MultipleChoice,
+    sense: LocalizedSense?,
     selectedOptionId: String?,
     isChecked: Boolean,
     onSelect: (String) -> Unit
@@ -77,33 +79,14 @@ fun MultipleChoiceExerciseContent(
             )
         }
 
-        if (content.exampleVerseArabic != null && content.exampleVerseReference != null) {
-            GlassSurface(
-                modifier = Modifier.fillMaxWidth(),
+        // The word's example in the learner's language: the ayah first, its one translation line
+        // only once answered (the highlighted meaning would give the answer away).
+        if (sense != null) {
+            VerseExampleCard(
+                sense = sense,
+                showTranslation = isChecked,
                 tint = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.75f)
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Text(
-                        text = com.quranicwords.app.core.util.VerseReferenceFormatter.format(content.exampleVerseReference, language),
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            fontFamily = QuranCitationFontFamily,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 0.5.sp
-                        ),
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    HighlightedGlassArabic(
-                        verseArabic = content.exampleVerseArabic,
-                        start = content.arabicWordStart,
-                        end = content.arabicWordEnd,
-                        modifier = Modifier.fillMaxWidth(),
-                        arabicWord = content.promptArabic
-                    )
-                }
-            }
+            )
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {

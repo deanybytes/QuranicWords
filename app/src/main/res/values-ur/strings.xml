@@ -325,6 +325,7 @@
     <string name="particle_type_label">حرف کی قسم (نوع الحرف)</string>
     <string name="polysemy_tab_format">معنی [%d]</string>
     <string name="polysemy_meanings_title">سیاقی معانی (وجوہ القرآن)</string>
+    <string name="verse_word_by_word_label">لفظ بہ لفظ</string>
 
     <!-- Chapter Introduction Strings -->
     <string name="chapter_intro_label">باب %1$s کا تعارف</string>
