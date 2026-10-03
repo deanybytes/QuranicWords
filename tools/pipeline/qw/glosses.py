@@ -14,8 +14,14 @@ LEADING_STRIP = {
     "fr": ["de la ", "de l'", "de l’", "le ", "la ", "les ", "l'", "l’", "un ", "une ", "des ", "du ", "de ", "d'", "d’"],
     "tr": ["bir "],
 }
-# Nouns/adjectives that GTAF renders as a relative clause ("yang taat" = "who is obedient").
-NOUN_LEADING = {"in": ["yang "]}
+# Nouns/adjectives that GTAF renders as a relative clause ("yang taat" = "who is obedient"),
+# or with an indefinite ("کوئی پناہ" = "some refuge").
+NOUN_LEADING = {"in": ["yang "], "ur": ["کوئی "], "hi": ["कोई "], "bn": ["কোনো "]}
+# Subject pronouns Urdu/Hindi word-by-word put after the verb ("پھسل گئے تم").
+VERB_TRAILING = {"ur": [" تم", " ہم", " وہ", " تو"], "hi": [" तुम", " हम", " वे", " वह", " मैं", " तू"]}
+# Word-by-word glosses sometimes list alternatives ("مقبروں میں/ قبروں میں"); keep the first.
+ALTERNATIVE_SEPARATORS = re.compile(r"\s*(?:۔|/|؛)\s*")
+FRENCH_ELISION = re.compile(r"(?i)(?:\b(?:qu|l|d|j|n|s|c|m|t|jusqu|lorsqu|puisqu))['’]$")
 # A "gloss" that is only one of these is a function word the token borrowed from context.
 STOPWORDS = {
     "en": {"and", "so", "then", "the", "of", "to", "in", "is", "it", "that", "which", "who", "not", "a"},
@@ -129,7 +135,14 @@ def _strip_pronouns(t, lang):
 def clean(text, lang, coarse, conj=False, pronoun=False):
     t = normalize_lang(unicodedata.normalize("NFC", text or ""), lang)
     t = re.sub(r"\([^)]*\)|\[[^\]]*\]|\{[^}]*\}", " ", t)   # implied words GTAF parenthesizes
-    t = re.sub(r"\s+", " ", t).strip(_PUNCT).strip()
+    t = re.sub(r"\s+", " ", t).strip()
+    first = ALTERNATIVE_SEPARATORS.split(t)[0].strip()
+    if first:
+        t = first
+    keep_elision = lang == "fr" and FRENCH_ELISION.search(t)
+    t = t.strip(_PUNCT).strip()
+    if keep_elision:
+        t += keep_elision.group(0)[-1]
     low = t.lower()
     for prefix in LEADING_STRIP.get(lang, []):
         if low.startswith(prefix) and len(t) > len(prefix) + 1:
@@ -143,11 +156,18 @@ def clean(text, lang, coarse, conj=False, pronoun=False):
         t = _strip_pronouns(t.strip(_PUNCT), lang)
     if coarse == "V":
         t = _strip_leading(t, VERB_PRONOUNS.get(lang, []))
+        for tail in VERB_TRAILING.get(lang, []):
+            if t.endswith(tail) and len(t) > len(tail) + 1:
+                t = t[: -len(tail)]
     else:
+        t = _strip_leading(t, NOUN_LEADING.get(lang, []))
         for tail in TRAILING_COPULA.get(lang, []):
             if t.endswith(tail) and len(t) > len(tail) + 1:
                 t = t[: -len(tail)]
-    return t.strip(_PUNCT).strip()
+    out = t.strip(_PUNCT).strip()
+    if keep_elision and not out.endswith(("'", "’")):
+        out += keep_elision.group(0)[-1]
+    return out
 
 
 def norm(t):

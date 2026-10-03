@@ -13,7 +13,7 @@ from qw import arabic, glosses, validate  # noqa: E402
 
 @pytest.fixture(scope="module")
 def built():
-    assets, legacy_map, report, excluded, words = run.build()
+    assets, legacy_map, report, excluded, words, raw = run.build()
     return assets, legacy_map, report, words
 
 
@@ -115,3 +115,30 @@ def test_gloss_cleaning():
     assert glosses.clean("And they said", "en", "V") == "said"
     assert glosses.clean("de la terre", "fr", "N") == "terre"
     assert glosses.meaning_problem("and him", "en", "NOUN") == "phrase fragment"
+
+
+def test_screenshot_regressions_highlight_only_the_word(built):
+    """User-reported: لِ/مِنْ/مَا/فَ highlighted the whole written word (وَمَا, وَمِنَ,
+    وَلَهَدَيْنَٰهُمْ) and cards showed meanings absent from the verse. Each sense must now
+    highlight only the word, and the WBW highlight must be exactly the card text."""
+    assets = built[0]
+    verses = assets["verses"]
+    intros = {e["content"]["arabicWord"]: e["content"] for e in assets["exercises"]["exercises"]
+              if e["exerciseType"] == "WORD_INTRO"}
+    for word in ("لِ", "مِنْ", "فَ"):
+        c = intros[word]
+        for lang, items in c["senses"].items():
+            assert items, (word, lang)
+            for it in items:
+                v = verses[it["verse"]]
+                piece = v["ar"][it["wordStart"]:it["wordEnd"]]
+                assert not piece.startswith("وَ") or word == "وَ", (word, lang, piece)
+                assert v["wbw"][lang][it["wbwStart"]:it["wbwEnd"]] == it["meaning"]
+                if it["translationStart"] is not None:
+                    hl = v["tr"][lang][it["translationStart"]:it["translationEnd"]]
+                    assert hl.casefold() == it["meaning"].casefold() or lang == "tr"
+    # The particle "not" is no longer badged as a noun.
+    nots = [e["content"] for e in assets["exercises"]["exercises"]
+            if e["exerciseType"] == "WORD_INTRO" and e["content"]["arabicWord"] == "مَا"]
+    cats = {c["meaning"]["en"]: c["lemmaCategory"] for c in nots}
+    assert cats.get("not") == "PARTICLE"

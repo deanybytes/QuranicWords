@@ -23,12 +23,21 @@ GTAF_FILES = {
 QAC_URL = "https://raw.githubusercontent.com/mustafa0x/quran-morphology/master/quran-morphology.txt"
 QAC_SHA256 = None  # filled by `run.py --pin` on first fetch; see sources.PINS_FILE
 
-# Full-verse translations (alquran.cloud editions).
+# Full-verse translations. For each language, the edition whose wording agrees most often with the
+# GTAF word-by-word glosses (measured over every clean occurrence), so the card meaning can be
+# found verbatim in the translation as often as possible. ("ac:" = alquran.cloud, "qc:" = quran.com)
 VERSE_EDITIONS = {
-    "en": "en.sahih", "bn": "bn.bengali", "ur": "ur.jalandhry", "hi": "hi.hindi",
-    "in": "id.indonesian", "tr": "tr.diyanet", "fa": "fa.fooladvand", "fr": "fr.hamidullah",
+    "en": ("ac:en.sahih", "Saheeh International"),
+    "bn": ("qc:213", "Dr. Abu Bakr Muhammad Zakaria"),
+    "ur": ("qc:158", "Dr. Israr Ahmad (Bayan-ul-Quran)"),
+    "hi": ("qc:122", "Maulana Azizul Haque al-Umari"),
+    "in": ("ac:id.indonesian", "Indonesian Ministry of Religious Affairs"),
+    "tr": ("qc:124", "Muslim Shahin"),
+    "fa": ("qc:29", "Hussein Taji Kal Dari"),
+    "fr": ("ac:fr.hamidullah", "Muhammad Hamidullah"),
 }
 VERSE_URL = "https://api.alquran.cloud/v1/quran/{edition}"
+QURAN_COM_URL = "https://api.quran.com/api/v4/quran/translations/{id}"
 
 WORDS_PER_LESSON = 5
 LESSONS_PER_SECTION = 10

@@ -27,6 +27,9 @@ class Occurrence:
     suffixed: bool       # has a suffix pronoun
     form: str            # vocalized form of this segment
     conj_only: bool = False  # only attachment is a leading وَ / فَ conjunction
+    seg: int = 0             # index of this lemma's segment within the QAC word
+    seg_last: int = 0        # last segment of the word unit (a verb's own subject ending)
+    aspect: str = None       # PERF / IMPF / IMPV for verbs
     verb_3ms_perf: bool = False
 
 
@@ -88,6 +91,16 @@ def _is_subject_suffix(segs, suffix):
     return False
 
 
+def _subject_end(segs, i):
+    """Index of the last segment belonging to the word unit starting at segs[i]: a verb stem plus
+    its own subject ending (يَقُولُ + ونَ), otherwise the segment itself."""
+    j = i
+    if segs[i].coarse == "V" and not segs[i].prefix:
+        while j + 1 < len(segs) and _is_subject_suffix(segs, segs[j + 1]):
+            j += 1
+    return j
+
+
 def format_root(root):
     if not root:
         return None
@@ -108,7 +121,7 @@ def build(qac):
                 g.has("DET") or (g.lemma in ("و", "ف") and not g.has("P")) for g in prefixes
             ) and any(not g.has("DET") for g in prefixes)
             suffixed = any(g.suffix for g in segs if not _is_subject_suffix(segs, g))
-            for g in segs:
+            for seg_index, g in enumerate(segs):
                 if g.suffix or g.has("DET"):
                     continue
                 is_stem = not g.prefix
@@ -142,6 +155,9 @@ def build(qac):
                     form=g.form,
                     verb_3ms_perf=g.coarse == "V" and g.has("PERF") and "3MS" in g.tags,
                     conj_only=is_stem and conj_prefix and not suffixed and len(stems) == 1,
+                    seg=seg_index,
+                    seg_last=_subject_end(segs, seg_index),
+                    aspect=next((t for t in ("PERF", "IMPF", "IMPV") if g.has(t)), None),
                 ))
                 lem.forms[arabic.clean_display(g.form)] += 1
     for key, lem in lemmas.items():

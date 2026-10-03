@@ -96,10 +96,25 @@ def load_gtaf():
 
 
 def load_verse_translations(pin=False):
-    """{lang: {(surah, ayah): text}}"""
+    """{lang: {(surah, ayah): text}} - one full translation per language (config.VERSE_EDITIONS)."""
+    import re
+    order = sorted(load_qac(pin).keys())
     out = {}
-    for lang, edition in config.VERSE_EDITIONS.items():
-        path = fetch(f"tr_{edition}.json", config.VERSE_URL.format(edition=edition), pin)
-        data = json.loads(path.read_text(encoding="utf-8"))["data"]["surahs"]
-        out[lang] = {(s["number"], a["numberInSurah"]): a["text"].strip() for s in data for a in s["ayahs"]}
+    for lang, (source, _name) in config.VERSE_EDITIONS.items():
+        kind, ident = source.split(":", 1)
+        if kind == "ac":
+            path = fetch(f"tr_{ident}.json", config.VERSE_URL.format(edition=ident), pin)
+            data = json.loads(path.read_text(encoding="utf-8"))["data"]["surahs"]
+            out[lang] = {(s["number"], a["numberInSurah"]): a["text"].strip() for s in data for a in s["ayahs"]}
+        else:
+            path = fetch(f"qc_{ident}.json", config.QURAN_COM_URL.format(id=ident), pin)
+            rows = json.loads(path.read_text(encoding="utf-8"))["translations"]
+            assert len(rows) == len(order), (lang, len(rows))
+            def clean(t):
+                t = re.sub(r"<sup[^>]*>.*?</sup>|<[^>]+>", "", t)
+                # Inline footnote markers such as [১] or [3] are editorial, not translation.
+                t = re.sub(r"\s*\[\s*[0-9০-৯۰-۹٠-٩०-९]+\s*\]", "", t)
+                t = re.sub(r"[¹²³⁴⁵⁶⁷⁸⁹⁰]+", "", t)
+                return re.sub(r"\s+", " ", t).strip()
+            out[lang] = {k: clean(r["text"]) for k, r in zip(order, rows)}
     return out

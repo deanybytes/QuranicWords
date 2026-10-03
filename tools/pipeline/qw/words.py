@@ -8,6 +8,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 
 from . import arabic, config, glosses, lexicon
+from . import senses as senses_mod
 
 PARTICLE_TYPES = {
     "P": "Preposition (Ḥarf Jarr)", "CONJ": "Conjunction (Ḥarf ʿAṭf)", "REM": "Resumption particle",
@@ -112,41 +113,6 @@ def _verb_forms(lem, qac_forms):
     return p, i
 
 
-def _example_occurrence(lem, gtaf_en):
-    """Shortest ayah containing a clean occurrence (so the highlighted token *is* the word),
-    earliest in the mushaf on ties."""
-    def ayah_len(o):
-        return len(gtaf_en.get((o.surah, o.ayah), []))
-    clean = [o for o in lem.occurrences if o.bare or o.det_only or o.conj_only]
-    pool = clean or lem.occurrences
-    short = [o for o in pool if 3 <= ayah_len(o) <= 30] or pool
-    return min(short, key=lambda o: (ayah_len(o) > 18, ayah_len(o), o.surah, o.ayah, o.word))
-
-
-def _senses(lem, gtaf, meaning):
-    """One contextual sense per " / "-separated English meaning, each with its own verse whose
-    English gloss for this word is exactly that sense."""
-    en_senses = [s.strip() for s in meaning["en"].split(" / ")]
-    if len(en_senses) < 2:
-        return []
-    per_lang_senses = {lang: [s.strip() for s in meaning[lang].split(" / ")] for lang in config.LANGS}
-    out = []
-    for idx, sense in enumerate(en_senses):
-        for o in lem.occurrences:
-            if not (o.bare or o.det_only or o.conj_only):
-                continue
-            toks = gtaf["en"].get((o.surah, o.ayah))
-            g = glosses.clean(toks[o.word - 1]["translation"], "en", lem.coarse, conj=o.conj_only)
-            if glosses.norm(g) == glosses.norm(sense):
-                ctx = {}
-                for lang in config.LANGS:
-                    ls = per_lang_senses[lang]
-                    ctx[lang] = ls[idx] if idx < len(ls) else ls[0]
-                out.append((idx + 1, ctx, (o.surah, o.ayah, o.word)))
-                break
-    return out if len(out) >= 2 else []
-
-
 def _merge_spelling_variants(lemmas):
     """QAC occasionally lists one word under two lemma spellings (مُهْتَدِي / مُهتَدي); a learner
     would see the same word twice. Fold each variant into its most frequent spelling."""
@@ -168,7 +134,7 @@ def _merge_spelling_variants(lemmas):
         del lemmas[loser.key]
 
 
-def build_words(qac, gtaf):
+def build_words(qac, gtaf, translations):
     lemmas = lexicon.build(qac)
     lexicon.assign_function_display(lemmas, gtaf["en"])
     total_occurrences = sum(l.frequency for l in lemmas.values())
@@ -186,34 +152,24 @@ def build_words(qac, gtaf):
         if l.coarse == "N" and l.fines.get("VN") and l.root and l.verb_form:
             masdars.setdefault((l.root, l.verb_form), []).append(l)
 
+    verses = senses_mod.VerseIndex(gtaf)
     words, excluded = [], []
     for key, lem in lemmas.items():
         category = lem.category
-        if lem.track == "FUNCTION":
-            row = fn_rows[key]
-            meaning = {lang: row[lang] for lang in config.LANGS}
-            display = arabic.clean_display(row["display"])
-            confidence = {lang: (0, 0, "curated") for lang in config.LANGS}
-            reviewed = {lang: True for lang in config.LANGS}
-        else:
-            meaning, confidence, reviewed = {}, {}, {}
-            for lang in config.LANGS:
-                g, c, t, m = glosses.gloss_lemma(lem, gtaf, lang)
-                if g is None:
-                    break
-                meaning[lang] = g
-                confidence[lang] = (c, t, m)
-                reviewed[lang] = m != "pronoun" and glosses.accepted(c, t)
-            for lang in list(meaning):
-                problem = glosses.meaning_problem(meaning[lang], lang, category)
-                if problem:
-                    del meaning[lang]
-            if len(meaning) < len(config.LANGS):
-                missing = [l for l in config.LANGS if l not in meaning]
-                excluded.append({"key": key, "lemma": lem.lemma, "frequency": lem.frequency,
-                                 "reason": "no source-verified meaning in: " + ",".join(missing)})
-                continue
-            display = arabic.clean_display(lem.lemma)
+        curated = fn_rows[key] if lem.track == "FUNCTION" else None
+        by_lang = senses_mod.build(lem, qac, verses, translations, curated=curated,
+                                   display=arabic.clean_display(curated["display"]) if curated else None)
+        missing = [lang for lang in config.LANGS if not by_lang.get(lang)]
+        if missing:
+            excluded.append({"key": key, "lemma": lem.lemma, "frequency": lem.frequency,
+                             "reason": "no proven sense+example in: " + ",".join(missing)})
+            continue
+        meaning = {lang: " / ".join(sn.meaning for sn in by_lang[lang]) for lang in config.LANGS}
+        confidence = {lang: (by_lang[lang][0].support, sum(sn.support for sn in by_lang[lang]), "example")
+                      for lang in config.LANGS}
+        # One attestation is a single verse's reading; two or more is an established meaning.
+        reviewed = {lang: by_lang[lang][0].support >= 2 or lem.frequency == 1 for lang in config.LANGS}
+        display = arabic.clean_display(curated["display"]) if curated else arabic.clean_display(lem.lemma)
         w = Word(
             id=word_id(lem, category), lemma=lem, arabic=display, category=category, track=lem.track,
             meaning=meaning, confidence=confidence, reviewed=reviewed,
@@ -235,9 +191,9 @@ def build_words(qac, gtaf):
             w.particle_type = PARTICLE_TYPES.get(top_fine)
         elif category == "NOUN":
             w.pos_detail = NOUN_DETAIL.get(top_fine) or ("Proper noun" if lem.is_proper_noun else "Noun (Ism)")
-        o = _example_occurrence(lem, gtaf["en"])
-        w.verse = (o.surah, o.ayah, o.word)
-        w.senses = _senses(lem, gtaf, meaning)
+        w.senses = by_lang
+        first = by_lang["en"][0].example
+        w.verse = (first.surah, first.ayah, first.word)
         words.append(w)
 
     # Same id twice would mean two lemmas hashed together - impossible in practice, but fatal.

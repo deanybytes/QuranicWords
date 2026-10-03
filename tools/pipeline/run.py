@@ -32,7 +32,7 @@ def build(pin=False):
     qac = sources.load_qac(pin)
     gtaf = sources.load_gtaf()
     verse_tr = sources.load_verse_translations(pin)
-    ws, excluded, total = words.build_words(qac, gtaf)
+    ws, excluded, total = words.build_words(qac, gtaf, verse_tr)
     b = curriculum.Builder(ws, gtaf, verse_tr, surah_names(), total)
     b.build()
     assets = {
@@ -41,6 +41,7 @@ def build(pin=False):
         "lessons": {"lessons": b.lessons},
         "exercises": {"exercises": b.exercises},
         "word_frequency": {"words": b.word_frequency()},
+        "verses": b.verse_store,
     }
     legacy_map, legacy_stats = legacy.build(ws, qac, gtaf["en"])
     low_conf = sum(1 for w in ws for lang in config.LANGS if not w.reviewed[lang])
@@ -53,7 +54,10 @@ def build(pin=False):
         "coverage_percent": round(100 * sum(w.frequency for w in ws) / total, 2),
         "low_confidence_meanings": low_conf, "legacy_mapping": legacy_stats,
     }
-    return assets, legacy_map, report, excluded, ws
+    report["verses"] = len(b.verse_store)
+    report["senses"] = sum(len(w.senses[l]) for w in ws for l in config.LANGS)
+    report["translation_highlights"] = sum(1 for w in ws for l in config.LANGS for sn in w.senses[l] if sn.example.tr_start is not None)
+    return assets, legacy_map, report, excluded, ws, (qac, gtaf, verse_tr)
 
 
 def main():
@@ -61,8 +65,8 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--pin", action="store_true")
     args = ap.parse_args()
-    assets, legacy_map, report, excluded, ws = build(args.pin)
-    errors = validate.run(assets)
+    assets, legacy_map, report, excluded, ws, raw = build(args.pin)
+    errors = validate.run(assets, raw)
     report["validation_errors"] = len(errors)
     for e in errors[:50]:
         print("  ✗", e)
@@ -76,7 +80,8 @@ def main():
              # A top-level array so the app can stream-decode it (Json.decodeToSequence) instead
              # of materializing ~70 MB of objects at once.
              "lessons_vocabulary.json": assets["lessons"], "exercises_vocabulary.json": assets["exercises"]["exercises"],
-             "word_frequency.json": assets["word_frequency"], "legacy_progress_map.json": legacy_map}
+             "word_frequency.json": assets["word_frequency"], "legacy_progress_map.json": legacy_map,
+             "verses.json": assets["verses"]}
     manifest = {}
     for name, obj in files.items():
         data = dump(obj).encode("utf-8")

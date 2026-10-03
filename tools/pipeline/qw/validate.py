@@ -3,12 +3,12 @@ repeated-lemma and misaligned-gloss corruption in the previous content."""
 import re
 from collections import Counter, defaultdict
 
-from . import arabic, config, glosses
+from . import arabic, config, glosses, senses as senses_mod, spans as spans_mod
 
 LATIN = re.compile(r"^[A-Za-zĀāĪīŪūḤḥṢṣḌḍṬṭẒẓʿʾ' -]+$")
 
 
-def run(assets):
+def run(assets, raw=None):
     errors = []
     words = assets["word_frequency"]["words"]
     lessons = assets["lessons"]["lessons"]
@@ -56,8 +56,7 @@ def run(assets):
             v, s, t = c.get("exampleVerseArabic"), c.get("arabicWordStart"), c.get("arabicWordEnd")
             if not v or s is None or not (0 <= s < t <= len(v)):
                 errors.append(f"{c['wordId']} bad verse span")
-            if set(c.get("exampleVerseTranslation", {})) != set(config.LANGS):
-                errors.append(f"{c['wordId']} verse translation languages")
+            errors += _check_senses(c, assets["verses"], by_id.get(c["wordId"]), raw)
             tr = c.get("transliteration", "")
             if not LATIN.match(tr):
                 errors.append(f"{c['wordId']} transliteration not Latin: {tr}")
@@ -102,3 +101,92 @@ def run(assets):
         if ch_words[ch["id"]] != ch["wordCount"]:
             errors.append(f"{ch['id']} wordCount {ch['wordCount']} != {ch_words[ch['id']]}")
     return errors
+
+
+def _check_senses(intro, verses, word_row, raw):
+    """Second, independent proof of every sense: re-derived from the raw sources rather than
+    trusting the builder. Each check is one of the user-visible guarantees."""
+    errs = []
+    wid = intro["wordId"]
+    senses = intro.get("senses") or {}
+    if set(senses) != set(config.LANGS):
+        return [f"{wid} senses languages {sorted(senses)}"]
+    qac, gtaf, translations = raw if raw else (None, None, None)
+    for lang, items in senses.items():
+        if not items:
+            errs.append(f"{wid} {lang} has no sense")
+            continue
+        joined = " / ".join(it["meaning"] for it in items)
+        if joined != intro["meaning"].get(lang) or (word_row and word_row["meaning"].get(lang) != joined):
+            errs.append(f"{wid} {lang} card meaning differs from its senses")
+        if len({senses_mod.fold(it["meaning"], lang) for it in items}) != len(items):
+            errs.append(f"{wid} {lang} duplicate sense")
+        for it in items:
+            v = verses.get(it["verse"])
+            if v is None:
+                errs.append(f"{wid} {lang} missing verse {it['verse']}")
+                continue
+            s, a = map(int, it["verse"].split(":"))
+            ar, wbw, tr = v["ar"], v["wbw"][lang], v["tr"][lang]
+            # 1. Arabic: the highlighted text is exactly the taught word inside its own token.
+            ws, we = it["wordStart"], it["wordEnd"]
+            if not (0 <= ws < we <= len(ar)):
+                errs.append(f"{wid} {lang} {it['verse']} Arabic span outside one word")
+            # 2. Word-by-word line: highlight is exactly the card's sense text...
+            if wbw[it["wbwStart"]:it["wbwEnd"]] != it["meaning"]:
+                errs.append(f"{wid} {lang} {it['verse']} WBW highlight '{wbw[it['wbwStart']:it['wbwEnd']]}' != '{it['meaning']}'")
+            # 3. Full translation: highlight only if exact and unique.
+            if it["translationStart"] is not None:
+                piece = tr[it["translationStart"]:it["translationEnd"]]
+                if senses_mod.fold(piece, lang) != senses_mod.fold(it["meaning"], lang):
+                    errs.append(f"{wid} {lang} {it['verse']} translation highlight '{piece}' != '{it['meaning']}'")
+                elif len(senses_mod.find_all(it["meaning"], tr, lang)) != 1:
+                    errs.append(f"{wid} {lang} {it['verse']} translation highlight not unique")
+            if raw:
+                toks = gtaf["en"][(s, a)]
+                if ar != " ".join(t["arabic"] for t in toks):
+                    errs.append(f"{wid} {it['verse']} verse text is not the complete ayah")
+                if tr != senses_mod.norm(translations[lang][(s, a)], lang):
+                    errs.append(f"{wid} {lang} {it['verse']} translation text altered")
+                parts = [senses_mod.norm(t["translation"], lang).strip() for t in gtaf[lang][(s, a)]]
+                if wbw != " ".join(parts):
+                    errs.append(f"{wid} {lang} {it['verse']} WBW line altered")
+                # ...and lies inside the gloss of the very word that is highlighted in Arabic.
+                w = it["word"]
+                start_tok = sum(len(p) + 1 for p in parts[: w - 1])
+                if not (start_tok <= it["wbwStart"] and it["wbwEnd"] <= start_tok + len(parts[w - 1])):
+                    errs.append(f"{wid} {lang} {it['verse']} WBW highlight is not inside word {w}'s gloss")
+                a_start = sum(len(t["arabic"]) + 1 for t in toks[: w - 1])
+                if not (a_start <= ws and we <= a_start + len(toks[w - 1]["arabic"])):
+                    errs.append(f"{wid} {lang} {it['verse']} Arabic highlight is not inside word {w}")
+                # The highlighted Arabic letters are one of the word's own QAC segments.
+                segs = qac[(s, a)][w]
+                piece = spans_mod.letter_key(ar[ws:we])
+                # Allowed: one attached particle on its own (وَ, بِ, لِ), or a stem plus the
+                # verb's own subject ending - never a stem together with an attached prefix.
+                options = set()
+                for i, g in enumerate(segs):
+                    if g.prefix:
+                        if not g.has("DET"):
+                            for fold in (False, True):
+                                options.add(spans_mod.letter_key(g.form, fold))
+                        continue
+                    if g.suffix:
+                        continue
+                    j = i
+                    while True:
+                        for fold in (False, True):
+                            options.add("".join(spans_mod.letter_key(x.form, fold) for x in segs[i:j + 1]))
+                        if j + 1 < len(segs) and segs[j + 1].suffix and segs[i].coarse == "V":
+                            j += 1
+                        else:
+                            break
+                # Also allowed: the whole written word when it is exactly the taught form
+                # (ذَٰلِكَ is one word to a learner even though QAC splits it).
+                tok_ar = toks[w - 1]["arabic"]
+                if (ws, we) == (a_start, a_start + len(tok_ar)) and \
+                        spans_mod.letter_key(tok_ar, True) == spans_mod.letter_key(intro["arabicWord"], True):
+                    options.add(piece)
+                if piece not in options and spans_mod.letter_key(ar[ws:we], True) not in options:
+                    errs.append(f"{wid} {lang} {it['verse']} Arabic highlight is not a QAC segment")
+    return errs

@@ -8,6 +8,7 @@ import random
 from collections import defaultdict
 
 from . import arabic, config, text
+from . import senses as senses_mod
 
 # (track, number of words) per chapter after the function-word chapter; the last chapter of
 # each track takes whatever remains.
@@ -29,6 +30,8 @@ def _rng(*parts):
 
 class Builder:
     def __init__(self, words, gtaf, verse_tr, surah_names, total_occurrences):
+        self.verses = senses_mod.VerseIndex(gtaf)
+        self.verse_store = {}
         self.words = words
         self.by_id = {w.id: w for w in words}
         self.gtaf = gtaf
@@ -41,40 +44,37 @@ class Builder:
 
     # ---- verse helpers -------------------------------------------------------------------
     def verse(self, ref):
-        s, a, w = ref
-        toks = self.gtaf["en"][(s, a)]
-        parts = [t["arabic"] for t in toks]
-        start = sum(len(p) + 1 for p in parts[: w - 1])
-        verse_ar = " ".join(parts)
-        spans = []
-        pos = 0
-        for p in parts:
-            spans.append({"start": pos, "end": pos + len(p)})
-            pos += len(p) + 1
-        return verse_ar, start, start + len(parts[w - 1]), spans
+        """(Arabic verse text, token start offsets) for (surah, ayah, word)."""
+        s, a, _ = ref
+        return self.verses.arabic(s, a)
 
     def reference(self, ref):
-        s, a, _ = ref
+        s, a = ref[0], ref[1]
         return f"{self.surah_names[s]} {s}:{a}"
 
-    def translation(self, ref):
-        s, a, _ = ref
-        return {lang: self.verse_tr[lang][(s, a)] for lang in config.LANGS}
+    def _use_verse(self, s, a):
+        key = f"{s}:{a}"
+        if key not in self.verse_store:
+            ar, _ = self.verses.arabic(s, a)
+            self.verse_store[key] = {
+                "ref": self.reference((s, a)),
+                "ar": ar,
+                "wbw": {lang: self.verses.wbw(lang, s, a)[0] for lang in config.LANGS},
+                "tr": {lang: senses_mod.norm(self.verse_tr[lang][(s, a)], lang) for lang in config.LANGS},
+            }
+        return key
 
-    def highlight(self, word, ref, meaning=None):
-        """Where the word's own meaning appears inside each verse translation (if it does)."""
-        tr = self.translation(ref)
-        out = {}
-        for lang in config.LANGS:
-            gloss = (meaning or word.meaning)[lang]
-            for sense in [s.strip() for s in gloss.split(" / ")]:
-                if len(sense) < 2:
-                    continue
-                idx = tr[lang].lower().find(sense.lower())
-                if idx >= 0:
-                    out[lang] = tr[lang][idx: idx + len(sense)]
-                    break
-        return out
+    def _sense_json(self, sense):
+        e = sense.example
+        return {
+            "meaning": sense.meaning, "verse": self._use_verse(e.surah, e.ayah), "word": e.word,
+            "wordStart": e.word_start, "wordEnd": e.word_end,
+            "wbwStart": e.wbw_start, "wbwEnd": e.wbw_end,
+            "translationStart": e.tr_start, "translationEnd": e.tr_end,
+        }
+
+    def _first(self, w, lang="en"):
+        return w.senses[lang][0].example
 
     # ---- exercise factories ----------------------------------------------------------------
     def _ex(self, lesson_id, order, etype, content):
@@ -83,74 +83,67 @@ class Builder:
                                "orderIndex": order, "exerciseType": etype, "content": content})
 
     def intro(self, w):
-        verse_ar, st, en, _ = self.verse(w.verse)
-        senses = []
-        for idx, ctx, ref in w.senses:
-            v_ar, s_st, s_en, _ = self.verse(ref)
-            senses.append({
-                "meaningIndex": idx, "contextualMeaning": ctx, "verseReference": self.reference(ref),
-                "verseArabic": v_ar, "arabicWordStart": s_st, "arabicWordEnd": s_en,
-                "verseTranslation": self.translation(ref), "translationHighlight": self.highlight(w, ref, ctx),
-            })
+        senses = {lang: [self._sense_json(sn) for sn in w.senses[lang]] for lang in config.LANGS}
+        e = self._first(w)
+        key = self._use_verse(e.surah, e.ayah)
+        v = self.verse_store[key]
         c = {
             "type": "word_intro", "prompt": text.PROMPT_INTRO, "wordId": w.id, "arabicWord": w.arabic,
-            "meaning": w.meaning, "lemmaCategory": w.category, "polysemyEntries": senses,
+            "meaning": w.meaning, "lemmaCategory": w.category, "senses": senses,
             "meaningReviewed": w.reviewed, "root": w.root, "transliteration": w.translit,
             "quranOccurrenceCount": w.frequency,
-            "exampleVerseArabic": verse_ar, "exampleVerseTranslation": self.translation(w.verse),
-            "exampleVerseReference": self.reference(w.verse), "exampleVerseVerified": True,
-            "arabicWordStart": st, "arabicWordEnd": en,
-            "meaningHighlight": self.highlight(w, w.verse),
+            # Language-neutral defaults (English first sense); the app replaces these with the
+            # learner's language from `senses` + verses.json before display.
+            "exampleVerseArabic": v["ar"], "exampleVerseTranslation": {"en": v["tr"]["en"]},
+            "exampleVerseReference": v["ref"], "exampleVerseVerified": True,
+            "arabicWordStart": e.word_start, "arabicWordEnd": e.word_end,
+            "meaningHighlight": {"en": w.senses["en"][0].meaning} if e.tr_start is not None else {},
         }
-        for k, v in (("verbForm", w.verb_form), ("pastArabic", w.past), ("presentArabic", w.present),
-                     ("masdarArabic", w.masdar), ("particleType", w.particle_type),
-                     ("partOfSpeechDetail", w.pos_detail or w.particle_type)):
-            if v:
-                c[k] = v
+        for k, val in (("verbForm", w.verb_form), ("pastArabic", w.past), ("presentArabic", w.present),
+                       ("masdarArabic", w.masdar), ("particleType", w.particle_type),
+                       ("partOfSpeechDetail", w.pos_detail or w.particle_type)):
+            if val:
+                c[k] = val
         return c
 
     def option(self, w):
         return {"id": f"opt_{w.id}", "labelArabic": w.arabic, "label": w.meaning}
 
     def mc(self, w):
-        verse_ar, st, en, _ = self.verse(w.verse)
         opts = [self.option(w)] + [self.option(self.by_id[d]) for d in self.distractors[w.id][:3]]
         _rng("mc", w.id).shuffle(opts)
         return {"type": "multiple_choice", "prompt": text.PROMPT_MC, "promptArabic": w.arabic, "wordId": w.id,
-                "options": opts, "correctOptionId": f"opt_{w.id}", "exampleVerseArabic": verse_ar,
-                "exampleVerseTranslation": self.translation(w.verse), "exampleVerseReference": self.reference(w.verse),
-                "arabicWordStart": st, "arabicWordEnd": en, "meaningHighlight": self.highlight(w, w.verse)}
+                "options": opts, "correctOptionId": f"opt_{w.id}"}
 
     def fill(self, w):
-        verse_ar, st, en, _ = self.verse(w.verse)
-        # Options show the word exactly as it is written in this verse; distractors are other
-        # words of the same category in their dictionary form.
-        surface = verse_ar[st:en]
-        correct = {"id": f"opt_{w.id}", "labelArabic": surface, "label": w.meaning}
+        e = self._first(w)
+        verse_ar, _ = self.verse((e.surah, e.ayah, e.word))
+        # The blank is exactly the taught word (not the whole written token), so options show
+        # it as written in this verse; distractors are other words of the same category.
+        correct = {"id": f"opt_{w.id}", "labelArabic": verse_ar[e.word_start:e.word_end], "label": w.meaning}
         opts = [correct] + [self.option(self.by_id[d]) for d in self.distractors[w.id][:3]]
         _rng("fill", w.id).shuffle(opts)
         return {"type": "fill_in_the_blank", "prompt": text.PROMPT_FILL, "wordId": w.id,
-                "sentenceArabic": verse_ar, "blankStart": st, "blankEnd": en,
-                "sentenceTranslation": self.translation(w.verse), "sentenceReference": self.reference(w.verse),
+                "sentenceArabic": verse_ar, "blankStart": e.word_start, "blankEnd": e.word_end,
+                "sentenceTranslation": {"en": self.verse_store[self._use_verse(e.surah, e.ayah)]["tr"]["en"]},
+                "sentenceReference": self.reference((e.surah, e.ayah)),
                 "options": opts, "correctOptionId": f"opt_{w.id}"}
 
     def tap(self, w):
-        verse_ar, st, en, spans = self.verse(w.verse)
+        e = self._first(w)
+        verse_ar, starts = self.verse((e.surah, e.ayah, e.word))
+        toks = verse_ar.split(" ")
+        spans = [{"start": st, "end": st + len(t)} for st, t in zip(starts, toks)]
+        # Learners tap a whole written word; the correct one is the token holding the taught word.
+        tok = spans[e.word - 1]
         return {"type": "tap_word_in_verse", "prompt": text.PROMPT_TAP, "wordId": w.id,
-                "verseArabic": verse_ar, "verseReference": self.reference(w.verse),
-                "correctWordStart": st, "correctWordEnd": en, "tappableSpans": spans,
-                "meaning": w.meaning, "verseTranslation": self.translation(w.verse),
-                "meaningHighlight": self.highlight(w, w.verse)}
+                "verseArabic": verse_ar, "verseReference": self.reference((e.surah, e.ayah)),
+                "correctWordStart": tok["start"], "correctWordEnd": tok["end"], "tappableSpans": spans,
+                "meaning": w.meaning}
 
     def matching(self, ws):
-        pairs = []
-        for i, w in enumerate(ws, 1):
-            verse_ar, st, en, _ = self.verse(w.verse)
-            pairs.append({"id": f"p{i}", "leftArabic": w.arabic, "left": w.arabic, "right": w.meaning,
-                          "wordId": w.id, "exampleVerseArabic": verse_ar,
-                          "exampleVerseTranslation": self.translation(w.verse),
-                          "exampleVerseReference": self.reference(w.verse), "arabicWordStart": st,
-                          "arabicWordEnd": en, "meaningHighlight": self.highlight(w, w.verse)})
+        pairs = [{"id": f"p{i}", "leftArabic": w.arabic, "left": w.arabic, "right": w.meaning, "wordId": w.id}
+                 for i, w in enumerate(ws, 1)]
         return {"type": "matching", "prompt": text.PROMPT_MATCH, "pairs": pairs}
 
     # ---- distractors -----------------------------------------------------------------------
