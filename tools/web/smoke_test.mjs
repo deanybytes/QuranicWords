@@ -30,11 +30,14 @@ const srs = await imp('js/srs.js');
 const progress = await imp('js/progress.js');
 const quiz = await imp('js/quiz.js');
 const search = await imp('js/search.js');
-const { buildLessons } = await imp('js/data.js');
+const { buildLessons, attachMeanings, attachPos } = await imp('js/data.js');
 const { APP_VERSION } = await imp('js/config.js');
 const index = JSON.parse(read('data/index.json'));
 const WORDS = index.words;
 const META = index.meta;
+// The site loads meanings per language (data/meanings/LANG.json); the tests use all of them.
+attachPos(WORDS, META.pos);
+for (const l of ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']) attachMeanings(WORDS, l, JSON.parse(read(`data/meanings/${l}.json`)));
 const byId = new Map(WORDS.map((w) => [w.id, w]));
 
 // Deterministic RNG for reproducible tests.
@@ -381,6 +384,13 @@ await test('pickTarget avoids repeating the previous word', () => {
 });
 
 console.log('search & data');
+await test('index stays small: meanings per language, grammar labels shared', () => {
+  assert.ok(read('data/index.json').length < 1_000_000, 'index.json must stay under 1 MB');
+  const raw = JSON.parse(read('data/index.json')).words[0];
+  assert.ok(!('m' in raw) && !('pos' in raw), 'per-word meanings/labels are not in the index');
+  assert.ok(WORDS.every((w) => w.m.en && w.m.bn && w.m.fa), 'every word has its meanings once attached');
+  assert.throws(() => attachMeanings(WORDS, 'en', ['x']), /expected/);
+});
 await test('JS skeleton matches the precomputed sk for every word', () => {
   for (const w of WORDS) assert.equal(search.skeleton(w.ar), w.sk, w.id);
 });

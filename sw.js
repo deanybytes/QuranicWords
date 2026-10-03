@@ -4,7 +4,7 @@
  * - Navigation: network-first, falling back to the cached app shell, then to an offline page.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.2.2';
+const VERSION = '2.2.3';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
 const DATA_CACHE = 'qw-data-v3';
 // Anything else (including the retired qw-audio-* cache) is deleted on activate.
@@ -60,7 +60,7 @@ const SHELL_FILES = [
   'js/views/quizView.js',
   'js/views/study.js',
 ];
-const DATA_PRECACHE = ['data/index.json', 'data/roots.json'];
+const DATA_PRECACHE = ['data/index.json', 'data/roots.json', 'data/meanings/en.json'];
 
 const OFFLINE_HTML = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Offline — QuranicWords</title><body style="font-family:system-ui,sans-serif;background:#021d14;color:#f3f8f5;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:16px"><div><h1>You are offline</h1><p>QuranicWords will be available once you reconnect.</p></div></body></html>';
 

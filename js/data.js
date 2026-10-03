@@ -27,6 +27,20 @@ export function buildLessons(words) {
   return [...map.values()];
 }
 
+/** Puts one language's meanings (an array in index order) onto the words as w.m[lang]. */
+export function attachMeanings(words, lang, list) {
+  if (!Array.isArray(list) || list.length !== words.length) throw new Error(`meanings/${lang}.json: expected ${words.length} entries`);
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    (w.m || (w.m = {}))[lang] = list[i];
+  }
+}
+
+/** Resolves each word's grammar-label index (w.p) to the shared {lang: label} entry. */
+export function attachPos(words, table) {
+  for (const w of words) w.pos = Number.isInteger(w.p) ? table[w.p] : null;
+}
+
 export class DataStore {
   constructor() {
     this.meta = null;
@@ -37,17 +51,38 @@ export class DataStore {
     this.lessonByKey = new Map();
     this.verseFiles = new Map(); // "lang:ch" -> Promise<object>
     this.loadedChapters = new Set(); // "lang:ch"
+    this.meaningLangs = new Map();   // lang -> Promise (one meanings file per language)
   }
 
-  async load() {
-    const [index, roots] = await Promise.all([getJSON(DATA_URLS.index), getJSON(DATA_URLS.roots)]);
+  /** Loads the index, roots and the meanings of English plus `lang` (other languages load on
+   * demand via ensureLanguage, keeping the first download small). */
+  async load(lang = getLang()) {
+    const langs = lang === 'en' ? ['en'] : ['en', lang];
+    const [index, roots, ...lists] = await Promise.all([getJSON(DATA_URLS.index), getJSON(DATA_URLS.roots),
+      ...langs.map((l) => getJSON(DATA_URLS.meanings(l)))]);
     if (!index || !index.meta || !Array.isArray(index.words)) throw new Error('index.json: unexpected shape');
     this.meta = index.meta;
     this.words = index.words;
+    attachPos(this.words, this.meta.pos || []);
+    langs.forEach((l, i) => { attachMeanings(this.words, l, lists[i]); this.meaningLangs.set(l, Promise.resolve()); });
     this.byId = new Map(this.words.map((w) => [w.id, w]));
     this.roots = Object.entries(roots || {}).map(([root, ids]) => ({ root, ids: ids.filter((id) => this.byId.has(id)) }));
     this.lessons = buildLessons(this.words);
     this.lessonByKey = new Map(this.lessons.map((l) => [l.key, l]));
+  }
+
+  hasLanguage(lang) {
+    return this.meaningLangs.has(lang);
+  }
+
+  /** Loads (once) a language's meanings. Failed loads are not cached so they can be retried. */
+  ensureLanguage(lang) {
+    if (!this.meaningLangs.has(lang)) {
+      const p = getJSON(DATA_URLS.meanings(lang)).then((list) => attachMeanings(this.words, lang, list));
+      p.catch(() => this.meaningLangs.delete(lang));
+      this.meaningLangs.set(lang, p);
+    }
+    return this.meaningLangs.get(lang);
   }
 
   chapter(n) {
