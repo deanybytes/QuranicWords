@@ -1,19 +1,19 @@
 {
-  "words": 3902,
-  "excluded": 879,
+  "words": 3911,
+  "excluded": 870,
   "by_track": {
     "FUNCTION": 71,
-    "VERB": 1163,
-    "NOUN": 2668
+    "VERB": 1164,
+    "NOUN": 2676
   },
   "chapters": 10,
   "sections": 80,
-  "lessons": 961,
-  "exercises": 15616,
+  "lessons": 962,
+  "exercises": 15648,
   "total_quran_segments": 97155,
-  "taught_occurrences": 94703,
-  "coverage_percent": 97.48,
-  "low_confidence_meanings": 8524,
+  "taught_occurrences": 94715,
+  "coverage_percent": 97.49,
+  "low_confidence_meanings": 8445,
   "legacy_mapping": {
     "35": {
       "exact": 461,
@@ -28,17 +28,17 @@
       "unmapped": 2514
     }
   },
-  "verses": 4904,
-  "senses": 33769,
-  "translation_highlights": 14302,
+  "verses": 4909,
+  "senses": 33899,
+  "translation_highlights": 14551,
   "validation_errors": 0,
   "asset_sha256": {
-    "chapters.json": "68335e885ca15ab978120f7c0b919815fdd10a72df43dfed63dbe5a58dec84df",
-    "sections.json": "9cd40fb12a46efac502576495d0ed0908bb2227b8758a54b5207d7bbfee5a54f",
-    "lessons_vocabulary.json": "ac8b9f864f088b5437b5d7c2e3160640c26125f220af7dba80f8b9b168356037",
-    "exercises_vocabulary.json": "cfbd2b4cf3a58b1cf66c0b0e1960956b667f00376667a35d768ea64851706d17",
-    "word_frequency.json": "1f218281f2e0e6c782be10a51f110a375d449d8efac9245b56775f0c6273dea4",
+    "chapters.json": "e21b64a4c7fc7a4185573675c0a7091559e9f17af886ed09b2a897058fc55c5b",
+    "sections.json": "b2fa2f89b31c22fe0192f5a6ecc7e1a6751af75d87294af8c424d37e1018c2bc",
+    "lessons_vocabulary.json": "a7336133887ed1c97faf836b141eb5ffdf0cc9939cadda00804ab097b6f66be0",
+    "exercises_vocabulary.json": "99a5d44ddcccbb9477bb39d2add8b4b5b770b625bc14ba27844e32227ccb85fd",
+    "word_frequency.json": "1b9a7aea67f6a47872a2d91df4e8e47d3e23dcd8058d3621ab624d98f17bf23c",
     "legacy_progress_map.json": "47e5112f7f742fb91f20ddf25dca3be9749bf49eb64d1293dc69db56254d6687",
-    "verses.json": "7de3eb322afff93abbb7a249acf3bc67f91b488d37869da5d17815f13c84b98f"
+    "verses.json": "6cb6d58c551ccc86120d80c567e819c0446e986622002ccc3229c344ea81f886"
   }
 }

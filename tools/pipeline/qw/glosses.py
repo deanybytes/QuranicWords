@@ -16,7 +16,14 @@ LEADING_STRIP = {
 }
 # Nouns/adjectives that GTAF renders as a relative clause ("yang taat" = "who is obedient"),
 # or with an indefinite ("کوئی پناہ" = "some refuge").
-NOUN_LEADING = {"in": ["yang "], "ur": ["کوئی "], "hi": ["कोई "], "bn": ["কোনো "]}
+NOUN_LEADING = {
+    "in": ["yang "],
+    "ur": ["کوئی ", "ان کی ", "ان کے ", "ان کا ", "اس کی ", "اس کے ", "اس کا ", "جو ", "کچھ ", "ایک "],
+    "hi": ["कोई ", "उनकी ", "उनके ", "उनका ", "उसकी ", "उसके ", "उसका ", "जो ", "कुछ ", "एक "],
+    "bn": ["কোনো "],
+    "fa": ["یک "],
+}
+NOUN_TRAILING = {"fa": [" را"]}
 # Subject pronouns Urdu/Hindi word-by-word put after the verb ("پھسل گئے تم").
 VERB_TRAILING = {"ur": [" تم", " ہم", " وہ", " تو"], "hi": [" तुम", " हम", " वे", " वह", " मैं", " तू"]}
 # Word-by-word glosses sometimes list alternatives ("مقبروں میں/ قبروں میں"); keep the first.
@@ -41,7 +48,7 @@ VERB_PRONOUNS = {
     "fr": ["il ", "elle ", "ils ", "elles ", "vous ", "nous ", "tu ", "je ", "on ", "j'", "j’"],
     "bn": ["সে ", "তারা ", "তোমরা ", "তুমি ", "আমরা ", "আমি ", "তিনি "],
     "ur": ["وہ ", "تم ", "ہم ", "میں ", "تو "],
-    "hi": ["वह ", "वे ", "तुम ", "हम ", "मैं ", "तू "],
+    "hi": ["वह ", "वे ", "वो ", "ये ", "तुम ", "हम ", "मैं ", "तू ", "आप "],
     "in": ["dia ", "mereka ", "kamu ", "kami ", "kita ", "engkau ", "aku "],
     "fa": ["او ", "آنان ", "آنها ", "شما ", "ما ", "من ", "تو "],
 }
@@ -161,6 +168,9 @@ def clean(text, lang, coarse, conj=False, pronoun=False):
                 t = t[: -len(tail)]
     else:
         t = _strip_leading(t, NOUN_LEADING.get(lang, []))
+        for tail in NOUN_TRAILING.get(lang, []):
+            if t.endswith(tail) and len(t) > len(tail) + 1:
+                t = t[: -len(tail)]
         for tail in TRAILING_COPULA.get(lang, []):
             if t.endswith(tail) and len(t) > len(tail) + 1:
                 t = t[: -len(tail)]

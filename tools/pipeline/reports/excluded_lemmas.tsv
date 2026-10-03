@@ -52,7 +52,6 @@ N|سُوق	سُوق	4	no proven sense+example in: tr
 N|مُعَذَّب	مُعَذَّب	4	no proven sense+example in: tr
 N|خَزَنَت	خَزَنَت	4	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|بارِئ	بارِئ	3	no proven sense+example in: fr
-N|تابِع	تابِع	3	no proven sense+example in: ur
 N|خارِج	خارِج	3	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|باغ	باغ	3	no proven sense+example in: tr
 N|مَحِلّ	مَحِلّ	3	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
@@ -138,7 +137,6 @@ N|مُسافِح	مُسافِح	2	no proven sense+example in: tr
 N|فَتاة	فَتاة	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|بُخْل	بُخْل	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|غائِط	غائِط	2	no proven sense+example in: tr
-N|تَوْفِيق	تَوْفِيق	2	no proven sense+example in: fa
 V|يُحَكِّمُ	يُحَكِّمُ	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|يُمَنِّي	يُمَنِّي	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|نَقْض	نَقْض	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
@@ -187,7 +185,7 @@ V|أَصْفَى	أَصْفَى	2	no proven sense+example in: en,bn,ur,hi,in,tr,
 N|تَسْبِيح	تَسْبِيح	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|رابِع	رابِع	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|سادِس	سادِس	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-V|يُحاوِرُ	يُحاوِرُ	2	no proven sense+example in: hi,fr
+V|يُحاوِرُ	يُحاوِرُ	2	no proven sense+example in: fr
 V|يُدْحِضُ	يُدْحِضُ	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|صَخْرَة	صَخْرَة	2	no proven sense+example in: tr
 V|تُصاحِبْ	تُصاحِبْ	2	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
@@ -326,7 +324,7 @@ N|عُقُود	عُقُود	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,f
 N|مُحِلِّي	مُحِلِّي	1	no proven sense+example in: tr
 N|مُنْخَنِقَة	مُنْخَنِقَة	1	no proven sense+example in: en
 N|مَوْقُوذَة	مَوْقُوذَة	1	no proven sense+example in: en
-N|مُتَرَدِّيَة	مُتَرَدِّيَة	1	no proven sense+example in: en,ur
+N|مُتَرَدِّيَة	مُتَرَدِّيَة	1	no proven sense+example in: en
 N|نَطِيحَة	نَطِيحَة	1	no proven sense+example in: en
 V|ذَكَّيْ	ذَكَّيْ	1	no proven sense+example in: tr
 V|تَسْتَقْسِمُ	تَسْتَقْسِمُ	1	no proven sense+example in: tr
@@ -396,7 +394,6 @@ V|أَوْضَعُ	أَوْضَعُ	1	no proven sense+example in: en,bn,ur,hi,in
 N|غارِم	غارِم	1	no proven sense+example in: fa
 V|أَعْقَبَ	أَعْقَبَ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|جُهْد	جُهْد	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-N|دَوائِر	دَوائِر	1	no proven sense+example in: fa
 N|مَوْعِدَة	مَوْعِدَة	1	no proven sense+example in: tr
 V|خُلِّفُ	خُلِّفُ	1	no proven sense+example in: tr
 V|يَتَخَلَّفُ	يَتَخَلَّفُ	1	no proven sense+example in: tr
@@ -488,7 +485,6 @@ V|حَفَفْ	حَفَفْ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,f
 V|تَبِيدَ	تَبِيدَ	1	no proven sense+example in: tr
 V|تَذْرُو	تَذْرُو	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|مُواقِعُو	مُواقِعُو	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-N|حُقُب	حُقُب	1	no proven sense+example in: fa
 N|غَداء	غَداء	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|يُضَيِّفُ	يُضَيِّفُ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|يَنقَضَّ	يَنقَضَّ	1	no proven sense+example in: tr
@@ -563,7 +559,6 @@ N|ظَهِيرَة	ظَهِيرَة	1	no proven sense+example in: tr,fr
 N|مُتَبَرِّجَة	مُتَبَرِّجَة	1	no proven sense+example in: tr
 V|يَتَسَلَّلُ	يَتَسَلَّلُ	1	no proven sense+example in: tr
 V|اكْتَتَبَ	اكْتَتَبَ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-N|صَرْف	صَرْف	1	no proven sense+example in: fa
 N|فُلان	فُلان	1	no proven sense+example in: en
 V|يَبِيتُ	يَبِيتُ	1	no proven sense+example in: en,tr
 N|غَرام	غَرام	1	no proven sense+example in: tr,fr
@@ -672,7 +667,6 @@ N|مُتَكَلِّف	مُتَكَلِّف	1	no proven sense+example in: tr
 N|مُتَشاكِس	مُتَشاكِس	1	no proven sense+example in: fr
 N|كاف	كاف	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|حَسْرَتَى	حَسْرَتَى	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-N|تَناد	تَناد	1	no proven sense+example in: hi
 N|تَباب	تَباب	1	no proven sense+example in: tr
 N|نَجاة	نَجاة	1	no proven sense+example in: tr
 V|يَتَحاجُّ	يَتَحاجُّ	1	no proven sense+example in: fr
@@ -764,7 +758,6 @@ N|عِصَم	عِصَم	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|يَفْتَرِي	يَفْتَرِي	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|تَغابُن	تَغابُن	1	no proven sense+example in: fr
 V|فارِقُ	فارِقُ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-N|مَخْرَج	مَخْرَج	1	no proven sense+example in: fa
 V|يَحِضْ	يَحِضْ	1	no proven sense+example in: tr,fr
 N|وُجْد	وُجْد	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|تُضَيِّقُ	تُضَيِّقُ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
@@ -842,7 +835,6 @@ V|يَسْرِ	يَسْرِ	1	no proven sense+example in: tr
 N|إِرَم	إِرَم	1	no proven sense+example in: hi
 N|عِماد	عِماد	1	no proven sense+example in: tr
 V|جابُ	جابُ	1	no proven sense+example in: tr
-N|تُراث	تُراث	1	no proven sense+example in: fa
 N|نَجْدَيْن	نَجْدَيْن	1	no proven sense+example in: tr
 N|مَسْغَبَة	مَسْغَبَة	1	no proven sense+example in: tr
 N|مَقْرَبَة	مَقْرَبَة	1	no proven sense+example in: tr
@@ -855,7 +847,6 @@ V|دَسَّى	دَسَّى	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,f
 N|طَغْوَى	طَغْوَى	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|سُقْيا	سُقْيا	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 N|عُسْرَى	عُسْرَى	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
-V|تَرَدَّى	تَرَدَّى	1	no proven sense+example in: hi
 V|يُجَنَّبُ	يُجَنَّبُ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
 V|سَجَى	سَجَى	1	no proven sense+example in: tr
 V|وَدَّعَ	وَدَّعَ	1	no proven sense+example in: en,bn,ur,hi,in,tr,fa,fr
