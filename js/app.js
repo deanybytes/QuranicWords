@@ -114,11 +114,17 @@ class App {
     if (sel) sel.value = lang;
     this.memo.key = null;
     if (this.ready) {
-      this.renderFilters();
-      this.renderHero();
-      this.renderChrome();
-      this.renderView();
-      this.updateTitle();
+      const render = () => {
+        this.memo.key = null;
+        this.renderFilters();
+        this.renderHero();
+        this.renderChrome();
+        this.renderView();
+        this.updateTitle();
+      };
+      // Meanings are fetched per language; render once this language's file is in.
+      if (this.data.hasLanguage(lang)) render();
+      else this.data.ensureLanguage(lang).then(render).catch(() => toast(t('loadError')));
     }
     if (announce) toast(t('langSwitched', { lang: info.name }));
   }

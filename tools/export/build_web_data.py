@@ -2,6 +2,7 @@
 """Builds the web app's data from the app's bundled curriculum (tools/pipeline output), so the
 web dictionary and the Android app always teach exactly the same words and meanings.
 
+    data/meanings/LANG.json  each word's meaning in one language, in index.json order
     data/index.json          every word, light fields only (loaded at start, ~1 MB)
     data/verses/LANG/ch_NN.json   per language and chapter: each word's proven senses (exact
                                   spans) and the verses they use, stored once (lazy-loaded)
@@ -67,7 +68,18 @@ def main():
             counters[l["sectionId"]] += 1
             regular_index[l["id"]] = counters[l["sectionId"]]
 
+    def pos_ref(label):
+        if not label:
+            return None
+        key = json.dumps(label, sort_keys=True, ensure_ascii=False)
+        if key not in pos_index:
+            pos_index[key] = len(pos_table)
+            pos_table.append(label)
+        return pos_index[key]
+
     words, roots = [], defaultdict(list)
+    meanings = {}            # id -> {lang: meaning}; written per language (only one is loaded)
+    pos_table, pos_index = [], {}   # grammar labels stored once, words refer to them by index
     # per language, per chapter: senses of each word + the verses they use (stored once)
     per = defaultdict(lambda: {"words": {}, "verses": {}})
     for e in exercises:
@@ -80,14 +92,15 @@ def main():
         first = c["senses"]["en"][0]
         words.append({
             "id": c["wordId"], "ar": c["arabicWord"], "tl": c.get("transliteration", ""),
-            "rt": c.get("root"), "cat": c["lemmaCategory"], "pos": c.get("partOfSpeechLabel") or c.get("verbFormLabel"),
+            "rt": c.get("root"), "cat": c["lemmaCategory"], "p": pos_ref(c.get("partOfSpeechLabel") or c.get("verbFormLabel")),
             "ch": ch, "sec": sec_num[lesson["sectionId"]], "les": regular_index[e["lessonId"]],
-            "occ": c["quranOccurrenceCount"], "rank": f["frequencyRank"], "m": c["meaning"],
+            "occ": c["quranOccurrenceCount"], "rank": f["frequencyRank"],
             "ref": verses[first["verse"]]["ref"],
             "sk": skeleton(c["arabicWord"]),
             "poly": {lang: len(items) for lang, items in c["senses"].items() if len(items) > 1},
             "vf": {k: c[k] for k in ("verbForm", "pastArabic", "presentArabic", "masdarArabic") if c.get(k)} or None,
         })
+        meanings[c["wordId"]] = c["meaning"]
         for lang in LANGS:
             bucket = per[(lang, ch)]
             items = []
@@ -101,11 +114,15 @@ def main():
         if c.get("root"):
             roots[c["root"]].append(c["wordId"])
     words.sort(key=lambda w: w["rank"])
+    for w in words:
+        if w["p"] is None:
+            del w["p"]
 
     total = sum(c["quranOccurrenceCount"] for c in chapters)
     meta = {
         "version": "3", "languages": LANGS, "wordCount": len(words), "rootCount": len(roots),
         "occurrences": total,
+        "pos": pos_table,
         "coveragePercent": round(sum(c["quranOccurrencePercent"] for c in chapters), 1),
         "chapters": [{"n": c["sortOrder"], "id": c["id"], "title": c["title"], "words": c["wordCount"],
                       "pct": c["quranOccurrencePercent"]} for c in chapters],
@@ -116,6 +133,11 @@ def main():
         (DATA / stale).unlink(missing_ok=True)
     write_surah_names()
     dump(DATA / "index.json", {"meta": meta, "words": words})
+    # One meanings file per language, aligned with index.json's word order.
+    for stale in (DATA / "meanings").glob("*.json") if (DATA / "meanings").exists() else []:
+        stale.unlink()
+    for lang in LANGS:
+        dump(DATA / "meanings" / f"{lang}.json", [meanings[w["id"]][lang] for w in words])
     for (lang, ch), bucket in per.items():
         dump(DATA / "verses" / lang / f"ch_{ch:02d}.json", bucket)
     dump(DATA / "roots.json", {r: ids for r, ids in sorted(roots.items(), key=lambda kv: -len(kv[1]))})
