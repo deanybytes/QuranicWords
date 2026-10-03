@@ -5,9 +5,9 @@
  *   word and root pages) are cached under their own URL, so they never replace the shell.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.2.5';
+const VERSION = '2.2.6';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
-const DATA_CACHE = 'qw-data-v3';
+const DATA_CACHE = 'qw-data-v4';   // renamed whenever the data layout changes: older copies are purged on activate
 const PAGES_CACHE = 'qw-pages-v1';
 const PAGES_LIMIT = 150;   // most recently visited static pages kept for offline reading
 // Anything else (including the retired qw-audio-* cache) is deleted on activate.
@@ -141,6 +141,11 @@ async function cacheFirst(request, cacheName) {
 
 async function staleWhileRevalidate(event, request) {
   const cache = await caches.open(DATA_CACHE);
+  if (request.cache === 'reload' || request.cache === 'no-store') {      // the page wants a fresh copy
+    const res = await fetch(request);
+    if (res.ok && res.status === 200) cache.put(request, res.clone());
+    return res;
+  }
   const cached = await cache.match(request, { ignoreSearch: true });
   const network = fetch(request, { cache: 'no-cache' }).then((res) => {
     if (res.ok && res.status === 200) cache.put(request, res.clone());

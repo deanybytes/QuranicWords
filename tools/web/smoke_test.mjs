@@ -557,6 +557,39 @@ await test('router honours a sub-path base (GitHub Pages)', () => {
   assert.equal(router.buildUrl('learn'), '/learn');
 });
 
+console.log('data loading');
+await test('a stale cached index.json is replaced by a fresh network copy (no stuck loading screen)', async () => {
+  const { DataStore } = await imp('js/data.js');
+  const good = JSON.parse(read('data/index.json'));
+  const stale = { meta: { ...good.meta }, words: good.words.map(({ m, ...w }) => w) };   // 2.2.3-style: no meanings
+  const roots = JSON.parse(read('data/roots.json'));
+  const calls = [];
+  const realFetch = globalThis.fetch;
+  const realWarn = console.warn;
+  console.warn = () => {};
+  globalThis.fetch = async (url, opts = {}) => {
+    const fresh = opts.cache === 'reload';
+    calls.push(`${String(url).split('/').pop()}${fresh ? ' (fresh)' : ''}`);
+    const body = String(url).includes('index.json') ? (fresh ? good : stale) : roots;
+    return { ok: true, status: 200, json: async () => body };
+  };
+  try {
+    const store = new DataStore();
+    await store.load('en');
+    assert.equal(store.words.length, good.words.length);
+    assert.ok(store.words[0].m.en, 'English meaning present after the retry');
+    assert.ok(calls.some((c) => c.startsWith('index.json (fresh)')), `refetched fresh: ${calls.join(', ')}`);
+  } finally {
+    globalThis.fetch = realFetch;
+    console.warn = realWarn;
+  }
+});
+await test('sw.js: new data cache name, honours cache:reload, version matches APP_VERSION', () => {
+  const sw = read('sw.js');
+  assert.match(sw, /DATA_CACHE = 'qw-data-v4'/);
+  assert.match(sw, /request\.cache === 'reload'/);
+});
+
 console.log('static word and root pages');
 await test('every word has its static page, listed in the sitemap, and links resolve', () => {
   const { words } = JSON.parse(read('data/index.json'));

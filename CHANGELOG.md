@@ -11,7 +11,7 @@ The Android app is unchanged.
   ayahs), with schema, licence and citation; also attached to releases as a zip.
 - `CITATION.cff` for "Cite this repository".
 
-### Web (2.2.5)
+### Web (2.2.6)
 - A static, crawlable page for every word (`quran-words/`) and root (`quran-roots/`), with
   meanings in 8 languages, grammar, frequency and a complete ayah; sitemaps for both.
 - Dictionary cards link to the word's page; the footer links to all words, roots, the dataset
@@ -22,6 +22,9 @@ The Android app is unchanged.
   app; such pages are now cached under their own address.
 - Removed the Latin transliteration from the web app and the offline HTML dictionary.
 - Redesigned privacy page (it was unstyled on Vercel, whose CSP blocks inline styles).
+- Fixed: a browser holding data cached by an older release could stay on "Loading the vocabulary". The
+  app now detects stale data and refetches it once, the data cache is renamed so old copies are purged,
+  and any error while drawing the page shows a retry message instead of a frozen loader.
 
 ### Repository
 - README, docs and figures updated to the current curriculum (78 sections, 943 lessons, 15,329

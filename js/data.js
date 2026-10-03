@@ -9,8 +9,9 @@ import { curriculumCompare } from './search.js';
 import { lessonKey } from './progress.js';
 import { getLang } from './i18n.js';
 
-async function getJSON(url) {
-  const res = await fetch(url, { credentials: 'same-origin' });
+/** `fresh` asks for a network copy (the service worker honours cache: 'reload'). */
+async function getJSON(url, { fresh = false } = {}) {
+  const res = await fetch(url, { credentials: 'same-origin', ...(fresh ? { cache: 'reload' } : {}) });
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
   return res.json();
 }
@@ -57,10 +58,22 @@ export class DataStore {
   /** Loads the index (which carries English), roots and the meanings of `lang` (other languages
    * load on demand via ensureLanguage, keeping the first download small). */
   async load(lang = getLang()) {
+    try {
+      await this.loadFrom(lang, false);
+    } catch (e) {
+      // A cached copy from an older release can be out of step with this code: fetch fresh once.
+      console.warn('Data load failed, retrying from the network', e);
+      await this.loadFrom(lang, true);
+    }
+  }
+
+  async loadFrom(lang, fresh) {
     const langs = lang === 'en' ? [] : [lang];
-    const [index, roots, ...lists] = await Promise.all([getJSON(DATA_URLS.index), getJSON(DATA_URLS.roots),
-      ...langs.map((l) => getJSON(DATA_URLS.meanings(l)))]);
-    if (!index || !index.meta || !Array.isArray(index.words)) throw new Error('index.json: unexpected shape');
+    const opts = { fresh };
+    const [index, roots, ...lists] = await Promise.all([getJSON(DATA_URLS.index, opts), getJSON(DATA_URLS.roots, opts),
+      ...langs.map((l) => getJSON(DATA_URLS.meanings(l), opts))]);
+    if (!index || !index.meta || !Array.isArray(index.words) || !index.words.length) throw new Error('index.json: unexpected shape');
+    if (!index.words[0].m || !index.words[0].m.en) throw new Error('index.json is out of date (no English meanings)');
     this.meta = index.meta;
     this.words = index.words;
     attachPos(this.words, this.meta.pos || []);

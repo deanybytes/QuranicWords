@@ -83,20 +83,21 @@ class App {
     clear(status).append(h('div', { class: 'spinner', attrs: { 'aria-hidden': 'true' } }), h('p', { text: t('loadingData') }));
     try {
       await this.data.load();
+      this.ready = true;
+      this.renderFilters();
+      this.renderHero();
+      this.renderAbout();
+      this.renderChrome();
+      this.showView(this.state.view);
+      status.hidden = true;
     } catch (e) {
       console.error(e);
+      this.ready = false;
+      status.hidden = false;
       status.className = 'app-status is-error';
       clear(status).append(h('p', { attrs: { role: 'alert' }, text: t('loadError') }),
         h('button', { type: 'button', class: 'btn btn-primary', text: t('retry'), on: { click: () => this.loadData() } }));
-      return;
     }
-    status.hidden = true;
-    this.ready = true;
-    this.renderFilters();
-    this.renderHero();
-    this.renderAbout();
-    this.renderChrome();
-    this.showView(this.state.view);
   }
 
   /* ---------------- Language & theme ---------------- */
@@ -417,7 +418,7 @@ class App {
     const catName = { NOUN: 'Noun', VERB: 'Verb', PARTICLE: 'Particle' };
     $('about-top').replaceChildren(...this.data.words.slice(0, 10).map((w) => h('tr', {},
       h('td', {}, w.u ? h('a', { attrs: { href: `${BASE}quran-words/${w.u}.html` } }, arabic(w.ar, 'seo-ar-word')) : arabic(w.ar, 'seo-ar-word')), h('td', { text: catName[w.cat] }),
-      h('td', { text: formatNumber(w.occ, 'en') }), h('td', { text: w.m.en }))));
+      h('td', { text: formatNumber(w.occ, 'en') }), h('td', { text: (w.m && w.m.en) || '' }))));
   }
 
   renderChrome() {
