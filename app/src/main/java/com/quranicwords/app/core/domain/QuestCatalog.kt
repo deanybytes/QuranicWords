@@ -11,16 +11,18 @@ enum class QuestMetric(val accumulates: Boolean) {
     FINISH_LESSONS(true),
     EARN_XP(true),
     DAILY_GOAL_MINUTES(false),
-    LISTENING(true),
     NEW_WORDS(true)
 }
 
 data class QuestDef(val id: String, val metric: QuestMetric, val target: Int, val rewardXp: Int)
 
+/** Whether [DailyQuestEntity.metric] names a metric this build still tracks. */
+val DailyQuestEntity.hasKnownMetric: Boolean
+    get() = QuestMetric.entries.any { it.name == metric }
+
 /** Facts about the learner's day that decide which quests are fair to offer. */
 data class QuestEligibility(
     val dueReviewCount: Int,
-    val listeningEnabled: Boolean,
     /** False on the Test/Quiz-only path, which has no lessons to finish. */
     val lessonsAvailable: Boolean,
     val dailyGoalMinutes: Int
@@ -33,7 +35,6 @@ data class QuestEvent(
     val lessonsFinished: Int = 0,
     val xpEarned: Int = 0,
     val todayMinutes: Int = 0,
-    val listeningAnswers: Int = 0,
     val newWords: Int = 0
 ) {
     fun valueFor(metric: QuestMetric): Int = when (metric) {
@@ -42,7 +43,6 @@ data class QuestEvent(
         QuestMetric.FINISH_LESSONS -> lessonsFinished
         QuestMetric.EARN_XP -> xpEarned
         QuestMetric.DAILY_GOAL_MINUTES -> todayMinutes
-        QuestMetric.LISTENING -> listeningAnswers
         QuestMetric.NEW_WORDS -> newWords
     }
 }
@@ -54,8 +54,9 @@ data class QuestUpdate(val changed: List<DailyQuestEntity>, val rewardXp: Int, v
  * Daily quests: [QUESTS_PER_DAY] small goals per local day, chosen deterministically from
  * `hash(userId + date)` so the same learner always sees the same three for a given day (and a
  * re-pick after a crash is identical). A review quest is always included while words are due;
- * quests the learner couldn't possibly finish (listening with audio off, lessons on the
- * Test-only path, reviews with nothing due) are never offered.
+ * quests the learner couldn't possibly finish (lessons on the Test-only path, reviews with
+ * nothing due) are never offered. A stored row whose metric is no longer known (the withdrawn
+ * "listening" quest, or one written by a newer build) is neither advanced nor shown.
  */
 object QuestCatalog {
     const val QUESTS_PER_DAY = 3
@@ -73,7 +74,6 @@ object QuestCatalog {
         if (eligibility.dailyGoalMinutes > 0) {
             add(QuestDef("daily_goal", QuestMetric.DAILY_GOAL_MINUTES, eligibility.dailyGoalMinutes, rewardXp = 20))
         }
-        if (eligibility.listeningEnabled) add(QuestDef("listening_5", QuestMetric.LISTENING, 5, rewardXp = 20))
         add(QuestDef("new_words_5", QuestMetric.NEW_WORDS, 5, rewardXp = 20))
     }
 

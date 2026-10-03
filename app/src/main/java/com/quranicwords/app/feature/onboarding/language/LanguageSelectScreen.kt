@@ -50,9 +50,9 @@ fun LanguageSelectScreen(
         )
 
         // Each language names itself (its own nativeName) - the universal convention for language
-        // pickers, and the only labeling that doesn't need 12 languages' worth of translated
+        // pickers, and the only labeling that doesn't need 8 languages' worth of translated
         // string resources for "English"/"Bangla"/etc. just to show this one screen.
-        Language.selectable.forEachIndexed { index, lang ->
+        Language.entries.forEachIndexed { index, lang ->
             StaggeredEntrance(index = index) {
                 LanguageOptionCard(
                     label = lang.nativeName,

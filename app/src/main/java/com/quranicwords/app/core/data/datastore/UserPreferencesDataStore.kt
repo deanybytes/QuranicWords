@@ -43,12 +43,10 @@ class UserPreferencesDataStore @Inject constructor(
         val FONT_STYLE = stringPreferencesKey("quran_font_style")
         val FONT_CHOICE_MADE = booleanPreferencesKey("font_choice_made")
         val CONTENT_SEEDED_VERSION = intPreferencesKey("content_seeded_version")
-        val CONTENT_LANGUAGE_NOTICE_SHOWN = booleanPreferencesKey("content_language_notice_shown")
         val LOCAL_USER_ID = stringPreferencesKey("local_user_id")
         val REDUCE_MOTION = booleanPreferencesKey("reduce_motion")
         val REDUCE_GLASS_EFFECTS = booleanPreferencesKey("reduce_glass_effects")
         val SOUND_ENABLED = booleanPreferencesKey("sound_enabled")
-        val PRONUNCIATION_AUDIO_ENABLED = booleanPreferencesKey("pronunciation_audio_enabled")
         val FONT_SCALE = stringPreferencesKey("font_scale")
         val STREAK_REMINDER_ENABLED = booleanPreferencesKey("streak_reminder_enabled")
         val STREAK_REMINDER_HOUR = intPreferencesKey("streak_reminder_hour")
@@ -106,8 +104,39 @@ class UserPreferencesDataStore @Inject constructor(
         }
     }
 
+    /** The chosen language. A withdrawn language's tag (Malay/Hausa/Swahili) already reads as
+     * [Language.ENGLISH] here via [Language.fromTag]; [migrateRetiredLanguage] persists that. */
     val languageFlow: Flow<Language?> =
         context.dataStore.data.map { Language.fromTag(it[Keys.LANGUAGE]) }
+
+    /** One-time move of a stored withdrawn-language tag to English (and drop of the retired
+     * content-language-notice and pronunciation-audio flags). Idempotent. */
+    suspend fun migrateRetiredLanguage() {
+        var changed = false
+        context.dataStore.edit { prefs ->
+            if (Language.isRetiredTag(prefs[Keys.LANGUAGE])) {
+                prefs[Keys.LANGUAGE] = Language.ENGLISH.tag
+                changed = true
+            }
+            prefs.remove(booleanPreferencesKey("content_language_notice_shown"))
+            prefs.remove(booleanPreferencesKey("pronunciation_audio_enabled"))
+        }
+        if (changed) {
+            runCatching {
+                com.quranicwords.app.feature.widget.WidgetUpdateScheduler.updateAllWidgets(context, advanceRotation = false)
+            }
+        }
+    }
+
+    /** Writes a raw language tag, bypassing [Language] - lets tests seed a withdrawn tag. */
+    @androidx.annotation.VisibleForTesting
+    internal suspend fun setRawLanguageTag(tag: String) {
+        context.dataStore.edit { it[Keys.LANGUAGE] = tag }
+    }
+
+    /** The raw stored language tag (see [setRawLanguageTag]). */
+    @androidx.annotation.VisibleForTesting
+    internal suspend fun rawLanguageTag(): String? = context.dataStore.data.first()[Keys.LANGUAGE]
 
     suspend fun setLanguage(language: Language) {
         context.dataStore.edit { it[Keys.LANGUAGE] = language.tag }
@@ -138,13 +167,6 @@ class UserPreferencesDataStore @Inject constructor(
 
     val fontChoiceMadeFlow: Flow<Boolean> =
         context.dataStore.data.map { it[Keys.FONT_CHOICE_MADE] == true }
-
-    val contentLanguageNoticeShownFlow: Flow<Boolean> =
-        context.dataStore.data.map { it[Keys.CONTENT_LANGUAGE_NOTICE_SHOWN] == true }
-
-    suspend fun setContentLanguageNoticeShown() {
-        context.dataStore.edit { it[Keys.CONTENT_LANGUAGE_NOTICE_SHOWN] = true }
-    }
 
     /** The content version currently seeded, or null on a fresh install. */
     suspend fun contentSeededVersion(): Int? = context.dataStore.data.first()[Keys.CONTENT_SEEDED_VERSION]
@@ -234,16 +256,6 @@ class UserPreferencesDataStore @Inject constructor(
 
     suspend fun setSoundEnabled(enabled: Boolean) {
         context.dataStore.edit { it[Keys.SOUND_ENABLED] = enabled }
-    }
-
-    /** Word-pronunciation audio toggle (Settings screen, "Sound" section) - gates
-     * [com.quranicwords.app.core.util.AudioPlayer.play] directly, independent of [soundEnabledFlow]
-     * (which only gates the short SFX chimes via `SfxPlayer`). Defaults to on. */
-    val pronunciationAudioEnabledFlow: Flow<Boolean> =
-        context.dataStore.data.map { it[Keys.PRONUNCIATION_AUDIO_ENABLED] != false }
-
-    suspend fun setPronunciationAudioEnabled(enabled: Boolean) {
-        context.dataStore.edit { it[Keys.PRONUNCIATION_AUDIO_ENABLED] = enabled }
     }
 
     val fontScaleFlow: Flow<FontScale> =

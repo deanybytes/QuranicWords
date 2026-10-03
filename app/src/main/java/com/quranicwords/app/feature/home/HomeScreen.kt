@@ -679,11 +679,8 @@ private fun formatCompletedDate(epochMillis: Long, language: com.quranicwords.ap
         com.quranicwords.app.core.domain.model.Language.URDU -> java.util.Locale.forLanguageTag("ur-PK")
         com.quranicwords.app.core.domain.model.Language.HINDI -> java.util.Locale.forLanguageTag("hi-IN")
         com.quranicwords.app.core.domain.model.Language.INDONESIAN -> java.util.Locale.forLanguageTag("id-ID")
-        com.quranicwords.app.core.domain.model.Language.MALAY -> java.util.Locale.forLanguageTag("ms-MY")
         com.quranicwords.app.core.domain.model.Language.TURKISH -> java.util.Locale.forLanguageTag("tr-TR")
         com.quranicwords.app.core.domain.model.Language.PERSIAN -> java.util.Locale.forLanguageTag("fa-IR")
-        com.quranicwords.app.core.domain.model.Language.HAUSA -> java.util.Locale.forLanguageTag("ha-NG")
-        com.quranicwords.app.core.domain.model.Language.SWAHILI -> java.util.Locale.forLanguageTag("sw-KE")
         com.quranicwords.app.core.domain.model.Language.FRENCH -> java.util.Locale.FRENCH
         com.quranicwords.app.core.domain.model.Language.ENGLISH -> java.util.Locale.ENGLISH
     }

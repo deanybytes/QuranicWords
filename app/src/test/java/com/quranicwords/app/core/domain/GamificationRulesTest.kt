@@ -93,7 +93,7 @@ class HeartsCalculatorTest {
 
 class QuestCatalogTest {
 
-    private val eligibility = QuestEligibility(dueReviewCount = 12, listeningEnabled = true, lessonsAvailable = true, dailyGoalMinutes = 20)
+    private val eligibility = QuestEligibility(dueReviewCount = 12, lessonsAvailable = true, dailyGoalMinutes = 20)
 
     @Test
     fun `selection is deterministic per learner and day`() {
@@ -120,8 +120,19 @@ class QuestCatalogTest {
 
     @Test
     fun `impossible quests are never offered`() {
-        val pool = QuestCatalog.pool(QuestEligibility(dueReviewCount = 0, listeningEnabled = false, lessonsAvailable = false, dailyGoalMinutes = 10))
-        assertTrue(pool.none { it.metric == QuestMetric.REVIEW_WORDS || it.metric == QuestMetric.LISTENING || it.metric == QuestMetric.FINISH_LESSONS })
+        val pool = QuestCatalog.pool(QuestEligibility(dueReviewCount = 0, lessonsAvailable = false, dailyGoalMinutes = 10))
+        assertTrue(pool.none { it.metric == QuestMetric.REVIEW_WORDS || it.metric == QuestMetric.FINISH_LESSONS })
+    }
+
+    @Test
+    fun `a stored quest of the withdrawn listening metric is neither advanced nor shown`() {
+        val stale = DailyQuestEntity("u", "2026-10-03", "listening_5", "LISTENING", 5, 0, rewardXp = 20, completedAtEpochMillis = null)
+        assertFalse(stale.hasKnownMetric)
+        val update = QuestCatalog.apply(listOf(stale), QuestEvent(xpEarned = 100, bestCombo = 20, lessonsFinished = 3, newWords = 9), nowMillis = 1L)
+        assertTrue(update.changed.isEmpty())
+        assertEquals(0, update.rewardXp)
+        assertTrue(quest("earn", QuestMetric.EARN_XP, 50).hasKnownMetric)
+        assertTrue(QuestCatalog.pool(eligibility).none { it.id == "listening_5" })
     }
 
     private fun quest(id: String, metric: QuestMetric, target: Int, progress: Int = 0, completedAt: Long? = null) =

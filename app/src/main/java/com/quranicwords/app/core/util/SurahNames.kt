@@ -148,11 +148,10 @@ object SurahNames {
             Language.BANGLA -> entry.bn
             Language.URDU -> entry.ur
             Language.HINDI -> entry.hi
-            Language.INDONESIAN, Language.MALAY -> entry.id
+            Language.INDONESIAN -> entry.id
             Language.TURKISH -> entry.tr
             Language.FRENCH -> entry.fr
             Language.PERSIAN -> entry.fa
-            Language.HAUSA, Language.SWAHILI -> entry.en
         }
     }
 }

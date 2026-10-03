@@ -17,6 +17,8 @@ data class WordFrequencyEntity(
     val frequencyRank: Int,
     val frequencyCount: Int,
     val meaning: LocalizedText,
-    val audioAssetPath: String?,
+    /** Legacy pronunciation-clip path. Word audio was withdrawn: the column is kept (not worth a
+     * schema migration) but nothing reads it, and seed JSON may omit it. */
+    val audioAssetPath: String? = null,
     val tierLevel: Int
 )

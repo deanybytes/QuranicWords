@@ -47,6 +47,8 @@ data class BackupPreferences(
     val soundEnabled: Boolean = true,
     // Added after schema 2 shipped; nullable so older backups (which lack them) leave the
     // current setting untouched instead of resetting it.
+    /** Legacy: the withdrawn word-pronunciation audio toggle. Kept so backups that carry it
+     * still decode; never exported (always null) and ignored on restore. */
     val pronunciationAudioEnabled: Boolean? = null,
     val fontScale: String? = null,
     val requireExitConfirmation: Boolean? = null

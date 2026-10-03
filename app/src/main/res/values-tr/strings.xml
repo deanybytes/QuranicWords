@@ -128,9 +128,7 @@
     <string name="lesson_exit_confirm_stay">Öğrenmeye devam et</string>
     <string name="lesson_matching_instruction">Bir harfe dokunun, ardından eşleşenine dokunun.</string>
     <string name="lesson_teach_continue_button">Anladım</string>
-    <string name="exercise_audio_unavailable">Bu öğe için ses henüz mevcut değil.</string>
     <string name="word_order_build_area_label">Cevabınız</string>
-    <string name="listen_and_type_hint">Duyduğunuzu yazın</string>
     <string name="lesson_empty_title">Ders İçeriği Kullanılamıyor</string>
     <string name="lesson_empty_desc">Bu ders için alıştırma bulunamadı. Lütfen ana panele dönün.</string>
 
@@ -303,7 +301,6 @@
     <string name="home_review_count_subtitle">İncelenecek %1$d Kur\'an kelimesi var</string>
     <string name="home_review_single_mistake_subtitle">İncelenecek 1 Kur\'an kelimesi var</string>
     <string name="lesson_try_again_button">Tekrar Dene</string>
-    <string name="settings_pronunciation_audio_label">Telaffuz sesi</string>
     <string name="settings_reduce_glass_label">Cam Efektlerini Azalt</string>
     <string name="settings_section_sound">Ses ve Seslendirme</string>
     <string name="lesson_kind_regular">Ders</string>
@@ -387,9 +384,6 @@
     <string name="settings_show_walkthrough_button">Başlangıç Rehberini Göster</string>
     <string name="splash_load_failed">Dersler hazırlanamadı. İlerlemeniz güvende.</string>
     <string name="action_retry">Tekrar dene</string>
-    <string name="content_language_notice_title">Kelime anlamları hakkında</string>
-    <string name="content_language_notice_body">Her kelimenin anlamı artık Kur\'an\'ın doğrulanmış kelime kelime çevirisinden alınıyor. Dilinizde henüz doğrulanmış bir kaynak olmadığından anlamlar İngilizce gösterilir.</string>
-    <string name="content_language_notice_ok">Tamam</string>
     <string name="lesson_skip_button">Atla</string>
     <string name="chapter_label">%1$s. Bölüm</string>
     <string name="chapter_label_ordinal">%1$s Bölüm</string>
@@ -408,7 +402,6 @@
     <string name="a11y_action_match">Eşleştir</string>
     <string name="a11y_action_select_word">Bu kelimeyi seç</string>
     <string name="a11y_meaning_tab">Anlam %1$s / %2$s</string>
-    <string name="a11y_play_pronunciation">Telaffuzu dinle</string>
     <string name="a11y_action_flip_card">Kartı çevir</string>
     <string name="a11y_card_showing_word">Kelime gösteriliyor</string>
     <string name="a11y_card_showing_meaning">Anlam gösteriliyor</string>
@@ -466,7 +459,6 @@
     <string name="quest_finish_lessons">%1$s ders bitir</string>
     <string name="quest_earn_xp">%1$s XP kazan</string>
     <string name="quest_daily_goal">Bugün %1$s dakika pratik yap</string>
-    <string name="quest_listening">%1$s dinleme sorusunu cevapla</string>
     <string name="quest_new_words">%1$s yeni kelime öğren</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -484,7 +476,6 @@
     <string name="achievement_level_description">%d. seviyeye ulaş</string>
     <string name="achievement_strong_name">Sağlam Temel</string>
     <string name="achievement_strong_description">%d kelimeyi Güçlü yap</string>
-    <string name="settings_pronunciation_audio_description">Kelimeleri öğretilirken dinleyin ve dinleme sorularını açın.</string>
     <string name="settings_invocation_every_launch_label">Her açılışta açılış duası</string>
     <string name="settings_invocation_every_launch_description">Kapalı: dua uygulamayı günde bir kez açar.</string>
     <string name="settings_hearts_label">Kalpler</string>

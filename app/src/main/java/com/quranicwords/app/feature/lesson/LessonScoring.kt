@@ -39,8 +39,7 @@ data class LessonScoring(
     val bestCombo: Int = 0,
     val comboBonusXp: Int = 0,
     /** Words whose first try this session was wrong - the summary's "review these now" list. */
-    val missedItemIds: Set<String> = emptySet(),
-    val listeningAnswers: Int = 0
+    val missedItemIds: Set<String> = emptySet()
 ) {
     fun isGraded(index: Int): Boolean = index in gradedIndices
 
@@ -64,8 +63,7 @@ data class LessonScoring(
         val next = if (firstTry) {
             copy(
                 loggedItemIds = loggedItemIds + itemId,
-                missedItemIds = if (correct) missedItemIds else missedItemIds + itemId,
-                listeningAnswers = listeningAnswers + if (exerciseType == ExerciseType.TAP_WHAT_YOU_HEAR) 1 else 0
+                missedItemIds = if (correct) missedItemIds else missedItemIds + itemId
             )
         } else {
             this
@@ -86,7 +84,6 @@ data class LessonScoring(
         comboBonusXp = comboBonusXp,
         bestCombo = bestCombo,
         firstTryAnswers = loggedItemIds.size,
-        listeningAnswers = listeningAnswers,
         newWords = loggedItemIds.count { it !in knownItemIds }
     )
 }

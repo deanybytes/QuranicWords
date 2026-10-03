@@ -52,7 +52,7 @@ class WidgetDataProviderTest {
     }
 
     @Test
-    fun `widget digit formatting is correct across all 11 supported languages`() {
+    fun `widget digit formatting is correct across all 8 supported languages`() {
         val testNumber = "1234567890"
 
         val expected = mapOf(
@@ -63,13 +63,10 @@ class WidgetDataProviderTest {
             Language.HINDI to "१२३४५६७८९०",
             Language.INDONESIAN to "1234567890",
             Language.TURKISH to "1234567890",
-            Language.FRENCH to "1234567890",
-            Language.MALAY to "1234567890",
-            Language.SWAHILI to "1234567890",
-            Language.HAUSA to "1234567890"
+            Language.FRENCH to "1234567890"
         )
 
-        assertEquals(11, Language.entries.size)
+        assertEquals(8, Language.entries.size)
         for (lang in Language.entries) {
             val formatted = VerseReferenceFormatter.formatDigits(testNumber, lang)
             assertEquals("Failed digit formatting for language $lang", expected[lang], formatted)

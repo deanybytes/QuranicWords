@@ -14,11 +14,8 @@ object GeneratedExercisePrompts {
         "ur" to "آیت میں سے درست عربی لفظ منتخب کریں",
         "hi" to "आयत में से सही अरबी शब्द चुनें",
         "in" to "Ketuk kata Arab yang benar dalam ayat",
-        "ms" to "Ketik perkataan Arab yang betul dalam ayat",
         "tr" to "Ayetteki doğru Arapça kelimeye dokunun",
         "fa" to "کلمه عربی درست را در آیه لمس کنید",
-        "ha" to "Taba kalmar Larabci daidai a cikin ayar",
-        "sw" to "Gusa neno sahihi la Kiarabu katika aya",
         "fr" to "Touchez le mot arabe correct dans le verset"
     )
 
@@ -28,11 +25,8 @@ object GeneratedExercisePrompts {
         "ur" to "آیت مکمل کریں",
         "hi" to "आयत पूरी करें",
         "in" to "Lengkapi ayat berikut",
-        "ms" to "Lengkapkan ayat ini",
         "tr" to "Ayeti tamamlayın",
         "fa" to "آیه را کامل کنید",
-        "ha" to "Kammala ayar",
-        "sw" to "Kamilisha aya",
         "fr" to "Complétez le verset"
     )
 
@@ -42,11 +36,8 @@ object GeneratedExercisePrompts {
         "ur" to "درست معنی کا انتخاب کریں",
         "hi" to "सही अर्थ चुनें",
         "in" to "Pilih arti yang benar",
-        "ms" to "Pilih maksud yang betul",
         "tr" to "Doğru anlamı seçin",
         "fa" to "معنی درست را انتخاب کنید",
-        "ha" to "Zabi ma'anar da ta dace",
-        "sw" to "Chagua maana sahihi",
         "fr" to "Choisissez la bonne signification"
     )
 }

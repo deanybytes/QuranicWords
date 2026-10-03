@@ -66,9 +66,6 @@ class SettingsViewModel @Inject constructor(
     val soundEnabled: StateFlow<Boolean> =
         preferences.soundEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
-    val pronunciationAudioEnabled: StateFlow<Boolean> =
-        preferences.pronunciationAudioEnabledFlow.stateIn(viewModelScope, SharingStarted.Eagerly, true)
-
     val invocationEveryLaunch: StateFlow<Boolean> =
         preferences.invocationEveryLaunchFlow.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
@@ -121,10 +118,6 @@ class SettingsViewModel @Inject constructor(
 
     fun setSoundEnabled(enabled: Boolean) {
         viewModelScope.launch { preferences.setSoundEnabled(enabled) }
-    }
-
-    fun setPronunciationAudioEnabled(enabled: Boolean) {
-        viewModelScope.launch { preferences.setPronunciationAudioEnabled(enabled) }
     }
 
     fun setInvocationEveryLaunch(enabled: Boolean) {

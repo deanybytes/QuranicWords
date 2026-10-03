@@ -37,7 +37,7 @@ class LocalizationParityTest {
     }
 
     @Test
-    fun `all 11 languages have exact 100 percent string key parity with zero missing or extra keys`() {
+    fun `all 8 languages have exact 100 percent string key parity with zero missing or extra keys`() {
         val root = findRepoRoot()
         val baseXml = File(root, "app/src/main/res/values/strings.xml")
         assertTrue("Base strings.xml must exist", baseXml.exists())
@@ -60,7 +60,7 @@ class LocalizationParityTest {
     }
 
     @Test
-    fun `all 11 languages are declared in locales_config xml`() {
+    fun `all 8 languages are declared in locales_config xml`() {
         val root = findRepoRoot()
         val configXml = File(root, "app/src/main/res/xml/locales_config.xml")
         assertTrue("locales_config.xml must exist", configXml.exists())
@@ -133,5 +133,20 @@ class LocalizationParityTest {
                 )
             }
         }
+    }
+
+    @Test
+    fun `values-id mirrors values-in exactly and withdrawn locales are gone`() {
+        val root = findRepoRoot()
+        val res = File(root, "app/src/main/res")
+        assertEquals(
+            "values-id/strings.xml must stay identical to values-in/strings.xml",
+            File(res, "values-in/strings.xml").readText(),
+            File(res, "values-id/strings.xml").readText()
+        )
+        for (tag in listOf("ms", "ha", "sw")) {
+            assertTrue("values-$tag must not exist", !File(res, "values-$tag").exists())
+        }
+        assertEquals(8, Language.entries.size)
     }
 }

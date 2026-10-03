@@ -71,8 +71,6 @@ import com.quranicwords.app.core.util.VerseReferenceFormatter
 fun WordIntroExerciseContent(
     content: ExerciseContent.WordIntro,
     strength: WordStrength? = null,
-    /** Plays the word's pronunciation clip; null when it has none. */
-    onPlayAudio: (() -> Boolean)? = null,
     selectedMeaningIndex: Int = 0,
     onMeaningSelected: (Int) -> Unit = {}
 ) {
@@ -123,9 +121,6 @@ fun WordIntroExerciseContent(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                if (onPlayAudio != null) {
-                    AudioPlayButton(onPlay = onPlayAudio)
-                }
 
                 AnimatedContent(
                     targetState = displayedMeaning,

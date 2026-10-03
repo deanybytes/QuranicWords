@@ -55,7 +55,6 @@ object VerseReferenceFormatter {
         Language.PERSIAN -> "سوره"
         Language.TURKISH -> "Sure"
         Language.FRENCH -> "Sourate"
-        Language.SWAHILI -> "Sura"
         else -> "Surah"
     }
 

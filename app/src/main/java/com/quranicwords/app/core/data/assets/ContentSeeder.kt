@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.DecodeSequenceMode
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.decodeToSequence
 import javax.inject.Inject
@@ -84,7 +85,15 @@ class ContentSeeder @Inject constructor(
     private suspend fun streamExercises(insert: suspend (List<ExerciseSeedDto>) -> Unit) {
         context.assets.open("content/exercises_vocabulary.json").use { stream ->
             val batch = ArrayList<ExerciseSeedDto>(EXERCISE_CHUNK)
-            for (dto in AppJson.decodeToSequence(stream, ExerciseSeedDto.serializer(), DecodeSequenceMode.ARRAY_WRAPPED)) {
+            for (element in AppJson.decodeToSequence(stream, JsonElement.serializer(), DecodeSequenceMode.ARRAY_WRAPPED)) {
+                // Per-element decode: an exercise of an unknown/withdrawn type is skipped rather
+                // than aborting the whole seed.
+                val dto: ExerciseSeedDto? = try {
+                    AppJson.decodeFromJsonElement(ExerciseSeedDto.serializer(), element)
+                } catch (_: IllegalArgumentException) {
+                    null
+                }
+                if (dto == null) continue
                 batch += dto
                 if (batch.size == EXERCISE_CHUNK) {
                     insert(batch.toList())

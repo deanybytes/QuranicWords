@@ -82,9 +82,8 @@ interface ProgressRepository {
     suspend fun getDueItemIds(userId: String, limit: Int): List<String>
 
     /** The Daily Review session: one exercise per due word (capped at [limit]), its type chosen
-     * by memory strength - see [com.quranicwords.app.core.domain.srs.ReviewExercisePicker].
-     * [listeningEnabled] allows tap-what-you-hear for strong words with audio. */
-    suspend fun getDailyReviewExercises(userId: String, limit: Int, listeningEnabled: Boolean): List<ExerciseEntity>
+     * by memory strength - see [com.quranicwords.app.core.domain.srs.ReviewExercisePicker]. */
+    suspend fun getDailyReviewExercises(userId: String, limit: Int): List<ExerciseEntity>
 
     /** Strength of every word [userId] has memory for (words absent from the map are NEW). */
     fun observeWordStrengths(userId: String): Flow<Map<String, WordStrength>>

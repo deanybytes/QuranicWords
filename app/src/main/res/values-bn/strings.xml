@@ -136,9 +136,7 @@
     <string name="lesson_exit_confirm_stay">শিখতে থাকুন</string>
     <string name="lesson_matching_instruction">একটি হরফে চাপ দিন, তারপর এর মিল খুঁজুন।</string>
     <string name="lesson_teach_continue_button">বুঝেছি</string>
-    <string name="exercise_audio_unavailable">এই আইটেমের অডিও এখনো উপলব্ধ নয়।</string>
     <string name="word_order_build_area_label">আপনার উত্তর</string>
-    <string name="listen_and_type_hint">যা শুনলেন তা লিখুন</string>
     <string name="lesson_empty_title">পাঠের বিষয়বস্তু অনুপলব্ধ</string>
     <string name="lesson_empty_desc">এই পাঠের জন্য কোনো অনুশীলন পাওয়া যায়নি। অনুগ্রহ করে ড্যাশবোর্ডে ফিরে যান।</string>
 
@@ -201,7 +199,6 @@
     <string name="settings_font_scale_extra_large">অতিরিক্ত বড়</string>
     <string name="settings_section_sound">সাউন্ড</string>
     <string name="settings_sound_effects_label">সাউন্ড ইফেক্ট</string>
-    <string name="settings_pronunciation_audio_label">উচ্চারণ অডিও</string>
     <string name="settings_section_notifications">নোটিফিকেশন</string>
     <string name="settings_streak_reminder_label">স্ট্রিক রিমাইন্ডার</string>
     <string name="settings_streak_reminder_description">আজ এখনও অনুশীলন না করলে এবং রক্ষা করার মতো স্ট্রিক থাকলে একটি স্থানীয় (অন-ডিভাইস) রিমাইন্ডার। নেটওয়ার্কে কিছুই পাঠানো হয় না।</string>
@@ -387,9 +384,6 @@
     <string name="settings_show_walkthrough_button">নির্দেশিকা গাইড দেখুন</string>
     <string name="splash_load_failed">পাঠগুলো প্রস্তুত করা যায়নি। আপনার অগ্রগতি নিরাপদ আছে।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
-    <string name="content_language_notice_title">শব্দের অর্থ সম্পর্কে</string>
-    <string name="content_language_notice_body">প্রতিটি শব্দের অর্থ এখন কুরআনের যাচাইকৃত শব্দে-শব্দে অনুবাদ থেকে নেওয়া। আপনার ভাষায় এখনো যাচাইকৃত উৎস নেই, তাই অর্থগুলো ইংরেজিতে দেখানো হবে।</string>
-    <string name="content_language_notice_ok">ঠিক আছে</string>
     <string name="lesson_skip_button">এড়িয়ে যান</string>
     <string name="chapter_label">অধ্যায় %1$s</string>
     <string name="chapter_label_ordinal">%1$s অধ্যায়</string>
@@ -408,7 +402,6 @@
     <string name="a11y_action_match">মেলান</string>
     <string name="a11y_action_select_word">এই শব্দটি বেছে নিন</string>
     <string name="a11y_meaning_tab">অর্থ %1$s / %2$s</string>
-    <string name="a11y_play_pronunciation">উচ্চারণ শুনুন</string>
     <string name="a11y_action_flip_card">কার্ড উল্টান</string>
     <string name="a11y_card_showing_word">শব্দটি দেখানো হচ্ছে</string>
     <string name="a11y_card_showing_meaning">অর্থ দেখানো হচ্ছে</string>
@@ -466,7 +459,6 @@
     <string name="quest_finish_lessons">%1$sটি পাঠ শেষ করুন</string>
     <string name="quest_earn_xp">%1$s XP অর্জন করুন</string>
     <string name="quest_daily_goal">আজ %1$s মিনিট অনুশীলন করুন</string>
-    <string name="quest_listening">%1$sটি শোনার প্রশ্নের উত্তর দিন</string>
     <string name="quest_new_words">%1$sটি নতুন শব্দ শিখুন</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -484,7 +476,6 @@
     <string name="achievement_level_description">লেভেল %d-এ পৌঁছান</string>
     <string name="achievement_strong_name">মজবুত ভিত্তি</string>
     <string name="achievement_strong_description">%dটি শব্দকে মজবুত করুন</string>
-    <string name="settings_pronunciation_audio_description">পাঠের সময় শব্দ শুনুন এবং শোনার প্রশ্ন চালু করুন।</string>
     <string name="settings_invocation_every_launch_label">প্রতিবার খোলার সময় সূচনা দোয়া</string>
     <string name="settings_invocation_every_launch_description">বন্ধ থাকলে: দিনে একবার অ্যাপ খোলার সময় দোয়া দেখানো হয়।</string>
     <string name="settings_hearts_label">হার্ট</string>

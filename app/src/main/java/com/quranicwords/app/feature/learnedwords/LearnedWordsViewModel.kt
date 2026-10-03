@@ -9,7 +9,6 @@ import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.repository.ProgressRepository
 import com.quranicwords.app.core.domain.srs.WordStrength
 import com.quranicwords.app.core.util.ArabicSearch
-import com.quranicwords.app.core.util.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,7 +25,6 @@ data class LearnedWordItem(
     val root: String? = null,
     val frequencyRank: Int,
     val frequencyCount: Int,
-    val audioAssetPath: String? = null,
     val exampleVerseArabic: String? = null,
     val exampleVerseTranslation: LocalizedText = emptyMap(),
     val exampleVerseReference: String? = null,
@@ -52,8 +50,7 @@ data class LearnedWordsUiState(
 class LearnedWordsViewModel @Inject constructor(
     private val progressRepository: ProgressRepository,
     private val contentRepository: ContentRepository,
-    private val userIdProvider: CurrentUserIdProvider,
-    private val audioPlayer: AudioPlayer
+    private val userIdProvider: CurrentUserIdProvider
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -106,7 +103,6 @@ class LearnedWordsViewModel @Inject constructor(
                         root = intro?.root,
                         frequencyRank = cand.frequencyRank,
                         frequencyCount = cand.frequencyCount,
-                        audioAssetPath = cand.audioAssetPath ?: intro?.audioAssetPath,
                         exampleVerseArabic = intro?.exampleVerseArabic,
                         exampleVerseTranslation = intro?.exampleVerseTranslation ?: emptyMap(),
                         exampleVerseReference = intro?.exampleVerseReference,
@@ -122,14 +118,6 @@ class LearnedWordsViewModel @Inject constructor(
                 _isLoading.value = false
             }
         }
-    }
-
-    /** False (no throw) when the clip isn't bundled or pronunciation audio is off. */
-    fun playPronunciation(assetPath: String): Boolean = audioPlayer.play(assetPath)
-
-    override fun onCleared() {
-        audioPlayer.release()
-        super.onCleared()
     }
 
     fun onSearchQueryChanged(query: String) {

@@ -47,10 +47,7 @@ fun MultipleChoiceExerciseContent(
     content: ExerciseContent.MultipleChoice,
     selectedOptionId: String?,
     isChecked: Boolean,
-    onSelect: (String) -> Unit,
-    /** Plays the word's pronunciation; offered once the answer is checked, so hearing it is
-     * reinforcement rather than a hint. Null when the word has no clip. */
-    onPlayAudio: (() -> Boolean)? = null
+    onSelect: (String) -> Unit
 ) {
     val language = rememberSelectedLanguage()
 
@@ -106,12 +103,6 @@ fun MultipleChoiceExerciseContent(
                         arabicWord = content.promptArabic
                     )
                 }
-            }
-        }
-
-        if (isChecked && onPlayAudio != null) {
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                AudioPlayButton(onPlay = onPlayAudio)
             }
         }
 

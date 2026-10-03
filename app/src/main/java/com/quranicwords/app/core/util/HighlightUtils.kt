@@ -23,7 +23,7 @@ object HighlightUtils {
 
     /**
      * Checks if a character is part of a word across English, Bengali, Urdu, Hindi, Indonesian,
-     * Malay, Turkish, Persian, Hausa, Swahili, and French.
+     * Turkish, Persian, and French.
      */
     fun isWordChar(c: Char): Boolean {
         if (c.isWhitespace()) return false

@@ -11,8 +11,6 @@ data class SessionStats(
     val bestCombo: Int = 0,
     /** Distinct words answered first-try this session. */
     val firstTryAnswers: Int = 0,
-    /** First-try answers to listening (tap what you hear) exercises. */
-    val listeningAnswers: Int = 0,
     /** Words answered for the very first time ever (no memory before this session). */
     val newWords: Int = 0
 )

@@ -51,7 +51,6 @@ class BackupRepositoryImpl @Inject constructor(
                 dailyGoalLevel = preferences.dailyGoalLevelFlow.first().name,
                 reduceGlassEffects = preferences.reduceGlassEffectsFlow.first(),
                 soundEnabled = preferences.soundEnabledFlow.first(),
-                pronunciationAudioEnabled = preferences.pronunciationAudioEnabledFlow.first(),
                 fontScale = preferences.fontScaleFlow.first().name,
                 requireExitConfirmation = preferences.requireExitConfirmationFlow.first()
             )
@@ -102,7 +101,6 @@ class BackupRepositoryImpl @Inject constructor(
         prefs.dailyGoalLevel?.let { DailyGoalLevel.fromName(it) }?.let { preferences.setDailyGoalLevel(it) }
         preferences.setReduceGlassEffects(prefs.reduceGlassEffects)
         preferences.setSoundEnabled(prefs.soundEnabled)
-        prefs.pronunciationAudioEnabled?.let { preferences.setPronunciationAudioEnabled(it) }
         prefs.fontScale?.let { preferences.setFontScale(FontScale.fromName(it)) }
         prefs.requireExitConfirmation?.let { preferences.setRequireExitConfirmation(it) }
     }

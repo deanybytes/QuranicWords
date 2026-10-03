@@ -123,9 +123,7 @@
     <string name="lesson_exit_confirm_stay">सीखते रहें</string>
     <string name="lesson_matching_instruction">एक अरबी शब्द पर टैप करें, फिर उसके सही अर्थ को चुनें।</string>
     <string name="lesson_teach_continue_button">समझ गया</string>
-    <string name="exercise_audio_unavailable">इस शब्द का ऑडियो अभी उपलब्ध नहीं है।</string>
     <string name="word_order_build_area_label">आपका उत्तर</string>
-    <string name="listen_and_type_hint">जो सुनते हैं उसे टाइप करें</string>
     <string name="lesson_empty_title">पाठ सामग्री अनुपलब्ध</string>
     <string name="lesson_empty_desc">इस पाठ के लिए कोई अभ्यास नहीं मिला। कृपया डैशबोर्ड पर वापस जाएं।</string>
     <!-- Lesson summary -->
@@ -185,7 +183,6 @@
     <string name="settings_font_scale_extra_large">बहुत बड़ा</string>
     <string name="settings_section_sound">ध्वनि</string>
     <string name="settings_sound_effects_label">ध्वनि प्रभाव</string>
-    <string name="settings_pronunciation_audio_label">उच्चारण ऑडियो</string>
     <string name="settings_section_mode">सीखने का तरीका</string>
     <string name="settings_learning_path_label">सीखने का पथ</string>
     <string name="settings_learning_path_learn">सीखें और टेस्ट दें</string>
@@ -361,9 +358,6 @@
     <string name="settings_show_walkthrough_button">परिचयात्मक गाइड देखें</string>
     <string name="splash_load_failed">पाठ तैयार नहीं हो सके। आपकी प्रगति सुरक्षित है।</string>
     <string name="action_retry">फिर से कोशिश करें</string>
-    <string name="content_language_notice_title">शब्दों के अर्थ के बारे में</string>
-    <string name="content_language_notice_body">हर शब्द का अर्थ अब क़ुरआन के प्रमाणित शब्दशः अनुवाद से लिया जाता है। आपकी भाषा में अभी प्रमाणित स्रोत उपलब्ध नहीं है, इसलिए अर्थ अंग्रेज़ी में दिखाए जाएँगे।</string>
-    <string name="content_language_notice_ok">ठीक है</string>
     <string name="lesson_skip_button">छोड़ें</string>
     <string name="chapter_label">अध्याय %1$s</string>
     <string name="chapter_label_ordinal">%1$s अध्याय</string>
@@ -382,7 +376,6 @@
     <string name="a11y_action_match">मिलाएँ</string>
     <string name="a11y_action_select_word">यह शब्द चुनें</string>
     <string name="a11y_meaning_tab">अर्थ %1$s / %2$s</string>
-    <string name="a11y_play_pronunciation">उच्चारण सुनें</string>
     <string name="a11y_action_flip_card">कार्ड पलटें</string>
     <string name="a11y_card_showing_word">शब्द दिखाया जा रहा है</string>
     <string name="a11y_card_showing_meaning">अर्थ दिखाया जा रहा है</string>
@@ -440,7 +433,6 @@
     <string name="quest_finish_lessons">%1$s पाठ पूरे करें</string>
     <string name="quest_earn_xp">%1$s XP कमाएँ</string>
     <string name="quest_daily_goal">आज %1$s मिनट अभ्यास करें</string>
-    <string name="quest_listening">सुनने वाले %1$s प्रश्नों के उत्तर दें</string>
     <string name="quest_new_words">%1$s नए शब्द सीखें</string>
     <string name="quest_reward">+%1$s XP</string>
     <string name="quest_progress">%1$s / %2$s</string>
@@ -458,7 +450,6 @@
     <string name="achievement_level_description">लेवल %d तक पहुँचें</string>
     <string name="achievement_strong_name">मज़बूत नींव</string>
     <string name="achievement_strong_description">%d शब्दों को मज़बूत बनाएँ</string>
-    <string name="settings_pronunciation_audio_description">सिखाते समय शब्द सुनें और सुनने वाले प्रश्न चालू करें।</string>
     <string name="settings_invocation_every_launch_label">हर बार खोलने पर आरंभिक दुआ</string>
     <string name="settings_invocation_every_launch_description">बंद होने पर: दुआ दिन में एक बार ऐप खोलते समय दिखती है।</string>
     <string name="settings_hearts_label">दिल</string>

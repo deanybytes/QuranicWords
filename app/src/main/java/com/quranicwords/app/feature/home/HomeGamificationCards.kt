@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.quranicwords.app.R
 import com.quranicwords.app.core.data.local.entity.DailyQuestEntity
 import com.quranicwords.app.core.domain.QuestMetric
+import com.quranicwords.app.core.domain.hasKnownMetric
 import com.quranicwords.app.core.domain.model.get
 import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.ui.components.charts.DonutChart
@@ -75,7 +76,6 @@ private fun questTitle(quest: DailyQuestEntity): String {
         QuestMetric.FINISH_LESSONS -> R.string.quest_finish_lessons
         QuestMetric.EARN_XP -> R.string.quest_earn_xp
         QuestMetric.DAILY_GOAL_MINUTES -> R.string.quest_daily_goal
-        QuestMetric.LISTENING -> R.string.quest_listening
         QuestMetric.NEW_WORDS, null -> R.string.quest_new_words
     }
     return stringResource(res, target)
@@ -93,7 +93,7 @@ fun QuestsCard(quests: List<DailyQuestEntity>) {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.semantics { heading() }
             )
-            quests.forEach { quest ->
+            quests.filter { it.hasKnownMetric }.forEach { quest ->
                 val done = quest.completedAtEpochMillis != null
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Icon(
