@@ -14,7 +14,7 @@
     <string name="streak_locked_take_test">ٹیسٹ دیں</string>
     <string name="streak_locked_later">بعد میں</string>
     <string name="hadith_consistency_quote">نبی ﷺ نے فرمایا: \"اللہ کو سب سے پیارا عمل وہ ہے جو باقاعدگی سے کیا جائے، خواہ وہ کم ہی کیوں نہ ہو۔\"</string>
-    <string name="hadith_consistency_reference">صحیح بخاری 6465</string>
+    <string name="hadith_consistency_reference">صحیح بخاری ۶۴۶۵</string>
 
     
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
@@ -46,12 +46,12 @@
     
     <string name="onboarding_daily_goal_title">آپ کا روزانہ کا ہدف کیا ہے؟</string>
     <string name="onboarding_daily_goal_subtitle">منتخب کریں کہ آپ روزانہ قرآنی الفاظ سیکھنے میں کتنا وقت لگانا چاہتے ہیں۔ آپ اسے بعد میں ترتیبات میں تبدیل کر سکتے ہیں۔</string>
-    <string name="daily_goal_casual">معمولی (10 منٹ)</string>
-    <string name="daily_goal_casual_description">مسلسل عادت بنانے کے لیے روزانہ 10 منٹ کا مختصر سیشن۔</string>
-    <string name="daily_goal_steady">مستقل (20 منٹ)</string>
-    <string name="daily_goal_steady_description">مسلسل پیش رفت کے لیے روزانہ 20 منٹ کی متوازن مشق۔</string>
-    <string name="daily_goal_devoted">پرجوش (30 منٹ)</string>
-    <string name="daily_goal_devoted_description">تیزی سے ذخیرہ الفاظ بڑھانے کے لیے روزانہ 30 منٹ کا جامع سیشن۔</string>
+    <string name="daily_goal_casual">معمولی (۱۰ منٹ)</string>
+    <string name="daily_goal_casual_description">مسلسل عادت بنانے کے لیے روزانہ ۱۰ منٹ کا مختصر سیشن۔</string>
+    <string name="daily_goal_steady">مستقل (۲۰ منٹ)</string>
+    <string name="daily_goal_steady_description">مسلسل پیش رفت کے لیے روزانہ ۲۰ منٹ کی متوازن مشق۔</string>
+    <string name="daily_goal_devoted">پرجوش (۳۰ منٹ)</string>
+    <string name="daily_goal_devoted_description">تیزی سے ذخیرہ الفاظ بڑھانے کے لیے روزانہ ۳۰ منٹ کا جامع سیشن۔</string>
     <string name="daily_goal_minutes_suffix">روزانہ %d منٹ</string>
     <string name="format_minutes_short">%1$d منٹ</string>
     <string name="format_repeat_count">%1$s بار</string>
@@ -62,12 +62,12 @@
     
     <string name="onboarding_learning_style_title">آپ ہر لفظ کی مشق کیسے کرنا چاہتے ہیں؟</string>
     <string name="onboarding_learning_style_subtitle">آسانی سے یاد کرنے کے لیے سبق کے دوران ہر لفظ اور سوال کتنی بار دہرایا جائے، یہ منتخب کریں۔</string>
-    <string name="learning_style_sharp">1 بار مشق (تیز)</string>
-    <string name="learning_style_sharp_description">میں ہر لفظ کی 1 بار مشق کر کے جلدی آگے بڑھنا چاہتا ہوں۔</string>
-    <string name="learning_style_slow">3 بار مشق (تجویز کردہ)</string>
-    <string name="learning_style_slow_description">مضبوط یادداشت کے لیے میں ہر لفظ 3 بار دہرانا چاہتا ہوں۔</string>
-    <string name="learning_style_cozy">5 بار مشق (گہری یاددہانی)</string>
-    <string name="learning_style_cozy_description">مکمل طور پر یاد کرنے اور مہارت حاصل کرنے کے لیے میں ہر لفظ 5 بار دہرانا چاہتا ہوں۔</string>
+    <string name="learning_style_sharp">۱ بار مشق (تیز)</string>
+    <string name="learning_style_sharp_description">میں ہر لفظ کی ۱ بار مشق کر کے جلدی آگے بڑھنا چاہتا ہوں۔</string>
+    <string name="learning_style_slow">۳ بار مشق (تجویز کردہ)</string>
+    <string name="learning_style_slow_description">مضبوط یادداشت کے لیے میں ہر لفظ ۳ بار دہرانا چاہتا ہوں۔</string>
+    <string name="learning_style_cozy">۵ بار مشق (گہری یاددہانی)</string>
+    <string name="learning_style_cozy_description">مکمل طور پر یاد کرنے اور مہارت حاصل کرنے کے لیے میں ہر لفظ ۵ بار دہرانا چاہتا ہوں۔</string>
 
     
     <string name="intro_chapter_label">باب</string>
@@ -110,12 +110,12 @@
     <string name="progress_current_streak">روزانہ تسلسل</string>
     <string name="progress_total_points">کل پوائنٹس</string>
     <string name="progress_words_learned">سیکھے گئے الفاظ</string>
-    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_value">%d/۷</string>
     <string name="progress_goal_days_label">ہدف والے دن</string>
     <string name="progress_quran_coverage">قرآن کوریج</string>
     <string name="progress_lessons_this_week">اس ہفتے کے اسباق</string>
-    <string name="progress_days_practiced">%s دن مشق کی گئی (آخری 28)</string>
-    <string name="progress_day_practiced">%s دن مشق کی (پچھلے 28)</string>
+    <string name="progress_days_practiced">%s دن مشق کی گئی (آخری ۲۸)</string>
+    <string name="progress_day_practiced">%s دن مشق کی (پچھلے ۲۸)</string>
 
     
     <string name="lesson_check_button">جانچیں</string>
@@ -158,9 +158,9 @@
     
     <string name="achievements_title">کامیابیاں</string>
     <string name="achievements_locked_hint">اسے کھولنے کے لیے سیکھنا جاری رکھیں</string>
-    <string name="achievement_streak_bronze_name">7 دن کا تسلسل</string>
-    <string name="achievement_streak_silver_name">30 دن کا تسلسل</string>
-    <string name="achievement_streak_gold_name">100 دن کا تسلسل</string>
+    <string name="achievement_streak_bronze_name">۷ دن کا تسلسل</string>
+    <string name="achievement_streak_silver_name">۳۰ دن کا تسلسل</string>
+    <string name="achievement_streak_gold_name">۱۰۰ دن کا تسلسل</string>
     <string name="achievement_streak_description">%d دنوں تک سیکھنے کا تسلسل برقرار رکھا</string>
     <string name="achievement_chapter_name">باب %d میں مہارت حاصل کی</string>
     <string name="achievement_chapter_description">باب %d کا امتحان پاس کیا</string>
@@ -230,7 +230,7 @@
 
     <string name="settings_section_about">تعارف اور معلومات</string>
     <string name="settings_motto">جہاں دینی مقصد ڈیجیٹل بائٹس سے ملتا ہے</string>
-    <string name="settings_copyright">کاپی رائٹ © DEANY BYTES 2026۔ لائسنس یافتہ تحت GPL-3.0۔</string>
+    <string name="settings_copyright">کاپی رائٹ © DEANY BYTES ۲۰۲۶۔ لائسنس یافتہ تحت GPL-3.0۔</string>
     <string name="settings_content_provenance_note">قرآنی الفاظ کا ذخیرہ اوپن قرآنی ذخائر اور مستند لفظ بہ لفظ تراجم سے لیا گیا ہے۔</string>
     <string name="about_open_source_title">اوپن سورس اور شراکت</string>
     <string name="about_open_source_desc">قرآنک ورڈز GPL-3.0 لائسنس کے تحت ایک مکمل مفت اور اوپن سورس منصوبہ ہے۔ کوئی بھی ہمارے گٹ ہب ریپوزٹری کے ذریعے کوڈ میں شراکت، مسائل کی نشاندہی، نئی تجاویز یا ترجمے کی بہتری میں حصہ لے سکتا ہے۔</string>
@@ -283,10 +283,10 @@
     <string name="test_mode_chapter_progress">%2$s میں سے %1$s الفاظ کا ٹیسٹ مکمل</string>
     <string name="test_mode_start_chapter_btn">باب کا ٹیسٹ شروع کریں</string>
 
-    <string name="home_chart_30d_title">30 روزہ سرگرمی اور رجحان</string>
-    <string name="home_chart_30d_summary">30 میں سے %1$s دن فعال · کل %2$s منٹ</string>
+    <string name="home_chart_30d_title">۳۰ روزہ سرگرمی اور رجحان</string>
+    <string name="home_chart_30d_summary">۳۰ میں سے %1$s دن فعال · کل %2$s منٹ</string>
     <string name="home_chart_today_stat">آج: %s منٹ</string>
-    <string name="home_chart_30d_ago">30 دن پہلے</string>
+    <string name="home_chart_30d_ago">۳۰ دن پہلے</string>
     <string name="home_chart_days_ago">%s دن پہلے</string>
     <string name="home_chart_day_mins_format">• %1$s: %2$s منٹ •</string>
     <string name="home_chart_today">آج</string>
@@ -297,7 +297,7 @@
     <string name="bottom_nav_about">تعارف</string>
     <string name="home_review_action_button">غلطیوں کا جائزہ لیں</string>
     <string name="home_review_count_subtitle">%1$d قرآنی الفاظ کا جائزہ درکار ہے</string>
-    <string name="home_review_single_mistake_subtitle">1 قرآنی لفظ کا جائزہ درکار ہے</string>
+    <string name="home_review_single_mistake_subtitle">۱ قرآنی لفظ کا جائزہ درکار ہے</string>
     <string name="lesson_try_again_button">دوبارہ کوشش کریں</string>
     <string name="settings_reduce_glass_label">گلاس اثرات کم کریں</string>
     <string name="settings_section_sound">آواز اور آڈیو</string>
@@ -398,7 +398,7 @@
     <string name="level_label">لیول %1$s</string>
     <string name="level_xp_progress">%1$s / %2$s XP</string>
     <string name="out_of_hearts_title">دل ختم ہو گئے</string>
-    <string name="out_of_hearts_body">شروع کیا ہوا سبق آپ ہمیشہ مکمل کر سکتے ہیں، مگر نئے سبق کے لیے ایک دل چاہیے۔ ہر 30 منٹ میں ایک دل واپس آتا ہے۔</string>
+    <string name="out_of_hearts_body">شروع کیا ہوا سبق آپ ہمیشہ مکمل کر سکتے ہیں، مگر نئے سبق کے لیے ایک دل چاہیے۔ ہر ۳۰ منٹ میں ایک دل واپس آتا ہے۔</string>
     <string name="out_of_hearts_next">اگلا دل %1$s میں</string>
     <string name="out_of_hearts_practice">مشق کر کے بھریں</string>
     <string name="out_of_hearts_practice_hint">ہر مکمل دہرائی یا مشق ایک دل واپس دیتی ہے۔</string>

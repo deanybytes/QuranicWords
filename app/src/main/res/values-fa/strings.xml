@@ -102,7 +102,7 @@
     <string name="progress_current_streak">تداوم فعلی</string>
     <string name="progress_total_points">مجموع امتیازات</string>
     <string name="progress_words_learned">کلمات آموخته شده</string>
-    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_value">%d/۷</string>
     <string name="progress_goal_days_label">روزهای هدف</string>
     <string name="progress_quran_coverage">پوشش واژگان قرآن</string>
     <string name="progress_lessons_this_week">دروس این هفته</string>
@@ -211,7 +211,7 @@
     <string name="settings_reset_progress_done">پیشرفت با موفقیت بازنشانی شد</string>
     <string name="settings_section_about">درباره QuranicWords</string>
     <string name="settings_motto">ایجاد پلی برای درک زبان قرآن برای همگان.</string>
-    <string name="settings_copyright">حق کپی‌رایت © DEANY BYTES 2026. تحت مجوز GPL-3.0.</string>
+    <string name="settings_copyright">حق کپی‌رایت © DEANY BYTES ۲۰۲۶. تحت مجوز GPL-3.0.</string>
     <string name="settings_content_provenance_note">داده‌های واژگان و بسامد کلمات قرآن از منابع معتبر گردآوری شده است.</string>
     <string name="about_open_source_title">رایگان و متن‌باز</string>
     <string name="about_open_source_desc" formatted="false">QuranicWords یک پروژه ۱۰۰٪ رایگان و متن‌باز تحت مجوز GPL-3.0 است. هر کسی می‌تواند از طریق گیت‌هاب در توسعه کد، گزارش خطاها، پیشنهاد ویژگی‌ها یا بهبود ترجمه‌ها مشارکت کند.</string>

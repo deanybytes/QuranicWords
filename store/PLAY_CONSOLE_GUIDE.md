@@ -41,7 +41,7 @@ your **closed testing** track so testers get the improvements.
 | Asset | File | Spec |
 |---|---|---|
 | App icon | `store/graphics/icon-512.png` | 512 × 512 PNG, full square (Play rounds it) |
-| Feature graphic | `store/graphics/feature-graphic.png` | 1024 × 500 PNG |
+| Feature graphic | `store/graphics/feature-graphic/en.png` | 1024 × 500 PNG |
 | Phone screenshots (8) | `store/graphics/phone/en/01…08-*.png` | 1080 × 1920 (9:16) – upload in number order |
 | Tablet screenshots | leave empty | optional; the app is phone-first |
 
@@ -61,23 +61,23 @@ For **each** language, select it in the language picker at the top, then paste:
 - Short description ← `store/listing/<locale>/short_description.txt`
 - Full description ← `store/listing/<locale>/full_description.txt`
 
-**Screenshots per language** – every language has its own 8 screenshots (the app running in that
-language, captions translated):
+**Graphics per language** – every language has its own feature graphic and 8 screenshots (the app
+running in that language, captions translated):
 
-| Language | Upload these 8 files, in order |
-|---|---|
-| Bengali `bn-BD` | `store/graphics/phone/bn/01…08` |
-| Urdu `ur` | `store/graphics/phone/ur/01…08` |
-| Hindi `hi-IN` | `store/graphics/phone/hi/01…08` |
-| Indonesian `id` | `store/graphics/phone/id/01…08` |
-| Turkish `tr-TR` | `store/graphics/phone/tr/01…08` |
-| Persian `fa` | `store/graphics/phone/fa/01…08` |
-| French `fr-FR` | `store/graphics/phone/fr/01…08` |
+| Language | Feature graphic | Phone screenshots (upload 01…08 in order) |
+|---|---|---|
+| Bengali `bn-BD` | `store/graphics/feature-graphic/bn.png` | `store/graphics/phone/bn/` |
+| Urdu `ur` | `store/graphics/feature-graphic/ur.png` | `store/graphics/phone/ur/` |
+| Hindi `hi-IN` | `store/graphics/feature-graphic/hi.png` | `store/graphics/phone/hi/` |
+| Indonesian `id` | `store/graphics/feature-graphic/id.png` | `store/graphics/phone/id/` |
+| Turkish `tr-TR` | `store/graphics/feature-graphic/tr.png` | `store/graphics/phone/tr/` |
+| Persian `fa` | `store/graphics/feature-graphic/fa.png` | `store/graphics/phone/fa/` |
+| French `fr-FR` | `store/graphics/feature-graphic/fr.png` | `store/graphics/phone/fr/` |
 
 When you select a translation, its Graphics section shows the English images **greyed out** – that
-means "using the default language's graphics". In the **Phone screenshots** box for that language,
-use its add/replace option to upload the language's own files; once added they override the
-English set for that language only. The icon and feature graphic can stay shared (English).
+means "using the default language's graphics". In the **Feature graphic** and **Phone screenshots**
+boxes for that language, use the add/replace option to upload that language's own files; once added
+they override the English ones for that language only. The app icon stays shared.
 **Save** after each language.
 
 ## Step 4 – Store settings

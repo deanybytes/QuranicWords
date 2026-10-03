@@ -14,7 +14,7 @@
     <string name="streak_locked_take_test">टेस्ट लें</string>
     <string name="streak_locked_later">बाद में</string>
     <string name="hadith_consistency_quote">नबी ﷺ ने फ़रमाया: \"अल्लाह को सबसे प्रिय अमल वह है जो निरंतर किया जाए, भले ही वह थोड़ा हो।\"</string>
-    <string name="hadith_consistency_reference">सहीह अल-बुख़ारी 6465</string>
+    <string name="hadith_consistency_reference">सहीह अल-बुख़ारी ६४६५</string>
     <!-- Opening invocation (splash, every launch) -->
     <string name="splash_invocation_taawwudh_arabic">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</string>
     <string name="splash_invocation_taawwudh_translation">मैं शैतान मर्दूद से अल्लाह की पनाह मांगता हूँ</string>
@@ -78,7 +78,7 @@
     <string name="home_review_title">समीक्षा आवश्यक है</string>
     <string name="home_review_subtitle">अपनी समझ को मजबूत करने के लिए गलत हुए शब्दों का अभ्यास करें।</string>
     <string name="home_review_count_subtitle">अभ्यास और महारत के लिए %1$d गलत शब्द।</string>
-    <string name="home_review_single_mistake_subtitle">अभ्यास और महारत के लिए 1 गलत शब्द।</string>
+    <string name="home_review_single_mistake_subtitle">अभ्यास और महारत के लिए १ गलत शब्द।</string>
     <string name="home_review_action_button">समीक्षा शुरू करें</string>
     <string name="home_module_locked">यह मॉड्यूल अभी लॉक है। इसे अनलॉक करने के लिए पिछले पाठ पूरे करें।</string>
     <string name="home_open_settings">सेटिंग्स खोलें</string>
@@ -102,12 +102,12 @@
     <string name="progress_current_streak">वर्तमान स्ट्रीक</string>
     <string name="progress_total_points">कुल अंक</string>
     <string name="progress_words_learned">सीखे गए शब्द</string>
-    <string name="progress_goal_days_value">%d/7</string>
+    <string name="progress_goal_days_value">%d/७</string>
     <string name="progress_goal_days_label">लक्ष्य के दिन</string>
     <string name="progress_quran_coverage">क़ुरआन कवरेज</string>
     <string name="progress_lessons_this_week">इस सप्ताह के पाठ</string>
-    <string name="progress_days_practiced">%s दिन अभ्यास किया (पिछले 28 दिनों में)</string>
-    <string name="progress_day_practiced">%s दिन अभ्यास किया (पिछले 28 दिनों में)</string>
+    <string name="progress_days_practiced">%s दिन अभ्यास किया (पिछले २८ दिनों में)</string>
+    <string name="progress_day_practiced">%s दिन अभ्यास किया (पिछले २८ दिनों में)</string>
     <!-- Lesson -->
     <string name="lesson_check_button">जाँचें</string>
     <string name="lesson_continue_button">जारी रखें</string>
@@ -211,10 +211,10 @@
     <string name="settings_reset_progress_done">प्रगति सफलतापूर्वक रीसेट कर दी गई है</string>
     <string name="settings_section_about">ऐप के बारे में</string>
     <string name="settings_motto">क़ुरआन की भाषा को समझना सबके लिए सुलभ बनाना।</string>
-    <string name="settings_copyright">कॉपीराइट © DEANY BYTES 2026. GPL-3.0 लाइसेंस प्राप्त।</string>
+    <string name="settings_copyright">कॉपीराइट © DEANY BYTES २०२६. GPL-3.0 लाइसेंस प्राप्त।</string>
     <string name="settings_content_provenance_note">क़ुरआन के शब्द और आवृत्ति डेटा विश्वसनीय इस्लामी स्रोतों से संकलित किए गए हैं।</string>
     <string name="about_open_source_title">मुफ़्त और ओपन-सोर्स</string>
-    <string name="about_open_source_desc" formatted="false">QuranicWords GPL-3.0 लाइसेंस के तहत एक 100% मुफ़्त और ओपन-सोर्स प्रोजेक्ट है। कोई भी हमारे गिटहब रिपॉजिटरी के माध्यम से कोड, त्रुटि रिपोर्टिंग, नई सुविधाओं के सुझाव या अनुवाद में योगदान दे सकता है।</string>
+    <string name="about_open_source_desc" formatted="false">QuranicWords GPL-3.0 लाइसेंस के तहत एक १००% मुफ़्त और ओपन-सोर्स प्रोजेक्ट है। कोई भी हमारे गिटहब रिपॉजिटरी के माध्यम से कोड, त्रुटि रिपोर्टिंग, नई सुविधाओं के सुझाव या अनुवाद में योगदान दे सकता है।</string>
     <string name="about_dawah_title">दावाह और मिशन</string>
     <string name="about_dawah_desc">यह ऐप उम्मत के लिए एक सदक़ा-ए-जारिया के रूप में बनाया गया है ताकि हर मुसलमान नमाज़ और तिलावत में पढ़े जाने वाले क़ुरआनी शब्दों के अर्थ को समझ सके।</string>
     <string name="about_contact_title">संपर्क और प्रतिक्रिया</string>
@@ -267,10 +267,10 @@
     <string name="test_mode_chapter_coverage_badge">%1$s शब्द · क़ुरआन का %2$s%%</string>
     <string name="test_mode_chapter_progress">%2$s में से %1$s शब्द जाँचे गए</string>
     <string name="test_mode_start_chapter_btn">अध्याय टेस्ट शुरू करें</string>
-    <string name="home_chart_30d_title">पिछले 30 दिनों की सक्रियता</string>
-    <string name="home_chart_30d_summary">%1$s/30 सक्रिय दिन · कुल %2$s मिनट</string>
+    <string name="home_chart_30d_title">पिछले ३० दिनों की सक्रियता</string>
+    <string name="home_chart_30d_summary">%1$s/३० सक्रिय दिन · कुल %2$s मिनट</string>
     <string name="home_chart_today_stat">आज: %s मिनट</string>
-    <string name="home_chart_30d_ago">30 दिन पहले</string>
+    <string name="home_chart_30d_ago">३० दिन पहले</string>
     <string name="home_chart_days_ago">%s दिन पहले</string>
     <string name="home_chart_day_mins_format">• %1$s: %2$s मिनट •</string>
     <string name="home_chart_today">आज</string>
@@ -351,7 +351,7 @@
     <string name="a11y_card_showing_meaning">अर्थ दिखाया जा रहा है</string>
     <string name="a11y_chart_item">%1$s: %2$s</string>
     <string name="a11y_heatmap_summary">पिछले %2$s दिनों में से %1$s दिन अभ्यास किया</string>
-    <string name="a11y_activity_trend_summary">पिछले 30 दिनों में से %1$s दिन सक्रिय, कुल %2$s मिनट</string>
+    <string name="a11y_activity_trend_summary">पिछले ३० दिनों में से %1$s दिन सक्रिय, कुल %2$s मिनट</string>
     <string name="a11y_clear_search">खोज साफ़ करें</string>
     <string name="a11y_expand">विस्तार करें</string>
     <string name="a11y_collapse">संक्षिप्त करें</string>
@@ -374,7 +374,7 @@
     <string name="level_label">लेवल %1$s</string>
     <string name="level_xp_progress">%1$s / %2$s XP</string>
     <string name="out_of_hearts_title">दिल ख़त्म हो गए</string>
-    <string name="out_of_hearts_body">शुरू किया हुआ पाठ आप हमेशा पूरा कर सकते हैं, पर नए पाठ के लिए एक दिल चाहिए। हर 30 मिनट में एक दिल वापस आता है।</string>
+    <string name="out_of_hearts_body">शुरू किया हुआ पाठ आप हमेशा पूरा कर सकते हैं, पर नए पाठ के लिए एक दिल चाहिए। हर ३० मिनट में एक दिल वापस आता है।</string>
     <string name="out_of_hearts_next">अगला दिल %1$s में</string>
     <string name="out_of_hearts_practice">अभ्यास करके भरें</string>
     <string name="out_of_hearts_practice_hint">हर पूरा दोहराव या अभ्यास एक दिल लौटाता है।</string>

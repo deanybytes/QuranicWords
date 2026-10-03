@@ -139,9 +139,9 @@ SLIDES = {
     ],
     "ur": [
         ("01-learn-the-quran", "قرآن کو\nلفظ بہ لفظ سمجھیں",
-         "۳٬۸۳۳ الفاظ · قرآن کا ۹۷٪ · ۸ زبانیں", ["tour_coverage", "home"]),
+         "۳٬۸۳۳ الفاظ، قرآن کا ۹۷٪، ۸ زبانیں", ["tour_coverage", "home"]),
         ("02-word-in-its-ayah", "ہر لفظ اپنی آیت میں",
-         "صرف سکھایا جانے والا لفظ نمایاں – اپنے درست معنی کے ساتھ", ["teach_senses"]),
+         "صرف سکھایا جانے والا لفظ نمایاں، اپنے درست معنی کے ساتھ", ["teach_senses"]),
         ("03-learn-by-doing", "مشق سے سیکھیں",
          "کوئز، جوڑ ملانا، خالی جگہ اور لفظ پر ٹیپ", ["quiz", "matching"]),
         ("04-home-screen-widgets", "ہوم اسکرین ویجیٹس",
@@ -153,13 +153,13 @@ SLIDES = {
         ("07-quran-fonts", "۷ قرآنی فونٹس",
          "مدینہ مصحف، نورانی، حافظی، امیری اور مزید", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "ڈارک موڈ میں بھی خوبصورت",
-         "۱۰۰٪ آف لائن · اشتہارات سے پاک · ہمیشہ مفت", ["dark_teach", "about"]),
+         "۱۰۰٪ آف لائن، اشتہارات سے پاک، ہمیشہ مفت", ["dark_teach", "about"]),
     ],
     "fa": [
         ("01-learn-the-quran", "قرآن را\nواژه به واژه بفهمید",
-         "۳٬۸۳۳ واژه · ۹۷٪ قرآن · ۸ زبان", ["tour_coverage", "home"]),
+         "۳٬۸۳۳ واژه، ۹۷٪ قرآن، ۸ زبان", ["tour_coverage", "home"]),
         ("02-word-in-its-ayah", "هر واژه در آیهٔ خودش",
-         "فقط واژهٔ آموزشی برجسته است – با معنای دقیقش", ["teach_senses"]),
+         "فقط واژهٔ آموزشی برجسته است، با معنای دقیقش", ["teach_senses"]),
         ("03-learn-by-doing", "با تمرین یاد بگیرید",
          "آزمون، جورکردن، جای خالی و لمس واژه", ["quiz", "matching"]),
         ("04-home-screen-widgets", "ابزارک‌های صفحهٔ اصلی",
@@ -171,7 +171,7 @@ SLIDES = {
         ("07-quran-fonts", "۷ قلم قرآنی",
          "مصحف مدینه، نورانی، حافظی، امیری و بیشتر", ["settings_fonts", "tour_fonts"]),
         ("08-dark-mode-offline", "زیبا در حالت تیره",
-         "۱۰۰٪ آفلاین · بدون تبلیغ · همیشه رایگان", ["dark_teach", "about"]),
+         "۱۰۰٪ آفلاین، بدون تبلیغ، همیشه رایگان", ["dark_teach", "about"]),
     ],
 }
 
@@ -270,19 +270,25 @@ def _runs(text, size, bold, lang):
     return [(t, font(size, bold, lang, sc), sc) for t, sc in runs]
 
 
-def draw_centered(d, text, y, size, bold, fill, lang="en", spacing=10):
-    """Centered multi-line text; right-to-left languages lay their runs out from the right."""
+def draw_centered(d, text, y, size, bold, fill, lang="en", spacing=10, max_width=W - 80):
+    """Centered multi-line text; right-to-left languages lay their runs out from the right.
+    The size shrinks until the widest line fits within max_width."""
+    while size > 22 and max(_width(d, ln, size, bold, lang) for ln in text.split("\n")) > max_width:
+        size -= 1
     for line in text.split("\n"):
         runs = _runs(line, size, bold, lang)
         widths = [d.textlength(t, font=f, direction="rtl" if sc == "arab" else None) for t, f, sc in runs]
         total = sum(widths)
         x = (W + total) / 2 if lang in RTL else (W - total) / 2
+        # All runs share the main font's baseline (anchor "ls"), so a Latin "–", "·" or "XP" sits
+        # on the same line as the Bengali, Devanagari or Arabic text around it.
+        base = y + font(size, bold, lang).getmetrics()[0]
         for (t, f, sc), w in zip(runs, widths):
             if lang in RTL:
                 x -= w
-                d.text((x, y), t, font=f, fill=fill, direction="rtl" if sc == "arab" else None)
+                d.text((x, base), t, font=f, fill=fill, anchor="ls", direction="rtl" if sc == "arab" else None)
             else:
-                d.text((x, y), t, font=f, fill=fill, direction="rtl" if sc == "arab" else None)
+                d.text((x, base), t, font=f, fill=fill, anchor="ls", direction="rtl" if sc == "arab" else None)
                 x += w
         line_h = size * (1.95 if lang == "ur" else 1.45 if lang in ("bn", "hi", "fa") else 1.25)
         y += int(line_h) + spacing
@@ -324,29 +330,86 @@ def icon():
     return out
 
 
-def feature_graphic():
+FEATURE = {
+    "en": ("Learn the words of the Qur'an,", "word by word \u2013 with every ayah.", ["3,833 words", "8 languages", "100% offline"]),
+    "bn": ("কুরআনের শব্দ শিখুন,", "শব্দে শব্দে \u2013 প্রতিটি আয়াতসহ।", ["৩,৮৩৩টি শব্দ", "৮টি ভাষা", "১০০% অফলাইন"]),
+    "ur": ("قرآن کے الفاظ سیکھیں،", "لفظ بہ لفظ، ہر آیت کے ساتھ", ["۳٬۸۳۳ الفاظ", "۸ زبانیں", "۱۰۰٪ آف لائن"]),
+    "hi": ("क़ुरआन के शब्द सीखें,", "शब्द-दर-शब्द \u2013 हर आयत के साथ", ["3,833 शब्द", "8 भाषाएँ", "100% ऑफ़लाइन"]),
+    "id": ("Pelajari kata-kata Al-Qur'an,", "kata demi kata \u2013 dengan setiap ayat.", ["3.833 kata", "8 bahasa", "100% offline"]),
+    "tr": ("Kur'an'ın kelimelerini öğrenin,", "kelime kelime \u2013 her ayetiyle.", ["3.833 kelime", "8 dil", "%100 çevrimdışı"]),
+    "fa": ("واژه‌های قرآن را بیاموزید،", "واژه به واژه، همراه هر آیه", ["۳٬۸۳۳ واژه", "۸ زبان", "۱۰۰٪ آفلاین"]),
+    "fr": ("Apprenez les mots du Coran,", "mot à mot \u2013 avec chaque verset.", ["3 833 mots", "8 langues", "100 % hors ligne"]),
+}
+
+
+def _width(d, text, size, bold, lang):
+    return sum(d.textlength(t, font=f, direction="rtl" if sc == "arab" else None) for t, f, sc in _runs(text, size, bold, lang))
+
+
+def draw_at(d, text, x, y, size, bold, fill, lang, align="left"):
+    """One line of mixed-script text starting at x (left) or ending at x (right)."""
+    runs = _runs(text, size, bold, lang)
+    widths = [d.textlength(t, font=f, direction="rtl" if sc == "arab" else None) for t, f, sc in runs]
+    base = y + font(size, bold, lang).getmetrics()[0]   # shared baseline for every run
+    if lang in RTL:
+        cx = x if align == "right" else x + sum(widths)
+        for (t, f, sc), w in zip(runs, widths):
+            cx -= w
+            d.text((cx, base), t, font=f, fill=fill, anchor="ls", direction="rtl" if sc == "arab" else None)
+    else:
+        cx = x if align == "left" else x - sum(widths)
+        for (t, f, sc), w in zip(runs, widths):
+            d.text((cx, base), t, font=f, fill=fill, anchor="ls")
+            cx += w
+    return sum(widths)
+
+
+def feature_graphic(lang="en"):
+    """1024x500 feature graphic: logo, brand name, translated tagline and chips. Urdu and Persian
+    are mirrored (logo on the right, text right-aligned). No scripture is used as decoration."""
     w, h = 1024, 500
+    rtl = lang in RTL
     img = background(w, h).convert("RGBA")
     d = ImageDraw.Draw(img)
     logo = Image.open(ROOT / "icons/icon-512.png").convert("RGBA").resize((300, 300), Image.LANCZOS)
-    img.alpha_composite(logo, (60, 100))
-    d.text((400, 112), "QuranicWords", font=font(76, True), fill=IVORY)
-    d.text((402, 214), "Learn the words of the Qur'an,", font=font(34), fill=GOLD)
-    d.text((402, 258), "word by word \u2013 with every ayah.", font=font(34), fill=GOLD)
-    # Feature line (no scripture is used as decoration; verses appear only inside real screens).
-    chips = ["3,833 words", "8 languages", "100% offline"]
+    img.alpha_composite(logo, (w - 60 - 300 if rtl else 60, 100))
+    edge = w - 400 if rtl else 400          # text block edge next to the logo
+    far = 40 if rtl else w - 40             # outer edge the text must not cross
+    room = abs(far - edge)
+    brand = font(76, True)
+    bw = d.textlength("QuranicWords", font=brand)
+    d.text(((edge - bw) if rtl else edge, 112), "QuranicWords", font=brand, fill=IVORY)
+    line1, line2, chips = FEATURE[lang]
+    size = 34
+    while size > 22 and max(_width(d, line1, size, False, lang), _width(d, line2, size, False, lang)) > room:
+        size -= 1
+    gap = int(size * (1.75 if lang == "ur" else 1.3))
+    draw_at(d, line1, edge, 214, size, False, GOLD, lang, "right" if rtl else "left")
+    draw_at(d, line2, edge, 214 + gap, size, False, GOLD, lang, "right" if rtl else "left")
+    # Chips
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
     od = ImageDraw.Draw(overlay)
-    x = 402
-    f = font(24, True)
+    csize = 24
+    def chips_width(cs):
+        return sum(_width(od, c, cs, True, lang) + 32 for c in chips) + 14 * (len(chips) - 1)
+    while csize > 16 and chips_width(csize) > room:
+        csize -= 1
+    cy = 214 + 2 * gap + 22
+    ch = int(csize * (2.4 if lang == "ur" else 1.85))
+    x = edge
     for c in chips:
-        tw = od.textbbox((0, 0), c, font=f)[2]
-        od.rounded_rectangle((x, 336, x + tw + 32, 380), 22, fill=(255, 248, 231, 28), outline=GOLD + (255,), width=2)
-        od.text((x + 16, 341), c, font=f, fill=IVORY + (255,))
-        x += tw + 32 + 14
+        tw = _width(od, c, csize, True, lang)
+        x0, x1 = (x - tw - 32, x) if rtl else (x, x + tw + 32)
+        od.rounded_rectangle((x0, cy, x1, cy + ch), ch // 2, fill=(255, 248, 231, 28), outline=GOLD + (255,), width=2)
+        ty = cy + (ch - csize * (1.9 if lang == "ur" else 1.35)) / 2
+        draw_at(od, c, x0 + 16, ty, csize, True, IVORY + (255,), lang, "left")
+        x = (x0 - 14) if rtl else (x1 + 14)
     img.alpha_composite(overlay)
-    out = OUT / "feature-graphic.png"
+    out = OUT / "feature-graphic" / f"{lang}.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
     img.convert("RGB").save(out, optimize=True)
+    if lang == "en":
+        img.convert("RGB").save(OUT / "feature-graphic.png", optimize=True)
     return out
 
 
@@ -356,7 +419,8 @@ def main():
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     print(icon())
-    print(feature_graphic())
+    for lang in FEATURE:
+        print(feature_graphic(lang))
     for lang in (SLIDES if args.lang == "all" else [args.lang]):
         if not (RAW / lang).exists():
             print(f"skip {lang}: no raw screens")
