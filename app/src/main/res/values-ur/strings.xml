@@ -508,4 +508,5 @@
     <string name="lesson_summary_label_mistakes">غلطیاں</string>
     <string name="lesson_summary_label_flawless">بے غلطی!</string>
     <string name="lesson_summary_label_points">حاصل کردہ پوائنٹس</string>
+    <string name="word_category_mixed">حروف و ضمائر</string>
 </resources>

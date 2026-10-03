@@ -1,4 +1,4 @@
-# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100011)
+# Google Play Console – step-by-step for QuranicWords v1.0.0 (versionCode 100012)
 
 Everything you need is in this `store/` folder. Copy text **from the files**, not from chat, so the
 characters and limits stay exact. Every text file has already been checked against Play's limits
@@ -61,9 +61,24 @@ For **each** language, select it in the language picker at the top, then paste:
 - Short description ← `store/listing/<locale>/short_description.txt`
 - Full description ← `store/listing/<locale>/full_description.txt`
 
-Screenshots per language: for **Bengali** upload `store/graphics/phone/bn/01…08` (Bangla app +
-Bangla captions). For the other languages leave screenshots empty – Play then shows the English set.
-The icon and feature graphic are shared; no need to re-upload. **Save** after each language.
+**Screenshots per language** – every language has its own 8 screenshots (the app running in that
+language, captions translated):
+
+| Language | Upload these 8 files, in order |
+|---|---|
+| Bengali `bn-BD` | `store/graphics/phone/bn/01…08` |
+| Urdu `ur` | `store/graphics/phone/ur/01…08` |
+| Hindi `hi-IN` | `store/graphics/phone/hi/01…08` |
+| Indonesian `id` | `store/graphics/phone/id/01…08` |
+| Turkish `tr-TR` | `store/graphics/phone/tr/01…08` |
+| Persian `fa` | `store/graphics/phone/fa/01…08` |
+| French `fr-FR` | `store/graphics/phone/fr/01…08` |
+
+When you select a translation, its Graphics section shows the English images **greyed out** – that
+means "using the default language's graphics". In the **Phone screenshots** box for that language,
+use its add/replace option to upload the language's own files; once added they override the
+English set for that language only. The icon and feature graphic can stay shared (English).
+**Save** after each language.
 
 ## Step 4 – Store settings
 
@@ -100,7 +115,7 @@ production access is granted).
      decodes crashes automatically. If Play still asks: **App bundle explorer → (this version) →
      Downloads** → upload `QuranicWords-v1.0.0-native-debug-symbols.zip` and
      `QuranicWords-v1.0.0-mapping.txt.gz` (unzip to `mapping.txt` if it wants the plain file).
-2. **Release name:** `1.0.0 (100011)`
+2. **Release name:** `1.0.0 (100012)`
 3. **Release notes:** open `store/release-notes.txt` and paste its **whole** content into the release
    notes box. It is already in Play's `<en-US> … </en-US>` per-language format, every language
    ≤ 500 characters.

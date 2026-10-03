@@ -47,8 +47,9 @@ fun categoryAccentColor(category: LemmaCategory?): Color {
     val isDark = isSystemInDarkTheme()
     return when (category) {
         LemmaCategory.VERB -> if (isDark) Color(0xFFFFD54F) else Color(0xFFC59B27) // Warm Gold
-        LemmaCategory.PARTICLE -> if (isDark) Color(0xFF4FC3F7) else Color(0xFF0288D1) // Sky Blue (high contrast)
-        LemmaCategory.NOUN, LemmaCategory.MIXED, null -> if (isDark) Color(0xFF81C784) else Color(0xFF2E7D32) // Forest Green
+        // Mixed lessons are the function words (particles, pronouns, demonstratives).
+        LemmaCategory.PARTICLE, LemmaCategory.MIXED -> if (isDark) Color(0xFF4FC3F7) else Color(0xFF0288D1) // Sky Blue (high contrast)
+        LemmaCategory.NOUN, null -> if (isDark) Color(0xFF81C784) else Color(0xFF2E7D32) // Forest Green
     }
 }
 
@@ -57,8 +58,8 @@ fun categoryAccentColor(category: LemmaCategory?): Color {
  */
 fun categoryIcon(category: LemmaCategory?): ImageVector = when (category) {
     LemmaCategory.VERB -> Icons.Filled.FlashOn
-    LemmaCategory.PARTICLE -> Icons.Filled.AutoAwesome
-    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> Icons.Filled.AutoStories
+    LemmaCategory.PARTICLE, LemmaCategory.MIXED -> Icons.Filled.AutoAwesome
+    LemmaCategory.NOUN, null -> Icons.Filled.AutoStories
 }
 
 /**
@@ -67,7 +68,8 @@ fun categoryIcon(category: LemmaCategory?): ImageVector = when (category) {
 fun categoryLabelRes(category: LemmaCategory?): Int = when (category) {
     LemmaCategory.VERB -> R.string.word_category_verb
     LemmaCategory.PARTICLE -> R.string.word_category_particle
-    LemmaCategory.NOUN, LemmaCategory.MIXED, null -> R.string.word_category_noun
+    LemmaCategory.MIXED -> R.string.word_category_mixed
+    LemmaCategory.NOUN, null -> R.string.word_category_noun
 }
 
 /**

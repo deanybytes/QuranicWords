@@ -484,4 +484,5 @@
     <string name="lesson_summary_label_mistakes">اشتباه</string>
     <string name="lesson_summary_label_flawless">بی‌نقص!</string>
     <string name="lesson_summary_label_points">امتیاز کسب‌شده</string>
+    <string name="word_category_mixed">حروف و ضمایر</string>
 </resources>

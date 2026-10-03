@@ -65,13 +65,138 @@ SLIDES = {
         ("08-dark-mode-offline", "ডার্ক মোডেও সুন্দর",
          "১০০% অফলাইন · বিজ্ঞাপনমুক্ত · সম্পূর্ণ ফ্রি", ["dark_teach", "about"]),
     ],
+    "fr": [
+        ("01-learn-the-quran", "Comprendre le Coran,\nmot à mot",
+         "3 833 mots · 97 % du Coran · 8 langues", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "Chaque mot dans son verset",
+         "Seul le mot étudié est surligné – avec son sens exact", ["teach_senses"]),
+        ("03-learn-by-doing", "Apprendre en pratiquant",
+         "QCM, associations, textes à trous, mot à toucher", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "Widgets d'écran d'accueil",
+         "Mot du moment, série, objectif et quêtes d'un coup d'œil", ["widgets"]),
+        ("05-stay-motivated", "Restez motivé",
+         "XP, niveaux, séries, quêtes du jour, combos et cœurs", ["summary"]),
+        ("06-track-progress", "Suivez vos progrès",
+         "Révision du jour, jauge de mémoire et 27 succès", ["progress", "achievements"]),
+        ("07-quran-fonts", "7 polices coraniques",
+         "Moushaf de Médine, Nourani, Hafizi, Amiri et plus", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "Superbe en mode sombre",
+         "100 % hors ligne · sans pub · gratuit pour toujours", ["dark_teach", "about"]),
+    ],
+    "tr": [
+        ("01-learn-the-quran", "Kur'an'ı\nkelime kelime anlayın",
+         "3.833 kelime · Kur'an'ın %97'si · 8 dil", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "Her kelime kendi ayetinde",
+         "Yalnızca öğrenilen kelime vurgulanır – birebir anlamıyla", ["teach_senses"]),
+        ("03-learn-by-doing", "Yaparak öğrenin",
+         "Test, eşleştirme, boşluk doldurma ve kelimeye dokunma", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "Ana ekran widget'ları",
+         "Anlık kelime, seri, hedef ve görevler tek bakışta", ["widgets"]),
+        ("05-stay-motivated", "Motivasyonunuzu koruyun",
+         "XP, seviyeler, seriler, günlük görevler, kombolar ve kalpler", ["summary"]),
+        ("06-track-progress", "İlerlemenizi izleyin",
+         "Günlük Tekrar, hafıza gücü ve 27 başarım", ["progress", "achievements"]),
+        ("07-quran-fonts", "7 Kur'an yazı tipi",
+         "Medine Mushafı, Nurani, Hafızlık, Amiri ve dahası", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "Koyu temada da şık",
+         "%100 çevrimdışı · reklamsız · tamamen ücretsiz", ["dark_teach", "about"]),
+    ],
+    "id": [
+        ("01-learn-the-quran", "Pahami Al-Qur'an\nkata demi kata",
+         "3.833 kata · 97% Al-Qur'an · 8 bahasa", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "Setiap kata dalam ayatnya",
+         "Hanya kata yang dipelajari yang disorot – dengan makna persisnya", ["teach_senses"]),
+        ("03-learn-by-doing", "Belajar sambil berlatih",
+         "Kuis, mencocokkan, isian, dan ketuk kata", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "Widget layar utama",
+         "Kata saat ini, runtunan, target, dan misi sekilas", ["widgets"]),
+        ("05-stay-motivated", "Tetap termotivasi",
+         "XP, level, runtunan, misi harian, kombo, dan hati", ["summary"]),
+        ("06-track-progress", "Pantau kemajuan Anda",
+         "Ulasan Harian, kekuatan ingatan, dan 27 pencapaian", ["progress", "achievements"]),
+        ("07-quran-fonts", "7 font Al-Qur'an",
+         "Mushaf Madinah, Nurani, Hafizi, Amiri, dan lainnya", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "Indah dalam mode gelap",
+         "100% offline · tanpa iklan · gratis selamanya", ["dark_teach", "about"]),
+    ],
+    "hi": [
+        ("01-learn-the-quran", "क़ुरआन को\nशब्द-दर-शब्द समझें",
+         "3,833 शब्द · क़ुरआन का 97% · 8 भाषाएँ", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "हर शब्द अपनी आयत में",
+         "सिर्फ़ सिखाया गया शब्द हाइलाइट – उसके सटीक अर्थ के साथ", ["teach_senses"]),
+        ("03-learn-by-doing", "अभ्यास से सीखें",
+         "क्विज़, मिलान, रिक्त स्थान और शब्द पर टैप", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "होम स्क्रीन विजेट",
+         "आज का शब्द, सिलसिला, लक्ष्य और क्वेस्ट एक नज़र में", ["widgets"]),
+        ("05-stay-motivated", "प्रेरित रहें",
+         "XP, लेवल, सिलसिला, रोज़ के क्वेस्ट, कॉम्बो और दिल", ["summary"]),
+        ("06-track-progress", "अपनी प्रगति देखें",
+         "रोज़ाना दोहराई, याददाश्त की मज़बूती और 27 उपलब्धियाँ", ["progress", "achievements"]),
+        ("07-quran-fonts", "7 क़ुरआनी फ़ॉन्ट",
+         "मदीना मुसहफ़, नूरानी, हाफ़िज़ी, अमीरी और भी", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "डार्क मोड में भी सुंदर",
+         "100% ऑफ़लाइन · विज्ञापन-मुक्त · हमेशा मुफ़्त", ["dark_teach", "about"]),
+    ],
+    "ur": [
+        ("01-learn-the-quran", "قرآن کو\nلفظ بہ لفظ سمجھیں",
+         "۳٬۸۳۳ الفاظ · قرآن کا ۹۷٪ · ۸ زبانیں", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "ہر لفظ اپنی آیت میں",
+         "صرف سکھایا جانے والا لفظ نمایاں – اپنے درست معنی کے ساتھ", ["teach_senses"]),
+        ("03-learn-by-doing", "مشق سے سیکھیں",
+         "کوئز، جوڑ ملانا، خالی جگہ اور لفظ پر ٹیپ", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "ہوم اسکرین ویجیٹس",
+         "لمحے کا لفظ، تسلسل، ہدف اور کام ایک نظر میں", ["widgets"]),
+        ("05-stay-motivated", "حوصلہ برقرار رکھیں",
+         "XP، لیول، تسلسل، روزانہ کے کام، کومبو اور دل", ["summary"]),
+        ("06-track-progress", "اپنی پیش رفت دیکھیں",
+         "روزانہ دہرائی، یادداشت کی مضبوطی اور ۲۷ کامیابیاں", ["progress", "achievements"]),
+        ("07-quran-fonts", "۷ قرآنی فونٹس",
+         "مدینہ مصحف، نورانی، حافظی، امیری اور مزید", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "ڈارک موڈ میں بھی خوبصورت",
+         "۱۰۰٪ آف لائن · اشتہارات سے پاک · ہمیشہ مفت", ["dark_teach", "about"]),
+    ],
+    "fa": [
+        ("01-learn-the-quran", "قرآن را\nواژه به واژه بفهمید",
+         "۳٬۸۳۳ واژه · ۹۷٪ قرآن · ۸ زبان", ["tour_coverage", "home"]),
+        ("02-word-in-its-ayah", "هر واژه در آیهٔ خودش",
+         "فقط واژهٔ آموزشی برجسته است – با معنای دقیقش", ["teach_senses"]),
+        ("03-learn-by-doing", "با تمرین یاد بگیرید",
+         "آزمون، جورکردن، جای خالی و لمس واژه", ["quiz", "matching"]),
+        ("04-home-screen-widgets", "ابزارک‌های صفحهٔ اصلی",
+         "واژهٔ لحظه، پیوستگی، هدف و مأموریت‌ها در یک نگاه", ["widgets"]),
+        ("05-stay-motivated", "انگیزه‌تان را حفظ کنید",
+         "XP، سطح‌ها، پیوستگی، مأموریت‌های روزانه، کامبو و قلب‌ها", ["summary"]),
+        ("06-track-progress", "پیشرفتتان را ببینید",
+         "مرور روزانه، قدرت حافظه و ۲۷ دستاورد", ["progress", "achievements"]),
+        ("07-quran-fonts", "۷ قلم قرآنی",
+         "مصحف مدینه، نورانی، حافظی، امیری و بیشتر", ["settings_fonts", "tour_fonts"]),
+        ("08-dark-mode-offline", "زیبا در حالت تیره",
+         "۱۰۰٪ آفلاین · بدون تبلیغ · همیشه رایگان", ["dark_teach", "about"]),
+    ],
 }
 
 
-def font(size, bold=False, lang="en"):
-    if lang == "bn":
-        return ImageFont.truetype(str(NOTO / ("NotoSansBengali-Bold.ttf" if bold else "NotoSansBengali-Regular.ttf")), size)
-    return ImageFont.truetype(str(NOTO / ("NotoSans-Bold.ttf" if bold else "NotoSans-Regular.ttf")), size)
+RTL = {"ur", "fa"}
+
+
+def _font_file(script, bold, lang):
+    if script == "bn":
+        return "NotoSansBengali-Bold.ttf" if bold else "NotoSansBengali-Regular.ttf"
+    if script == "deva":
+        return "NotoSansDevanagari-Bold.ttf" if bold else "NotoSansDevanagari-Regular.ttf"
+    if script == "arab":
+        if lang == "ur":   # Urdu is read in Nastaliq
+            return "NotoNastaliqUrdu-Bold.ttf" if bold else "NotoNastaliqUrdu-Regular.ttf"
+        return "NotoNaskhArabic-Bold.ttf" if bold else "NotoNaskhArabic-Regular.ttf"
+    return "NotoSans-Bold.ttf" if bold else "NotoSans-Regular.ttf"
+
+
+def font(size, bold=False, lang="en", script=None):
+    """The caption font for a language (or for one script run inside it)."""
+    script = script or {"bn": "bn", "hi": "deva", "ur": "arab", "fa": "arab"}.get(lang, "latn")
+    if script == "arab" and lang == "ur":
+        size = int(size * 0.82)   # Nastaliq draws much taller than Naskh at the same size
+    return ImageFont.truetype(str(NOTO / _font_file(script, bold, lang)), size)
 
 
 def background(w, h):
@@ -117,44 +242,58 @@ def phone(raw: Image.Image, width: int) -> Image.Image:
     return shadow
 
 
-def _runs(text, fnt, lang):
-    """Split text into (substring, font) runs: Bengali letters in the Bengali font, anything
-    else (Latin, "·", "%") in Noto Sans, which the Bengali font lacks."""
-    if lang != "bn":
-        return [(text, fnt)]
-    latin = ImageFont.truetype(str(NOTO / ("NotoSans-Bold.ttf" if "Bold" in fnt.path else "NotoSans-Regular.ttf")), fnt.size)
-    runs, cur, cur_bn = [], "", None
+def _script(ch):
+    o = ord(ch)
+    if 0x0980 <= o <= 0x09FF:
+        return "bn"
+    if 0x0900 <= o <= 0x097F:
+        return "deva"
+    if 0x0600 <= o <= 0x06FF or 0x0750 <= o <= 0x077F or 0xFB50 <= o <= 0xFDFF or 0xFE70 <= o <= 0xFEFF or o == 0x200C:
+        return "arab"
+    return "latn"
+
+
+def _runs(text, size, bold, lang):
+    """(substring, font, script) runs: each script in its own font (the Bengali, Devanagari and
+    Arabic fonts lack Latin letters and "·"); spaces stay with the run they are in."""
+    runs, cur, cur_s = [], "", None
     for ch in text:
-        is_bn = "\u0980" <= ch <= "\u09ff" or (ch == " " and cur_bn)
-        if cur_bn is None or is_bn == cur_bn:
+        sc = cur_s if ch == " " and cur_s else _script(ch)
+        if cur_s is None or sc == cur_s:
             cur += ch
         else:
-            runs.append((cur, fnt if cur_bn else latin))
+            runs.append((cur, cur_s))
             cur = ch
-        cur_bn = is_bn
+        cur_s = sc
     if cur:
-        runs.append((cur, fnt if cur_bn else latin))
-    return runs
+        runs.append((cur, cur_s))
+    return [(t, font(size, bold, lang, sc), sc) for t, sc in runs]
 
 
-def draw_centered(d, text, y, fnt, fill, spacing=10, lang="en"):
+def draw_centered(d, text, y, size, bold, fill, lang="en", spacing=10):
+    """Centered multi-line text; right-to-left languages lay their runs out from the right."""
     for line in text.split("\n"):
-        runs = _runs(line, fnt, lang)
-        widths = [d.textlength(t, font=f) for t, f in runs]
-        x = (W - sum(widths)) / 2
-        for (t, f), w in zip(runs, widths):
-            d.text((x, y), t, font=f, fill=fill)
-            x += w
-        bbox = d.textbbox((0, 0), line, font=fnt)
-        y += (bbox[3] - bbox[1]) + spacing + int(fnt.size * 0.18)
+        runs = _runs(line, size, bold, lang)
+        widths = [d.textlength(t, font=f, direction="rtl" if sc == "arab" else None) for t, f, sc in runs]
+        total = sum(widths)
+        x = (W + total) / 2 if lang in RTL else (W - total) / 2
+        for (t, f, sc), w in zip(runs, widths):
+            if lang in RTL:
+                x -= w
+                d.text((x, y), t, font=f, fill=fill, direction="rtl" if sc == "arab" else None)
+            else:
+                d.text((x, y), t, font=f, fill=fill, direction="rtl" if sc == "arab" else None)
+                x += w
+        line_h = size * (1.95 if lang == "ur" else 1.45 if lang in ("bn", "hi", "fa") else 1.25)
+        y += int(line_h) + spacing
     return y
 
 
 def slide(lang, name, headline, subline, screens):
     img = background(W, H).convert("RGBA")
     d = ImageDraw.Draw(img)
-    y = draw_centered(d, headline, 92, font(70 if "\n" in headline else 76, True, lang), IVORY, lang=lang)
-    y = draw_centered(d, subline, y + 14, font(36, False, lang), GOLD, lang=lang)
+    y = draw_centered(d, headline, 80, 70 if "\n" in headline else 76, True, IVORY, lang=lang)
+    y = draw_centered(d, subline, y + 6, 36, False, GOLD, lang=lang)
     top = max(y + 40, 380)
     raws = [Image.open(RAW / lang / f"{s}.png") for s in screens]
     if len(raws) == 1:

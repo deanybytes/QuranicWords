@@ -509,4 +509,5 @@
     <string name="lesson_summary_label_mistakes">Erreurs</string>
     <string name="lesson_summary_label_flawless">Sans faute !</string>
     <string name="lesson_summary_label_points">Points gagnés</string>
+    <string name="word_category_mixed">Mots-outils</string>
 </resources>
