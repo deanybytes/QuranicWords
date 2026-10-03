@@ -359,29 +359,30 @@ def main():
         }}
 
         /* Highlighting */
+        /* The taught word and its meaning: bold green (light) / bright gold (dark), for contrast. No padding/border on the Arabic mark,
+           which would break the joining of a connected letter. */
         mark.ar-hl {{
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #ffffff !important;
+            background-color: #d1fae5;
+            color: #047857;
             font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.35);
-            display: inline-block;
-            margin: 0 2px;
+            text-decoration: underline 2px #059669;
+            text-underline-offset: 6px;
         }}
-
+        .dark mark.ar-hl {{
+            background-color: rgba(255, 213, 79, 0.16);
+            color: #ffd54f;
+            text-decoration-color: #ffd54f;
+        }}
         mark.tr-hl {{
-            background-color: #fef08a;
-            color: #854d0e;
+            background-color: #d1fae5;
+            color: #047857;
             font-weight: 700;
-            padding: 1px 6px;
+            padding: 1px 4px;
             border-radius: 4px;
-            border: 1px solid #fde047;
         }}
         .dark mark.tr-hl {{
-            background-color: #854d0e;
-            color: #fef08a;
-            border-color: #a16207;
+            background-color: rgba(255, 213, 79, 0.16);
+            color: #ffd54f;
         }}
 
         /* Sidebar */
@@ -912,10 +913,16 @@ def main():
             cursor: pointer;
             transition: all 0.15s;
         }}
+        /* Selected sense/language tab: the highlight colour (green on light, gold on dark). */
         .poly-tab-btn.active {{
-            background: var(--purple);
+            background: #047857;
             color: #ffffff;
-            border-color: var(--purple);
+            border-color: #047857;
+        }}
+        .dark .poly-tab-btn.active {{
+            background: #ffd54f;
+            color: #2a1f00;
+            border-color: #ffd54f;
         }}
 
         /* Table View */

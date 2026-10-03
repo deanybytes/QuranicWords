@@ -4,7 +4,7 @@
  * - Navigation: network-first, falling back to the cached app shell, then to an offline page.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.2.1';
+const VERSION = '2.2.2';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
 const DATA_CACHE = 'qw-data-v3';
 // Anything else (including the retired qw-audio-* cache) is deleted on activate.

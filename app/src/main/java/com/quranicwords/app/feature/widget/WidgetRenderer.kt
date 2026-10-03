@@ -9,11 +9,13 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.LemmaCategory
@@ -327,11 +329,14 @@ object WidgetRenderer {
             v.setOnClickPendingIntent(R.id.ll_tile_due, cta)
         }
 
-        /** [text] with only `[start, end)` in bold - the content's explicit span, never a search. */
+        /** [text] with only `[start, end)` in bold highlight colour (green on light, gold on dark,
+         *  as in the app) - the content's explicit span, never a search. */
         private fun highlighted(text: String, start: Int?, end: Int?): CharSequence {
             if (start == null || end == null || start !in 0 until end || end > text.length) return text
+            val green = paint.color(WidgetColor.HIGHLIGHT) ?: ContextCompat.getColor(context, R.color.wg_highlight)
             return SpannableString(text).apply {
                 setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                setSpan(ForegroundColorSpan(green), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
 

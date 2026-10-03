@@ -15,6 +15,7 @@ enum class WidgetColor(@ColorRes val light: Int, @ColorRes val dark: Int) {
     TEXT_SECONDARY(R.color.wg_light_text_secondary, R.color.wg_dark_text_secondary),
     TEXT_TERTIARY(R.color.wg_light_text_tertiary, R.color.wg_dark_text_tertiary),
     ACCENT(R.color.wg_light_accent, R.color.wg_dark_accent),
+    HIGHLIGHT(R.color.wg_light_highlight, R.color.wg_dark_highlight),
     GOLD(R.color.wg_light_gold, R.color.wg_dark_gold),
     FLAME(R.color.wg_light_flame, R.color.wg_dark_flame),
     HEART(R.color.wg_light_heart, R.color.wg_dark_heart),

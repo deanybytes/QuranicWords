@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.quranicwords.app.core.ui.components.verseHighlightStyle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.get
@@ -26,7 +27,6 @@ import com.quranicwords.app.core.domain.model.LocalizedSense
 import com.quranicwords.app.core.ui.components.SenseTranslationLine
 import com.quranicwords.app.core.ui.components.spanHighlighted
 import com.quranicwords.app.core.ui.components.textDirection
-import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
@@ -65,7 +65,7 @@ fun FillInTheBlankExerciseContent(
         val sentence = if (isChecked) {
             spanHighlighted(
                 content.sentenceArabic, start, end,
-                SpanStyle(color = BrandGold, fontWeight = FontWeight.Bold, background = BrandGold.copy(alpha = 0.20f))
+                verseHighlightStyle()
             )
         } else {
             buildAnnotatedString {

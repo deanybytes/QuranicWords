@@ -159,18 +159,20 @@
   margin-bottom: 6px;
   overflow-wrap: anywhere;
 }
+/* The taught word and its meaning: bold green (light theme) / gold (dark theme) on a tint. No padding or border
+   on the Arabic mark - either would break the joining of a connected letter (لِ in لِرَبِّهِۦ). */
 .card-verse-arabic mark {
-  background: var(--gold-soft);
-  color: var(--gold-text);
-  border-bottom: 2px solid var(--gold);
-  padding: 0 2px;
-  border-radius: 4px;
+  background: var(--hl-bg);
+  color: var(--hl-text);
+  font-weight: 700;
+  text-decoration: underline 2px var(--hl-text);
+  text-underline-offset: 6px;
 }
 .card-verse-trans { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
 .verse-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
 .card-verse-trans mark, .mark-tr {
-  background: var(--primary-soft);
-  color: var(--primary-text);
+  background: var(--hl-bg);
+  color: var(--hl-text);
   padding: 0 2px;
   border-radius: 3px;
   font-weight: 700;
@@ -521,7 +523,7 @@ body.modal-open { overflow: hidden; }
 .senses-ar { font-size: 2.6rem; color: var(--text-arabic); }
 .senses-list { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 .sense-item { background: var(--bg-inset); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; }
-.sense-title { font-size: 0.95rem; color: var(--gold-text); margin-bottom: 4px; }
+.sense-title { font-size: 0.95rem; color: var(--hl-text); margin-bottom: 4px; }
 .confirm-body p { margin-bottom: 16px; }
 .confirm-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 

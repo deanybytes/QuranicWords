@@ -623,7 +623,9 @@ private fun HomeHeroHeader(
                             size = 68.dp,
                             color = MaterialTheme.colorScheme.tertiary,
                             trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.16f),
-                            centerLabel = "${formatPercent(quranCoveragePercent)}%",
+                            centerLabel = com.quranicwords.app.core.util.VerseReferenceFormatter.formatDigits(
+                                "${formatPercent(quranCoveragePercent)}%", rememberSelectedLanguage()
+                            ),
                             labelStyle = MaterialTheme.typography.labelLarge.copy(
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
                             )

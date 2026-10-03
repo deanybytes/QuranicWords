@@ -172,7 +172,7 @@ class ContentSeeder @Inject constructor(
 
     companion object {
         /** Bump whenever tools/pipeline output changes. */
-        const val CONTENT_VERSION = 38
+        const val CONTENT_VERSION = 39
         /** First content version built by tools/pipeline (new word/lesson ids). */
         const val FIRST_REBUILT_VERSION = 36
         private const val LATEST_LEGACY_VERSION = 35

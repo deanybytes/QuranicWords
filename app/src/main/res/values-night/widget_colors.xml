@@ -12,6 +12,7 @@
     <color name="wg_text_secondary">@color/wg_dark_text_secondary</color>
     <color name="wg_text_tertiary">@color/wg_dark_text_tertiary</color>
     <color name="wg_accent">@color/wg_dark_accent</color>
+    <color name="wg_highlight">@color/wg_dark_highlight</color>
     <color name="wg_gold">@color/wg_dark_gold</color>
     <color name="wg_flame">@color/wg_dark_flame</color>
     <color name="wg_heart">@color/wg_dark_heart</color>

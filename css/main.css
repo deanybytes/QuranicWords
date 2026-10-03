@@ -54,6 +54,9 @@
   --on-gold: #2a1f00;
   --gold-soft: rgba(235, 201, 113, 0.14);
   --gold-border: rgba(235, 201, 113, 0.4);
+  /* Highlighted word/meaning - chosen for contrast: bright gold on the green dark theme. */
+  --hl-text: #ffd54f;
+  --hl-bg: rgba(255, 213, 79, 0.16);
   --danger: #ff8a7a;
   --danger-fill: #b3261e;
 
@@ -98,6 +101,8 @@
   --gold-text: #7a5a00;
   --gold-soft: rgba(235, 201, 113, 0.28);
   --gold-border: rgba(160, 120, 0, 0.35);
+  --hl-text: #006b37;
+  --hl-bg: rgba(0, 191, 99, 0.14);
   --danger: #b3261e;
 
   --text-main: #062b1e;

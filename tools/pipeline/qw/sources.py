@@ -103,6 +103,44 @@ def load_reference_arabic(pin=False):
     return {(s["number"], a["numberInSurah"]): a["text"] for s in data for a in s["ayahs"]}
 
 
+_PAIRS = (("‘", "’"), ("“", "”"), ("«", "»"))
+
+
+def _is_apostrophe(text, i):
+    """’ or ' between two letters is an apostrophe (l’homme, Mu'min), not a quote."""
+    return 0 < i < len(text) - 1 and text[i - 1].isalpha() and text[i + 1].isalpha()
+
+
+def strip_unpaired_quotes(text):
+    """Translators keep the quotation marks of speech that runs over several ayahs, so a single
+    ayah can start with an opening mark that closes three verses later (‘এবং আমরা ... in 20:34).
+    Shown on its own such a mark is noise: remove quote marks at either end that have no partner
+    inside the ayah. Paired quotes and apostrophes are kept."""
+    t = text.strip()
+    for _ in range(2):
+        changed = False
+        for op, cl in _PAIRS + (('"', '"'), ("'", "'")):
+            if op == cl:
+                marks = [i for i, ch in enumerate(t) if ch == op and not _is_apostrophe(t, i)]
+                if len(marks) % 2 == 1:
+                    i = marks[0] if marks[0] == 0 else marks[-1]
+                    if i == 0 or not t[i + 1:].strip(" .,;:!?।۔"):
+                        t = (t[:i] + t[i + 1:]).strip()
+                        changed = True
+                continue
+            opens = t.count(op)
+            closes = sum(1 for i, ch in enumerate(t) if ch == cl and not _is_apostrophe(t, i))
+            if t.startswith(op) and opens > closes:
+                t, changed = t[1:].strip(), True
+            tail = t.rstrip(" .,;:!?।۔")
+            if tail.endswith(cl) and closes > opens:
+                i = len(tail) - 1
+                t, changed = (t[:i] + t[i + 1:]).rstrip(), True
+        if not changed:
+            break
+    return t
+
+
 def load_verse_translations(pin=False):
     """{lang: {(surah, ayah): text}} - one full translation per language (config.VERSE_EDITIONS)."""
     import re
@@ -113,7 +151,7 @@ def load_verse_translations(pin=False):
         if kind == "ac":
             path = fetch(f"tr_{ident}.json", config.VERSE_URL.format(edition=ident), pin)
             data = json.loads(path.read_text(encoding="utf-8"))["data"]["surahs"]
-            out[lang] = {(s["number"], a["numberInSurah"]): a["text"].strip() for s in data for a in s["ayahs"]}
+            out[lang] = {(s["number"], a["numberInSurah"]): strip_unpaired_quotes(a["text"]) for s in data for a in s["ayahs"]}
         else:
             path = fetch(f"qc_{ident}.json", config.QURAN_COM_URL.format(id=ident), pin)
             rows = json.loads(path.read_text(encoding="utf-8"))["translations"]
@@ -124,5 +162,5 @@ def load_verse_translations(pin=False):
                 t = re.sub(r"\s*\[\s*[0-9০-৯۰-۹٠-٩०-९]+\s*\]", "", t)
                 t = re.sub(r"[¹²³⁴⁵⁶⁷⁸⁹⁰]+", "", t)
                 return re.sub(r"\s+", " ", t).strip()
-            out[lang] = {k: clean(r["text"]) for k, r in zip(order, rows)}
+            out[lang] = {k: strip_unpaired_quotes(clean(r["text"])) for k, r in zip(order, rows)}
     return out

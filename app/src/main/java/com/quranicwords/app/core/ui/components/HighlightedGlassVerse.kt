@@ -34,6 +34,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -49,10 +51,33 @@ import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.LocalizedSense
 import com.quranicwords.app.core.domain.model.LocalizedWord
-import com.quranicwords.app.core.ui.theme.BrandGold
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.util.VerseReferenceFormatter
+
+/** Highlight colour on the dark (green) theme: bright gold, ~9:1 on the dark surface. */
+private val HighlightGoldOnDark = Color(0xFFFFD54F)
+
+/** The one highlight style for the taught word and its meaning, chosen for contrast: bold brand
+ * green on the light theme, bold bright gold on the dark theme (whose surfaces are already green),
+ * each on a light tint of itself. */
+@Composable
+fun verseHighlightStyle(): SpanStyle {
+    val color = verseHighlightColor()
+    return SpanStyle(color = color, fontWeight = FontWeight.Bold, background = color.copy(alpha = if (isDarkSurface()) 0.16f else 0.14f))
+}
+
+@Composable
+private fun isDarkSurface(): Boolean = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+
+/** Green on the light theme, bright gold on the dark theme - the highlight and the selected
+ * sense tab share it, so a tab visibly belongs to the highlighted meaning. */
+@Composable
+fun verseHighlightColor(): Color = if (isDarkSurface()) HighlightGoldOnDark else MaterialTheme.colorScheme.primary
+
+/** Text on a [verseHighlightColor] fill. */
+@Composable
+private fun onVerseHighlightColor(): Color = if (isDarkSurface()) Color(0xFF2A1F00) else MaterialTheme.colorScheme.onPrimary
 
 /**
  * [text] with only `[start, end)` styled by [highlight] - the explicit span from the content data.
@@ -73,7 +98,7 @@ fun Language.textDirection(): TextDirection =
 
 /**
  * A complete Qur'anic ayah, right-to-left, with only `[start, end)` - the taught word itself -
- * highlighted inline (gold, bold, tinted background) without breaking the line.
+ * highlighted inline (bold brand green on a light green tint) without breaking the line.
  */
 @Composable
 fun HighlightedGlassArabic(
@@ -90,10 +115,11 @@ fun HighlightedGlassArabic(
         textAlign = TextAlign.Right,
         textDirection = TextDirection.Rtl
     )
-    val annotated = remember(verseArabic, start, end) {
+    val highlight = verseHighlightStyle()
+    val annotated = remember(verseArabic, start, end, highlight) {
         spanHighlighted(
             verseArabic, start, end,
-            SpanStyle(color = BrandGold, fontWeight = FontWeight.Bold, background = BrandGold.copy(alpha = 0.20f))
+            highlight
         )
     }
     Text(text = annotated, style = style, modifier = modifier.fillMaxWidth())
@@ -120,15 +146,11 @@ fun HighlightedGlassTranslation(
         textAlign = TextAlign.Start,
         textDirection = textLanguage.textDirection()
     )
-    val annotated = remember(verseTranslation, start, end) {
+    val highlight = verseHighlightStyle()
+    val annotated = remember(verseTranslation, start, end, highlight) {
         spanHighlighted(
             verseTranslation, start, end,
-            SpanStyle(
-                color = BrandGold,
-                fontWeight = FontWeight.Bold,
-                fontStyle = FontStyle.Normal,
-                background = BrandGold.copy(alpha = 0.18f)
-            )
+            highlight
         )
     }
     Text(text = annotated, style = style, modifier = modifier.fillMaxWidth())
@@ -150,10 +172,11 @@ fun HighlightedGlassWordByWord(
         textAlign = TextAlign.Start,
         textDirection = textLanguage.textDirection()
     )
-    val annotated = remember(wordByWord, start, end) {
+    val highlight = verseHighlightStyle()
+    val annotated = remember(wordByWord, start, end, highlight) {
         spanHighlighted(
             wordByWord, start, end,
-            SpanStyle(color = BrandGold, fontWeight = FontWeight.Bold, background = BrandGold.copy(alpha = 0.18f))
+            highlight
         )
     }
     Text(text = annotated, style = style, modifier = modifier.fillMaxWidth())
@@ -319,11 +342,11 @@ private fun SenseTab(
     onClick: () -> Unit
 ) {
     val tabBg by animateColorAsState(
-        targetValue = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+        targetValue = if (selected) verseHighlightColor() else MaterialTheme.colorScheme.surfaceVariant,
         label = "senseTabBg"
     )
     val tabTextColor by animateColorAsState(
-        targetValue = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+        targetValue = if (selected) onVerseHighlightColor() else MaterialTheme.colorScheme.onSurfaceVariant,
         label = "senseTabText"
     )
     val tabLabel = stringResource(

@@ -15,6 +15,8 @@
     <color name="wg_light_text_secondary">#FF2E5A45</color>
     <color name="wg_light_text_tertiary">#FF55705F</color>
     <color name="wg_light_accent">#FF00703C</color>
+    <!-- Highlighted word/meaning: green on light, bright gold on the green dark theme (contrast). -->
+    <color name="wg_light_highlight">#FF00703C</color>
     <color name="wg_light_gold">#FF8A5A00</color>
     <color name="wg_light_flame">#FFC27A00</color>
     <color name="wg_light_heart">#FFC2362B</color>
@@ -35,6 +37,7 @@
     <color name="wg_dark_text_secondary">#FFBCDDC3</color>
     <color name="wg_dark_text_tertiary">#FFA6C4AE</color>
     <color name="wg_dark_accent">#FF7ED957</color>
+    <color name="wg_dark_highlight">#FFFFD54F</color>
     <color name="wg_dark_gold">#FFEBC971</color>
     <color name="wg_dark_flame">#FFEBC971</color>
     <color name="wg_dark_heart">#FFFF8A80</color>
@@ -55,6 +58,7 @@
     <color name="wg_text_secondary">@color/wg_light_text_secondary</color>
     <color name="wg_text_tertiary">@color/wg_light_text_tertiary</color>
     <color name="wg_accent">@color/wg_light_accent</color>
+    <color name="wg_highlight">@color/wg_light_highlight</color>
     <color name="wg_gold">@color/wg_light_gold</color>
     <color name="wg_flame">@color/wg_light_flame</color>
     <color name="wg_heart">@color/wg_light_heart</color>
