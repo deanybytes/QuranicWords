@@ -13,11 +13,15 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quranicwords.app.core.data.local.entity.LessonKind
@@ -41,6 +45,9 @@ import com.quranicwords.app.feature.onboarding.language.LanguageSelectScreen
 import com.quranicwords.app.feature.splash.OnboardingInvocationScreen
 import com.quranicwords.app.feature.splash.SplashScreen
 import com.quranicwords.app.feature.walkthrough.WalkthroughScreen
+import com.quranicwords.app.feature.widget.WidgetDeepLink
+import com.quranicwords.app.feature.widget.WidgetDestination
+import com.quranicwords.app.feature.widget.WidgetTarget
 
 private typealias EnterSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition
 private typealias ExitSpec = AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition
@@ -104,6 +111,20 @@ private class NavTransitions(reducedMotion: Boolean) {
 @Composable
 fun QwNavHost(navController: NavHostController = rememberNavController()) {
     val t = NavTransitions(rememberReducedMotion())
+
+    // A home-screen widget tap (see WidgetDeepLink) waits until Home is on the back stack -
+    // past splash and onboarding - so Back from the opened screen returns to Home.
+    val widgetTarget by WidgetDeepLink.pending.collectAsStateWithLifecycle()
+    val currentEntry by navController.currentBackStackEntryAsState()
+    LaunchedEffect(widgetTarget, currentEntry) {
+        if (widgetTarget == null || currentEntry == null) return@LaunchedEffect
+        if (runCatching { navController.getBackStackEntry<Route.Home>() }.isFailure) return@LaunchedEffect
+        val route = WidgetDeepLink.consume()?.let(::widgetRoute) ?: return@LaunchedEffect
+        navController.navigate(route) {
+            popUpTo(Route.Home)
+            launchSingleTop = true
+        }
+    }
 
     NavHost(navController = navController, startDestination = Route.Splash) {
         composable<Route.Splash>(
@@ -425,6 +446,13 @@ fun QwNavHost(navController: NavHostController = rememberNavController()) {
             )
         }
     }
+}
+
+/** A widget target's screen; null for plain "open the app" (keep whatever screen is showing). */
+private fun widgetRoute(target: WidgetTarget): Route? = when (target.destination) {
+    WidgetDestination.HOME -> null
+    WidgetDestination.DAILY_REVIEW -> Route.DailyReview()
+    WidgetDestination.PRACTICE_WORD -> target.wordId?.let { Route.FocusedReview(listOf(it)) }
 }
 
 /** Where "Practice to refill" goes - every one of these restores a heart when finished. */

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Word of the Moment, medium (about 3x2 cells). Also the API 31+ picker preview, so the XML
+     defaults show a representative word; the binder replaces every value. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:clipToOutline="true"
+    android:padding="12dp"
+    tools:ignore="HardcodedText,UseAppTint,UseCompoundDrawables,NestedWeights,DisableBaselineAlignment">
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/widget_chip_due"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:paddingHorizontal="9dp"
+                    android:paddingVertical="3dp"
+                    android:text="@string/widget_status_due"
+                    android:textColor="@color/wg_text_primary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/widget_chip"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingHorizontal="9dp"
+                    android:paddingVertical="3dp"
+                    android:text="@string/word_category_noun"
+                    android:textColor="@color/wg_text_secondary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btn_next"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/widget_icon_btn"
+                android:contentDescription="@string/widget_next_word"
+                android:padding="6dp"
+                android:src="@drawable/ic_widget_next"
+                android:tint="@color/wg_text_primary" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_word"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:minHeight="36dp">
+
+            <ImageView
+                android:id="@+id/iv_arabic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="yes"
+                android:scaleType="fitCenter"
+                android:tint="@color/wg_text_primary"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_arabic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autoSizeMaxTextSize="40sp"
+                android:autoSizeMinTextSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="كِتَٰب"
+                android:textColor="@color/wg_text_primary"
+                android:textDirection="rtl"
+                android:textSize="34sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/widget_preview_meaning"
+            android:textColor="@color/wg_accent"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_reveal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/widget_reveal"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:minHeight="30dp"
+            android:paddingHorizontal="14dp"
+            android:text="@string/widget_tap_to_reveal"
+            android:textColor="@color/wg_accent"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <include
+            layout="@layout/widget_part_meter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp" />
+    </LinearLayout>
+
+    <include layout="@layout/widget_part_empty" />
+</FrameLayout>

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Word & Progress: a compact blend of the word and today's progress. See widget_word_info.xml
+     for the sizing and refresh notes. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/widget_combined_description"
-    android:initialKeyguardLayout="@layout/widget_combined"
-    android:initialLayout="@layout/widget_combined"
-    android:minWidth="280dp"
-    android:minHeight="180dp"
-    android:minResizeWidth="220dp"
-    android:minResizeHeight="140dp"
-    android:previewImage="@drawable/ic_qw_mark"
-    android:previewLayout="@layout/widget_combined"
+    android:initialLayout="@layout/widget_loading"
+    android:minWidth="250dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:maxResizeWidth="530dp"
+    android:maxResizeHeight="450dp"
+    android:previewImage="@drawable/widget_preview_combined"
+    android:previewLayout="@layout/widget_combined_medium"
     android:resizeMode="horizontal|vertical"
     android:targetCellWidth="4"
-    android:targetCellHeight="3"
-    android:updatePeriodMillis="180000"
-    android:widgetCategory="home_screen|keyguard" />
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="10800000"
+    android:widgetCategory="home_screen" />

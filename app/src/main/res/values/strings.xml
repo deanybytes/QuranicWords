@@ -309,27 +309,6 @@
     <string name="lesson_kind_chapter_flashback">Grand Review</string>
 
     <!-- Widget Strings -->
-    <string name="widget_stats_name">Stats &amp; Streak</string>
-    <string name="widget_stats_description">View your Quranic learning streak, mastered words count, daily goal progress, and review queue.</string>
-    <string name="widget_word_name">Word of the Moment</string>
-    <string name="widget_word_description">Rotates learned &amp; mistaken words every 3 minutes with meanings, Quran occurrences, and verse examples.</string>
-    <string name="widget_combined_name">Combined Master Widget</string>
-    <string name="widget_combined_description">Combines your learning streak &amp; statistics with rotating Quranic words and example verses.</string>
-    <string name="widget_streak_days">%d Day Streak</string>
-    <string name="widget_streak_zero">0 Day Streak</string>
-    <string name="widget_words_learned_label">Words Learned</string>
-    <string name="widget_accuracy_label">Accuracy</string>
-    <string name="widget_review_label">To Review</string>
-    <string name="widget_daily_goal_label">Daily Goal</string>
-    <string name="widget_empty_words_title">Begin Your Journey</string>
-    <string name="widget_empty_words_desc">Complete your first lesson in Quranic Words to see your learned words here!</string>
-    <string name="widget_mistake_badge">Needs Review</string>
-    <string name="widget_mastered_badge">Mastered</string>
-    <string name="widget_occurrences_format">%d occurrences</string>
-    <string name="widget_quran_pct_format">%.2f%% of Qur\'an</string>
-    <string name="widget_rank_format">Rank #%d</string>
-    <string name="widget_refresh">Refresh</string>
-
     <string name="lesson_category_noun">Noun Lesson</string>
     <string name="lesson_category_verb">Verb Lesson</string>
     <string name="lesson_category_particle">Particle Lesson</string>
@@ -405,8 +384,6 @@
     <string name="a11y_collapse">Collapse</string>
     <string name="lesson_locked_hint">Complete the previous lesson first</string>
     <string name="learned_words_root_label">Root: %1$s</string>
-    <string name="widget_streak_value">%1$sd</string>
-    <string name="widget_goal_value">%1$s / %2$sm</string>
     <string name="word_strength_new">New</string>
     <string name="word_strength_learning">Learning</string>
     <string name="word_strength_familiar">Familiar</string>
@@ -478,4 +455,39 @@
     <string name="word_browse_no_match">No word in this section matches.</string>
     <string name="lesson_empty_review_title">All caught up</string>
     <string name="lesson_empty_review_desc">Nothing needs reviewing right now. Words come back here as they\'re due.</string>
+    <!-- Home-screen widgets -->
+    <string name="widget_word_name">Word of the Moment</string>
+    <string name="widget_word_description">A word that\'s due for review first, otherwise one you\'ve learned, with its meaning, strength and category.</string>
+    <string name="widget_stats_name">Progress</string>
+    <string name="widget_stats_description">Your streak, today\'s goal, level, hearts, quests and the words due for review at a glance.</string>
+    <string name="widget_combined_name">Word &amp; Progress</string>
+    <string name="widget_combined_description">The word of the moment and today\'s progress together in one compact widget.</string>
+    <string name="widget_status_due">Due for review</string>
+    <string name="widget_status_learned">Learned</string>
+    <string name="widget_status_new">New word</string>
+    <string name="widget_tap_to_reveal">Tap to reveal the meaning</string>
+    <string name="widget_tap_to_reveal_short">Reveal meaning</string>
+    <string name="widget_next_word">Next word</string>
+    <string name="widget_review_now">Review now</string>
+    <string name="widget_review_count">Review %1$s</string>
+    <string name="widget_practice_word">Practice this word</string>
+    <string name="widget_start_learning">Start learning</string>
+    <string name="widget_continue_learning">Continue learning</string>
+    <string name="widget_open_app">Open app</string>
+    <string name="widget_not_ready_title">Almost ready</string>
+    <string name="widget_not_ready_desc">Open QuranicWords once to finish setting up your words.</string>
+    <string name="widget_streak_label">day streak</string>
+    <string name="widget_a11y_streak">%1$s-day streak</string>
+    <string name="widget_daily_goal_label">Daily goal</string>
+    <string name="widget_goal_of">of %1$s min</string>
+    <string name="widget_goal_done">Goal met</string>
+    <string name="widget_goal_value">%1$s / %2$s min</string>
+    <string name="widget_a11y_goal">Daily goal: %1$s of %2$s minutes</string>
+    <string name="widget_quests_value">Today\'s quests: %1$s/%2$s</string>
+    <string name="widget_level_word">Level</string>
+    <string name="widget_words_learned_label">Words learned</string>
+    <string name="widget_review_label">Due for review</string>
+    <string name="widget_due_count">%1$s due</string>
+    <string name="widget_word_facts">%1$s times in the Qur\'an · rank #%2$s</string>
+    <string name="widget_preview_meaning">Book</string>
 </resources>

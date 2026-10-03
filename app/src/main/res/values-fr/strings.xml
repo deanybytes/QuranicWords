@@ -312,28 +312,6 @@
     <string name="lesson_kind_section_flashback">Révision de section</string>
     <string name="lesson_kind_chapter_exam">Examen de chapitre</string>
     <string name="lesson_kind_chapter_flashback">Grande révision</string>
-
-    <string name="widget_combined_name">Widget combiné principal</string>
-    <string name="widget_combined_description">Combine votre série d\'apprentissage et vos statistiques avec des mots coraniques et des versets d\'exemple.</string>
-    <string name="widget_stats_name">Statistiques &amp; Série</string>
-    <string name="widget_stats_description">Consultez votre série d\'apprentissage coranique, vos mots maîtrisés, votre objectif quotidien et vos révisions.</string>
-    <string name="widget_word_name">Mot du moment</string>
-    <string name="widget_word_description">Fait défiler les mots appris toutes les 3 minutes avec significations, occurrences et versets d\'exemple.</string>
-    <string name="widget_empty_words_title">Commencez votre voyage</string>
-    <string name="widget_empty_words_desc">Terminez votre première leçon dans Quranic Words pour voir vos mots appris ici !</string>
-    <string name="widget_streak_days">Série de %d jours</string>
-    <string name="widget_streak_zero">Série de 0 jour</string>
-    <string name="widget_mastered_badge">Maîtrisé</string>
-    <string name="widget_mistake_badge">À réviser</string>
-    <string name="widget_words_learned_label">Mots appris</string>
-    <string name="widget_daily_goal_label">Objectif quotidien</string>
-    <string name="widget_accuracy_label">Précision</string>
-    <string name="widget_review_label">À réviser</string>
-    <string name="widget_occurrences_format">%d occurrences</string>
-    <string name="widget_rank_format">Rang #%d</string>
-    <string name="widget_quran_pct_format">%.2f%% du Coran</string>
-    <string name="widget_refresh">Actualiser</string>
-
     <string name="lesson_category_noun">Leçon de Nom (اسم)</string>
     <string name="lesson_category_verb">Leçon de Verbe (فعل)</string>
     <string name="lesson_category_particle">Leçon de Particule (حرف)</string>
@@ -414,8 +392,6 @@
     <string name="a11y_collapse">Réduire</string>
     <string name="lesson_locked_hint">Terminez d\'abord la leçon précédente</string>
     <string name="learned_words_root_label">Racine : %1$s</string>
-    <string name="widget_streak_value">%1$sj</string>
-    <string name="widget_goal_value">%1$s / %2$s min</string>
     <string name="word_strength_new">Nouveau</string>
     <string name="word_strength_learning">En apprentissage</string>
     <string name="word_strength_familiar">Familier</string>
@@ -487,4 +463,39 @@
     <string name="word_browse_no_match">Aucun mot de cette section ne correspond.</string>
     <string name="lesson_empty_review_title">Tout est à jour</string>
     <string name="lesson_empty_review_desc">Rien à revoir pour l\'instant. Les mots reviendront ici à leur échéance.</string>
+    <!-- Home-screen widgets -->
+    <string name="widget_word_name">Mot du moment</string>
+    <string name="widget_word_description">D\'abord un mot à réviser, sinon un mot appris, avec son sens, sa solidité et sa catégorie.</string>
+    <string name="widget_stats_name">Progression</string>
+    <string name="widget_stats_description">Votre série, l\'objectif du jour, votre niveau, vos cœurs, vos quêtes et les mots à réviser en un coup d\'œil.</string>
+    <string name="widget_combined_name">Mot et progression</string>
+    <string name="widget_combined_description">Le mot du moment et la progression du jour réunis dans un widget compact.</string>
+    <string name="widget_status_due">À réviser</string>
+    <string name="widget_status_learned">Appris</string>
+    <string name="widget_status_new">Nouveau mot</string>
+    <string name="widget_tap_to_reveal">Touchez pour voir le sens</string>
+    <string name="widget_tap_to_reveal_short">Voir le sens</string>
+    <string name="widget_next_word">Mot suivant</string>
+    <string name="widget_review_now">Réviser maintenant</string>
+    <string name="widget_review_count">Réviser %1$s</string>
+    <string name="widget_practice_word">Pratiquer ce mot</string>
+    <string name="widget_start_learning">Commencer</string>
+    <string name="widget_continue_learning">Continuer</string>
+    <string name="widget_open_app">Ouvrir l\'app</string>
+    <string name="widget_not_ready_title">Presque prêt</string>
+    <string name="widget_not_ready_desc">Ouvrez QuranicWords une fois pour préparer vos mots.</string>
+    <string name="widget_streak_label">jours de série</string>
+    <string name="widget_a11y_streak">Série de %1$s jours</string>
+    <string name="widget_daily_goal_label">Objectif quotidien</string>
+    <string name="widget_goal_of">sur %1$s min</string>
+    <string name="widget_goal_done">Objectif atteint</string>
+    <string name="widget_goal_value">%1$s / %2$s min</string>
+    <string name="widget_a11y_goal">Objectif quotidien : %1$s minutes sur %2$s</string>
+    <string name="widget_quests_value">Quêtes du jour : %1$s/%2$s</string>
+    <string name="widget_level_word">Niveau</string>
+    <string name="widget_words_learned_label">Mots appris</string>
+    <string name="widget_review_label">À réviser</string>
+    <string name="widget_due_count">%1$s à réviser</string>
+    <string name="widget_word_facts">%1$s fois dans le Coran · rang n° %2$s</string>
+    <string name="widget_preview_meaning">Livre</string>
 </resources>
