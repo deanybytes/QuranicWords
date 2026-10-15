@@ -54,7 +54,7 @@ class LessonScoringTest {
         var scoring = LessonScoring().grade(0, correct = true)
         val first = scoring.log("w1", ExerciseType.MULTIPLE_CHOICE, correct = true).also { scoring = it.first }.second
         scoring = scoring.grade(3, correct = true)
-        val repeat = scoring.log("w1", ExerciseType.FILL_IN_THE_BLANK, correct = true).second
+        val repeat = scoring.log("w1", ExerciseType.MATCHING, correct = true).second
 
         assertEquals(2, scoring.correctCount)
         assertTrue(first.isFirstTry)
@@ -136,7 +136,7 @@ class LessonScoringTest {
     @Test
     fun `missed words and new words feed the session stats`() {
         var scoring = LessonScoring()
-        scoring = scoring.log("w1", ExerciseType.FILL_IN_THE_BLANK, correct = false).first
+        scoring = scoring.log("w1", ExerciseType.MATCHING, correct = false).first
         scoring = scoring.log("w1", ExerciseType.MULTIPLE_CHOICE, correct = true).first // retry - not first try
         scoring = scoring.log("w2", ExerciseType.MULTIPLE_CHOICE, correct = true).first
         scoring = scoring.grade(0, correct = true)

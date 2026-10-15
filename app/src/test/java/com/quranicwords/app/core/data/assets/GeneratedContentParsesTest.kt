@@ -153,26 +153,11 @@ class GeneratedContentParsesTest {
     }
 
     @Test
-    fun `localizing never drops a sense and keeps every verse quiz answerable in every language`() {
+    fun `localizing never drops a sense in any language`() {
         Language.entries.forEach { language ->
             val localized = intros.associate { it.wordId to WordExampleLocalizer.build(it, language, verses) }
             intros.forEach { intro ->
                 assertEquals("${intro.wordId} $language", intro.senses.getValue(language.tag).size, localized.getValue(intro.wordId).senses.size)
-            }
-            exercises.map { it.content }.forEach { content ->
-                when (val out = WordExampleLocalizer.localizeExercise(content, localized)) {
-                    is ExerciseContent.FillInTheBlank -> {
-                        val correct = out.options.single { it.id == out.correctOptionId }
-                        assertEquals(out.wordId, out.sentenceArabic.substring(out.blankStart, out.blankEnd), correct.labelArabic)
-                        assertTrue(out.wordId, out.options.size >= 2)
-                    }
-                    is ExerciseContent.TapWordInVerse -> {
-                        val sense = localized.getValue(out.wordId).primarySense!!
-                        assertTrue(out.wordId, out.tappableSpans.any { it.start == out.correctWordStart && it.end == out.correctWordEnd })
-                        assertTrue(out.wordId, out.correctWordStart <= sense.wordStart && sense.wordEnd <= out.correctWordEnd)
-                    }
-                    else -> Unit
-                }
             }
         }
     }
@@ -192,13 +177,13 @@ class GeneratedContentParsesTest {
     }
 
     @Test
-    fun `bundled verse quizzes match their English default verse exactly`() {
-        exercises.map { it.content }.filterIsInstance<ExerciseContent.FillInTheBlank>().forEach { f ->
-            val correct = f.options.single { it.id == f.correctOptionId }
-            assertEquals(f.wordId, f.sentenceArabic.substring(f.blankStart, f.blankEnd), correct.labelArabic)
-        }
-        exercises.map { it.content }.filterIsInstance<ExerciseContent.TapWordInVerse>().forEach { t ->
-            assertTrue(t.wordId, t.tappableSpans.any { it.start == t.correctWordStart && it.end == t.correctWordEnd })
+    fun `bundled content quizzes with multiple choice and matching only`() {
+        exercises.map { it.content }.forEach { content ->
+            assertTrue(
+                content::class.simpleName.orEmpty(),
+                content is ExerciseContent.MultipleChoice || content is ExerciseContent.Matching ||
+                    content is ExerciseContent.WordIntro || content is ExerciseContent.ChapterIntro
+            )
         }
     }
 

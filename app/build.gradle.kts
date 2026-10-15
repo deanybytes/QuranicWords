@@ -36,8 +36,8 @@ android {
         applicationId = "com.deanybytes.quranicwords"
         minSdk = 24
         targetSdk = 36
-        versionCode = 100013
-        versionName = "1.0.0"
+        versionCode = 101000
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -92,7 +92,7 @@ android {
         // Exported Room schemas, so MigrationTestHelper can build each historical version.
         // Robolectric unit tests read the *variant's* merged assets (not the "test" source set),
         // hence debug - a few KB of JSON, never part of a release build.
-        getByName("debug").assets.srcDir("$projectDir/schemas")
+        getByName("debug").assets.directories.add("$projectDir/schemas")
     }
     testOptions {
         unitTests {

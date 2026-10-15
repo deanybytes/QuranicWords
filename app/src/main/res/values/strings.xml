@@ -133,9 +133,7 @@
     <string name="lesson_exit_confirm_message">You can pick up where you left off from Home within a day.</string>
     <string name="lesson_exit_confirm_leave">Leave</string>
     <string name="lesson_exit_confirm_stay">Keep learning</string>
-    <string name="lesson_matching_instruction">Tap a letter, then tap its match.</string>
     <string name="lesson_teach_continue_button">Got it</string>
-    <string name="word_order_build_area_label">Your answer</string>
     <string name="lesson_empty_title">Lesson Content Unavailable</string>
     <string name="lesson_empty_desc">No exercises found for this lesson. Please return to the dashboard.</string>
 
@@ -361,7 +359,6 @@
     <string name="a11y_state_matched">Matched</string>
     <string name="a11y_state_selected">Selected</string>
     <string name="a11y_action_match">Match</string>
-    <string name="a11y_action_select_word">Select this word</string>
     <string name="a11y_meaning_tab">Meaning %1$s of %2$s</string>
     <string name="a11y_action_flip_card">Flip card</string>
     <string name="a11y_card_showing_word">Showing the word</string>
@@ -488,7 +485,7 @@
     <string name="walkthrough_page2_title">Every word in its ayah</string>
     <string name="walkthrough_page2_desc">Each meaning comes with a complete ayah. Only the word you are learning is highlighted, together with its exact meaning in the translation.</string>
     <string name="walkthrough_page3_title">Learn by doing</string>
-    <string name="walkthrough_page3_desc">Short lessons mix multiple choice, fill-in-the-blank, tap-the-word and matching. Only your first answer counts, so every point is earned.</string>
+    <string name="walkthrough_page3_desc">Short lessons mix multiple choice and matching. Only your first answer counts, so every point is earned.</string>
     <string name="walkthrough_page4_title">Review at the right time</string>
     <string name="walkthrough_page4_desc">Daily Review brings each word back just before you would forget it. The memory meter shows how well you know it: New, Learning, Familiar, Strong, Mastered.</string>
     <string name="walkthrough_page5_title">Stay motivated</string>

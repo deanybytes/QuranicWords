@@ -50,7 +50,6 @@ import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.quranicwords.app.R
 import com.quranicwords.app.core.domain.model.ExerciseContent
-import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.domain.model.localizedLabel
 import com.quranicwords.app.core.navigation.Route
 import com.quranicwords.app.core.ui.components.AnswerFeedbackOverlay
@@ -67,15 +66,13 @@ import com.quranicwords.app.core.ui.components.chapterLabel
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
 import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.ui.motion.StepEnter
 import com.quranicwords.app.core.ui.motion.rememberQwHaptics
 import com.quranicwords.app.core.ui.theme.Elevation
 import com.quranicwords.app.feature.lesson.exercise.ChapterIntroExerciseContent
-import com.quranicwords.app.feature.lesson.exercise.FillInTheBlankExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MatchingExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.MultipleChoiceExerciseContent
-import com.quranicwords.app.feature.lesson.exercise.TapWordInVerseExerciseContent
 import com.quranicwords.app.feature.lesson.exercise.WordIntroExerciseContent
-import com.quranicwords.app.feature.lesson.exercise.WordOrderBuilderExerciseContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -254,59 +251,41 @@ fun LessonScreen(
                 Column(modifier = Modifier.padding(padding).fillMaxSize()) {
                     Box(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
                         key(uiState.currentIndex) {
-                            when (val content = uiState.currentContent) {
-                                is ExerciseContent.MultipleChoice -> MultipleChoiceExerciseContent(
-                                    content = content,
-                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
-                                    selectedOptionId = uiState.attempt.selectedOptionId,
-                                    isChecked = uiState.isChecked,
-                                    onSelect = viewModel::selectOption
-                                )
-                                is ExerciseContent.Matching -> MatchingExerciseContent(
-                                    content = content,
-                                    localizedWords = uiState.localizedWords,
-                                    matchedPairIds = uiState.attempt.matchedPairIds,
-                                    pendingLeftId = uiState.attempt.pendingLeftId,
-                                    lastMismatch = uiState.attempt.lastMismatch,
-                                    onSelectLeft = viewModel::selectMatchingLeft,
-                                    onSelectRight = viewModel::selectMatchingRight
-                                )
-                                is ExerciseContent.WordIntro -> {
-                                    WordIntroExerciseContent(
+                            StepEnter(stepKey = uiState.currentIndex) {
+                                when (val content = uiState.currentContent) {
+                                    is ExerciseContent.MultipleChoice -> MultipleChoiceExerciseContent(
                                         content = content,
-                                        word = uiState.localizedWords[content.wordId],
-                                        strength = uiState.wordStrengths[content.wordId],
-                                        selectedMeaningIndex = selectedMeaningIndex,
-                                        onMeaningSelected = {
-                                            selectedMeaningIndex = it
-                                            visitedSenses = visitedSenses + it
-                                        }
+                                        sense = uiState.localizedWords[content.wordId]?.primarySense,
+                                        selectedOptionId = uiState.attempt.selectedOptionId,
+                                        isChecked = uiState.isChecked,
+                                        onSelect = viewModel::selectOption
                                     )
+                                    is ExerciseContent.Matching -> MatchingExerciseContent(
+                                        content = content,
+                                        localizedWords = uiState.localizedWords,
+                                        matchedPairIds = uiState.attempt.matchedPairIds,
+                                        pendingLeftId = uiState.attempt.pendingLeftId,
+                                        lastMismatch = uiState.attempt.lastMismatch,
+                                        onSelectLeft = viewModel::selectMatchingLeft,
+                                        onSelectRight = viewModel::selectMatchingRight
+                                    )
+                                    is ExerciseContent.WordIntro -> {
+                                        WordIntroExerciseContent(
+                                            content = content,
+                                            word = uiState.localizedWords[content.wordId],
+                                            strength = uiState.wordStrengths[content.wordId],
+                                            selectedMeaningIndex = selectedMeaningIndex,
+                                            onMeaningSelected = {
+                                                selectedMeaningIndex = it
+                                                visitedSenses = visitedSenses + it
+                                            }
+                                        )
+                                    }
+                                    is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
+                                        content = content
+                                    )
+                                    null -> Unit
                                 }
-                                is ExerciseContent.ChapterIntro -> ChapterIntroExerciseContent(
-                                    content = content
-                                )
-                                is ExerciseContent.FillInTheBlank -> FillInTheBlankExerciseContent(
-                                    content = content,
-                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
-                                    selectedOptionId = uiState.attempt.selectedOptionId,
-                                    isChecked = uiState.isChecked,
-                                    onSelect = viewModel::selectOption
-                                )
-                                is ExerciseContent.WordOrderBuilder -> WordOrderBuilderExerciseContent(
-                                    content = content,
-                                    selectedChipIds = uiState.attempt.orderedChipIds,
-                                    isChecked = uiState.isChecked,
-                                    onSelectChip = viewModel::selectWordOrderChip,
-                                    onDeselectChip = viewModel::deselectWordOrderChip
-                                )
-                                is ExerciseContent.TapWordInVerse -> TapWordInVerseExerciseContent(
-                                    content = content,
-                                    sense = uiState.localizedWords[content.wordId]?.primarySense,
-                                    selectedSpan = uiState.attempt.selectedSpan,
-                                    onSelectWord = viewModel::selectVerseWord
-                                )
-                                else -> {}
                             }
                         }
                     }
@@ -384,8 +363,7 @@ fun LessonScreen(
                                     }
                                 }
                             }
-                            uiState.currentContent is ExerciseContent.MultipleChoice ||
-                                uiState.currentContent is ExerciseContent.FillInTheBlank -> {
+                            uiState.currentContent is ExerciseContent.MultipleChoice -> {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     if (uiState.currentIndex > 0) {
                                         QwSecondaryButton(
@@ -397,24 +375,6 @@ fun LessonScreen(
                                     QwPrimaryButton(
                                         text = stringResource(R.string.lesson_check_button),
                                         enabled = uiState.attempt.selectedOptionId != null,
-                                        onClick = viewModel::onCheckPressed,
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                }
-                            }
-                            uiState.currentContent is ExerciseContent.WordOrderBuilder -> {
-                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                    if (uiState.currentIndex > 0) {
-                                        QwSecondaryButton(
-                                            text = stringResource(R.string.lesson_previous_button),
-                                            onClick = viewModel::onPreviousPressed,
-                                            modifier = Modifier.weight(1f)
-                                        )
-                                    }
-                                    QwPrimaryButton(
-                                        text = stringResource(R.string.lesson_check_button),
-                                        enabled = uiState.attempt.orderedChipIds.size ==
-                                            (uiState.currentContent as ExerciseContent.WordOrderBuilder).orderedChips.size,
                                         onClick = viewModel::onCheckPressed,
                                         modifier = Modifier.weight(1f)
                                     )
@@ -492,7 +452,7 @@ fun LessonScreen(
                                     )
                                 }
                             }
-                            else -> Unit // TapWordInVerse checks itself on the first tap
+                            else -> Unit
                         }
                     }
                 }
@@ -538,20 +498,5 @@ fun LessonScreen(
 private fun correctAnswerLabel(content: ExerciseContent?, language: Language): String = when (content) {
     is ExerciseContent.MultipleChoice ->
         content.options.firstOrNull { it.id == content.correctOptionId }?.localizedLabel(language).orEmpty()
-    // FillInTheBlank's options are the Arabic words themselves, so the answer is the Arabic word
-    // (its meaning only as a fallback for an option with no Arabic label).
-    is ExerciseContent.FillInTheBlank ->
-        content.options.firstOrNull { it.id == content.correctOptionId }
-            ?.let { option -> option.labelArabic?.cleanArabicDisplay()?.takeIf { it.isNotBlank() } ?: option.localizedLabel(language) }
-            .orEmpty()
-    is ExerciseContent.WordOrderBuilder ->
-        content.orderedChips.joinToString(" ") { it.arabicText }
-    is ExerciseContent.TapWordInVerse -> {
-        // Clamped like FillInTheBlankExercise's blank: content offsets that drift past the verse
-        // (e.g. after a content-pipeline text change) must degrade, not crash.
-        val start = content.correctWordStart.coerceIn(0, content.verseArabic.length)
-        val end = content.correctWordEnd.coerceIn(start, content.verseArabic.length)
-        content.verseArabic.substring(start, end)
-    }
     else -> ""
 }

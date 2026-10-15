@@ -5,6 +5,8 @@ from collections import Counter, defaultdict
 
 from . import arabic, config, glosses, senses as senses_mod, spans as spans_mod
 
+# The app teaches with multiple choice and matching only; everything else is a teaching step.
+ALLOWED_TYPES = {"WORD_INTRO", "CHAPTER_INTRO", "MULTIPLE_CHOICE", "MATCHING"}
 LATIN = re.compile(r"^[A-Za-zĀāĪīŪūḤḥṢṣḌḍṬṭẒẓʿʾ' -]+$")
 
 
@@ -60,7 +62,9 @@ def run(assets, raw=None):
             tr = c.get("transliteration", "")
             if not LATIN.match(tr):
                 errors.append(f"{c['wordId']} transliteration not Latin: {tr}")
-        if e["exerciseType"] in ("MULTIPLE_CHOICE", "FILL_IN_THE_BLANK"):
+        if e["exerciseType"] not in ALLOWED_TYPES:
+            errors.append(f"{e['id']} has type {e['exerciseType']}; only MCQ and matching are taught")
+        if e["exerciseType"] == "MULTIPLE_CHOICE":
             opts = c["options"]
             ids = [o["id"] for o in opts]
             if c["correctOptionId"] not in ids or len(ids) != len(set(ids)) or len(ids) < 3:
@@ -72,15 +76,7 @@ def run(assets, raw=None):
                     break
             if c["wordId"] not in by_id:
                 errors.append(f"{e['id']} unknown word {c['wordId']}")
-        if e["exerciseType"] == "WORD_IN_VERSE_TAP":
-            v = c["verseArabic"]
-            if not (0 <= c["correctWordStart"] < c["correctWordEnd"] <= len(v)):
-                errors.append(f"{e['id']} bad tap span")
-        if e["exerciseType"] == "FILL_IN_THE_BLANK":
-            v = c["sentenceArabic"]
-            if not (0 <= c["blankStart"] < c["blankEnd"] <= len(v)):
-                errors.append(f"{e['id']} bad blank span")
-        if c.get("audioAssetPath") or e["exerciseType"] in ("TAP_WHAT_YOU_HEAR", "LISTEN_AND_TYPE"):
+        if c.get("audioAssetPath"):
             errors.append(f"{e['id']} references audio, which the app no longer ships")
     for w in words:
         if regular_count[w["id"]] != 1:

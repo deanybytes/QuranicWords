@@ -11,7 +11,7 @@ QuranicWords vous enseigne le vocabulaire du Saint Coran : les 3 833 mots qui re
 • Traductions mot à mot et complètes issues de sources publiées et fiables
 
 ★ APPRENDRE EN PRATIQUANT
-• QCM, textes à trous, mot à toucher et associations
+• QCM et associations
 • La Révision du jour, avec la répétition espacée, ramène chaque mot juste avant que vous ne l'oubliiez
 • Une jauge de mémoire pour chaque mot : Nouveau, En apprentissage, Familier, Solide, Maîtrisé
 • Révisez vos erreurs à tout moment
@@ -45,11 +45,9 @@ QuranicWords vous enseigne le vocabulaire du Saint Coran : les 3 833 mots qui re
 Pour qui ? Étudiants du Coran, apprenants du hifz, nouveaux musulmans, parents et enfants, enseignants – toute personne qui veut comprendre ce qu'elle récite dans la prière.
 
 Commencez aujourd'hui avec cinq mots. En quelques semaines, vous reconnaîtrez la plupart des mots de chaque page du Coran."""
-NOTES = """Nouveautés
-• Nouveau programme : 3 833 mots vérifiés, 97 % du Coran
-• Chaque sens dans un verset complet – seul le mot étudié est surligné
-• Révision du jour, jauge de mémoire, XP, quêtes et cœurs
-• Nouveaux widgets pour l'écran d'accueil
-• 7 polices coraniques dont Nourani et Hafizi, avec numéros de versets
-• Nouvelle visite guidée et résumé de leçon plus clair
-• Références et grammaire entièrement dans votre langue"""
+NOTES = """Nouveautés de la 1.0.1
+• Leçons et quiz utilisent désormais uniquement QCM et associations – plus simples et plus fiables
+• Une deuxième série de sens avec de nouveaux choix pour chaque mot
+• Des associations dans la pratique libre et les quiz
+• Animations plus fluides : étapes de leçon, réponses et transitions
+• Le site est désormais sur quranicwords.deanybytes.io"""

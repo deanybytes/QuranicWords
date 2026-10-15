@@ -11,7 +11,7 @@ QuranicWords mengajarkan kosakata Al-Qur'an: 3.833 kata yang membentuk 97% dari 
 • Terjemahan per kata dan terjemahan lengkap dari sumber terbitan yang terpercaya
 
 ★ BELAJAR SAMBIL BERLATIH
-• Pilihan ganda, isian, ketuk kata, dan mencocokkan
+• Pilihan ganda dan mencocokkan
 • Ulasan Harian dengan pengulangan berjarak menghadirkan kembali setiap kata tepat sebelum Anda lupa
 • Kekuatan ingatan untuk setiap kata: Baru, Sedang dipelajari, Akrab, Kuat, Dikuasai
 • Ulangi kesalahan Anda kapan saja
@@ -45,11 +45,9 @@ QuranicWords mengajarkan kosakata Al-Qur'an: 3.833 kata yang membentuk 97% dari 
 Untuk siapa? Pelajar Al-Qur'an, santri tahfiz, mualaf, orang tua dan anak, guru – siapa saja yang ingin memahami bacaan dalam salatnya.
 
 Mulailah dengan lima kata hari ini. Dalam beberapa minggu Anda akan mengenali sebagian besar kata di setiap halaman Al-Qur'an."""
-NOTES = """Yang baru
-• Kurikulum baru: 3.833 kata terverifikasi, mencakup 97% Al-Qur'an
-• Setiap makna dalam ayat lengkap – hanya kata yang dipelajari disorot
-• Ulasan Harian, kekuatan ingatan, XP, misi, dan hati
-• Widget layar utama yang baru
-• 7 font Al-Qur'an termasuk Nurani & Hafizi, dengan nomor ayat
-• Tur panduan baru dan ringkasan pelajaran yang lebih jelas
-• Rujukan dan tata bahasa sepenuhnya dalam bahasa Anda"""
+NOTES = """Yang baru di 1.0.1
+• Pelajaran dan kuis kini hanya pilihan ganda dan mencocokkan – lebih sederhana dan andal
+• Putaran arti kedua dengan pilihan baru untuk setiap kata
+• Putaran mencocokkan di Latihan Bebas dan kuis
+• Animasi lebih halus: langkah pelajaran, jawaban, dan perpindahan layar
+• Situs web pindah ke quranicwords.deanybytes.io"""

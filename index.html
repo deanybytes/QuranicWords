@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; font-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>QuranicWords — Learn the Vocabulary of the Qur'an, Word by Word</title>
     <meta name="description" content="Learn 3,833 Qur'anic Arabic words in order of frequency with real verse examples, roots, spaced-repetition review, lessons and quizzes. Meanings in 8 languages. Free, open source, no tracking.">
     <meta name="author" content="DeanyBytes">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://quranicwords.vercel.app/">
+    <link rel="canonical" href="https://quranicwords.deanybytes.io/">
 
-    <link rel="alternate" hreflang="x-default" href="https://quranicwords.vercel.app/">
-    <link rel="alternate" hreflang="en" href="https://quranicwords.vercel.app/?lang=en">
-    <link rel="alternate" hreflang="bn" href="https://quranicwords.vercel.app/?lang=bn">
-    <link rel="alternate" hreflang="ur" href="https://quranicwords.vercel.app/?lang=ur">
-    <link rel="alternate" hreflang="hi" href="https://quranicwords.vercel.app/?lang=hi">
-    <link rel="alternate" hreflang="id" href="https://quranicwords.vercel.app/?lang=in">
-    <link rel="alternate" hreflang="tr" href="https://quranicwords.vercel.app/?lang=tr">
-    <link rel="alternate" hreflang="fa" href="https://quranicwords.vercel.app/?lang=fa">
-    <link rel="alternate" hreflang="fr" href="https://quranicwords.vercel.app/?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://quranicwords.deanybytes.io/">
+    <link rel="alternate" hreflang="en" href="https://quranicwords.deanybytes.io/?lang=en">
+    <link rel="alternate" hreflang="bn" href="https://quranicwords.deanybytes.io/?lang=bn">
+    <link rel="alternate" hreflang="ur" href="https://quranicwords.deanybytes.io/?lang=ur">
+    <link rel="alternate" hreflang="hi" href="https://quranicwords.deanybytes.io/?lang=hi">
+    <link rel="alternate" hreflang="id" href="https://quranicwords.deanybytes.io/?lang=in">
+    <link rel="alternate" hreflang="tr" href="https://quranicwords.deanybytes.io/?lang=tr">
+    <link rel="alternate" hreflang="fa" href="https://quranicwords.deanybytes.io/?lang=fa">
+    <link rel="alternate" hreflang="fr" href="https://quranicwords.deanybytes.io/?lang=fr">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="QuranicWords">
-    <meta property="og:url" content="https://quranicwords.vercel.app/">
+    <meta property="og:url" content="https://quranicwords.deanybytes.io/">
     <meta property="og:title" content="QuranicWords — Learn the Vocabulary of the Qur'an">
     <meta property="og:description" content="3,833 Qur'anic Arabic words by frequency, with verse examples, roots, lessons, quizzes and spaced repetition. Meanings in 8 languages.">
-    <meta property="og:image" content="https://quranicwords.vercel.app/icons/icon-512.png">
+    <meta property="og:image" content="https://quranicwords.deanybytes.io/icons/icon-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta property="og:image:alt" content="QuranicWords logo">
@@ -32,7 +34,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="QuranicWords — Learn the Vocabulary of the Qur'an">
     <meta name="twitter:description" content="3,833 Qur'anic Arabic words by frequency, with verse examples, roots, lessons, quizzes and spaced repetition.">
-    <meta name="twitter:image" content="https://quranicwords.vercel.app/icons/icon-512.png">
+    <meta name="twitter:image" content="https://quranicwords.deanybytes.io/icons/icon-512.png">
 
     <link rel="icon" type="image/png" sizes="128x128" href="favicon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -55,22 +57,22 @@
       "@graph": [
         {
           "@type": "WebSite",
-          "@id": "https://quranicwords.vercel.app/#website",
-          "url": "https://quranicwords.vercel.app/",
+          "@id": "https://quranicwords.deanybytes.io/#website",
+          "url": "https://quranicwords.deanybytes.io/",
           "name": "QuranicWords",
           "description": "Learn 3,833 Qur'anic Arabic words in order of frequency, with verse examples, roots and spaced-repetition review.",
           "inLanguage": ["en", "bn", "ur", "hi", "id", "tr", "fa", "fr"],
           "potentialAction": {
             "@type": "SearchAction",
-            "target": { "@type": "EntryPoint", "urlTemplate": "https://quranicwords.vercel.app/dictionary?q={search_term_string}" },
+            "target": { "@type": "EntryPoint", "urlTemplate": "https://quranicwords.deanybytes.io/dictionary?q={search_term_string}" },
             "query-input": "required name=search_term_string"
           }
         },
         {
           "@type": "WebApplication",
-          "@id": "https://quranicwords.vercel.app/#app",
+          "@id": "https://quranicwords.deanybytes.io/#app",
           "name": "QuranicWords",
-          "url": "https://quranicwords.vercel.app/",
+          "url": "https://quranicwords.deanybytes.io/",
           "applicationCategory": "EducationalApplication",
           "operatingSystem": "Any (modern web browser)",
           "browserRequirements": "Requires JavaScript.",
@@ -82,7 +84,7 @@
             "3,833 Qur'anic Arabic words ordered by frequency",
             "Learning path of short lessons with a check quiz",
             "Spaced-repetition review (Leitner boxes)",
-            "Quizzes: Arabic to meaning, meaning to Arabic and verse fill-in",
+            "Quizzes: Arabic to meaning, meaning to Arabic and matching",
             "Up to three senses per word and language, each with its own verse",
             "Root index",
             "Every meaning shown in its complete ayah, with only the taught word highlighted",
@@ -92,7 +94,7 @@
         },
         {
           "@type": "FAQPage",
-          "@id": "https://quranicwords.vercel.app/#faq",
+          "@id": "https://quranicwords.deanybytes.io/#faq",
           "mainEntity": [
             {
               "@type": "Question",

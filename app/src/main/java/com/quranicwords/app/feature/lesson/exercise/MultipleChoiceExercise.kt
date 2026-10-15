@@ -4,7 +4,9 @@ import com.quranicwords.app.core.domain.model.getOrNull
 import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -39,7 +42,9 @@ import com.quranicwords.app.core.ui.components.GlassSurface
 import com.quranicwords.app.core.domain.model.LocalizedSense
 import com.quranicwords.app.core.ui.components.VerseExampleCard
 import com.quranicwords.app.core.ui.components.rememberSelectedLanguage
+import com.quranicwords.app.core.ui.components.StaggeredEntrance
 import com.quranicwords.app.core.ui.motion.MotionSpecs
+import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.core.ui.theme.QuranCitationFontFamily
 import com.quranicwords.app.core.ui.theme.LocalQuranFontFamily
 import com.quranicwords.app.core.ui.theme.quranText
@@ -91,16 +96,18 @@ fun MultipleChoiceExerciseContent(
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            content.options.forEach { option ->
+            content.options.forEachIndexed { index, option ->
                 key(option.id) {
-                    OptionCard(
-                        option = option,
-                        language = language,
-                        isSelected = option.id == selectedOptionId,
-                        isChecked = isChecked,
-                        isCorrectOption = option.id == content.correctOptionId,
-                        onClick = { onSelect(option.id) }
-                    )
+                    StaggeredEntrance(index = index) {
+                        OptionCard(
+                            option = option,
+                            language = language,
+                            isSelected = option.id == selectedOptionId,
+                            isChecked = isChecked,
+                            isCorrectOption = option.id == content.correctOptionId,
+                            onClick = { onSelect(option.id) }
+                        )
+                    }
                 }
             }
         }
@@ -132,6 +139,28 @@ internal fun OptionCard(
     val density = LocalDensity.current
     val pressSpec = MotionSpecs.snappy<Float>()
     val scale by animateFloatAsState(targetValue = if (isPressed) 0.98f else 1f, animationSpec = pressSpec, label = "optionPressScale")
+    // The answer reveal: the correct option pops, a wrong pick shakes - once, when checked.
+    val reducedMotion = rememberReducedMotion()
+    val pop = remember { Animatable(1f) }
+    val shake = remember { Animatable(0f) }
+    LaunchedEffect(isChecked) {
+        if (!isChecked || reducedMotion) return@LaunchedEffect
+        if (isCorrectOption) {
+            pop.snapTo(1.05f)
+            pop.animateTo(1f, MotionSpecs.celebratory())
+        } else if (isSelected) {
+            shake.animateTo(
+                0f,
+                keyframes {
+                    durationMillis = 380
+                    -8f at 60
+                    8f at 130
+                    -5f at 200
+                    3f at 270
+                }
+            )
+        }
+    }
     val tiltX by animateFloatAsState(targetValue = if (isPressed) -3f else 0f, animationSpec = pressSpec, label = "optionPressTilt")
 
     // Correctness is otherwise conveyed by container color alone (see targetContainer above) -
@@ -144,8 +173,9 @@ internal fun OptionCard(
         modifier = Modifier
             .fillMaxWidth()
             .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
+                scaleX = scale * pop.value
+                scaleY = scale * pop.value
+                translationX = shake.value * density.density
                 rotationX = tiltX
                 cameraDistance = 12f * density.density
             }

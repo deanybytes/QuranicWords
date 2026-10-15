@@ -70,7 +70,7 @@ com.quranicwords.app/
     ├── onboarding/{language,path,font,style,goal}/
     ├── home/                  (Curriculum path with 10 Chapters across Ḥarf, Fi'l, and Ism)
     ├── testonlyhome/          (Dedicated 6-mode test hub: Ism, Fi'l, Ḥarf, Mix, Mistaken, Chapterwise)
-    ├── lesson/ (+ exercise/: WordIntro, MultipleChoice, Matching, FillInTheBlank, WordOrderBuilder, TapWordInVerse)
+    ├── lesson/ (+ exercise/: WordIntro, ChapterIntro, MultipleChoice, Matching)
     ├── lessonsummary/         (Words covered stats, mistake review, next lesson preview)
     ├── learnedwords/          (Vocabulary dictionary with Wujūh al-Qur'an modal sheets)
     ├── wordbrowse/            (3D flip-card story-fold word browser)
@@ -133,5 +133,5 @@ Furthermore, **Universal Digit Localization** (`VerseReferenceFormatter.formatDi
 
 - Room DAOs expose `Flow` for anything the UI observes live (points, streak, lesson unlock state).
 - `LessonViewModel.init` fires its independent reads concurrently via `async`, awaiting only where one genuinely depends on another.
-- `ProgressRepositoryImpl.getReviewExercises` dynamically synthesizes in-verse quizzes (`TapWordInVerse`, `FillInTheBlank`, `MultipleChoice`) with localized prompts and verse word spans on background dispatchers.
+- `ProgressRepositoryImpl.getOpenPracticeExercises` builds a multiple-choice question per word and a matching round per five words, with localized prompts (`GeneratedExercisePrompts`).
 

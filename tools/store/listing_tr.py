@@ -11,7 +11,7 @@ QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okud
 • Güvenilir yayımlanmış kaynaklardan kelime meali ve tam meal
 
 ★ YAPARAK ÖĞRENİN
-• Çoktan seçmeli, boşluk doldurma, kelimeye dokunma ve eşleştirme
+• Çoktan seçmeli sorular ve eşleştirme
 • Aralıklı tekrar ile Günlük Tekrar: her kelime tam unutmadan önce yeniden karşınıza çıkar
 • Her kelime için hafıza gücü: Yeni, Öğreniliyor, Tanıdık, Güçlü, Ustalaşıldı
 • Hatalarınızı istediğiniz zaman tekrar edin
@@ -45,11 +45,9 @@ QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okud
 Kimler için? Kur'an öğrencileri, hafızlık öğrencileri, yeni Müslümanlar, anne babalar ve çocuklar, öğretmenler – namazda okuduğunu anlamak isteyen herkes.
 
 Bugün beş kelimeyle başlayın. Birkaç hafta içinde Kur'an'ın her sayfasındaki kelimelerin çoğunu tanıyacaksınız."""
-NOTES = """Yenilikler
-• Yeni müfredat: 3.833 doğrulanmış kelime, Kur'an'ın %97'si
-• Her anlam eksiksiz bir ayette – yalnızca öğretilen kelime vurgulu
-• Günlük Tekrar, hafıza gücü, XP, görevler ve kalpler
-• Yeni ana ekran widget'ları
-• Nurani ve Hafızlık dahil 7 Kur'an yazı tipi, ayet numaralarıyla
-• Yeni tanıtım turu ve daha net ders özeti
-• Referanslar ve dil bilgisi tamamen Türkçe"""
+NOTES = """1.0.1'deki yenilikler
+• Dersler ve sınavlar artık yalnızca çoktan seçmeli ve eşleştirme – daha sade ve güvenilir
+• Her kelime için yeni seçeneklerle ikinci bir anlam turu
+• Serbest alıştırma ve sınavlarda eşleştirme turları
+• Daha akıcı animasyonlar: ders adımları, cevaplar ve ekran geçişleri
+• Web sitesi quranicwords.deanybytes.io adresine taşındı"""

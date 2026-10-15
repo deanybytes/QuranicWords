@@ -48,7 +48,7 @@ retrieval practice, and it is far more effective than a long study block followe
 |---|---|
 | 1 | Teach each word: meaning, root, verb forms, contextual senses, a highlighted verse |
 | 2 | Meaning quiz (Arabic → meaning) for each word |
-| 3 | A verse exercise per word, alternating between *complete the verse* (pick the missing word) and *tap the word in the verse* that has the shown meaning |
+| 3 | A second meaning quiz per word, with fresh distractors |
 | 4 | A closing matching round |
 
 The learning style setting (practice once, 3× or 5×) repeats the quiz steps, re-shuffled so the

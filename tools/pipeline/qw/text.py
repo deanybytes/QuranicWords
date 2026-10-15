@@ -50,17 +50,6 @@ PROMPT_MATCH = {"en": "Match each word to its meaning", "bn": "প্রতি�
                 "ur": "ہر لفظ کو اس کے معنی سے ملائیں", "hi": "प्रत्येक शब्द को उसके अर्थ से मिलाएँ",
                 "in": "Cocokkan setiap kata dengan artinya", "tr": "Her kelimeyi anlamıyla eşleştirin",
                 "fa": "هر کلمه را با معنای آن تطبیق دهید", "fr": "Associez chaque mot à sa signification"}
-PROMPT_FILL = {"en": "Complete the verse", "bn": "আয়াতটি সম্পূর্ণ করুন", "ur": "آیت مکمل کریں",
-               "hi": "आयत पूरी करें", "in": "Lengkapi ayat berikut", "tr": "Ayeti tamamlayın",
-               "fa": "آیه را کامل کنید", "fr": "Complétez le verset"}
-PROMPT_TAP = {"en": "Tap the word that means this", "bn": "এই অর্থের শব্দটি স্পর্শ করুন",
-              "ur": "اس معنی والا لفظ منتخب کریں", "hi": "इस अर्थ वाले शब्द को छुएँ",
-              "in": "Ketuk kata yang berarti ini", "tr": "Bu anlama gelen kelimeye dokunun",
-              "fa": "کلمه‌ای را که این معنا را دارد لمس کنید", "fr": "Touchez le mot qui a ce sens"}
-PROMPT_LISTEN = {"en": "Tap what you hear", "bn": "যা শুনছেন তা স্পর্শ করুন", "ur": "جو سنیں اسے منتخب کریں",
-                 "hi": "जो सुनें उसे छुएँ", "in": "Ketuk yang Anda dengar", "tr": "Duyduğunuza dokunun",
-                 "fa": "آنچه می‌شنوید را لمس کنید", "fr": "Touchez ce que vous entendez"}
-
 CHAPTER_TITLES = [
     {"en": "Particles & Function Words", "bn": "অব্যয় ও কার্যবাচক শব্দ", "ur": "حروف اور معاون الفاظ",
      "hi": "अव्यय और सहायक शब्द", "in": "Partikel & Kata Tugas", "tr": "Edatlar ve İşlev Kelimeleri",

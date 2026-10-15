@@ -8,7 +8,9 @@ from collections import Counter, defaultdict
 from . import arabic, config
 
 # content version -> git ref that shipped it (ContentSeeder.CONTENT_VERSION)
-RELEASES = {35: "v1.0.0", 34: "v1.0.1"}
+# Content version -> the commit that shipped it. Content 34 went out as the old v1.0.1 test build
+# (code 22); that tag now marks the 1.0.1 release (code 101000), so it is pinned by commit.
+RELEASES = {35: "v1.0.0", 34: "75f6160b19fda051166c68c78bff0980ff5624c0"}
 
 
 def _show(ref, path):

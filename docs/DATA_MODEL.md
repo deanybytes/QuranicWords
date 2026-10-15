@@ -47,7 +47,7 @@ erDiagram
         string id PK
         string lessonId FK
         int orderIndex
-        enum type "MULTIPLE_CHOICE | MATCHING | TEACH_WORD | FILL_IN_THE_BLANK | WORD_ORDER | WORD_IN_VERSE_TAP"
+        enum type "WORD_INTRO | CHAPTER_INTRO | MULTIPLE_CHOICE | MATCHING (older types are kept only to decode old attempts)"
         string contentJson "polymorphic ExerciseContent, JSON-encoded"
     }
     USER_PROGRESS {
@@ -68,7 +68,7 @@ erDiagram
 
 > 💡 **`LocalizedText` is a `Map<String, String>` typealias** (`core/domain/model/LocalizedText.kt`), keyed by `Language.tag` (`"en"`, `"bn"`, `"ur"`, `"hi"`, `"in"`, `"ms"`, `"tr"`, `"fa"`, `"ha"`, `"sw"`, `"fr"`). `LocalizedText.get(language, fallback = ENGLISH)` looks up the requested tag, falling back to English then to any entry present rather than throwing. Room persists it via a `Converters.kt` TypeConverter (JSON-encoded string column); kotlinx.serialization handles `Map<String, String>` natively for the bundled JSON content.
 
-> 💡 **`EXERCISE.contentJson` Polymorphism:** `ExerciseContent` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `FillInTheBlank`, `WordOrderBuilder`, `TapWordInVerse`. `ExerciseContent.isScored` is `false` only for `WordIntro` and `ChapterIntro`.
+> 💡 **`EXERCISE.contentJson` Polymorphism:** `ExerciseContent` is a `kotlinx.serialization` sealed interface with subtypes: `WordIntro`, `MultipleChoice`, `Matching`, `ChapterIntro`. `ExerciseContent.isScored` is `false` only for `WordIntro` and `ChapterIntro`.
 
 > 💡 **Scored Quiz Filtering:** `ExerciseDao.getScoredExercisesForItems` explicitly filters `type != 'WORD_INTRO' AND type != 'CHAPTER_INTRO'` so that only true scored exercises are fetched for practice pools, exams, and reviews.
 
@@ -80,7 +80,7 @@ The curriculum dataset is compiled under `app/src/main/assets/content/` (`Conten
 - `chapters.json`: 10 Chapters with localized titles, descriptions, lemma counts, and Quranic coverage percentages.
 - `sections.json`: 78 Sections with chapter references, sort orders, and localized titles.
 - `lessons_vocabulary.json`: 943 lessons by `LessonKind` (767 regular, 78 section reviews, 78 section exams, 10 chapter intros, 10 chapter exams).
-- `exercises_vocabulary.json`: a top-level array of 15,329 polymorphic exercises (stream-decoded at seed time) with exact, token-aligned verse spans: 3,833 word intros, 6,281 meaning quizzes, 2,383 fill-in-the-blank, 1,977 tap-the-word, 845 matching and 10 chapter intros.
+- `exercises_vocabulary.json`: a top-level array of 15,329 polymorphic exercises (stream-decoded at seed time) with exact, token-aligned verse spans: 3,833 word intros, 10,641 multiple-choice quizzes, 845 matching rounds and 10 chapter intros.
 - `word_frequency.json`: 3,833 words ordered by frequency, with meanings in 8 languages (senses joined with `' / '`).
 - `legacy_progress_map.json`: old→new word/lesson maps for content versions 34/35, used once to migrate v1.0.0/v1.0.1 progress.
 

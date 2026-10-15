@@ -59,7 +59,7 @@ import java.time.Clock
 import java.time.LocalDate
 import com.quranicwords.app.core.domain.repository.ContentRepository
 import com.quranicwords.app.core.domain.model.ExerciseContent
-import com.quranicwords.app.core.domain.model.WordSpan
+import com.quranicwords.app.core.domain.model.MatchPair
 import com.quranicwords.app.core.util.AppJson
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -755,79 +755,21 @@ class ProgressRepositoryImpl @Inject constructor(
         val dbByItem = dbExercises.groupBy { it.practicedItemId }
         val orderedItems = if (mode.uppercase() == "FREQUENCY") itemIds else itemIds.shuffled()
 
-        orderedItems.mapIndexedNotNull { index, wordId ->
-            val intro = wordIntros[wordId]
-            val existing = dbByItem[wordId]?.randomOrNull()
-
-            if (intro != null && !intro.exampleVerseArabic.isNullOrBlank() && intro.arabicWordStart != null && intro.arabicWordEnd != null) {
-                val spans = computeWordSpans(intro.exampleVerseArabic)
-                val wStart = intro.arabicWordStart
-                val wEnd = intro.arabicWordEnd
-                val targetSpan = spans.firstOrNull { it.start == wStart && it.end == wEnd }
-                    ?: spans.firstOrNull { it.start <= wStart && wEnd <= it.end }
-
-                when (index % 3) {
-                    1 -> {
-                        // TapWordInVerse (Reverse Verse Quiz)
-                        if (targetSpan != null) {
-                            val tapContent = ExerciseContent.TapWordInVerse(
-                                prompt = GeneratedExercisePrompts.TAP_WORD_PROMPT,
-                                wordId = wordId,
-                                verseArabic = intro.exampleVerseArabic,
-                                verseReference = intro.exampleVerseReference.orEmpty(),
-                                correctWordStart = targetSpan.start,
-                                correctWordEnd = targetSpan.end,
-                                tappableSpans = spans,
-                                meaning = intro.meaning,
-                                verseTranslation = intro.exampleVerseTranslation
-                            )
-                            ExerciseEntity(
-                                id = "test_tap_${wordId}_$index",
-                                lessonId = REVIEW_SESSION_LESSON_ID,
-                                orderIndex = index,
-                                type = ExerciseType.WORD_IN_VERSE_TAP,
-                                contentJson = AppJson.encodeToString(ExerciseContent.serializer(), tapContent),
-                                practicedItemId = wordId
-                            )
-                        } else {
-                            existing ?: buildDefaultMultipleChoice(wordId, intro, index)
-                        }
-                    }
-                    2 -> {
-                        // FillInTheBlank (Verse Completion)
-                        if (targetSpan != null) {
-                            val fillContent = ExerciseContent.FillInTheBlank(
-                                prompt = GeneratedExercisePrompts.FILL_BLANK_PROMPT,
-                                wordId = wordId,
-                                sentenceArabic = intro.exampleVerseArabic,
-                                blankStart = targetSpan.start,
-                                blankEnd = targetSpan.end,
-                                sentenceTranslation = intro.exampleVerseTranslation,
-                                sentenceReference = intro.exampleVerseReference.orEmpty(),
-                                options = listOf(correctOptionFor(wordId, intro)),
-                                correctOptionId = wordId
-                            )
-                            ExerciseEntity(
-                                id = "test_fill_${wordId}_$index",
-                                lessonId = REVIEW_SESSION_LESSON_ID,
-                                orderIndex = index,
-                                type = ExerciseType.FILL_IN_THE_BLANK,
-                                contentJson = AppJson.encodeToString(ExerciseContent.serializer(), fillContent),
-                                practicedItemId = wordId
-                            )
-                        } else {
-                            existing ?: buildDefaultMultipleChoice(wordId, intro, index)
-                        }
-                    }
-                    else -> {
-                        // MultipleChoice (with Verse & Translation)
-                        existing ?: buildDefaultMultipleChoice(wordId, intro, index)
-                    }
-                }
-            } else {
-                existing ?: intro?.let { buildDefaultMultipleChoice(wordId, it, index) }
+        // Multiple choice for every word, and after each group of words a matching round over
+        // that group - the same two exercise types a lesson uses.
+        val out = mutableListOf<ExerciseEntity>()
+        orderedItems.chunked(MATCHING_GROUP_SIZE).forEach { group ->
+            val groupIntros = mutableListOf<Pair<String, ExerciseContent.WordIntro>>()
+            group.forEach { wordId ->
+                val intro = wordIntros[wordId]
+                val existing = dbByItem[wordId]?.randomOrNull()
+                val mc = existing ?: intro?.let { buildDefaultMultipleChoice(wordId, it, out.size) }
+                if (mc != null) out += mc
+                if (intro != null) groupIntros += wordId to intro
             }
+            if (groupIntros.size >= MIN_MATCHING_PAIRS) out += buildMatching(groupIntros, out.size)
         }
+        out
     }
 
     /** One batch from a single grammatical category, without repeats until the whole category has
@@ -855,18 +797,27 @@ class ProgressRepositoryImpl @Inject constructor(
         return sampled
     }
 
-    private fun computeWordSpans(verse: String): List<WordSpan> {
-        val spans = mutableListOf<WordSpan>()
-        var i = 0
-        val n = verse.length
-        while (i < n) {
-            while (i < n && verse[i].isWhitespace()) i++
-            if (i >= n) break
-            val start = i
-            while (i < n && !verse[i].isWhitespace()) i++
-            spans.add(WordSpan(start, i))
-        }
-        return spans
+    private fun buildMatching(words: List<Pair<String, ExerciseContent.WordIntro>>, index: Int): ExerciseEntity {
+        val content = ExerciseContent.Matching(
+            prompt = GeneratedExercisePrompts.MATCHING_PROMPT,
+            pairs = words.mapIndexed { i, (wordId, intro) ->
+                MatchPair(
+                    id = "p${i + 1}",
+                    leftArabic = intro.arabicWord,
+                    left = intro.arabicWord,
+                    right = intro.meaning,
+                    wordId = wordId
+                )
+            }
+        )
+        return ExerciseEntity(
+            id = "test_match_${words.first().first}_$index",
+            lessonId = REVIEW_SESSION_LESSON_ID,
+            orderIndex = index,
+            type = ExerciseType.MATCHING,
+            contentJson = AppJson.encodeToString(ExerciseContent.serializer(), content),
+            practicedItemId = null
+        )
     }
 
     /** Generated exercises bake only their correct option (from the word's own intro) -
@@ -957,5 +908,9 @@ class ProgressRepositoryImpl @Inject constructor(
 
         /** Hearts regenerate every 30 minutes; checking every 15 s keeps the badge current. */
         const val HEARTS_REFRESH_MILLIS = 15_000L
+
+        /** Open Practice adds one matching round per this many words. */
+        const val MATCHING_GROUP_SIZE = 5
+        const val MIN_MATCHING_PAIRS = 3
     }
 }

@@ -23,7 +23,6 @@ import com.quranicwords.app.core.domain.model.LessonResult
 import com.quranicwords.app.core.domain.model.LessonSessionType
 import com.quranicwords.app.core.domain.model.OptionsBearing
 import com.quranicwords.app.core.domain.model.REVIEW_SESSION_LESSON_ID
-import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.domain.model.isScored
 import com.quranicwords.app.core.domain.model.practicedItemId
@@ -66,10 +65,7 @@ data class ExerciseAttemptState(
     val selectedOptionId: String? = null,
     val matchedPairIds: Set<String> = emptySet(),
     val pendingLeftId: String? = null,
-    val orderedChipIds: List<String> = emptyList(),
-    val typedAnswer: String = "",
     val lastMismatch: MismatchEvent? = null,
-    val selectedSpan: WordSpan? = null,
     /** Left-tile pair ids that took at least one wrong tap during this Matching attempt - any
      * entry makes the whole exercise grade as wrong once solved. */
     val mismatchedPairIds: Set<String> = emptySet()
@@ -173,14 +169,10 @@ class LessonViewModel @Inject constructor(
     /** The session's exercise order (exercise ids) - persisted for resume. Empty outside lessons. */
     private var exerciseOrder: List<String> = emptyList()
 
-    /** The session's exercises before localization (distractors already picked) - every language
-     * is rendered from these, so a language change re-localizes without reshuffling anything. */
-    private var baseContents: List<ExerciseContent> = emptyList()
-
-    /** The teach steps of every word in [baseContents], the localizer's input. */
+    /** The teach steps of every word this session shows, the localizer's input. */
     private var sessionIntros: Map<String, ExerciseContent.WordIntro> = emptyMap()
 
-    /** The language [LessonUiState.contents]/[LessonUiState.localizedWords] are currently in. */
+    /** The language [LessonUiState.localizedWords] are currently in. */
     private var localizedLanguage: Language? = null
 
     /** Hearts apply to Learn lessons with something to score (not chapter intros). */
@@ -281,12 +273,10 @@ class LessonViewModel @Inject constructor(
             val wordCategories = categoriesDeferred.await()
             val wordStrengths = strengthsDeferred.await()
 
-            baseContents = contents
             sessionIntros = contentRepository.getWordIntrosForItems(contents.flatMap { it.shownWordIds() }.distinct())
             val language = currentLanguage()
             val localizedWords = exampleLocalizer.localizeAll(sessionIntros.values, language)
             localizedLanguage = language
-            val localizedContents = contents.map { WordExampleLocalizer.localizeExercise(it, localizedWords) }
 
             if (lessonId != null) {
                 lessonCostsHearts = contentRepository.getLesson(lessonId)?.kind != LessonKind.CHAPTER_INTRO &&
@@ -301,7 +291,7 @@ class LessonViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     isLoading = false,
-                    contents = localizedContents,
+                    contents = contents,
                     localizedWords = localizedWords,
                     wordCategories = wordCategories,
                     wordStrengths = wordStrengths,
@@ -329,8 +319,7 @@ class LessonViewModel @Inject constructor(
                 if (language == localizedLanguage) return@collectLatest
                 val localizedWords = exampleLocalizer.localizeAll(sessionIntros.values, language)
                 localizedLanguage = language
-                val contents = baseContents.map { WordExampleLocalizer.localizeExercise(it, localizedWords) }
-                _uiState.update { it.copy(contents = contents, localizedWords = localizedWords) }
+                _uiState.update { it.copy(localizedWords = localizedWords) }
             }
         }
     }
@@ -410,8 +399,6 @@ class LessonViewModel @Inject constructor(
         when (content) {
             is ExerciseContent.WordIntro ->
                 candidatePool.get(content.wordId)?.let { content.copy(meaning = it.meaning) } ?: content
-            is ExerciseContent.TapWordInVerse ->
-                content.copy(meaning = candidatePool.get(content.wordId)?.meaning ?: content.meaning)
             is ExerciseContent.Matching -> content.copy(
                 pairs = content.pairs.map { pair ->
                     pair.wordId?.let { candidatePool.get(it) }?.let { pair.copy(right = it.meaning) } ?: pair
@@ -422,7 +409,7 @@ class LessonViewModel @Inject constructor(
 
     /** Replaces the content-pipeline's fixed, recency-baked options with a freshly-picked set
      * per lesson entry (see [DistractorGenerator]) - content that isn't [OptionsBearing]
-     * (Matching, teach steps, WordOrderBuilder) passes through unchanged. */
+     * (Matching, teach steps) passes through unchanged. */
     private fun regenerateDistractors(
         content: ExerciseContent,
         candidatePool: WordCandidatePool,
@@ -574,32 +561,9 @@ class LessonViewModel @Inject constructor(
         val content = state.currentContent ?: return
         val correct = when (content) {
             is ExerciseContent.MultipleChoice -> state.attempt.selectedOptionId == content.correctOptionId
-            is ExerciseContent.FillInTheBlank -> state.attempt.selectedOptionId == content.correctOptionId
-            is ExerciseContent.WordOrderBuilder ->
-                state.attempt.orderedChipIds == content.orderedChips.map { it.id }
             else -> return // matching self-validates as it's solved
         }
         finalizeCheck(correct)
-    }
-
-    fun selectWordOrderChip(chipId: String) {
-        _uiState.update {
-            if (it.isChecked || chipId in it.attempt.orderedChipIds) it
-            else it.copy(attempt = it.attempt.copy(orderedChipIds = it.attempt.orderedChipIds + chipId))
-        }
-    }
-
-    fun deselectWordOrderChip(chipId: String) {
-        _uiState.update {
-            if (it.isChecked) it
-            else it.copy(attempt = it.attempt.copy(orderedChipIds = it.attempt.orderedChipIds - chipId))
-        }
-    }
-
-    fun updateTypedAnswer(text: String) {
-        _uiState.update {
-            if (it.isChecked) it else it.copy(attempt = it.attempt.copy(typedAnswer = text))
-        }
     }
 
     fun selectMatchingLeft(pairId: String) {
@@ -670,15 +634,6 @@ class LessonViewModel @Inject constructor(
         finalizeCheck(false)
     }
 
-    fun selectVerseWord(span: WordSpan) {
-        val state = _uiState.value
-        val content = state.currentContent as? ExerciseContent.TapWordInVerse ?: return
-        if (state.attempt.selectedSpan != null) return // one-shot, no retry
-        _uiState.update { it.copy(attempt = it.attempt.copy(selectedSpan = span)) }
-        val correct = span.start == content.correctWordStart && span.end == content.correctWordEnd
-        finalizeCheck(correct)
-    }
-
     private fun finalizeCheck(correct: Boolean) {
         val state = _uiState.value
         val content = state.currentContent
@@ -701,9 +656,6 @@ class LessonViewModel @Inject constructor(
         viewModelScope.launch { sfxPlayer.play(if (correct) SfxEffect.CORRECT else SfxEffect.WRONG) }
         val exerciseType = when (content) {
             is ExerciseContent.MultipleChoice -> ExerciseType.MULTIPLE_CHOICE
-            is ExerciseContent.FillInTheBlank -> ExerciseType.FILL_IN_THE_BLANK
-            is ExerciseContent.WordOrderBuilder -> ExerciseType.WORD_ORDER
-            is ExerciseContent.TapWordInVerse -> ExerciseType.WORD_IN_VERSE_TAP
             else -> return // Matching logs per-pair in selectMatchingRight; teach steps never reach here
         }
         val itemId = content.practicedItemId() ?: return

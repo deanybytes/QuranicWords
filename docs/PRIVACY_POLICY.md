@@ -33,7 +33,7 @@ Settings → Backup can export your progress to a file that you choose, and impo
 
 The web version keeps your progress, bookmarks and settings in your own browser's storage. It uses
 no cookies, no analytics and no third-party scripts or fonts, and it works offline after the first
-visit. The site is served by GitHub Pages and Vercel. Like any web host, they may process standard
+visit. The site is served by GitHub Pages. Like any web host, they may process standard
 technical request data, such as your IP address, to deliver the pages. We do not receive, access or
 use that data.
 

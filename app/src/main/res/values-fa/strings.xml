@@ -121,9 +121,7 @@
     <string name="lesson_exit_confirm_message">تا یک روز می‌توانید از صفحهٔ اصلی از همان‌جا که ماندید ادامه دهید.</string>
     <string name="lesson_exit_confirm_leave">خروج</string>
     <string name="lesson_exit_confirm_stay">ادامه یادگیری</string>
-    <string name="lesson_matching_instruction">یک کلمه عربی را لمس کنید، سپس معنای مطابق با آن را انتخاب کنید.</string>
     <string name="lesson_teach_continue_button">متوجه شدم</string>
-    <string name="word_order_build_area_label">پاسخ شما</string>
     <string name="lesson_empty_title">محتوای درس در دسترس نیست</string>
     <string name="lesson_empty_desc">هیچ تمرینی برای این درس یافت نشد. لطفاً به داشبورد بازگردید.</string>
     <!-- Lesson summary -->
@@ -344,7 +342,6 @@
     <string name="a11y_state_matched">جفت شد</string>
     <string name="a11y_state_selected">انتخاب شده</string>
     <string name="a11y_action_match">جفت کردن</string>
-    <string name="a11y_action_select_word">این کلمه را انتخاب کنید</string>
     <string name="a11y_meaning_tab">معنی %1$s از %2$s</string>
     <string name="a11y_action_flip_card">برگرداندن کارت</string>
     <string name="a11y_card_showing_word">در حال نمایش کلمه</string>
@@ -471,7 +468,7 @@
     <string name="walkthrough_page2_title">هر واژه در آیهٔ خودش</string>
     <string name="walkthrough_page2_desc">هر معنا همراه یک آیهٔ کامل است. فقط واژه‌ای که یاد می‌گیرید برجسته می‌شود، همراه با معنای دقیقش در ترجمه.</string>
     <string name="walkthrough_page3_title">با تمرین یاد بگیرید</string>
-    <string name="walkthrough_page3_desc">درس‌های کوتاه شامل چندگزینه‌ای، جای خالی، لمس واژه و جورکردن است. فقط پاسخ نخست شمرده می‌شود، پس هر امتیاز واقعاً به دست آمده است.</string>
+    <string name="walkthrough_page3_desc">درس‌های کوتاه شامل پرسش‌های چندگزینه‌ای و جورکردن است. فقط پاسخ نخست شمرده می‌شود، پس هر امتیاز واقعاً به دست آمده است.</string>
     <string name="walkthrough_page4_title">مرور در زمان درست</string>
     <string name="walkthrough_page4_desc">مرور روزانه هر واژه را درست پیش از فراموش شدن برمی‌گرداند. سنجهٔ حافظه نشان می‌دهد آن را چقدر می‌شناسید: جدید، در حال یادگیری، آشنا، قوی، مسلط.</string>
     <string name="walkthrough_page5_title">انگیزه‌تان را حفظ کنید</string>

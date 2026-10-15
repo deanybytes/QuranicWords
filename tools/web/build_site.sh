@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Assembles the static website into a directory (default: build/site) - exactly the files the
 # site needs, plus a 404.html copy of the app so GitHub Pages serves deep links (/learn, /quiz...)
-# through the client-side router.
+# through the client-side router, and the CNAME for https://quranicwords.deanybytes.io.
+# Only the files listed here are published (the Android app, tooling and store/ never are).
+# Deployed from the deanybytes/QuranicWords fork by .github/workflows/pages.yml.
 #
 #   tools/web/build_site.sh [out_dir]
 set -euo pipefail
@@ -10,7 +12,7 @@ OUT="${1:-$ROOT/build/site}"
 rm -rf "$OUT"
 mkdir -p "$OUT"
 cd "$ROOT"
-cp -r index.html privacy.html manifest.json sw.js favicon.png robots.txt sitemap.xml sitemap-words.xml sitemap-roots.xml css js data icons quran-words quran-roots "$OUT"/
+cp -r CNAME index.html privacy.html manifest.json sw.js favicon.png robots.txt sitemap.xml sitemap-words.xml sitemap-roots.xml css js data icons quran-words quran-roots "$OUT"/
 cp google*.html "$OUT"/ 2>/dev/null || true
 cp [0-9a-f]*.txt "$OUT"/ 2>/dev/null || true   # IndexNow key file
 cp index.html "$OUT/404.html"

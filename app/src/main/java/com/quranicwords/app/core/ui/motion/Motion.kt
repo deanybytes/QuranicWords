@@ -1,5 +1,7 @@
 package com.quranicwords.app.core.ui.motion
 
+import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -27,6 +29,20 @@ object MotionSpecs {
         dampingRatio = Spring.DampingRatioMediumBouncy,
         stiffness = Spring.StiffnessMediumLow
     )
+
+    /** Material 3 emphasized-decelerate easing: things arriving on screen. */
+    val EmphasizedDecelerate: Easing = CubicBezierEasing(0.05f, 0.7f, 0.1f, 1f)
+
+    /** Material 3 emphasized-accelerate easing: things leaving the screen. */
+    val EmphasizedAccelerate: Easing = CubicBezierEasing(0.3f, 0f, 0.8f, 0.15f)
+
+    /** Entrances - screens, lesson steps, sheets. */
+    fun <T> enter(durationMillis: Int = 340): FiniteAnimationSpec<T> =
+        tween(durationMillis = durationMillis, easing = EmphasizedDecelerate)
+
+    /** Exits - shorter than [enter] so the incoming content is never kept waiting. */
+    fun <T> exit(durationMillis: Int = 200): FiniteAnimationSpec<T> =
+        tween(durationMillis = durationMillis, easing = EmphasizedAccelerate)
 
     /** Count-up numbers (points/streak badges) - a fixed duration reads better than a spring for
      * a rapidly-changing integer display. */

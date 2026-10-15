@@ -132,37 +132,15 @@ class Builder:
     def option(self, w):
         return {"id": f"opt_{w.id}", "labelArabic": w.arabic, "label": w.meaning}
 
-    def mc(self, w):
-        opts = [self.option(w)] + [self.option(self.by_id[d]) for d in self.distractors[w.id][:3]]
-        _rng("mc", w.id).shuffle(opts)
+    def mc(self, w, variant=0):
+        """Arabic word -> meaning. Variant 1 is a second round for the same word with fresh
+        distractors, so the repeat is a new choice rather than the same four buttons again."""
+        d = self.distractors[w.id]
+        pool = d[:3] if variant == 0 else (d[3:6] if len(d) >= 6 else d[-3:])
+        opts = [self.option(w)] + [self.option(self.by_id[x]) for x in pool]
+        _rng("mc" if variant == 0 else f"mc{variant}", w.id).shuffle(opts)
         return {"type": "multiple_choice", "prompt": text.PROMPT_MC, "promptArabic": w.arabic, "wordId": w.id,
                 "options": opts, "correctOptionId": f"opt_{w.id}"}
-
-    def fill(self, w):
-        e = self._first(w)
-        verse_ar, _ = self.verse((e.surah, e.ayah, e.word))
-        # The blank is exactly the taught word (not the whole written token), so options show
-        # it as written in this verse; distractors are other words of the same category.
-        correct = {"id": f"opt_{w.id}", "labelArabic": verse_ar[e.word_start:e.word_end], "label": w.meaning}
-        opts = [correct] + [self.option(self.by_id[d]) for d in self.distractors[w.id][:3]]
-        _rng("fill", w.id).shuffle(opts)
-        return {"type": "fill_in_the_blank", "prompt": text.PROMPT_FILL, "wordId": w.id,
-                "sentenceArabic": verse_ar, "blankStart": e.word_start, "blankEnd": e.word_end,
-                "sentenceTranslation": {"en": self.verse_store[self._use_verse(e.surah, e.ayah)]["tr"]["en"]},
-                "sentenceReference": self.reference((e.surah, e.ayah)),
-                "options": opts, "correctOptionId": f"opt_{w.id}"}
-
-    def tap(self, w):
-        e = self._first(w)
-        verse_ar, starts = self.verse((e.surah, e.ayah, e.word))
-        toks = verse_ar.split(" ")
-        spans = [{"start": st, "end": st + len(t)} for st, t in zip(starts, toks)]
-        # Learners tap a whole written word; the correct one is the token holding the taught word.
-        tok = spans[e.word - 1]
-        return {"type": "tap_word_in_verse", "prompt": text.PROMPT_TAP, "wordId": w.id,
-                "verseArabic": verse_ar, "verseReference": self.reference((e.surah, e.ayah)),
-                "correctWordStart": tok["start"], "correctWordEnd": tok["end"], "tappableSpans": spans,
-                "meaning": w.meaning}
 
     def matching(self, ws):
         pairs = [{"id": f"p{i}", "leftArabic": w.arabic, "left": w.arabic, "right": w.meaning, "wordId": w.id}
@@ -291,12 +269,10 @@ class Builder:
                     for w in lw:
                         o += 1
                         self._ex(lid, o, "MULTIPLE_CHOICE", self.mc(w))
-                    for k, w in enumerate(lw):
+                    # Second round: the same words again, with different distractors.
+                    for w in lw:
                         o += 1
-                        if (lesson_no + k) % 2 == 0:
-                            self._ex(lid, o, "FILL_IN_THE_BLANK", self.fill(w))
-                        else:
-                            self._ex(lid, o, "WORD_IN_VERSE_TAP", self.tap(w))
+                        self._ex(lid, o, "MULTIPLE_CHOICE", self.mc(w, variant=1))
                     if len(lw) >= 3:
                         o += 1
                         self._ex(lid, o, "MATCHING", self.matching(lw))
@@ -309,8 +285,7 @@ class Builder:
                 exam = rng.sample(sec_words, min(SECTION_EXAM_SIZE, len(sec_words)))
                 lid = lesson("SECTION_EXAM", text.loc(text.SECTION_EXAM, n=s_idx))
                 for o, w in enumerate(exam, 1):
-                    self._ex(lid, o, "MULTIPLE_CHOICE" if o % 3 else "FILL_IN_THE_BLANK",
-                             self.mc(w) if o % 3 else self.fill(w))
+                    self._ex(lid, o, "MULTIPLE_CHOICE", self.mc(w, variant=0 if o % 3 else 1))
             # Chapter exam belongs to the chapter, not a section.
             lesson_no += 1
             lid = f"l2_{lesson_no:04d}"
@@ -319,7 +294,7 @@ class Builder:
                                  "kind": "CHAPTER_EXAM", "category": category})
             exam = _rng("chapter", ch_id).sample(ch_words, min(CHAPTER_EXAM_SIZE, len(ch_words)))
             for o, w in enumerate(exam, 1):
-                self._ex(lid, o, "MULTIPLE_CHOICE" if o % 4 else "WORD_IN_VERSE_TAP", self.mc(w) if o % 4 else self.tap(w))
+                self._ex(lid, o, "MULTIPLE_CHOICE", self.mc(w, variant=0 if o % 4 else 1))
 
     def word_frequency(self):
         ranked = sorted(self.words, key=lambda w: (-w.frequency, w.id))

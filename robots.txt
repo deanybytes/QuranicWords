@@ -1,7 +1,7 @@
-# robots.txt for QuranicWords (https://quranicwords.vercel.app/)
+# robots.txt for QuranicWords (https://quranicwords.deanybytes.io/)
 User-agent: *
 Allow: /
 
-Sitemap: https://quranicwords.vercel.app/sitemap.xml
-Sitemap: https://quranicwords.vercel.app/sitemap-words.xml
-Sitemap: https://quranicwords.vercel.app/sitemap-roots.xml
+Sitemap: https://quranicwords.deanybytes.io/sitemap.xml
+Sitemap: https://quranicwords.deanybytes.io/sitemap-words.xml
+Sitemap: https://quranicwords.deanybytes.io/sitemap-roots.xml

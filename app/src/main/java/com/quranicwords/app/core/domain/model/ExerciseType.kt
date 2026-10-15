@@ -14,16 +14,28 @@ enum class ExerciseType {
     TAP_WHAT_YOU_HEAR,
     MATCHING,
     TEACH_WORD,
+    /** Withdrawn in 1.0.1: lessons and quizzes use multiple choice and matching only. Kept so
+     * old `exercise_attempts` rows (stored by name) and backups still decode. */
+    @Deprecated("Removed in 1.0.1; kept only to decode old attempt rows.")
     FILL_IN_THE_BLANK,
+    /** Withdrawn - see [FILL_IN_THE_BLANK]. */
+    @Deprecated("Removed in 1.0.1; kept only to decode old attempt rows.")
     WORD_ORDER,
     /** Withdrawn listening exercise - see [TAP_WHAT_YOU_HEAR]. */
     @Deprecated("Listening exercises were removed; kept only to decode old attempt rows.")
     LISTEN_AND_TYPE,
+    /** Withdrawn - see [FILL_IN_THE_BLANK]. */
+    @Deprecated("Removed in 1.0.1; kept only to decode old attempt rows.")
     WORD_IN_VERSE_TAP,
     CHAPTER_INTRO
 }
 
-/** True for the withdrawn listening types, which nothing may create, pick or show any more. */
+/** True for every withdrawn type (listening, fill-in-the-blank, word order, tap-the-word), which
+ * nothing may create, pick or show any more. Only multiple choice and matching are quizzed. */
 @Suppress("DEPRECATION")
 val ExerciseType.isWithdrawn: Boolean
-    get() = this == ExerciseType.TAP_WHAT_YOU_HEAR || this == ExerciseType.LISTEN_AND_TYPE
+    get() = when (this) {
+        ExerciseType.TAP_WHAT_YOU_HEAR, ExerciseType.LISTEN_AND_TYPE,
+        ExerciseType.FILL_IN_THE_BLANK, ExerciseType.WORD_ORDER, ExerciseType.WORD_IN_VERSE_TAP -> true
+        else -> false
+    }

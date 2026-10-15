@@ -1,8 +1,6 @@
-Yang baru
-• Kurikulum baru: 3.833 kata terverifikasi, mencakup 97% Al-Qur'an
-• Setiap makna dalam ayat lengkap – hanya kata yang dipelajari disorot
-• Ulasan Harian, kekuatan ingatan, XP, misi, dan hati
-• Widget layar utama yang baru
-• 7 font Al-Qur'an termasuk Nurani & Hafizi, dengan nomor ayat
-• Tur panduan baru dan ringkasan pelajaran yang lebih jelas
-• Rujukan dan tata bahasa sepenuhnya dalam bahasa Anda
+Yang baru di 1.0.1
+• Pelajaran dan kuis kini hanya pilihan ganda dan mencocokkan – lebih sederhana dan andal
+• Putaran arti kedua dengan pilihan baru untuk setiap kata
+• Putaran mencocokkan di Latihan Bebas dan kuis
+• Animasi lebih halus: langkah pelajaran, jawaban, dan perpindahan layar
+• Situs web pindah ke quranicwords.deanybytes.io

@@ -18,10 +18,10 @@
   Mastered.
 - **Gamification:** XP and levels, combos, optional hearts, daily quests, streaks with recovery,
   a daily-goal ring, achievements with progress, and celebrations.
-- **Exercises:** meaning, verse completion, tap-the-word-in-verse and matching.
+- **Exercises:** multiple choice and matching only (fill-in-the-blank, word order and tap-the-word were removed in 1.0.1).
 - **Accessibility and localization:** TalkBack semantics, RTL verse layout, localized digits,
   plurals and dates.
-- **Web edition** at quranicwords.vercel.app: offline-capable PWA, learn path, spaced review
+- **Web edition** at quranicwords.deanybytes.io: offline-capable PWA, learn path, spaced review
   and quizzes, all on-device. Also a standalone HTML dictionary.
 - **Privacy:** 100% offline, no telemetry, local backup export/import.
 

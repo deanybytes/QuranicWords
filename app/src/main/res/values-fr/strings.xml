@@ -129,9 +129,7 @@
     <string name="lesson_exit_confirm_message">Vous pourrez reprendre là où vous vous êtes arrêté depuis l\'accueil pendant une journée.</string>
     <string name="lesson_exit_confirm_leave">Quitter</string>
     <string name="lesson_exit_confirm_stay">Continuer à apprendre</string>
-    <string name="lesson_matching_instruction">Touchez une lettre, puis touchez sa correspondance.</string>
     <string name="lesson_teach_continue_button">Compris</string>
-    <string name="word_order_build_area_label">Votre réponse</string>
     <string name="lesson_empty_title">Contenu de la leçon indisponible</string>
     <string name="lesson_empty_desc">Aucun exercice trouvé pour cette leçon. Veuillez revenir au tableau de bord.</string>
 
@@ -369,7 +367,6 @@
     <string name="a11y_state_matched">Associé</string>
     <string name="a11y_state_selected">Sélectionné</string>
     <string name="a11y_action_match">Associer</string>
-    <string name="a11y_action_select_word">Choisir ce mot</string>
     <string name="a11y_meaning_tab">Sens %1$s sur %2$s</string>
     <string name="a11y_action_flip_card">Retourner la carte</string>
     <string name="a11y_card_showing_word">Le mot est affiché</string>
@@ -496,7 +493,7 @@
     <string name="walkthrough_page2_title">Chaque mot dans son verset</string>
     <string name="walkthrough_page2_desc">Chaque sens s\'accompagne d\'un verset complet. Seul le mot que vous apprenez est surligné, avec son sens exact dans la traduction.</string>
     <string name="walkthrough_page3_title">Apprendre en pratiquant</string>
-    <string name="walkthrough_page3_desc">De courtes leçons mêlent QCM, textes à trous, mot à toucher et associations. Seule la première réponse compte : chaque point est mérité.</string>
+    <string name="walkthrough_page3_desc">De courtes leçons mêlent QCM et associations. Seule la première réponse compte : chaque point est mérité.</string>
     <string name="walkthrough_page4_title">Réviser au bon moment</string>
     <string name="walkthrough_page4_desc">La Révision du jour ramène chaque mot juste avant que vous ne l\'oubliiez. La jauge de mémoire indique votre niveau : Nouveau, En apprentissage, Familier, Solide, Maîtrisé.</string>
     <string name="walkthrough_page5_title">Restez motivé</string>

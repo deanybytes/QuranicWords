@@ -3,7 +3,6 @@ package com.quranicwords.app.core.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -27,6 +26,7 @@ import androidx.navigation.toRoute
 import com.quranicwords.app.core.data.local.entity.LessonKind
 import com.quranicwords.app.core.domain.model.LearningPath
 import com.quranicwords.app.core.domain.model.LessonSessionType
+import com.quranicwords.app.core.ui.motion.MotionSpecs
 import com.quranicwords.app.core.ui.motion.rememberReducedMotion
 import com.quranicwords.app.feature.achievements.AchievementsScreen
 import com.quranicwords.app.feature.home.HomeScreen
@@ -65,46 +65,46 @@ private class NavTransitions(reducedMotion: Boolean) {
     private val noneExit: ExitSpec = { ExitTransition.None }
 
     val onboardingEnter: EnterSpec = if (reducedMotion) none else {
-        { slideInHorizontally(animationSpec = tween(320)) { it / 4 } + fadeIn(animationSpec = tween(320)) }
+        { slideInHorizontally(animationSpec = MotionSpecs.enter(320)) { it / 4 } + fadeIn(animationSpec = MotionSpecs.enter(320)) }
     }
     val onboardingExit: ExitSpec = if (reducedMotion) noneExit else {
-        { slideOutHorizontally(animationSpec = tween(320)) { -it / 4 } + fadeOut(animationSpec = tween(200)) }
+        { slideOutHorizontally(animationSpec = MotionSpecs.exit(320)) { -it / 4 } + fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
     val onboardingPopEnter: EnterSpec = if (reducedMotion) none else {
-        { slideInHorizontally(animationSpec = tween(320)) { -it / 4 } + fadeIn(animationSpec = tween(320)) }
+        { slideInHorizontally(animationSpec = MotionSpecs.enter(320)) { -it / 4 } + fadeIn(animationSpec = MotionSpecs.enter(320)) }
     }
     val onboardingPopExit: ExitSpec = if (reducedMotion) noneExit else {
-        { slideOutHorizontally(animationSpec = tween(320)) { it / 4 } + fadeOut(animationSpec = tween(200)) }
+        { slideOutHorizontally(animationSpec = MotionSpecs.exit(320)) { it / 4 } + fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
 
     val immersiveEnter: EnterSpec = if (reducedMotion) none else {
-        { scaleIn(initialScale = 0.92f, animationSpec = tween(280)) + fadeIn(animationSpec = tween(280)) }
+        { scaleIn(initialScale = 0.92f, animationSpec = MotionSpecs.enter(280)) + fadeIn(animationSpec = MotionSpecs.enter(280)) }
     }
     val immersiveExit: ExitSpec = if (reducedMotion) noneExit else {
-        { scaleOut(targetScale = 1.05f, animationSpec = tween(200)) + fadeOut(animationSpec = tween(200)) }
+        { scaleOut(targetScale = 1.05f, animationSpec = MotionSpecs.exit(200)) + fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
     val immersivePopEnter: EnterSpec = if (reducedMotion) none else {
-        { scaleIn(initialScale = 1.05f, animationSpec = tween(280)) + fadeIn(animationSpec = tween(280)) }
+        { scaleIn(initialScale = 1.05f, animationSpec = MotionSpecs.enter(280)) + fadeIn(animationSpec = MotionSpecs.enter(280)) }
     }
     val immersivePopExit: ExitSpec = if (reducedMotion) noneExit else {
-        { scaleOut(targetScale = 0.92f, animationSpec = tween(200)) + fadeOut(animationSpec = tween(200)) }
+        { scaleOut(targetScale = 0.92f, animationSpec = MotionSpecs.exit(200)) + fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
 
     val crossfadeEnter: EnterSpec = if (reducedMotion) none else {
-        { fadeIn(animationSpec = tween(260)) }
+        { fadeIn(animationSpec = MotionSpecs.enter(260)) }
     }
     val crossfadeExit: ExitSpec = if (reducedMotion) noneExit else {
-        { fadeOut(animationSpec = tween(200)) }
+        { fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
 
     val modalEnter: EnterSpec = if (reducedMotion) none else {
-        { slideInVertically(animationSpec = tween(320)) { it / 3 } + fadeIn(animationSpec = tween(320)) }
+        { slideInVertically(animationSpec = MotionSpecs.enter(320)) { it / 3 } + fadeIn(animationSpec = MotionSpecs.enter(320)) }
     }
     val modalExit: ExitSpec = if (reducedMotion) noneExit else {
-        { fadeOut(animationSpec = tween(200)) }
+        { fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
     val modalPopExit: ExitSpec = if (reducedMotion) noneExit else {
-        { slideOutVertically(animationSpec = tween(280)) { it / 3 } + fadeOut(animationSpec = tween(200)) }
+        { slideOutVertically(animationSpec = MotionSpecs.exit(280)) { it / 3 } + fadeOut(animationSpec = MotionSpecs.exit(200)) }
     }
 }
 

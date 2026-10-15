@@ -15,7 +15,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-HOST = "quranicwords.vercel.app"
+HOST = "quranicwords.deanybytes.io"
 ENDPOINT = "https://api.indexnow.org/indexnow"
 BATCH = 9000                                   # the protocol allows up to 10,000 URLs per request
 

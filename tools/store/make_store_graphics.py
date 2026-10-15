@@ -35,7 +35,7 @@ SLIDES = {
         ("02-word-in-its-ayah", "Every word in its ayah",
          "Only the taught word is highlighted – with its exact meaning", ["teach_senses"]),
         ("03-learn-by-doing", "Learn by doing",
-         "Quizzes, matching, fill-in & tap-the-word", ["quiz", "matching"]),
+         "Multiple choice & matching quizzes", ["quiz", "matching"]),
         ("04-home-screen-widgets", "Home-screen widgets",
          "Word of the moment, streak, goal & quests at a glance", ["widgets"]),
         ("05-stay-motivated", "Stay motivated",

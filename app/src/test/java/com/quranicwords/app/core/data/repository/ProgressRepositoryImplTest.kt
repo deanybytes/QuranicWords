@@ -543,7 +543,7 @@ class ProgressRepositoryImplTest {
         database.exerciseDao().insertAll(
             listOf(
                 ExerciseEntity("ex_a1", "l1", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "word_a"),
-                ExerciseEntity("ex_a2", "l2", 1, ExerciseType.FILL_IN_THE_BLANK, "{}", "word_a"),
+                ExerciseEntity("ex_a2", "l2", 1, ExerciseType.MULTIPLE_CHOICE, "{}", "word_a"),
                 ExerciseEntity("ex_b1", "l1", 2, ExerciseType.MULTIPLE_CHOICE, "{}", "word_b")
             )
         )
@@ -559,7 +559,7 @@ class ProgressRepositoryImplTest {
 
         // User makes a mistake on word_1 and word_2
         repository.logAttempt(userId, "word_1", ItemKind.WORD, ExerciseType.MULTIPLE_CHOICE, wasCorrect = false)
-        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.FILL_IN_THE_BLANK, wasCorrect = false)
+        repository.logAttempt(userId, "word_2", ItemKind.WORD, ExerciseType.MATCHING, wasCorrect = false)
 
         val missedBefore = repository.getMissedItemIds(userId)
         assertEquals(setOf("word_1", "word_2"), missedBefore.toSet())

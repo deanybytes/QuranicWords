@@ -356,9 +356,19 @@ await test('questions are graded by word id, not by text', () => {
   assert.equal(quiz.isCorrect(q, 'b'), false);
   assert.equal(quiz.buildQuestion('nope', target, others), null);
 });
-await test('verse fill-in blanks exactly the word span', () => {
-  assert.deepEqual(quiz.verseBlank({ v_ar: 'abc def ghi', s: 4, e: 7 }), ['abc ', ' ghi']);
-  assert.equal(quiz.verseBlank({ v_ar: 'abc', s: 1, e: 9 }), null);
+await test('quiz modes are multiple choice and matching only', () => {
+  assert.deepEqual(quiz.MODES, ['ar2m', 'm2ar', 'match']);
+  assert.equal(quiz.verseBlank, undefined, 'the verse fill-in mode is gone');
+  assert.equal(quiz.buildQuestion('verse', { id: 'a' }, []), null);
+});
+await test('a matching round has distinct meanings and skeletons, shuffled on the right', () => {
+  const mk = (id, sk, m) => ({ id, sk, cat: 'NOUN', rank: 1, ar: id, m: { en: m } });
+  const words = [mk('a', 'x', 'one'), mk('b', 'x', 'two'), mk('c', 'y', 'one'), mk('d', 'z', 'three'), mk('e', 'w', 'four'), mk('f', 'v', 'five'), mk('g', 'u', 'six')];
+  const round = quiz.buildMatchRound(words, { lang: 'en', rng: rng(5) });
+  assert.equal(round.mode, 'match');
+  assert.deepEqual(round.words.map((w) => w.id), ['a', 'd', 'e', 'f', 'g'], 'same-skeleton and same-meaning words are skipped');
+  assert.deepEqual(round.right.map((w) => w.id).sort(), round.words.map((w) => w.id).sort());
+  assert.equal(quiz.buildMatchRound(words.slice(0, 3), { lang: 'en' }), null, 'fewer than 3 usable pairs is no round');
 });
 await test('every sense highlight is an exact, in-bounds span in every language', () => {
   for (const lang of ['en', 'bn', 'ur', 'hi', 'in', 'tr', 'fa', 'fr']) {
@@ -369,7 +379,7 @@ await test('every sense highlight is an exact, in-bounds span in every language'
         for (const x of senses) {
           const v = f.verses[x.v];
           assert.ok(v && v.ref && v.ar && v.wbw && v.tr, `${lang} ${id} verse ${x.v}`);
-          assert.ok(quiz.verseBlank({ v_ar: v.ar, s: x.s, e: x.e }), `${lang} ${id} arabic span`);
+          assert.ok(Number.isInteger(x.s) && Number.isInteger(x.e) && x.s >= 0 && x.s < x.e && x.e <= v.ar.length, `${lang} ${id} arabic span`);
           assert.equal(v.wbw.slice(x.ws, x.we), x.m, `${lang} ${id} wbw`);
           if (x.ts !== null) assert.equal(v.tr.slice(x.ts, x.te).toLocaleLowerCase(lang === 'tr' ? 'tr' : 'en'), x.m.toLocaleLowerCase(lang === 'tr' ? 'tr' : 'en'), `${lang} ${id} tr`);
         }
@@ -477,7 +487,7 @@ await test('index.html references only files that exist and is CSP-clean', () =>
     assert.ok(/src="/.test(attrs) && !body.trim(), 'no inline executable scripts');
   }
   assert.ok(!/google-site-verification/.test(html), 'bogus verification meta removed');
-  assert.ok(!/fonts\.googleapis|cdn\.|https?:\/\/(?!quranicwords\.vercel\.app|schema\.org|github\.com|www\.gnu\.org|www\.w3\.org)/.test(html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')), 'no third-party URLs');
+  assert.ok(!/fonts\.googleapis|cdn\.|https?:\/\/(?!quranicwords\.deanybytes\.io|schema\.org|github\.com|www\.gnu\.org|www\.w3\.org)/.test(html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')), 'no third-party URLs');
   assert.ok(!/4,709|77,430|251 roots|11 languages|Apache/.test(html), 'no stale claims');
 });
 await test('JS never parses data as HTML or sets inline style attributes', () => {
@@ -506,23 +516,19 @@ await test('manifest icons exist with the declared sizes and separate purposes',
   assert.ok(man.icons.some((i) => i.purpose === 'any' && i.sizes === '192x192'));
   assert.ok(!/4,709|251|11 languages/.test(JSON.stringify(man)));
 });
-await test('vercel.json: CSP, routes, no standalone rewrites', () => {
-  const v = JSON.parse(read('vercel.json'));
-  const all = v.headers.flatMap((x) => x.headers.map((hh) => [x.source, hh.key, hh.value]));
-  const csp = all.find(([, k]) => k === 'Content-Security-Policy');
-  assert.ok(csp);
-  for (const d of ["default-src 'self'", "script-src 'self'", "style-src 'self'", "img-src 'self' data:", "media-src 'self'", "connect-src 'self'", "font-src 'self'", "frame-ancestors 'self'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"]) assert.ok(csp[2].includes(d), d);
-  assert.ok(!/unsafe-inline|unsafe-eval/.test(csp[2]));
-  assert.ok(all.some(([, k, val]) => k === 'Permissions-Policy' && /camera=\(\)/.test(val)));
-  const rewrites = v.rewrites.map((r) => r.source);
-  for (const p of ['/dictionary', '/flashcards', '/roots', '/quiz', '/learn', '/review', '/progress']) assert.ok(rewrites.includes(p), p);
-  assert.ok(!rewrites.includes('/standalone') && !rewrites.includes('/v1.0.0'));
-});
-await test('.vercelignore excludes the Android app and tooling', () => {
-  const ig = read('.vercelignore');
-  for (const line of ['/app/', '/tools/', '/QuranicWords-v1.0.0.html']) {
-    assert.ok(ig.split('\n').includes(line), line);
-  }
+await test('GitHub Pages: CNAME, CSP meta, canonical host, no Vercel leftovers', () => {
+  assert.equal(read('CNAME').trim(), 'quranicwords.deanybytes.io');
+  assert.ok(!existsSync(join(ROOT, 'vercel.json')) && !existsSync(join(ROOT, '.vercelignore')));
+  const html = read('index.html');
+  const csp = (html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)">/) || [])[1];
+  assert.ok(csp, 'CSP meta tag');
+  for (const d of ["default-src 'self'", "script-src 'self'", "style-src 'self'", "img-src 'self' data:", "connect-src 'self'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"]) assert.ok(csp.includes(d), d);
+  assert.ok(!/unsafe-inline|unsafe-eval|frame-ancestors/.test(csp), 'no unsafe sources; frame-ancestors is ignored in a meta CSP');
+  assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.deanybytes\.io\/">/);
+  for (const f of ['index.html', 'robots.txt', 'sitemap.xml', 'privacy.html']) assert.ok(!/vercel\.app|github\.io\/QuranicWords/.test(read(f)), `${f}: old host`);
+  const build = read('tools/web/build_site.sh');
+  assert.ok(/cp -r CNAME /.test(build) && /404\.html/.test(build), 'build_site.sh publishes CNAME and the 404 fallback');
+  assert.ok(!/(^|\s)store(\/|\s)/.test(build.split('\n').find((l) => l.startsWith('cp -r'))), 'store/ is never published');
 });
 
 await test('every named import resolves to a real export (catches dangling imports)', () => {
@@ -615,7 +621,7 @@ await test('static pages are CSP-clean, canonical and link only to files that ex
     assert.ok(!/\sstyle=/.test(html), `${f}: inline style attribute`);
     assert.ok(!/<style/.test(html), `${f}: inline <style>`);
     for (const m of html.matchAll(/<script([^>]*)>/g)) assert.match(m[1], /application\/ld\+json/, `${f}: executable inline script`);
-    assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.vercel\.app\//, `${f}: canonical`);
+    assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.deanybytes\.io\//, `${f}: canonical`);
     for (const m of html.matchAll(/(?:href|src)="([^"#?]+)"/g)) {
       const u = m[1];
       if (/^(https?:|mailto:)/.test(u)) continue;
