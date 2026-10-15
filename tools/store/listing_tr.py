@@ -49,5 +49,4 @@ NOTES = """1.0.1'deki yenilikler
 • Dersler ve sınavlar artık yalnızca çoktan seçmeli ve eşleştirme – daha sade ve güvenilir
 • Her kelime için yeni seçeneklerle ikinci bir anlam turu
 • Serbest alıştırma ve sınavlarda eşleştirme turları
-• Daha akıcı animasyonlar: ders adımları, cevaplar ve ekran geçişleri
-• Web sitesi quranicwords.deanybytes.io adresine taşındı"""
+• Daha akıcı animasyonlar: ders adımları, cevaplar ve ekran geçişleri"""

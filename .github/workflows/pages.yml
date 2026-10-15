@@ -1,7 +1,7 @@
 name: Deploy website
 
-# Publishes the static site to GitHub Pages at https://quranicwords.deanybytes.io from the
-# deanybytes/QuranicWords fork (its Pages settings hold the custom domain). The code lives in
+# Publishes the static site to GitHub Pages at https://deanybytes.github.io/QuranicWords from the
+# deanybytes/QuranicWords fork (a GitHub Pages project site, no custom domain). The code lives in
 # rmrashahriar/QuranicWords: this job always builds that repo's main branch, so the fork never
 # has to be synced for the site to update. In any other repo the job is skipped.
 # Only what tools/web/build_site.sh copies is published.

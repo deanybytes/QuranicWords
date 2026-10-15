@@ -49,5 +49,4 @@ NOTES = """What's new in 1.0.1
 • Lessons and quizzes now use multiple choice and matching only – simpler and more reliable
 • A second meaning round with fresh choices for every word
 • Matching rounds in Open Practice and quizzes
-• Smoother animations: lesson steps, answers and screen transitions
-• Website moved to quranicwords.deanybytes.io"""
+• Smoother animations: lesson steps, answers and screen transitions"""

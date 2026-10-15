@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://quranicwords.deanybytes.io/"><img alt="Web app" src="https://img.shields.io/badge/Web%20app-quranicwords.deanybytes.io-0a5a3c?style=for-the-badge" /></a>
+  <a href="https://deanybytes.github.io/QuranicWords/"><img alt="Web app" src="https://img.shields.io/badge/Web%20app-deanybytes.github.io-0a5a3c?style=for-the-badge" /></a>
   <a href="https://github.com/deanybytes/QuranicWords/releases/latest"><img alt="Android app" src="https://img.shields.io/badge/Android-v1.0.0-3DDC84?style=for-the-badge&logo=android&logoColor=white" /></a>
   <a href="dataset/"><img alt="Open dataset" src="https://img.shields.io/badge/Open%20dataset-JSON%20%2B%20CSV-ebc971?style=for-the-badge" /></a>
 </p>
@@ -33,10 +33,9 @@ and Français**.
 - 📱 **Android app**: short lessons, spaced-repetition review, quizzes, streaks, quests and
   home-screen widgets. [Download the APK](https://github.com/deanybytes/QuranicWords/releases/latest).
 - 🌐 **Web app**: the same curriculum in any browser, installable and offline after the first
-  visit. [quranicwords.deanybytes.io](https://quranicwords.deanybytes.io/), also at
-  [quranicwords.deanybytes.io](https://quranicwords.deanybytes.io/).
-- 📖 **A page for every word and root**: [Qur'anic words](https://quranicwords.deanybytes.io/quran-words/)
-  and [Qur'anic roots](https://quranicwords.deanybytes.io/quran-roots/), with meanings in all 8
+  visit: [deanybytes.github.io/QuranicWords](https://deanybytes.github.io/QuranicWords/).
+- 📖 **A page for every word and root**: [Qur'anic words](https://deanybytes.github.io/QuranicWords/quran-words/)
+  and [Qur'anic roots](https://deanybytes.github.io/QuranicWords/quran-roots/), with meanings in all 8
   languages and a complete ayah.
 - 🗂️ **Open dataset**: the whole vocabulary as JSON and CSV in [`dataset/`](dataset/), free to reuse.
 - 💾 **Offline HTML dictionary**: one file, no install: `QuranicWords-v1.0.0.html` on the
@@ -246,6 +245,6 @@ Contributions are welcome: meaning corrections, translations, bug reports and co
 - **Licence:** [GPL-3.0](LICENSE). Third-party data and fonts keep their own licences ([NOTICE](NOTICE)).
 - **Cite:** see [CITATION.cff](CITATION.cff) (GitHub shows a "Cite this repository" button).
 - **Contact:** deanybytes@gmail.com, or [open an issue](https://github.com/deanybytes/QuranicWords/issues).
-- **Privacy policy:** [quranicwords.deanybytes.io/privacy.html](https://quranicwords.deanybytes.io/privacy.html)
+- **Privacy policy:** [deanybytes.github.io/QuranicWords/privacy.html](https://deanybytes.github.io/QuranicWords/privacy.html)
 
 Made by **DEANY BYTES**, part of the DEANY TALKS open Islamic education projects.

@@ -4,7 +4,6 @@ What's new in 1.0.1
 • A second meaning round with fresh choices for every word
 • Matching rounds in Open Practice and quizzes
 • Smoother animations: lesson steps, answers and screen transitions
-• Website moved to quranicwords.deanybytes.io
 </en-US>
 <bn-BD>
 ১.০.১-এ নতুন
@@ -12,7 +11,6 @@ What's new in 1.0.1
 • প্রতিটি শব্দের জন্য নতুন বিকল্পসহ দ্বিতীয় অর্থ-পর্ব
 • অনুশীলন ও কুইজে মিলকরণ পর্ব
 • আরও মসৃণ অ্যানিমেশন: পাঠের ধাপ, উত্তর ও স্ক্রিন পরিবর্তন
-• ওয়েবসাইট এখন quranicwords.deanybytes.io
 </bn-BD>
 <ur>
 1.0.1 میں نیا
@@ -20,7 +18,6 @@ What's new in 1.0.1
 • ہر لفظ کے لیے نئے انتخاب کے ساتھ معنی کا دوسرا دور
 • مشق اور کوئز میں جوڑ ملانے کے دور
 • ہموار اینیمیشن: سبق کے مراحل، جوابات اور اسکرین کی تبدیلی
-• ویب سائٹ اب quranicwords.deanybytes.io پر
 </ur>
 <hi-IN>
 1.0.1 में नया
@@ -28,7 +25,6 @@ What's new in 1.0.1
 • हर शब्द के लिए नए विकल्पों के साथ अर्थ का दूसरा दौर
 • अभ्यास और क्विज़ में मिलान के दौर
 • सहज एनिमेशन: पाठ के चरण, उत्तर और स्क्रीन बदलाव
-• वेबसाइट अब quranicwords.deanybytes.io पर
 </hi-IN>
 <id>
 Yang baru di 1.0.1
@@ -36,7 +32,6 @@ Yang baru di 1.0.1
 • Putaran arti kedua dengan pilihan baru untuk setiap kata
 • Putaran mencocokkan di Latihan Bebas dan kuis
 • Animasi lebih halus: langkah pelajaran, jawaban, dan perpindahan layar
-• Situs web pindah ke quranicwords.deanybytes.io
 </id>
 <tr-TR>
 1.0.1'deki yenilikler
@@ -44,7 +39,6 @@ Yang baru di 1.0.1
 • Her kelime için yeni seçeneklerle ikinci bir anlam turu
 • Serbest alıştırma ve sınavlarda eşleştirme turları
 • Daha akıcı animasyonlar: ders adımları, cevaplar ve ekran geçişleri
-• Web sitesi quranicwords.deanybytes.io adresine taşındı
 </tr-TR>
 <fa>
 تازه‌های ۱.۰.۱
@@ -52,7 +46,6 @@ Yang baru di 1.0.1
 • دور دوم معنی با گزینه‌های تازه برای هر واژه
 • دورهای جورکردن در تمرین آزاد و آزمون‌ها
 • پویانمایی روان‌تر: گام‌های درس، پاسخ‌ها و جابه‌جایی صفحه‌ها
-• وب‌سایت به quranicwords.deanybytes.io منتقل شد
 </fa>
 <fr-FR>
 Nouveautés de la 1.0.1
@@ -60,5 +53,4 @@ Nouveautés de la 1.0.1
 • Une deuxième série de sens avec de nouveaux choix pour chaque mot
 • Des associations dans la pratique libre et les quiz
 • Animations plus fluides : étapes de leçon, réponses et transitions
-• Le site est désormais sur quranicwords.deanybytes.io
 </fr-FR>

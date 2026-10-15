@@ -49,5 +49,4 @@ NOTES = """Yang baru di 1.0.1
 • Pelajaran dan kuis kini hanya pilihan ganda dan mencocokkan – lebih sederhana dan andal
 • Putaran arti kedua dengan pilihan baru untuk setiap kata
 • Putaran mencocokkan di Latihan Bebas dan kuis
-• Animasi lebih halus: langkah pelajaran, jawaban, dan perpindahan layar
-• Situs web pindah ke quranicwords.deanybytes.io"""
+• Animasi lebih halus: langkah pelajaran, jawaban, dan perpindahan layar"""
