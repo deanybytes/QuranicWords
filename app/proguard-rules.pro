@@ -1,68 +1,26 @@
-# Disable aggressive code mutation/inlining optimizations that break reflection
--dontoptimize
+# R8 runs with full optimization (no -dontoptimize). Every library used here - kotlinx.serialization,
+# Room, Hilt/Dagger, WorkManager, DataStore, AndroidX Startup, Compose - ships its own consumer
+# rules, so nothing library-wide is kept here; broad "-keep class x.** { *; }" rules stop R8 from
+# shrinking and optimizing and make Play Console flag the release. Only what the app itself
+# reaches by name stays below.
 
-# kotlinx.serialization
--keepattributes *Annotation*, InnerClasses, Signature
--dontnote kotlinx.serialization.AnnotationsKt
-
-# Keep all serialization companion & serializer classes (including $serializer & $$serializer)
--keepclassmembers class com.quranicwords.app.** {
+# kotlinx.serialization: the plugin generates the serializers and the library's own rules keep
+# them. These narrow app-package rules are a safety net for the polymorphic ExerciseContent tree
+# and the backup models decoded from JSON (assets, backups, stored content blobs).
+-keepattributes RuntimeVisibleAnnotations, AnnotationDefault, InnerClasses, Signature
+-keepclassmembers @kotlinx.serialization.Serializable class com.quranicwords.app.** {
     *** Companion;
+    *** INSTANCE;
+    kotlinx.serialization.KSerializer serializer(...);
 }
 -keepclasseswithmembers class com.quranicwords.app.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
--keep class com.quranicwords.app.**$serializer {
-    *;
-}
--keep class com.quranicwords.app.**$$serializer {
-    *;
-}
--keepclassmembers class * {
-    @kotlinx.serialization.Serializable <fields>;
-}
+-if @kotlinx.serialization.Serializable class com.quranicwords.app.**
+-keep,allowoptimization class <1>$$serializer { *; }
 
-# Keep domain models, entities, and asset files
--keep class com.quranicwords.app.core.domain.model.** { *; }
--keep class com.quranicwords.app.core.data.local.entity.** { *; }
--keep class com.quranicwords.app.core.data.assets.** { *; }
--keep class com.quranicwords.app.feature.widget.** { *; }
+# WorkManager stores a worker's class name in its database and re-creates it by that name after
+# an app update, so worker names must survive obfuscation (constructors are kept by WorkManager).
+-keepnames class * extends androidx.work.ListenableWorker
 
-# Keep Room DAOs and Databases
--keep class * extends androidx.room.RoomDatabase { *; }
--keep @androidx.room.Dao interface * { *; }
-
-# Keep ViewModels and Application
--keep class com.quranicwords.app.QwApplication { *; }
--keep class com.quranicwords.app.MainActivity { *; }
--keep class * extends androidx.lifecycle.ViewModel {
-    <init>(...);
-    *;
-}
--keep @dagger.hilt.android.lifecycle.HiltViewModel class * {
-    <init>(...);
-    *;
-}
--keep class com.quranicwords.app.MainViewModel {
-    <init>(...);
-    *;
-}
--keep class com.quranicwords.app.feature.**.*ViewModel {
-    <init>(...);
-    *;
-}
-
-# Hilt, Dagger, Workers, and Startup
--keep class dagger.hilt.** { *; }
--keep class com.quranicwords.app.**_Factory { *; }
--keep class com.quranicwords.app.**_MembersInjector { *; }
--keep class com.quranicwords.app.**_HiltModules** { *; }
--keep class com.quranicwords.app.core.di.** { *; }
--keep class * extends androidx.hilt.work.HiltWorkerFactory { *; }
--keep class * extends androidx.work.ListenableWorker { *; }
--keep class androidx.work.** { *; }
--keep class androidx.startup.** { *; }
-
-# DataStore and Coroutines
--keep class androidx.datastore.** { *; }
 -dontwarn kotlinx.coroutines.**
