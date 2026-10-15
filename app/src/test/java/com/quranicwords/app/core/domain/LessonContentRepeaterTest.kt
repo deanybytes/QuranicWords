@@ -29,15 +29,12 @@ class LessonContentRepeaterTest {
         correctOptionId = wordId
     )
 
-    private fun tapInVerse(wordId: String) = ExerciseContent.TapWordInVerse(
-        prompt = mapOf("en" to "Tap the word"),
+    /** A word's second multiple-choice variant (fresh distractors), as the pipeline authors it. */
+    private fun secondChoice(wordId: String) = ExerciseContent.MultipleChoice(
+        prompt = mapOf("en" to "Tap the meaning"),
         wordId = wordId,
-        verseArabic = wordId,
-        verseReference = "1:1",
-        correctWordStart = 0,
-        correctWordEnd = 1,
-        tappableSpans = emptyList(),
-        meaning = mapOf("en" to wordId)
+        options = listOf(ChoiceOption(id = wordId), ChoiceOption(id = "${wordId}_other")),
+        correctOptionId = wordId
     )
 
     private fun matching(id: String) = ExerciseContent.Matching(
@@ -47,7 +44,7 @@ class LessonContentRepeaterTest {
 
     @Test
     fun `SHARP keeps exactly one exercise per word - the first authored variant`() {
-        val contents = listOf(teach("w1"), multipleChoice("w1"), tapInVerse("w1"))
+        val contents = listOf(teach("w1"), multipleChoice("w1"), secondChoice("w1"))
 
         val result = LessonContentRepeater.apply(contents, repeatCount = 1)
 
@@ -58,21 +55,21 @@ class LessonContentRepeaterTest {
 
     @Test
     fun `SLOW cycles through a word's exercise variants to reach 3 reps`() {
-        val contents = listOf(teach("w1"), multipleChoice("w1"), tapInVerse("w1"))
+        val contents = listOf(teach("w1"), multipleChoice("w1"), secondChoice("w1"))
 
         val result = LessonContentRepeater.apply(contents, repeatCount = 3)
 
         val scored = result.filter { it !is ExerciseContent.WordIntro }
         assertEquals(3, scored.size)
-        // Cycles: MC, TapInVerse, MC (wraps back to the first variant for the 3rd rep).
-        assertTrue(scored[0] is ExerciseContent.MultipleChoice)
-        assertTrue(scored[1] is ExerciseContent.TapWordInVerse)
-        assertTrue(scored[2] is ExerciseContent.MultipleChoice)
+        // Cycles: first variant, second variant, then wraps back to the first for the 3rd rep.
+        assertEquals(multipleChoice("w1"), scored[0])
+        assertEquals(secondChoice("w1"), scored[1])
+        assertEquals(multipleChoice("w1"), scored[2])
     }
 
     @Test
     fun `COZY reaches 5 reps for a word with only 2 authored variants`() {
-        val contents = listOf(teach("w1"), multipleChoice("w1"), tapInVerse("w1"))
+        val contents = listOf(teach("w1"), multipleChoice("w1"), secondChoice("w1"))
 
         val result = LessonContentRepeater.apply(contents, repeatCount = 5)
 
@@ -92,10 +89,10 @@ class LessonContentRepeaterTest {
     @Test
     fun `repeated exercises for multiple words are interleaved so no word repeats consecutively`() {
         val contents = listOf(
-            teach("w1"), multipleChoice("w1"), tapInVerse("w1"),
-            teach("w2"), multipleChoice("w2"), tapInVerse("w2"),
-            teach("w3"), multipleChoice("w3"), tapInVerse("w3"),
-            teach("w4"), multipleChoice("w4"), tapInVerse("w4")
+            teach("w1"), multipleChoice("w1"), secondChoice("w1"),
+            teach("w2"), multipleChoice("w2"), secondChoice("w2"),
+            teach("w3"), multipleChoice("w3"), secondChoice("w3"),
+            teach("w4"), multipleChoice("w4"), secondChoice("w4")
         )
 
         // Run multiple times with different seeds to verify no consecutive repeats occur under any permutation

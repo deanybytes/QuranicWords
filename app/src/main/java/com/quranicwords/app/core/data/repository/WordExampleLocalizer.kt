@@ -6,7 +6,6 @@ import com.quranicwords.app.core.domain.model.ExerciseContent
 import com.quranicwords.app.core.domain.model.Language
 import com.quranicwords.app.core.domain.model.LocalizedSense
 import com.quranicwords.app.core.domain.model.LocalizedWord
-import com.quranicwords.app.core.domain.model.WordSpan
 import com.quranicwords.app.core.domain.model.cleanArabicDisplay
 import com.quranicwords.app.core.util.HighlightUtils
 import com.quranicwords.app.core.util.VerseReferenceFormatter
@@ -18,7 +17,7 @@ import javax.inject.Singleton
  * learner's [Language] into a [LocalizedWord] - its meaning and its proven senses in that
  * language, each joined with the verse it cites (from the `verses` table). Every screen that shows
  * a word's example (teach card, quiz feedback, browse, learned words, widget) goes through here,
- * and the quiz exercises built on a word's example are rewritten from it by [localizeExercise].
+ * and every example shown for a word comes from it.
  *
  * Highlights are exactly the spans the content pipeline proved - nothing is ever searched for.
  * Verses are cached in memory (bounded); content is static between reseeds and a reseed only
@@ -117,72 +116,19 @@ class WordExampleLocalizer(
 
         private fun isValidSpan(start: Int, end: Int, length: Int): Boolean = start in 0 until end && end <= length
 
-        /**
-         * Rewrites the verse-based quiz types onto the word's localized main sense (the verse the
-         * learner's language actually proves the word in), leaving everything else untouched:
-         * - [ExerciseContent.FillInTheBlank]: sentence, blank = exactly the word's span,
-         *   translation and reference from the sense; the correct option's Arabic becomes the
-         *   blanked text itself, and any other option that would read identically is dropped.
-         * - [ExerciseContent.TapWordInVerse]: verse, reference and translation from the sense;
-         *   tappable spans re-split from that verse, the correct one being the token holding the
-         *   word (widened over any further tokens the word spans).
-         * A word without a localized sense keeps its English-default content.
-         */
-        fun localizeExercise(content: ExerciseContent, words: Map<String, LocalizedWord>): ExerciseContent = when (content) {
-            is ExerciseContent.FillInTheBlank ->
-                words[content.wordId]?.primarySense?.let { localizedFillInTheBlank(content, it) } ?: content
-            is ExerciseContent.TapWordInVerse ->
-                words[content.wordId]?.primarySense?.let { localizedTapWordInVerse(content, it) } ?: content
-            else -> content
-        }
-
-        fun localizedFillInTheBlank(content: ExerciseContent.FillInTheBlank, sense: LocalizedSense): ExerciseContent.FillInTheBlank {
-            val word = sense.arabicWord
-            val wordKey = HighlightUtils.arabicReadingKey(word)
-            val options = content.options.mapNotNull { option ->
-                when {
-                    option.id == content.correctOptionId -> option.copy(labelArabic = word)
-                    option.labelArabic?.let { HighlightUtils.arabicReadingKey(it.cleanArabicDisplay()) } == wordKey -> null
-                    else -> option
-                }
-            }
-            return content.copy(
-                sentenceArabic = sense.verseArabic,
-                blankStart = sense.wordStart,
-                blankEnd = sense.wordEnd,
-                sentenceTranslation = mapOf(sense.textLanguage.tag to sense.translationText),
-                sentenceReference = sense.verseKey,
-                options = options
-            )
-        }
-
-        fun localizedTapWordInVerse(content: ExerciseContent.TapWordInVerse, sense: LocalizedSense): ExerciseContent.TapWordInVerse {
-            val tokens = tokenSpans(sense.verseArabic)
-            val first = tokens.indexOfFirst { sense.wordStart >= it.start && sense.wordStart < it.end }
-            if (first < 0) return content
-            val last = tokens.indexOfLast { it.start < sense.wordEnd }.coerceAtLeast(first)
-            val correct = WordSpan(tokens[first].start, tokens[last].end)
-            val spans = tokens.subList(0, first) + correct + tokens.subList(last + 1, tokens.size)
-            return content.copy(
-                verseArabic = sense.verseArabic,
-                verseReference = sense.verseKey,
-                correctWordStart = correct.start,
-                correctWordEnd = correct.end,
-                tappableSpans = spans,
-                verseTranslation = mapOf(sense.textLanguage.tag to sense.translationText)
-            )
-        }
-
         /** The verse's written tokens: the text split on single spaces (empty pieces skipped). */
-        fun tokenSpans(verse: String): List<WordSpan> {
-            val spans = ArrayList<WordSpan>()
+        fun tokenSpans(verse: String): List<TokenSpan> {
+            val spans = ArrayList<TokenSpan>()
             var start = 0
             while (start <= verse.length) {
                 val space = verse.indexOf(' ', start).let { if (it < 0) verse.length else it }
-                if (space > start) spans += WordSpan(start, space)
+                if (space > start) spans += TokenSpan(start, space)
                 start = space + 1
             }
             return spans
         }
     }
 }
+
+/** A char `[start, end)` range of one written token in a verse. */
+data class TokenSpan(val start: Int, val end: Int)

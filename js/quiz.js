@@ -1,6 +1,10 @@
 // Pure quiz logic: shuffling, distractor selection and question building.
 
-export const MODES = ['ar2m', 'm2ar', 'verse'];
+export const MODES = ['ar2m', 'm2ar', 'match'];
+/** Modes answered by picking one of four options (the rest of MODES is matching). */
+export const CHOICE_MODES = ['ar2m', 'm2ar'];
+export const MATCH_SIZE = 5;
+export const MATCH_MIN = 3;
 
 /** Unbiased in-place Fisher–Yates shuffle; returns the array. `rng` returns [0, 1). */
 export function shuffle(arr, rng = Math.random) {
@@ -57,7 +61,7 @@ export function pickDistractors(target, source, { lang = 'en', n = 3, rng = Math
  * @returns {{mode:string, target:object, options:object[], correctId:string}|null}
  */
 export function buildQuestion(mode, target, source, { lang = 'en', rng = Math.random } = {}) {
-  if (!MODES.includes(mode) || !target) return null;
+  if (!CHOICE_MODES.includes(mode) || !target) return null;
   const distractors = pickDistractors(target, source, { lang, n: 3, rng });
   if (distractors.length < 3) return null;
   const options = shuffle([target, ...distractors], rng);
@@ -69,12 +73,26 @@ export function isCorrect(question, optionId) {
   return Boolean(question) && optionId === question.correctId;
 }
 
-/** Splits a verse around the word span for the fill-in mode: [before, after] or null. */
-export function verseBlank(verse) {
-  if (!verse || typeof verse.v_ar !== 'string') return null;
-  const { s, e, v_ar: text } = verse;
-  if (!Number.isInteger(s) || !Number.isInteger(e) || s < 0 || e <= s || e > text.length) return null;
-  return [text.slice(0, s), text.slice(e)];
+/**
+ * Builds a matching round: up to `size` words whose meanings (in `lang`) and Arabic skeletons are
+ * all distinct, so every pair has exactly one defensible partner. `right` is the meaning column,
+ * shuffled independently of the Arabic column.
+ * @returns {{mode:'match', words:object[], right:object[]}|null} null when fewer than MATCH_MIN fit.
+ */
+export function buildMatchRound(candidates, { lang = 'en', size = MATCH_SIZE, rng = Math.random } = {}) {
+  const keys = new Set();
+  const sks = new Set();
+  const words = [];
+  for (const w of candidates) {
+    if (words.length >= size) break;
+    const k = meaningKey(w, lang);
+    if (!w || !k || keys.has(k) || sks.has(w.sk)) continue;
+    keys.add(k);
+    sks.add(w.sk);
+    words.push(w);
+  }
+  if (words.length < MATCH_MIN) return null;
+  return { mode: 'match', words, right: shuffle(words.slice(), rng) };
 }
 
 /** Picks a random element, preferring items accepted by `prefer` (e.g. chapter already loaded). */

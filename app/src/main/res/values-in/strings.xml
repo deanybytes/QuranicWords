@@ -126,9 +126,7 @@
     <string name="lesson_exit_confirm_message">Anda dapat melanjutkan dari Beranda dalam satu hari.</string>
     <string name="lesson_exit_confirm_leave">Tinggalkan</string>
     <string name="lesson_exit_confirm_stay">Terus belajar</string>
-    <string name="lesson_matching_instruction">Ketuk satu huruf, lalu ketuk pasangannya.</string>
     <string name="lesson_teach_continue_button">Mengerti</string>
-    <string name="word_order_build_area_label">Jawaban Anda</string>
     <string name="lesson_empty_title">Konten Pelajaran Tidak Tersedia</string>
     <string name="lesson_empty_desc">Tidak ada latihan yang ditemukan untuk pelajaran ini. Silakan kembali ke dasbor.</string>
 
@@ -368,7 +366,6 @@
     <string name="a11y_state_matched">Cocok</string>
     <string name="a11y_state_selected">Dipilih</string>
     <string name="a11y_action_match">Cocokkan</string>
-    <string name="a11y_action_select_word">Pilih kata ini</string>
     <string name="a11y_meaning_tab">Arti %1$s dari %2$s</string>
     <string name="a11y_action_flip_card">Balik kartu</string>
     <string name="a11y_card_showing_word">Menampilkan kata</string>
@@ -495,7 +492,7 @@
     <string name="walkthrough_page2_title">Setiap kata dalam ayatnya</string>
     <string name="walkthrough_page2_desc">Setiap makna disertai satu ayat lengkap. Hanya kata yang sedang Anda pelajari yang disorot, bersama makna persisnya dalam terjemahan.</string>
     <string name="walkthrough_page3_title">Belajar sambil berlatih</string>
-    <string name="walkthrough_page3_desc">Pelajaran singkat memadukan pilihan ganda, isian, ketuk kata, dan mencocokkan. Hanya jawaban pertama yang dihitung, jadi setiap poin benar-benar Anda raih.</string>
+    <string name="walkthrough_page3_desc">Pelajaran singkat memadukan pilihan ganda dan mencocokkan. Hanya jawaban pertama yang dihitung, jadi setiap poin benar-benar Anda raih.</string>
     <string name="walkthrough_page4_title">Ulangi di waktu yang tepat</string>
     <string name="walkthrough_page4_desc">Ulasan Harian menghadirkan kembali setiap kata tepat sebelum Anda lupa. Meteran ingatan menunjukkan seberapa baik Anda menguasainya: Baru, Sedang dipelajari, Akrab, Kuat, Dikuasai.</string>
     <string name="walkthrough_page5_title">Tetap termotivasi</string>

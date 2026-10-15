@@ -9,7 +9,7 @@ QuranicWords size Kur'an-ı Kerim'in kelime hazinesini öğretir: Kur'an'da okud
 • Güvenilir yayımlanmış kaynaklardan kelime meali ve tam meal
 
 ★ YAPARAK ÖĞRENİN
-• Çoktan seçmeli, boşluk doldurma, kelimeye dokunma ve eşleştirme
+• Çoktan seçmeli sorular ve eşleştirme
 • Aralıklı tekrar ile Günlük Tekrar: her kelime tam unutmadan önce yeniden karşınıza çıkar
 • Her kelime için hafıza gücü: Yeni, Öğreniliyor, Tanıdık, Güçlü, Ustalaşıldı
 • Hatalarınızı istediğiniz zaman tekrar edin

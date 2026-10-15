@@ -100,19 +100,14 @@ In `ProgressRepositoryImpl.getReviewExercises`, test mode sessions dynamically s
 
 ```mermaid
 flowchart TD
-    Word[Word ID from Test Pool] --> Intro{Has WordIntro & Example Verse?}
-    Intro -->|No| MCDefault[MultipleChoice with Word Translation]
-    Intro -->|Yes| Modulo{index % 3}
-    Modulo -->|1| TapVerse[TapWordInVerse:<br/>Reverse Verse Quiz]
-    Modulo -->|2| FillBlank[FillInTheBlank:<br/>Verse Completion]
-    Modulo -->|0| MCVerse[MultipleChoice:<br/>with Verse Context & Translation]
+    Words[Word IDs from Test Pool] --> Group[Groups of 5]
+    Group --> MC[MultipleChoice per word]
+    Group --> Match[Matching round over the group, when 3+ words]
 ```
 
-1. **Verse Word Span Computation** (`computeWordSpans`): Computes character-exact whitespace boundaries across `exampleVerseArabic` to locate the target word span matching `arabicWordStart` and `arabicWordEnd`.
-2. **Reverse Verse Quizzing** (`TapWordInVerse`): Shows the localized translation and meaning highlight, prompting the learner to identify and tap the target Arabic word in the verse text.
-3. **Verse Completion** (`FillInTheBlank`): Blanks out the target word span in the verse, prompting the learner to choose the correct missing word.
-4. **Contextual Multiple Choice** (`MultipleChoice`): Displays the Arabic word along with its full Quranic verse citation, translation, and highlighted meaning.
-5. **Multilingual Prompts**: Automatically applies localized prompts in every interface language (`GeneratedExercisePrompts`).
+1. **Multiple choice** (`MultipleChoice`): the word's authored question when it has one, else one built from its intro; distractors are regenerated at runtime.
+2. **Matching** (`Matching`): after every five words, a round pairing those words with their meanings.
+3. **Multilingual Prompts**: Automatically applies localized prompts in every interface language (`GeneratedExercisePrompts`).
 
 ## 🔢 Universal Digit Localization Algorithm
 
@@ -164,4 +159,4 @@ Because recall is measured over *days*, `WordMemoryRules.applyFirstTry` runs the
 
 **Strength buckets** (`WordStrength`): New (no memory) · Learning (S < 2 d) · Familiar (< 7 d) · Strong (< 30 d) · Mastered (≥ 30 d). "Strong+" is the app's definition of a *learned* word (Progress, lesson summary, Learned Words).
 
-**Daily Review.** Due words (`dueAt ≤ now`, most overdue first, ties by lowest R), capped at 30/50/80 by daily-goal level. `ReviewExercisePicker` chooses one exercise per word by strength: Learning → multiple choice; Familiar → fill-in-the-blank / tap-in-verse (alternating); Strong+ → tap-what-you-hear when the word has verified audio and pronunciation audio is on, else multiple choice.
+**Daily Review.** Due words (`dueAt ≤ now`, most overdue first, ties by lowest R), capped at 30/50/80 by daily-goal level. `ReviewExercisePicker` chooses one multiple-choice exercise per word: the first variant while the word is new or learning, the second (fresh-distractor) variant once it is Familiar or stronger.

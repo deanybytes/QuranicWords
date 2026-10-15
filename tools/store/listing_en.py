@@ -11,7 +11,7 @@ QuranicWords teaches you the vocabulary of the Holy Qur'an: the 3,833 words that
 • Word-by-word and full translations from trusted, published sources
 
 ★ LEARN BY DOING
-• Multiple choice, fill-in-the-blank, tap-the-word and matching exercises
+• Multiple choice and matching exercises; only your first answer counts
 • Daily Review with spaced repetition brings each word back just before you would forget it
 • Memory strength for every word: New, Learning, Familiar, Strong, Mastered
 • Review your mistakes at any time
@@ -45,11 +45,9 @@ QuranicWords teaches you the vocabulary of the Holy Qur'an: the 3,833 words that
 Who is it for? Students of the Qur'an, hifz students, new Muslims, parents and children, teachers – anyone who wants to understand what they recite in prayer.
 
 Start with five words today. In a few weeks you will recognise most of the words on every page of the Qur'an."""
-NOTES = """What's new
-• Rebuilt curriculum: 3,833 verified words covering 97% of the Qur'an
-• Every meaning shown in a complete ayah – only the taught word highlighted
-• Daily Review (spaced repetition), memory strength, XP, quests & hearts
-• New home-screen widgets
-• 7 Qur'an fonts incl. Noorani & Hafezi, with ayah numbers
-• New guided tour and clearer lesson summary
-• References and grammar fully in your language"""
+NOTES = """What's new in 1.0.1
+• Lessons and quizzes now use multiple choice and matching only – simpler and more reliable
+• A second meaning round with fresh choices for every word
+• Matching rounds in Open Practice and quizzes
+• Smoother animations: lesson steps, answers and screen transitions
+• Website moved to quranicwords.deanybytes.io"""

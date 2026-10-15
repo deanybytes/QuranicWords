@@ -129,9 +129,7 @@
     <string name="lesson_exit_confirm_message">ایک دن کے اندر ہوم سے وہیں سے دوبارہ شروع کر سکتے ہیں جہاں چھوڑا تھا۔</string>
     <string name="lesson_exit_confirm_leave">چھوڑیں</string>
     <string name="lesson_exit_confirm_stay">سیکھنا جاری رکھیں</string>
-    <string name="lesson_matching_instruction">ایک حرف پر تھپتھپائیں، پھر اس کے جوڑے پر تھپتھپائیں۔</string>
     <string name="lesson_teach_continue_button">سمجھ گیا</string>
-    <string name="word_order_build_area_label">آپ کا جواب</string>
     <string name="lesson_empty_title">سبق کا مواد دستیاب نہیں ہے</string>
     <string name="lesson_empty_desc">اس سبق کے لیے کوئی مشقیں نہیں ملیں۔ براہ کرم ڈیش بورড پر واپس جائیں۔</string>
 
@@ -368,7 +366,6 @@
     <string name="a11y_state_matched">جوڑا بن گیا</string>
     <string name="a11y_state_selected">منتخب</string>
     <string name="a11y_action_match">جوڑیں</string>
-    <string name="a11y_action_select_word">یہ لفظ منتخب کریں</string>
     <string name="a11y_meaning_tab">معنی %1$s از %2$s</string>
     <string name="a11y_action_flip_card">کارڈ پلٹیں</string>
     <string name="a11y_card_showing_word">لفظ دکھایا جا رہا ہے</string>
@@ -495,7 +492,7 @@
     <string name="walkthrough_page2_title">ہر لفظ اپنی آیت میں</string>
     <string name="walkthrough_page2_desc">ہر معنی کے ساتھ ایک مکمل آیت ہوتی ہے۔ صرف وہ لفظ نمایاں ہوتا ہے جو آپ سیکھ رہے ہیں، اور ترجمے میں اس کا بالکل وہی معنی۔</string>
     <string name="walkthrough_page3_title">مشق سے سیکھیں</string>
-    <string name="walkthrough_page3_desc">مختصر اسباق میں کثیر انتخابی سوالات، خالی جگہ پُر کرنا، لفظ پر ٹیپ کرنا اور جوڑ ملانا شامل ہیں۔ صرف پہلا جواب شمار ہوتا ہے، اس لیے ہر پوائنٹ حقیقی ہے۔</string>
+    <string name="walkthrough_page3_desc">مختصر اسباق میں کثیر انتخابی سوالات اور جوڑ ملانا شامل ہیں۔ صرف پہلا جواب شمار ہوتا ہے، اس لیے ہر پوائنٹ حقیقی ہے۔</string>
     <string name="walkthrough_page4_title">صحیح وقت پر دہرائی</string>
     <string name="walkthrough_page4_desc">روزانہ دہرائی ہر لفظ کو بھولنے سے عین پہلے واپس لاتی ہے۔ یادداشت کا پیمانہ بتاتا ہے کہ آپ اسے کتنا جانتے ہیں: نیا، سیکھ رہے ہیں، مانوس، مضبوط، مہارت حاصل۔</string>
     <string name="walkthrough_page5_title">حوصلہ برقرار رکھیں</string>

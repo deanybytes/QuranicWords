@@ -134,9 +134,7 @@
     <string name="lesson_exit_confirm_message">এক দিনের মধ্যে হোম থেকে যেখানে থেমেছিলেন সেখান থেকে আবার শুরু করতে পারবেন।</string>
     <string name="lesson_exit_confirm_leave">ছেড়ে যান</string>
     <string name="lesson_exit_confirm_stay">শিখতে থাকুন</string>
-    <string name="lesson_matching_instruction">একটি হরফে চাপ দিন, তারপর এর মিল খুঁজুন।</string>
     <string name="lesson_teach_continue_button">বুঝেছি</string>
-    <string name="word_order_build_area_label">আপনার উত্তর</string>
     <string name="lesson_empty_title">পাঠের বিষয়বস্তু অনুপলব্ধ</string>
     <string name="lesson_empty_desc">এই পাঠের জন্য কোনো অনুশীলন পাওয়া যায়নি। অনুগ্রহ করে ড্যাশবোর্ডে ফিরে যান।</string>
 
@@ -368,7 +366,6 @@
     <string name="a11y_state_matched">মিলেছে</string>
     <string name="a11y_state_selected">নির্বাচিত</string>
     <string name="a11y_action_match">মেলান</string>
-    <string name="a11y_action_select_word">এই শব্দটি বেছে নিন</string>
     <string name="a11y_meaning_tab">অর্থ %1$s / %2$s</string>
     <string name="a11y_action_flip_card">কার্ড উল্টান</string>
     <string name="a11y_card_showing_word">শব্দটি দেখানো হচ্ছে</string>
@@ -495,7 +492,7 @@
     <string name="walkthrough_page2_title">প্রতিটি শব্দ তার আয়াতে</string>
     <string name="walkthrough_page2_desc">প্রতিটি অর্থের সাথে থাকে সম্পূর্ণ একটি আয়াত। শুধু আপনি যে শব্দটি শিখছেন সেটি হাইলাইট হয়, অনুবাদে তার হুবহু অর্থসহ।</string>
     <string name="walkthrough_page3_title">অনুশীলনে শিখুন</string>
-    <string name="walkthrough_page3_desc">ছোট পাঠে আছে বহুনির্বাচনী, শূন্যস্থান পূরণ, শব্দ চিহ্নিত করা ও মিলকরণ। শুধু প্রথম উত্তরই গণনা হয়, তাই প্রতিটি পয়েন্ট সত্যিকারের অর্জন।</string>
+    <string name="walkthrough_page3_desc">ছোট পাঠে আছে বহুনির্বাচনী প্রশ্ন ও মিলকরণ। শুধু প্রথম উত্তরই গণনা হয়, তাই প্রতিটি পয়েন্ট সত্যিকারের অর্জন।</string>
     <string name="walkthrough_page4_title">সঠিক সময়ে রিভিশন</string>
     <string name="walkthrough_page4_desc">দৈনিক রিভিশন প্রতিটি শব্দ ভুলে যাওয়ার ঠিক আগে ফিরিয়ে আনে। স্মৃতির শক্তি দেখায় শব্দটি কতটা জানেন: নতুন, শিখছি, পরিচিত, মজবুত, আয়ত্ত।</string>
     <string name="walkthrough_page5_title">উৎসাহ ধরে রাখুন</string>

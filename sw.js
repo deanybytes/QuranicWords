@@ -5,7 +5,7 @@
  *   word and root pages) are cached under their own URL, so they never replace the shell.
  * VERSION must match APP_VERSION in js/config.js (checked by tools/web/smoke_test.mjs).
  */
-const VERSION = '2.2.6';
+const VERSION = '2.3.0';
 const SHELL_CACHE = `qw-shell-${VERSION}`;
 const DATA_CACHE = 'qw-data-v4';   // renamed whenever the data layout changes: older copies are purged on activate
 const PAGES_CACHE = 'qw-pages-v1';
@@ -61,6 +61,7 @@ const SHELL_FILES = [
   'js/locales/fr.js',
   'js/views/dictionary.js',
   'js/views/learn.js',
+  'js/views/matching.js',
   'js/views/progressView.js',
   'js/views/quizView.js',
   'js/views/study.js',

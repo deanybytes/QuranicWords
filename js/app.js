@@ -225,7 +225,15 @@ class App {
     const prev = this.currentView;
     if (prev && prev !== view && VIEW_IMPL[prev].leave) VIEW_IMPL[prev].leave();
     this.currentView = view;
-    for (const sec of document.querySelectorAll('section.view')) sec.hidden = sec.dataset.view !== view;
+    for (const sec of document.querySelectorAll('section.view')) {
+      sec.hidden = sec.dataset.view !== view;
+      // Entrance motion on a view change only (CSS turns it off under reduced motion).
+      if (!sec.hidden && prev !== view) {
+        sec.classList.remove('view-enter');
+        void sec.offsetWidth;
+        sec.classList.add('view-enter');
+      }
+    }
     for (const el of document.querySelectorAll('[data-views]')) el.hidden = !el.dataset.views.split(' ').includes(view);
     for (const a of document.querySelectorAll('.nav-link')) {
       if (a.dataset.route === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');

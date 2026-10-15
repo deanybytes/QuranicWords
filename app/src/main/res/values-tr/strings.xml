@@ -126,9 +126,7 @@
     <string name="lesson_exit_confirm_message">Bir gün içinde kaldığınız yerden Ana sayfadan devam edebilirsiniz.</string>
     <string name="lesson_exit_confirm_leave">Çık</string>
     <string name="lesson_exit_confirm_stay">Öğrenmeye devam et</string>
-    <string name="lesson_matching_instruction">Bir harfe dokunun, ardından eşleşenine dokunun.</string>
     <string name="lesson_teach_continue_button">Anladım</string>
-    <string name="word_order_build_area_label">Cevabınız</string>
     <string name="lesson_empty_title">Ders İçeriği Kullanılamıyor</string>
     <string name="lesson_empty_desc">Bu ders için alıştırma bulunamadı. Lütfen ana panele dönün.</string>
 
@@ -369,7 +367,6 @@
     <string name="a11y_state_matched">Eşleşti</string>
     <string name="a11y_state_selected">Seçildi</string>
     <string name="a11y_action_match">Eşleştir</string>
-    <string name="a11y_action_select_word">Bu kelimeyi seç</string>
     <string name="a11y_meaning_tab">Anlam %1$s / %2$s</string>
     <string name="a11y_action_flip_card">Kartı çevir</string>
     <string name="a11y_card_showing_word">Kelime gösteriliyor</string>
@@ -496,7 +493,7 @@
     <string name="walkthrough_page2_title">Her kelime kendi ayetinde</string>
     <string name="walkthrough_page2_desc">Her anlam eksiksiz bir ayetle gelir. Yalnızca öğrendiğiniz kelime vurgulanır; mealdeki birebir karşılığıyla birlikte.</string>
     <string name="walkthrough_page3_title">Yaparak öğrenin</string>
-    <string name="walkthrough_page3_desc">Kısa dersler çoktan seçmeli, boşluk doldurma, kelimeye dokunma ve eşleştirmeyi bir araya getirir. Yalnızca ilk cevabınız sayılır; her puan gerçek bir kazanımdır.</string>
+    <string name="walkthrough_page3_desc">Kısa dersler çoktan seçmeli soruları ve eşleştirmeyi bir araya getirir. Yalnızca ilk cevabınız sayılır; her puan gerçek bir kazanımdır.</string>
     <string name="walkthrough_page4_title">Doğru zamanda tekrar</string>
     <string name="walkthrough_page4_desc">Günlük Tekrar her kelimeyi tam unutmadan önce geri getirir. Hafıza göstergesi kelimeyi ne kadar bildiğinizi gösterir: Yeni, Öğreniliyor, Tanıdık, Güçlü, Ustalaşıldı.</string>
     <string name="walkthrough_page5_title">Motivasyonunuzu koruyun</string>

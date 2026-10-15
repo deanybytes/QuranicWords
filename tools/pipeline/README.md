@@ -52,8 +52,8 @@ hand in `overrides/function_words.tsv`, which also merges QAC's split duplicates
   early. Each chapter is still a single part of speech.
 - Sections hold 10 lessons of 5 words each, followed by a review and an exam. Each chapter
   ends with a chapter exam.
-- Each word gets a teach step, a meaning quiz, a verse exercise (fill-in-the-blank or
-  tap-the-word) and a closing matching round.
+- Each word gets a teach step, two multiple-choice rounds (the second with fresh
+  distractors) and a closing matching round. Only multiple choice and matching are scored.
 - Distractors come from the same chapter. They never share the answer's written form, root,
   or any meaning in any language.
 

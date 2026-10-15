@@ -1,10 +1,12 @@
 // Learn path: the curriculum in order (chapter → section → lesson of ~5 words).
-// A lesson = teach cards, then a short check quiz; finishing it schedules the words for review.
+// A lesson = teach cards, a multiple-choice check, then a matching round; finishing it schedules
+// the words for review.
 import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, pick, getLang, langInfo } from '../i18n.js';
-import { buildQuestion, shuffle } from '../quiz.js';
+import { buildQuestion, buildMatchRound, shuffle } from '../quiz.js';
 import { catBadge, meaningText, verbFormsLine, verseToggle } from '../components.js';
 import { renderQuestion } from './quizView.js';
+import { renderMatch } from './matching.js';
 import { celebrate } from '../ui.js';
 
 export function lessonName(l) {
@@ -34,6 +36,7 @@ export const learnView = {
     if (!this.run) this.renderPath(ctx, el);
     else if (this.run.phase === 'teach') this.renderTeach(ctx, el);
     else if (this.run.phase === 'check') this.renderCheck(ctx, el);
+    else if (this.run.phase === 'match') this.renderMatchRound(ctx, el);
     else this.renderDone(ctx, el);
   },
 
@@ -135,7 +138,7 @@ export const learnView = {
 
   renderCheck(ctx, el) {
     const r = this.run;
-    if (r.qi >= r.queue.length) { this.finish(ctx); return; }
+    if (r.qi >= r.queue.length) { this.beginMatch(ctx, el); return; }
     const w = ctx.data.byId.get(r.queue[r.qi]);
     if (!r.question || r.question.target.id !== w.id || r.question.answered) {
       r.question = buildQuestion('ar2m', w, ctx.data.words, { lang: getLang() });
@@ -154,6 +157,27 @@ export const learnView = {
         if (!ok) r.queue.push(w.id); // ask again later in the lesson (no XP the second time)
       },
       onNext: () => { r.qi++; r.question = null; ctx.rerender(); el.querySelector('.quiz-option-btn')?.focus(); },
+    });
+  },
+
+  /** After the multiple-choice check, one matching round over the lesson's words. */
+  beginMatch(ctx, el) {
+    const r = this.run;
+    r.match = buildMatchRound(shuffle(r.lesson.words.slice()), { lang: getLang(), size: r.lesson.words.length });
+    if (!r.match) { this.finish(ctx); return; }
+    r.phase = 'match';
+    this.renderMatchRound(ctx, el);
+  },
+
+  renderMatchRound(ctx, el) {
+    const r = this.run;
+    const holder = h('div', { class: 'quiz-box' });
+    el.append(this.header(ctx, t('matchPrompt')), holder);
+    // Words were already graded by the check; a matching mistake schedules extra review
+    // through answerLesson only when the check got that word right first time.
+    this.cleanup = renderMatch(holder, r.match, {
+      onPair: (id, ok) => { if (!ok && r.first.get(id)) ctx.answerLesson(id, false); },
+      onNext: () => this.finish(ctx),
     });
   },
 

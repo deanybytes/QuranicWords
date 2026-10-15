@@ -1,8 +1,6 @@
-What's new
-• Rebuilt curriculum: 3,833 verified words covering 97% of the Qur'an
-• Every meaning shown in a complete ayah – only the taught word highlighted
-• Daily Review (spaced repetition), memory strength, XP, quests & hearts
-• New home-screen widgets
-• 7 Qur'an fonts incl. Noorani & Hafezi, with ayah numbers
-• New guided tour and clearer lesson summary
-• References and grammar fully in your language
+What's new in 1.0.1
+• Lessons and quizzes now use multiple choice and matching only – simpler and more reliable
+• A second meaning round with fresh choices for every word
+• Matching rounds in Open Practice and quizzes
+• Smoother animations: lesson steps, answers and screen transitions
+• Website moved to quranicwords.deanybytes.io

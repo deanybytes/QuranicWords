@@ -30,45 +30,32 @@ class ExerciseContentTest {
         correctOptionId = "o1"
     )
 
-    private fun fillInTheBlank(wordId: String) = ExerciseContent.FillInTheBlank(
-        prompt = mapOf("en" to "Fill in the blank", "bn" to "শূন্যস্থান পূরণ করুন"),
-        wordId = wordId, sentenceArabic = "بِسْمِ ٱللَّهِ", blankStart = 5, blankEnd = 10,
-        sentenceTranslation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে"),
-        sentenceReference = "1:1",
-        options = listOf(ChoiceOption(id = wordId, label = mapOf("en" to "Allah"))), correctOptionId = wordId
-    )
-
-    private fun wordOrder(wordId: String) = ExerciseContent.WordOrderBuilder(
-        prompt = mapOf("en" to "Put in order", "bn" to "সাজান"),
-        wordId = wordId,
-        orderedChips = listOf(ExerciseContent.WordChip("c1", "بِسْمِ"), ExerciseContent.WordChip("c2", "ٱللَّهِ")),
-        translation = mapOf("en" to "In the name of Allah", "bn" to "আল্লাহর নামে")
-    )
-
     @Test
     fun `teach steps are not scored, quiz and matching are`() {
         assertFalse(teachStep("alif").isScored)
         assertTrue(quizStep("q1").isScored)
         assertTrue(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).isScored)
-        assertTrue(fillInTheBlank("w1").isScored)
-        assertTrue(wordOrder("w1").isScored)
     }
 
     @Test
     fun `practicedItemId resolves for scored types and is null for teach steps and matching`() {
         assertNull(teachStep("alif").practicedItemId())
         assertEquals("q1", quizStep("q1").practicedItemId())
-        assertEquals("w1", fillInTheBlank("w1").practicedItemId())
-        assertEquals("w1", wordOrder("w1").practicedItemId())
         assertNull(ExerciseContent.Matching(prompt = EN_BN, pairs = emptyList()).practicedItemId())
     }
 
     @Test
-    fun `new exercise subtypes round-trip through serialization`() {
-        listOf(fillInTheBlank("w1"), wordOrder("w1")).forEach { content ->
+    fun `withdrawn exercise types no longer decode`() {
+        listOf("fill_in_the_blank", "word_order", "tap_word_in_verse", "tap_what_you_hear").forEach { type ->
+            assertNull(type, decodeExerciseContentOrNull("""{"type":"$type","prompt":{"en":"p"},"wordId":"w1"}"""))
+        }
+    }
+
+    @Test
+    fun `quiz types round-trip through serialization`() {
+        listOf(quizStep("w1"), ExerciseContent.Matching(prompt = EN_BN, pairs = listOf(MatchPair(id = "p1", leftArabic = "مِن", wordId = "w1")))).forEach { content ->
             val json = AppJson.encodeToString(ExerciseContent.serializer(), content)
-            val decoded = AppJson.decodeFromString(ExerciseContent.serializer(), json)
-            assertEquals(content, decoded)
+            assertEquals(content, AppJson.decodeFromString(ExerciseContent.serializer(), json))
         }
     }
 

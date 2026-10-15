@@ -1,15 +1,16 @@
-// Quiz view (4 modes) and a reusable multiple-choice question renderer used by lessons.
+// Quiz view (Arabic → meaning, meaning → Arabic, matching) and a reusable multiple-choice
+// question renderer used by lessons.
 import { h, clear, arabic } from '../dom.js';
 import { t, formatNumber, getLang, langInfo, pick } from '../i18n.js';
-import { buildQuestion, isCorrect, pickTarget, verseBlank, MODES } from '../quiz.js';
-import { verseNode, ayahMark } from '../components.js';
+import { buildQuestion, buildMatchRound, isCorrect, pickTarget, shuffle, MODES, MATCH_SIZE } from '../quiz.js';
+import { renderMatch } from './matching.js';
 
 const AUTO_ADVANCE_MS = 1300;
-const MODE_KEYS = { ar2m: 'modeArToMeaning', m2ar: 'modeMeaningToAr', verse: 'modeVerse' };
+const MODE_KEYS = { ar2m: 'modeArToMeaning', m2ar: 'modeMeaningToAr', match: 'modeMatch' };
 const POOLS = { filtered: 'poolFiltered', learned: 'poolLearned', mistakes: 'poolMistakes' };
 
 function optionLabel(q, w) {
-  if (q.mode === 'm2ar' || q.mode === 'verse') return arabic(w.ar, 'opt-ar');
+  if (q.mode === 'm2ar') return arabic(w.ar, 'opt-ar');
   const info = langInfo(getLang());
   return h('span', { attrs: { lang: info.bcp47 }, text: pick(w.m) });
 }
@@ -22,20 +23,11 @@ function stimulus(q) {
       return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-arabic', attrs: { lang: 'ar', dir: 'rtl' }, text: w.ar }));
     case 'm2ar':
       return h('div', { class: 'quiz-stimulus' }, h('p', { class: 'quiz-question-meaning', attrs: { lang: info.bcp47 }, text: pick(w.m) }));
-    case 'verse': {
-      const v = q.verse;
-      const [before, after] = verseBlank(v);
-      const ar = h('p', { class: 'card-verse-arabic quiz-verse', attrs: { lang: 'ar', dir: 'rtl' } },
-        before, h('span', { class: 'blank', attrs: { role: 'img', 'aria-label': t('blankLabel') }, text: '_____' }), after, ayahMark(v.key));
-      // The translation is shown unmarked: marking it would give the answer away.
-      const tr = h('p', { class: 'card-verse-trans', attrs: { lang: info.bcp47, dir: info.dir }, text: v.tr || '' });
-      return h('div', { class: 'quiz-stimulus' }, ar, tr);
-    }
     default: return null;
   }
 }
 
-const PROMPTS = { ar2m: 'quizPromptMeaning', m2ar: 'quizPromptArabic', verse: 'quizPromptVerse' };
+const PROMPTS = { ar2m: 'quizPromptMeaning', m2ar: 'quizPromptArabic' };
 
 /**
  * Renders question `q` into `el`. Calls onAnswer(correct) exactly once (first try), then
@@ -48,8 +40,9 @@ export function renderQuestion(el, q, { onAnswer, onNext, header = null, autoAdv
   const feedback = h('p', { class: 'quiz-feedback', attrs: { role: 'status', 'aria-live': 'polite' } });
   const nextBtn = h('button', { type: 'button', class: 'btn btn-primary', hidden: true, text: t('quizNext'), on: { click: () => { clearTimeout(timer); onNext(); } } });
   const grid = h('div', { class: 'quiz-options-grid', attrs: { role: 'group', 'aria-label': t(PROMPTS[q.mode]) } });
-  for (const opt of q.options) {
+  q.options.forEach((opt, i) => {
     const btn = h('button', { type: 'button', class: 'quiz-option-btn', dataset: { id: opt.id } }, optionLabel(q, opt));
+    btn.style.setProperty('--i', String(i)); // entrance stagger (CSSOM, so the CSP allows it)
     btn.addEventListener('click', () => {
       if (answered) return;
       answered = true;
@@ -59,17 +52,16 @@ export function renderQuestion(el, q, { onAnswer, onNext, header = null, autoAdv
         if (b.dataset.id === q.correctId) b.classList.add('correct');
       }
       if (!ok) btn.classList.add('wrong');
-      const answerText = q.mode === 'm2ar' || q.mode === 'verse' ? q.target.ar : pick(q.target.m);
+      const answerText = q.mode === 'm2ar' ? q.target.ar : pick(q.target.m);
       feedback.textContent = ok ? t('quizCorrect') : t('quizWrong', { answer: answerText });
       feedback.className = `quiz-feedback ${ok ? 'ok' : 'bad'}`;
-      if (q.mode === 'verse') el.querySelector('.quiz-stimulus')?.replaceWith(h('div', { class: 'quiz-stimulus' }, verseNode(q.verse, q.verse.ref)));
       onAnswer(ok);
       nextBtn.hidden = false;
       if (ok && autoAdvance) timer = setTimeout(onNext, AUTO_ADVANCE_MS);
       else nextBtn.focus();
     });
     grid.appendChild(btn);
-  }
+  });
   el.append(
     header || '',
     h('p', { class: 'quiz-prompt', text: t(PROMPTS[q.mode]) }),
@@ -117,53 +109,56 @@ export const quizView = {
           h('div', { class: 'field' }, h('label', { attrs: { for: 'quiz-mode' }, text: t('quizMode') }), modeSel),
           h('div', { class: 'field' }, h('label', { attrs: { for: 'quiz-pool' }, text: t('quizPool') }), poolSel)),
         this.body));
-    if (this.question && this.question.mode === this.mode && !this.question.answered) this.show(ctx, this.question);
+    if (this.question && this.question.mode === this.mode && this.mode !== 'match' && !this.question.answered) this.show(ctx, this.question);
     else this.next(ctx);
   },
 
-  async next(ctx, tries = 0) {
+  next(ctx) {
     if (this.cleanup) { this.cleanup(); this.cleanup = null; }
-    const token = ++this.token;
+    this.token++;
     const pool = this.poolWords(ctx);
     if (!pool.length) {
       this.question = null;
       this.body.replaceChildren(h('p', { class: 'empty-state', text: t('quizNeedWords') }));
       return;
     }
-    const prefer = this.mode === 'verse' ? (w) => ctx.data.hasChapterVerses(w.ch) : null;
-    const target = pickTarget(pool, { prefer, avoidId: this.lastId });
-    let verse = null;
-    if (this.mode === 'verse') {
-      this.body.replaceChildren(h('p', { class: 'muted', attrs: { role: 'status' }, text: t('verseLoading') }));
-      try {
-        verse = await ctx.data.verseFor(target.id);
-      } catch {
-        if (token !== this.token) return;
-        this.body.replaceChildren(h('p', { class: 'error-text', attrs: { role: 'alert' } }, t('verseError'), ' ',
-          h('button', { type: 'button', class: 'btn btn-sm', text: t('retry'), on: { click: () => this.next(ctx) } })));
-        return;
-      }
-      if (token !== this.token) return; // user moved on meanwhile
-      if (!verse || !verseBlank(verse)) { this.lastId = target.id; if (tries < 5) this.next(ctx, tries + 1); else this.body.replaceChildren(h('p', { class: 'muted', text: t('noVerse') })); return; }
+    if (this.mode === 'match') {
+      const round = buildMatchRound(shuffle(pool.slice()), { lang: getLang(), size: MATCH_SIZE });
+      if (!round) { this.question = null; this.body.replaceChildren(h('p', { class: 'empty-state', text: t('quizNeedWords') })); return; }
+      this.question = round;
+      this.showMatch(ctx, round);
+      return;
     }
+    const target = pickTarget(pool, { avoidId: this.lastId });
     const q = buildQuestion(this.mode, target, ctx.data.words, { lang: getLang() });
     if (!q) { this.body.replaceChildren(h('p', { class: 'empty-state', text: t('quizNeedWords') })); return; }
-    q.verse = verse;
     this.lastId = target.id;
     this.question = q;
     this.show(ctx, q);
+  },
+
+  /** Counts one graded answer towards the session score and the learner's progress. */
+  record(ctx, wordId, ok) {
+    this.total++;
+    if (ok) this.score++;
+    ctx.answerQuiz(wordId, ok);
+    this.scoreEl.textContent = t('quizScore', { score: formatNumber(this.score), total: formatNumber(this.total) });
+    this.comboEl.hidden = ctx.store.combo < 2;
+    this.comboEl.textContent = t('quizCombo', { n: formatNumber(ctx.store.combo) });
+  },
+
+  showMatch(ctx, round) {
+    this.cleanup = renderMatch(this.body, round, {
+      onPair: (id, ok) => this.record(ctx, id, ok),
+      onNext: () => { this.question = null; this.next(ctx); },
+    });
   },
 
   show(ctx, q) {
     this.cleanup = renderQuestion(this.body, q, {
       onAnswer: (ok) => {
         q.answered = true;
-        this.total++;
-        if (ok) this.score++;
-        ctx.answerQuiz(q.target.id, ok);
-        this.scoreEl.textContent = t('quizScore', { score: formatNumber(this.score), total: formatNumber(this.total) });
-        this.comboEl.hidden = ctx.store.combo < 2;
-        this.comboEl.textContent = t('quizCombo', { n: formatNumber(ctx.store.combo) });
+        this.record(ctx, q.target.id, ok);
       },
       onNext: () => { this.question = null; this.next(ctx); },
     });

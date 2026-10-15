@@ -1,8 +1,6 @@
-Nouveautés
-• Nouveau programme : 3 833 mots vérifiés, 97 % du Coran
-• Chaque sens dans un verset complet – seul le mot étudié est surligné
-• Révision du jour, jauge de mémoire, XP, quêtes et cœurs
-• Nouveaux widgets pour l'écran d'accueil
-• 7 polices coraniques dont Nourani et Hafizi, avec numéros de versets
-• Nouvelle visite guidée et résumé de leçon plus clair
-• Références et grammaire entièrement dans votre langue
+Nouveautés de la 1.0.1
+• Leçons et quiz utilisent désormais uniquement QCM et associations – plus simples et plus fiables
+• Une deuxième série de sens avec de nouveaux choix pour chaque mot
+• Des associations dans la pratique libre et les quiz
+• Animations plus fluides : étapes de leçon, réponses et transitions
+• Le site est désormais sur quranicwords.deanybytes.io

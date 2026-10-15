@@ -64,13 +64,11 @@ flowchart TD
     Show --> Type{Exercise type}
     Type -->|Teach step<br/>non-scored| Teach["Word Intro:<br/>Multi-meaning tabs + example verses"]
     Teach --> ContinueTeach["Tap Continue"] --> More
-    Type -->|Multiple choice /<br/>Fill in the blank| Select[User selects an option<br/>Live verse context & highlighted translation]
+    Type -->|Multiple choice| Select[User selects an option<br/>Live verse context & highlighted translation]
     Select --> Check[User taps Check]
     Check --> Feedback1[Feedback banner:<br/>correct ✅ / incorrect ❌ + answer]
     Type -->|Matching| Match[User pairs left ↔ right tiles<br/>Highlighted glass translation on tile select]
     Match -->|all pairs matched| Feedback1
-    Type -->|Word order / Verse tap| Build[User builds sequence or taps target verse word<br/>Highlighted glass translation displayed]
-    Build --> Check
     Feedback1 --> More{More exercises?}
     More -->|yes| Continue[Tap Continue] --> Show
     More -->|no| Summary[Lesson Summary Screen]

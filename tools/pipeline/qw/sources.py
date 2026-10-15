@@ -29,7 +29,9 @@ def fetch(name, url, pin=False):
     path = config.CACHE / name
     if not path.exists():
         print(f"  fetching {url}")
-        with urllib.request.urlopen(url, timeout=300) as r, open(path, "wb") as f:
+        # Some hosts refuse urllib's default User-Agent; the sha256 pin still guards the content.
+        req = urllib.request.Request(url, headers={"User-Agent": "QuranicWords-pipeline/1.0"})
+        with urllib.request.urlopen(req, timeout=300) as r, open(path, "wb") as f:
             f.write(r.read())
     digest = _sha256(path)
     pins = _pins()
