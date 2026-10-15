@@ -3,7 +3,7 @@
 # site needs, plus a 404.html copy of the app so GitHub Pages serves deep links (/learn, /quiz...)
 # through the client-side router, and the CNAME for https://quranicwords.deanybytes.io.
 # Only the files listed here are published (the Android app, tooling and store/ never are).
-# Deployed by .github/workflows/pages.yml on every push to main.
+# Deployed from the deanybytes/QuranicWords fork by .github/workflows/pages.yml.
 #
 #   tools/web/build_site.sh [out_dir]
 set -euo pipefail
