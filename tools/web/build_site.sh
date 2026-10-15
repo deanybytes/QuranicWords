@@ -3,7 +3,8 @@
 # site needs, plus a 404.html copy of the app so GitHub Pages serves deep links (/learn, /quiz...)
 # through the client-side router. Served at https://deanybytes.github.io/QuranicWords/.
 # Only the files listed here are published (the Android app, tooling and store/ never are).
-# Deployed from the deanybytes/QuranicWords fork by .github/workflows/pages.yml.
+# Deployed from the deanybytes/QuranicWords fork by .github/workflows/pages.yml; the fork is
+# kept in sync automatically by .github/workflows/sync-fork.yml.
 #
 #   tools/web/build_site.sh [out_dir]
 set -euo pipefail

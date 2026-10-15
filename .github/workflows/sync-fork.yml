@@ -1,0 +1,52 @@
+name: Sync deanybytes fork
+
+# Keeps deanybytes/QuranicWords identical to this repo's main. On every push it adds one
+# "Sync from main <sha>: <subject>" commit on top of the fork's main, carrying this commit's
+# exact file tree - the fork's own history is never rewritten. The push is made with a deploy
+# key (secret DEANYBYTES_DEPLOY_KEY, write access to the fork only), so it triggers the fork's
+# "Deploy website" workflow and the site at https://deanybytes.github.io/QuranicWords/ updates.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-fork
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Push to deanybytes/QuranicWords
+    if: github.repository == 'rmrashahriar/QuranicWords'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Load the deploy key
+        env:
+          DEPLOY_KEY: ${{ secrets.DEANYBYTES_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/fork_key && chmod 600 ~/.ssh/fork_key
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          git config --global core.sshCommand "ssh -i ~/.ssh/fork_key -o IdentitiesOnly=yes"
+
+      - name: Add a sync commit to the fork
+        run: |
+          git remote add fork git@github.com:deanybytes/QuranicWords.git
+          git fetch --depth=1 fork main
+          tree="$(git rev-parse HEAD^{tree})"
+          if [ "$(git rev-parse FETCH_HEAD^{tree})" = "$tree" ]; then
+            echo "fork already matches $(git rev-parse --short HEAD)"; exit 0
+          fi
+          subject="$(git log -1 --format=%s HEAD)"
+          git config user.name "$(git log -1 --format=%an HEAD)"
+          git config user.email "$(git log -1 --format=%ae HEAD)"
+          commit="$(git commit-tree "$tree" -p FETCH_HEAD -m "Sync from main $(git rev-parse --short HEAD): ${subject}")"
+          git push fork "${commit}:refs/heads/main"
+          echo "fork main -> ${commit} (tree of $(git rev-parse --short HEAD))"

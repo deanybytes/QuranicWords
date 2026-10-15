@@ -1,15 +1,13 @@
 name: Deploy website
 
-# Publishes the static site to GitHub Pages at https://deanybytes.github.io/QuranicWords from the
+# Publishes the static site to GitHub Pages at https://deanybytes.github.io/QuranicWords/ from the
 # deanybytes/QuranicWords fork (a GitHub Pages project site, no custom domain). The code lives in
-# rmrashahriar/QuranicWords: this job always builds that repo's main branch, so the fork never
-# has to be synced for the site to update. In any other repo the job is skipped.
+# rmrashahriar/QuranicWords; its "Sync deanybytes fork" workflow pushes every change to the fork,
+# and that push runs this deploy. In any other repo the job is skipped.
 # Only what tools/web/build_site.sh copies is published.
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: '17 * * * *'   # hourly: picks up new commits on rmrashahriar/QuranicWords main
   workflow_dispatch:
 
 permissions:
@@ -21,48 +19,28 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  SOURCE_REPO: rmrashahriar/QuranicWords
-
 jobs:
   build:
     name: Test and build
     if: github.repository_owner == 'deanybytes'
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.changed.outputs.skip }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          repository: ${{ env.SOURCE_REPO }}
-          ref: main
-      - name: Skip a scheduled run when the source got no commit in the last hour
-        id: changed
-        run: |
-          age=$(( $(date +%s) - $(git log -1 --format=%ct) ))
-          if [ "${GITHUB_EVENT_NAME}" = "schedule" ] && [ "$age" -gt 3900 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
-          echo "source $(git rev-parse --short HEAD), last commit ${age}s ago"
       - uses: actions/setup-node@v4
-        if: steps.changed.outputs.skip != 'true'
         with:
           node-version: '20'
       - name: Smoke tests
-        if: steps.changed.outputs.skip != 'true'
         run: node tools/web/smoke_test.mjs
       - name: Assemble site
-        if: steps.changed.outputs.skip != 'true'
         run: tools/web/build_site.sh build/site
       - uses: actions/configure-pages@v5
-        if: steps.changed.outputs.skip != 'true'
       - uses: actions/upload-pages-artifact@v3
-        if: steps.changed.outputs.skip != 'true'
         with:
           path: build/site
 
   deploy:
     name: Deploy
     needs: build
-    if: needs.build.outputs.skip != 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
