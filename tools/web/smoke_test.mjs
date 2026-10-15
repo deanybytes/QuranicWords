@@ -486,7 +486,8 @@ await test('index.html references only files that exist and is CSP-clean', () =>
     if (/application\/ld\+json/.test(attrs)) { JSON.parse(body); continue; }
     assert.ok(/src="/.test(attrs) && !body.trim(), 'no inline executable scripts');
   }
-  assert.ok(!/google-site-verification/.test(html), 'bogus verification meta removed');
+  assert.equal((html.match(/<meta name="google-site-verification" content="[^"]+"/g) || []).length, 1, 'exactly one Search Console verification tag');
+  assert.ok(html.includes('<meta name="google-site-verification" content="DFmwMCjcduUBmJCIogjvS_x_8dSeYUecUyT2DSeh5fY" />'), 'Search Console token for deanybytes.github.io/QuranicWords');
   assert.ok(!/fonts\.googleapis|cdn\.|https?:\/\/(?!deanybytes\.github\.io|schema\.org|github\.com|www\.gnu\.org|www\.w3\.org)/.test(html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')), 'no third-party URLs');
   assert.ok(!/4,709|77,430|251 roots|11 languages|Apache/.test(html), 'no stale claims');
 });
