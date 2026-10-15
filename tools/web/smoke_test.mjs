@@ -487,7 +487,7 @@ await test('index.html references only files that exist and is CSP-clean', () =>
     assert.ok(/src="/.test(attrs) && !body.trim(), 'no inline executable scripts');
   }
   assert.ok(!/google-site-verification/.test(html), 'bogus verification meta removed');
-  assert.ok(!/fonts\.googleapis|cdn\.|https?:\/\/(?!quranicwords\.deanybytes\.io|schema\.org|github\.com|www\.gnu\.org|www\.w3\.org)/.test(html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')), 'no third-party URLs');
+  assert.ok(!/fonts\.googleapis|cdn\.|https?:\/\/(?!deanybytes\.github\.io|schema\.org|github\.com|www\.gnu\.org|www\.w3\.org)/.test(html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')), 'no third-party URLs');
   assert.ok(!/4,709|77,430|251 roots|11 languages|Apache/.test(html), 'no stale claims');
 });
 await test('JS never parses data as HTML or sets inline style attributes', () => {
@@ -516,18 +516,18 @@ await test('manifest icons exist with the declared sizes and separate purposes',
   assert.ok(man.icons.some((i) => i.purpose === 'any' && i.sizes === '192x192'));
   assert.ok(!/4,709|251|11 languages/.test(JSON.stringify(man)));
 });
-await test('GitHub Pages: CNAME, CSP meta, canonical host, no Vercel leftovers', () => {
-  assert.equal(read('CNAME').trim(), 'quranicwords.deanybytes.io');
+await test('GitHub Pages project site: CSP meta, canonical host, no custom domain or Vercel leftovers', () => {
+  assert.ok(!existsSync(join(ROOT, 'CNAME')), 'served at deanybytes.github.io/QuranicWords, no custom domain');
   assert.ok(!existsSync(join(ROOT, 'vercel.json')) && !existsSync(join(ROOT, '.vercelignore')));
   const html = read('index.html');
   const csp = (html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)">/) || [])[1];
   assert.ok(csp, 'CSP meta tag');
   for (const d of ["default-src 'self'", "script-src 'self'", "style-src 'self'", "img-src 'self' data:", "connect-src 'self'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"]) assert.ok(csp.includes(d), d);
   assert.ok(!/unsafe-inline|unsafe-eval|frame-ancestors/.test(csp), 'no unsafe sources; frame-ancestors is ignored in a meta CSP');
-  assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.deanybytes\.io\/">/);
-  for (const f of ['index.html', 'robots.txt', 'sitemap.xml', 'privacy.html']) assert.ok(!/vercel\.app|github\.io\/QuranicWords/.test(read(f)), `${f}: old host`);
+  assert.match(html, /<link rel="canonical" href="https:\/\/deanybytes\.github\.io\/QuranicWords\/">/);
+  for (const f of ['index.html', 'robots.txt', 'sitemap.xml', 'privacy.html']) assert.ok(!/vercel\.app|deanybytes\.io/.test(read(f)), `${f}: old host`);
   const build = read('tools/web/build_site.sh');
-  assert.ok(/cp -r CNAME /.test(build) && /404\.html/.test(build), 'build_site.sh publishes CNAME and the 404 fallback');
+  assert.ok(/404\.html/.test(build), 'build_site.sh publishes the 404 fallback');
   assert.ok(!/(^|\s)store(\/|\s)/.test(build.split('\n').find((l) => l.startsWith('cp -r'))), 'store/ is never published');
 });
 
@@ -621,7 +621,7 @@ await test('static pages are CSP-clean, canonical and link only to files that ex
     assert.ok(!/\sstyle=/.test(html), `${f}: inline style attribute`);
     assert.ok(!/<style/.test(html), `${f}: inline <style>`);
     for (const m of html.matchAll(/<script([^>]*)>/g)) assert.match(m[1], /application\/ld\+json/, `${f}: executable inline script`);
-    assert.match(html, /<link rel="canonical" href="https:\/\/quranicwords\.deanybytes\.io\//, `${f}: canonical`);
+    assert.match(html, /<link rel="canonical" href="https:\/\/deanybytes\.github\.io\/QuranicWords\//, `${f}: canonical`);
     for (const m of html.matchAll(/(?:href|src)="([^"#?]+)"/g)) {
       const u = m[1];
       if (/^(https?:|mailto:)/.test(u)) continue;

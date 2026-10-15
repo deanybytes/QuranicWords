@@ -230,7 +230,7 @@ def main():
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://quranicwords.deanybytes.io/">
+    <meta property="og:url" content="https://deanybytes.github.io/QuranicWords/">
     <meta property="og:site_name" content="QuranicWords">
     <meta property="og:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
     <meta property="og:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
@@ -241,7 +241,7 @@ def main():
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://quranicwords.deanybytes.io/">
+    <meta name="twitter:url" content="https://deanybytes.github.io/QuranicWords/">
     <meta name="twitter:title" content="QuranicWords — {n_words} Quranic Vocabulary Master Dictionary">
     <meta name="twitter:description" content="Master {n_words} Quranic Arabic vocabulary words organized by frequency with authentic Ayah contexts in 8 languages.">
     <meta name="twitter:image" content="{LOGO_DATA_URI}">
@@ -259,7 +259,7 @@ def main():
         {{
           "@type": "WebApplication",
           "name": "QuranicWords Master Curriculum Dictionary",
-          "url": "https://quranicwords.deanybytes.io/",
+          "url": "https://deanybytes.github.io/QuranicWords/",
           "description": "Interactive, offline-ready dictionary teaching {n_words} Qur'anic Arabic words organized by frequency with verified contextual verses and 8-language translations.",
           "applicationCategory": "EducationalApplication",
           "operatingSystem": "All",

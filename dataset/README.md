@@ -1,6 +1,6 @@
 # QuranicWords open dataset: Qur'anic Arabic vocabulary in 8 languages
 
-The complete vocabulary taught by [QuranicWords](https://quranicwords.deanybytes.io/): **3,833
+The complete vocabulary taught by [QuranicWords](https://deanybytes.github.io/QuranicWords/): **3,833
 lemmas** that make up **97.4%** of the Qur'an's text (94,618 word occurrences), with their
 **1,423 roots**, grammar, frequencies, curriculum position and meanings in **English, Bangla,
 Urdu, Hindi, Indonesian, Turkish, Persian and French**. Every meaning is tied to a complete ayah,
@@ -11,8 +11,8 @@ teaching material. You don't have to repeat the alignment and cleaning work behi
 
 - Download: this folder, or `QuranicWords-dataset-v1.0.0.zip` on the
   [releases page](https://github.com/deanybytes/QuranicWords/releases/latest).
-- Browse: every word has a page at <https://quranicwords.deanybytes.io/quran-words/> and every root
-  at <https://quranicwords.deanybytes.io/quran-roots/>.
+- Browse: every word has a page at <https://deanybytes.github.io/QuranicWords/quran-words/> and every root
+  at <https://deanybytes.github.io/QuranicWords/quran-roots/>.
 - Encoding: UTF-8. The CSV files start with a byte-order mark so spreadsheet apps show Arabic and
   the other scripts correctly.
 
@@ -58,7 +58,7 @@ diff line by line.
     }],
     "bn": […], …
   },
-  "url": "https://quranicwords.deanybytes.io/quran-words/khafa-5536bfac.html"
+  "url": "https://deanybytes.github.io/QuranicWords/quran-words/khafa-5536bfac.html"
 }
 ```
 

@@ -49,5 +49,4 @@ NOTES = """Nouveautés de la 1.0.1
 • Leçons et quiz utilisent désormais uniquement QCM et associations – plus simples et plus fiables
 • Une deuxième série de sens avec de nouveaux choix pour chaque mot
 • Des associations dans la pratique libre et les quiz
-• Animations plus fluides : étapes de leçon, réponses et transitions
-• Le site est désormais sur quranicwords.deanybytes.io"""
+• Animations plus fluides : étapes de leçon, réponses et transitions"""

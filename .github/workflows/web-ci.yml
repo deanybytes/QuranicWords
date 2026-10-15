@@ -3,10 +3,10 @@ name: Web CI
 on:
   push:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "CNAME", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
   pull_request:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "CNAME", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
 
 permissions:
   contents: read
@@ -23,4 +23,4 @@ jobs:
       - name: Smoke tests (SRS, quiz, i18n parity, escaping, routing)
         run: node tools/web/smoke_test.mjs
       - name: The site assembles
-        run: tools/web/build_site.sh build/site && test -f build/site/CNAME && test -f build/site/404.html
+        run: tools/web/build_site.sh build/site && test -f build/site/404.html

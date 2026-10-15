@@ -1,7 +1,7 @@
-# robots.txt for QuranicWords (https://quranicwords.deanybytes.io/)
+# robots.txt for QuranicWords (https://deanybytes.github.io/QuranicWords/)
 User-agent: *
 Allow: /
 
-Sitemap: https://quranicwords.deanybytes.io/sitemap.xml
-Sitemap: https://quranicwords.deanybytes.io/sitemap-words.xml
-Sitemap: https://quranicwords.deanybytes.io/sitemap-roots.xml
+Sitemap: https://deanybytes.github.io/QuranicWords/sitemap.xml
+Sitemap: https://deanybytes.github.io/QuranicWords/sitemap-words.xml
+Sitemap: https://deanybytes.github.io/QuranicWords/sitemap-roots.xml

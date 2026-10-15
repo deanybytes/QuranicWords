@@ -31,7 +31,7 @@ LANGS = ["en", "bn", "ur", "hi", "in", "tr", "fa", "fr"]
 LANG_NAMES = {"en": "English", "bn": "Bangla", "ur": "Urdu", "hi": "Hindi", "in": "Indonesian",
               "tr": "Turkish", "fa": "Persian", "fr": "French"}
 CATEGORY = {"PARTICLE": "particle", "VERB": "verb", "NOUN": "noun"}
-SITE = "https://quranicwords.deanybytes.io"
+SITE = "https://deanybytes.github.io/QuranicWords"
 VERSION = "1.0.0"
 # Same editions as tools/pipeline/qw/config.py VERSE_EDITIONS (shown in the dataset's metadata).
 TRANSLATIONS = {
