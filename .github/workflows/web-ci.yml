@@ -3,10 +3,10 @@ name: Web CI
 on:
   push:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "CNAME", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
   pull_request:
     branches: [main]
-    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "vercel.json", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
+    paths: ["index.html", "js/**", "css/**", "sw.js", "manifest.json", "CNAME", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", ".github/workflows/web-ci.yml"]
 
 permissions:
   contents: read
@@ -22,6 +22,5 @@ jobs:
           node-version: '20'
       - name: Smoke tests (SRS, quiz, i18n parity, escaping, routing)
         run: node tools/web/smoke_test.mjs
-      - name: Every vercel.json rewrite target exists
-        run: |
-          node -e "const v=require('./vercel.json');const fs=require('fs');for(const r of v.rewrites||[]){const f='.'+r.destination;if(!fs.existsSync(f)){console.error('missing',f);process.exit(1)}}"
+      - name: The site assembles
+        run: tools/web/build_site.sh build/site && test -f build/site/CNAME && test -f build/site/404.html

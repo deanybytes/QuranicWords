@@ -1,0 +1,47 @@
+name: Deploy website
+
+# Publishes the static site to GitHub Pages at https://quranicwords.deanybytes.io (custom domain
+# from the CNAME file). Only what tools/web/build_site.sh copies is published.
+on:
+  push:
+    branches: [main]
+    paths: ["index.html", "privacy.html", "CNAME", "js/**", "css/**", "data/**", "icons/**", "sw.js", "manifest.json", "favicon.png", "tools/web/**", "quran-words/**", "quran-roots/**", "robots.txt", "sitemap*.xml", "google*.html", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Smoke tests
+        run: node tools/web/smoke_test.mjs
+      - name: Assemble site
+        run: tools/web/build_site.sh build/site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -19,7 +19,7 @@ from slugs import word_slug
 
 ROOT = Path(__file__).resolve().parents[2]
 DATASET = ROOT / "dataset"
-SITE = "https://quranicwords.vercel.app"
+SITE = "https://quranicwords.deanybytes.io"
 LASTMOD = "2026-10-03"      # date of the content build these pages describe
 LANGS = ["en", "bn", "ur", "hi", "in", "tr", "fa", "fr"]
 NATIVE = {"en": "English", "bn": "বাংলা", "ur": "اردو", "hi": "हिन्दी", "in": "Bahasa Indonesia",

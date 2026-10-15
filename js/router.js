@@ -1,4 +1,4 @@
-// URL <-> app state. Supports the clean paths that vercel.json rewrites to index.html
+// URL <-> app state. Supports the clean paths (/learn, /quiz ...); GitHub Pages serves them via 404.html
 // (/dictionary, /flashcards, /roots, /quiz, …) as well as the legacy ?view= / ?mode= parameters.
 
 export const VIEWS = ['learn', 'review', 'cards', 'table', 'flashcards', 'quiz', 'roots', 'progress'];

@@ -13,7 +13,7 @@ version: 1.0.0
 date-released: 2026-10-03
 license: GPL-3.0-or-later
 repository-code: "https://github.com/deanybytes/QuranicWords"
-url: "https://quranicwords.vercel.app/"
+url: "https://quranicwords.deanybytes.io/"
 keywords:
   - Quran
   - Quranic Arabic

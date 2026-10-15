@@ -86,7 +86,7 @@ they override the English ones for that language only. The app icon stays shared
 - **App category:** Education
 - **Tags** (pick up to 5 that Play offers): Education, Language learning, Vocabulary, Reference, Religion
 - **Contact email:** deanybytes@gmail.com
-- **Website:** https://deanybytes.github.io/QuranicWords/
+- **Website:** https://quranicwords.deanybytes.io/
 
 ## Step 5 – App content (Policy → App content)
 
@@ -94,7 +94,7 @@ Fill or confirm each item:
 
 | Item | Answer |
 |---|---|
-| Privacy policy | `https://deanybytes.github.io/QuranicWords/privacy.html` |
+| Privacy policy | `https://quranicwords.deanybytes.io/privacy.html` |
 | Ads | **No, my app does not contain ads** |
 | App access | **All functionality is available without special access** (no login) |
 | Content rating | Run the questionnaire: category **Reference, News, or Educational**; answer **No** to violence, sexual content, profanity, drugs, gambling, user interaction/sharing, location sharing, purchases → expected rating Everyone / PEGI 3 |

@@ -2,7 +2,7 @@
   "name": "QuranicWords open vocabulary dataset",
   "version": "1.0.0",
   "description": "The 3,833 most important lemmas of the Qur'an in curriculum order, with roots, grammar, frequencies and meanings in 8 languages; every meaning is tied to a complete ayah with exact character spans.",
-  "homepage": "https://quranicwords.vercel.app",
+  "homepage": "https://quranicwords.deanybytes.io",
   "repository": "https://github.com/deanybytes/QuranicWords",
   "license": "GPL-3.0-or-later (derived from the GPL-licensed Quranic Arabic Corpus); third-party texts keep their own terms, see dataset/README.md",
   "counts": {
